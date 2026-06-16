@@ -33,8 +33,8 @@ import { EdicaoComicVine, PaginaResposta, VolumeComicVine } from '../../core/mod
             <p class="rotulo">{{ volume.editora || 'Editora não informada' }}</p>
             <h2>{{ volume.titulo }}</h2>
             <p>{{ volume.anoInicio || 'Ano não informado' }} · {{ volume.quantidadeEdicoes || 0 }} edições</p>
-            <button class="botao compacto" type="button" (click)="selecionarVolume(volume)">
-              Ver edições
+            <button class="botao compacto" type="button" (click)="selecionarVolume(volume)" [disabled]="carregandoEdicoes()">
+              {{ carregandoEdicoes() && volumeSelecionado()?.idExterno === volume.idExterno ? 'Carregando...' : 'Ver edições' }}
             </button>
           </div>
         </article>
@@ -42,38 +42,50 @@ import { EdicaoComicVine, PaginaResposta, VolumeComicVine } from '../../core/mod
     </section>
 
     @if (volumeSelecionado()) {
-      <section class="secao-edicoes">
+      <section class="secao-edicoes" id="edicoes-volume">
         <div class="secao-titulo">
           <div>
             <p class="rotulo">Volume selecionado</p>
             <h2>{{ volumeSelecionado()?.titulo }}</h2>
           </div>
           <div class="paginacao">
-            <button class="botao icone-texto" type="button" [disabled]="paginaEdicoes() === 0" (click)="mudarPagina(-1)">
+            <button class="botao icone-texto" type="button" [disabled]="paginaEdicoes() === 0 || carregandoEdicoes()" (click)="mudarPagina(-1)">
               Anterior
             </button>
             <span>Página {{ paginaEdicoes() + 1 }} de {{ edicoes()?.totalPaginas || 1 }}</span>
-            <button class="botao icone-texto" type="button" [disabled]="paginaEdicoes() + 1 >= (edicoes()?.totalPaginas || 1)" (click)="mudarPagina(1)">
+            <button class="botao icone-texto" type="button" [disabled]="carregandoEdicoes() || paginaEdicoes() + 1 >= (edicoes()?.totalPaginas || 1)" (click)="mudarPagina(1)">
               Próxima
             </button>
           </div>
         </div>
 
-        <div class="grade-edicoes">
-          @for (edicao of edicoes()?.itens || []; track edicao.idExterno) {
-            <article class="cartao-edicao">
-              <img [src]="edicao.urlImagem || capaReserva" [alt]="edicao.titulo || 'Edição sem título'" loading="lazy" />
-              <div>
-                <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }}</p>
-                <h3>{{ edicao.titulo || edicao.nomeVolume }}</h3>
-                <p>{{ limitarTexto(edicao.descricao, 170) }}</p>
-                @if (edicao.creditos.length) {
-                  <small>{{ listarCreditos(edicao) }}</small>
-                }
-              </div>
-            </article>
-          }
-        </div>
+        @if (carregandoEdicoes()) {
+          <section class="estado-carregando">
+            <span></span>
+            <p>Buscando edições em ordem cronológica...</p>
+          </section>
+        } @else if (edicoes()?.itens?.length) {
+          <div class="grade-edicoes">
+            @for (edicao of edicoes()?.itens || []; track edicao.idExterno) {
+              <article class="cartao-edicao">
+                <img [src]="edicao.urlImagem || capaReserva" [alt]="edicao.titulo || 'Edição sem título'" loading="lazy" />
+                <div>
+                  <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }}</p>
+                  <h3>{{ edicao.titulo || edicao.nomeVolume }}</h3>
+                  <p>{{ limitarTexto(edicao.descricao, 170) }}</p>
+                  @if (edicao.creditos.length) {
+                    <small>{{ listarCreditos(edicao) }}</small>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+        } @else {
+          <section class="estado-vazio">
+            <h2>Nenhuma edição retornada</h2>
+            <p>Tente outro volume ou refaça a busca.</p>
+          </section>
+        }
       </section>
     }
   `,
@@ -93,6 +105,7 @@ export class DescobrirPage {
   readonly volumeSelecionado = signal<VolumeComicVine | null>(null);
   readonly paginaEdicoes = signal(0);
   readonly mensagem = signal('');
+  readonly carregandoEdicoes = signal(false);
 
   termo = 'Amazing Spider-Man';
 
@@ -105,8 +118,11 @@ export class DescobrirPage {
   }
 
   selecionarVolume(volume: VolumeComicVine) {
+    this.mensagem.set('');
+    this.edicoes.set(null);
     this.volumeSelecionado.set(volume);
     this.paginaEdicoes.set(0);
+    this.rolarParaEdicoes();
     this.carregarEdicoes();
   }
 
@@ -121,9 +137,19 @@ export class DescobrirPage {
       return;
     }
 
+    this.mensagem.set('');
+    this.carregandoEdicoes.set(true);
     this.api.buscarEdicoesComicVine(volume.idExterno, this.paginaEdicoes(), 24).subscribe({
-      next: (resposta) => this.edicoes.set(resposta),
-      error: () => this.mensagem.set('Não foi possível carregar as edições deste volume.'),
+      next: (resposta) => {
+        this.edicoes.set(resposta);
+        this.carregandoEdicoes.set(false);
+        this.rolarParaEdicoes();
+      },
+      error: () => {
+        this.carregandoEdicoes.set(false);
+        this.mensagem.set('Não foi possível carregar as edições deste volume.');
+        this.rolarParaEdicoes();
+      },
     });
   }
 
@@ -140,5 +166,11 @@ export class DescobrirPage {
       .slice(0, 3)
       .map((credito) => [credito.nome, credito.papel].filter(Boolean).join(' · '))
       .join(' / ');
+  }
+
+  private rolarParaEdicoes() {
+    setTimeout(() => {
+      document.getElementById('edicoes-volume')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   }
 }
