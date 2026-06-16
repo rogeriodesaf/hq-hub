@@ -13,6 +13,10 @@ Authorization: Bearer {{token}}
 GET {{url}}/integracoes-externas/WIKIDATA/buscar?termo=Amazing Spider-Man
 Authorization: Bearer {{token}}
 
+### Buscar no Grand Comics Database
+GET {{url}}/integracoes-externas/GCD/buscar?termo=Amazing Spider-Man
+Authorization: Bearer {{token}}
+
 ### Buscar na Marvel API
 ### Requer HQHUB_MARVEL_CHAVE_PUBLICA e HQHUB_MARVEL_CHAVE_PRIVADA
 GET {{url}}/integracoes-externas/MARVEL/buscar?termo=Amazing Spider-Man

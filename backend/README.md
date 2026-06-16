@@ -379,10 +379,23 @@ Fontes disponíveis:
 
 - `WIKIPEDIA`: busca pública sem chave.
 - `WIKIDATA`: busca pública sem chave.
+- `GCD`: busca pública pela API oficial do Grand Comics Database/comics.org.
 - `MARVEL`: requer `HQHUB_MARVEL_CHAVE_PUBLICA` e `HQHUB_MARVEL_CHAVE_PRIVADA`.
 - `COMICVINE`: requer `HQHUB_COMICVINE_CHAVE_API`.
 
-O Guia dos Quadrinhos pode continuar cadastrado como link externo ou referência manual, pois não há integração por API pública configurada nesta fase.
+O Guia dos Quadrinhos pode ser usado como link externo e fonte de contribuição manual assistida. Não há raspagem automática do Guia nesta fase.
+
+### Contribuições de catálogo
+
+```text
+POST /contribuicoes-catalogo
+GET /contribuicoes-catalogo/minhas
+GET /contribuicoes-catalogo/pendentes
+POST /contribuicoes-catalogo/{id}/aprovar
+POST /contribuicoes-catalogo/{id}/recusar
+```
+
+Permite que usuários contribuam com capas, dados de edição, links do Guia dos Quadrinhos e informações sobre onde uma edição foi publicada no Brasil. As contribuições entram como pendentes e podem ser aprovadas/recusadas antes de alterar o catálogo oficial.
 
 ### Busca paginada
 
@@ -494,6 +507,7 @@ docs/testes-api/performance-importacao.http
 docs/testes-api/assistente.http
 docs/testes-api/comunidade-classificados.http
 docs/testes-api/integracoes-externas.http
+docs/testes-api/contribuicoes-catalogo.http
 ```
 
 ## Observações
@@ -517,7 +531,8 @@ docs/testes-api/integracoes-externas.http
 - Publicações relacionadas já permitem mapear onde uma edição foi publicada ou republicada.
 - Séries e edições já possuem busca paginada.
 - Solicitações de importação já podem ser registradas para processamento assíncrono.
-- Integrações externas já consultam Wikipédia, Wikidata, Marvel API e ComicVine API.
+- Integrações externas já consultam Wikipédia, Wikidata, Grand Comics Database, Marvel API e ComicVine API.
+- Usuários já podem sugerir capas, links de referência e informações de publicações brasileiras por contribuições revisáveis.
 - O assistente interno já possui conversas, histórico de mensagens e respostas sobre coleção, faltantes, compras planejadas, criadores e relacionamentos entre séries com base no banco local.
 - Editoras, séries e edições já possuem campos para origem externa: `fonteExterna`, `idExterno` e `urlOrigem`.
 - O segredo JWT de desenvolvimento pode ser sobrescrito pela variável de ambiente `HQHUB_JWT_SEGREDO`.

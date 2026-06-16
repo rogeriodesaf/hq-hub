@@ -33,6 +33,7 @@ public class IntegracaoExternaService {
     private static final String WIKIDATA = "WIKIDATA";
     private static final String MARVEL = "MARVEL";
     private static final String COMICVINE = "COMICVINE";
+    private static final String GCD = "GCD";
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -55,6 +56,8 @@ public class IntegracaoExternaService {
         return List.of(
                 new FonteExternaRespostaDTO(WIKIPEDIA, "Wikipédia", true, "Busca pública sem chave de API."),
                 new FonteExternaRespostaDTO(WIKIDATA, "Wikidata", true, "Busca pública sem chave de API."),
+                new FonteExternaRespostaDTO(GCD, "Grand Comics Database", true,
+                        "Busca pública pela API oficial do comics.org, com limites de acesso."),
                 new FonteExternaRespostaDTO(MARVEL, "Marvel API", marvelConfigurada(),
                         "Requer HQHUB_MARVEL_CHAVE_PUBLICA e HQHUB_MARVEL_CHAVE_PRIVADA."),
                 new FonteExternaRespostaDTO(COMICVINE, "ComicVine API", comicVineConfigurada(),
@@ -70,6 +73,7 @@ public class IntegracaoExternaService {
         List<ResultadoBuscaExternaDTO> resultados = switch (fonteTratada) {
             case WIKIPEDIA -> buscarWikipedia(termo);
             case WIKIDATA -> buscarWikidata(termo);
+            case GCD -> buscarGcd(termo);
             case MARVEL -> buscarMarvel(termo);
             case COMICVINE -> buscarComicVine(termo);
             default -> throw new RegraNegocioException("Fonte externa não suportada.");
@@ -114,6 +118,33 @@ public class IntegracaoExternaService {
         String url = item.path("concepturi").asText("https://www.wikidata.org/wiki/" + id);
 
         return new ResultadoBuscaExternaDTO(WIKIDATA, id, "ENTIDADE", titulo, descricao, url, null);
+    }
+
+    private List<ResultadoBuscaExternaDTO> buscarGcd(String termo) {
+        String url = "https://www.comics.org/api/series/name/" + codificarCaminho(termo) + "/";
+        JsonNode raiz = executarGet(url);
+        JsonNode resultados = raiz.has("results") ? raiz.path("results") : raiz;
+
+        return StreamSupport.stream(resultados.spliterator(), false)
+                .map(this::montarResultadoGcd)
+                .toList();
+    }
+
+    private ResultadoBuscaExternaDTO montarResultadoGcd(JsonNode item) {
+        String id = item.path("id").asText();
+        String titulo = item.path("name").asText(item.path("title").asText());
+        String anoInicio = item.path("year_began").asText(null);
+        String anoFim = item.path("year_ended").asText(null);
+        String descricao = "Série no Grand Comics Database"
+                + (anoInicio == null ? "" : ", início: " + anoInicio)
+                + (anoFim == null ? "" : ", fim: " + anoFim);
+        String url = item.path("url").asText(null);
+
+        if (url == null && !id.isBlank()) {
+            url = "https://www.comics.org/series/" + id + "/";
+        }
+
+        return new ResultadoBuscaExternaDTO(GCD, id, "SERIE", titulo, descricao, url, null);
     }
 
     private List<ResultadoBuscaExternaDTO> buscarMarvel(String termo) {
@@ -216,6 +247,10 @@ public class IntegracaoExternaService {
 
     private String codificar(String valor) {
         return URLEncoder.encode(valor, StandardCharsets.UTF_8);
+    }
+
+    private String codificarCaminho(String valor) {
+        return codificar(valor).replace("+", "%20");
     }
 
     private boolean marvelConfigurada() {

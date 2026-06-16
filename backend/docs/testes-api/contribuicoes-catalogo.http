@@ -1,0 +1,70 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Contribuir com capa de edição
+POST {{url}}/contribuicoes-catalogo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "edicaoId": 1,
+  "tipo": "CAPA_EDICAO",
+  "urlCapaSugerida": "https://exemplo.com/capas/amazing-spider-man-1.jpg",
+  "fonteExterna": "GCD",
+  "urlFonte": "https://www.comics.org/issue/123/",
+  "observacoes": "Capa encontrada em fonte externa com referência."
+}
+
+### Contribuir com publicação brasileira
+POST {{url}}/contribuicoes-catalogo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "edicaoId": 1,
+  "tipo": "PUBLICACAO_BRASILEIRA",
+  "edicaoDestinoId": 2,
+  "tipoPublicacaoRelacionada": "PUBLICADA_NO_BRASIL",
+  "fonteExterna": "GUIA_DOS_QUADRINHOS",
+  "urlFonte": "http://www.guiadosquadrinhos.com/",
+  "observacoes": "Informação enviada por usuário para revisão."
+}
+
+### Contribuir com link do Guia dos Quadrinhos
+POST {{url}}/contribuicoes-catalogo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "edicaoId": 1,
+  "tipo": "LINK_GUIA_DOS_QUADRINHOS",
+  "urlFonte": "http://www.guiadosquadrinhos.com/edicao-estrangeira/exemplo",
+  "fonteExterna": "GUIA_DOS_QUADRINHOS",
+  "observacoes": "Link de referência para curadoria."
+}
+
+### Listar minhas contribuições
+GET {{url}}/contribuicoes-catalogo/minhas
+Authorization: Bearer {{token}}
+
+### Listar contribuições pendentes
+GET {{url}}/contribuicoes-catalogo/pendentes
+Authorization: Bearer {{token}}
+
+### Aprovar contribuição
+POST {{url}}/contribuicoes-catalogo/1/aprovar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "mensagemRevisao": "Contribuição validada e aplicada ao catálogo."
+}
+
+### Recusar contribuição
+POST {{url}}/contribuicoes-catalogo/1/recusar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "mensagemRevisao": "Fonte insuficiente para validar a informação."
+}
