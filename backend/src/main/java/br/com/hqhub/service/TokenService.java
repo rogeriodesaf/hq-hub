@@ -17,7 +17,7 @@ public class TokenService {
 
     private final String segredoJwt;
 
-    public TokenService(@ConfigProperty(name = "smallrye.jwt.verify.key") String segredoJwt) {
+    public TokenService(@ConfigProperty(name = "hqhub.jwt.segredo") String segredoJwt) {
         this.segredoJwt = segredoJwt;
     }
 
