@@ -48,4 +48,10 @@ public class SolicitacaoImportacaoResource {
     public Response buscarPorId(@PathParam("id") Long id) {
         return Response.ok(solicitacaoImportacaoService.buscarPorId(id)).build();
     }
+
+    @POST
+    @Path("/{id}/processar")
+    public Response processar(@PathParam("id") Long id) {
+        return Response.ok(solicitacaoImportacaoService.processar(id)).build();
+    }
 }

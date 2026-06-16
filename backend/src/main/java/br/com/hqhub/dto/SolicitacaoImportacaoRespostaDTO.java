@@ -11,6 +11,8 @@ public record SolicitacaoImportacaoRespostaDTO(
         String urlOrigem,
         StatusSolicitacaoImportacao status,
         String mensagem,
+        String resultadoJson,
+        LocalDateTime dataProcessamento,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao) {
 }

@@ -1,0 +1,43 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Listar fontes externas disponiveis
+GET {{url}}/integracoes-externas/fontes
+Authorization: Bearer {{token}}
+
+### Buscar na Wikipedia
+GET {{url}}/integracoes-externas/WIKIPEDIA/buscar?termo=Homem-Aranha
+Authorization: Bearer {{token}}
+
+### Buscar no Wikidata
+GET {{url}}/integracoes-externas/WIKIDATA/buscar?termo=Amazing Spider-Man
+Authorization: Bearer {{token}}
+
+### Buscar na Marvel API
+### Requer HQHUB_MARVEL_CHAVE_PUBLICA e HQHUB_MARVEL_CHAVE_PRIVADA
+GET {{url}}/integracoes-externas/MARVEL/buscar?termo=Amazing Spider-Man
+Authorization: Bearer {{token}}
+
+### Buscar na ComicVine API
+### Requer HQHUB_COMICVINE_CHAVE_API
+GET {{url}}/integracoes-externas/COMICVINE/buscar?termo=Amazing Spider-Man
+Authorization: Bearer {{token}}
+
+### Registrar solicitacao de importacao
+POST {{url}}/importacoes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fonteExterna": "WIKIPEDIA",
+  "termo": "Homem-Aranha",
+  "urlOrigem": null
+}
+
+### Processar solicitacao de importacao
+POST {{url}}/importacoes/1/processar
+Authorization: Bearer {{token}}
+
+### Buscar solicitacao processada
+GET {{url}}/importacoes/1
+Authorization: Bearer {{token}}

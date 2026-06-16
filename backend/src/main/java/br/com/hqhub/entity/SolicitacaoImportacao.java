@@ -49,6 +49,12 @@ public class SolicitacaoImportacao {
     @Column(length = 1000)
     private String mensagem;
 
+    @Column(name = "resultado_json", columnDefinition = "TEXT")
+    private String resultadoJson;
+
+    @Column(name = "data_processamento")
+    private LocalDateTime dataProcessamento;
+
     @Column(name = "data_criacao", nullable = false)
     @CreationTimestamp
     private LocalDateTime dataCriacao;

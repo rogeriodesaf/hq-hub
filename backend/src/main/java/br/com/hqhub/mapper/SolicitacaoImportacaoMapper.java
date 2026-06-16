@@ -29,6 +29,8 @@ public class SolicitacaoImportacaoMapper {
                 solicitacao.getUrlOrigem(),
                 solicitacao.getStatus(),
                 solicitacao.getMensagem(),
+                solicitacao.getResultadoJson(),
+                solicitacao.getDataProcessamento(),
                 solicitacao.getDataCriacao(),
                 solicitacao.getDataAtualizacao());
     }

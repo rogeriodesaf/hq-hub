@@ -363,9 +363,26 @@ Permite relacionar uma edição original com publicações brasileiras, reimpres
 POST /importacoes
 GET /importacoes
 GET /importacoes/{id}
+POST /importacoes/{id}/processar
 ```
 
-Registra pedidos de importação para processamento em segundo plano. A consulta externa não acontece no carregamento da tela.
+Registra pedidos de importação e permite processar a consulta em uma fonte externa.
+
+### Integrações externas
+
+```text
+GET /integracoes-externas/fontes
+GET /integracoes-externas/{fonteExterna}/buscar?termo={termo}
+```
+
+Fontes disponíveis:
+
+- `WIKIPEDIA`: busca pública sem chave.
+- `WIKIDATA`: busca pública sem chave.
+- `MARVEL`: requer `HQHUB_MARVEL_CHAVE_PUBLICA` e `HQHUB_MARVEL_CHAVE_PRIVADA`.
+- `COMICVINE`: requer `HQHUB_COMICVINE_CHAVE_API`.
+
+O Guia dos Quadrinhos pode continuar cadastrado como link externo ou referência manual, pois não há integração por API pública configurada nesta fase.
 
 ### Busca paginada
 
@@ -476,6 +493,7 @@ docs/testes-api/cronologia-series.http
 docs/testes-api/performance-importacao.http
 docs/testes-api/assistente.http
 docs/testes-api/comunidade-classificados.http
+docs/testes-api/integracoes-externas.http
 ```
 
 ## Observações
@@ -499,6 +517,7 @@ docs/testes-api/comunidade-classificados.http
 - Publicações relacionadas já permitem mapear onde uma edição foi publicada ou republicada.
 - Séries e edições já possuem busca paginada.
 - Solicitações de importação já podem ser registradas para processamento assíncrono.
+- Integrações externas já consultam Wikipédia, Wikidata, Marvel API e ComicVine API.
 - O assistente interno já possui conversas, histórico de mensagens e respostas sobre coleção, faltantes, compras planejadas, criadores e relacionamentos entre séries com base no banco local.
 - Editoras, séries e edições já possuem campos para origem externa: `fonteExterna`, `idExterno` e `urlOrigem`.
 - O segredo JWT de desenvolvimento pode ser sobrescrito pela variável de ambiente `HQHUB_JWT_SEGREDO`.
