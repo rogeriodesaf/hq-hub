@@ -32,4 +32,22 @@ public class IntegracaoExternaResource {
     public Response buscar(@PathParam("fonteExterna") String fonteExterna, @QueryParam("termo") String termo) {
         return Response.ok(integracaoExternaService.buscar(fonteExterna, termo)).build();
     }
+
+    @GET
+    @Path("/COMICVINE/volumes")
+    public Response buscarVolumesComicVine(
+            @QueryParam("termo") String termo,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(integracaoExternaService.buscarVolumesComicVine(termo, pagina, tamanho)).build();
+    }
+
+    @GET
+    @Path("/COMICVINE/volumes/{idVolume}/edicoes")
+    public Response buscarEdicoesVolumeComicVine(
+            @PathParam("idVolume") String idVolume,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(integracaoExternaService.buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho)).build();
+    }
 }
