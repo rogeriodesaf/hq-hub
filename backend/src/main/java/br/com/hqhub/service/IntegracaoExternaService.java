@@ -9,6 +9,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.HexFormat;
 import java.util.List;
@@ -34,6 +35,8 @@ public class IntegracaoExternaService {
     private static final String MARVEL = "MARVEL";
     private static final String COMICVINE = "COMICVINE";
     private static final String GCD = "GCD";
+    private static final Duration TEMPO_LIMITE_CONEXAO = Duration.ofSeconds(5);
+    private static final Duration TEMPO_LIMITE_REQUISICAO = Duration.ofSeconds(15);
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -48,7 +51,9 @@ public class IntegracaoExternaService {
     Optional<String> comicVineChaveApi;
 
     public IntegracaoExternaService(ObjectMapper objectMapper) {
-        this.httpClient = HttpClient.newHttpClient();
+        this.httpClient = HttpClient.newBuilder()
+                .connectTimeout(TEMPO_LIMITE_CONEXAO)
+                .build();
         this.objectMapper = objectMapper;
     }
 
@@ -209,6 +214,7 @@ public class IntegracaoExternaService {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
+                    .timeout(TEMPO_LIMITE_REQUISICAO)
                     .header("Accept", "application/json")
                     .header("User-Agent", "HQ-HUB/1.0")
                     .GET()
@@ -222,7 +228,7 @@ public class IntegracaoExternaService {
 
             return objectMapper.readTree(response.body());
         } catch (IOException e) {
-            throw new RegraNegocioException("Falha ao ler resposta da API externa.");
+            throw new RegraNegocioException("Falha ao consultar API externa. Verifique sua conexão, chave de API e tente novamente.");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RegraNegocioException("Consulta à API externa foi interrompida.");
