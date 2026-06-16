@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 import {
+  Amizade,
   ColecaoResumo,
+  CadastroItemColecao,
   CadastroCompraPlanejada,
   CalculoInflacao,
   CompraPlanejada,
@@ -15,6 +17,7 @@ import {
   PublicacaoRelacionada,
   RespostaAssistente,
   Serie,
+  Usuario,
   VolumeComicVine,
 } from './modelos';
 
@@ -46,6 +49,10 @@ export class ApiService {
     }
 
     return this.http.get<PaginaResposta<Edicao>>('/api/edicoes', { params });
+  }
+
+  listarUsuarios() {
+    return this.http.get<Usuario[]>('/api/usuarios');
   }
 
   buscarVolumesComicVine(termo: string, pagina = 0, tamanho = 12) {
@@ -94,6 +101,46 @@ export class ApiService {
 
   obterEstante() {
     return this.http.get<EstanteEditora[]>('/api/estante');
+  }
+
+  cadastrarItemColecao(dto: CadastroItemColecao) {
+    return this.http.post<ItemColecao>('/api/colecao/itens', dto);
+  }
+
+  atualizarItemColecao(id: number, dto: CadastroItemColecao) {
+    return this.http.put<ItemColecao>(`/api/colecao/itens/${id}`, dto);
+  }
+
+  listarItensColecao() {
+    return this.http.get<ItemColecao[]>('/api/colecao/itens');
+  }
+
+  enviarSolicitacaoAmizade(usuarioSolicitadoId: number) {
+    return this.http.post<Amizade>('/api/amizades/solicitacoes', { usuarioSolicitadoId });
+  }
+
+  listarAmigos() {
+    return this.http.get<Amizade[]>('/api/amizades/amigos');
+  }
+
+  listarSolicitacoesRecebidas() {
+    return this.http.get<Amizade[]>('/api/amizades/solicitacoes/recebidas');
+  }
+
+  listarSolicitacoesEnviadas() {
+    return this.http.get<Amizade[]>('/api/amizades/solicitacoes/enviadas');
+  }
+
+  aceitarSolicitacaoAmizade(id: number) {
+    return this.http.post<Amizade>(`/api/amizades/solicitacoes/${id}/aceitar`, {});
+  }
+
+  recusarSolicitacaoAmizade(id: number) {
+    return this.http.post<Amizade>(`/api/amizades/solicitacoes/${id}/recusar`, {});
+  }
+
+  removerAmigo(usuarioId: number) {
+    return this.http.delete<void>(`/api/amizades/amigos/${usuarioId}`);
   }
 
   listarComprasPlanejadas(mes?: number, ano?: number) {

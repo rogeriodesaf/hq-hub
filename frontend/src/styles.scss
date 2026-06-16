@@ -916,6 +916,83 @@ textarea:focus {
   overflow: auto;
 }
 
+.lista-escolha {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  margin: 0 0 14px;
+  overflow: auto;
+}
+
+.lista-escolha button {
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+  cursor: pointer;
+  text-align: left;
+}
+
+.lista-escolha button.ativo,
+.lista-escolha button:hover {
+  border-color: var(--azul);
+  background: rgba(38, 106, 127, 0.08);
+}
+
+.lista-escolha strong,
+.lista-escolha span {
+  display: block;
+}
+
+.lista-escolha span {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.colecao-formulario {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.amizades-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.lista-amizades {
+  display: grid;
+  gap: 10px;
+}
+
+.lista-amizades > div {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.lista-amizades strong,
+.lista-amizades span,
+.lista-amizades small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lista-amizades span,
+.lista-amizades small {
+  color: var(--texto-suave);
+}
+
+.acoes-linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .lista-linhas button {
   cursor: pointer;
 }
@@ -1151,7 +1228,7 @@ textarea:focus {
     bottom: 12px;
     z-index: 20;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 4px;
     padding: 6px;
     border: 1px solid rgba(21, 25, 31, 0.14);
@@ -1191,7 +1268,8 @@ textarea:focus {
 
   .metricas,
   .painel-grade,
-  .catalogo-layout {
+  .catalogo-layout,
+  .amizades-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -1214,6 +1292,10 @@ textarea:focus {
   }
 
   .grade-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .colecao-formulario {
     grid-template-columns: 1fr;
   }
 

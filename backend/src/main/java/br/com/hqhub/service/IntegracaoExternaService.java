@@ -13,8 +13,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.StreamSupport;
@@ -48,9 +50,11 @@ public class IntegracaoExternaService {
     private static final int TAMANHO_PADRAO_COMICVINE = 20;
     private static final int TAMANHO_MAXIMO_COMICVINE = 100;
     private static final int LIMITE_EDICOES_FILTRO_CREDITOS = 250;
+    private static final int LIMITE_TRADUCAO_DESCRICAO = 480;
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    private final Map<String, String> traducoesDescricao = new ConcurrentHashMap<>();
 
     @ConfigProperty(name = "hqhub.integracoes.marvel.chave-publica")
     Optional<String> marvelChavePublica;
@@ -166,7 +170,7 @@ public class IntegracaoExternaService {
                 + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
         JsonNode raiz = executarGet(url);
         List<EdicaoComicVineRespostaDTO> itens = StreamSupport.stream(raiz.path("results").spliterator(), false)
-                .map(this::montarEdicaoComicVine)
+                .map(item -> montarEdicaoComicVine(item, false))
                 .toList();
         long totalItens = raiz.path("number_of_total_results").asLong(itens.size());
 
@@ -201,7 +205,7 @@ public class IntegracaoExternaService {
                     .filter(Optional::isPresent)
                     .map(Optional::orElseThrow)
                     .filter(edicao -> creditoCombina(edicao.path("person_credits"), idPessoa, papel))
-                    .map(this::montarEdicaoComicVine)
+                    .map(item -> montarEdicaoComicVine(item, false))
                     .forEach(filtradas::add);
 
             offset += tamanhoConsulta;
@@ -243,7 +247,7 @@ public class IntegracaoExternaService {
             throw new RegraNegocioException("Edição não encontrada na ComicVine.");
         }
 
-        return montarEdicaoComicVine(resultado);
+        return montarEdicaoComicVine(resultado, true);
     }
 
     public PaginaRespostaDTO<PessoaComicVineRespostaDTO> buscarPessoasComicVine(
@@ -269,7 +273,7 @@ public class IntegracaoExternaService {
                 + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
         JsonNode raiz = executarGet(url);
         List<PessoaComicVineRespostaDTO> itens = StreamSupport.stream(raiz.path("results").spliterator(), false)
-                .map(this::montarPessoaComicVine)
+                .map(item -> montarPessoaComicVine(item, false))
                 .toList();
         long totalItens = raiz.path("number_of_total_results").asLong(itens.size());
 
@@ -294,7 +298,7 @@ public class IntegracaoExternaService {
             throw new RegraNegocioException("Pessoa não encontrada na ComicVine.");
         }
 
-        return montarPessoaComicVine(resultado);
+        return montarPessoaComicVine(resultado, true);
     }
 
     private List<ResultadoBuscaExternaDTO> buscarWikipedia(String termo) {
@@ -424,14 +428,14 @@ public class IntegracaoExternaService {
         String editora = item.path("publisher").path("name").asText(null);
         Integer anoInicio = inteiroOuNulo(item.path("start_year"));
         Integer quantidadeEdicoes = inteiroOuNulo(item.path("count_of_issues"));
-        String descricao = limparHtml(item.path("deck").asText(item.path("description").asText(null)));
+        String descricao = descricaoExibicao(null, limparHtml(item.path("deck").asText(item.path("description").asText(null))), false);
         String url = item.path("site_detail_url").asText(null);
         String imagem = item.path("image").path("original_url").asText(null);
 
         return new VolumeComicVineRespostaDTO(id, titulo, editora, anoInicio, quantidadeEdicoes, descricao, url, imagem);
     }
 
-    private EdicaoComicVineRespostaDTO montarEdicaoComicVine(JsonNode item) {
+    private EdicaoComicVineRespostaDTO montarEdicaoComicVine(JsonNode item, boolean traduzirDescricao) {
         String id = item.path("id").asText();
         String numero = item.path("issue_number").asText(null);
         String titulo = item.path("name").asText(null);
@@ -441,7 +445,7 @@ public class IntegracaoExternaService {
         String dataCapa = item.path("cover_date").asText(null);
         String dataVenda = item.path("store_date").asText(null);
         String descricaoOriginal = limparHtml(item.path("description").asText(item.path("deck").asText(null)));
-        String descricao = descricaoExibicao(null, descricaoOriginal);
+        String descricao = descricaoExibicao(null, descricaoOriginal, traduzirDescricao);
         String url = item.path("site_detail_url").asText(null);
         String imagem = item.path("image").path("original_url").asText(null);
         List<CreditoComicVineRespostaDTO> creditos = StreamSupport.stream(item.path("person_credits").spliterator(), false)
@@ -460,19 +464,19 @@ public class IntegracaoExternaService {
     private CreditoComicVineRespostaDTO montarCreditoComicVine(JsonNode item) {
         String id = item.path("id").asText(null);
         String nome = item.path("name").asText(null);
-        String papel = item.path("role").asText(null);
+        String papel = traduzirPapelCredito(item.path("role").asText(null));
         String url = item.path("site_detail_url").asText(null);
 
         return new CreditoComicVineRespostaDTO(id, nome, papel, url);
     }
 
-    private PessoaComicVineRespostaDTO montarPessoaComicVine(JsonNode item) {
+    private PessoaComicVineRespostaDTO montarPessoaComicVine(JsonNode item, boolean traduzirDescricao) {
         String descricaoOriginal = limparHtml(item.path("description").asText(item.path("deck").asText(null)));
 
         return new PessoaComicVineRespostaDTO(
                 item.path("id").asText(null),
                 item.path("name").asText(null),
-                descricaoExibicao(null, descricaoOriginal),
+                descricaoExibicao(null, descricaoOriginal, traduzirDescricao),
                 descricaoOriginal,
                 item.path("birth").asText(null),
                 item.path("country").asText(null),
@@ -591,6 +595,78 @@ public class IntegracaoExternaService {
                 conteudos.add(tratado);
             }
         }
+    }
+
+    private String descricaoExibicao(String descricaoPortugues, String descricaoOriginal, boolean traduzirDescricao) {
+        if (descricaoPortugues != null && !descricaoPortugues.isBlank()) {
+            return descricaoPortugues;
+        }
+
+        if (descricaoOriginal != null && !descricaoOriginal.isBlank()) {
+            if (!pareceTextoIngles(descricaoOriginal)) {
+                return descricaoOriginal;
+            }
+
+            if (traduzirDescricao) {
+                return traduzirDescricaoParaPortugues(descricaoOriginal);
+            }
+
+            return "Sinopse importada da ComicVine. Abra os detalhes para ver a descrição em português quando a tradução estiver disponível.";
+        }
+
+        return "Descrição não disponível.";
+    }
+
+    private String traduzirDescricaoParaPortugues(String descricaoOriginal) {
+        return traducoesDescricao.computeIfAbsent(descricaoOriginal, texto -> {
+            try {
+                String textoLimitado = texto.length() > LIMITE_TRADUCAO_DESCRICAO
+                        ? texto.substring(0, LIMITE_TRADUCAO_DESCRICAO)
+                        : texto;
+                String url = "https://api.mymemory.translated.net/get?q=" + codificar(textoLimitado)
+                        + "&langpair=en|pt-BR";
+                JsonNode raiz = executarGet(url);
+                String traducao = limparHtml(raiz.path("responseData").path("translatedText").asText(null));
+
+                if (traducao != null && !traducao.isBlank() && !traducao.equalsIgnoreCase(textoLimitado)) {
+                    return traducao;
+                }
+            } catch (RuntimeException e) {
+                // A tradução externa é só uma melhoria de apresentação; a busca não deve falhar por isso.
+            }
+
+            return "A ComicVine fornece esta sinopse em inglês. Tradução automática indisponível no momento.";
+        });
+    }
+
+    private boolean pareceTextoIngles(String texto) {
+        String tratado = " " + texto.toLowerCase() + " ";
+        return tratado.contains(" the ")
+                || tratado.contains(" and ")
+                || tratado.contains(" with ")
+                || tratado.contains(" from ")
+                || tratado.contains(" is ")
+                || tratado.contains(" are ")
+                || tratado.contains(" writer ")
+                || tratado.contains(" artist ");
+    }
+
+    private String traduzirPapelCredito(String papel) {
+        if (papel == null || papel.isBlank()) {
+            return papel;
+        }
+
+        String normalizado = papel.toLowerCase();
+        return normalizado
+                .replace("writer", "roteirista")
+                .replace("artist", "desenhista")
+                .replace("penciller", "desenhista")
+                .replace("inker", "arte-finalista")
+                .replace("colorist", "colorista")
+                .replace("letterer", "letrista")
+                .replace("editor", "editor")
+                .replace("cover", "capa")
+                .replace("creator", "criador");
     }
 
     private String descricaoExibicao(String descricaoPortugues, String descricaoOriginal) {

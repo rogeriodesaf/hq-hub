@@ -8,6 +8,7 @@ import {
   LucideLogOut,
   LucideSearch,
   LucideSparkles,
+  LucideUsers,
 } from '@lucide/angular';
 
 import { AutenticacaoService } from './core/autenticacao.service';
@@ -25,6 +26,7 @@ import { AutenticacaoService } from './core/autenticacao.service';
     LucideLogOut,
     LucideSearch,
     LucideSparkles,
+    LucideUsers,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

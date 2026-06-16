@@ -74,7 +74,7 @@ import {
           </label>
           <label>
             Papel
-            <input [(ngModel)]="papelPessoa" placeholder="writer, artist, editor..." />
+            <input [(ngModel)]="papelPessoa" placeholder="roteirista, desenhista, editor..." />
           </label>
           <button class="botao compacto" type="button" (click)="buscarPessoas()" [disabled]="buscandoPessoas()">
             {{ buscandoPessoas() ? 'Buscando...' : 'Buscar pessoa' }}

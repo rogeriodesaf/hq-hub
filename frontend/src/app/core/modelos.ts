@@ -16,6 +16,14 @@ export interface UsuarioAutenticado {
   mensagem: string;
 }
 
+export interface Usuario {
+  id: number;
+  nome: string;
+  email: string;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
 export interface ColecaoResumo {
   totalItens: number;
   totalSeries: number;
@@ -127,6 +135,15 @@ export interface ItemColecao {
   dataAtualizacao: string;
 }
 
+export interface CadastroItemColecao {
+  edicaoId: number;
+  estadoConservacao: string;
+  dataAquisicao: string | null;
+  precoPago: number | null;
+  statusLeitura: string;
+  observacoes: string | null;
+}
+
 export interface EstanteEdicao {
   itemColecaoId: number;
   edicaoId: number;
@@ -201,4 +218,13 @@ export interface PublicacaoRelacionada {
   observacoes: string | null;
   dataCriacao: string;
   dataAtualizacao: string;
+}
+
+export interface Amizade {
+  id: number;
+  solicitante: Usuario;
+  solicitado: Usuario;
+  status: string;
+  dataSolicitacao: string;
+  dataResposta: string | null;
 }
