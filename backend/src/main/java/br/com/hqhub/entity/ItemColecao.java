@@ -52,6 +52,10 @@ public class ItemColecao {
     @Column(name = "preco_pago", precision = 10, scale = 2)
     private BigDecimal precoPago;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_leitura", nullable = false)
+    private StatusLeitura statusLeitura = StatusLeitura.NAO_LIDO;
+
     @Column(length = 1000)
     private String observacoes;
 

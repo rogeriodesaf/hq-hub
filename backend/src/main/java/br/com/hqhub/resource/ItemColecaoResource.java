@@ -53,6 +53,16 @@ public class ItemColecaoResource {
         return Response.ok(itens).build();
     }
 
+    @GET
+    @Path("/fontes/{fonteExterna}/itens/{idExterno}")
+    public Response buscarPorOrigemExterna(
+            @PathParam("fonteExterna") String fonteExterna,
+            @PathParam("idExterno") String idExterno) {
+        return itemColecaoService.buscarPorOrigemExterna(fonteExterna, idExterno)
+                .map(item -> Response.ok(item).build())
+                .orElseGet(() -> Response.noContent().build());
+    }
+
     @PUT
     @Path("/{id}")
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoItemColecaoDTO dto) {

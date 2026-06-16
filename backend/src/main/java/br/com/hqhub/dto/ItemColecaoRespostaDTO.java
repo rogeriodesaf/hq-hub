@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.com.hqhub.entity.EstadoConservacao;
+import br.com.hqhub.entity.StatusLeitura;
 
 public record ItemColecaoRespostaDTO(
         Long id,
@@ -12,6 +13,7 @@ public record ItemColecaoRespostaDTO(
         EstadoConservacao estadoConservacao,
         LocalDate dataAquisicao,
         BigDecimal precoPago,
+        StatusLeitura statusLeitura,
         String observacoes,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao) {

@@ -2,6 +2,7 @@ package br.com.hqhub.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import br.com.hqhub.dto.AtualizacaoItemColecaoDTO;
 import br.com.hqhub.dto.CadastroItemColecaoDTO;
@@ -74,6 +75,14 @@ public class ItemColecaoService {
                         .thenComparing(item -> item.getEdicao().getNumero()))
                 .map(itemColecaoMapper::paraResposta)
                 .toList();
+    }
+
+    @Transactional
+    public Optional<ItemColecaoRespostaDTO> buscarPorOrigemExterna(String fonteExterna, String idExterno) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+
+        return itemColecaoRepository.buscarPorUsuarioEOrigemExterna(usuario.getId(), fonteExterna, idExterno)
+                .map(itemColecaoMapper::paraResposta);
     }
 
     @Transactional

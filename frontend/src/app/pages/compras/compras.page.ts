@@ -16,6 +16,59 @@ import { CompraPlanejada } from '../../core/modelos';
       </div>
     </section>
 
+    <section class="painel-formulario">
+      <div>
+        <p class="rotulo">Nova compra do mês</p>
+        <h2>Cadastre uma edição para não comprar repetido.</h2>
+      </div>
+
+      <form class="grade-formulario" (ngSubmit)="cadastrarCompra()">
+        <label>
+          ID da edição
+          <input type="number" min="1" name="edicaoId" [(ngModel)]="formulario.edicaoId" required />
+        </label>
+        <label>
+          Mês
+          <select name="mesFormulario" [(ngModel)]="formulario.mes">
+            @for (nome of meses; track nome; let indice = $index) {
+              <option [ngValue]="indice + 1">{{ nome }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Ano
+          <input type="number" name="anoFormulario" [(ngModel)]="formulario.ano" required />
+        </label>
+        <label>
+          Prioridade
+          <select name="prioridade" [(ngModel)]="formulario.prioridade">
+            <option value="ALTA">Alta</option>
+            <option value="MEDIA">Média</option>
+            <option value="BAIXA">Baixa</option>
+          </select>
+        </label>
+        <label>
+          Valor estimado
+          <input type="number" min="0" step="0.01" name="precoEstimado" [(ngModel)]="formulario.precoEstimado" />
+        </label>
+        <label class="campo-largo">
+          Link de compra
+          <input type="url" name="linkCompra" [(ngModel)]="formulario.linkCompra" placeholder="https://..." />
+        </label>
+        <label class="campo-largo">
+          Observações
+          <textarea name="observacoes" rows="3" [(ngModel)]="formulario.observacoes"></textarea>
+        </label>
+        <button class="botao primario" type="submit" [disabled]="salvando()">
+          {{ salvando() ? 'Salvando...' : 'Cadastrar compra' }}
+        </button>
+      </form>
+
+      @if (mensagem()) {
+        <p class="mensagem-erro compacto">{{ mensagem() }}</p>
+      }
+    </section>
+
     <section class="filtros-mes">
       <select [(ngModel)]="mes" (change)="carregar()">
         @for (nome of meses; track nome; let indice = $index) {
@@ -53,8 +106,20 @@ export class ComprasPage implements OnInit {
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
   readonly compras = signal<CompraPlanejada[]>([]);
+  readonly salvando = signal(false);
+  readonly mensagem = signal('');
   mes = new Date().getMonth() + 1;
   ano = new Date().getFullYear();
+  formulario = {
+    edicaoId: null as number | null,
+    mes: this.mes,
+    ano: this.ano,
+    prioridade: 'MEDIA',
+    status: 'PLANEJADA',
+    precoEstimado: null as number | null,
+    linkCompra: '',
+    observacoes: '',
+  };
 
   ngOnInit() {
     this.carregar();
@@ -65,6 +130,46 @@ export class ComprasPage implements OnInit {
       next: (resposta) => this.compras.set(resposta),
       error: () => this.compras.set([]),
     });
+  }
+
+  cadastrarCompra() {
+    if (!this.formulario.edicaoId) {
+      this.mensagem.set('Informe o ID da edição.');
+      return;
+    }
+
+    this.salvando.set(true);
+    this.mensagem.set('');
+    this.api
+      .cadastrarCompraPlanejada({
+        edicaoId: this.formulario.edicaoId,
+        mes: this.formulario.mes,
+        ano: this.formulario.ano,
+        prioridade: this.formulario.prioridade,
+        status: this.formulario.status,
+        precoEstimado: this.formulario.precoEstimado,
+        linkCompra: this.formulario.linkCompra || null,
+        observacoes: this.formulario.observacoes || null,
+      })
+      .subscribe({
+        next: () => {
+          this.salvando.set(false);
+          this.mes = this.formulario.mes;
+          this.ano = this.formulario.ano;
+          this.formulario = {
+            ...this.formulario,
+            edicaoId: null,
+            precoEstimado: null,
+            linkCompra: '',
+            observacoes: '',
+          };
+          this.carregar();
+        },
+        error: () => {
+          this.salvando.set(false);
+          this.mensagem.set('Não foi possível cadastrar a compra.');
+        },
+      });
   }
 
   formatarMoeda(valor: number) {

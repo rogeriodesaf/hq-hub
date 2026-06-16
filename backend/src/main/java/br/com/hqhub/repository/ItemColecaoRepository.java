@@ -1,6 +1,7 @@
 package br.com.hqhub.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.hqhub.entity.ItemColecao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -20,5 +21,11 @@ public class ItemColecaoRepository implements PanacheRepository<ItemColecao> {
                 usuarioId, serieId)
                 .project(Long.class)
                 .list();
+    }
+
+    public Optional<ItemColecao> buscarPorUsuarioEOrigemExterna(Long usuarioId, String fonteExterna, String idExterno) {
+        return find("usuario.id = ?1 and edicao.fonteExterna = ?2 and edicao.idExterno = ?3",
+                usuarioId, fonteExterna, idExterno)
+                .firstResultOptional();
     }
 }

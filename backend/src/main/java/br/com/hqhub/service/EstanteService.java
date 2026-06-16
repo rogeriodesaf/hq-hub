@@ -67,7 +67,10 @@ public class EstanteService {
                         item.getEdicao().getNumero(),
                         item.getEdicao().getTitulo(),
                         item.getEdicao().getUrlCapa(),
-                        item.getEstadoConservacao()))
+                        item.getEstadoConservacao(),
+                        item.getStatusLeitura(),
+                        item.getDataAquisicao(),
+                        item.getPrecoPago()))
                 .toList();
     }
 }

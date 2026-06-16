@@ -473,6 +473,66 @@ textarea:focus {
   background: rgba(217, 65, 65, 0.08);
 }
 
+.mensagem-erro.compacto {
+  margin: 8px 0 0;
+}
+
+.painel-formulario {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--sombra);
+}
+
+.painel-formulario h2 {
+  margin: 0 0 14px;
+}
+
+.grade-formulario {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.grade-formulario label {
+  margin-bottom: 0;
+}
+
+.grade-formulario .campo-largo {
+  grid-column: span 2;
+}
+
+.abas-filtro {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 6px;
+  padding: 4px;
+  margin-bottom: 18px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.abas-filtro button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 14px;
+  color: var(--texto-suave);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.abas-filtro button.ativo {
+  color: var(--texto);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(21, 25, 31, 0.08);
+}
+
 .barra-busca,
 .filtros-mes {
   display: grid;
@@ -685,6 +745,50 @@ textarea:focus {
   line-height: 1.55;
 }
 
+.painel-compra {
+  border-color: rgba(47, 143, 107, 0.32);
+  background: rgba(47, 143, 107, 0.08);
+}
+
+.compra-confirmada {
+  margin: 0;
+  color: #1f6f52 !important;
+  font-size: 1.08rem;
+  font-weight: 900;
+}
+
+.formulario-inline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.formulario-inline label {
+  margin: 0;
+}
+
+.resultado-inflacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid rgba(38, 106, 127, 0.22);
+  border-radius: 8px;
+  background: rgba(38, 106, 127, 0.08);
+}
+
+.resultado-inflacao strong {
+  font-size: 1.3rem;
+}
+
+.resultado-inflacao small {
+  flex: 1 0 100%;
+  color: var(--texto-suave);
+}
+
 .detalhe-duas-colunas {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -845,6 +949,30 @@ textarea:focus {
   font-weight: 800;
 }
 
+.lombada small,
+.lombada em {
+  display: block;
+  margin-top: 4px;
+  color: var(--texto-suave);
+  font-size: 0.72rem;
+  font-style: normal;
+}
+
+.lombada small {
+  width: max-content;
+  max-width: 100%;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(217, 65, 65, 0.12);
+  color: #8f2424;
+  font-weight: 850;
+}
+
+.lombada small.lido {
+  color: #1f6f52;
+  background: rgba(47, 143, 107, 0.12);
+}
+
 .compras-lista {
   display: grid;
   gap: 12px;
@@ -996,8 +1124,23 @@ textarea:focus {
 
   .barra-busca,
   .filtros-mes,
+  .formulario-inline,
   .entrada-chat {
     grid-template-columns: 1fr;
+  }
+
+  .grade-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .grade-formulario .campo-largo {
+    grid-column: auto;
+  }
+
+  .abas-filtro {
+    width: 100%;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .grade-volumes,

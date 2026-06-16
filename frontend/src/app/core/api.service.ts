@@ -3,10 +3,13 @@ import { Injectable, inject } from '@angular/core';
 
 import {
   ColecaoResumo,
+  CadastroCompraPlanejada,
+  CalculoInflacao,
   CompraPlanejada,
   Edicao,
   EdicaoComicVine,
   EstanteEditora,
+  ItemColecao,
   PaginaResposta,
   PublicacaoRelacionada,
   RespostaAssistente,
@@ -78,6 +81,22 @@ export class ApiService {
     }
 
     return this.http.get<CompraPlanejada[]>('/api/compras-planejadas', { params });
+  }
+
+  cadastrarCompraPlanejada(dto: CadastroCompraPlanejada) {
+    return this.http.post<CompraPlanejada>('/api/compras-planejadas', dto);
+  }
+
+  buscarItemColecaoPorOrigemExterna(fonteExterna: string, idExterno: string) {
+    return this.http.get<ItemColecao | null>(`/api/colecao/itens/fontes/${fonteExterna}/itens/${idExterno}`);
+  }
+
+  calcularInflacao(valor: number, dataReferencia: string) {
+    const params = new HttpParams()
+      .set('valor', valor)
+      .set('dataReferencia', dataReferencia);
+
+    return this.http.get<CalculoInflacao>('/api/calculadora-inflacao', { params });
   }
 
   perguntarAoAssistente(pergunta: string) {

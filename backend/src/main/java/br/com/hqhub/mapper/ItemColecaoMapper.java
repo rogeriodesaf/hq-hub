@@ -5,6 +5,7 @@ import br.com.hqhub.dto.CadastroItemColecaoDTO;
 import br.com.hqhub.dto.ItemColecaoRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemColecao;
+import br.com.hqhub.entity.StatusLeitura;
 import br.com.hqhub.entity.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -24,6 +25,7 @@ public class ItemColecaoMapper {
         item.setEstadoConservacao(dto.estadoConservacao());
         item.setDataAquisicao(dto.dataAquisicao());
         item.setPrecoPago(dto.precoPago());
+        item.setStatusLeitura(dto.statusLeitura() == null ? StatusLeitura.NAO_LIDO : dto.statusLeitura());
         item.setObservacoes(dto.observacoes());
         return item;
     }
@@ -32,6 +34,7 @@ public class ItemColecaoMapper {
         item.setEstadoConservacao(dto.estadoConservacao());
         item.setDataAquisicao(dto.dataAquisicao());
         item.setPrecoPago(dto.precoPago());
+        item.setStatusLeitura(dto.statusLeitura() == null ? StatusLeitura.NAO_LIDO : dto.statusLeitura());
         item.setObservacoes(dto.observacoes());
     }
 
@@ -42,6 +45,7 @@ public class ItemColecaoMapper {
                 item.getEstadoConservacao(),
                 item.getDataAquisicao(),
                 item.getPrecoPago(),
+                item.getStatusLeitura(),
                 item.getObservacoes(),
                 item.getDataCriacao(),
                 item.getDataAtualizacao());

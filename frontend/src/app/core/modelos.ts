@@ -98,6 +98,18 @@ export interface EdicaoComicVine {
   personagens: string[];
 }
 
+export interface ItemColecao {
+  id: number;
+  edicao: Edicao;
+  estadoConservacao: string;
+  dataAquisicao: string | null;
+  precoPago: number | null;
+  statusLeitura: string;
+  observacoes: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
 export interface EstanteEdicao {
   itemColecaoId: number;
   edicaoId: number;
@@ -105,6 +117,9 @@ export interface EstanteEdicao {
   titulo: string | null;
   urlCapa: string | null;
   estadoConservacao: string;
+  statusLeitura: string;
+  dataAquisicao: string | null;
+  precoPago: number | null;
 }
 
 export interface EstanteSerie {
@@ -129,6 +144,28 @@ export interface CompraPlanejada {
   precoEstimado: number | null;
   linkCompra: string | null;
   observacoes: string | null;
+}
+
+export interface CadastroCompraPlanejada {
+  edicaoId: number;
+  mes: number;
+  ano: number;
+  prioridade: string;
+  status: string;
+  precoEstimado: number | null;
+  linkCompra: string | null;
+  observacoes: string | null;
+}
+
+export interface CalculoInflacao {
+  valorOriginal: number;
+  valorCorrigido: number;
+  fatorCorrecao: number;
+  percentualAcumulado: number;
+  dataReferencia: string;
+  dataCalculo: string;
+  indice: string;
+  observacao: string;
 }
 
 export interface RespostaAssistente {

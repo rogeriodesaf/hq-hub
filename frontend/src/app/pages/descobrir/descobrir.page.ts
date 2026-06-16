@@ -3,7 +3,14 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../../core/api.service';
-import { EdicaoComicVine, PaginaResposta, PublicacaoRelacionada, VolumeComicVine } from '../../core/modelos';
+import {
+  CalculoInflacao,
+  EdicaoComicVine,
+  ItemColecao,
+  PaginaResposta,
+  PublicacaoRelacionada,
+  VolumeComicVine,
+} from '../../core/modelos';
 
 @Component({
   selector: 'app-descobrir-page',
@@ -116,6 +123,55 @@ import { EdicaoComicVine, PaginaResposta, PublicacaoRelacionada, VolumeComicVine
             <p>{{ edicaoSelecionada()?.descricao || 'Sem descrição disponível.' }}</p>
           </section>
 
+          <section class="detalhe-secao painel-compra">
+            <div>
+              <h3>Controle da sua compra</h3>
+              @if (carregandoItemColecao()) {
+                <p class="texto-suave">Verificando sua coleção...</p>
+              } @else if (itemColecaoSelecionado()) {
+                <p class="compra-confirmada">
+                  Comprado dia {{ formatarData(itemColecaoSelecionado()?.dataAquisicao) }}
+                </p>
+                <p class="texto-suave">
+                  {{ rotuloLeitura(itemColecaoSelecionado()?.statusLeitura) }}
+                  @if (itemColecaoSelecionado()?.precoPago) {
+                    · {{ formatarMoeda(itemColecaoSelecionado()?.precoPago || 0) }}
+                  }
+                </p>
+              } @else {
+                <p class="texto-suave">Ainda não consta na sua coleção. Quando você cadastrar essa edição, o aviso de compra aparece aqui.</p>
+              }
+            </div>
+          </section>
+
+          <section class="detalhe-secao calculadora-inflacao">
+            <h3>Calculadora de inflação</h3>
+            <div class="formulario-inline">
+              <label>
+                Valor da época
+                <input type="number" min="0" step="0.01" [(ngModel)]="valorInflacao" placeholder="Ex.: 4.90" />
+              </label>
+              <label>
+                Data de referência
+                <input type="date" [(ngModel)]="dataInflacao" />
+              </label>
+              <button class="botao compacto" type="button" (click)="calcularInflacao()" [disabled]="calculandoInflacao()">
+                {{ calculandoInflacao() ? 'Calculando...' : 'Calcular' }}
+              </button>
+            </div>
+            @if (mensagemInflacao()) {
+              <p class="mensagem-erro compacto">{{ mensagemInflacao() }}</p>
+            }
+            @if (calculoInflacao()) {
+              <div class="resultado-inflacao">
+                <strong>{{ formatarMoeda(calculoInflacao()?.valorOriginal || 0) }}</strong>
+                <span>equivalem hoje a</span>
+                <strong>{{ formatarMoeda(calculoInflacao()?.valorCorrigido || 0) }}</strong>
+                <small>{{ calculoInflacao()?.percentualAcumulado }}% acumulado pelo {{ calculoInflacao()?.indice }}</small>
+              </div>
+            }
+          </section>
+
           <section class="detalhe-duas-colunas">
             <div class="detalhe-secao">
               <h3>Créditos</h3>
@@ -186,8 +242,15 @@ export class DescobrirPage {
   readonly edicaoSelecionada = signal<EdicaoComicVine | null>(null);
   readonly publicacoesRelacionadas = signal<PublicacaoRelacionada[]>([]);
   readonly carregandoPublicacoes = signal(false);
+  readonly itemColecaoSelecionado = signal<ItemColecao | null>(null);
+  readonly carregandoItemColecao = signal(false);
+  readonly calculoInflacao = signal<CalculoInflacao | null>(null);
+  readonly calculandoInflacao = signal(false);
+  readonly mensagemInflacao = signal('');
 
   termo = 'Amazing Spider-Man';
+  valorInflacao: number | null = null;
+  dataInflacao = '';
 
   buscarVolumes() {
     this.mensagem.set('');
@@ -252,6 +315,12 @@ export class DescobrirPage {
     this.edicaoSelecionada.set(edicao);
     this.publicacoesRelacionadas.set([]);
     this.carregandoPublicacoes.set(true);
+    this.itemColecaoSelecionado.set(null);
+    this.carregandoItemColecao.set(true);
+    this.calculoInflacao.set(null);
+    this.mensagemInflacao.set('');
+    this.valorInflacao = null;
+    this.dataInflacao = edicao.dataVenda || edicao.dataCapa || '';
 
     this.api.listarPublicacoesRelacionadasPorOrigemExterna('COMICVINE', edicao.idExterno).subscribe({
       next: (publicacoes) => {
@@ -263,17 +332,76 @@ export class DescobrirPage {
         this.carregandoPublicacoes.set(false);
       },
     });
+
+    this.api.buscarItemColecaoPorOrigemExterna('COMICVINE', edicao.idExterno).subscribe({
+      next: (item) => {
+        this.itemColecaoSelecionado.set(item);
+        this.carregandoItemColecao.set(false);
+
+        if (item?.precoPago) {
+          this.valorInflacao = item.precoPago;
+        }
+        if (item?.dataAquisicao) {
+          this.dataInflacao = item.dataAquisicao;
+        }
+      },
+      error: () => {
+        this.itemColecaoSelecionado.set(null);
+        this.carregandoItemColecao.set(false);
+      },
+    });
   }
 
   fecharDetalhesEdicao() {
     this.edicaoSelecionada.set(null);
     this.publicacoesRelacionadas.set([]);
+    this.itemColecaoSelecionado.set(null);
+    this.calculoInflacao.set(null);
   }
 
   tituloPublicacao(publicacao: PublicacaoRelacionada) {
     const edicao = publicacao.edicaoDestino;
     const serie = edicao.serie?.titulo ?? 'Publicação relacionada';
     return `${serie} #${edicao.numero}${edicao.titulo ? ' · ' + edicao.titulo : ''}`;
+  }
+
+  calcularInflacao() {
+    if (!this.valorInflacao || !this.dataInflacao) {
+      this.mensagemInflacao.set('Informe valor e data para calcular.');
+      return;
+    }
+
+    this.mensagemInflacao.set('');
+    this.calculandoInflacao.set(true);
+    this.api.calcularInflacao(this.valorInflacao, this.dataInflacao).subscribe({
+      next: (calculo) => {
+        this.calculoInflacao.set(calculo);
+        this.calculandoInflacao.set(false);
+      },
+      error: () => {
+        this.calculoInflacao.set(null);
+        this.mensagemInflacao.set('Não foi possível calcular a inflação agora.');
+        this.calculandoInflacao.set(false);
+      },
+    });
+  }
+
+  formatarData(data: string | null | undefined) {
+    if (!data) {
+      return 'não informada';
+    }
+
+    return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }).format(
+      new Date(`${data}T00:00:00`),
+    );
+  }
+
+  formatarMoeda(valor: number) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+  }
+
+  rotuloLeitura(status: string | null | undefined) {
+    return status === 'LIDO' ? 'Lido' : 'Não lido';
   }
 
   private rolarParaEdicoes() {
