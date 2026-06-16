@@ -52,10 +52,10 @@ public class Anuncio {
     @Column(length = 1000)
     private String descricao;
 
-    @Column(nullable = false)
+    @Column
     private String cidade;
 
-    @Column(nullable = false, length = 2)
+    @Column(length = 2)
     private String estado;
 
     @Column(name = "contato_whatsapp")

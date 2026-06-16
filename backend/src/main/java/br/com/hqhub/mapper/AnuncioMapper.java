@@ -1,5 +1,8 @@
 package br.com.hqhub.mapper;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import br.com.hqhub.dto.AnuncioRespostaDTO;
 import br.com.hqhub.dto.AtualizacaoAnuncioDTO;
 import br.com.hqhub.dto.CadastroAnuncioDTO;
@@ -15,7 +18,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class AnuncioMapper {
 
-    public static final String AVISO_RESPONSABILIDADE = "O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores.";
+    public static final String AVISO_RESPONSABILIDADE = "O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.";
 
     private final UsuarioMapper usuarioMapper;
     private final ItemColecaoMapper itemColecaoMapper;
@@ -34,8 +37,8 @@ public class AnuncioMapper {
         anuncio.setEstadoConservacao(dto.estadoConservacao());
         anuncio.setDescricao(dto.descricao());
         anuncio.setCidade(dto.cidade());
-        anuncio.setEstado(dto.estado().toUpperCase());
-        anuncio.setContatoWhatsapp(dto.contatoWhatsapp());
+        anuncio.setEstado(normalizarEstado(dto.estado()));
+        anuncio.setContatoWhatsapp(normalizarWhatsapp(dto.contatoWhatsapp()));
         anuncio.setExibirWhatsapp(Boolean.TRUE.equals(dto.exibirWhatsapp()));
         anuncio.setStatus(StatusAnuncio.ATIVO);
         return anuncio;
@@ -47,8 +50,8 @@ public class AnuncioMapper {
         anuncio.setEstadoConservacao(dto.estadoConservacao());
         anuncio.setDescricao(dto.descricao());
         anuncio.setCidade(dto.cidade());
-        anuncio.setEstado(dto.estado().toUpperCase());
-        anuncio.setContatoWhatsapp(dto.contatoWhatsapp());
+        anuncio.setEstado(normalizarEstado(dto.estado()));
+        anuncio.setContatoWhatsapp(normalizarWhatsapp(dto.contatoWhatsapp()));
         anuncio.setExibirWhatsapp(Boolean.TRUE.equals(dto.exibirWhatsapp()));
     }
 
@@ -63,6 +66,9 @@ public class AnuncioMapper {
     public AnuncioRespostaDTO paraResposta(Anuncio anuncio) {
         return new AnuncioRespostaDTO(
                 anuncio.getId(),
+                anuncio.getItemColecao().getEdicao().getId(),
+                tituloEdicao(anuncio),
+                anuncio.getAnunciante().getNome(),
                 usuarioMapper.paraResposta(anuncio.getAnunciante()),
                 itemColecaoMapper.paraResposta(anuncio.getItemColecao()),
                 anuncio.getTipoAnuncio(),
@@ -72,6 +78,8 @@ public class AnuncioMapper {
                 anuncio.getCidade(),
                 anuncio.getEstado(),
                 anuncio.getExibirWhatsapp(),
+                contatoWhatsapp(anuncio),
+                linkContatoWhatsapp(anuncio),
                 anuncio.getStatus(),
                 AVISO_RESPONSABILIDADE,
                 anuncio.getDataCriacao(),
@@ -84,5 +92,44 @@ public class AnuncioMapper {
                 foto.getUrlImagem(),
                 foto.getPrincipal(),
                 foto.getDataCriacao());
+    }
+
+    private String normalizarEstado(String estado) {
+        return estado == null || estado.isBlank() ? null : estado.trim().toUpperCase();
+    }
+
+    private String normalizarWhatsapp(String contatoWhatsapp) {
+        if (contatoWhatsapp == null || contatoWhatsapp.isBlank()) {
+            return null;
+        }
+
+        String contatoLimpo = contatoWhatsapp.replaceAll("\\D", "");
+        return contatoLimpo.isBlank() ? null : contatoLimpo;
+    }
+
+    private String contatoWhatsapp(Anuncio anuncio) {
+        if (!Boolean.TRUE.equals(anuncio.getExibirWhatsapp())) {
+            return null;
+        }
+
+        return anuncio.getContatoWhatsapp();
+    }
+
+    private String linkContatoWhatsapp(Anuncio anuncio) {
+        String contato = contatoWhatsapp(anuncio);
+        if (contato == null || contato.isBlank()) {
+            return null;
+        }
+
+        String mensagem = "Olá, vi no HQ-HUB que você está anunciando a HQ "
+                + tituloEdicao(anuncio)
+                + ". Ela ainda está disponível?";
+
+        return "https://wa.me/" + contato + "?text=" + URLEncoder.encode(mensagem, StandardCharsets.UTF_8);
+    }
+
+    private String tituloEdicao(Anuncio anuncio) {
+        return anuncio.getItemColecao().getEdicao().getSerie().getTitulo()
+                + " #" + anuncio.getItemColecao().getEdicao().getNumero();
     }
 }

@@ -105,6 +105,17 @@ public class AnuncioService {
     }
 
     @Transactional
+    public List<AnuncioRespostaDTO> listarAtivosPorEdicao(Long edicaoId, TipoAnuncio tipoAnuncio) {
+        List<Anuncio> anuncios = tipoAnuncio == null
+                ? anuncioRepository.listarAtivosPorEdicao(edicaoId)
+                : anuncioRepository.listarAtivosPorEdicaoETipo(edicaoId, tipoAnuncio);
+
+        return anuncios.stream()
+                .map(anuncioMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
     public List<AnuncioRespostaDTO> listarAtivosPorUsuario(Long usuarioId) {
         return anuncioRepository.listarAtivosPorUsuario(usuarioId)
                 .stream()
@@ -183,7 +194,7 @@ public class AnuncioService {
 
         String titulo = anuncio.getItemColecao().getEdicao().getSerie().getTitulo()
                 + " nº " + anuncio.getItemColecao().getEdicao().getNumero();
-        String mensagem = "Olá! Vi no HQ-HUB o anúncio da HQ " + titulo + " e tenho interesse em conversar.";
+        String mensagem = "Olá, vi no HQ-HUB que você está anunciando a HQ " + titulo + ". Ela ainda está disponível?";
         String contatoLimpo = anuncio.getContatoWhatsapp().replaceAll("\\D", "");
         String link = "https://wa.me/" + contatoLimpo + "?text=" + URLEncoder.encode(mensagem, StandardCharsets.UTF_8);
 

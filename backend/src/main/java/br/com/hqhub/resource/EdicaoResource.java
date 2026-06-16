@@ -5,6 +5,8 @@ import br.com.hqhub.dto.AtualizacaoEdicaoDTO;
 import br.com.hqhub.dto.CadastroEdicaoDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
+import br.com.hqhub.entity.TipoAnuncio;
+import br.com.hqhub.service.AnuncioService;
 import br.com.hqhub.service.EdicaoService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -27,9 +29,11 @@ import jakarta.ws.rs.core.Response;
 public class EdicaoResource {
 
     private final EdicaoService edicaoService;
+    private final AnuncioService anuncioService;
 
-    public EdicaoResource(EdicaoService edicaoService) {
+    public EdicaoResource(EdicaoService edicaoService, AnuncioService anuncioService) {
         this.edicaoService = edicaoService;
+        this.anuncioService = anuncioService;
     }
 
     @POST
@@ -45,6 +49,12 @@ public class EdicaoResource {
     public Response buscarPorId(@PathParam("id") Long id) {
         EdicaoRespostaDTO edicao = edicaoService.buscarPorId(id);
         return Response.ok(edicao).build();
+    }
+
+    @GET
+    @Path("/{id}/anuncios")
+    public Response listarAnunciosPorEdicao(@PathParam("id") Long id, @QueryParam("tipo") TipoAnuncio tipo) {
+        return Response.ok(anuncioService.listarAtivosPorEdicao(id, tipo)).build();
     }
 
     @GET

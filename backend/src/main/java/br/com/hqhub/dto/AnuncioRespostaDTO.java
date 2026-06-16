@@ -9,6 +9,9 @@ import br.com.hqhub.entity.TipoAnuncio;
 
 public record AnuncioRespostaDTO(
         Long id,
+        Long edicaoId,
+        String tituloEdicao,
+        String nomeAnunciante,
         UsuarioRespostaDTO anunciante,
         ItemColecaoRespostaDTO itemColecao,
         TipoAnuncio tipoAnuncio,
@@ -18,6 +21,8 @@ public record AnuncioRespostaDTO(
         String cidade,
         String estado,
         Boolean exibirWhatsapp,
+        String contatoWhatsapp,
+        String linkContatoWhatsapp,
         StatusAnuncio status,
         String avisoResponsabilidade,
         LocalDateTime dataCriacao,

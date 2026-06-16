@@ -474,6 +474,9 @@ GET /anuncios
 GET /anuncios/meus
 GET /anuncios/{id}
 GET /anuncios/edicoes/{edicaoId}
+GET /anuncios/edicoes/{edicaoId}?tipo={tipo}
+GET /edicoes/{edicaoId}/anuncios
+GET /edicoes/{edicaoId}/anuncios?tipo={tipo}
 GET /anuncios/usuarios/{usuarioId}
 PUT /anuncios/{id}
 POST /anuncios/{id}/pausar
@@ -486,7 +489,9 @@ DELETE /anuncios/{id}/fotos/{fotoId}
 GET /anuncios/{id}/contato
 ```
 
-Permite criar anúncios vinculados a itens da coleção para venda, troca ou venda e troca. O contato por WhatsApp só é retornado quando o anunciante permitir.
+Permite criar anúncios vinculados a itens da coleção para venda, troca ou venda e troca. O anúncio deve estar vinculado a uma HQ da coleção do usuário autenticado. O contato por WhatsApp só é retornado quando o anunciante permitir, junto com `linkContatoWhatsapp`.
+
+O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.
 
 ### Denúncias e moderação básica
 
@@ -542,6 +547,7 @@ docs/testes-api/comunidade-classificados.http
 docs/testes-api/integracoes-externas.http
 docs/testes-api/contribuicoes-catalogo.http
 docs/testes-api/historias-conteudos.http
+docs/testes-api/anuncios.http
 ```
 
 ## Observações

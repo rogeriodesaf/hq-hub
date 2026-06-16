@@ -1,0 +1,65 @@
+@baseUrl = http://localhost:8080
+@token = cole_o_token_aqui
+@itemColecaoId = 1
+@edicaoId = 1
+@anuncioId = 1
+
+### Criar anúncio de venda
+POST {{baseUrl}}/anuncios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "itemColecaoId": {{itemColecaoId}},
+  "tipoAnuncio": "VENDA",
+  "preco": 89.90,
+  "estadoConservacao": "MUITO_BOM",
+  "descricao": "Edição bem conservada, com leves marcas de manuseio.",
+  "cidade": "Fortaleza",
+  "estado": "CE",
+  "contatoWhatsapp": "(85) 99999-9999",
+  "exibirWhatsapp": true
+}
+
+### Criar anúncio de troca
+POST {{baseUrl}}/anuncios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "itemColecaoId": {{itemColecaoId}},
+  "tipoAnuncio": "TROCA",
+  "estadoConservacao": "BOM",
+  "descricao": "Aceito troca por edições do Homem-Aranha.",
+  "cidade": "Fortaleza",
+  "estado": "CE",
+  "exibirWhatsapp": false
+}
+
+### Listar anúncios ativos de uma edição
+GET {{baseUrl}}/edicoes/{{edicaoId}}/anuncios
+Authorization: Bearer {{token}}
+
+### Listar anúncios ativos de uma edição por tipo
+GET {{baseUrl}}/edicoes/{{edicaoId}}/anuncios?tipo=VENDA
+Authorization: Bearer {{token}}
+
+### Listar meus anúncios
+GET {{baseUrl}}/anuncios/meus
+Authorization: Bearer {{token}}
+
+### Pausar anúncio
+POST {{baseUrl}}/anuncios/{{anuncioId}}/pausar
+Authorization: Bearer {{token}}
+
+### Reativar anúncio
+POST {{baseUrl}}/anuncios/{{anuncioId}}/reativar
+Authorization: Bearer {{token}}
+
+### Encerrar anúncio
+POST {{baseUrl}}/anuncios/{{anuncioId}}/encerrar
+Authorization: Bearer {{token}}
+
+### Remover anúncio logicamente
+DELETE {{baseUrl}}/anuncios/{{anuncioId}}
+Authorization: Bearer {{token}}

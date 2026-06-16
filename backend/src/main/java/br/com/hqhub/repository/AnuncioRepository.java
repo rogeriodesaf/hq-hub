@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.hqhub.entity.Anuncio;
 import br.com.hqhub.entity.StatusAnuncio;
+import br.com.hqhub.entity.TipoAnuncio;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -16,6 +17,13 @@ public class AnuncioRepository implements PanacheRepository<Anuncio> {
 
     public List<Anuncio> listarAtivosPorEdicao(Long edicaoId) {
         return list("itemColecao.edicao.id = ?1 and status = ?2 order by dataCriacao desc", edicaoId, StatusAnuncio.ATIVO);
+    }
+
+    public List<Anuncio> listarAtivosPorEdicaoETipo(Long edicaoId, TipoAnuncio tipoAnuncio) {
+        return list("itemColecao.edicao.id = ?1 and status = ?2 and tipoAnuncio = ?3 order by dataCriacao desc",
+                edicaoId,
+                StatusAnuncio.ATIVO,
+                tipoAnuncio);
     }
 
     public List<Anuncio> listarAtivosPorUsuario(Long usuarioId) {
