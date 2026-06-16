@@ -45,6 +45,16 @@ public class PublicacaoRelacionadaResource {
         return Response.ok(publicacoes).build();
     }
 
+    @GET
+    @Path("/fontes/{fonteExterna}/itens/{idExterno}")
+    public Response listarPorOrigemExterna(
+            @PathParam("fonteExterna") String fonteExterna,
+            @PathParam("idExterno") String idExterno) {
+        List<PublicacaoRelacionadaRespostaDTO> publicacoes = publicacaoRelacionadaService
+                .listarPorOrigemExterna(fonteExterna, idExterno);
+        return Response.ok(publicacoes).build();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response remover(@PathParam("id") Long id) {

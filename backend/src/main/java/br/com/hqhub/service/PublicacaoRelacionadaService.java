@@ -65,6 +65,13 @@ public class PublicacaoRelacionadaService {
     }
 
     @Transactional
+    public List<PublicacaoRelacionadaRespostaDTO> listarPorOrigemExterna(String fonteExterna, String idExterno) {
+        return edicaoRepository.buscarPorOrigemExterna(fonteExterna, idExterno)
+                .map(edicao -> listarPorEdicao(edicao.getId()))
+                .orElse(List.of());
+    }
+
+    @Transactional
     public void remover(Long id) {
         PublicacaoRelacionada publicacao = publicacaoRelacionadaRepository.findByIdOptional(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Publicação relacionada não encontrada."));

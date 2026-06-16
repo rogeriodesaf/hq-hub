@@ -136,3 +136,15 @@ export interface RespostaAssistente {
   origem: string;
   dados: unknown;
 }
+
+export interface PublicacaoRelacionada {
+  id: number;
+  edicaoOrigem: Edicao;
+  edicaoDestino: Edicao;
+  tipo: string;
+  fonteExterna: string | null;
+  urlOrigem: string | null;
+  observacoes: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}

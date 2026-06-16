@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../../core/api.service';
-import { EdicaoComicVine, PaginaResposta, VolumeComicVine } from '../../core/modelos';
+import { EdicaoComicVine, PaginaResposta, PublicacaoRelacionada, VolumeComicVine } from '../../core/modelos';
 
 @Component({
   selector: 'app-descobrir-page',
@@ -67,7 +67,7 @@ import { EdicaoComicVine, PaginaResposta, VolumeComicVine } from '../../core/mod
         } @else if (edicoes()?.itens?.length) {
           <div class="grade-edicoes">
             @for (edicao of edicoes()?.itens || []; track edicao.idExterno) {
-              <article class="cartao-edicao">
+              <article class="cartao-edicao clicavel" (click)="abrirDetalhesEdicao(edicao)" tabindex="0" (keyup.enter)="abrirDetalhesEdicao(edicao)">
                 <img [src]="edicao.urlImagem || capaReserva" [alt]="edicao.titulo || 'Edição sem título'" loading="lazy" />
                 <div>
                   <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }}</p>
@@ -88,6 +88,83 @@ import { EdicaoComicVine, PaginaResposta, VolumeComicVine } from '../../core/mod
         }
       </section>
     }
+
+    @if (edicaoSelecionada()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
+        <div class="detalhe-fundo" (click)="fecharDetalhesEdicao()"></div>
+        <article class="detalhe-painel">
+          <button class="fechar-detalhe" type="button" (click)="fecharDetalhesEdicao()" aria-label="Fechar detalhes">×</button>
+          <div class="detalhe-cabecalho">
+            <img [src]="edicaoSelecionada()?.urlImagem || capaReserva" [alt]="edicaoSelecionada()?.titulo || 'Capa da edição'" />
+            <div>
+              <p class="rotulo">ComicVine · {{ edicaoSelecionada()?.nomeVolume }}</p>
+              <h2>#{{ edicaoSelecionada()?.numero }} {{ edicaoSelecionada()?.titulo || '' }}</h2>
+              <div class="chips">
+                <span>Data de capa: {{ edicaoSelecionada()?.dataCapa || 'não informada' }}</span>
+                <span>Data de venda: {{ edicaoSelecionada()?.dataVenda || 'não informada' }}</span>
+              </div>
+              @if (edicaoSelecionada()?.urlOrigem) {
+                <a class="botao compacto" [href]="edicaoSelecionada()?.urlOrigem" target="_blank" rel="noreferrer">
+                  Abrir fonte
+                </a>
+              }
+            </div>
+          </div>
+
+          <section class="detalhe-secao">
+            <h3>Descrição</h3>
+            <p>{{ edicaoSelecionada()?.descricao || 'Sem descrição disponível.' }}</p>
+          </section>
+
+          <section class="detalhe-duas-colunas">
+            <div class="detalhe-secao">
+              <h3>Créditos</h3>
+              @for (credito of edicaoSelecionada()?.creditos || []; track $index) {
+                <p class="linha-info">{{ credito.nome }} <span>{{ credito.papel || 'participação' }}</span></p>
+              } @empty {
+                <p class="texto-suave">Nenhum crédito retornado pela ComicVine.</p>
+              }
+            </div>
+
+            <div class="detalhe-secao">
+              <h3>Personagens</h3>
+              <div class="chips">
+                @for (personagem of edicaoSelecionada()?.personagens || []; track personagem) {
+                  <span>{{ personagem }}</span>
+                } @empty {
+                  <span>Nenhum personagem informado.</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <section class="detalhe-secao">
+            <h3>Republicações e publicações brasileiras</h3>
+            @if (carregandoPublicacoes()) {
+              <p class="texto-suave">Consultando republicações cadastradas...</p>
+            } @else {
+              @for (publicacao of publicacoesRelacionadas(); track publicacao.id) {
+                <article class="publicacao-card">
+                  <div>
+                    <p class="rotulo">{{ publicacao.tipo }}</p>
+                    <h4>{{ tituloPublicacao(publicacao) }}</h4>
+                    <p>{{ publicacao.observacoes || 'Sem observações.' }}</p>
+                  </div>
+                  @if (publicacao.urlOrigem) {
+                    <a class="botao compacto" [href]="publicacao.urlOrigem" target="_blank" rel="noreferrer">Fonte</a>
+                  }
+                </article>
+              } @empty {
+                <section class="estado-vazio compacto">
+                  <h2>Nenhuma republicação cadastrada ainda</h2>
+                  <p>Quando esta edição for importada ou vinculada ao catálogo brasileiro, as republicações aparecerão aqui.</p>
+                </section>
+              }
+            }
+          </section>
+        </article>
+      </section>
+    }
   `,
 })
 export class DescobrirPage {
@@ -106,6 +183,9 @@ export class DescobrirPage {
   readonly paginaEdicoes = signal(0);
   readonly mensagem = signal('');
   readonly carregandoEdicoes = signal(false);
+  readonly edicaoSelecionada = signal<EdicaoComicVine | null>(null);
+  readonly publicacoesRelacionadas = signal<PublicacaoRelacionada[]>([]);
+  readonly carregandoPublicacoes = signal(false);
 
   termo = 'Amazing Spider-Man';
 
@@ -166,6 +246,34 @@ export class DescobrirPage {
       .slice(0, 3)
       .map((credito) => [credito.nome, credito.papel].filter(Boolean).join(' · '))
       .join(' / ');
+  }
+
+  abrirDetalhesEdicao(edicao: EdicaoComicVine) {
+    this.edicaoSelecionada.set(edicao);
+    this.publicacoesRelacionadas.set([]);
+    this.carregandoPublicacoes.set(true);
+
+    this.api.listarPublicacoesRelacionadasPorOrigemExterna('COMICVINE', edicao.idExterno).subscribe({
+      next: (publicacoes) => {
+        this.publicacoesRelacionadas.set(publicacoes);
+        this.carregandoPublicacoes.set(false);
+      },
+      error: () => {
+        this.publicacoesRelacionadas.set([]);
+        this.carregandoPublicacoes.set(false);
+      },
+    });
+  }
+
+  fecharDetalhesEdicao() {
+    this.edicaoSelecionada.set(null);
+    this.publicacoesRelacionadas.set([]);
+  }
+
+  tituloPublicacao(publicacao: PublicacaoRelacionada) {
+    const edicao = publicacao.edicaoDestino;
+    const serie = edicao.serie?.titulo ?? 'Publicação relacionada';
+    return `${serie} #${edicao.numero}${edicao.titulo ? ' · ' + edicao.titulo : ''}`;
   }
 
   private rolarParaEdicoes() {

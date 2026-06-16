@@ -8,6 +8,7 @@ import {
   EdicaoComicVine,
   EstanteEditora,
   PaginaResposta,
+  PublicacaoRelacionada,
   RespostaAssistente,
   Serie,
   VolumeComicVine,
@@ -81,5 +82,11 @@ export class ApiService {
 
   perguntarAoAssistente(pergunta: string) {
     return this.http.post<RespostaAssistente>('/api/assistente/perguntar', { pergunta });
+  }
+
+  listarPublicacoesRelacionadasPorOrigemExterna(fonteExterna: string, idExterno: string) {
+    return this.http.get<PublicacaoRelacionada[]>(
+      `/api/publicacoes-relacionadas/fontes/${fonteExterna}/itens/${idExterno}`,
+    );
   }
 }

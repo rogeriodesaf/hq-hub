@@ -1,6 +1,7 @@
 package br.com.hqhub.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.hqhub.entity.Edicao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -30,6 +31,15 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         return find("fonteExterna = ?1 and idExterno = ?2", fonteExterna, idExterno)
                 .firstResultOptional()
                 .isPresent();
+    }
+
+    public Optional<Edicao> buscarPorOrigemExterna(String fonteExterna, String idExterno) {
+        if (fonteExterna == null || idExterno == null) {
+            return Optional.empty();
+        }
+
+        return find("fonteExterna = ?1 and idExterno = ?2", fonteExterna, idExterno)
+                .firstResultOptional();
     }
 
     public boolean existePorOrigemExternaEmOutraEdicao(String fonteExterna, String idExterno, Long id) {
