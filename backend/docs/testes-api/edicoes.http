@@ -1,0 +1,61 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Cadastrar edição
+POST {{urlBase}}/edicoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "numero": "1",
+  "titulo": "Primeira edição",
+  "descricao": "Edição inicial da série.",
+  "dataPublicacao": "2024-01-15",
+  "urlCapa": "https://exemplo.com/capas/edicao-1.jpg",
+  "codigoBarras": "9780000000001",
+  "quantidadePaginas": 32,
+  "precoCapa": 19.90,
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null,
+  "serieId": 1
+}
+
+### Listar edições
+GET {{urlBase}}/edicoes
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Listar edições por série
+GET {{urlBase}}/edicoes?serieId=1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar edição por id
+GET {{urlBase}}/edicoes/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Atualizar edição
+PUT {{urlBase}}/edicoes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "numero": "1",
+  "titulo": "Primeira edição",
+  "descricao": "Edição inicial revisada.",
+  "dataPublicacao": "2024-01-15",
+  "urlCapa": "https://exemplo.com/capas/edicao-1.jpg",
+  "codigoBarras": "9780000000001",
+  "quantidadePaginas": 32,
+  "precoCapa": 19.90,
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null,
+  "serieId": 1
+}
+
+### Remover edição
+DELETE {{urlBase}}/edicoes/1
+Authorization: Bearer {{token}}

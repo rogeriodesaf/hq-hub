@@ -1,0 +1,133 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Enviar solicitação de amizade
+POST {{url}}/amizades/solicitacoes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "usuarioSolicitadoId": 2
+}
+
+### Listar solicitações recebidas
+GET {{url}}/amizades/solicitacoes/recebidas
+Authorization: Bearer {{token}}
+
+### Listar solicitações enviadas
+GET {{url}}/amizades/solicitacoes/enviadas
+Authorization: Bearer {{token}}
+
+### Aceitar solicitação
+POST {{url}}/amizades/solicitacoes/1/aceitar
+Authorization: Bearer {{token}}
+
+### Recusar solicitação
+POST {{url}}/amizades/solicitacoes/1/recusar
+Authorization: Bearer {{token}}
+
+### Listar amigos
+GET {{url}}/amizades/amigos
+Authorization: Bearer {{token}}
+
+### Remover amigo
+DELETE {{url}}/amizades/amigos/2
+Authorization: Bearer {{token}}
+
+### Bloquear usuário
+POST {{url}}/amizades/bloqueios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "usuarioBloqueadoId": 2,
+  "motivo": "Não desejo receber interações deste usuário."
+}
+
+### Listar bloqueios
+GET {{url}}/amizades/bloqueios
+Authorization: Bearer {{token}}
+
+### Desbloquear usuário
+DELETE {{url}}/amizades/bloqueios/usuarios/2
+Authorization: Bearer {{token}}
+
+### Obter configuração de visibilidade da coleção
+GET {{url}}/colecao/configuracao
+Authorization: Bearer {{token}}
+
+### Atualizar visibilidade da coleção
+PUT {{url}}/colecao/configuracao
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "visibilidadeColecao": "AMIGOS"
+}
+
+### Visualizar coleção compartilhada de um usuário
+GET {{url}}/colecao/usuarios/2
+Authorization: Bearer {{token}}
+
+### Criar anúncio de venda ou troca
+POST {{url}}/anuncios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "itemColecaoId": 1,
+  "tipoAnuncio": "VENDA_E_TROCA",
+  "preco": 49.90,
+  "estadoConservacao": "MUITO_BOM",
+  "descricao": "Edição em ótimo estado, com pequenos sinais de manuseio.",
+  "cidade": "Fortaleza",
+  "estado": "CE",
+  "contatoWhatsapp": "5585999999999",
+  "exibirWhatsapp": true
+}
+
+### Listar anúncios ativos
+GET {{url}}/anuncios
+Authorization: Bearer {{token}}
+
+### Listar meus anúncios
+GET {{url}}/anuncios/meus
+Authorization: Bearer {{token}}
+
+### Buscar anúncio
+GET {{url}}/anuncios/1
+Authorization: Bearer {{token}}
+
+### Listar anúncios ativos por edição
+GET {{url}}/anuncios/edicoes/1
+Authorization: Bearer {{token}}
+
+### Adicionar foto ao anúncio
+POST {{url}}/anuncios/1/fotos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "urlImagem": "https://exemplo.com/imagens/hq-1.jpg",
+  "principal": true
+}
+
+### Listar fotos do anúncio
+GET {{url}}/anuncios/1/fotos
+Authorization: Bearer {{token}}
+
+### Gerar contato por WhatsApp
+GET {{url}}/anuncios/1/contato
+Authorization: Bearer {{token}}
+
+### Pausar anúncio
+POST {{url}}/anuncios/1/pausar
+Authorization: Bearer {{token}}
+
+### Reativar anúncio
+POST {{url}}/anuncios/1/reativar
+Authorization: Bearer {{token}}
+
+### Encerrar anúncio
+POST {{url}}/anuncios/1/encerrar
+Authorization: Bearer {{token}}

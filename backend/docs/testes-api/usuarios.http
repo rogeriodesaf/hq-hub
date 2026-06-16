@@ -1,0 +1,31 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Cadastrar usuário
+POST {{urlBase}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Maria Silva",
+  "email": "maria@exemplo.com",
+  "senha": "123456"
+}
+
+### Listar usuários
+GET {{urlBase}}/usuarios
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar usuário por id
+GET {{urlBase}}/usuarios/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Login
+POST {{urlBase}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "maria@exemplo.com",
+  "senha": "123456"
+}

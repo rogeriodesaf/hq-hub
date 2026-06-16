@@ -1,0 +1,74 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Marcar série na coleção
+POST {{urlBase}}/colecao/series
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "serieId": 1,
+  "status": "EM_ANDAMENTO",
+  "prioridade": 1,
+  "observacoes": "Focar em completar este ano."
+}
+
+### Listar séries organizadas na coleção
+GET {{urlBase}}/colecao/series
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Atualizar status da série
+PUT {{urlBase}}/colecao/series/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "CONCLUIDA",
+  "prioridade": 1,
+  "observacoes": "Série completa."
+}
+
+### Planejar compra mensal
+POST {{urlBase}}/compras-planejadas
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "edicaoId": 1,
+  "mes": 6,
+  "ano": 2026,
+  "status": "PLANEJADA",
+  "prioridade": "ALTA",
+  "precoEstimado": 24.90,
+  "linkCompra": "https://exemplo.com/comprar",
+  "observacoes": "Comprar no começo do mês."
+}
+
+### Listar compras planejadas do mês
+GET {{urlBase}}/compras-planejadas?mes=6&ano=2026
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Cadastrar link de edição
+POST {{urlBase}}/links-edicoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "edicaoId": 1,
+  "tipo": "GUIA_DOS_QUADRINHOS",
+  "titulo": "Página no Guia dos Quadrinhos",
+  "url": "https://www.guiadosquadrinhos.com/",
+  "observacoes": "Referência externa."
+}
+
+### Listar links de uma edição
+GET {{urlBase}}/links-edicoes/edicoes/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Montar estante virtual
+GET {{urlBase}}/estante
+Accept: application/json
+Authorization: Bearer {{token}}

@@ -1,0 +1,42 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Cadastrar criador
+POST {{urlBase}}/criadores
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Stan Lee",
+  "nomeArtistico": null,
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null
+}
+
+### Buscar criadores por nome
+GET {{urlBase}}/criadores?nome=stan
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Cadastrar crédito de edição
+POST {{urlBase}}/criadores/creditos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "edicaoId": 1,
+  "criadorId": 1,
+  "papel": "ROTEIRO",
+  "observacoes": "Crédito principal."
+}
+
+### Listar publicações de um criador em ordem cronológica
+GET {{urlBase}}/criadores/1/edicoes
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Listar publicações de um criador por papel
+GET {{urlBase}}/criadores/1/edicoes?papel=ROTEIRO
+Accept: application/json
+Authorization: Bearer {{token}}

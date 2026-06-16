@@ -1,0 +1,23 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Criar relacionamento entre séries
+POST {{urlBase}}/relacionamentos-series
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "serieOrigemId": 1,
+  "serieDestinoId": 2,
+  "tipo": "CONTINUA_EM",
+  "observacoes": "A série continua no volume seguinte."
+}
+
+### Listar relacionamentos de uma série
+GET {{urlBase}}/relacionamentos-series/series/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Remover relacionamento
+DELETE {{urlBase}}/relacionamentos-series/1
+Authorization: Bearer {{token}}

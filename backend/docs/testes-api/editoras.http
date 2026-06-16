@@ -1,0 +1,44 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Cadastrar editora
+POST {{urlBase}}/editoras
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Panini Comics",
+  "descricao": "Editora de quadrinhos com atuação no mercado brasileiro.",
+  "paisOrigem": "Brasil",
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null
+}
+
+### Listar editoras
+GET {{urlBase}}/editoras
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar editora por id
+GET {{urlBase}}/editoras/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Atualizar editora
+PUT {{urlBase}}/editoras/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Panini Comics",
+  "descricao": "Editora responsável por diversas publicações de quadrinhos no Brasil.",
+  "paisOrigem": "Brasil",
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null
+}
+
+### Remover editora
+DELETE {{urlBase}}/editoras/1
+Authorization: Bearer {{token}}

@@ -1,0 +1,52 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Cadastrar série
+POST {{urlBase}}/series
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "titulo": "Amazing Spider-Man",
+  "descricao": "Série principal do Homem-Aranha.",
+  "anoInicio": 1963,
+  "anoFim": null,
+  "volume": 1,
+  "ordemCronologica": 1,
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null,
+  "editoraId": 1
+}
+
+### Listar séries
+GET {{urlBase}}/series
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar série por id
+GET {{urlBase}}/series/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Atualizar série
+PUT {{urlBase}}/series/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "titulo": "Amazing Spider-Man",
+  "descricao": "Série principal do Homem-Aranha publicada pela Marvel.",
+  "anoInicio": 1963,
+  "anoFim": null,
+  "volume": 1,
+  "ordemCronologica": 1,
+  "fonteExterna": null,
+  "idExterno": null,
+  "urlOrigem": null,
+  "editoraId": 1
+}
+
+### Remover série
+DELETE {{urlBase}}/series/1
+Authorization: Bearer {{token}}

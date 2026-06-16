@@ -1,0 +1,56 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Adicionar edição à coleção
+POST {{urlBase}}/colecao/itens
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "edicaoId": 1,
+  "estadoConservacao": "MUITO_BOM",
+  "dataAquisicao": "2024-06-01",
+  "precoPago": 15.90,
+  "observacoes": "Comprada em banca."
+}
+
+### Listar itens da minha coleção
+GET {{urlBase}}/colecao/itens
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar item da minha coleção por id
+GET {{urlBase}}/colecao/itens/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Atualizar item da coleção
+PUT {{urlBase}}/colecao/itens/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "estadoConservacao": "EXCELENTE",
+  "dataAquisicao": "2024-06-01",
+  "precoPago": 15.90,
+  "observacoes": "Exemplar em melhor estado do que parecia."
+}
+
+### Remover item da coleção
+DELETE {{urlBase}}/colecao/itens/1
+Authorization: Bearer {{token}}
+
+### Listar edições faltantes de uma série
+GET {{urlBase}}/colecao/faltantes/series/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Resumo da minha coleção
+GET {{urlBase}}/colecao/resumo
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Completude da minha coleção em uma série
+GET {{urlBase}}/colecao/resumo/series/1
+Accept: application/json
+Authorization: Bearer {{token}}

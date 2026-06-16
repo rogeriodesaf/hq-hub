@@ -1,0 +1,47 @@
+@urlBase = http://localhost:8080
+@token = cole-o-token-do-login-aqui
+
+### Buscar séries com paginação
+GET {{urlBase}}/series?busca=amazing&pagina=0&tamanho=20
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Buscar edições com paginação
+GET {{urlBase}}/edicoes?serieId=1&busca=1&pagina=0&tamanho=50
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Cadastrar publicação relacionada
+POST {{urlBase}}/publicacoes-relacionadas
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "edicaoOrigemId": 1,
+  "edicaoDestinoId": 2,
+  "tipo": "PUBLICADA_NO_BRASIL",
+  "fonteExterna": "GUIA_DOS_QUADRINHOS",
+  "urlOrigem": "http://www.guiadosquadrinhos.com/",
+  "observacoes": "Relação cadastrada a partir de referência externa."
+}
+
+### Listar publicações relacionadas de uma edição
+GET {{urlBase}}/publicacoes-relacionadas/edicoes/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Solicitar importação assíncrona
+POST {{urlBase}}/importacoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fonteExterna": "GUIA_DOS_QUADRINHOS",
+  "termo": "Amazing Spider-Man (1963)",
+  "urlOrigem": "http://www.guiadosquadrinhos.com/capas-estrangeiras/amazing-spider-man-the-(1963)/12"
+}
+
+### Listar minhas solicitações de importação
+GET {{urlBase}}/importacoes
+Accept: application/json
+Authorization: Bearer {{token}}

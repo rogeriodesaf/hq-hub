@@ -1,0 +1,73 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Criar conversa do assistente
+POST {{url}}/assistente/conversas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "titulo": "Dúvidas sobre minha coleção"
+}
+
+### Listar conversas do assistente
+GET {{url}}/assistente/conversas
+Authorization: Bearer {{token}}
+
+### Buscar conversa com mensagens
+GET {{url}}/assistente/conversas/1
+Authorization: Bearer {{token}}
+
+### Enviar mensagem dentro de uma conversa
+POST {{url}}/assistente/conversas/1/mensagens
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quais edições faltam na serieId=1?"
+}
+
+### Perguntar resumo da colecao
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Qual e o resumo da minha colecao?"
+}
+
+### Perguntar faltantes de uma serie pelo id
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quais edicoes faltam na serieId=1?"
+}
+
+### Perguntar compras planejadas por mes
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quais compras tenho planejadas para junho de 2026?"
+}
+
+### Perguntar publicacoes de um criador
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quais publicacoes do criador Alan Moore existem no catalogo?"
+}
+
+### Perguntar continuidade entre series
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "A serieId=1 continua em alguma v2 ou relancamento?"
+}
