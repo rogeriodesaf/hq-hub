@@ -1,0 +1,77 @@
+@if (mostrarShell()) {
+  <div class="app-shell">
+    <aside class="barra-lateral">
+      <a class="marca" routerLink="/painel" aria-label="HQ-HUB">
+        <span>HQ</span>
+        <strong>HQ-HUB</strong>
+      </a>
+
+      <nav class="navegacao-principal" aria-label="Principal">
+        <a routerLink="/painel" routerLinkActive="ativo">
+          <svg lucideSparkles size="20"></svg>
+          Painel
+        </a>
+        <a routerLink="/descobrir" routerLinkActive="ativo">
+          <svg lucideSearch size="20"></svg>
+          Descobrir
+        </a>
+        <a routerLink="/catalogo" routerLinkActive="ativo">
+          <svg lucideBookOpen size="20"></svg>
+          Catálogo
+        </a>
+        <a routerLink="/colecao" routerLinkActive="ativo">
+          <svg lucideLibrary size="20"></svg>
+          Estante
+        </a>
+        <a routerLink="/compras" routerLinkActive="ativo">
+          <svg lucideCalendarDays size="20"></svg>
+          Compras
+        </a>
+        <a routerLink="/assistente" routerLinkActive="ativo">
+          <svg lucideBot size="20"></svg>
+          Assistente
+        </a>
+      </nav>
+
+      <footer class="usuario-box">
+        <span>{{ usuario()?.nome?.slice(0, 1) || 'H' }}</span>
+        <div>
+          <strong>{{ usuario()?.nome }}</strong>
+          <small>{{ usuario()?.email }}</small>
+        </div>
+        <button type="button" (click)="sair()" aria-label="Sair">
+          <svg lucideLogOut size="18"></svg>
+        </button>
+      </footer>
+    </aside>
+
+    <main class="conteudo-app">
+      <router-outlet />
+    </main>
+
+    <nav class="navegacao-mobile" aria-label="Principal">
+      <a routerLink="/painel" routerLinkActive="ativo">
+        <svg lucideSparkles size="20"></svg>
+        <span>Painel</span>
+      </a>
+      <a routerLink="/descobrir" routerLinkActive="ativo">
+        <svg lucideSearch size="20"></svg>
+        <span>Busca</span>
+      </a>
+      <a routerLink="/colecao" routerLinkActive="ativo">
+        <svg lucideLibrary size="20"></svg>
+        <span>Estante</span>
+      </a>
+      <a routerLink="/compras" routerLinkActive="ativo">
+        <svg lucideCalendarDays size="20"></svg>
+        <span>Compras</span>
+      </a>
+      <a routerLink="/assistente" routerLinkActive="ativo">
+        <svg lucideBot size="20"></svg>
+        <span>Ajuda</span>
+      </a>
+    </nav>
+  </div>
+} @else {
+  <router-outlet />
+}
