@@ -73,6 +73,19 @@ export interface Edicao {
   serie: SerieResumo | null;
 }
 
+export interface ResultadoPesquisaCatalogo {
+  id: number | null;
+  idExterno: string | null;
+  fonte: 'HQ_HUB' | 'COMIC_VINE';
+  titulo: string | null;
+  numero: string | null;
+  nomeVolume: string | null;
+  urlCapa: string | null;
+  dataPublicacao: string | null;
+  jaCadastrada: boolean;
+  urlOrigem: string | null;
+}
+
 export interface VolumeComicVine {
   idExterno: string;
   titulo: string;

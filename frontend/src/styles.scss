@@ -1023,16 +1023,43 @@ textarea:focus {
   gap: 6px;
 }
 
+.resultado-catalogo {
+  align-content: start;
+  padding: 8px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.resultado-catalogo.externo {
+  border-color: rgba(38, 106, 127, 0.32);
+  background: rgba(38, 106, 127, 0.08);
+}
+
 .mini-capa strong,
-.mini-capa span {
+.mini-capa span,
+.mini-capa small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.mini-capa span {
+.mini-capa span,
+.mini-capa small {
   color: var(--texto-suave);
   font-size: 0.88rem;
+}
+
+.mini-capa em {
+  width: max-content;
+  max-width: 100%;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--azul);
+  background: rgba(38, 106, 127, 0.1);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 850;
 }
 
 .estado-vazio {

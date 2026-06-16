@@ -54,7 +54,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
 
     public List<Edicao> buscarPaginado(Long serieId, String busca, int pagina, int tamanho) {
         if (serieId != null && busca != null && !busca.isBlank()) {
-            return find("serie.id = ?1 and (lower(numero) like ?2 or lower(titulo) like ?2) order by numero",
+            return find("serie.id = ?1 and (lower(numero) like ?2 or lower(titulo) like ?2 or lower(serie.titulo) like ?2 or lower(nomeVolume) like ?2) order by numero",
                     serieId, "%" + busca.toLowerCase() + "%")
                     .page(Page.of(pagina, tamanho))
                     .list();
@@ -67,7 +67,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         }
 
         if (busca != null && !busca.isBlank()) {
-            return find("lower(numero) like ?1 or lower(titulo) like ?1 order by numero", "%" + busca.toLowerCase() + "%")
+            return find("lower(numero) like ?1 or lower(titulo) like ?1 or lower(serie.titulo) like ?1 or lower(nomeVolume) like ?1 order by numero", "%" + busca.toLowerCase() + "%")
                     .page(Page.of(pagina, tamanho))
                     .list();
         }
@@ -77,7 +77,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
 
     public long contarComBusca(Long serieId, String busca) {
         if (serieId != null && busca != null && !busca.isBlank()) {
-            return count("serie.id = ?1 and (lower(numero) like ?2 or lower(titulo) like ?2)",
+            return count("serie.id = ?1 and (lower(numero) like ?2 or lower(titulo) like ?2 or lower(serie.titulo) like ?2 or lower(nomeVolume) like ?2)",
                     serieId, "%" + busca.toLowerCase() + "%");
         }
 
@@ -86,7 +86,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         }
 
         if (busca != null && !busca.isBlank()) {
-            return count("lower(numero) like ?1 or lower(titulo) like ?1", "%" + busca.toLowerCase() + "%");
+            return count("lower(numero) like ?1 or lower(titulo) like ?1 or lower(serie.titulo) like ?1 or lower(nomeVolume) like ?1", "%" + busca.toLowerCase() + "%");
         }
 
         return count();

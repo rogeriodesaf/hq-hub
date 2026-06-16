@@ -15,6 +15,7 @@ import {
   PaginaResposta,
   PessoaComicVine,
   PublicacaoRelacionada,
+  ResultadoPesquisaCatalogo,
   RespostaAssistente,
   Serie,
   Usuario,
@@ -49,6 +50,11 @@ export class ApiService {
     }
 
     return this.http.get<PaginaResposta<Edicao>>('/api/edicoes', { params });
+  }
+
+  pesquisarCatalogo(termo: string) {
+    const params = new HttpParams().set('termo', termo);
+    return this.http.get<ResultadoPesquisaCatalogo[]>('/api/catalogo/pesquisa', { params });
   }
 
   listarUsuarios() {

@@ -140,6 +140,27 @@ public class IntegracaoExternaService {
         return buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho, null, null);
     }
 
+    public List<EdicaoComicVineRespostaDTO> buscarEdicoesComicVinePorTermo(String termo, int limite) {
+        validarComicVineConfigurada();
+
+        if (termo == null || termo.isBlank()) {
+            throw new RegraNegocioException("Termo de busca é obrigatório.");
+        }
+
+        int limiteTratado = Math.min(Math.max(limite, 1), TAMANHO_MAXIMO_COMICVINE);
+        String url = "https://comicvine.gamespot.com/api/search/?format=json"
+                + "&limit=" + limiteTratado
+                + "&resources=issue"
+                + "&field_list=id,name,issue_number,cover_date,store_date,site_detail_url,image,deck,description,volume"
+                + "&query=" + codificar(termo)
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        JsonNode raiz = executarGet(url);
+
+        return StreamSupport.stream(raiz.path("results").spliterator(), false)
+                .map(item -> montarEdicaoComicVine(item, false))
+                .toList();
+    }
+
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(
             String idVolume,
             Integer pagina,
