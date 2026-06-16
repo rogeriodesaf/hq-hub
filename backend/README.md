@@ -357,6 +357,24 @@ DELETE /publicacoes-relacionadas/{id}
 
 Permite relacionar uma edição original com publicações brasileiras, reimpressões e republicações.
 
+### Histórias e conteúdos de edição
+
+```text
+POST /historias
+GET /historias
+GET /historias/{id}
+PUT /historias/{id}
+POST /conteudos-edicoes
+GET /conteudos-edicoes/edicoes/{edicaoId}
+DELETE /conteudos-edicoes/{id}
+POST /publicacoes-historias
+GET /publicacoes-historias/historias/{historiaId}
+DELETE /publicacoes-historias/{id}
+GET /cruzamentos-edicoes?edicaoOriginalId={id}&edicaoComparadaId={id}
+```
+
+Permite cadastrar histórias e outros conteúdos dentro de uma edição, vincular histórias originais a edições brasileiras e comparar uma edição original com outra publicação para saber quais conteúdos foram incluídos e quais ficaram de fora.
+
 ### Importações assíncronas
 
 ```text
@@ -508,6 +526,7 @@ docs/testes-api/assistente.http
 docs/testes-api/comunidade-classificados.http
 docs/testes-api/integracoes-externas.http
 docs/testes-api/contribuicoes-catalogo.http
+docs/testes-api/historias-conteudos.http
 ```
 
 ## Observações
@@ -529,6 +548,7 @@ docs/testes-api/contribuicoes-catalogo.http
 - Criadores e créditos por edição já existem, com consulta cronológica por criador.
 - Séries já possuem volume, ordem cronológica e relacionamentos entre séries.
 - Publicações relacionadas já permitem mapear onde uma edição foi publicada ou republicada.
+- Histórias e conteúdos de edição já permitem cruzar publicações e identificar o que foi incluído ou ficou de fora em outra edição.
 - Séries e edições já possuem busca paginada.
 - Solicitações de importação já podem ser registradas para processamento assíncrono.
 - Integrações externas já consultam Wikipédia, Wikidata, Grand Comics Database, Marvel API e ComicVine API.

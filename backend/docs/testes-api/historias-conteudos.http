@@ -1,0 +1,69 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Cadastrar história/conteúdo original
+POST {{url}}/historias
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "titulo": "A Noite em que Gwen Stacy Morreu",
+  "tituloOriginal": "The Night Gwen Stacy Died",
+  "descricao": "História original publicada em Amazing Spider-Man.",
+  "quantidadePaginas": 20,
+  "tipo": "HISTORIA",
+  "fonteExterna": "GCD",
+  "idExterno": "historia-externa-1",
+  "urlOrigem": "https://www.comics.org/"
+}
+
+### Listar histórias
+GET {{url}}/historias
+Authorization: Bearer {{token}}
+
+### Adicionar história dentro de uma edição original
+POST {{url}}/conteudos-edicoes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "edicaoId": 1,
+  "historiaId": 1,
+  "ordem": 1,
+  "tituloUsado": "The Night Gwen Stacy Died",
+  "paginaInicio": 1,
+  "paginaFim": 20,
+  "quantidadePaginas": 20,
+  "tipo": "HISTORIA",
+  "observacoes": "Conteúdo principal da edição original."
+}
+
+### Listar conteúdos de uma edição
+GET {{url}}/conteudos-edicoes/edicoes/1
+Authorization: Bearer {{token}}
+
+### Vincular história original a uma edição brasileira
+POST {{url}}/publicacoes-historias
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "historiaId": 1,
+  "edicaoOriginalId": 1,
+  "edicaoPublicadaId": 2,
+  "status": "COMPLETA",
+  "tituloUsado": "A Noite em que Gwen Stacy Morreu",
+  "paginasPublicadas": 20,
+  "paginasCortadas": 0,
+  "fonteExterna": "GUIA_DOS_QUADRINHOS",
+  "urlOrigem": "http://www.guiadosquadrinhos.com/",
+  "observacoes": "Publicação brasileira informada para cruzamento."
+}
+
+### Listar onde uma história foi publicada
+GET {{url}}/publicacoes-historias/historias/1
+Authorization: Bearer {{token}}
+
+### Cruzar edição original com edição brasileira
+GET {{url}}/cruzamentos-edicoes?edicaoOriginalId=1&edicaoComparadaId=2
+Authorization: Bearer {{token}}
