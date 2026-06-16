@@ -2,7 +2,7 @@
 
 HQ-HUB é um sistema para colecionadores de quadrinhos organizarem suas coleções, controlarem edições faltantes, cadastrarem revistas e colaborarem futuramente com um catálogo brasileiro de HQs.
 
-A visão do produto é crescer além do controle individual de coleção. Em fases futuras, o HQ-HUB também poderá se tornar uma comunidade de colecionadores, permitindo amizades, compartilhamento opcional de coleções e classificados de HQs disponíveis para venda ou troca.
+A visão do produto é crescer além do controle individual de coleção. O HQ-HUB também pode se tornar uma comunidade de colecionadores, permitindo amizades, compartilhamento opcional de coleções e classificados de HQs disponíveis para venda ou troca.
 
 Ideia central:
 
@@ -20,16 +20,13 @@ Ideia central:
 - Criadores e créditos por edição
 - Relacionamentos cronológicos entre séries
 - Assistente interno com conversas e histórico
-
-## Funcionalidades futuras
-
-- Sistema de amizades entre colecionadores
-- Compartilhamento opcional de coleções
-- Visualização de coleções de amigos
-- Anúncios de HQs disponíveis para venda
-- Anúncios de HQs disponíveis para troca
-- Contato externo entre interessados, como WhatsApp
-- Classificados vinculados a itens da coleção
+- Amizades entre colecionadores
+- Bloqueio de usuários
+- Compartilhamento de coleção com visibilidade privada, amigos ou pública
+- Classificados de HQs disponíveis para venda ou troca
+- Fotos de anúncios
+- Contato externo por WhatsApp quando permitido pelo anunciante
+- Denúncias de anúncios e usuários
 
 ## Aviso de responsabilidade
 

@@ -425,6 +425,17 @@ GET /anuncios/{id}/contato
 
 Permite criar anúncios vinculados a itens da coleção para venda, troca ou venda e troca. O contato por WhatsApp só é retornado quando o anunciante permitir.
 
+### Denúncias e moderação básica
+
+```text
+POST /denuncias/anuncios
+GET /denuncias/anuncios
+POST /denuncias/usuarios
+GET /denuncias/usuarios
+```
+
+Permite registrar denúncias de anúncios e usuários. As denúncias nascem com status `PENDENTE` para análise futura.
+
 ### Assistente interno
 
 ```text
@@ -493,4 +504,5 @@ docs/testes-api/comunidade-classificados.http
 - O segredo JWT de desenvolvimento pode ser sobrescrito pela variável de ambiente `HQHUB_JWT_SEGREDO`.
 - Integrações com APIs externas ainda não foram implementadas.
 - Comunidade, amizades, compartilhamento de coleção e classificados de venda/troca já possuem endpoints iniciais.
+- Denúncias de anúncios e usuários já possuem endpoints iniciais.
 - O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam apenas como classificados entre colecionadores.

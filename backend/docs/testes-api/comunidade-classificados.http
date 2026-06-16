@@ -131,3 +131,33 @@ Authorization: Bearer {{token}}
 ### Encerrar anúncio
 POST {{url}}/anuncios/1/encerrar
 Authorization: Bearer {{token}}
+
+### Denunciar anúncio
+POST {{url}}/denuncias/anuncios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "anuncioId": 1,
+  "motivo": "Informações suspeitas",
+  "descricao": "O anúncio parece ter dados inconsistentes."
+}
+
+### Listar minhas denúncias de anúncios
+GET {{url}}/denuncias/anuncios
+Authorization: Bearer {{token}}
+
+### Denunciar usuário
+POST {{url}}/denuncias/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "usuarioDenunciadoId": 2,
+  "motivo": "Comportamento inadequado",
+  "descricao": "Usuário enviou mensagens inadequadas durante a negociação externa."
+}
+
+### Listar minhas denúncias de usuários
+GET {{url}}/denuncias/usuarios
+Authorization: Bearer {{token}}
