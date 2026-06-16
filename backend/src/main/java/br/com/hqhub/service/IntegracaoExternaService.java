@@ -28,6 +28,7 @@ import br.com.hqhub.dto.CreditoComicVineRespostaDTO;
 import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.FonteExternaRespostaDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
+import br.com.hqhub.dto.PessoaComicVineRespostaDTO;
 import br.com.hqhub.dto.RespostaBuscaExternaDTO;
 import br.com.hqhub.dto.ResultadoBuscaExternaDTO;
 import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
@@ -46,6 +47,7 @@ public class IntegracaoExternaService {
     private static final Duration TEMPO_LIMITE_REQUISICAO = Duration.ofSeconds(15);
     private static final int TAMANHO_PADRAO_COMICVINE = 20;
     private static final int TAMANHO_MAXIMO_COMICVINE = 100;
+    private static final int LIMITE_EDICOES_FILTRO_CREDITOS = 250;
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -131,6 +133,15 @@ public class IntegracaoExternaService {
             String idVolume,
             Integer pagina,
             Integer tamanho) {
+        return buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho, null, null);
+    }
+
+    public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(
+            String idVolume,
+            Integer pagina,
+            Integer tamanho,
+            String idPessoa,
+            String papel) {
         validarComicVineConfigurada();
 
         if (idVolume == null || idVolume.isBlank()) {
@@ -139,6 +150,11 @@ public class IntegracaoExternaService {
 
         int paginaTratada = tratarPagina(pagina);
         int tamanhoTratado = tratarTamanhoComicVine(tamanho);
+
+        if (temFiltroPessoaOuPapel(idPessoa, papel)) {
+            return buscarEdicoesVolumeComicVineFiltradas(idVolume, paginaTratada, tamanhoTratado, idPessoa, papel);
+        }
+
         int offset = paginaTratada * tamanhoTratado;
 
         String url = "https://comicvine.gamespot.com/api/issues/?format=json"
@@ -156,6 +172,58 @@ public class IntegracaoExternaService {
 
         return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
                 calcularTotalPaginas(totalItens, tamanhoTratado));
+    }
+
+    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVineFiltradas(
+            String idVolume,
+            int pagina,
+            int tamanho,
+            String idPessoa,
+            String papel) {
+        int tamanhoConsulta = TAMANHO_MAXIMO_COMICVINE;
+        int offset = 0;
+        long totalVolume = 1;
+        List<EdicaoComicVineRespostaDTO> filtradas = new ArrayList<>();
+
+        while (offset < totalVolume && offset < LIMITE_EDICOES_FILTRO_CREDITOS) {
+            String url = "https://comicvine.gamespot.com/api/issues/?format=json"
+                    + "&limit=" + tamanhoConsulta
+                    + "&offset=" + offset
+                    + "&sort=cover_date:asc"
+                    + "&field_list=id,name,aliases,issue_number,cover_date,store_date,site_detail_url,image,deck,description,person_credits,character_credits,volume"
+                    + "&filter=" + codificar("volume:" + idVolume)
+                    + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+            JsonNode raiz = executarGet(url);
+            totalVolume = raiz.path("number_of_total_results").asLong(totalVolume);
+
+            StreamSupport.stream(raiz.path("results").spliterator(), false)
+                    .map(item -> buscarDetalheEdicaoParaFiltro(item.path("id").asText(null)))
+                    .filter(Optional::isPresent)
+                    .map(Optional::orElseThrow)
+                    .filter(edicao -> creditoCombina(edicao.path("person_credits"), idPessoa, papel))
+                    .map(this::montarEdicaoComicVine)
+                    .forEach(filtradas::add);
+
+            offset += tamanhoConsulta;
+        }
+
+        long totalFiltrado = filtradas.size();
+        int inicio = Math.min(pagina * tamanho, filtradas.size());
+        int fim = Math.min(inicio + tamanho, filtradas.size());
+        List<EdicaoComicVineRespostaDTO> itens = filtradas.subList(inicio, fim);
+
+        return new PaginaRespostaDTO<>(itens, pagina, tamanho, totalFiltrado, calcularTotalPaginas(totalFiltrado, tamanho));
+    }
+
+    private Optional<JsonNode> buscarDetalheEdicaoParaFiltro(String idEdicao) {
+        if (idEdicao == null || idEdicao.isBlank()) {
+            return Optional.empty();
+        }
+
+        String url = "https://comicvine.gamespot.com/api/issue/4000-" + codificarCaminho(idEdicao) + "/?format=json"
+                + "&field_list=id,name,aliases,issue_number,cover_date,store_date,site_detail_url,image,deck,description,person_credits,character_credits,volume"
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        return Optional.of(executarGet(url).path("results"));
     }
 
     public EdicaoComicVineRespostaDTO buscarDetalheEdicaoComicVine(String idEdicao) {
@@ -176,6 +244,57 @@ public class IntegracaoExternaService {
         }
 
         return montarEdicaoComicVine(resultado);
+    }
+
+    public PaginaRespostaDTO<PessoaComicVineRespostaDTO> buscarPessoasComicVine(
+            String termo,
+            Integer pagina,
+            Integer tamanho) {
+        validarComicVineConfigurada();
+
+        if (termo == null || termo.isBlank()) {
+            throw new RegraNegocioException("Termo de busca é obrigatório.");
+        }
+
+        int paginaTratada = tratarPagina(pagina);
+        int tamanhoTratado = tratarTamanhoComicVine(tamanho);
+        int offset = paginaTratada * tamanhoTratado;
+
+        String url = "https://comicvine.gamespot.com/api/search/?format=json"
+                + "&limit=" + tamanhoTratado
+                + "&offset=" + offset
+                + "&resources=person"
+                + "&field_list=id,name,deck,description,birth,country,gender,site_detail_url,image,aliases"
+                + "&query=" + codificar(termo)
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        JsonNode raiz = executarGet(url);
+        List<PessoaComicVineRespostaDTO> itens = StreamSupport.stream(raiz.path("results").spliterator(), false)
+                .map(this::montarPessoaComicVine)
+                .toList();
+        long totalItens = raiz.path("number_of_total_results").asLong(itens.size());
+
+        return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
+                calcularTotalPaginas(totalItens, tamanhoTratado));
+    }
+
+    public PessoaComicVineRespostaDTO buscarDetalhePessoaComicVine(String idPessoa) {
+        validarComicVineConfigurada();
+
+        if (idPessoa == null || idPessoa.isBlank()) {
+            throw new RegraNegocioException("Identificador da pessoa é obrigatório.");
+        }
+
+        String url = "https://comicvine.gamespot.com/api/person/4040-" + codificarCaminho(idPessoa) + "/?format=json"
+                + "&field_list=id,name,deck,description,birth,country,gender,site_detail_url,image,aliases"
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        JsonNode raiz = executarGet(url);
+        JsonNode resultado = raiz.path("results");
+
+        if (resultado.isMissingNode() || resultado.isNull()) {
+            throw new RegraNegocioException("Pessoa não encontrada na ComicVine.");
+        }
+
+        return montarPessoaComicVine(resultado);
     }
 
     private List<ResultadoBuscaExternaDTO> buscarWikipedia(String termo) {
@@ -345,6 +464,63 @@ public class IntegracaoExternaService {
         String url = item.path("site_detail_url").asText(null);
 
         return new CreditoComicVineRespostaDTO(id, nome, papel, url);
+    }
+
+    private PessoaComicVineRespostaDTO montarPessoaComicVine(JsonNode item) {
+        String descricaoOriginal = limparHtml(item.path("description").asText(item.path("deck").asText(null)));
+
+        return new PessoaComicVineRespostaDTO(
+                item.path("id").asText(null),
+                item.path("name").asText(null),
+                descricaoExibicao(null, descricaoOriginal),
+                descricaoOriginal,
+                item.path("birth").asText(null),
+                item.path("country").asText(null),
+                generoPessoa(item.path("gender").asText(null)),
+                item.path("aliases").asText(null),
+                item.path("site_detail_url").asText(null),
+                item.path("image").path("original_url").asText(null));
+    }
+
+    private boolean creditoCombina(JsonNode creditos, String idPessoa, String papel) {
+        if (!creditos.isArray()) {
+            return false;
+        }
+
+        return StreamSupport.stream(creditos.spliterator(), false)
+                .anyMatch(credito -> pessoaCombina(credito, idPessoa) && papelCombina(credito, papel));
+    }
+
+    private boolean pessoaCombina(JsonNode credito, String idPessoa) {
+        if (idPessoa == null || idPessoa.isBlank()) {
+            return true;
+        }
+
+        return idPessoa.equals(credito.path("id").asText(null));
+    }
+
+    private boolean papelCombina(JsonNode credito, String papel) {
+        if (papel == null || papel.isBlank()) {
+            return true;
+        }
+
+        return credito.path("role").asText("").toLowerCase().contains(papel.toLowerCase());
+    }
+
+    private boolean temFiltroPessoaOuPapel(String idPessoa, String papel) {
+        return (idPessoa != null && !idPessoa.isBlank()) || (papel != null && !papel.isBlank());
+    }
+
+    private String generoPessoa(String genero) {
+        if ("1".equals(genero)) {
+            return "Masculino";
+        }
+
+        if ("2".equals(genero)) {
+            return "Feminino";
+        }
+
+        return genero == null || genero.isBlank() ? null : genero;
     }
 
     private JsonNode executarGet(String url) {

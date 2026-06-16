@@ -8,6 +8,7 @@ import {
   EdicaoComicVine,
   ItemColecao,
   PaginaResposta,
+  PessoaComicVine,
   PublicacaoRelacionada,
   VolumeComicVine,
 } from '../../core/modelos';
@@ -65,6 +66,36 @@ import {
             </button>
           </div>
         </div>
+
+        <section class="filtro-criador">
+          <label>
+            Buscar autor, desenhista, editor...
+            <input [(ngModel)]="termoPessoa" placeholder="Joe Quesada, Stan Lee, Steve Ditko..." (keyup.enter)="buscarPessoas()" />
+          </label>
+          <label>
+            Papel
+            <input [(ngModel)]="papelPessoa" placeholder="writer, artist, editor..." />
+          </label>
+          <button class="botao compacto" type="button" (click)="buscarPessoas()" [disabled]="buscandoPessoas()">
+            {{ buscandoPessoas() ? 'Buscando...' : 'Buscar pessoa' }}
+          </button>
+          @if (pessoaFiltro()) {
+            <button class="botao compacto" type="button" (click)="limparFiltroPessoa()">
+              Limpar: {{ pessoaFiltro()?.nome }}
+            </button>
+          }
+        </section>
+
+        @if (pessoasEncontradas().length) {
+          <section class="pessoas-encontradas">
+            @for (pessoa of pessoasEncontradas(); track pessoa.idExterno) {
+              <button type="button" (click)="selecionarPessoaFiltro(pessoa)">
+                <img [src]="pessoa.urlImagem || capaReserva" [alt]="pessoa.nome || 'Pessoa'" loading="lazy" />
+                <span>{{ pessoa.nome }}</span>
+              </button>
+            }
+          </section>
+        }
 
         @if (carregandoEdicoes()) {
           <section class="estado-carregando">
@@ -187,7 +218,12 @@ import {
             <div class="detalhe-secao">
               <h3>Créditos</h3>
               @for (credito of edicaoSelecionada()?.creditos || []; track $index) {
-                <p class="linha-info">{{ credito.nome }} <span>{{ credito.papel || 'participação' }}</span></p>
+                <p class="linha-info">
+                  <button class="link-pessoa" type="button" (click)="abrirDetalhesPessoa(credito)">
+                    {{ credito.nome }}
+                  </button>
+                  <span>{{ credito.papel || 'participação' }}</span>
+                </p>
               } @empty {
                 <p class="texto-suave">Nenhum crédito retornado pela ComicVine.</p>
               }
@@ -232,6 +268,36 @@ import {
         </article>
       </section>
     }
+
+    @if (pessoaSelecionada()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da pessoa">
+        <div class="detalhe-fundo" (click)="fecharDetalhesPessoa()"></div>
+        <article class="detalhe-painel pessoa-painel">
+          <button class="fechar-detalhe" type="button" (click)="fecharDetalhesPessoa()" aria-label="Fechar detalhes">×</button>
+          <div class="detalhe-cabecalho">
+            <img [src]="pessoaSelecionada()?.urlImagem || capaReserva" [alt]="pessoaSelecionada()?.nome || 'Pessoa'" />
+            <div>
+              <p class="rotulo">ComicVine · pessoa</p>
+              <h2>{{ pessoaSelecionada()?.nome }}</h2>
+              <div class="chips">
+                <span>{{ pessoaSelecionada()?.genero || 'gênero não informado' }}</span>
+                <span>Nascimento: {{ pessoaSelecionada()?.dataNascimento || 'não informado' }}</span>
+                <span>{{ pessoaSelecionada()?.pais || 'país não informado' }}</span>
+              </div>
+              @if (pessoaSelecionada()?.urlOrigem) {
+                <a class="botao compacto" [href]="pessoaSelecionada()?.urlOrigem" target="_blank" rel="noreferrer">
+                  Abrir ComicVine
+                </a>
+              }
+            </div>
+          </div>
+          <section class="detalhe-secao">
+            <h3>Biografia</h3>
+            <p>{{ pessoaSelecionada()?.descricao || 'Biografia não disponível.' }}</p>
+          </section>
+        </article>
+      </section>
+    }
   `,
 })
 export class DescobrirPage {
@@ -258,8 +324,14 @@ export class DescobrirPage {
   readonly calculoInflacao = signal<CalculoInflacao | null>(null);
   readonly calculandoInflacao = signal(false);
   readonly mensagemInflacao = signal('');
+  readonly pessoasEncontradas = signal<PessoaComicVine[]>([]);
+  readonly buscandoPessoas = signal(false);
+  readonly pessoaFiltro = signal<PessoaComicVine | null>(null);
+  readonly pessoaSelecionada = signal<PessoaComicVine | null>(null);
 
   termo = 'Amazing Spider-Man';
+  termoPessoa = '';
+  papelPessoa = '';
   valorInflacao: number | null = null;
   dataInflacao = '';
 
@@ -274,6 +346,8 @@ export class DescobrirPage {
   selecionarVolume(volume: VolumeComicVine) {
     this.mensagem.set('');
     this.edicoes.set(null);
+    this.pessoasEncontradas.set([]);
+    this.pessoaFiltro.set(null);
     this.volumeSelecionado.set(volume);
     this.paginaEdicoes.set(0);
     this.rolarParaEdicoes();
@@ -293,7 +367,15 @@ export class DescobrirPage {
 
     this.mensagem.set('');
     this.carregandoEdicoes.set(true);
-    this.api.buscarEdicoesComicVine(volume.idExterno, this.paginaEdicoes(), 24).subscribe({
+    this.api
+      .buscarEdicoesComicVine(
+        volume.idExterno,
+        this.paginaEdicoes(),
+        24,
+        this.pessoaFiltro()?.idExterno,
+        this.papelPessoa || undefined,
+      )
+      .subscribe({
       next: (resposta) => {
         this.edicoes.set(resposta);
         this.carregandoEdicoes.set(false);
@@ -305,6 +387,39 @@ export class DescobrirPage {
         this.rolarParaEdicoes();
       },
     });
+  }
+
+  buscarPessoas() {
+    if (!this.termoPessoa.trim()) {
+      this.mensagem.set('Informe o nome de um autor, desenhista ou editor.');
+      return;
+    }
+
+    this.buscandoPessoas.set(true);
+    this.api.buscarPessoasComicVine(this.termoPessoa, 0, 8).subscribe({
+      next: (resposta) => {
+        this.pessoasEncontradas.set(resposta.itens);
+        this.buscandoPessoas.set(false);
+      },
+      error: () => {
+        this.pessoasEncontradas.set([]);
+        this.buscandoPessoas.set(false);
+        this.mensagem.set('Não foi possível buscar pessoas na ComicVine.');
+      },
+    });
+  }
+
+  selecionarPessoaFiltro(pessoa: PessoaComicVine) {
+    this.pessoaFiltro.set(pessoa);
+    this.paginaEdicoes.set(0);
+    this.carregarEdicoes();
+  }
+
+  limparFiltroPessoa() {
+    this.pessoaFiltro.set(null);
+    this.papelPessoa = '';
+    this.paginaEdicoes.set(0);
+    this.carregarEdicoes();
   }
 
   limitarTexto(texto: string | null, limite: number) {
@@ -378,6 +493,21 @@ export class DescobrirPage {
     this.publicacoesRelacionadas.set([]);
     this.itemColecaoSelecionado.set(null);
     this.calculoInflacao.set(null);
+  }
+
+  abrirDetalhesPessoa(credito: { idExterno: string | null }) {
+    if (!credito.idExterno) {
+      return;
+    }
+
+    this.api.buscarDetalhePessoaComicVine(credito.idExterno).subscribe({
+      next: (pessoa) => this.pessoaSelecionada.set(pessoa),
+      error: () => this.mensagem.set('Não foi possível carregar os detalhes desta pessoa.'),
+    });
+  }
+
+  fecharDetalhesPessoa() {
+    this.pessoaSelecionada.set(null);
   }
 
   tituloPublicacao(publicacao: PublicacaoRelacionada) {

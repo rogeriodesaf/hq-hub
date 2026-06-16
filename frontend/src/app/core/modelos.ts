@@ -83,6 +83,19 @@ export interface CreditoComicVine {
   urlOrigem: string | null;
 }
 
+export interface PessoaComicVine {
+  idExterno: string;
+  nome: string | null;
+  descricao: string | null;
+  descricaoOriginal: string | null;
+  dataNascimento: string | null;
+  pais: string | null;
+  genero: string | null;
+  aliases: string | null;
+  urlOrigem: string | null;
+  urlImagem: string | null;
+}
+
 export interface EdicaoComicVine {
   idExterno: string;
   numero: string | null;

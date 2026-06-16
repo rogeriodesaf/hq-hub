@@ -541,6 +541,59 @@ textarea:focus {
   margin-bottom: 18px;
 }
 
+.filtro-criador {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(160px, 0.5fr) auto auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.filtro-criador label {
+  margin: 0;
+}
+
+.pessoas-encontradas {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
+
+.pessoas-encontradas button {
+  display: grid;
+  width: 132px;
+  flex: 0 0 132px;
+  gap: 6px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 8px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.pessoas-encontradas img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #15191f;
+}
+
+.pessoas-encontradas span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
 .filtros-mes {
   grid-template-columns: 180px 160px;
 }
@@ -819,6 +872,17 @@ textarea:focus {
   justify-content: space-between;
   gap: 12px;
   margin: 8px 0;
+}
+
+.link-pessoa {
+  border: 0;
+  padding: 0;
+  color: var(--azul);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+  text-align: left;
 }
 
 .linha-info span,
@@ -1144,6 +1208,7 @@ textarea:focus {
   .barra-busca,
   .filtros-mes,
   .formulario-inline,
+  .filtro-criador,
   .entrada-chat {
     grid-template-columns: 1fr;
   }

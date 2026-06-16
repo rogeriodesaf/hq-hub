@@ -11,6 +11,7 @@ import {
   EstanteEditora,
   ItemColecao,
   PaginaResposta,
+  PessoaComicVine,
   PublicacaoRelacionada,
   RespostaAssistente,
   Serie,
@@ -58,8 +59,15 @@ export class ApiService {
     });
   }
 
-  buscarEdicoesComicVine(idVolume: string, pagina = 0, tamanho = 24) {
-    const params = new HttpParams().set('pagina', pagina).set('tamanho', tamanho);
+  buscarEdicoesComicVine(idVolume: string, pagina = 0, tamanho = 24, idPessoa?: string, papel?: string) {
+    let params = new HttpParams().set('pagina', pagina).set('tamanho', tamanho);
+
+    if (idPessoa) {
+      params = params.set('idPessoa', idPessoa);
+    }
+    if (papel) {
+      params = params.set('papel', papel);
+    }
 
     return this.http.get<PaginaResposta<EdicaoComicVine>>(
       `/api/integracoes-externas/COMICVINE/volumes/${idVolume}/edicoes`,
@@ -69,6 +77,19 @@ export class ApiService {
 
   buscarDetalheEdicaoComicVine(idEdicao: string) {
     return this.http.get<EdicaoComicVine>(`/api/integracoes-externas/COMICVINE/edicoes/${idEdicao}/detalhes`);
+  }
+
+  buscarPessoasComicVine(termo: string, pagina = 0, tamanho = 8) {
+    const params = new HttpParams()
+      .set('termo', termo)
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+
+    return this.http.get<PaginaResposta<PessoaComicVine>>('/api/integracoes-externas/COMICVINE/pessoas', { params });
+  }
+
+  buscarDetalhePessoaComicVine(idPessoa: string) {
+    return this.http.get<PessoaComicVine>(`/api/integracoes-externas/COMICVINE/pessoas/${idPessoa}/detalhes`);
   }
 
   obterEstante() {

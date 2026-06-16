@@ -47,13 +47,30 @@ public class IntegracaoExternaResource {
     public Response buscarEdicoesVolumeComicVine(
             @PathParam("idVolume") String idVolume,
             @QueryParam("pagina") Integer pagina,
-            @QueryParam("tamanho") Integer tamanho) {
-        return Response.ok(integracaoExternaService.buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho)).build();
+            @QueryParam("tamanho") Integer tamanho,
+            @QueryParam("idPessoa") String idPessoa,
+            @QueryParam("papel") String papel) {
+        return Response.ok(integracaoExternaService.buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho, idPessoa, papel)).build();
     }
 
     @GET
     @Path("/COMICVINE/edicoes/{idEdicao}/detalhes")
     public Response buscarDetalheEdicaoComicVine(@PathParam("idEdicao") String idEdicao) {
         return Response.ok(integracaoExternaService.buscarDetalheEdicaoComicVine(idEdicao)).build();
+    }
+
+    @GET
+    @Path("/COMICVINE/pessoas")
+    public Response buscarPessoasComicVine(
+            @QueryParam("termo") String termo,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(integracaoExternaService.buscarPessoasComicVine(termo, pagina, tamanho)).build();
+    }
+
+    @GET
+    @Path("/COMICVINE/pessoas/{idPessoa}/detalhes")
+    public Response buscarDetalhePessoaComicVine(@PathParam("idPessoa") String idPessoa) {
+        return Response.ok(integracaoExternaService.buscarDetalhePessoaComicVine(idPessoa)).build();
     }
 }

@@ -396,7 +396,10 @@ GET /integracoes-externas/fontes
 GET /integracoes-externas/{fonteExterna}/buscar?termo={termo}
 GET /integracoes-externas/COMICVINE/volumes?termo={termo}
 GET /integracoes-externas/COMICVINE/volumes/{idVolume}/edicoes
+GET /integracoes-externas/COMICVINE/volumes/{idVolume}/edicoes?idPessoa={idPessoa}&papel={papel}
 GET /integracoes-externas/COMICVINE/edicoes/{idEdicao}/detalhes
+GET /integracoes-externas/COMICVINE/pessoas?termo={termo}
+GET /integracoes-externas/COMICVINE/pessoas/{idPessoa}/detalhes
 ```
 
 Fontes disponíveis:
@@ -410,6 +413,8 @@ Fontes disponíveis:
 A Comic Vine é usada como fonte externa para edições estrangeiras. A descrição original pode vir em inglês; o HQ-HUB preserva essa descrição em `descricaoOriginal` e também suporta `descricaoPortugues` para curadoria futura. A resposta de detalhe usa `descricaoExibicao`, priorizando português quando houver e caindo para a descrição original quando não houver.
 
 O detalhe da edição da Comic Vine retorna volume, número, datas de cobertura e disponibilidade em loja, capa, URL da Comic Vine, ID externo e conteúdos internos quando a API fornece esses dados. A listagem cronológica de edições por volume continua separada e paginada.
+
+Também é possível buscar pessoas na Comic Vine, abrir dados de biografia de autores, desenhistas, editores e outros créditos, e filtrar as edições de um volume por pessoa e papel. O filtro por pessoa/papel consulta os detalhes das edições do volume quando necessário e tem limite de segurança para evitar consultas excessivamente longas em volumes muito grandes.
 
 O Guia dos Quadrinhos pode ser usado como link externo e fonte de contribuição manual assistida. Não há raspagem automática do Guia nesta fase.
 
