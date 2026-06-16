@@ -48,6 +48,24 @@ public class PublicacaoHistoria {
     @Column(nullable = false)
     private StatusPublicacaoHistoria status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_publicacao_historia", nullable = false)
+    private TipoPublicacaoHistoria tipoPublicacaoHistoria = TipoPublicacaoHistoria.REPUBLICACAO;
+
+    @Column(name = "fonte_informacao")
+    private String fonteInformacao;
+
+    @Column(name = "url_fonte_informacao", length = 1000)
+    private String urlFonteInformacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_criador_id")
+    private Usuario usuarioCriador;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_validacao", nullable = false)
+    private StatusValidacao statusValidacao = StatusValidacao.PENDENTE;
+
     @Column(name = "titulo_usado")
     private String tituloUsado;
 

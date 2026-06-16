@@ -40,6 +40,27 @@ public class Edicao {
     @Column(length = 2000)
     private String descricao;
 
+    @Column(name = "nome_volume")
+    private String nomeVolume;
+
+    @Column(name = "data_cobertura")
+    private LocalDate dataCobertura;
+
+    @Column(name = "data_disponibilidade_loja")
+    private LocalDate dataDisponibilidadeLoja;
+
+    @Column(name = "descricao_original", length = 4000)
+    private String descricaoOriginal;
+
+    @Column(name = "descricao_portugues", length = 4000)
+    private String descricaoPortugues;
+
+    @Column(name = "url_comic_vine", length = 1000)
+    private String urlComicVine;
+
+    @Column(name = "id_comic_vine")
+    private String idComicVine;
+
     @Column(name = "data_publicacao")
     private LocalDate dataPublicacao;
 

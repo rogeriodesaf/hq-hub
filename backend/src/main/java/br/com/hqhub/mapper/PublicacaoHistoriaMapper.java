@@ -5,6 +5,7 @@ import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Historia;
 import br.com.hqhub.entity.PublicacaoHistoria;
+import br.com.hqhub.entity.TipoPublicacaoHistoria;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -28,6 +29,11 @@ public class PublicacaoHistoriaMapper {
         publicacao.setEdicaoOriginal(edicaoOriginal);
         publicacao.setEdicaoPublicada(edicaoPublicada);
         publicacao.setStatus(dto.status());
+        publicacao.setTipoPublicacaoHistoria(dto.tipoPublicacaoHistoria() == null
+                ? TipoPublicacaoHistoria.REPUBLICACAO
+                : dto.tipoPublicacaoHistoria());
+        publicacao.setFonteInformacao(dto.fonteInformacao() == null ? dto.fonteExterna() : dto.fonteInformacao());
+        publicacao.setUrlFonteInformacao(dto.urlFonteInformacao() == null ? dto.urlOrigem() : dto.urlFonteInformacao());
         publicacao.setTituloUsado(dto.tituloUsado());
         publicacao.setPaginasPublicadas(dto.paginasPublicadas());
         publicacao.setPaginasCortadas(dto.paginasCortadas());
@@ -44,6 +50,10 @@ public class PublicacaoHistoriaMapper {
                 edicaoMapper.paraResposta(publicacao.getEdicaoOriginal()),
                 edicaoMapper.paraResposta(publicacao.getEdicaoPublicada()),
                 publicacao.getStatus(),
+                publicacao.getTipoPublicacaoHistoria(),
+                publicacao.getFonteInformacao(),
+                publicacao.getUrlFonteInformacao(),
+                publicacao.getStatusValidacao(),
                 publicacao.getTituloUsado(),
                 publicacao.getPaginasPublicadas(),
                 publicacao.getPaginasCortadas(),

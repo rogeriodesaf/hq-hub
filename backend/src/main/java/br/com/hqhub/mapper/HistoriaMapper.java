@@ -14,6 +14,7 @@ public class HistoriaMapper {
         historia.setTitulo(dto.titulo());
         historia.setTituloOriginal(dto.tituloOriginal());
         historia.setDescricao(dto.descricao());
+        historia.setDescricaoOriginal(dto.descricao());
         historia.setQuantidadePaginas(dto.quantidadePaginas());
         historia.setTipo(dto.tipo());
         historia.setFonteExterna(dto.fonteExterna());
@@ -26,6 +27,7 @@ public class HistoriaMapper {
         historia.setTitulo(dto.titulo());
         historia.setTituloOriginal(dto.tituloOriginal());
         historia.setDescricao(dto.descricao());
+        historia.setDescricaoOriginal(dto.descricao());
         historia.setQuantidadePaginas(dto.quantidadePaginas());
         historia.setTipo(dto.tipo());
         historia.setFonteExterna(dto.fonteExterna());
@@ -38,7 +40,12 @@ public class HistoriaMapper {
                 historia.getId(),
                 historia.getTitulo(),
                 historia.getTituloOriginal(),
+                historia.getTituloPortugues(),
+                tituloExibicao(historia),
                 historia.getDescricao(),
+                historia.getDescricaoOriginal(),
+                historia.getDescricaoPortugues(),
+                descricaoExibicao(historia),
                 historia.getQuantidadePaginas(),
                 historia.getTipo(),
                 historia.getFonteExterna(),
@@ -46,5 +53,37 @@ public class HistoriaMapper {
                 historia.getUrlOrigem(),
                 historia.getDataCriacao(),
                 historia.getDataAtualizacao());
+    }
+
+    private String tituloExibicao(Historia historia) {
+        if (historia.getTituloPortugues() != null && !historia.getTituloPortugues().isBlank()) {
+            return historia.getTituloPortugues();
+        }
+
+        if (historia.getTituloOriginal() != null && !historia.getTituloOriginal().isBlank()) {
+            return historia.getTituloOriginal();
+        }
+
+        if (historia.getTitulo() != null && !historia.getTitulo().isBlank()) {
+            return historia.getTitulo();
+        }
+
+        return "Título não disponível.";
+    }
+
+    private String descricaoExibicao(Historia historia) {
+        if (historia.getDescricaoPortugues() != null && !historia.getDescricaoPortugues().isBlank()) {
+            return historia.getDescricaoPortugues();
+        }
+
+        if (historia.getDescricaoOriginal() != null && !historia.getDescricaoOriginal().isBlank()) {
+            return historia.getDescricaoOriginal();
+        }
+
+        if (historia.getDescricao() != null && !historia.getDescricao().isBlank()) {
+            return historia.getDescricao();
+        }
+
+        return "Descrição não disponível.";
     }
 }

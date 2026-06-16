@@ -92,10 +92,14 @@ export interface EdicaoComicVine {
   dataCapa: string | null;
   dataVenda: string | null;
   descricao: string | null;
+  descricaoOriginal: string | null;
+  descricaoPortugues: string | null;
+  descricaoExibicao: string | null;
   urlOrigem: string | null;
   urlImagem: string | null;
   creditos: CreditoComicVine[];
   personagens: string[];
+  conteudos: string[];
 }
 
 export interface ItemColecao {

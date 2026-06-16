@@ -368,12 +368,15 @@ POST /conteudos-edicoes
 GET /conteudos-edicoes/edicoes/{edicaoId}
 DELETE /conteudos-edicoes/{id}
 POST /publicacoes-historias
+POST /historias/{idHistoria}/publicacoes
 GET /publicacoes-historias/historias/{historiaId}
 DELETE /publicacoes-historias/{id}
 GET /cruzamentos-edicoes?edicaoOriginalId={id}&edicaoComparadaId={id}
 ```
 
 Permite cadastrar histórias e outros conteúdos dentro de uma edição, vincular histórias originais a edições brasileiras e comparar uma edição original com outra publicação para saber quais conteúdos foram incluídos e quais ficaram de fora.
+
+O endpoint `POST /historias/{idHistoria}/publicacoes` permite que usuários sugiram em quais outras revistas uma história foi publicada ou republicada. Essas informações nascem com `statusValidacao=PENDENTE`, para futura moderação.
 
 ### Importações assíncronas
 
@@ -391,6 +394,9 @@ Registra pedidos de importação e permite processar a consulta em uma fonte ext
 ```text
 GET /integracoes-externas/fontes
 GET /integracoes-externas/{fonteExterna}/buscar?termo={termo}
+GET /integracoes-externas/COMICVINE/volumes?termo={termo}
+GET /integracoes-externas/COMICVINE/volumes/{idVolume}/edicoes
+GET /integracoes-externas/COMICVINE/edicoes/{idEdicao}/detalhes
 ```
 
 Fontes disponíveis:
@@ -400,6 +406,10 @@ Fontes disponíveis:
 - `GCD`: busca pública pela API oficial do Grand Comics Database/comics.org.
 - `MARVEL`: requer `HQHUB_MARVEL_CHAVE_PUBLICA` e `HQHUB_MARVEL_CHAVE_PRIVADA`.
 - `COMICVINE`: requer `HQHUB_COMICVINE_CHAVE_API`.
+
+A Comic Vine é usada como fonte externa para edições estrangeiras. A descrição original pode vir em inglês; o HQ-HUB preserva essa descrição em `descricaoOriginal` e também suporta `descricaoPortugues` para curadoria futura. A resposta de detalhe usa `descricaoExibicao`, priorizando português quando houver e caindo para a descrição original quando não houver.
+
+O detalhe da edição da Comic Vine retorna volume, número, datas de cobertura e disponibilidade em loja, capa, URL da Comic Vine, ID externo e conteúdos internos quando a API fornece esses dados. A listagem cronológica de edições por volume continua separada e paginada.
 
 O Guia dos Quadrinhos pode ser usado como link externo e fonte de contribuição manual assistida. Não há raspagem automática do Guia nesta fase.
 
@@ -549,6 +559,7 @@ docs/testes-api/historias-conteudos.http
 - Séries já possuem volume, ordem cronológica e relacionamentos entre séries.
 - Publicações relacionadas já permitem mapear onde uma edição foi publicada ou republicada.
 - Histórias e conteúdos de edição já permitem cruzar publicações e identificar o que foi incluído ou ficou de fora em outra edição.
+- Histórias e edições preservam descrição original e possuem campos para descrição em português por curadoria.
 - Séries e edições já possuem busca paginada.
 - Solicitações de importação já podem ser registradas para processamento assíncrono.
 - Integrações externas já consultam Wikipédia, Wikidata, Grand Comics Database, Marvel API e ComicVine API.

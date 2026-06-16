@@ -12,10 +12,12 @@ import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.CruzamentoEdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
 import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
+import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Historia;
 import br.com.hqhub.entity.PublicacaoHistoria;
+import br.com.hqhub.entity.StatusPublicacaoHistoria;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.ConteudoEdicaoMapper;
@@ -130,6 +132,40 @@ public class HistoriaService {
 
         PublicacaoHistoria publicacao = publicacaoHistoriaMapper.paraEntidade(dto, historia, original, publicada);
         publicacaoHistoriaRepository.persist(publicacao);
+        return publicacaoHistoriaMapper.paraResposta(publicacao);
+    }
+
+    @Transactional
+    public PublicacaoHistoriaRespostaDTO sugerirPublicacao(Long historiaId, SugestaoPublicacaoHistoriaDTO dto) {
+        Historia historia = buscarHistoriaPorId(historiaId);
+        Edicao publicada = buscarEdicaoPorId(dto.edicaoId());
+        ConteudoEdicao conteudoOriginal = conteudoEdicaoRepository.buscarPrimeiroPorHistoria(historiaId)
+                .orElseThrow(() -> new RegraNegocioException(
+                        "Cadastre primeiro em qual edição a história aparece originalmente."));
+        Edicao original = conteudoOriginal.getEdicao();
+
+        if (original.getId().equals(publicada.getId())) {
+            throw new RegraNegocioException("A edição publicada deve ser diferente da edição original.");
+        }
+
+        if (publicacaoHistoriaRepository.existePorHistoriaEEdicaoPublicada(historiaId, dto.edicaoId())) {
+            throw new RegraNegocioException("Esta história já está vinculada a esta edição publicada.");
+        }
+
+        PublicacaoHistoria publicacao = new PublicacaoHistoria();
+        publicacao.setHistoria(historia);
+        publicacao.setEdicaoOriginal(original);
+        publicacao.setEdicaoPublicada(publicada);
+        publicacao.setStatus(StatusPublicacaoHistoria.DESCONHECIDA);
+        publicacao.setTipoPublicacaoHistoria(dto.tipoPublicacaoHistoria());
+        publicacao.setFonteInformacao(dto.fonteInformacao());
+        publicacao.setUrlFonteInformacao(dto.urlFonteInformacao());
+        publicacao.setFonteExterna(dto.fonteInformacao());
+        publicacao.setUrlOrigem(dto.urlFonteInformacao());
+        publicacao.setObservacoes(dto.observacao());
+        // TODO: vincular usuarioCriador ao usuário autenticado quando a moderação de contribuições for consolidada.
+        publicacaoHistoriaRepository.persist(publicacao);
+
         return publicacaoHistoriaMapper.paraResposta(publicacao);
     }
 

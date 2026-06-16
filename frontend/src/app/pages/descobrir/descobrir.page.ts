@@ -120,7 +120,18 @@ import {
 
           <section class="detalhe-secao">
             <h3>Descrição</h3>
-            <p>{{ edicaoSelecionada()?.descricao || 'Sem descrição disponível.' }}</p>
+            <p>{{ edicaoSelecionada()?.descricaoExibicao || edicaoSelecionada()?.descricao || 'Sem descrição disponível.' }}</p>
+          </section>
+
+          <section class="detalhe-secao">
+            <h3>Conteúdos da edição</h3>
+            <div class="lista-conteudos">
+              @for (conteudo of edicaoSelecionada()?.conteudos || []; track conteudo) {
+                <span>{{ conteudo }}</span>
+              } @empty {
+                <p class="texto-suave">Nenhum conteúdo interno retornado pela ComicVine.</p>
+              }
+            </div>
           </section>
 
           <section class="detalhe-secao painel-compra">
@@ -321,6 +332,16 @@ export class DescobrirPage {
     this.mensagemInflacao.set('');
     this.valorInflacao = null;
     this.dataInflacao = edicao.dataVenda || edicao.dataCapa || '';
+
+    this.api.buscarDetalheEdicaoComicVine(edicao.idExterno).subscribe({
+      next: (detalhe) => {
+        this.edicaoSelecionada.set(detalhe);
+        this.dataInflacao = detalhe.dataVenda || detalhe.dataCapa || this.dataInflacao;
+      },
+      error: () => {
+        this.mensagem.set('Não foi possível carregar o detalhe completo da ComicVine. Exibindo os dados da listagem.');
+      },
+    });
 
     this.api.listarPublicacoesRelacionadasPorOrigemExterna('COMICVINE', edicao.idExterno).subscribe({
       next: (publicacoes) => {

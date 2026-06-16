@@ -11,8 +11,12 @@ public record EdicaoComicVineRespostaDTO(
         String dataCapa,
         String dataVenda,
         String descricao,
+        String descricaoOriginal,
+        String descricaoPortugues,
+        String descricaoExibicao,
         String urlOrigem,
         String urlImagem,
         List<CreditoComicVineRespostaDTO> creditos,
-        List<String> personagens) {
+        List<String> personagens,
+        List<String> conteudos) {
 }

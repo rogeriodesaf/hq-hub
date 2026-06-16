@@ -67,6 +67,10 @@ export class ApiService {
     );
   }
 
+  buscarDetalheEdicaoComicVine(idEdicao: string) {
+    return this.http.get<EdicaoComicVine>(`/api/integracoes-externas/COMICVINE/edicoes/${idEdicao}/detalhes`);
+  }
+
   obterEstante() {
     return this.http.get<EstanteEditora[]>('/api/estante');
   }

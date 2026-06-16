@@ -32,8 +32,17 @@ public class Historia {
     @Column(name = "titulo_original")
     private String tituloOriginal;
 
+    @Column(name = "titulo_portugues")
+    private String tituloPortugues;
+
     @Column(length = 2000)
     private String descricao;
+
+    @Column(name = "descricao_original", length = 4000)
+    private String descricaoOriginal;
+
+    @Column(name = "descricao_portugues", length = 4000)
+    private String descricaoPortugues;
 
     @Column(name = "quantidade_paginas")
     private Integer quantidadePaginas;

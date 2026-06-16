@@ -9,6 +9,7 @@ import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
 import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
 import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
+import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.service.HistoriaService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -90,6 +91,17 @@ public class HistoriaResource {
     public Response cadastrarPublicacao(@Valid CadastroPublicacaoHistoriaDTO dto) {
         PublicacaoHistoriaRespostaDTO resposta = historiaService.cadastrarPublicacao(dto);
         return Response.created(URI.create("/publicacoes-historias/" + resposta.id()))
+                .entity(resposta)
+                .build();
+    }
+
+    @POST
+    @Path("/historias/{idHistoria}/publicacoes")
+    public Response sugerirPublicacao(
+            @PathParam("idHistoria") Long idHistoria,
+            @Valid SugestaoPublicacaoHistoriaDTO dto) {
+        PublicacaoHistoriaRespostaDTO resposta = historiaService.sugerirPublicacao(idHistoria, dto);
+        return Response.created(URI.create("/historias/" + idHistoria + "/publicacoes/" + resposta.id()))
                 .entity(resposta)
                 .build();
     }

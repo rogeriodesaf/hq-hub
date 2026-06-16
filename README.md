@@ -18,6 +18,7 @@ Ideia central:
 - Compras planejadas
 - Links externos de referência e compra
 - Criadores e créditos por edição
+- Detalhes enriquecidos de edições vindas da Comic Vine
 - Relacionamentos cronológicos entre séries
 - Assistente interno com conversas e histórico
 - Amizades entre colecionadores

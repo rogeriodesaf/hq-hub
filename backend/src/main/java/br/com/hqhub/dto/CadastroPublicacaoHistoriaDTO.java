@@ -1,6 +1,7 @@
 package br.com.hqhub.dto;
 
 import br.com.hqhub.entity.StatusPublicacaoHistoria;
+import br.com.hqhub.entity.TipoPublicacaoHistoria;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -16,6 +17,14 @@ public record CadastroPublicacaoHistoriaDTO(
 
         @NotNull(message = "Status da publicação é obrigatório.")
         StatusPublicacaoHistoria status,
+
+        TipoPublicacaoHistoria tipoPublicacaoHistoria,
+
+        @Size(max = 255, message = "Fonte de informação deve ter no máximo 255 caracteres.")
+        String fonteInformacao,
+
+        @Size(max = 1000, message = "URL da fonte de informação deve ter no máximo 1000 caracteres.")
+        String urlFonteInformacao,
 
         String tituloUsado,
 

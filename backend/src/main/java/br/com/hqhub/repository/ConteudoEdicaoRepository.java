@@ -1,6 +1,7 @@
 package br.com.hqhub.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.hqhub.entity.ConteudoEdicao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -15,5 +16,9 @@ public class ConteudoEdicaoRepository implements PanacheRepository<ConteudoEdica
 
     public List<ConteudoEdicao> listarPorEdicao(Long edicaoId) {
         return list("edicao.id = ?1 order by ordem asc", edicaoId);
+    }
+
+    public Optional<ConteudoEdicao> buscarPrimeiroPorHistoria(Long historiaId) {
+        return find("historia.id = ?1 order by ordem asc", historiaId).firstResultOptional();
     }
 }

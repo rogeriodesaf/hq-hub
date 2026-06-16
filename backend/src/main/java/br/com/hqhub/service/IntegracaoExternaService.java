@@ -14,6 +14,9 @@ import java.time.Instant;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -153,6 +156,26 @@ public class IntegracaoExternaService {
 
         return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
                 calcularTotalPaginas(totalItens, tamanhoTratado));
+    }
+
+    public EdicaoComicVineRespostaDTO buscarDetalheEdicaoComicVine(String idEdicao) {
+        validarComicVineConfigurada();
+
+        if (idEdicao == null || idEdicao.isBlank()) {
+            throw new RegraNegocioException("Identificador da edição é obrigatório.");
+        }
+
+        String url = "https://comicvine.gamespot.com/api/issue/4000-" + codificarCaminho(idEdicao) + "/?format=json"
+                + "&field_list=id,name,aliases,issue_number,cover_date,store_date,site_detail_url,image,deck,description,person_credits,character_credits,volume"
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        JsonNode raiz = executarGet(url);
+        JsonNode resultado = raiz.path("results");
+
+        if (resultado.isMissingNode() || resultado.isNull()) {
+            throw new RegraNegocioException("Edição não encontrada na ComicVine.");
+        }
+
+        return montarEdicaoComicVine(resultado);
     }
 
     private List<ResultadoBuscaExternaDTO> buscarWikipedia(String termo) {
@@ -298,7 +321,8 @@ public class IntegracaoExternaService {
         String idVolume = volume.path("id").asText(null);
         String dataCapa = item.path("cover_date").asText(null);
         String dataVenda = item.path("store_date").asText(null);
-        String descricao = limparHtml(item.path("deck").asText(item.path("description").asText(null)));
+        String descricaoOriginal = limparHtml(item.path("description").asText(item.path("deck").asText(null)));
+        String descricao = descricaoExibicao(null, descricaoOriginal);
         String url = item.path("site_detail_url").asText(null);
         String imagem = item.path("image").path("original_url").asText(null);
         List<CreditoComicVineRespostaDTO> creditos = StreamSupport.stream(item.path("person_credits").spliterator(), false)
@@ -308,9 +332,10 @@ public class IntegracaoExternaService {
                 .map(personagem -> personagem.path("name").asText())
                 .filter(nome -> !nome.isBlank())
                 .toList();
+        List<String> conteudos = montarConteudosComicVine(titulo, item.path("aliases").asText(null));
 
         return new EdicaoComicVineRespostaDTO(id, numero, titulo, nomeVolume, idVolume, dataCapa, dataVenda,
-                descricao, url, imagem, creditos, personagens);
+                descricao, descricaoOriginal, null, descricao, url, imagem, creditos, personagens, conteudos);
     }
 
     private CreditoComicVineRespostaDTO montarCreditoComicVine(JsonNode item) {
@@ -360,7 +385,48 @@ public class IntegracaoExternaService {
             return null;
         }
 
-        return texto.replaceAll("<[^>]*>", "").replace("&quot;", "\"").replace("&amp;", "&");
+        return texto.replaceAll("<[^>]*>", "")
+                .replace("&quot;", "\"")
+                .replace("&amp;", "&")
+                .replace("&nbsp;", " ")
+                .trim();
+    }
+
+    private List<String> montarConteudosComicVine(String titulo, String aliases) {
+        Set<String> conteudos = new LinkedHashSet<>();
+
+        adicionarConteudosSeparados(conteudos, aliases);
+
+        if (conteudos.isEmpty()) {
+            adicionarConteudosSeparados(conteudos, titulo);
+        }
+
+        return new ArrayList<>(conteudos);
+    }
+
+    private void adicionarConteudosSeparados(Set<String> conteudos, String texto) {
+        if (texto == null || texto.isBlank()) {
+            return;
+        }
+
+        for (String parte : texto.split("\\r?\\n|;")) {
+            String tratado = parte.trim();
+            if (!tratado.isBlank()) {
+                conteudos.add(tratado);
+            }
+        }
+    }
+
+    private String descricaoExibicao(String descricaoPortugues, String descricaoOriginal) {
+        if (descricaoPortugues != null && !descricaoPortugues.isBlank()) {
+            return descricaoPortugues;
+        }
+
+        if (descricaoOriginal != null && !descricaoOriginal.isBlank()) {
+            return descricaoOriginal;
+        }
+
+        return "Descrição não disponível.";
     }
 
     private Integer inteiroOuNulo(JsonNode valor) {

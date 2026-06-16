@@ -745,6 +745,25 @@ textarea:focus {
   line-height: 1.55;
 }
 
+.lista-conteudos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lista-conteudos span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(38, 106, 127, 0.22);
+  border-radius: 999px;
+  color: var(--azul);
+  background: rgba(38, 106, 127, 0.08);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
 .painel-compra {
   border-color: rgba(47, 143, 107, 0.32);
   background: rgba(47, 143, 107, 0.08);
