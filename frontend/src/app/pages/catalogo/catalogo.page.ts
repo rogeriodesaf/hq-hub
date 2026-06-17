@@ -101,13 +101,18 @@ export class CatalogoPage implements OnInit {
     this.mensagem.set('');
     this.api.listarSeries(this.busca, 0, 12).subscribe((resposta) => this.series.set(resposta));
 
-    if (!this.busca.trim() && !this.serieSelecionada()) {
+    const termoBusca = this.busca.trim();
+    if (termoBusca && this.serieSelecionada() && this.serieSelecionada()!.titulo.trim().toLowerCase() !== termoBusca.toLowerCase()) {
+      this.serieSelecionada.set(null);
+    }
+
+    if (!termoBusca && !this.serieSelecionada()) {
       this.resultadosCatalogo.set([]);
       return;
     }
 
     this.carregandoResultados.set(true);
-    const termo = this.serieSelecionada()?.titulo || this.busca;
+    const termo = this.serieSelecionada()?.titulo || termoBusca;
     this.api.pesquisarCatalogo(termo).subscribe({
       next: (resposta) => {
         this.resultadosCatalogo.set(this.filtrarPorSerieSelecionada(resposta));
@@ -141,7 +146,8 @@ export class CatalogoPage implements OnInit {
 
   private filtrarPorSerieSelecionada(resultados: ResultadoPesquisaCatalogo[]) {
     const serie = this.serieSelecionada();
-    if (!serie) {
+    const termoBusca = this.busca.trim().toLowerCase();
+    if (!serie || !termoBusca || serie.titulo.trim().toLowerCase() !== termoBusca) {
       return resultados;
     }
 
