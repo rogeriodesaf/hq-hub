@@ -17,7 +17,12 @@ import { PaginaResposta, ResultadoPesquisaCatalogo, Serie } from '../../core/mod
     </section>
 
     <section class="barra-busca">
-      <input [(ngModel)]="busca" placeholder="Buscar HQ no catálogo ou na Comic Vine" (keyup.enter)="carregar()" />
+      <input
+        [(ngModel)]="busca"
+        placeholder="Buscar HQ no catálogo ou na Comic Vine"
+        (ngModelChange)="agendarBusca()"
+        (keyup.enter)="carregar()"
+      />
       <button class="botao primario" type="button" (click)="carregar()" [disabled]="carregandoResultados()">
         {{ carregandoResultados() ? 'Buscando...' : 'Buscar' }}
       </button>
@@ -92,12 +97,18 @@ export class CatalogoPage implements OnInit {
   readonly carregandoResultados = signal(false);
   readonly mensagem = signal('');
   busca = '';
+  private temporizadorBusca: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit() {
     this.carregar();
   }
 
   carregar() {
+    if (this.temporizadorBusca) {
+      clearTimeout(this.temporizadorBusca);
+      this.temporizadorBusca = null;
+    }
+
     this.mensagem.set('');
     this.api.listarSeries(this.busca, 0, 12).subscribe((resposta) => this.series.set(resposta));
 
@@ -130,6 +141,18 @@ export class CatalogoPage implements OnInit {
     this.serieSelecionada.set(serie);
     this.busca = serie.titulo;
     this.carregar();
+  }
+
+  agendarBusca() {
+    if (this.serieSelecionada() && this.serieSelecionada()!.titulo.trim().toLowerCase() !== this.busca.trim().toLowerCase()) {
+      this.serieSelecionada.set(null);
+    }
+
+    if (this.temporizadorBusca) {
+      clearTimeout(this.temporizadorBusca);
+    }
+
+    this.temporizadorBusca = setTimeout(() => this.carregar(), 350);
   }
 
   rotuloFonte(resultado: ResultadoPesquisaCatalogo) {
