@@ -24,6 +24,7 @@ import {
   PessoaComicVine,
   PublicacaoRelacionada,
   PublicacaoHistoria,
+  ResultadoDeduplicacaoEdicoes,
   ResultadoPesquisaCatalogo,
   ResultadoImportacaoCatalogo,
   RespostaAssistente,
@@ -197,6 +198,14 @@ export class ApiService {
 
   listarItensColecao() {
     return this.http.get<ItemColecao[]>('/api/colecao/itens');
+  }
+
+  removerItemColecao(id: number) {
+    return this.http.delete<void>(`/api/colecao/itens/${id}`);
+  }
+
+  deduplicarEdicoes() {
+    return this.http.post<ResultadoDeduplicacaoEdicoes>('/api/edicoes/deduplicar', {});
   }
 
   enviarSolicitacaoAmizade(usuarioSolicitadoId: number) {

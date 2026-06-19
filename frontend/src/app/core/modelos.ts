@@ -190,6 +190,21 @@ export interface EstanteEditora {
   series: EstanteSerie[];
 }
 
+export interface GrupoDuplicidadeEdicao {
+  chave: string;
+  edicaoMantida: Edicao;
+  edicoesDescartadas: Edicao[];
+  pontuacaoMantida: number;
+}
+
+export interface ResultadoDeduplicacaoEdicoes {
+  gruposAnalisados: number;
+  gruposMesclados: number;
+  edicoesRemovidas: number;
+  referenciasAtualizadas: number;
+  grupos: GrupoDuplicidadeEdicao[];
+}
+
 export interface CompraPlanejada {
   id: number;
   edicao: Edicao;

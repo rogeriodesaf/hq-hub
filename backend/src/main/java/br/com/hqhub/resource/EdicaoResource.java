@@ -8,6 +8,7 @@ import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.entity.TipoAnuncio;
 import br.com.hqhub.service.AnuncioService;
+import br.com.hqhub.service.DeduplicacaoEdicaoService;
 import br.com.hqhub.service.EdicaoService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -32,10 +33,15 @@ public class EdicaoResource {
 
     private final EdicaoService edicaoService;
     private final AnuncioService anuncioService;
+    private final DeduplicacaoEdicaoService deduplicacaoEdicaoService;
 
-    public EdicaoResource(EdicaoService edicaoService, AnuncioService anuncioService) {
+    public EdicaoResource(
+            EdicaoService edicaoService,
+            AnuncioService anuncioService,
+            DeduplicacaoEdicaoService deduplicacaoEdicaoService) {
         this.edicaoService = edicaoService;
         this.anuncioService = anuncioService;
+        this.deduplicacaoEdicaoService = deduplicacaoEdicaoService;
     }
 
     @POST
@@ -71,6 +77,18 @@ public class EdicaoResource {
                 pagina == null ? 0 : pagina,
                 tamanho == null ? 50 : tamanho);
         return Response.ok(edicoes).build();
+    }
+
+    @GET
+    @Path("/duplicidades")
+    public Response listarDuplicidades() {
+        return Response.ok(deduplicacaoEdicaoService.listarDuplicidades()).build();
+    }
+
+    @POST
+    @Path("/deduplicar")
+    public Response deduplicar() {
+        return Response.ok(deduplicacaoEdicaoService.deduplicar()).build();
     }
 
     @PUT

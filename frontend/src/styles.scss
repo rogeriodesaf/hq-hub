@@ -221,6 +221,12 @@ img {
   background: #15191f;
 }
 
+.botao.perigo {
+  border-color: #b42318;
+  color: #fff;
+  background: #b42318;
+}
+
 .botao.claro {
   border-color: rgba(255, 255, 255, 0.42);
   color: #15191f;
@@ -687,6 +693,12 @@ textarea:focus {
 
 .secao-titulo > div p {
   margin: 0;
+}
+
+.acoes-estante {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .paginacao {

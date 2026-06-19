@@ -259,7 +259,12 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
           <p class="rotulo">Minha estante</p>
           <h2>Organize suas leituras e compras</h2>
         </div>
-        <span>{{ resumoEstante().total }} itens</span>
+        <div class="acoes-estante">
+          <button class="botao compacto" type="button" (click)="deduplicarCatalogo()" [disabled]="deduplicandoCatalogo()">
+            {{ deduplicandoCatalogo() ? 'Limpando...' : 'Limpar duplicidades' }}
+          </button>
+          <span>{{ resumoEstante().total }} itens</span>
+        </div>
       </div>
 
       <div class="metricas-estante">
@@ -366,6 +371,9 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
                   {{ atualizandoLeitura() ? 'Atualizando...' : 'Marcar como lida' }}
                 </button>
               }
+              <button class="botao perigo compacto" type="button" (click)="removerSelecionadaDaEstante()" [disabled]="removendoItem()">
+                {{ removendoItem() ? 'Removendo...' : 'Remover da estante' }}
+              </button>
             </div>
           </div>
         </article>
@@ -391,6 +399,8 @@ export class ColecaoPage implements OnInit {
   readonly serieSelecionadaManual = signal<Serie | null>(null);
   readonly edicaoEstanteSelecionada = signal<EstanteEdicao | null>(null);
   readonly atualizandoLeitura = signal(false);
+  readonly removendoItem = signal(false);
+  readonly deduplicandoCatalogo = signal(false);
   readonly mensagem = signal('');
   readonly filtroLeitura = signal<'TODAS' | 'LIDO' | 'NAO_LIDO'>('TODAS');
   readonly resumoEstante = computed(() => {
@@ -835,6 +845,57 @@ export class ColecaoPage implements OnInit {
       error: () => {
         this.atualizandoLeitura.set(false);
         this.mensagem.set('Não foi possível carregar este item da estante.');
+      },
+    });
+  }
+
+  removerSelecionadaDaEstante() {
+    const edicao = this.edicaoEstanteSelecionada();
+    if (!edicao) {
+      return;
+    }
+
+    const titulo = `#${edicao.numero}${edicao.titulo ? ' - ' + edicao.titulo : ''}`;
+    if (!window.confirm(`Remover ${titulo} da sua estante?`)) {
+      return;
+    }
+
+    this.removendoItem.set(true);
+    this.mensagem.set('');
+    this.api.removerItemColecao(edicao.itemColecaoId).subscribe({
+      next: () => {
+        this.removendoItem.set(false);
+        this.edicaoEstanteSelecionada.set(null);
+        this.mensagem.set('Revista removida da sua estante.');
+        this.carregarEstante();
+      },
+      error: () => {
+        this.removendoItem.set(false);
+        this.mensagem.set('Nao foi possivel remover esta revista da estante.');
+      },
+    });
+  }
+
+  deduplicarCatalogo() {
+    if (!window.confirm('Limpar duplicidades do catalogo agora? A rotina mantem a edicao mais completa e move os vinculos antes de remover as repetidas.')) {
+      return;
+    }
+
+    this.deduplicandoCatalogo.set(true);
+    this.mensagem.set('');
+    this.api.deduplicarEdicoes().subscribe({
+      next: (resultado) => {
+        this.deduplicandoCatalogo.set(false);
+        this.mensagem.set(
+          resultado.edicoesRemovidas
+            ? `Duplicidades limpas: ${resultado.edicoesRemovidas} edicao(oes) removida(s) em ${resultado.gruposMesclados} grupo(s).`
+            : 'Nenhuma duplicidade segura foi encontrada para limpar.',
+        );
+        this.carregarEstante();
+      },
+      error: () => {
+        this.deduplicandoCatalogo.set(false);
+        this.mensagem.set('Nao foi possivel limpar duplicidades agora.');
       },
     });
   }
