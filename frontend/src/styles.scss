@@ -431,6 +431,10 @@ img {
   box-shadow: 0 6px 18px rgba(21, 25, 31, 0.08);
 }
 
+.alternador.descobrir-fontes {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 form label {
   display: grid;
   gap: 7px;
@@ -475,6 +479,19 @@ textarea:focus {
 
 .mensagem-erro.compacto {
   margin: 8px 0 0;
+}
+
+.estado-pesquisa {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(38, 106, 127, 0.18);
+  border-radius: 8px;
+  color: var(--texto);
+  background: rgba(38, 106, 127, 0.08);
+}
+
+.estado-pesquisa p {
+  margin: 0;
 }
 
 .painel-formulario {
@@ -652,6 +669,15 @@ textarea:focus {
   margin-bottom: 14px;
 }
 
+.secao-titulo > div {
+  display: grid;
+  gap: 4px;
+}
+
+.secao-titulo > div p {
+  margin: 0;
+}
+
 .paginacao {
   display: flex;
   align-items: center;
@@ -759,6 +785,23 @@ textarea:focus {
   margin: 0 0 12px;
   font-size: clamp(2rem, 4vw, 4rem);
   line-height: 0.98;
+}
+
+.descricao-formatada {
+  max-width: 72ch;
+  color: var(--texto-suave);
+  line-height: 1.65;
+  white-space: normal;
+}
+
+.descricao-formatada a {
+  color: var(--azul);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.descricao-formatada a:hover {
+  text-decoration: underline;
 }
 
 .chips {
@@ -892,7 +935,7 @@ textarea:focus {
 
 .publicacao-card {
   display: flex;
-  justify-content: space-between;
+  align-items: flex-start;
   gap: 14px;
   margin-top: 10px;
   padding: 12px;
@@ -901,8 +944,60 @@ textarea:focus {
   background: var(--superficie-2);
 }
 
+.publicacao-card > div {
+  min-width: 0;
+}
+
+.capa-publicacao {
+  width: 86px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  flex: 0 0 auto;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  background: var(--superficie);
+}
+
 .publicacao-card h4 {
   margin: 0;
+}
+
+.link-edicao-original {
+  border: 0;
+  padding: 0;
+  color: var(--azul);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.link-edicao-original:hover {
+  text-decoration: underline;
+}
+
+.link-fonte-original {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  margin-left: 8px;
+  padding: 0 8px;
+  border: 1px solid rgba(38, 106, 127, 0.22);
+  border-radius: 999px;
+  color: var(--azul);
+  background: rgba(38, 106, 127, 0.08);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.voltar-detalhe {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-right: 8px;
+  float: right;
 }
 
 .estado-vazio.compacto {
@@ -948,6 +1043,39 @@ textarea:focus {
 .lista-escolha span {
   color: var(--texto-suave);
   font-size: 0.9rem;
+}
+
+.lista-escolha.lista-curta {
+  max-height: 190px;
+  margin-top: -4px;
+}
+
+.selecao-existente {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid rgba(38, 106, 127, 0.22);
+  border-radius: 8px;
+  background: rgba(38, 106, 127, 0.08);
+}
+
+.selecao-existente strong {
+  color: var(--azul);
+  font-size: 0.9rem;
+}
+
+.selecao-existente span {
+  flex: 1;
+  min-width: 0;
+  color: var(--texto);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.selecao-existente .botao {
+  flex: 0 0 auto;
 }
 
 .colecao-formulario {
@@ -1107,11 +1235,62 @@ textarea:focus {
 
 .estante {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 18px;
+  align-items: start;
+}
+
+.painel-estante {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.metricas-estante {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metricas-estante article {
+  display: grid;
+  gap: 6px;
+  min-height: 82px;
+  padding: 14px;
+  border: 1px solid rgba(21, 25, 31, 0.08);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.metricas-estante span {
+  color: var(--texto-suave);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.metricas-estante strong {
+  color: var(--texto);
+  font-size: 1.35rem;
+}
+
+.controles-estante {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.65fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.controles-estante .abas-filtro {
+  margin: 0;
 }
 
 .prateleira {
   padding: 18px;
+  overflow: hidden;
 }
 
 .serie-estante {
@@ -1120,13 +1299,34 @@ textarea:focus {
 
 .linha-capas {
   display: flex;
-  gap: 10px;
+  gap: 14px;
   overflow-x: auto;
-  padding-bottom: 10px;
+  padding: 6px 0 14px;
+  border-bottom: 10px solid rgba(117, 75, 43, 0.2);
 }
 
 .lombada {
   flex: 0 0 92px;
+  cursor: pointer;
+  outline: none;
+}
+
+.lombada img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #15191f;
+  box-shadow: 0 10px 22px rgba(21, 25, 31, 0.18);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.lombada:hover img,
+.lombada:focus-visible img {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 28px rgba(21, 25, 31, 0.24);
 }
 
 .lombada span {
@@ -1160,9 +1360,191 @@ textarea:focus {
   background: rgba(47, 143, 107, 0.12);
 }
 
+.detalhe-estante .detalhe-cabecalho {
+  align-items: start;
+}
+
+.detalhe-estante .botao {
+  margin-top: 12px;
+}
+
 .compras-lista {
   display: grid;
   gap: 12px;
+}
+
+.anuncios-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.anuncio-formulario {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grade-anuncios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.anuncio-card {
+  display: grid;
+  grid-template-columns: 94px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.anuncio-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #15191f;
+}
+
+.anuncio-card h3,
+.anuncio-card p {
+  margin: 0 0 8px;
+}
+
+.anuncio-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.anuncio-card strong {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.lista-anuncios {
+  display: grid;
+  gap: 10px;
+}
+
+.lista-anuncios article {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.lista-anuncios span {
+  color: var(--texto-suave);
+}
+
+.conteudos-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.painel-conteudo {
+  padding: 16px;
+}
+
+.barra-busca.interna {
+  margin-bottom: 12px;
+}
+
+.lista-compacta {
+  max-height: 320px;
+  overflow: auto;
+}
+
+.resumo-selecao {
+  display: grid;
+  gap: 4px;
+  margin: 14px 0;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.resumo-selecao span {
+  color: var(--texto-suave);
+}
+
+.conteudo-formulario {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bloco-conteudos,
+.painel-cruzamento {
+  padding: 16px;
+  margin-top: 18px;
+}
+
+.grade-historias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.historia-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.historia-card h3,
+.historia-card p {
+  margin: 0;
+}
+
+.historia-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.publicacoes-lista {
+  display: grid;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--borda);
+}
+
+.publicacoes-lista div {
+  display: grid;
+  gap: 2px;
+}
+
+.publicacoes-lista span {
+  color: var(--texto-suave);
+  font-size: 0.88rem;
+}
+
+.cruzamento-colunas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cruzamento-colunas article {
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.cruzamento-colunas h3 {
+  margin: 0 0 10px;
 }
 
 .compra-card {
@@ -1255,7 +1637,7 @@ textarea:focus {
     bottom: 12px;
     z-index: 20;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 4px;
     padding: 6px;
     border: 1px solid rgba(21, 25, 31, 0.14);
@@ -1294,9 +1676,18 @@ textarea:focus {
   }
 
   .metricas,
+  .metricas-estante,
   .painel-grade,
   .catalogo-layout,
-  .amizades-layout {
+  .conteudos-layout,
+  .cruzamento-colunas,
+  .estante,
+  .amizades-layout,
+  .anuncios-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .controles-estante {
     grid-template-columns: 1fr;
   }
 }
@@ -1324,6 +1715,22 @@ textarea:focus {
 
   .colecao-formulario {
     grid-template-columns: 1fr;
+  }
+
+  .anuncio-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .selecao-existente {
+    display: grid;
+  }
+
+  .metricas-estante {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lombada {
+    flex-basis: 88px;
   }
 
   .grade-formulario .campo-largo {
@@ -1380,5 +1787,9 @@ textarea:focus {
 
   .publicacao-card {
     display: grid;
+  }
+
+  .capa-publicacao {
+    width: 74px;
   }
 }

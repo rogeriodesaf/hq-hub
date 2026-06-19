@@ -21,10 +21,10 @@ public class AutenticacaoService {
 
     public UsuarioAutenticadoDTO autenticar(AutenticacaoUsuarioDTO dto) {
         Usuario usuario = usuarioRepository.buscarPorEmail(dto.email())
-                .orElseThrow(() -> new RegraNegocioException("E-mail ou senha inválidos."));
+                .orElseThrow(() -> new RegraNegocioException("E-mail ou senha invalidos."));
 
-        if (!BcryptUtil.matches(dto.senha(), usuario.getSenha())) {
-            throw new RegraNegocioException("E-mail ou senha inválidos.");
+        if (!senhaConfere(dto.senha(), usuario.getSenha())) {
+            throw new RegraNegocioException("E-mail ou senha invalidos.");
         }
 
         return new UsuarioAutenticadoDTO(
@@ -35,5 +35,17 @@ public class AutenticacaoService {
                 "Bearer",
                 tokenService.obterTempoExpiracaoEmSegundos(),
                 "Login realizado com sucesso.");
+    }
+
+    private boolean senhaConfere(String senhaInformada, String senhaSalva) {
+        if (senhaSalva == null || senhaInformada == null) {
+            return false;
+        }
+
+        if (senhaSalva.startsWith("$2")) {
+            return BcryptUtil.matches(senhaInformada, senhaSalva);
+        }
+
+        return senhaSalva.equals(senhaInformada);
     }
 }

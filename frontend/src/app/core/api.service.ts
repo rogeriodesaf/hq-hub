@@ -2,22 +2,36 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 import {
+  Anuncio,
   Amizade,
+  CadastroAnuncio,
   ColecaoResumo,
   CadastroItemColecao,
   CadastroCompraPlanejada,
   CalculoInflacao,
   CompraPlanejada,
+  ContatoAnuncio,
+  ConteudoEdicao,
+  ContribuicaoCatalogo,
+  CruzamentoEdicao,
   Edicao,
+  EditoraResumo,
   EdicaoComicVine,
   EstanteEditora,
+  Historia,
   ItemColecao,
   PaginaResposta,
   PessoaComicVine,
   PublicacaoRelacionada,
+  PublicacaoHistoria,
   ResultadoPesquisaCatalogo,
+  ResultadoImportacaoCatalogo,
   RespostaAssistente,
   Serie,
+  TipoContribuicaoCatalogo,
+  StatusPublicacaoHistoria,
+  TipoConteudoEdicao,
+  TipoPublicacaoHistoria,
   Usuario,
   VolumeComicVine,
 } from './modelos';
@@ -52,13 +66,72 @@ export class ApiService {
     return this.http.get<PaginaResposta<Edicao>>('/api/edicoes', { params });
   }
 
-  pesquisarCatalogo(termo: string) {
-    const params = new HttpParams().set('termo', termo);
-    return this.http.get<ResultadoPesquisaCatalogo[]>('/api/catalogo/pesquisa', { params });
+  buscarEdicaoPorId(id: number) {
+    return this.http.get<Edicao>(`/api/edicoes/${id}`);
+  }
+
+  atualizarCapaEdicao(id: number, urlCapa: string) {
+    return this.http.patch<Edicao>(`/api/edicoes/${id}/capa`, { urlCapa });
+  }
+
+  pesquisarCatalogo(termo: string, pagina = 0, tamanho = 20) {
+    const params = new HttpParams()
+      .set('termo', termo)
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+
+    return this.http.get<PaginaResposta<ResultadoPesquisaCatalogo>>('/api/catalogo/pesquisa', { params });
   }
 
   listarUsuarios() {
     return this.http.get<Usuario[]>('/api/usuarios');
+  }
+
+  listarEditoras() {
+    return this.http.get<EditoraResumo[]>('/api/editoras');
+  }
+
+  cadastrarEditora(dto: {
+    nome: string;
+    descricao: string | null;
+    paisOrigem: string | null;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+  }) {
+    return this.http.post<EditoraResumo>('/api/editoras', dto);
+  }
+
+  cadastrarSerie(dto: {
+    titulo: string;
+    descricao: string | null;
+    anoInicio: number | null;
+    anoFim: number | null;
+    volume: number | null;
+    ordemCronologica: number | null;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+    editoraId: number;
+  }) {
+    return this.http.post<Serie>('/api/series', dto);
+  }
+
+  cadastrarEdicao(dto: {
+    numero: string;
+    titulo: string | null;
+    descricao: string | null;
+    dataPublicacao: string | null;
+    urlCapa: string | null;
+    codigoBarras: string | null;
+    quantidadePaginas: number | null;
+    precoCapa: number | null;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+    serieId: number;
+  }) {
+    return this.http.post<Edicao>('/api/edicoes', dto);
   }
 
   buscarVolumesComicVine(termo: string, pagina = 0, tamanho = 12) {
@@ -111,6 +184,10 @@ export class ApiService {
 
   cadastrarItemColecao(dto: CadastroItemColecao) {
     return this.http.post<ItemColecao>('/api/colecao/itens', dto);
+  }
+
+  buscarItemColecao(id: number) {
+    return this.http.get<ItemColecao>(`/api/colecao/itens/${id}`);
   }
 
   atualizarItemColecao(id: number, dto: CadastroItemColecao) {
@@ -181,9 +258,136 @@ export class ApiService {
     return this.http.post<RespostaAssistente>('/api/assistente/perguntar', { pergunta });
   }
 
+  listarAnuncios() {
+    return this.http.get<Anuncio[]>('/api/anuncios');
+  }
+
+  listarMeusAnuncios() {
+    return this.http.get<Anuncio[]>('/api/anuncios/meus');
+  }
+
+  cadastrarAnuncio(dto: CadastroAnuncio) {
+    return this.http.post<Anuncio>('/api/anuncios', dto);
+  }
+
+  pausarAnuncio(id: number) {
+    return this.http.post<Anuncio>(`/api/anuncios/${id}/pausar`, {});
+  }
+
+  reativarAnuncio(id: number) {
+    return this.http.post<Anuncio>(`/api/anuncios/${id}/reativar`, {});
+  }
+
+  encerrarAnuncio(id: number) {
+    return this.http.post<Anuncio>(`/api/anuncios/${id}/encerrar`, {});
+  }
+
+  obterContatoAnuncio(id: number) {
+    return this.http.get<ContatoAnuncio>(`/api/anuncios/${id}/contato`);
+  }
+
   listarPublicacoesRelacionadasPorOrigemExterna(fonteExterna: string, idExterno: string) {
     return this.http.get<PublicacaoRelacionada[]>(
       `/api/publicacoes-relacionadas/fontes/${fonteExterna}/itens/${idExterno}`,
     );
+  }
+
+  cadastrarHistoria(dto: {
+    titulo: string;
+    tituloOriginal: string | null;
+    descricao: string | null;
+    quantidadePaginas: number | null;
+    tipo: TipoConteudoEdicao;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+  }) {
+    return this.http.post<Historia>('/api/historias', dto);
+  }
+
+  cadastrarConteudoEdicao(dto: {
+    edicaoId: number;
+    historiaId: number;
+    ordem: number;
+    tituloUsado: string | null;
+    paginaInicio: number | null;
+    paginaFim: number | null;
+    quantidadePaginas: number | null;
+    tipo: TipoConteudoEdicao;
+    observacoes: string | null;
+  }) {
+    return this.http.post<ConteudoEdicao>('/api/conteudos-edicoes', dto);
+  }
+
+  listarConteudosPorEdicao(edicaoId: number) {
+    return this.http.get<ConteudoEdicao[]>(`/api/conteudos-edicoes/edicoes/${edicaoId}`);
+  }
+
+  cadastrarPublicacaoHistoria(dto: {
+    historiaId: number;
+    edicaoOriginalId: number;
+    edicaoPublicadaId: number;
+    status: StatusPublicacaoHistoria;
+    tipoPublicacaoHistoria: TipoPublicacaoHistoria;
+    fonteInformacao: string | null;
+    urlFonteInformacao: string | null;
+    tituloUsado: string | null;
+    paginasPublicadas: number | null;
+    paginasCortadas: number | null;
+    fonteExterna: string | null;
+    urlOrigem: string | null;
+    observacoes: string | null;
+  }) {
+    return this.http.post<PublicacaoHistoria>('/api/publicacoes-historias', dto);
+  }
+
+  listarPublicacoesPorHistoria(historiaId: number) {
+    return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/historias/${historiaId}`);
+  }
+
+  listarPublicacoesPorEdicaoPublicada(edicaoId: number) {
+    return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/edicoes-publicadas/${edicaoId}`);
+  }
+
+  listarPublicacoesPorEdicaoOriginal(edicaoId: number) {
+    return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/edicoes-originais/${edicaoId}`);
+  }
+
+  cruzarEdicoes(edicaoOriginalId: number, edicaoComparadaId: number) {
+    const params = new HttpParams()
+      .set('edicaoOriginalId', edicaoOriginalId)
+      .set('edicaoComparadaId', edicaoComparadaId);
+
+    return this.http.get<CruzamentoEdicao>('/api/cruzamentos-edicoes', { params });
+  }
+
+  importarCatalogo(jsonImportacao: unknown) {
+    return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao);
+  }
+
+  cadastrarContribuicaoCatalogo(dto: {
+    edicaoId: number;
+    tipo: TipoContribuicaoCatalogo;
+    urlCapaSugerida: string | null;
+    edicaoDestinoId: number | null;
+    tipoPublicacaoRelacionada: string | null;
+    fonteExterna: string | null;
+    urlFonte: string | null;
+    dadosSugeridosJson: string | null;
+    observacoes: string | null;
+  }) {
+    return this.http.post<ContribuicaoCatalogo>('/api/contribuicoes-catalogo', dto);
+  }
+
+  listarContribuicoesPendentes() {
+    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/pendentes');
+  }
+
+  aprovarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {
+    return this.http.post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/aprovar`, { mensagemRevisao });
+  }
+
+  recusarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {
+    return this.http.post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/recusar`, { mensagemRevisao });
   }
 }

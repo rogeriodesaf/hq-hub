@@ -12,7 +12,7 @@ export class AutenticacaoService {
   private readonly usuarioAtual = signal<UsuarioAutenticado | null>(this.lerUsuarioSalvo());
 
   readonly usuario = this.usuarioAtual.asReadonly();
-  readonly autenticado = computed(() => !!this.usuarioAtual()?.token);
+  readonly autenticado = computed(() => this.sessaoValida());
 
   entrar(email: string, senha: string) {
     return this.http.post<UsuarioAutenticado>('/api/auth/login', { email, senha }).pipe(
@@ -33,7 +33,42 @@ export class AutenticacaoService {
   }
 
   obterToken() {
+    if (!this.sessaoValida()) {
+      this.sair();
+      return null;
+    }
+
     return this.usuarioAtual()?.token ?? null;
+  }
+
+  private sessaoValida() {
+    const usuario = this.usuarioAtual();
+    if (!usuario?.token) {
+      return false;
+    }
+
+    const payload = this.lerPayloadToken(usuario.token);
+    if (!payload?.exp) {
+      return true;
+    }
+
+    const agoraEmSegundos = Math.floor(Date.now() / 1000);
+    return payload.exp > agoraEmSegundos;
+  }
+
+  private lerPayloadToken(token: string): { exp?: number } | null {
+    const partes = token.split('.');
+    if (partes.length < 2) {
+      return null;
+    }
+
+    try {
+      const base64 = partes[1].replace(/-/g, '+').replace(/_/g, '/');
+      const conteudo = atob(base64);
+      return JSON.parse(conteudo) as { exp?: number };
+    } catch {
+      return null;
+    }
   }
 
   private lerUsuarioSalvo(): UsuarioAutenticado | null {

@@ -1,0 +1,1223 @@
+{
+  "origem": {
+    "arquivoEntrada": "C:\\Users\\User\\.codex\\attachments\\e7f6f180-f5db-48ea-a018-8495358062aa\\pasted-text.txt",
+    "geradoEm": "2026-06-18T00:49:55"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "1ª Série",
+    "editora": "Panini"
+  },
+  "totalEdicoes": 12,
+  "totalHistorias": 80,
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Peter Parker, The Spectacular Spider-Man (1976) n° 52",
+      "publicadoTexto": "julho de 2023",
+      "dataPublicacao": "2023-07-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: Frank Miller Arte-Final: Bob Wiacek Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_0nd4m4i4mh47l0jnj9n807cf2j/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Surge o Contrabandista!",
+          "tituloOriginal": "Enter: The Smuggler!",
+          "quantidadePaginas": 16,
+          "resumo": "nter: The Smuggler!\".\nSempre com dificuldades para lidar com as inúmeras demandas de sua vida pessoal e com as responsabilidades extra-curriculares que carrega sob o manto do Homem-Aranha, Peter Parker tem seu primeiro encontro com o Contrabandista quando se envolve no mundo das gangues de Nova York.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1980,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 49/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O Tigre Branco",
+          "tituloOriginal": "The White Tiger!",
+          "quantidadePaginas": 6,
+          "resumo": "he White Tiger!\".\nPara além disso, seu aliado Tigre Branco retorna, e, quando ele é ferido, o amigão da vizinhança vai se ver forçado a enfrentar Gedeão e seus capangas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1980,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 49/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dilema!",
+          "tituloOriginal": "Dilemma!",
+          "quantidadePaginas": 17,
+          "resumo": "ilemma!\".\nO escalador de paredes é forçado a enfrentar o ilusionista Mystério quando o vilão sequestra sua querida Tia May e seu noivo, além de Debra Whitman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 50/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A elite assassina!",
+          "tituloOriginal": "A killer Elite!",
+          "quantidadePaginas": 5,
+          "resumo": "killer Elite!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 50/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Aliens e ilusões!",
+          "tituloOriginal": "Aliens and Illusions!",
+          "quantidadePaginas": 17,
+          "resumo": "liens and Illusions!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 51/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A ameaça de Gideon Mace!",
+          "tituloOriginal": "The Menace of Gideon Mace!",
+          "quantidadePaginas": 5,
+          "resumo": "he Menace of Gideon Mace!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 51/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O dia dos matadores de heróis!",
+          "tituloOriginal": "The Day of the Hero Killers!",
+          "quantidadePaginas": 22,
+          "resumo": "he Day of the Hero Killers!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "52",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 52/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Sansão e Dalila!",
+          "tituloOriginal": "Samson and Delilah\"2",
+          "quantidadePaginas": 22,
+          "resumo": "amson and Delilah\"2.\nOs perigos das ruas de Nova York também vão cruzar o caminho do Aranha com o do Doutor Samson, e os dois vão precisar trabalhar juntos para garantir a segurança nas ruas da grande metrópole!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "102",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 102/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Os brinquedos do Consertador",
+          "tituloOriginal": "Toys of the Terrible Tinkerer",
+          "quantidadePaginas": 22,
+          "resumo": "O Consertador retorna, quase levando uma mulher à loucura, e em seguida arquiteta um plano infalível.\noys of the Terrible Tinkerer\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 53/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Peter Parker, The Spectacular Spider-Man (1976) n° 52\nPublicado em: julho de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Frank Miller Arte-Final: Bob Wiacek Editor: Diogo Prado"
+    },
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 215",
+      "publicadoTexto": "agosto de 2023",
+      "dataPublicacao": "2023-08-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_6bk9nuue1l2cj6pe304ta7k16r/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Minha é a vingança!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 32,
+          "resumo": "Com a ajuda do Contrabandista, o Homem-Aranha tenta expor a Maggia, um anel criminoso cuja moeda principal são os narcóticos de rua. Em meio à sua cruzada contra os traficantes, o lançador de teias pode vir a contar com novos aliados... ou seriam novos inimigos?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 2/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Academia de Assassinos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Homem-Aranha e Homem-Formiga se infiltram na escolinha do crime do Treinador",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 103/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Tudo que eles querem é te matar, Homem-Aranha...",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Em seguida, depois de uma fuga da prisão pelo terrível Mago, o Homem-Aranha vai ser mais uma vez convocado à ação, e tudo enquanto o caos também reina na vida pessoal de Peter Parker, com Debra Whitman querendo dar um novo passo com o relacionamento dos dois.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "213",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 213/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A volta do Quarteto Terrível",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "214",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 214/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Derrotados pelos próprios poderes!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "215",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 215/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Um grito de vingança!",
+          "tituloOriginal": "Cry... Vengeance!",
+          "quantidadePaginas": 10,
+          "resumo": "Tempestade é abordada por assassinos e usa seus poderes para conseguir escapar da morte. Porém um nome lhe desperta memórias antigas: Andreas de Ruyter. Um homem que atacou o príncipe Tchalla na África, e Tempestade interveio para ajudar, conhecendo assim o Pantera Negra. Agora ela procura Tchalla para descobrir o paradeiro de Ruyter e saber se ele busca concretizar o serviço.\nry... Vengeance!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1980,
+            "texto": "Marvel Team-Up (1972) n° 100/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O audacioso Falcão Noturno",
+          "tituloOriginal": null,
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 101/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 215\nPublicado em: agosto de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado"
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 218",
+      "publicadoTexto": "setembro de 2023",
+      "dataPublicacao": "2023-09-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Arte: Frank Miller Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_pkkb7umq3d1ghdn169d3ugf61r/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Maratona!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "216",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 216/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um mar de lama!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "217",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 217/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Beleza nos olhos de quem vê!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "218",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 218/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O resgate do Contrabandista",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 54/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A grande explosão",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 55/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O veneno mortal da vingança!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Esta é uma história do Homem-Aranha, com o Capitão América como convidado. Na trama, o Escalador de Paredes e o defensor da liberdade se unem para enfrentar a vingança do Escorpião.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 106/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 218\nPublicado em: setembro de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Frank Miller Editor: Diogo Prado"
+    },
+    {
+      "numero": "7",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man Annual, The (1964) n° 15",
+      "publicadoTexto": "outubro de 2023",
+      "dataPublicacao": "2023-10-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: Frank Miller Arte-Final: Klaus Janson Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_qbui03drt162ta35h9vbka844t/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A noite das bruxas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 56/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A vingança do Fogo-Fátuo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 57/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Rumores de revolução!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "107",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 107/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Homem-Aranha: Perigo ou ameaça?",
+          "tituloOriginal": "Spider-Man: Threat or Menace?",
+          "quantidadePaginas": 30,
+          "resumo": "Nosso Cabeça de Teia alia-se ao Justiceiro para impedir que Dr. Octopus contamine a tinta do Clarim Diário, mantando assim, milhões de pessoas.\npider-Man: Threat or Menace?\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 15/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Peter Parker... criminoso!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "219",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 219/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O mistério da casa de repouso",
+          "tituloOriginal": null,
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "220",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 220/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Qual é a força do... Homem-Aranha?",
+          "tituloOriginal": null,
+          "quantidadePaginas": 3,
+          "resumo": "\"Extra\" com o Homem-Aranha comparando variados super-heróis Marvel com a sua própria força, ranqueando-os em categorias.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 15/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man Annual, The (1964) n° 15\nPublicado em: outubro de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Frank Miller Arte-Final: Klaus Janson Editor: Diogo Prado"
+    },
+    {
+      "numero": "8",
+      "tituloChamada": "Fantasmagoricamente estrelando... o macabro Cavaleiro da Lua.",
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 220",
+      "publicadoTexto": "dezembro de 2023",
+      "dataPublicacao": "2023-12-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Arte: Bob Layton Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_tls7dq4j2d1ebama72q7f2hq12/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Minha vida é uma fraude!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "58",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 58/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Algo sinistro mata por aí!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "108",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 108/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Massa crítica!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "109",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 109/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Um caixão para o Homem-Aranha!",
+          "tituloOriginal": "A Coffin for Spider-Man!",
+          "quantidadePaginas": 17,
+          "resumo": "O Cabeça de Teia e o Vingador de Prata se unem para derrotar o Sindicato do Crime.\nCoffin for Spider-Man!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "220",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 220/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O sofrimento do Pinky Solitário!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "221",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 221/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Força magma!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1981,
+            "texto": "Marvel Team-Up (1972) n° 110/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Álbum de fotos da Tia May",
+          "tituloOriginal": null,
+          "quantidadePaginas": 4,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "O escritório",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Planta do escritório do Departamento de Biofísica da Universidade Empire State.\n1 Página",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Os amigos e amigas do Pete",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "1 Página",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Fantasmagoricamente estrelando... o macabro Cavaleiro da Lua.\nCapa original: Amazing Spider-Man, The (1963) n° 220\nPublicado em: dezembro de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Bob Layton Editor: Diogo Prado"
+    },
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3",
+      "publicadoTexto": "dezembro de 2023",
+      "dataPublicacao": "2023-12-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: Alan Lee Weiss Arte-Final: Josef \"Joe\" Rubinstein Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_0nudrrb6fh0mt7bpdj24divc27/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Eu quero o Homem-Aranha!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 59/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Besouromania!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 60/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Nasce uma lenda!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 17,
+          "resumo": "Recontando a origem do Homem-Aranha, baseado na edição Amazing Fantasy n. 15 (1962), de Stan Lee & Steve Ditko.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 60/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A face oculta da lua",
+          "tituloOriginal": null,
+          "quantidadePaginas": 29,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mais rápido que os olhos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "222",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 222/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A noite dos macacos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "223",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 223/1981 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Peter Parker, The Spectacular Spider-Man Annual (1979) n° 3\nPublicado em: dezembro de 2023\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Alan Lee Weiss Arte-Final: Josef \"Joe\" Rubinstein Editor: Diogo Prado"
+    },
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 224",
+      "publicadoTexto": "janeiro de 2024",
+      "dataPublicacao": "2024-01-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Bob Layton Layout: Ed Hannigan Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_irdmvs45c91d7a28u6bt2lgj7b/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sob a luz prateada da Rocha Lunar!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1981,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 61/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A febre do ouro",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 62/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Que estas velhas asas voltem a voar!",
+          "tituloOriginal": "Let Fly These Aged Wings!",
+          "quantidadePaginas": 22,
+          "resumo": "et Fly These Aged Wings!\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "224",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 224/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Incendiário",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 63/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A ressurreição de Edward Lansky",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "113",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 113/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Somos todos idiotas!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "225",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 225/1982 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 224\nPublicado em: janeiro de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Bob Layton Layout: Ed Hannigan Editor: Diogo Prado"
+    },
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 229",
+      "publicadoTexto": "fevereiro de 2024",
+      "dataPublicacao": "2024-02-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_h6o1587i9d1k97e8lmfkkjoc5s/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Duelo de máscaras",
+          "tituloOriginal": "But the Cat Came Back...",
+          "quantidadePaginas": 22,
+          "resumo": "Gata Negra está disposta a entrar na linha pelo amor do aracnídeo.\n\nut the Cat Came Back...\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "226",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 226/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Beco sem saída",
+          "tituloOriginal": "Goin' Straight!",
+          "quantidadePaginas": null,
+          "resumo": "oin' Straight!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "227",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 227/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "As aranhas assassinas",
+          "tituloOriginal": "Murder by Spider",
+          "quantidadePaginas": null,
+          "resumo": "urder by Spider\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "228",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 228/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Ninguém pode deter o Fanático!",
+          "tituloOriginal": "Nothing Can Stop the Juggernaut!",
+          "quantidadePaginas": null,
+          "resumo": "Dotado do poder místico do Cristal Escarlate de Cyttorak, o Fanático é um inimigo impossível de se deter. Mesmo assim, o Aranha precisa impedir que ele alcance o seu destino de qualquer maneira. Contudo, quando balas e bombas ricocheteiam em seu corpo encouraçado sem deixar um arranhão sequer, o que nosso herói aracnídeo pode fazer?\n\nothing Can Stop the Juggernaut!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "229",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 229/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Harlem pega fogo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "Falcão e Aranha tentam desbaratar a quadrilha do Cara de Pedra, que usa um grupo de garotos chamados Jovens Guardiões como fachada, fingindo proteger a população de assaltos no metrô.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "114",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 114/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Manto e Adaga",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 64/1982 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 229\nPublicado em: fevereiro de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado"
+    },
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 230",
+      "publicadoTexto": "março de 2024",
+      "dataPublicacao": null,
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_2c1ia8lchd6lr2q2949boc6a6i/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "...Um inimigo invencível!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "230",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 230/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Dicotomias!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "115",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 115/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Entre a Espada e o Martelo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "116",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 116/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O coração é um caçador solitário",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 65/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "...O Electro está livre!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 66/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Rastros e robôs",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "117",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 117/1982 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 230\nPublicado em: março de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado"
+    },
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 231",
+      "publicadoTexto": "abril de 2024",
+      "dataPublicacao": "2024-04-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Erick Garcia",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_gnbbv45b9d4g1djpa4756icr1k/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Duelo mental!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "118",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 118/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O tempo nos atropela como um trem desgovernado",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "119",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 119/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Bumerangue! O assassino que sempre volta!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "67",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 67/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Não há no inferno fúria como a de um robô desprezado!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "68",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 68/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Com a boca na botija",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "231",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 231/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O médico e o monstro",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "232",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 232/1982 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 231\nPublicado em: abril de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Erick Garcia"
+    },
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 233",
+      "publicadoTexto": "maio de 2024",
+      "dataPublicacao": "2024-05-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Erick Garcia",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_2p1krbqot5407f2mjb4ojta85m/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Escuridão incomparável",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "69",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 69/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Caçada a Manto e Adaga",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "70",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 70/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Velhos soldados",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "120",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 120/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Olhe antes de saltar",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "121",
+            "anoOriginal": 1982,
+            "texto": "Marvel Team-Up (1972) n° 121/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Onde está o Nariz Norton, @$%#?",
+          "tituloOriginal": "Where the @¢%# Is Nose Norton?",
+          "quantidadePaginas": 22,
+          "resumo": "Norton é um informante do Clarim que sabe muitas atividades ilícitas da Corporação Brand o que o faz a pessoa mais visada de Nova Iorque. J.J. Jameson oferece uma recompensa por seu paradeiro, enquanto a Brand está pagando por sua morte. O Aranha vai até a Jamaica, central da Corporação Brand, e se depara com uma aterradora visão.\n\nhere the @¢%# Is Nose Norton?\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "233",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 233/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "É hora do Fogo Fátuo ter sua vingança!",
+          "tituloOriginal": "Now Shall Will-O'-The-Wisp Have His Revenge!",
+          "quantidadePaginas": 22,
+          "resumo": "Um antigo inimigo do aranha está de voltar, com o objetivo de destruir pra sempre a corporação Brand, e também o tarantula aceitar ser cobaia em um experimento para tentar ganhar os poderes do aranha.\n\now Shall Will-O'-The-Wisp Have His Revenge!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "234",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 234/1982 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 233\nPublicado em: maio de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Erick Garcia"
+    },
+    {
+      "numero": "15",
+      "tituloChamada": "Com esta arma...",
+      "capaOriginalTexto": "Peter Parker, The Spectacular Spider-Man (1976) n° 71",
+      "publicadoTexto": "junho de 2024",
+      "dataPublicacao": "2024-06-01",
+      "numeroPaginas": 148,
+      "precoCapa": 39.9,
+      "creditosCapa": "Desenho: John Romita Jr. Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ Editor: Erick Garcia",
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_rf94l15dqd5hb6dm8g8hurag2r/-S265-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Cuidado, lá vem um monstro",
+          "tituloOriginal": "Look Out, There's a Monster Coming!",
+          "quantidadePaginas": 22,
+          "resumo": "O vilão Tarântula aceita passar por um procedimento experimental para ganhar super poderes, mas algo sai terrivelmente errado e o resultado o transforma em uma aberração. Cabe ao Homem-Aranha enfrentar essa tenebrosa ameaça.\n\nook Out, There's a Monster Coming!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "235",
+            "anoOriginal": 1982,
+            "texto": "Amazing Spider-Man, The (1963) n° 235/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sentença de morte!",
+          "tituloOriginal": "Death Knell!",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Aranha luta com Fogo Fátuo na frente de uma audiência mundial! E o Tarantula encontra seu trágico destino.\n\neath Knell!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "236",
+            "anoOriginal": 1983,
+            "texto": "Amazing Spider-Man, The (1963) n° 236/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Com esta arma... você morre!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "71",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 71/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "À espera do Dr. Octopus",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "72",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 72/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Peter Parker, você é o Espetacular Homem-Aranha!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "73",
+            "anoOriginal": 1982,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 73/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Fantasia!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "74",
+            "anoOriginal": 1983,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 74/1983 - Marvel Comics"
+          }
+        }
+      ],
+      "descricao": "Com esta arma...\nCapa original: Peter Parker, The Spectacular Spider-Man (1976) n° 71\nPublicado em: junho de 2024\nEditora: [Panini](http://www.guiadosquadrinhos.com/editora/panini/11)\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ Editor: Erick Garcia"
+    }
+  ]
+}

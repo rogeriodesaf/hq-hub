@@ -24,12 +24,28 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/catalogo/catalogo.page').then((m) => m.CatalogoPage),
       },
       {
+        path: 'conteudos',
+        loadComponent: () => import('./pages/conteudos/conteudos.page').then((m) => m.ConteudosPage),
+      },
+      {
+        path: 'importacao',
+        loadComponent: () => import('./pages/importacao/importacao.page').then((m) => m.ImportacaoPage),
+      },
+      {
+        path: 'revisao',
+        loadComponent: () => import('./pages/revisao/revisao.page').then((m) => m.RevisaoPage),
+      },
+      {
         path: 'colecao',
         loadComponent: () => import('./pages/colecao/colecao.page').then((m) => m.ColecaoPage),
       },
       {
         path: 'compras',
         loadComponent: () => import('./pages/compras/compras.page').then((m) => m.ComprasPage),
+      },
+      {
+        path: 'anuncios',
+        loadComponent: () => import('./pages/anuncios/anuncios.page').then((m) => m.AnunciosPage),
       },
       {
         path: 'amigos',

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: hqhub-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hqhub
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - hqhub-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  hqhub-postgres-data:

@@ -112,3 +112,4 @@ export class AutenticacaoPage {
     this.mensagem.set(resposta.error?.mensagem ?? 'Não foi possível completar a ação.');
   }
 }
+

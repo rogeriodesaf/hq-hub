@@ -1,0 +1,115 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263",
+    "geradoEm": "2026-06-18T09:52:25",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-06-01",
+      "publicadoTexto": "junho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=159263&path=sa01112602_159263.jpg&w=400&h=615",
+      "descricao": "Saga do Batman, A 1ª Série - n° 2\nPublicado em: junho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Alan Davis Arte-Final: Paul Neary Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O livro do juízo final",
+          "tituloOriginal": "The Doomsday book/Chapter One/Chapter Two/The adventure of the lost adventure!/The adventure of the red leech/God save the kingdom!",
+          "quantidadePaginas": 54,
+          "resumo": "Cap. Um: Arte por Davis\nCap. Dois: Arte por Beatty & Giordano; Gafford cores\nCap. Três: O Homem Elástico - \" A Aventura da Aventura Perdida!\" Arte por Infantino & Al Vey; Gafford cores\nCap. Quatro: Sherlock Holmes - As Aventuras do Parasita Vermelho - Arte por E. R. Cruz\nCap. Cinco: \"Deus salve o Reino!\" - Arte por Davis & Neary",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "572",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 572/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O chapeleiro louco tira o chapéu",
+          "tituloOriginal": "The Mad Hatter Flips His Lids!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "573",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 573/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "... Meu começo... E meu provável fim.",
+          "tituloOriginal": "...My Beginning... and My Probable End.",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "574",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 574/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Robin morreu nesta noite?",
+          "tituloOriginal": "Did Robin die tonight?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "408",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 408/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Apenas outro garoto no Beco do Crime!",
+          "tituloOriginal": "Just another kid on Crime Alley",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "409",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 409/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dois iguais",
+          "tituloOriginal": "Two of a Kind",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "410",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 410/1987 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

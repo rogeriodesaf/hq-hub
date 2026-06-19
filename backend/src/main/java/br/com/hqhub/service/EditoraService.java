@@ -10,6 +10,7 @@ import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.EditoraMapper;
 import br.com.hqhub.repository.EditoraRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -66,7 +67,7 @@ public class EditoraService {
     }
 
     public List<EditoraRespostaDTO> listarTodos() {
-        return editoraRepository.list("nome")
+        return editoraRepository.listAll(Sort.by("nome"))
                 .stream()
                 .map(editoraMapper::paraResposta)
                 .toList();

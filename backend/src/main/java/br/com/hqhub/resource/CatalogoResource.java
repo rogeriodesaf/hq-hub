@@ -24,7 +24,10 @@ public class CatalogoResource {
 
     @GET
     @Path("/pesquisa")
-    public Response pesquisar(@QueryParam("termo") String termo) {
-        return Response.ok(pesquisaCatalogoService.pesquisarCatalogo(termo)).build();
+    public Response pesquisar(
+            @QueryParam("termo") String termo,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(pesquisaCatalogoService.pesquisarCatalogo(termo, pagina, tamanho)).build();
     }
 }

@@ -140,25 +140,36 @@ public class IntegracaoExternaService {
         return buscarEdicoesVolumeComicVine(idVolume, pagina, tamanho, null, null);
     }
 
-    public List<EdicaoComicVineRespostaDTO> buscarEdicoesComicVinePorTermo(String termo, int limite) {
+    public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesComicVinePorTermo(
+            String termo,
+            Integer pagina,
+            Integer tamanho) {
         validarComicVineConfigurada();
 
         if (termo == null || termo.isBlank()) {
             throw new RegraNegocioException("Termo de busca é obrigatório.");
         }
 
-        int limiteTratado = Math.min(Math.max(limite, 1), TAMANHO_MAXIMO_COMICVINE);
+        int paginaTratada = tratarPagina(pagina);
+        int tamanhoTratado = tratarTamanhoComicVine(tamanho);
+        int offset = paginaTratada * tamanhoTratado;
+
         String url = "https://comicvine.gamespot.com/api/search/?format=json"
-                + "&limit=" + limiteTratado
+                + "&limit=" + tamanhoTratado
+                + "&offset=" + offset
                 + "&resources=issue"
                 + "&field_list=id,name,issue_number,cover_date,store_date,site_detail_url,image,deck,description,volume"
                 + "&query=" + codificar(termo)
                 + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
         JsonNode raiz = executarGet(url);
 
-        return StreamSupport.stream(raiz.path("results").spliterator(), false)
+        List<EdicaoComicVineRespostaDTO> itens = StreamSupport.stream(raiz.path("results").spliterator(), false)
                 .map(item -> montarEdicaoComicVine(item, false))
                 .toList();
+        long totalItens = raiz.path("number_of_total_results").asLong(itens.size());
+
+        return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
+                calcularTotalPaginas(totalItens, tamanhoTratado));
     }
 
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(

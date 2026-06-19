@@ -1,0 +1,19 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Importar JSON gerado pelo robô para o catálogo
+### No VS Code REST Client, ajuste o caminho se necessário.
+POST {{url}}/importacoes/catalogo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+< ../../../docs/importacao/rascunhos/saga-do-batman-1-serie-robo.json
+
+### Depois da importação, buscar a série no catálogo
+GET {{url}}/series?busca=Saga%20do%20Batman
+Authorization: Bearer {{token}}
+
+### Depois da importação, listar edições da série
+### Troque serieId pelo id retornado na importação ou na busca acima.
+GET {{url}}/edicoes?serieId=1&pagina=0&tamanho=50
+Authorization: Bearer {{token}}

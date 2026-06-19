@@ -1,0 +1,3682 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-1/sa011126/157954",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-3/sa011126/159938",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-4/sa011126/160328",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-5/sa011126/160507",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-6/sa011126/161036",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-7/sa011126/161264",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-8/sa011126/161805",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-9/sa011126/162127",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-10/sa011126/162566",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-11/sa011126/162979",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-12/sa011126/163367",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-13/sa011126/163845",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-14/sa011126/164283",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-15/sa011126/164895",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-16/sa011126/165390",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-17/sa011126/165762",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-18/sa011126/166364",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-19/sa011126/166711",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-20/sa011126/169167",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-21/sa011126/169468",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-22/sa011126/169909",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-23/sa011126/170219",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-24/sa011126/172262",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-25/sa011126/172800",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-26/sa011126/173278",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-27/sa011126/173700",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-28/sa011126/174134",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-29/sa011126/174372",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-30/sa011126/174632",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-31/sa011126/174989",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-32/sa011126/175235",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-33/sa011126/175512",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-34/sa011126/176015",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-35/sa011126/176385",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-36/sa011126/176700"
+    ],
+    "geradoEm": "2026-06-18T10:05:47",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 36,
+  "totalHistorias": 229,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-03-01",
+      "publicadoTexto": "março de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 160,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61kwcX1K0IL._SL1000_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 1\nPublicado em: março de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 160\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Alan Davis Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "[There's Nothing So Savage -- -- As a Man Destroying Himself!]",
+          "quantidadePaginas": 23,
+          "resumo": "Um violento Batman assassina bandidos em Gotham e chama a atenção da polícia. Será que o Homem Morcego pode matar?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "402",
+            "anoOriginal": 1986,
+            "texto": "Batman (1940) n° 402/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um Batman a mais",
+          "tituloOriginal": "One Batman too many",
+          "quantidadePaginas": 22,
+          "resumo": "O sósia de Batman escapa da prisão e volta a matar, o que põe o Batman original em seu encalço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "403",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 403/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Como pegar uma gata",
+          "tituloOriginal": "Catch as Catscan",
+          "quantidadePaginas": 22,
+          "resumo": "A Mulher-Gato está regenerada e atua em conjunto com a dupla dinâmica, mas o Coringa não está contente com isso e sequestra a moça a fim de forçá-la a retornar às origens criminosas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "569",
+            "anoOriginal": 1986,
+            "texto": "Detective Comics (1937) n° 569/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A última gargalhada",
+          "tituloOriginal": "The Last Laugh!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin partem em busca da Mulher-Gato, mas pode ser muito difícil desfazer a indução psicológica imposta pelo Coringa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "570",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 570/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Medo à venda",
+          "tituloOriginal": "Fear for Sale",
+          "quantidadePaginas": 22,
+          "resumo": "O Espantalho espalha uma nova toxina que inibe o medo das pessoas e as leva a cometer atos que podem custar suas vidas. O que acontecerá agora que o Batman acabou sendo uma das vítimas do vilão?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "571",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 571/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Barro mortal",
+          "tituloOriginal": "Mortal Clay",
+          "quantidadePaginas": 23,
+          "resumo": "O Cara-de-Barro III vive um ensandecido romance com uma manequim há tempos até começar a sentir ciúmes de uma possível relação entre sua companheira e o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "texto": "Batman Annual (1961) n° 11/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Pássaro do amor",
+          "tituloOriginal": "Love Bird",
+          "quantidadePaginas": 15,
+          "resumo": "O Pinguim está deixando a prisão e jura estar totalmente regenerado, apaixonado perdidamente por uma mulher que trocou cartas com ele e é tão fanática por pássaros quanto ele. Batman, é claro, acredita que o ornitólogo do mal está apenas fingindo e mantém vigilância cerrada sobre ele. O casal enamorado até abre uma fábrica de guarda-chuvas para começar vida nova. Será que o Pinguim mudou mesmo ou Batman tem razão em se manter desconfiado?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "texto": "Batman Annual (1961) n° 11/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-06-01",
+      "publicadoTexto": "junho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=159263&path=sa01112602_159263.jpg&w=400&h=615",
+      "descricao": "Saga do Batman, A 1ª Série - n° 2\nPublicado em: junho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Alan Davis Arte-Final: Paul Neary Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O livro do juízo final",
+          "tituloOriginal": "The Doomsday book/Chapter One/Chapter Two/The adventure of the lost adventure!/The adventure of the red leech/God save the kingdom!",
+          "quantidadePaginas": 54,
+          "resumo": "Cap. Um: Arte por Davis\nCap. Dois: Arte por Beatty & Giordano; Gafford cores\nCap. Três: O Homem Elástico - \" A Aventura da Aventura Perdida!\" Arte por Infantino & Al Vey; Gafford cores\nCap. Quatro: Sherlock Holmes - As Aventuras do Parasita Vermelho - Arte por E. R. Cruz\nCap. Cinco: \"Deus salve o Reino!\" - Arte por Davis & Neary",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "572",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 572/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O chapeleiro louco tira o chapéu",
+          "tituloOriginal": "The Mad Hatter Flips His Lids!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "573",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 573/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "... Meu começo... E meu provável fim.",
+          "tituloOriginal": "...My Beginning... and My Probable End.",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "574",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 574/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Robin morreu nesta noite?",
+          "tituloOriginal": "Did Robin die tonight?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "408",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 408/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Apenas outro garoto no Beco do Crime!",
+          "tituloOriginal": "Just another kid on Crime Alley",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "409",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 409/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dois iguais",
+          "tituloOriginal": "Two of a Kind",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "410",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 410/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-07-01",
+      "publicadoTexto": "julho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 170,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=159938&path=sa01112603_159938.jpg&w=400&h=620",
+      "descricao": "Saga do Batman, A 1ª Série - n° 3\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 170\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Jerry Bingham Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Segunda chance",
+          "tituloOriginal": "Second Chance",
+          "quantidadePaginas": 22,
+          "resumo": "Duas-Caras aplica vários assaltos em sua lógica dupla e Robin deverá controlar sua raiva pessoal contra o vilão para a dupla dinâmica conseguir prendê-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "411",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 411/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O som do silêncio",
+          "tituloOriginal": "The Sound of Silence",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin enfrentam uma mímica que abomina o barulho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "412",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 412/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O fantasma de Masahiko Tahara",
+          "tituloOriginal": "The Ghost of Masahiko Tahara",
+          "quantidadePaginas": 22,
+          "resumo": "Uma exposição de artigos japoneses no museu de Gotham atrai a atenção de Batman e Robin para investigar a misteriosa aparição de um fantasma samurai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "413",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 413/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Vítimas!",
+          "tituloOriginal": "Victims!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está ajudando a polícia de Gotham a tentar resolver os crimes do Assassino da Lixeira, um maníaco que mutila suas vítimas e as joga em uma lixeira. Ao investigar a cena da terceira vítima, Batman ajuda em um incêndio uma jovem chamada Kate. Mais tarde, ele a conhece como Bruce Wayne e se torna amigo dela, mas quando ela se torna uma vítima do Assassino, ele deixa suas emoções tomarem conta e a investigação se torna pessoal.\nContinua em Batman #421.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "414",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 414/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A clínica escarlate do Doutor do Crime",
+          "tituloOriginal": "The Crime Doctor's Crimson Clinic",
+          "quantidadePaginas": 22,
+          "resumo": "Batman procura novamente o Dr. do Crime e usará toda sua astúcia para colocar na cadeia o médico que ajuda os vilões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "579",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 579/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Imagem dupla",
+          "tituloOriginal": "Double Image",
+          "quantidadePaginas": 22,
+          "resumo": "Duas Caras volta a cometer roubos em Gotham mas Batman percebe que não se trata de Harvey Dent exatamente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "580",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 580/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Um de dois... ...Não é ruim...",
+          "tituloOriginal": "One Out of Two... ...Isn't Bad...",
+          "quantidadePaginas": 22,
+          "resumo": "Batman consegue capturar o Duas-Caras falso e, com sua ajuda, elabora um plano para deter Harvey Dent.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "581",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 581/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-07-01",
+      "publicadoTexto": "julho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=160328&path=sa01112604_160328.jpg&w=400&h=625",
+      "descricao": "Saga do Batman, A 1ª Série - n° 4\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Jerry Bingham Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria\nMilênio",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Milênio - Parte 4",
+          "tituloOriginal": "Millennium",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Florônico é um dos Escolhidos. Agora, para proteger o plano dos Guardiões, Batman terá que invadir o Asilo Arkhan e libertá-lo, contudo, terá que enfrentar o Caçador Cósmico designado para destrui-lo, que assumiu a forma do melhor amigo do Homem-Morcego: o Comissário James Gordon.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "415",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 415/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Milênio - Parte 16",
+          "tituloOriginal": "Sole Survivor",
+          "quantidadePaginas": 22,
+          "resumo": "Batman ruma para a Louisiana para investigar a viagem de Jim Gordon onde o comissário tenta ajudar um antigo amigo da época militar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "582",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 582/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ouro branco e a verdade",
+          "tituloOriginal": "White gold and truth",
+          "quantidadePaginas": 22,
+          "resumo": "Um erro na investigação de Robin o põe em contato com Asa Noturna e o antigo menino-prodígio vai ter uma importante conversa com Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "416",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 416/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: As Dez Noites da Besta - Parte 1",
+          "tituloOriginal": "Ten Nights of the Beast! [Part I]",
+          "quantidadePaginas": 22,
+          "resumo": "Um assassino conhecido como KGBesta surge nas ruas de Gotham City, e seu plano é atacar diretamente os serviços de segurança dos Estados Unidos da América, em um ataque de proporções catastróficas. Caberá ao Batman defender seu papel como protetor da cidade e interromper esse atentado!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "417",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 417/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: As Dez Noites da Besta - Parte 2",
+          "tituloOriginal": "Ten Nights of the Beast, Part II",
+          "quantidadePaginas": 22,
+          "resumo": "KGBesta continua fazendo suas vítimas, fazendo com que o Batman revise seus métodos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "418",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 418/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: As Dez Noites da Besta - Parte 3",
+          "tituloOriginal": "Ten Nights of the Beast! Part III",
+          "quantidadePaginas": 22,
+          "resumo": "A guerra do KGBesta contra Gotham leva a mais mortes e uma atitude extrema mostra que o assassino não pode ser subestimado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "419",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 419/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: As Dez Noites da Besta - Parte 4",
+          "tituloOriginal": "Ten Nights of the Beast, Part 4",
+          "quantidadePaginas": 22,
+          "resumo": "A última vítima da lista da Besta chega a Gotham e Batman usará todos os seus recursos para proteger o presidente dos EUA.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "420",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 420/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-08-01",
+      "publicadoTexto": "agosto de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 172,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=160507&path=sa01112605_160507.jpg&w=400&h=617",
+      "descricao": "Saga do Batman, A 1ª Série - n° 5\nPublicado em: agosto de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Mike Mignola Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria\nFebre - Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Febre (Batman) - Parte 1",
+          "tituloOriginal": "Fever",
+          "quantidadePaginas": 22,
+          "resumo": "Uma nova droga mortal chamada Febres chega às ruas de Gotham, graças a uma gangue comandada por Scarface e o Ventríloquo.\nPrimeira aparição do Scarface e do Ventríloquo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "583",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 583/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Febre (Batman) - Parte 2",
+          "tituloOriginal": "Fever Break!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman interrompe os planos de Scarface contrabandear uma grande quantia da droga Febre.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "584",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 584/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O Caça-Ratos",
+          "tituloOriginal": "The Ratcatcher",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto interrompe uma negociação de tráfico de armas, Batman encontra um homem que é atacado e morto por ratos, o que o coloca na trilha do Caça-Ratos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "585",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 585/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Ratoeira",
+          "tituloOriginal": "Rat Trap",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta o Caça-Ratos nos esgotos e descobre que ele aprisionou aqueles que ele considera responsáveis por mandá-lo para a prisão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "586",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 586/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Elmore e sua dama",
+          "tituloOriginal": "Elmore's Lady",
+          "quantidadePaginas": 22,
+          "resumo": "Continuação de Batman #414.\nBatman segue o rastro do maníaco chamado \"Assassino da Lixeira\" e confronta um dos suspeitos.\nContinua em Batman #422.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "421",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 421/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O demônio de Slade",
+          "tituloOriginal": "Slade's Demon",
+          "quantidadePaginas": 38,
+          "resumo": "O terreno de uma mansão em ruínas é o cenário da caça do Batman por dois inimigos - um um assassino implacável, o outro, algo que pode nem ser humano.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1988,
+            "texto": "Batman Annual (1961) n° 12/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Reserva",
+          "tituloOriginal": "The Back-Up",
+          "quantidadePaginas": 8,
+          "resumo": "Jason Todd descobre que seus amigos na escola arranjaram um esquema para trocar suas notas escolares em um computador.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1988,
+            "texto": "Batman Annual (1961) n° 12/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-09-01",
+      "publicadoTexto": "setembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161036&path=sa01112606_161036.jpg&w=400&h=625",
+      "descricao": "Saga do Batman, A 1ª Série - n° 6\nPublicado em: setembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Todd McFarlane Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Dandara Palankof , Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Castigo merecido",
+          "tituloOriginal": "Just Deserts",
+          "quantidadePaginas": 22,
+          "resumo": "O Assassino da Lixeira encontra o seu destino, enquanto que Robin começa a ficar imprudente.\nConclusão da história inciada em Batman #414 e #421.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "422",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 422/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Você devia ter visto ele...",
+          "tituloOriginal": "You Shoulda Seen Him...",
+          "quantidadePaginas": 22,
+          "resumo": "Três policiais relatam três histórias do Cavaleiro das Trevas, revelando diferentes perspectivas de quem é o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "423",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 423/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O filho do diplomata",
+          "tituloOriginal": "The Diplomat's Son",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de encontrar uma bela jovem abusada e com o olho roxo na cama de Felipe Garzonas, Robin tem certeza que o sujeito vai para a cadeia. Mas quando Garzona sai livre por causa da imunidade diplomática, Jason sai em busca de vingança com resultados terríveis e inesperados.\nEleita como 28ª história pela Wizard na lista \"100 Best Single Issue Comics Since You Were Born\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "424",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 424/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Consequências",
+          "tituloOriginal": "Consequences",
+          "quantidadePaginas": 22,
+          "resumo": "Batman recebe uma mensagem do pai de Felipe Garzonas - ele fez James Gordon como refém e quer ver Batman e Robin para vingar a morte de seu filho. Batman pretende ir sozinho, mas é seguido por Robin. No processo de resgate de Gordon, tragédias acontecem e Robin vê as consequências de suas ações.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "425",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 425/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Povo da Noite - Parte 1",
+          "tituloOriginal": "Night People",
+          "quantidadePaginas": 22,
+          "resumo": "Durante uma madrugada tempestuosa, em Gotham, um criminoso foge da prisão e é perseguido pela polícia, ao mesmo tempo em que Batman desbarata um contrabando de drogas até que um raio provoca um desastre e surge um novo e poderoso vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "587",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 587/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Povo da Noite - Parte 2",
+          "tituloOriginal": "Night People, Part Two: The Corrosive Man",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem Corrosivo é o novo inimigo do Batman e o vilão segue uma trilha de destruição em busca de uma vingança contra o terrível Kadaver.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "588",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 588/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: Povo da Noite - Parte 3",
+          "tituloOriginal": "Night People, Part Three: The Burning Pit",
+          "quantidadePaginas": 22,
+          "resumo": "Na sua perseguição ao Homem Corrosivo, Batman encontra o assassino de mendigos, que o leva diretamente a Kadaver e, de quebra, ao Homem Corrosivo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "589",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 589/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "7",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-10-01",
+      "publicadoTexto": "outubro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161264&path=sa01112607_161264.jpg&w=400&h=611",
+      "descricao": "Saga do Batman, A 1ª Série - n° 7\nPublicado em: outubro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Mike Mignola Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Pelo amor da Hera",
+          "tituloOriginal": "Bonus Book No. 5: For the Love of Ivy",
+          "quantidadePaginas": 14,
+          "resumo": "Hera está morrendo e o Batman pode ajudá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "589",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 589/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Parábolas/Fábulas - Parte 1",
+          "tituloOriginal": "Fables, Part I: The Monkey Trap",
+          "quantidadePaginas": 38,
+          "resumo": "O Homem-Morcego recebe a visita da misteriosa Lady Shiva, que o contata por meio do Questão, e adentra em uma trama que engloba também seu inimigo Ra's al Ghul.\nContinua em: Green Arrow Annual nº1, de Janeiro de 1988.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics Annual (1988) n° 1/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Um Batman americano em Londres",
+          "tituloOriginal": "An American Batman in London",
+          "quantidadePaginas": 22,
+          "resumo": "O Cruzado Encapuzado se vê envolvido em uma trama investigativa que o leva até Londres, onde o herói segue a trilha de um assassino responsável pela morte de sete pessoas em Gotham City.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "590",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 590/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 1",
+          "tituloOriginal": "A Death in the Family - Chapter I",
+          "quantidadePaginas": 22,
+          "resumo": "Robin continua imprudente e o Batman decide dar um jeito nisso. Enquanto isso, Jason descobre a verdade sobre sua \"mãe\": Ela na verdade era sua madrastra, e sua mãe biológica ainda está viva!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "426",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 426/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 2",
+          "tituloOriginal": "A Death in the Family - Chapter II",
+          "quantidadePaginas": 22,
+          "resumo": "O Coringa escapa de Arkham e Batman o persegue até o Oriente Médio, onde também encontra Jason buscando a verdade sobre sua verdadeira mãe.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "426",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 426/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 3",
+          "tituloOriginal": "A Death in the Family - Chapter III",
+          "quantidadePaginas": 22,
+          "resumo": "Jason conhece a sua verdadeira mãe, Sheila Haywood, mas ele descobre tarde demais que ela está trabalhando com o Coringa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "427",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 427/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 4",
+          "tituloOriginal": "A Death in the Family - Chapter IV",
+          "quantidadePaginas": 22,
+          "resumo": "Coringa espanca Robin com um pé de cabra e o deixa para morrer plantando uma bomba no armazém ao mesmo momento em que ele trai Sheila para que não sobre nenhuma evidência do ocorrido. Robin tenta salvar Sheila, sua mãe, da bomba, mas pode ser tarde demais para ambos e tarde para o Batman chegar a tempo de salvar ambos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "427",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 427/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-11-01",
+      "publicadoTexto": "novembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161805&path=sa01112608_161805.jpg&w=400&h=619",
+      "descricao": "Saga do Batman, A 1ª Série - n° 8\nPublicado em: novembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Mike Mignola Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria\nMorte em família - Capítulo 5",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 5",
+          "tituloOriginal": "A Death in the Family - Chapter V",
+          "quantidadePaginas": 22,
+          "resumo": "A cruzada do Robin Jason Todd em busca de sua mãe chega ao seu fim trágico quando o herói cai nas mãos do maligno Coringa!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "428",
+            "anoOriginal": 1988,
+            "texto": "Batman (1940) n° 428/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Cena alternativa do Batman resgatando o Robin, ainda vivo.\nSomente o painel de salvamento foi publicado, não a página inteira.\n1 painel\nMorte em família - Capítulo 6\nArco: Morte em Família (Batman) - Parte 6",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "25",
+            "anoOriginal": 2006,
+            "texto": "Batman Annual (1961) n° 25/2006 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Morte em Família (Batman) - Parte 6",
+          "tituloOriginal": "A Death in the Family - Chapter VI",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "429",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 429/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "Fatal Wish",
+          "quantidadePaginas": 22,
+          "resumo": "Um homem amargurado com sua recente demissão arma-se com um rifle de precisão e passa a tocar o terror nas ruas de Gotham. Sob o cerco da polícia, o atirador vai ter que encarar Batman para continuar sua vingança particular contra o mundo. Enquanto lida com a insanidade do homem, Batman relembra suas origens e motivações.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "430",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 430/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O muro",
+          "tituloOriginal": "The Wall",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "431",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 431/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Aborígene!",
+          "tituloOriginal": "Aborigine!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "591",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 591/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: O Medo (Batman) - Parte 1",
+          "tituloOriginal": "The Fear, Part One",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "592",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 592/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Arco: O Medo (Batman) - Parte 2",
+          "tituloOriginal": "The Fear, Part Two: Diary of a Madman",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "593",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 593/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-12-01",
+      "publicadoTexto": "dezembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162127&path=sa01112609_162127.jpg&w=400&h=603",
+      "descricao": "Saga do Batman, A 1ª Série - n° 9\nPublicado em: dezembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Êxtase",
+          "tituloOriginal": "Ecstasy",
+          "quantidadePaginas": 22,
+          "resumo": "Batman persegue um operador da bolsa que está alucinado, dragado com êxtase, e está provocando explosões em Gotham.\nApesar de ser creditado como co-escritor, segundo Alan Grant, John Wagner não teve nenhuma participação na história.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "594",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 594/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Invasão!",
+          "tituloOriginal": "Our Man in Havana",
+          "quantidadePaginas": 22,
+          "resumo": "A aliança entre os homens gaviões de Thanagar e os guerreiros Khúndios durante a saga Invasão.\nApesar de ser creditado como co-escritor, segundo Alan Grant, John Wagner não teve nenhuma participação na história.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "595",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 595/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Frios",
+          "tituloOriginal": "Bonus Book! No. 11: Cold Cuts",
+          "quantidadePaginas": 14,
+          "resumo": "O Batman enfrenta o Sr. Frio que deseja um supercristal produzido pelos Laboratórios Star.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "595",
+            "anoOriginal": 1988,
+            "texto": "Detective Comics (1937) n° 595/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sadismo em video",
+          "tituloOriginal": "Video Nasties",
+          "quantidadePaginas": 22,
+          "resumo": "Batman investiga uma rede clandestina que cria vídeos de tortura e sadismo para exibições privadas da elite da cidade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "596",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 596/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Sessão particular",
+          "tituloOriginal": "Private Viewing",
+          "quantidadePaginas": 22,
+          "resumo": "Batman é brutalmente espancado e filmado para os sádicos espectadores, mas o herói está perto de pôr um fim a esse tormento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "597",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 597/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Beco sem saída",
+          "tituloOriginal": "Dead Letter Office",
+          "quantidadePaginas": 22,
+          "resumo": "Um caso de sequestro muito antigo e sem solução volta à tona e Batman acredita ser capaz de resolvê-lo, nem que tenha que esgotar todas as possibilidades.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "432",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 432/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Faces",
+          "tituloOriginal": "Faces",
+          "quantidadePaginas": 38,
+          "resumo": "Para impedir a execução de um inocente que havia prendido anteriormente, Batman precisa libertar Duas Caras da prisão, para que este o leve até o verdadeiro criminoso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1989,
+            "texto": "Batman Annual (1961) n° 13/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-01-01",
+      "publicadoTexto": "janeiro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 192,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162566&path=sa011126010_162566.jpg&w=400&h=617",
+      "descricao": "Saga do Batman, A 1ª Série - n° 10\nPublicado em: janeiro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 192\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: George Pérez Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Esperando nos bastidores",
+          "tituloOriginal": "Waiting in the Wings",
+          "quantidadePaginas": 8,
+          "resumo": "Alfred conta como foi início de sua relação com os Wayne e como foi ajudar a criar o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1989,
+            "texto": "Batman Annual (1961) n° 13/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: As Muitas Mortes do Batman - Parte 1",
+          "tituloOriginal": "The Many Deaths of the Batman - Chapter One: Period of Mourning",
+          "quantidadePaginas": 22,
+          "resumo": "Batman aparece crucificado num beco de Gotham City e não resiste no hospital, vindo a falecer. Para a surpresa de vários vilões, será este o fim do vigilante noturno?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "433",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 433/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: As Muitas Mortes do Batman - Parte 2",
+          "tituloOriginal": "How Many Times Can a Batman Die?",
+          "quantidadePaginas": 22,
+          "resumo": "Comissário Gordon investiga o assassinato de várias personalidades, tendo como paralelo o fato destas estarem fantasiadas de Batman, quando de suas mortes. O misterioso criminoso procura estabelecer uma ligação entre as vítimas, sendo que um dos próximos alvos é Bruce Wayne!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "434",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 434/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: As Muitas Mortes do Batman - Parte 3",
+          "tituloOriginal": "The Last Death of the Batman",
+          "quantidadePaginas": 22,
+          "resumo": "A série de assassinatos cujas vítimas estavam fantasiadas de Batman, permite que Bruce Wayne acredite que o criminoso seja alguém do seu passado, pois todos os mortos haviam treinado o vigilante mascarado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "435",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 435/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Batman: Ano Três - Parte 1",
+          "tituloOriginal": "Batman: Year Three - Different Roads",
+          "quantidadePaginas": 22,
+          "resumo": "A disputa pelo poder no submundo de Gotham tem levado ao assassinato de vários chefes criminosos. Batman procura investigar a origem destes atos, acreditando que Tony Zucco (o responsável pela morte dos pais de Robin) esteja preparando sua volta, tão longo consiga sua liberdade condicional.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "436",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 436/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Batman: Ano Três - Parte 2",
+          "tituloOriginal": "Batman: Year Three - Changes Made",
+          "quantidadePaginas": 22,
+          "resumo": "Na caçada pelo autor dos atos criminosos, Batman ainda tem que lidar com os questionamentos de Aasa Noturno, principalmente no que se refere a obsessão de Bruce para incriminar Zucco e a negação do milionário em relação a morte de seu filho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "437",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 437/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: Batman: Ano Três - Parte 3",
+          "tituloOriginal": "Batman Year 3: Chapter Three: Turnabout",
+          "quantidadePaginas": 22,
+          "resumo": "Às vésperas de Zucco sair da prisão, Alfred procura Dick para avaliar a situação, mas ele está preocupado em ajudar Batman a resolver a situação das gangues e sair do estado violento e descontrolado que se encontra. Juntos, a Dupla Dinâmica vê o criminoso sair da prisão e ser crivado de balas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "438",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 438/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Arco: Batman: Ano Três - Parte 4",
+          "tituloOriginal": "Batman Year 3 Chapter Four: Resolutions",
+          "quantidadePaginas": 24,
+          "resumo": "Asa Noturna primeiro acredita que Batman sabia do resultado trágico de Zucco antecipadamente, mas o Morcego nega. A avaliar A história do vilão Dick descobre o paradeiro do diário e parte para a batalha final.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "439",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 439/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-02-01",
+      "publicadoTexto": "fevereiro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 184,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162979&path=sa011126011_162979.jpg&w=400&h=613",
+      "descricao": "Saga do Batman, A 1ª Série - n° 11\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 184\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: George Pérez Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria\nSuspeitos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Um Lugar Solitário Para Morrer/Um Lugar Para Morrer - Parte 1",
+          "tituloOriginal": "A Lonely Place of Dying, Chapter One: Suspects",
+          "quantidadePaginas": 22,
+          "resumo": "Após sua maior derrota, Jason Todd - o Robin - foi assassinado pelo Coringa e Batman tornou-se uma vez mais o solitário protetor de Gotham City.\nMas quais seriam as ramificações de uma tragédia como essa? O Cavaleiro das Trevas passaria a ser um vigilante mais dedicado a sua luta por justiça ou perderia o rumo, incapaz de se recuperar de uma derrota dessas?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "440",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 440/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Um Lugar Solitário Para Morrer/Um Lugar Para Morrer - Parte 2",
+          "tituloOriginal": "A Lonely Place of Dying - Chapter Two: Roots",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Titans, The (1988)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1989,
+            "texto": "New Titans, The (1988) n° 60/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Um Lugar Solitário Para Morrer/Um Lugar Para Morrer - Parte 3",
+          "tituloOriginal": "A Lonely Place of Dying - Chapter Three: Parallel Lines",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "441",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 441/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Um Lugar Solitário Para Morrer/Um Lugar Para Morrer - Parte 4",
+          "tituloOriginal": "A Lonely Place of Dying: Part Four - Going Home!",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Titans, The (1988)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1989,
+            "texto": "New Titans, The (1988) n° 61/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Um Lugar Solitário Para Morrer/Um Lugar Para Morrer - Parte 5",
+          "tituloOriginal": "A Lonely Place of Dying - Chapter Five: Rebirth",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "442",
+            "anoOriginal": 1989,
+            "texto": "Batman (1940) n° 442/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A chegada do Engenheiro do Crime",
+          "tituloOriginal": "The Coming of Crimesmith",
+          "quantidadePaginas": 22,
+          "resumo": "Uma onda de crimes assola Gotham City, deixando a polícia completamente desorientada e colocando à prova toda a astúcia do Homem-Morcego. Os furtos e arrombamentos são comandados por um especialista, o Engenheiro do Crime. Participando nos bastidores desta aventura está Tim Drake, o rapaz que vem sendo treinado para se tornar o novo Robin.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "443",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 443/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Engenheiro do Crime e Castigo",
+          "tituloOriginal": "Crimesmith and Punishment",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "444",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 444/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-03-01",
+      "publicadoTexto": "março de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=163367&path=sa011126012_163367.jpg&w=400&h=608",
+      "descricao": "Saga do Batman, A 1ª Série - n° 12\nPublicado em: março de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Denys Cowan Arte-Final: Malcolm Jones III Editor: Gabriel Faria\nO sono da razão",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 1",
+          "tituloOriginal": "Chapter One: The Sleep of Reason [Blind Justice]",
+          "quantidadePaginas": 24,
+          "resumo": "Uma garota chega a Gotham em busca de seu irmão desaparecido, mas parece que ele nunca existiu. Enquanto isso, o Batman tem que lidar com um novo inimigo que usa o som como arma.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "598",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 598/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 2",
+          "tituloOriginal": "Chapter Two: The Kindness of Strangers [Blind Justice]",
+          "quantidadePaginas": 22,
+          "resumo": "Com a ajuda de um detetive particular, a garota encontra Bruce Wayne, que descobre novas pistas do irmão perdido. Batman enfrenta novamente o vilão que usa frequências sonoras, mas sempre quando está perto de detê-lo, ele comete suicídio.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "598",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 598/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 3",
+          "tituloOriginal": "Chapter Three: The Price of Knowledge [Blind Justice]",
+          "quantidadePaginas": 15,
+          "resumo": "Mais uma vez, Batman confronta uma versão de seu novo algoz, mas no final ele tem notícias de uma apreensão policial de alguém que parecia enfrentar o Morcego enquanto ele lutava contra o vilão. Supreendentemente, trata-se do irmão de sua protegida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "598",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 598/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 4",
+          "tituloOriginal": "Blind Justice, Chapter Four: Citizen Wayne",
+          "quantidadePaginas": 23,
+          "resumo": "O Batman descobre um esquema terrorista dentro da Waynetec e Bruce acaba exposto como um possível espião comunista. Agora, ele tentará provar sua inocência e capitular os terroristas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "599",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 599/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 5",
+          "tituloOriginal": "Blind Justice, Chapter Five: Hidden Agendas",
+          "quantidadePaginas": 22,
+          "resumo": "Bruce Wayne sofre um atentado e fica à beira da morte. Além disso, Henri Ducard está de volta à Gotham, para complicar ainda mais a situação do Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 600/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 6",
+          "tituloOriginal": "Chapter Six: Covert Operations [Blind Justice]",
+          "quantidadePaginas": 19,
+          "resumo": "Bruce se recupera do coma, mas não tem condições de vestir o traje. Nisso, Roy tem uma ideia que pode habilitar o retorno do Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 600/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: Justiça Cega - Parte 7",
+          "tituloOriginal": "Chapter Seven: Ulterior Motives [Blind Justice]",
+          "quantidadePaginas": 20,
+          "resumo": "A troca de mentes proporciona ao Batman encurralar os bandidos, mas uma tragédia poderá abalar o Homem Morcego para sempre.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 600/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Arco: Tulpa - Parte 1",
+          "tituloOriginal": "Tulpa, Part One: Monster Maker",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "601",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 601/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-04-01",
+      "publicadoTexto": "abril de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 192,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=163845&path=sa011126013_163845.jpg&w=400&h=608",
+      "descricao": "Saga do Batman, A 1ª Série - n° 13\nPublicado em: abril de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 192\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nMovimentos noturnos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Tulpa - Parte 2",
+          "tituloOriginal": "Tulpa, Part Two: Night Moves",
+          "quantidadePaginas": 22,
+          "resumo": "Batman localiza seu alvo e se depara com uma luta entre três criminosos e um terrível monstro: o Tulpa. Derrotado, o Homem -Morcego recorrerá à magia de Jason Blood para ajudá-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "602",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 602/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Tulpa - Parte 3",
+          "tituloOriginal": "Tulpa, Part Three: When Demons Clash!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "603",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 603/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Segredos de sangue",
+          "tituloOriginal": "Blood Secrets",
+          "quantidadePaginas": 44,
+          "resumo": "No início de sua carreira, o Batman aprende com um dos melhores detetives do mundo ao investigar vários homicídios ocorridos numa cidadezinha do interior dos EUA.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics Annual (1988) n° 2/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Quadra de Lama - Parte 1",
+          "tituloOriginal": "The Mud Pack, Part One: Men of Clay",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "604",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 604/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Quadra de Lama - Parte 2",
+          "tituloOriginal": "The Mud Pack, Part Two: Heart of Steel; Feet of Clay?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "605",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 605/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Quadra de Lama - Parte 3",
+          "tituloOriginal": "The Mud Pack, Part Three: Killer Clay!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "606",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 606/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Arco: Quadra de Lama - Parte 4",
+          "tituloOriginal": "The Mud Pack, Part Four: The China Clay Syndrome",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "607",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 607/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-05-01",
+      "publicadoTexto": "maio de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 192,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=164283&path=sa011126014_164283.jpg&w=400&h=607",
+      "descricao": "Saga do Batman, A 1ª Série - n° 14\nPublicado em: maio de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 192\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nCartas ao editor",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Anarquia em Gotham City/Anarquista em Gotham City - Parte 1",
+          "tituloOriginal": "Letters to the Editor",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta um vilão desconhecido, Anarquia, que é contra a criminalidade, o sistema capitalista, onde ele vive, e usa os menos favorecidos com seu discurso de ser contra tudo e todos. Batman vai a seu encalço pra descobrir no final se tratar de delírios de um adolescente. Nada mais apropriado, ou quase um piada de mau gosto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "608",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 608/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Anarquia em Gotham City/Anarquista em Gotham City - Parte 2",
+          "tituloOriginal": "Facts About Bats",
+          "quantidadePaginas": 22,
+          "resumo": "Surge um personagem apelidado de \"perna\", que apareceria posteriormente durante a saga Terremoto, com a mesma equipe criativa, porém no título \"Batman: Shadow of the Bat\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "609",
+            "anoOriginal": 1989,
+            "texto": "Detective Comics (1937) n° 609/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Neve e Gelo - Parte 1",
+          "tituloOriginal": "Snow and Ice, Part One: Ode to a Penguin",
+          "quantidadePaginas": 22,
+          "resumo": "O Pinguim está morto, porém Batman desconfia do fim de seu inimigo. Enquanto isso, Kadaver acaba sendo libertado da prisão e um plano criminoso tem início.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "610",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 610/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Neve e Gelo - Parte 2",
+          "tituloOriginal": "Snow and Ice, Part Two: Bird of Ill Omen",
+          "quantidadePaginas": 22,
+          "resumo": "O Pinguim está de volta e aliado involuntariamente a Kadaver. Agora, somente o Batman poderá deter essa dupla criminosa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "611",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 611/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Gatos",
+          "tituloOriginal": "Cats",
+          "quantidadePaginas": 22,
+          "resumo": "Durante sua vigília habitual, Batman salva uma velhinha de uma dupla de arruaceiros quando encontra o corpo brutalizado de um homem no Parque Robinson. Enquanto a imprensa sensacionalista prefere por a culpa na Mulher-Gato, Batman acredita que foi um ataque de um animal e o encontra: Rasputin, um poderoso tigre siberiano, bichinho de estimação de Thomas Blake, o Homem-Gato, que não hesita em usar a fera para acabar com o Morcego!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "612",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 612/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Lixo",
+          "tituloOriginal": "Trash",
+          "quantidadePaginas": 22,
+          "resumo": "Um garoto tenta elaborar um trabalho de conscientização para o perigo do lixo excessivo, mas acaba vítima de bandidos determinados a tomar para si o sistema de coleta de lixo de Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "613",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 613/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Demônios das ruas",
+          "tituloOriginal": "Street Demonz",
+          "quantidadePaginas": 22,
+          "resumo": "Batman observa a ação de uma gangue de garotos que o leva aos Demonioz, mas o maior problema terá que ser resolvido pela influência socioeconômica de Bruce Wayne, se o herói quiser evitar uma nova geração de bandidos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "614",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 614/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-06-01",
+      "publicadoTexto": "junho de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=164895&path=sa011126015_164895.jpg&w=400&h=618",
+      "descricao": "Saga do Batman, A 1ª Série - n° 15\nPublicado em: junho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria\nPraça vermelha! Praça sangrenta!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Quando A Terra Morre! - Parte 1",
+          "tituloOriginal": "When the Earth Dies! Chapter One: Red Square! Bloody Square!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman se vê obrigado a viajar à União Soviética e auxiliar a polícia local a pôr fim numa série de terríveis assassinatos cometidos por um ex-superagente. O objetivo final do criminoso? Liquidar o presidente Mikhail Gorbachev!\nSequência do arco \"As Dez Noites da Besta\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "445",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 445/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Quando A Terra Morre! - Parte 2",
+          "tituloOriginal": "When the Earth Dies Chapter Two: Underworlds",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "446",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 446/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Quando A Terra Morre! - Parte 3",
+          "tituloOriginal": "When the Earth Dies Chapter Three:",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "447",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 447/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: O Projeto Pingüim - Parte 1",
+          "tituloOriginal": "The Penguin Affair, I: Pawns",
+          "quantidadePaginas": 22,
+          "resumo": "O Pinguim encontra Harold, um indivíduo fisicamente deformado, mas com uma mente construtiva brilhante, e o usa para ter controle sobre várias aves e usá-las para cometer seus crimes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "448",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 448/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: O Projeto Pingüim - Parte 2",
+          "tituloOriginal": "The Penguin Affair, II: Bird of Ill Omen!",
+          "quantidadePaginas": 22,
+          "resumo": "O Pinguim lança um ataque maciço contra Batman, usando seu novo mecanismo que controla pássaros. Muito ferido, Batman recorre à proteção da caverna.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "615",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 615/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: O Projeto Pingüim - Parte 3",
+          "tituloOriginal": "The Penguin Affair, III: Winged Vengeance",
+          "quantidadePaginas": 22,
+          "resumo": "Batman desvenda a intenção do Pinguim, que é vender sua máquina para criminosos e, com a ajuda substancial de Tim Drake, elabora um plano para rastrear e deter o vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "449",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 449/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "16",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-07-01",
+      "publicadoTexto": "julho de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 158,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=165390&path=sa011126016_165390.jpg&w=400&h=612",
+      "descricao": "Saga do Batman, A 1ª Série - n° 16\nPublicado em: julho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 158\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria , Isabel Ferreira",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Assassino de pedra",
+          "tituloOriginal": "Stone Killer",
+          "quantidadePaginas": 22,
+          "resumo": "Com Gotham City ainda se recuperando do último ataque do Pinguim, Batman sai na caçada a uma bizarra criatura que tem executado uma série de assassinatos rituais. Com a ajuda do arqueólogo Harv Lichas, o Cavaleiro das Trevas tenta impedir C'th, um demônio secular, que pretende corromper uma ancestral corrente energética que mantém o equilíbrio do mundo, tornando-a uma fonte de poder maligno!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "616",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 616/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um confronto de símbolos",
+          "tituloOriginal": "A Clash of Symbols",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está cada vez mais convencido que o Coringa não morreu durante seu último confronto com ele. Após evitar o assalto a uma cartomante, Batman se deixa levar pela angústia de capturar o lunático e pede que a mulher o ajude a encontrar seu inimigo. A consulta acaba levando o herói a lembrar de um de seus embates e a refletir sobre sua mítica rivalidade.\nO retorno do Coringa desde sua última aparição no arco \"Um Lugar Solitário Para Morrer\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "617",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 617/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Trunfo!",
+          "tituloOriginal": "Wildcard!",
+          "quantidadePaginas": 22,
+          "resumo": "A morte do juiz William Patricks confirma os temores de Batman e do Comissário Gordon: o Coringa está de volta. Os dois refletem sobre a dor que o psicopata lhes causou (a morte de Robin e o aleijamento de Bárbara Gordon em Piada Mortal) e questionam se resistirão ao desejo de matá-lo. O demente age durante uma palestra do financista Curtis Base e toca o terror, mas o método de agir do palhaço está muito diferente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "450",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 450/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Julgamentos!",
+          "tituloOriginal": "Judgements!",
+          "quantidadePaginas": 22,
+          "resumo": "Curtis Base continua sua onda de crimes se passando pelo Coringa, o que chama a atenção do verdadeiro Coringa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "451",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 451/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O olho de quem vê",
+          "tituloOriginal": "The Eye of the Beholder",
+          "quantidadePaginas": 55,
+          "resumo": "A origem do Duas-Caras, um dos mais terríveis adversários do Cavaleiro das Trevas, recontada. Todos os fatos que levaram o promotor público Harvey Dent a se tornar um hediondo criminoso são relatados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1990,
+            "texto": "Batman Annual (1961) n° 14/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-08-01",
+      "publicadoTexto": "agosto de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=165762&path=sa011126017_165762.jpg&w=400&h=631",
+      "descricao": "Saga do Batman, A 1ª Série - n° 17\nPublicado em: agosto de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Mike Mignola Arte-Final: George Pratt Editor: Gabriel Faria\nCavaleiro das trevas, cidade das trevas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Cavaleiro das Trevas, Cidade das Trevas - Parte 1",
+          "tituloOriginal": "Dark Knight, Dark City [Part I]",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta o Charada em situações mortais e sem um objetivo aparente até que o herói é atraído até o cemitério de Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "452",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 452/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Cavaleiro das Trevas, Cidade das Trevas - Parte 2",
+          "tituloOriginal": "Dark Knight, Dark City, Part 2",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta zumbis cibernéticos no cemitério de Gotham, enquanto os métodos do Charada se tornam cada vez mais cruéis e mortais. Ao encontrar o vilão, Batman precisa salvar a vida de um bebê e deixa o Charada fugir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "453",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 453/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Cavaleiro das Trevas, Cidade das Trevas - Parte 3",
+          "tituloOriginal": "Dark Knight, Dark City, Part 3",
+          "quantidadePaginas": 22,
+          "resumo": "Finalmente, as pistas do Charada levam a um desfecho onde o Batman servirá de sacrifício para a dominação total de um demônio ancestral, mas a ajuda providencial de Alfred evitará que o herói encontre um arremate mortal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "454",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 454/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Ritual de Passagem - Parte 1",
+          "tituloOriginal": "Rite of Passage, Part One: Shadow on the Sun",
+          "quantidadePaginas": 22,
+          "resumo": "Tim Drake está se preparando para assumir o manto de Robin e se mostra de muito valor na ajuda a Batman com um caso de desvio monetário, porém sequestro de seus pais no Haiti deixa o garoto muito preocupado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "618",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 618/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: Ritual de Passagem - Parte 2",
+          "tituloOriginal": "Rite of Passage, Part Two: Beyond Belief!",
+          "quantidadePaginas": 22,
+          "resumo": "Os sequestradores dos pais de Tim Drake enviam uma fita cassete e Batman se prova novamente como o melhor detetive do mundo e descobre seu cativeiro. Agora, ele partirá para o resgate no Haiti e não poderá falhar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "619",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 619/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: Ritual de Passagem - Parte 3",
+          "tituloOriginal": "Rite of Passage, Part Three: Make Me a Hero",
+          "quantidadePaginas": 22,
+          "resumo": "Tim junta suas forças e se dedica à solução dos roubos da aranha financeira e encontra o responsável: o Anarquia! Enquanto isso, Batman segue as pistas para salvar os pais de seu protegido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "620",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 620/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "18",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-09-01",
+      "publicadoTexto": "setembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=166364&path=sa011126018_166364.jpg&w=400&h=616",
+      "descricao": "Saga do Batman, A 1ª Série - n° 18\nPublicado em: setembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nProva de fogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Ritual de Passagem - Parte 4",
+          "tituloOriginal": "Rite of Passage, Part Four: Trial by Fire",
+          "quantidadePaginas": 22,
+          "resumo": "No Haiti, o Batman confronta o culto Vudu e tenta, desesperadamente, salvar as vidas dos pais de Tim, mas o desfecho é trágico e marcará o surgimento de um novo herói.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "621",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 621/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Dever",
+          "tituloOriginal": "Obligation",
+          "quantidadePaginas": 56,
+          "resumo": "O cavaleiro das trevas viaja para o Japão para honrar uma dívida de longa data que o força a um conflito mortal com o mestre que o treinou nas habilidades de combate que ele utiliza em sua guerra contra o mal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics Annual (1988) n° 3/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Crise de Identidade (Batman) - Parte 1",
+          "tituloOriginal": "Identity Crisis, Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Tim está de luto pela mãe e sente que está pronto para ser Robin, mas Batman discorda. Enquanto isso, algo está fazendo com que as pessoas comuns entrem repentinamente em ataques de fúria assassinos.\nKevin Breyfogle: Assistente de arte.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "455",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 455/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Crise de Identidade (Batman) - Parte 2",
+          "tituloOriginal": "Identity Crisis, Part Two: Without Fear of Consequence...",
+          "quantidadePaginas": 22,
+          "resumo": "Crimes de todos os níveis são cometidos em Gotham por pessoas aleatórias e Batman e Tim não conseguem estabelecer uma relação que leve ao responsável pela loucura durante o feriado do Natal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "456",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 456/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mestre do medo",
+          "tituloOriginal": "Master of Fear",
+          "quantidadePaginas": 22,
+          "resumo": "Tim resolve o mistério do responsável por trás dos ataque a Gotham e precisa decidir se vai ou não ao encontro do Batman, porque sua carreira de Robin dependerá de seu sucesso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "457",
+            "anoOriginal": 1990,
+            "texto": "Batman (1940) n° 457/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "19",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-10-01",
+      "publicadoTexto": "outubro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=166711&path=sa011126019_166711.jpg&w=400&h=616",
+      "descricao": "Saga do Batman, A 1ª Série - n° 19\nPublicado em: outubro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Brian Bolland Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O grande mundo mal",
+          "tituloOriginal": "Big Bad World",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está pronto para oficializar o Tim Drake como o novo Robin, porém, Tim não está pronto e vai para Paris para aprender antigas técnicas tibetanas de luta e cura com Rahul Lama e Shen Chi. Enquanto está na cidade, ele conhece uma garota, Ling, que está envolvida com uma gangue local. Parece que ela pode estar com problemas, então Tim, disfarçado de Robin, vai ajudá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "texto": "Robin (1991) n° 1/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A pastora",
+          "tituloOriginal": "The Shepardess",
+          "quantidadePaginas": 22,
+          "resumo": "Clyde e Robin expulsam a gangue e voltam para um lugar seguro para se recuperar. Lady Shiva é vista nas sombras observando. Sir Edmund está insatisfeito com o trabalho da gangue e os envia de volta para encontrar Clyde e Robin. Um assassino, Ducard, é contratado para seguir Sir Edmund para fora do país e para longe dele. Enquanto isso, Lady Shiva aparece onde Clyde e Robin estão escondidos para avisá-los de que foram encontrados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1991,
+            "texto": "Robin (1991) n° 2/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O anjo destruidor",
+          "tituloOriginal": "The Destroying Angel",
+          "quantidadePaginas": 22,
+          "resumo": "Lady Shiva visita Robin e Clyde na antiga casa de fazenda para ajudar a rastrear Lynx e a gangue que Sir Edmund enviou para recuperar uma velha arma da Segunda Guerra Mundial para ele. Eles descobrem onde encontrar a gangue e vão interceptá-los para impedi-los de pegar uma arma biológica.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1991,
+            "texto": "Robin (1991) n° 3/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Companhia estranha",
+          "tituloOriginal": "Strange Company",
+          "quantidadePaginas": 22,
+          "resumo": "Robin, Lady Shiva e Clyde rastreiam a gangue em Hong Kong e descobrem onde o avião que transportava a arma está pousando. Eles encontram o avião e seguem a arma biológica até a sede comercial de Sir Edmund, no centro da cidade. Robin, Lady Shiva e Clyde ficaram escondidos enquanto se preparavam para invadir a casa de Sir Edmund. Ao mesmo tempo, Lady Shiva continua o treinamento de Robin.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1991,
+            "texto": "Robin (1991) n° 4/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O escuro",
+          "tituloOriginal": "The Dark",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1991,
+            "texto": "Robin (1991) n° 5/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Monstros noturnos",
+          "tituloOriginal": "Night Monsters",
+          "quantidadePaginas": 22,
+          "resumo": "Batman investiga o desaparecimento de uma garotinha e acaba reencontrando o gênio de engenharia Harold. A volta da detetive Sarah Essen marca um novo e promissor capítulo na vida do comissário Gordon.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "458",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 458/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "20",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-11-01",
+      "publicadoTexto": "novembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=169167&path=sa011126020_169167.jpg&w=400&h=621",
+      "descricao": "Saga do Batman, A 1ª Série - n° 20\nPublicado em: novembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sábado à noite no cinema",
+          "tituloOriginal": "Saturday Night at the Movies",
+          "quantidadePaginas": 22,
+          "resumo": "O comissário Gordon vai ao cinema com sua namorada assistir à Marca do Zorro e Batman presencia uma situação semelhante à da sua criação, quando uma família sai do cinema e vira refém de um bandido. Mas agora, existe o Batman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "459",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 459/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Irmãs de Armas - Parte 1",
+          "tituloOriginal": "Sisters in Arms, Part One: It's a Man's World",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "460",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 460/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Irmãs de Armas - Parte 2",
+          "tituloOriginal": "Sisters in Arms, Part Two: Ladies' Night",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "461",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 461/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: O Espírito da Fera - Parte 1",
+          "tituloOriginal": "Spirit of the Beast, Part 1: To Live and Die in California",
+          "quantidadePaginas": 22,
+          "resumo": "Um latrocínio em Gotham leva o Batman à Califórnia para investigar misteriosos assassinatos relacionados com relíquias médicas de tribos indígenas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "462",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 462/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: O Espírito da Fera - Parte 2",
+          "tituloOriginal": "Spirit of the Beast, Part 2: Ghost",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "463",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 463/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: O Espírito da Fera - Parte 3",
+          "tituloOriginal": "Spirit of the Beast, Part 3: Sacrifice",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "464",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 464/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "21",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-12-01",
+      "publicadoTexto": "dezembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=169468&path=sa011126021_169468.jpg&w=400&h=615",
+      "descricao": "Saga do Batman, A 1ª Série - n° 21\nPublicado em: dezembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Adrienne Roy Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Estreia",
+          "tituloOriginal": "Debut",
+          "quantidadePaginas": 22,
+          "resumo": "Na primeira noite de patrulha de Tim como Robin, ele tenta ajudar uma donzela em perigo, mas seus esforços saem pela culatra. Bruce se esforça para ajudar dois jovens carentes. Mais tarde, um evento de caridade se torna cenário de um drama bizarro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "465",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 465/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Armageddon 2001 - Parte 3",
+          "tituloOriginal": "The Last Batman Story",
+          "quantidadePaginas": 56,
+          "resumo": "Tempus vê a vida de Batman 10 anos no futuro, onde o Homem-Morcego foi condenado à morte por matar acidentalmente o Pinguim.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1991,
+            "texto": "Batman Annual (1961) n° 15/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Gênese sombria!",
+          "tituloOriginal": "Dark Genesis!",
+          "quantidadePaginas": 22,
+          "resumo": "Um artista de quadrinhos está publicando histórias do Batman, com uma versão alternativa muito mais brutal e mortal. Nisso, casos de assassinatos são atribuídos ao protetor de Gotham e o Batman terá que resolver esse caso, o quanto antes.\nArte por: Henry (pp. 1,-9, 12, 22); McKone & Marzan (pp. 10-11, 13-21).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "622",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 622/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Morte da inocência",
+          "tituloOriginal": "Death of Innocence",
+          "quantidadePaginas": 22,
+          "resumo": "O assassino que usa o nome de Batman faz mais vítimas e põe a opinião pública e a polícia contra o guardião de Gotham, o que tornará seu trabalho mais difícil.\nArte por: McKone & Marzan (pp. 1-5, 15-17, 20-22); Henry (pp. 6-14, 18-19).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "623",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 623/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Vitória amarga",
+          "tituloOriginal": "Bitter Victory",
+          "quantidadePaginas": 22,
+          "resumo": "Usando seus dotes detetivescos, Batman encontra o assassino que aterrorizava Gotham e o artista de sua inusitada revista decide pôr um fim à publicação.\nArte por: Henry (pp. 1-3, 7-8, 10-13, 17, 19); Mckone & Marzan (4-6, 9, 14-16, 18, 20-22).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "624",
+            "anoOriginal": 1990,
+            "texto": "Detective Comics (1937) n° 624/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "22",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-01-01",
+      "publicadoTexto": "janeiro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=169909&path=sa011126022_169909.jpg&w=400&h=613",
+      "descricao": "Saga do Batman, A 1ª Série - n° 22\nPublicado em: janeiro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Michael Golden Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nEletrocutor II , Pesticida",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Matadouro!",
+          "tituloOriginal": "Abattoir!",
+          "quantidadePaginas": 22,
+          "resumo": "Os médicos do Asilo Arkham tentam conter o serial killer conhecido como Matadouro, no entanto, um dos auxiliares é na verdade do um capanga do serial killer e ataca os guardas e o liberta! Juntos, os dois sequestram um caminhão e fogem do manicômio. O Matadouro decide atacar a campanha política do candidato a prefeito Henry Etchison e só o Batman pode pará-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "625",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 625/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O retorno do Eletrocutor",
+          "tituloOriginal": "Return to the Electrocutioner",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está no encalço do Eletrocutor que está matando criminosos em Gotham. Entretanto, a força policial começa a desmoronar com o Comissário Gordon no hospital e Haney planejando assumir o controle da polícia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "626",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 626/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O caso da sociedade química",
+          "tituloOriginal": "The Case of the Chemical Syndicate",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Morcego investiga uma série de assassinatos ligados a um sindicato químico.\nNova história reutilizando o enredo de \"O caso da sociedade química\" de Detective Comics #27. A história é dedicada a \"Bob Kane e Bill Finger e todos os outros que mantiveram a lenda viva\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "627",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 627/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O caso da sociedade química",
+          "tituloOriginal": "The Case of the Chemical Syndicate",
+          "quantidadePaginas": 22,
+          "resumo": "Nova história reutilizando o enredo de \"O caso da sociedade química\" de Detective Comics #27.\nA página dupla final desta história (páginas 96 e 97) mostra Batman balançando acima de imagens de seus amigos e inimigos da época com o número 600 sobreposto ao Bat-Sinal atrás dele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "627",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 627/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Corações",
+          "tituloOriginal": "Hearts",
+          "quantidadePaginas": 22,
+          "resumo": "No antigo esconderijo do Pinguim, um ornitólogo foi encarregado de catalogar os milhares de pássaros do local. Ele é interrompido pelo Matadouro, que mata o homem arrancando seu coração e matando todos os pássaros. O crime horrível chama a atenção do GCPD e do Batman, que vai ao Asilo Arkham para interrogar o Pinguim e obter qualquer informação que possa ajudá-los a resolver o caso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "628",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 628/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Acabaram os heróis",
+          "tituloOriginal": "No More Heroes",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin estão perseguindo Willy Panaca e sua gangue quando eles se escondem em um parque de diversões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "466",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 466/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "23",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-02-01",
+      "publicadoTexto": "fevereiro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=170219&path=sa011126023_170219.jpg&w=400&h=621",
+      "descricao": "Saga do Batman, A 1ª Série - n° 23\nPublicado em: fevereiro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Michael Golden Editor: Gabriel Faria , Isabel Ferreira\nGuerra das sombras - Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Guerra das Sombras (2022) - Parte 1",
+          "tituloOriginal": "Shadow Box Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Uma série de assaltos a armazéns pela gangue dos Dragões Fantasmas leva Batman e Robin a se perguntarem se o antigo líder dos Dragões, Sir Edmund \"Rei Cobra\" Dorrance, ainda pode estar vivo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "467",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 467/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Guerra das sombras - Parte dois",
+          "tituloOriginal": "Shadow Box Part Two",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "468",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 468/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Guerra das sombras - Parte três",
+          "tituloOriginal": "Shadow Box Part Three",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "469",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 469/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: Guerra dos Deuses (Mulher-Maravilha) - Parte 8",
+          "tituloOriginal": "Of Gods and Men",
+          "quantidadePaginas": 22,
+          "resumo": "Tie in da saga \"Guerra dos Deuses\", publicada pela Eaglemoss em Coleção de Graphic Novels: Sagas Definitivas n° 20.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "470",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 470/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A grama faminta!",
+          "tituloOriginal": "The Hungry Grass!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman se depara com casos estranhos em Gotham que remontam a crimes do passado e isso o levará a investigar as ações sobrenaturais de um cidadão que fora, possivelmente, preso de forma injusta.\nÉ a primeira vez que a prisão Blackgate é citada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "629",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 629/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "E o carrasco estava de salto alto",
+          "tituloOriginal": "And the Executioner Wore Stiletto Heels",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "630",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 630/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "24",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-03-01",
+      "publicadoTexto": "março de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=172262&path=sa011126024_172262.jpg&w=400&h=620",
+      "descricao": "Saga do Batman, A 1ª Série - n° 24\nPublicado em: março de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kevin Maguire Arte-Final: Dick Giordano Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Aconteceu a coisa mais engraçada",
+          "tituloOriginal": "The Funniest Thing Happened...",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está fora da cidade e Robin patrulha as ruas sozinho. De repente, o batsinal brilha no céu de Gotham chamando o Cavaleiro Das Trevas. Mas quem atende o chamado é Robin. A noticia não poderia ser pior: o Coringa está solto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 1/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Amanhã, uma tragédia",
+          "tituloOriginal": "Tomorrow a Tragedy",
+          "quantidadePaginas": 22,
+          "resumo": "Robin tem que se revezar entre as patrulhas noturnas atrás do coringa e as aulas do colégio. Enquanto o Coringa com o auxilio forçado do Dr. Osgood Pellinger, um jovem gênio da informática começa a sabotar toda a rede de computadores da cidade para estabelecer um verdadeiro caos no cotidiano de Gotham City.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "...Uma noite de comédia",
+          "tituloOriginal": "...A Comedy Tonight!!",
+          "quantidadePaginas": 21,
+          "resumo": "O Coringa invadiu o sistema de informática de Gotham City, criando o caos nas folhas de pagamento dos policiais, bombeiros, sistema de luz e gás e rádio e trânsito, e está pedindo um bilhão de dólares para parar sua traquinagem e a prefeitura não sabe o que fazer e recorre a Jim Gordon para que ele tome uma solução. Enquanto Robin procura uma solução para o problema a situação piora, o Coringa invade o sistema do Batcomputador.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sensação térmica",
+          "tituloOriginal": "Chill Factor",
+          "quantidadePaginas": 24,
+          "resumo": "Robin e o comissário Gordon tem um plano para pegar o Coringa enquanto um caminhão com um boneco do Batman leva o dinheiro para o Coringa. O coringa explode o caminhão achando que matou o morcegão é ai que Robin entra em cena para capturar o coringa e a policia descobre o esconderijo dele e salva o Dr. Osgood Pellinger.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1992,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 4/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Réquiem para um assassino",
+          "tituloOriginal": "Requiem for a Killer",
+          "quantidadePaginas": 22,
+          "resumo": "Batman, juntamente com Ace, explora os esgotos de Gotham, em busca de pistas para um caso. Ele descobre um abrigo nuclear onde residem os amigos de Crocodilo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "471",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 471/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O Golem de Gotham - Parte um",
+          "tituloOriginal": "The Golem of Gotham Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Supremacistas brancos cometem vários atos de violência contra imigrantes no distrito de East Hamilton. Um velho judeu usa o Livro de Yetsirah para invocar um Golem, um ser maciço feito de argila que o protegeria e às minorias na região.\nO Golem é alimentado pelo ódio e fica furioso, matando criminosos e inocentes. Batman é atraído para East Hamilton como resultado dos ataques racistas, e logo se envolve na estranha destruição causada pelo Golem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "631",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 631/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "25",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-04-01",
+      "publicadoTexto": "abril de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=172800&path=sa011126025_172800.jpg&w=400&h=623",
+      "descricao": "Saga do Batman, A 1ª Série - n° 25\nPublicado em: abril de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Mike Zeck Cores: Bob Lerose Editor: Gabriel Faria\nO martelo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 1",
+          "tituloOriginal": "The Hammer",
+          "quantidadePaginas": 22,
+          "resumo": "Quando Robin quase é morto em uma luta, Batman pede que ele ficar abaixo do radar. Tim vai à festa de aniversário de seu amigo Ives em Pequena Odessa, um bairro russo de Gotham. Tim conhece uma jovem, Ariana Dzerchenko, cuja família está tendo problemas com a máfia russa. Ele tem que se esconder de Batman para ajudá-la. Tim mente para o pai e foge de casa. Em pouco tempo, Robin se vê cara a cara com o KGBesta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 1/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 2",
+          "tituloOriginal": "The Beast",
+          "quantidadePaginas": 22,
+          "resumo": "São problemas atrás de problemas quando a ex-namorada de infância de Robin, Ariana, é sequestrada pela máfia russa durante um confronto com o KGBesta. Para piorar as coisas, os Dragões Fantasmas aparecem ansiosos por uma briga, e tudo isso com os problemas na escola para enfrentar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 3",
+          "tituloOriginal": "Dosvedanya, Baby",
+          "quantidadePaginas": 22,
+          "resumo": "Rei Cobra se muda para o território do KGBesta e Robin tem novos problemas com seu pai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 4",
+          "tituloOriginal": "Fall From Grace",
+          "quantidadePaginas": 22,
+          "resumo": "Robin descobre a identidade secreta da Caçadora, e eles unem forças para encontrar evidências sobre os agentes russos envolvidos na falsificação. Jack Drake decide mandar Tim para um internato em Metrópolis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1993,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 4/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 5",
+          "tituloOriginal": "Circle of Darkness",
+          "quantidadePaginas": 21,
+          "resumo": "Robin e a Caçadora encontram o quartel-general do Comissário, mas ele leva a Caçadora cativa. Robin tenta resgatá-la, mas também é capturado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1993,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 5/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: O Dia da Caçadora - Parte 6",
+          "tituloOriginal": "Murder Ink",
+          "quantidadePaginas": 23,
+          "resumo": "Robin e Caçadora enfrentam o KGBesta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1993,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 6/1993 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "26",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-05-01",
+      "publicadoTexto": "maio de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=173278&path=sa011126026_173278.jpg&w=400&h=628",
+      "descricao": "Saga do Batman, A 1ª Série - n° 26\nPublicado em: maio de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: George Pratt Editor: Gabriel Faria , Isabel Ferreira\nPrimeira aparição de personagens nesta edição:\nProfessor Pó",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O Golem de Gotham - Parte dois",
+          "tituloOriginal": "The Golem of Gotham Part Two",
+          "quantidadePaginas": 22,
+          "resumo": "Batman confronta o Golem no bairro judeu de Gotham City.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "632",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 632/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Crise de identidade",
+          "tituloOriginal": "Identity Crisis",
+          "quantidadePaginas": 22,
+          "resumo": "Batman perde a memória dos acontecimentos da noite anterior. Ninguém parece se lembrar de quem ele é. O Homem morcego suspeita que algum vilão esteja causando isso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "633",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 633/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O terceiro homem",
+          "tituloOriginal": "The Third Man",
+          "quantidadePaginas": 22,
+          "resumo": "Batman investiga um mistério de assassinato com a ajuda das irmãs Vilota (Biddee no original), uma dupla de detetives amadoras mais velhas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "634",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 634/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Jogos mentais",
+          "tituloOriginal": "Mind Games",
+          "quantidadePaginas": 22,
+          "resumo": "Uma força desconhecida em Gotham City está criando o caos ao transformar veículos e lugares pela cidade em níveis mortais de videogame. O DPGC está perplexo com a situação, apenas um interno de Arkham escapa do asilo e tenta alertar as autoridades. Depois que o homem é morto por essas criaturas do videogame, Batman investiga e supera mais alguns obstáculos antes de perceber que a ameaça vem do Asilo Arkham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "635",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 635/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Controle mental",
+          "tituloOriginal": "Mind Control",
+          "quantidadePaginas": 22,
+          "resumo": "As alucinações de realidade virtual levam Batman e Robin a uma série de pistas até uma armadilha mortal dentro do Asilo Arkham onde o responsável pelos ataques parece ser um menino chamado Fidel. O Comissário Gordon joga alguns videogames para entender o caos que está acontecendo na cidade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "636",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 636/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Diálogos: Kelley Puckett",
+          "tituloOriginal": "Control Freak",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin detêm o malvado Dr. Wyse em um épico confronto de realidade virtual de dentro do Asilo Arkham e que se expande por toda Gotham. No final, Wyse é preso e o garoto Fidel é levado sob proteção enquanto Arkham retoma a normalidade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "637",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 637/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "27",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-06-01",
+      "publicadoTexto": "junho de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=173700&path=sa011126027_173700.jpg&w=400&h=618",
+      "descricao": "Saga do Batman, A 1ª Série - n° 27\nPublicado em: junho de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nA Bomba , Destruidor",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A bomba",
+          "tituloOriginal": "The Bomb",
+          "quantidadePaginas": 22,
+          "resumo": "Batman deve encontrar um ser conhecido como \"A Bomba\" que foi levado de um complexo militar secreto. Ele deve comunicar o exército quando a encontrar para que eles a capturem. É falado que se passa de uma bomba atômica humana que pode explodir a qualquer momento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "638",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 638/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: O Idiota - Parte 1",
+          "tituloOriginal": "The Idiot Part One: The Queen of Hearts",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está à procura da Dama de Copas, uma doida varrida que mata pessoas para colecionar seus corações. O Cavaleiro das Trevas descobre uma pista de que ela está no Brasil, mais precisamente, no Rio de Janeiro. Na pele do playboy Bruce Wayne, o herói aporta na Terra Brasilis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "472",
+            "anoOriginal": 1991,
+            "texto": "Batman (1940) n° 472/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: O Idiota - Parte 2",
+          "tituloOriginal": "The Idiot, Part Two: The Queen of Hearts",
+          "quantidadePaginas": 22,
+          "resumo": "Em meio à caça a Dama de Copas, Batman acaba se deparando um estranho e diabólico homem chamado o Idiota, que aparentemente tem poderes sobrenaturais como atravessar paredes e parece estar relacionado a dezenas de meninos de rua totalmente desprovidos de consciência ou vontade, semelhantes a zumbis. A Dama de Copas acaba sucumbindo ao Idiota e Batman se une ao traficante Zeno para saber mais sobre psicodélico vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "639",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics (1937) n° 639/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: O Idiota - Parte 3",
+          "tituloOriginal": "The Idiot, Part Three: Into the Idiot Zone",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Zeno mergulham na densa floresta no interior do Rio de Janeiro à procura de Crosby, o maligno químico que produz a droga gerada a partir da Raiz Idiota, que por sua vez rende almas de viciados ao Idiota, tornando-o ainda mais poderoso na Zona Idiota. O Cavaleiro das Trevas acaba capturado pelos menores abandonados dopados com a droga e se submete ao mundo bizarro do Idiota.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "473",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 473/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: O Idiota - Parte 4",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Sob os efeitos da Raiz Idiota e inserido na Zona Idiota, uma dimensão acessada pelo uso da droga, Batman conhece o hediondo experimento que transformou o cozinheiro Cesar Lopes no demoníaco Idiota e, ao mesmo tempo, descobre a chave para sua não menos bizarra derrota.\nTitulo original: \"The Idiot, Part Four: The Cook, the Bat and the Idiot\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "640",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 640/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Arco: O Destruidor (Batman) - Parte 1",
+          "tituloOriginal": "The Destroyer Part One: A Tale of Two Cities",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "474",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 474/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "28",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-07-01",
+      "publicadoTexto": "julho de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174134&path=sa011126028_174134.jpg&w=400&h=617",
+      "descricao": "Saga do Batman, A 1ª Série - n° 28\nPublicado em: julho de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria , Isabel Ferreira\nPrimeira aparição de personagens nesta edição:\nCyrus Pinkney\nSolomon",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: O Destruidor (Batman) - Parte 2",
+          "tituloOriginal": "The Destroyer Part Two Solomon",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Legends of The Dark Knight (1989)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1992,
+            "texto": "Batman: Legends of The Dark Knight (1989) n° 27/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: O Destruidor (Batman) - Parte 3",
+          "tituloOriginal": "The Destroyer, Part 3: A Dream Is Forever",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "641",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 641/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: A Volta de Scarface! - Parte 1",
+          "tituloOriginal": "The Return of Scarface (Part I of III): Mustache Pete is Dead!",
+          "quantidadePaginas": 22,
+          "resumo": "Scarface, um dos vilões mais intrigantes e sanguinários do submundo de Gotham City, resolve dominar a cidade esmagando as gangues rivais.\nScarface está livre da prisão, mas seu território agora está ocupado pelos violentos Demonioz. Agora o gangster mais perigoso de Gotham arquitetará seu retorno ao poder.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "475",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 475/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: A Volta de Scarface! - Parte 2",
+          "tituloOriginal": "The Return of Scarface - Part 2: Gleeding Hearts",
+          "quantidadePaginas": 22,
+          "resumo": "Vicki Vale tem um novo amor e Bruce acaba perdendo a namorada, mas o Batman não tem tempo para lamentar porque, enquanto isso, Scarface lança um violento e ultra potente ataque contra os Demonioz para recuperar seu território.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "642",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 642/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Arco: A Volta de Scarface! - Parte 3",
+          "tituloOriginal": "The Return of Scarface! - Part Three: The Gig Heat!",
+          "quantidadePaginas": 22,
+          "resumo": "Bruce percebe o quanto está apaixonado por Vicki e cogita revelar seu segredo para seu grande amor. Nisso, uma batida policial põe os maiores inimigos de Scarface em rota de colisão e o gangster poderá recuperar seu lugar de poder, sem que ninguém mais possa impedi-lo, nem mesmo o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "476",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 476/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A biblioteca de almas!",
+          "tituloOriginal": "The Library of Souls",
+          "quantidadePaginas": 22,
+          "resumo": "Batman investiga uma série de cadáveres espalhados aleatoriamente por Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "643",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 643/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "29",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-08-01",
+      "publicadoTexto": "agosto de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174372&path=sa011126029_174372.jpg&w=400&h=618",
+      "descricao": "Saga do Batman, A 1ª Série - n° 29\nPublicado em: agosto de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Michael Netzer - ‘Mike Nasser’ Editor: Gabriel Faria , Isabel Ferreira\nPrimeira aparição de personagens nesta edição:\nGárgula de Gotham , Harpia\nGárgulas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Um Conto de Gotham - Parte 1",
+          "tituloOriginal": "A Gotham Tale Part I: Gargoyles",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "477",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 477/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Um Conto de Gotham - Parte 2",
+          "tituloOriginal": "A Gotham Tale Part 2: Venging Spirits",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "478",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 478/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Pagã",
+          "tituloOriginal": "Pagan",
+          "quantidadePaginas": 22,
+          "resumo": "Batman entra em conflito com Pagã, uma vigilante que tem como alvo predadores sexuais.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "479",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 479/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Para o pai que eu nunca conheci",
+          "tituloOriginal": "To the Father I Never Knew...",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "480",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 480/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mensageira de zeus",
+          "tituloOriginal": "Messenger of Zeus",
+          "quantidadePaginas": 22,
+          "resumo": "Primeira aparição cronológica de Shondra Kinsolving.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "481",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 481/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Vingança da Harpia",
+          "tituloOriginal": "Vengeance of the Harpy",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "482",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 482/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "30",
+      "tituloChamada": "Pintura: Brian Stelfreeze Editor: Gabriel Faria",
+      "dataPublicacao": "2023-09-01",
+      "publicadoTexto": "setembro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174632&path=sa011126030_174632.jpg&w=400&h=625",
+      "descricao": "Saga do Batman, A 1ª Série - n° 30\nPublicado em: setembro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nPintura: Brian Stelfreeze Editor: Gabriel Faria\nO último Arkham - Parte I de IV",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: O Último Arkham/Retorno Ao Asilo Arkham - Parte 1",
+          "tituloOriginal": "The Last Arkham Part One",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 1/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: O Último Arkham/Retorno Ao Asilo Arkham - Parte 2",
+          "tituloOriginal": "The Last Arkham Part Two",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: O Último Arkham/Retorno Ao Asilo Arkham - Parte 3",
+          "tituloOriginal": "The Last Arkham Part Three",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: O Último Arkham/Retorno Ao Asilo Arkham - Parte 4",
+          "tituloOriginal": "The Last Arkham Part Four",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 4/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O aranha negra",
+          "tituloOriginal": "The Black Spider",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 5/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Pavana",
+          "tituloOriginal": "Pavane",
+          "quantidadePaginas": 14,
+          "resumo": "Um agente do governo visita Pamela Isley no Asilo Arkham, com uma série de revelações perturbadoras à sua espera.\nOrigem da Hera Venenosa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "36",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins (1986) n° 36/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "31",
+      "tituloChamada": "Pintura: Brian Stelfreeze Editor: Gabriel Faria",
+      "dataPublicacao": "2023-10-01",
+      "publicadoTexto": "outubro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174989&path=sa011126031_174989.jpg&w=400&h=610",
+      "descricao": "Saga do Batman, A 1ª Série - n° 31\nPublicado em: outubro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nPintura: Brian Stelfreeze Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nO Americano Feio (Amálgama)",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O americano feio",
+          "tituloOriginal": "The Ugly American",
+          "quantidadePaginas": 24,
+          "resumo": "Batman investiga um acidente de carro onde o motorista atirou o carro da ponte porque era um veículo estrangeiro. O motorista, Jon Kennedy Payne, é um ex-presidiário que foi submetido a experimentos que amplificaram seu patriotismo e preconceitos. Batman o encontra e o derrota, mas a CIA o mata. Batman deixa um arquivo sobre Payne com sua filha, que inclui o nome de um advogado especializado em processos anti-governo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 6/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os desajustados - Parte 1",
+          "tituloOriginal": "The Misfits [Part One]",
+          "quantidadePaginas": 24,
+          "resumo": "Chancer, um novo criminoso fantasiado, é perseguido por Nimrod the Hunter. Ele é salvo por Cat-Man e se junta aos Misfits, liderados por Killer Moth. O grupo planeja sequestrar três pessoas em Gotham por US$ 10 milhões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1992,
+            "texto": "Batman: Shadow of The Bat (1992) n° 7/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Os desajustados - Parte 2",
+          "tituloOriginal": "The Misfits Part Two",
+          "quantidadePaginas": 24,
+          "resumo": "Batman, o prefeito e o comissário são sequestrados por supervilões. A polícia atende ao pedido de resgate, mas os vilões jogam os reféns no mar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 8/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Os desajustados - Parte 3",
+          "tituloOriginal": "The Misfits Part Three",
+          "quantidadePaginas": 24,
+          "resumo": "Batman, o prefeito e o comissário ficam presos em uma caixa trancada e inundada. Robin os salva, mas os vilões escapam com o dinheiro do resgate. Batman os derrota e Nimrod se rende.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 9/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O lorde de Gotham",
+          "tituloOriginal": "The Thane of Gotham",
+          "quantidadePaginas": 24,
+          "resumo": "Angus MacAbre convidou quatro pessoas para sua casa, mas um cancelou. Os três convidados são ex-funcionários de Thomas Wayne, pai de Bruce Wayne. Angus culpa os três pela morte de sua esposa e filho. Batman chega à casa de Angus e descobre que ele não queria matar os convidados, mas apenas fazê-los sentir compaixão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 10/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A chegada do Cara de Barro",
+          "tituloOriginal": "The Coming of Clayface",
+          "quantidadePaginas": 14,
+          "resumo": "Nova versão da história publicada em Detective Comics #40.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "44",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins (1986) n° 44/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "32",
+      "tituloChamada": "Pintura: Brian Stelfreeze Editor: Gabriel Faria",
+      "dataPublicacao": "2023-11-01",
+      "publicadoTexto": "novembro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=175235&path=sa011126032_175235.jpg&w=400&h=620",
+      "descricao": "Saga do Batman, A 1ª Série - n° 32\nPublicado em: novembro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nPintura: Brian Stelfreeze Editor: Gabriel Faria\nO pulga humana - Parte 1\nRoteiro: Alan Grant\nArte: Vince Giarrano\nCores: Adrienne Roy\nLetrista: Donizeti Amorim - ‘Don Dutch’\nTradutor: Rodrigo Barros\nEditor original: Denny O' Neil - ‘Sergius O' Shaugnessy’ , Scott Peterson\nAdaptação: Gabriel Faria\nPublicada pela primeira vez em Batman: Shadow of The Bat (1992) n° 11 /1993 - DC Comics\nMortimer Kadaver e Jan Brodie fogem do Asilo Arkham e se escondem em um túmulo. O Pulga Humana assalta uma delicatessen e foge do Batman. Batman investiga o Pulga com a ajuda de um dono de circo de pulgas, que é seu avô. Kadaver e Brodie planejam matar toda a cidade de Gotham. Batman é informado sobre a fuga deles pelo Comissário Gordon.\nTítulo original: \"The Human Flea [Part One]\".\n24 Páginas\nO pulga humana - Parte 2\nRoteiro: Alan Grant\nArte: Vince Giarrano\nCores: Adrienne Roy\nLetrista: Donizeti Amorim - ‘Don Dutch’\nTradutor: Rodrigo Barros\nEditor original: Denny O' Neil - ‘Sergius O' Shaugnessy’ , Scott Peterson\nAdaptação: Gabriel Faria\nPublicada pela primeira vez em Batman: Shadow of The Bat (1992) n° 12 /1993 - DC Comics\nKadaver mata o avô do Pulga Humana e rouba as pulgas do seu circo. O Pulga ataca o Batman, pensando que ele é o culpado, mas depois se alia a ele para deter Kadaver. Kadaver usa as pulgas para espalhar uma praga em Gotham, mas Batman e o Pulga impedem seu plano. Kadaver tenta se suicidar, mas Batman o salva e o prende.\nTítulo original: \"The Human Flea - Part Two\".\n24 Páginas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O pulga humana - Parte 1",
+          "tituloOriginal": "The Human Flea [Part One]",
+          "quantidadePaginas": 24,
+          "resumo": "Mortimer Kadaver e Jan Brodie fogem do Asilo Arkham e se escondem em um túmulo. O Pulga Humana assalta uma delicatessen e foge do Batman. Batman investiga o Pulga com a ajuda de um dono de circo de pulgas, que é seu avô. Kadaver e Brodie planejam matar toda a cidade de Gotham. Batman é informado sobre a fuga deles pelo Comissário Gordon.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 11/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O pulga humana - Parte 2",
+          "tituloOriginal": "The Human Flea - Part Two",
+          "quantidadePaginas": 24,
+          "resumo": "Kadaver mata o avô do Pulga Humana e rouba as pulgas do seu circo. O Pulga ataca o Batman, pensando que ele é o culpado, mas depois se alia a ele para deter Kadaver. Kadaver usa as pulgas para espalhar uma praga em Gotham, mas Batman e o Pulga impedem seu plano. Kadaver tenta se suicidar, mas Batman o salva e o prende.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 12/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O ninguém",
+          "tituloOriginal": "The Nobody",
+          "quantidadePaginas": 24,
+          "resumo": "O Cavaleiro das Trevas tem de proteger seu segredo mais importante e impedir que sua identidade secreta seja revelada no submundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 13/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Aberrações de Gotham - Parte 1",
+          "tituloOriginal": "Gotham Freaks, Part One",
+          "quantidadePaginas": 24,
+          "resumo": "Batman enfrenta Mirage, um ex-funcionário da Wayne que usa ilusões para cometer crimes. Batman vence Mirage em um parque abandonado, mas se fere e vai para o hospital.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 14/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Aberrações de Gotham - Parte 2",
+          "tituloOriginal": "Gotham Freaks, Part Two",
+          "quantidadePaginas": 24,
+          "resumo": "Batman persegue Mirage, um ladrão de tecnologia da Wayne que cria ilusões. Batman o derrota em um parque abandonado, mas se machuca e vai ao hospital.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1993,
+            "texto": "Batman: Shadow of The Bat (1992) n° 15/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A trágica, porém divertida, história de Cara de Barro",
+          "tituloOriginal": "The Tragic Though Amusing Story of Clayface II",
+          "quantidadePaginas": 13,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "44",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins (1986) n° 44/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "33",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-12-01",
+      "publicadoTexto": "dezembro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=175512&path=sa011126033_175512.jpg&w=400&h=607",
+      "descricao": "Saga do Batman, A 1ª Série - n° 33\nPublicado em: dezembro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Joe Quesada Arte-Final: Kevin Nowlan Editor: Gabriel Faria\nAnjos desaparecidos & morte súbita",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: A Espada de Azrael - Parte 1",
+          "tituloOriginal": "Vanishing Angels & Sudden Death",
+          "quantidadePaginas": 24,
+          "resumo": "Azrael, um anjo vingador a serviço da antiga Ordem de São Dumas, é enviado para punir o ex-tesoureiro da seita, Carleton LeHah, que se tornou um perigoso traficante de armas. Azrael porém falha em sua missão, fica seriamente ferido e, à beira da morte, passa a incumbência a seu filho, Jean-Paul Valley, que nada sabe da identidade secreta do pai. Batman intervem investigando o misterioso vingador que tentou matar LeHah.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Sword of Azrael (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "texto": "Batman: Sword of Azrael (1992) n° 1/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: A Espada de Azrael - Parte 2",
+          "tituloOriginal": "Azrael Does Not Protect",
+          "quantidadePaginas": 24,
+          "resumo": "Batman tem seu primeiro encontro com Azrael e começa a decifrar o mistério da Ordem de São Dumas. LeHah faz um acordo com o demônio Biis e começa sua busca para matar os outros membros da São Dumas. Jean Paul fica no seu caminho e acaba sendo baleado por seu opositor.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Sword of Azrael (1992)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "texto": "Batman: Sword of Azrael (1992) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: A Espada de Azrael - Parte 3",
+          "tituloOriginal": "Direct Action",
+          "quantidadePaginas": 24,
+          "resumo": "Biis captura Batman e Azrael começa a rastrear seu antigo inimigo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Sword of Azrael (1992)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "texto": "Batman: Sword of Azrael (1992) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Arco: A Espada de Azrael - Parte 4",
+          "tituloOriginal": "No One Is Innocent",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Sword of Azrael (1992)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1993,
+            "texto": "Batman: Sword of Azrael (1992) n° 4/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A origem secreta do Morcego Humano",
+          "tituloOriginal": "The Secret Origin of Man-Bat",
+          "quantidadePaginas": 19,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "39",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins (1986) n° 39/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O nome dele é Cara de Barro III",
+          "tituloOriginal": "His Name Is Clayface III",
+          "quantidadePaginas": 12,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "44",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins (1986) n° 44/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "34",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-01-01",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=176015&path=sa011126034_176015.jpg&w=400&h=615",
+      "descricao": "Saga do Batman, A 1ª Série - n° 34\nPublicado em: janeiro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Brian Bolland Editor: Gabriel Faria\nSucessão",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Armageddon 2001 - Parte 9",
+          "tituloOriginal": "Succession",
+          "quantidadePaginas": 56,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1991,
+            "texto": "Detective Comics Annual (1988) n° 4/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Pecados originais",
+          "tituloOriginal": "Original Sins",
+          "quantidadePaginas": 11,
+          "resumo": "Batman tentou impedir a produção de um documentário que retrata o lado humano dos vilões de Gotham City.\nHistória que introduz a edição especial de Origens Secretas publicada em 1989. As origens recontadas dos principais vilões do Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins Special (1989)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins Special (1989) n° 1/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A bicada mortal",
+          "tituloOriginal": null,
+          "quantidadePaginas": 18,
+          "resumo": "Origem secreta do Pinguim.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins Special (1989)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins Special (1989) n° 1/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "\"Quando\" é uma porta. A origem secreta do Charada",
+          "tituloOriginal": null,
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins Special (1989)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins Special (1989) n° 1/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": 16,
+          "resumo": "Grace Dent conta a origem do Duas-Caras ao entrevistador Steve Jones.\nSem título originalmente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins Special (1989)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1989,
+            "texto": "Secret Origins Special (1989) n° 1/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O Batman da Era de Ouro",
+          "tituloOriginal": "The Golden Age Batman",
+          "quantidadePaginas": 23,
+          "resumo": "Uma das últimas aparições do Homem-Morcego da Terra-2 (uma réplica da Terra em outra dimensão, onde os principais super-heróis começaram suas carreiras nos anos 30/40) antes da reformulação do Cruzado Encapuzado ocorrida em 1986/87. Adapta a primeira HQ do personagem (de 1939, publicada na \"Detective Comics\").",
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1986,
+            "texto": "Secret Origins (1986) n° 6/1986 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "35",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-02-01",
+      "publicadoTexto": "fevereiro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=176385&path=sa011126035_176385.jpg&w=400&h=616",
+      "descricao": "Saga do Batman, A 1ª Série - n° 35\nPublicado em: fevereiro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Matt Wagner Editor: Gabriel Faria\nCabeado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Arco: Cidade Elétrica - Parte 1",
+          "tituloOriginal": "[Electric City, Part 1] Wired",
+          "quantidadePaginas": 22,
+          "resumo": "Primeira edição da fase Dixon/Lyle/Hanna em Detective Comics.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "644",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 644/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Arco: Cidade Elétrica - Parte 2",
+          "tituloOriginal": "Electric City, Part 2: Grounded!",
+          "quantidadePaginas": 22,
+          "resumo": "Primeira aparição da Zesti Cola, bebida gaseificada favorita de Tim Drake e do Scarface.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "645",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 645/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Arco: Cidade Elétrica - Parte 3",
+          "tituloOriginal": "[Electric City, Part 3] Systemic Shock",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "646",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 646/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Mentes curiosas",
+          "tituloOriginal": "Inquiring Minds",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "647",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 647/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Que a perplexidade faça jus ao crime",
+          "tituloOriginal": "Let the Puzzlement Fit the Crime",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "648",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 648/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "No shopping",
+          "tituloOriginal": "Malled",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "649",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 649/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "36",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-03-01",
+      "publicadoTexto": "março de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 180,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 49.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=176700&path=sa011126036_176700.jpg&w=400&h=616",
+      "descricao": "Saga do Batman, A 1ª Série - n° 36\nPublicado em: março de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 180\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 49,90\nCrédito da capa e editor\nArte: Kelley Jones Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nDesastre , Fogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Desastre & Fogo: Uma história de amor",
+          "tituloOriginal": "Crash & Burn: A Love Story",
+          "quantidadePaginas": 22,
+          "resumo": "Uma inusitada dupla se une e começa a roubar bancos por vários estados. E seu objetivo é chegar em Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "483",
+            "anoOriginal": 1992,
+            "texto": "Batman (1940) n° 483/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O dragão",
+          "tituloOriginal": "The Dragon",
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "650",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 650/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Uma bala para Bullock",
+          "tituloOriginal": "A Bullet for Bullock",
+          "quantidadePaginas": 22,
+          "resumo": "O detetive Bullock está recebendo ameaças de morte. Na medida em que seus suspeitos vão sendo descartados, mais nervoso o pançudo escudeiro do Comissário Gordon vai ficando, até o momento em que precisa recorrer ao seu então desafeto particular: Batman!\nEsta HQ deu origem ao episódio homônimo da série \"Batman: The Animated Series\" (1992-1999).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "651",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 651/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Acima da lei!",
+          "tituloOriginal": "Beyond the Law!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "652",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 652/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O poço das serpentes",
+          "tituloOriginal": "The Serpent Pit",
+          "quantidadePaginas": 23,
+          "resumo": "O desenhista Graham Nolan e sua família aparecem na hq.\nA manchete de jornal \"Nolan se foi\" é uma referência à saída temporária do desenhista. Ele retornaria em Detective Comics #661.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "653",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics (1937) n° 653/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Atos de loucura!",
+          "tituloOriginal": "Acts of Madness!",
+          "quantidadePaginas": 54,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1992,
+            "texto": "Detective Comics Annual (1988) n° 5/1992 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

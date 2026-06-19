@@ -9,6 +9,7 @@ import java.util.Set;
 
 import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.FonteResultadoCatalogo;
+import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.dto.ResultadoPesquisaCatalogoDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.exception.RegraNegocioException;
@@ -20,8 +21,8 @@ import jakarta.transaction.Transactional;
 public class PesquisaCatalogoService {
 
     private static final String FONTE_COMIC_VINE = "COMICVINE";
-    private static final int LIMITE_INTERNO = 30;
-    private static final int LIMITE_COMIC_VINE = 20;
+    private static final int LIMITE_INTERNO = 200;
+    private static final int TAMANHO_MAXIMO = 100;
 
     private final EdicaoRepository edicaoRepository;
     private final IntegracaoExternaService integracaoExternaService;
@@ -34,11 +35,13 @@ public class PesquisaCatalogoService {
     }
 
     @Transactional
-    public List<ResultadoPesquisaCatalogoDTO> pesquisarCatalogo(String termo) {
+    public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogo(String termo, Integer pagina, Integer tamanho) {
         if (termo == null || termo.isBlank()) {
-            return List.of();
+            return new PaginaRespostaDTO<>(List.of(), 0, tratarTamanho(tamanho), 0, 0);
         }
 
+        int paginaTratada = tratarPagina(pagina);
+        int tamanhoTratado = tratarTamanho(tamanho);
         List<ResultadoPesquisaCatalogoDTO> resultados = new ArrayList<>();
         Set<String> chaves = new LinkedHashSet<>();
         List<Edicao> edicoesInternas = edicaoRepository.buscarPaginado(null, termo, 0, LIMITE_INTERNO);
@@ -47,19 +50,25 @@ public class PesquisaCatalogoService {
                 .map(this::paraResultadoInterno)
                 .forEach(resultado -> adicionarResultado(resultados, chaves, resultado));
 
-        buscarExternos(termo).stream()
+        PaginaRespostaDTO<EdicaoComicVineRespostaDTO> externos = buscarExternos(termo, paginaTratada, tamanhoTratado);
+        externos.itens().stream()
                 .map(this::paraResultadoExterno)
                 .filter(resultado -> !jaExisteNoCatalogoInterno(resultado, edicoesInternas))
                 .forEach(resultado -> adicionarResultado(resultados, chaves, resultado));
 
-        return resultados;
+        return new PaginaRespostaDTO<>(
+                resultados,
+                paginaTratada,
+                tamanhoTratado,
+                externos.totalItens(),
+                externos.totalPaginas());
     }
 
-    private List<EdicaoComicVineRespostaDTO> buscarExternos(String termo) {
+    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarExternos(String termo, int pagina, int tamanho) {
         try {
-            return integracaoExternaService.buscarEdicoesComicVinePorTermo(termo, LIMITE_COMIC_VINE);
+            return integracaoExternaService.buscarEdicoesComicVinePorTermo(termo, pagina, tamanho);
         } catch (RegraNegocioException e) {
-            return List.of();
+            return new PaginaRespostaDTO<>(List.of(), pagina, tamanho, 0, 0);
         }
     }
 
@@ -145,6 +154,18 @@ public class PesquisaCatalogoService {
 
     private String normalizar(String valor) {
         return valor == null ? "" : valor.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private int tratarPagina(Integer pagina) {
+        return pagina == null || pagina < 0 ? 0 : pagina;
+    }
+
+    private int tratarTamanho(Integer tamanho) {
+        if (tamanho == null || tamanho <= 0) {
+            return 20;
+        }
+
+        return Math.min(tamanho, TAMANHO_MAXIMO);
     }
 
     private LocalDate parseData(String valor) {

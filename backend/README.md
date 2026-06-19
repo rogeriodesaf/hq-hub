@@ -21,15 +21,15 @@ CREATE DATABASE hqhub;
 Configuração esperada:
 
 - Host: `localhost`
-- Porta: `5432`
+- Porta: `5433`
 - Banco: `hqhub`
 - Usuário: `postgres`
 - Senha: `postgres`
 
-Também é possível subir um PostgreSQL local com Docker:
+Também é possível subir um PostgreSQL local com Docker usando o `docker-compose.yml` da raiz do projeto:
 
 ```bash
-docker run --name hqhub-postgres -e POSTGRES_DB=hqhub -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
+docker compose up -d postgres
 ```
 
 ## Rodar o projeto
@@ -41,6 +41,13 @@ mvn quarkus:dev
 ```
 
 Ao iniciar, o Flyway executa automaticamente a migration `V1__criar_tabela_usuarios.sql` e cria a tabela `usuarios`.
+
+Se quiser sobrescrever a conexão sem mexer no arquivo de configuração, use estas variáveis:
+
+- `HQHUB_DB_HOST`
+- `HQHUB_DB_PORT`
+- `HQHUB_DB_USUARIO`
+- `HQHUB_DB_SENHA`
 
 ## Swagger
 

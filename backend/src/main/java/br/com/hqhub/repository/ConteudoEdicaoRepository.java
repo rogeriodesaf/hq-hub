@@ -21,4 +21,12 @@ public class ConteudoEdicaoRepository implements PanacheRepository<ConteudoEdica
     public Optional<ConteudoEdicao> buscarPrimeiroPorHistoria(Long historiaId) {
         return find("historia.id = ?1 order by ordem asc", historiaId).firstResultOptional();
     }
+
+    public Optional<ConteudoEdicao> buscarPorEdicaoEHistoria(Long edicaoId, Long historiaId) {
+        return find("edicao.id = ?1 and historia.id = ?2", edicaoId, historiaId).firstResultOptional();
+    }
+
+    public long contarPorEdicao(Long edicaoId) {
+        return count("edicao.id", edicaoId);
+    }
 }

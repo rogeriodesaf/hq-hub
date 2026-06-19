@@ -1,6 +1,7 @@
 package br.com.hqhub.resource;
 
 import java.net.URI;
+import br.com.hqhub.dto.AtualizacaoCapaEdicaoDTO;
 import br.com.hqhub.dto.AtualizacaoEdicaoDTO;
 import br.com.hqhub.dto.CadastroEdicaoDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
@@ -13,6 +14,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -75,6 +77,13 @@ public class EdicaoResource {
     @Path("/{id}")
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoEdicaoDTO dto) {
         EdicaoRespostaDTO edicao = edicaoService.atualizar(id, dto);
+        return Response.ok(edicao).build();
+    }
+
+    @PATCH
+    @Path("/{id}/capa")
+    public Response atualizarCapa(@PathParam("id") Long id, @Valid AtualizacaoCapaEdicaoDTO dto) {
+        EdicaoRespostaDTO edicao = edicaoService.atualizarCapa(id, dto);
         return Response.ok(edicao).build();
     }
 

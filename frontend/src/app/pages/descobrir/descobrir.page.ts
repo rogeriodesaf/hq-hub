@@ -1,17 +1,57 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import {
   CalculoInflacao,
+  ConteudoEdicao,
+  Edicao,
   EdicaoComicVine,
   ItemColecao,
   PaginaResposta,
   PessoaComicVine,
+  PublicacaoHistoria,
   PublicacaoRelacionada,
+  Serie,
   VolumeComicVine,
 } from '../../core/modelos';
+
+type FonteDescoberta = 'TODAS' | 'COMIC_VINE' | 'HQ_HUB';
+
+interface VolumeDescoberta {
+  fonte: 'COMIC_VINE' | 'HQ_HUB';
+  idExterno: string;
+  serieId: number | null;
+  titulo: string;
+  editora: string | null;
+  anoInicio: number | null;
+  quantidadeEdicoes: number | null;
+  descricao: string | null;
+  urlOrigem: string | null;
+  urlImagem: string | null;
+}
+
+interface EdicaoDescoberta {
+  fonte: 'COMIC_VINE' | 'HQ_HUB';
+  idExterno: string | null;
+  idInterno: number | null;
+  numero: string | null;
+  titulo: string | null;
+  nomeVolume: string | null;
+  idVolume: string | null;
+  dataCapa: string | null;
+  dataVenda: string | null;
+  descricao: string | null;
+  descricaoExibicao: string | null;
+  urlOrigem: string | null;
+  urlImagem: string | null;
+  creditos: { idExterno: string | null; nome: string | null; papel: string | null; urlOrigem: string | null }[];
+  personagens: string[];
+  conteudos: string[];
+}
 
 @Component({
   selector: 'app-descobrir-page',
@@ -19,33 +59,50 @@ import {
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Busca externa</p>
-        <h1>Encontre volumes e carregue edições em ordem cronológica.</h1>
+        <p class="rotulo">Descobrir</p>
+        <h1>Encontre títulos e carregue edições em ordem cronológica.</h1>
       </div>
     </section>
 
     <section class="barra-busca">
-      <input [(ngModel)]="termo" placeholder="Amazing Spider-Man, Batman, X-Men..." (keyup.enter)="buscarVolumes()" />
-      <button class="botao primario" type="button" (click)="buscarVolumes()">Buscar</button>
+      <input [(ngModel)]="termo" placeholder="Amazing Spider-Man, Batman, Saga do Batman..." (keyup.enter)="buscarVolumes()" />
+      <button class="botao primario" type="button" (click)="buscarVolumes()" [disabled]="carregandoVolumes()">
+        {{ carregandoVolumes() ? 'Buscando...' : 'Buscar' }}
+      </button>
     </section>
 
+    <div class="alternador descobrir-fontes">
+      <button type="button" [class.ativo]="fontePesquisa() === 'TODAS'" (click)="alterarFonte('TODAS')">Todas</button>
+      <button type="button" [class.ativo]="fontePesquisa() === 'COMIC_VINE'" (click)="alterarFonte('COMIC_VINE')">Comic Vine</button>
+      <button type="button" [class.ativo]="fontePesquisa() === 'HQ_HUB'" (click)="alterarFonte('HQ_HUB')">HQ-HUB</button>
+    </div>
+
     @if (mensagem()) {
-      <p class="mensagem-erro">{{ mensagem() }}</p>
+      <section class="estado-pesquisa">
+        <p>{{ mensagem() }}</p>
+      </section>
     }
 
     <section class="grade-volumes">
-      @for (volume of volumes().itens; track volume.idExterno) {
-        <article class="cartao-volume" [class.selecionado]="volumeSelecionado()?.idExterno === volume.idExterno">
-          <img [src]="volume.urlImagem || capaReserva" [alt]="volume.titulo" loading="lazy" />
+      @for (volume of volumes().itens; track chaveVolume(volume)) {
+        <article class="cartao-volume" [class.selecionado]="volumeSelecionado()?.idExterno === volume.idExterno && volumeSelecionado()?.fonte === volume.fonte">
+          <img [src]="volume.urlImagem || capaReserva" [alt]="volume.titulo" loading="lazy" (error)="usarCapaReserva($event)" />
           <div>
-            <p class="rotulo">{{ volume.editora || 'Editora não informada' }}</p>
+            <p class="rotulo">{{ rotuloFonteVolume(volume) }} · {{ volume.editora || 'Editora não informada' }}</p>
             <h2>{{ volume.titulo }}</h2>
-            <p>{{ volume.anoInicio || 'Ano não informado' }} · {{ volume.quantidadeEdicoes || 0 }} edições</p>
+            <p>{{ volume.anoInicio || 'Ano não informado' }} · {{ volume.quantidadeEdicoes ?? 'quantidade não informada' }} edições</p>
             <button class="botao compacto" type="button" (click)="selecionarVolume(volume)" [disabled]="carregandoEdicoes()">
               {{ carregandoEdicoes() && volumeSelecionado()?.idExterno === volume.idExterno ? 'Carregando...' : 'Ver edições' }}
             </button>
           </div>
         </article>
+      } @empty {
+        @if (!carregandoVolumes()) {
+          <section class="estado-vazio compacto">
+            <h2>Nenhum título carregado</h2>
+            <p>Digite um termo e escolha se deseja pesquisar na Comic Vine, no HQ-HUB ou nas duas bases.</p>
+          </section>
+        }
       }
     </section>
 
@@ -53,7 +110,7 @@ import {
       <section class="secao-edicoes" id="edicoes-volume">
         <div class="secao-titulo">
           <div>
-            <p class="rotulo">Volume selecionado</p>
+            <p class="rotulo">{{ rotuloFonteVolume(volumeSelecionado()!) }}</p>
             <h2>{{ volumeSelecionado()?.titulo }}</h2>
           </div>
           <div class="paginacao">
@@ -67,30 +124,32 @@ import {
           </div>
         </div>
 
-        <section class="filtro-criador">
-          <label>
-            Buscar autor, desenhista, editor...
-            <input [(ngModel)]="termoPessoa" placeholder="Joe Quesada, Stan Lee, Steve Ditko..." (keyup.enter)="buscarPessoas()" />
-          </label>
-          <label>
-            Papel
-            <input [(ngModel)]="papelPessoa" placeholder="roteirista, desenhista, editor..." />
-          </label>
-          <button class="botao compacto" type="button" (click)="buscarPessoas()" [disabled]="buscandoPessoas()">
-            {{ buscandoPessoas() ? 'Buscando...' : 'Buscar pessoa' }}
-          </button>
-          @if (pessoaFiltro()) {
-            <button class="botao compacto" type="button" (click)="limparFiltroPessoa()">
-              Limpar: {{ pessoaFiltro()?.nome }}
+        @if (volumeSelecionado()?.fonte === 'COMIC_VINE') {
+          <section class="filtro-criador">
+            <label>
+              Buscar autor, desenhista, editor...
+              <input [(ngModel)]="termoPessoa" placeholder="Joe Quesada, Stan Lee, Steve Ditko..." (keyup.enter)="buscarPessoas()" />
+            </label>
+            <label>
+              Papel
+              <input [(ngModel)]="papelPessoa" placeholder="roteirista, desenhista, editor..." />
+            </label>
+            <button class="botao compacto" type="button" (click)="buscarPessoas()" [disabled]="buscandoPessoas()">
+              {{ buscandoPessoas() ? 'Buscando...' : 'Buscar pessoa' }}
             </button>
-          }
-        </section>
+            @if (pessoaFiltro()) {
+              <button class="botao compacto" type="button" (click)="limparFiltroPessoa()">
+                Limpar: {{ pessoaFiltro()?.nome }}
+              </button>
+            }
+          </section>
+        }
 
         @if (pessoasEncontradas().length) {
           <section class="pessoas-encontradas">
             @for (pessoa of pessoasEncontradas(); track pessoa.idExterno) {
               <button type="button" (click)="selecionarPessoaFiltro(pessoa)">
-                <img [src]="pessoa.urlImagem || capaReserva" [alt]="pessoa.nome || 'Pessoa'" loading="lazy" />
+                <img [src]="pessoa.urlImagem || capaReserva" [alt]="pessoa.nome || 'Pessoa'" loading="lazy" (error)="usarCapaReserva($event)" />
                 <span>{{ pessoa.nome }}</span>
               </button>
             }
@@ -104,13 +163,18 @@ import {
           </section>
         } @else if (edicoes()?.itens?.length) {
           <div class="grade-edicoes">
-            @for (edicao of edicoes()?.itens || []; track edicao.idExterno) {
+            @for (edicao of edicoes()?.itens || []; track chaveEdicao(edicao)) {
               <article class="cartao-edicao clicavel" (click)="abrirDetalhesEdicao(edicao)" tabindex="0" (keyup.enter)="abrirDetalhesEdicao(edicao)">
-                <img [src]="edicao.urlImagem || capaReserva" [alt]="edicao.titulo || 'Edição sem título'" loading="lazy" />
+                <img
+                  [src]="edicao.urlImagem || capaReserva"
+                  [alt]="edicao.titulo || 'Edição sem título'"
+                  loading="lazy"
+                  (error)="usarCapaReserva($event)"
+                />
                 <div>
-                  <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }}</p>
+                  <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }} · {{ rotuloFonteEdicao(edicao) }}</p>
                   <h3>{{ edicao.titulo || edicao.nomeVolume }}</h3>
-                  <p>{{ limitarTexto(edicao.descricao, 170) }}</p>
+                  <p>{{ limitarTexto(edicao.descricaoExibicao || edicao.descricao, 170) }}</p>
                   @if (edicao.creditos.length) {
                     <small>{{ listarCreditos(edicao) }}</small>
                   }
@@ -133,9 +197,13 @@ import {
         <article class="detalhe-painel">
           <button class="fechar-detalhe" type="button" (click)="fecharDetalhesEdicao()" aria-label="Fechar detalhes">×</button>
           <div class="detalhe-cabecalho">
-            <img [src]="edicaoSelecionada()?.urlImagem || capaReserva" [alt]="edicaoSelecionada()?.titulo || 'Capa da edição'" />
+            <img
+              [src]="edicaoSelecionada()?.urlImagem || capaReserva"
+              [alt]="edicaoSelecionada()?.titulo || 'Capa da edição'"
+              (error)="usarCapaReserva($event)"
+            />
             <div>
-              <p class="rotulo">ComicVine · {{ edicaoSelecionada()?.nomeVolume }}</p>
+              <p class="rotulo">Comic Vine · {{ edicaoSelecionada()?.nomeVolume }}</p>
               <h2>#{{ edicaoSelecionada()?.numero }} {{ edicaoSelecionada()?.titulo || '' }}</h2>
               <div class="chips">
                 <span>Data de capa: {{ edicaoSelecionada()?.dataCapa || 'não informada' }}</span>
@@ -160,7 +228,7 @@ import {
               @for (conteudo of edicaoSelecionada()?.conteudos || []; track conteudo) {
                 <span>{{ conteudo }}</span>
               } @empty {
-                <p class="texto-suave">Nenhum conteúdo interno retornado pela ComicVine.</p>
+                <p class="texto-suave">Nenhum conteúdo interno retornado pela Comic Vine.</p>
               }
             </div>
           </section>
@@ -225,7 +293,7 @@ import {
                   <span>{{ credito.papel || 'participação' }}</span>
                 </p>
               } @empty {
-                <p class="texto-suave">Nenhum crédito retornado pela ComicVine.</p>
+                <p class="texto-suave">Nenhum crédito retornado pela Comic Vine.</p>
               }
             </div>
 
@@ -248,6 +316,13 @@ import {
             } @else {
               @for (publicacao of publicacoesRelacionadas(); track publicacao.id) {
                 <article class="publicacao-card">
+                  <img
+                    class="capa-publicacao"
+                    [src]="publicacao.edicaoDestino.urlCapa || publicacao.edicaoOrigem.urlCapa || capaReserva"
+                    [alt]="tituloPublicacao(publicacao)"
+                    loading="lazy"
+                    (error)="usarCapaReserva($event)"
+                  />
                   <div>
                     <p class="rotulo">{{ publicacao.tipo }}</p>
                     <h4>{{ tituloPublicacao(publicacao) }}</h4>
@@ -269,15 +344,150 @@ import {
       </section>
     }
 
+    @if (edicaoDetalhe()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição interna">
+        <div class="detalhe-fundo" (click)="fecharDetalheInterno()"></div>
+        <article class="detalhe-painel">
+          <button class="fechar-detalhe" type="button" (click)="fecharDetalheInterno()" aria-label="Fechar detalhes">×</button>
+          @if (historicoDetalhes().length) {
+            <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
+              Voltar
+            </button>
+          }
+
+          <div class="detalhe-cabecalho">
+            <img [src]="edicaoDetalhe()?.urlCapa || capaReserva" [alt]="tituloEdicaoInterna(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
+            <div>
+              <p class="rotulo">HQ-HUB · {{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
+              <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
+              <div class="chips">
+                <span>{{ edicaoDetalhe()?.dataPublicacao || 'data não informada' }}</span>
+                @if (edicaoDetalhe()?.quantidadePaginas) {
+                  <span>{{ edicaoDetalhe()?.quantidadePaginas }} páginas</span>
+                }
+                @if (edicaoDetalhe()?.precoCapa) {
+                  <span>{{ formatarMoeda(edicaoDetalhe()?.precoCapa || 0) }}</span>
+                }
+              </div>
+              <div
+                class="descricao-formatada"
+                [innerHTML]="formatarDescricao(edicaoDetalhe()?.descricaoExibicao || edicaoDetalhe()?.descricao || 'Sem descrição cadastrada.')"
+              ></div>
+            </div>
+          </div>
+
+          @if (carregandoDetalhe()) {
+            <section class="estado-carregando">
+              <span></span>
+              <p>Carregando detalhes da edição...</p>
+            </section>
+          }
+
+          @if (publicacoesDetalhe().length || !publicacoesComoOriginal().length) {
+            <section class="detalhe-secao">
+              <h3>Histórias publicadas nesta edição</h3>
+              @for (publicacao of publicacoesDetalhe(); track publicacao.id) {
+                <article class="publicacao-card">
+                  <img
+                    class="capa-publicacao"
+                    [src]="publicacao.edicaoOriginal.urlCapa || publicacao.edicaoPublicada.urlCapa || capaReserva"
+                    [alt]="tituloEdicaoOriginal(publicacao)"
+                    loading="lazy"
+                    (error)="usarCapaReserva($event)"
+                  />
+                  <div>
+                    <p class="rotulo">{{ rotuloStatus(publicacao.status) }}</p>
+                    <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
+                    <p>
+                      Publicada originalmente em
+                      <button class="link-edicao-original" type="button" (click)="abrirDetalhePorId(publicacao.edicaoOriginal.id)">
+                        {{ tituloEdicaoOriginal(publicacao) }}
+                      </button>
+                      @if (linkEdicaoOriginal(publicacao)) {
+                        <a class="link-fonte-original" [href]="linkEdicaoOriginal(publicacao)" target="_blank" rel="noreferrer">
+                          {{ rotuloFonteEdicaoInterna(publicacao.edicaoOriginal) }}
+                        </a>
+                      }
+                    </p>
+                    @if (publicacao.historia.tituloOriginal) {
+                      <p>Título original: {{ publicacao.historia.tituloOriginal }}</p>
+                    }
+                    @if (publicacao.paginasPublicadas) {
+                      <p>{{ publicacao.paginasPublicadas }} páginas</p>
+                    }
+                    @if (publicacao.historia.descricaoExibicao) {
+                      <p>{{ publicacao.historia.descricaoExibicao }}</p>
+                    }
+                  </div>
+                </article>
+              } @empty {
+                <p class="texto-suave">Nenhuma publicação brasileira vinculada a esta edição ainda.</p>
+              }
+            </section>
+          }
+
+          @if (publicacoesComoOriginal().length || !publicacoesDetalhe().length) {
+            <section class="detalhe-secao">
+              <h3>Publicações brasileiras desta edição original</h3>
+              @for (publicacao of publicacoesComoOriginal(); track publicacao.id) {
+                <article class="publicacao-card">
+                  <img
+                    class="capa-publicacao"
+                    [src]="publicacao.edicaoPublicada.urlCapa || publicacao.edicaoOriginal.urlCapa || capaReserva"
+                    [alt]="tituloEdicaoPublicada(publicacao)"
+                    loading="lazy"
+                    (error)="usarCapaReserva($event)"
+                  />
+                  <div>
+                    <p class="rotulo">{{ rotuloStatus(publicacao.status) }}</p>
+                    <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
+                    <p>
+                      Publicada no Brasil em
+                      <button class="link-edicao-original" type="button" (click)="abrirDetalhePorId(publicacao.edicaoPublicada.id)">
+                        {{ tituloEdicaoPublicada(publicacao) }}
+                      </button>
+                    </p>
+                    @if (publicacao.paginasPublicadas) {
+                      <p>{{ publicacao.paginasPublicadas }} páginas</p>
+                    }
+                    @if (publicacao.observacoes) {
+                      <p>{{ publicacao.observacoes }}</p>
+                    }
+                  </div>
+                </article>
+              } @empty {
+                <p class="texto-suave">Esta edição original ainda não tem republicações brasileiras vinculadas.</p>
+              }
+            </section>
+          }
+
+          <section class="detalhe-secao">
+            <h3>Conteúdos cadastrados diretamente nesta edição</h3>
+            @for (conteudo of conteudosDetalhe(); track conteudo.id) {
+              <article class="publicacao-card">
+                <div>
+                  <p class="rotulo">Ordem {{ conteudo.ordem }}</p>
+                  <h4>{{ conteudo.tituloUsado || conteudo.historia.tituloExibicao || conteudo.historia.titulo }}</h4>
+                  <p>{{ conteudo.historia.descricaoExibicao || conteudo.observacoes || 'Sem descrição.' }}</p>
+                </div>
+              </article>
+            } @empty {
+              <p class="texto-suave">Esta edição não tem conteúdos diretos cadastrados.</p>
+            }
+          </section>
+        </article>
+      </section>
+    }
+
     @if (pessoaSelecionada()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da pessoa">
         <div class="detalhe-fundo" (click)="fecharDetalhesPessoa()"></div>
         <article class="detalhe-painel pessoa-painel">
           <button class="fechar-detalhe" type="button" (click)="fecharDetalhesPessoa()" aria-label="Fechar detalhes">×</button>
           <div class="detalhe-cabecalho">
-            <img [src]="pessoaSelecionada()?.urlImagem || capaReserva" [alt]="pessoaSelecionada()?.nome || 'Pessoa'" />
+            <img [src]="pessoaSelecionada()?.urlImagem || capaReserva" [alt]="pessoaSelecionada()?.nome || 'Pessoa'" (error)="usarCapaReserva($event)" />
             <div>
-              <p class="rotulo">ComicVine · pessoa</p>
+              <p class="rotulo">Comic Vine · pessoa</p>
               <h2>{{ pessoaSelecionada()?.nome }}</h2>
               <div class="chips">
                 <span>{{ pessoaSelecionada()?.genero || 'gênero não informado' }}</span>
@@ -286,7 +496,7 @@ import {
               </div>
               @if (pessoaSelecionada()?.urlOrigem) {
                 <a class="botao compacto" [href]="pessoaSelecionada()?.urlOrigem" target="_blank" rel="noreferrer">
-                  Abrir ComicVine
+                  Abrir Comic Vine
                 </a>
               }
             </div>
@@ -302,21 +512,30 @@ import {
 })
 export class DescobrirPage {
   private readonly api = inject(ApiService);
+  private readonly sanitizador = inject(DomSanitizer);
 
   readonly capaReserva = 'assets/capa-reserva.svg';
-  readonly volumes = signal<PaginaResposta<VolumeComicVine>>({
+  readonly fontePesquisa = signal<FonteDescoberta>('TODAS');
+  readonly volumes = signal<PaginaResposta<VolumeDescoberta>>({
     itens: [],
     pagina: 0,
     tamanho: 12,
     totalItens: 0,
     totalPaginas: 0,
   });
-  readonly edicoes = signal<PaginaResposta<EdicaoComicVine> | null>(null);
-  readonly volumeSelecionado = signal<VolumeComicVine | null>(null);
+  readonly edicoes = signal<PaginaResposta<EdicaoDescoberta> | null>(null);
+  readonly volumeSelecionado = signal<VolumeDescoberta | null>(null);
   readonly paginaEdicoes = signal(0);
   readonly mensagem = signal('');
+  readonly carregandoVolumes = signal(false);
   readonly carregandoEdicoes = signal(false);
   readonly edicaoSelecionada = signal<EdicaoComicVine | null>(null);
+  readonly edicaoDetalhe = signal<Edicao | null>(null);
+  readonly historicoDetalhes = signal<Edicao[]>([]);
+  readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
+  readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
+  readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly carregandoDetalhe = signal(false);
   readonly publicacoesRelacionadas = signal<PublicacaoRelacionada[]>([]);
   readonly carregandoPublicacoes = signal(false);
   readonly itemColecaoSelecionado = signal<ItemColecao | null>(null);
@@ -335,15 +554,64 @@ export class DescobrirPage {
   valorInflacao: number | null = null;
   dataInflacao = '';
 
+  alterarFonte(fonte: FonteDescoberta) {
+    this.fontePesquisa.set(fonte);
+    this.buscarVolumes();
+  }
+
   buscarVolumes() {
+    const termoBusca = this.termo.trim();
+    if (!termoBusca) {
+      this.mensagem.set('Digite um título para pesquisar.');
+      return;
+    }
+
     this.mensagem.set('');
-    this.api.buscarVolumesComicVine(this.termo, 0, 12).subscribe({
-      next: (resposta) => this.volumes.set(resposta),
-      error: () => this.mensagem.set('Não foi possível buscar volumes na ComicVine.'),
+    this.carregandoVolumes.set(true);
+    this.volumeSelecionado.set(null);
+    this.edicoes.set(null);
+    this.volumes.set({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
+
+    const fonte = this.fontePesquisa();
+    const buscaComicVine$ =
+      fonte === 'HQ_HUB'
+        ? of(this.paginaVazia<VolumeDescoberta>())
+        : this.api.buscarVolumesComicVine(termoBusca, 0, 12).pipe(
+            map((resposta) => ({
+              ...resposta,
+              itens: resposta.itens.map((volume) => this.paraVolumeComicVine(volume)),
+            })),
+            catchError(() => of(this.paginaVazia<VolumeDescoberta>())),
+          );
+
+    const buscaInterna$ =
+      fonte === 'COMIC_VINE'
+        ? of(this.paginaVazia<VolumeDescoberta>())
+        : this.buscarVolumesInternos(termoBusca);
+
+    forkJoin({ comicVine: buscaComicVine$, interno: buscaInterna$ }).subscribe({
+      next: ({ comicVine, interno }) => {
+        const itens = fonte === 'TODAS' ? [...interno.itens, ...comicVine.itens] : fonte === 'HQ_HUB' ? interno.itens : comicVine.itens;
+        this.volumes.set({
+          itens,
+          pagina: 0,
+          tamanho: 12,
+          totalItens: itens.length,
+          totalPaginas: itens.length ? 1 : 0,
+        });
+        this.carregandoVolumes.set(false);
+        if (!itens.length) {
+          this.mensagem.set('Nenhum título encontrado para este termo.');
+        }
+      },
+      error: () => {
+        this.carregandoVolumes.set(false);
+        this.mensagem.set('Não foi possível buscar títulos agora.');
+      },
     });
   }
 
-  selecionarVolume(volume: VolumeComicVine) {
+  selecionarVolume(volume: VolumeDescoberta) {
     this.mensagem.set('');
     this.edicoes.set(null);
     this.pessoasEncontradas.set([]);
@@ -367,6 +635,26 @@ export class DescobrirPage {
 
     this.mensagem.set('');
     this.carregandoEdicoes.set(true);
+
+    if (volume.fonte === 'HQ_HUB' && volume.serieId) {
+      this.api.listarEdicoes('', this.paginaEdicoes(), 24, volume.serieId).subscribe({
+        next: (resposta) => {
+          this.edicoes.set({
+            ...resposta,
+            itens: resposta.itens.map((edicao) => this.paraEdicaoInterna(edicao)),
+          });
+          this.carregandoEdicoes.set(false);
+          this.rolarParaEdicoes();
+        },
+        error: () => {
+          this.carregandoEdicoes.set(false);
+          this.mensagem.set('Não foi possível carregar as edições do HQ-HUB.');
+          this.rolarParaEdicoes();
+        },
+      });
+      return;
+    }
+
     this.api
       .buscarEdicoesComicVine(
         volume.idExterno,
@@ -376,17 +664,20 @@ export class DescobrirPage {
         this.papelPessoa || undefined,
       )
       .subscribe({
-      next: (resposta) => {
-        this.edicoes.set(resposta);
-        this.carregandoEdicoes.set(false);
-        this.rolarParaEdicoes();
-      },
-      error: () => {
-        this.carregandoEdicoes.set(false);
-        this.mensagem.set('Não foi possível carregar as edições deste volume.');
-        this.rolarParaEdicoes();
-      },
-    });
+        next: (resposta) => {
+          this.edicoes.set({
+            ...resposta,
+            itens: resposta.itens.map((edicao) => this.paraEdicaoComicVine(edicao)),
+          });
+          this.carregandoEdicoes.set(false);
+          this.rolarParaEdicoes();
+        },
+        error: () => {
+          this.carregandoEdicoes.set(false);
+          this.mensagem.set('Não foi possível carregar as edições deste volume.');
+          this.rolarParaEdicoes();
+        },
+      });
   }
 
   buscarPessoas() {
@@ -404,7 +695,7 @@ export class DescobrirPage {
       error: () => {
         this.pessoasEncontradas.set([]);
         this.buscandoPessoas.set(false);
-        this.mensagem.set('Não foi possível buscar pessoas na ComicVine.');
+        this.mensagem.set('Não foi possível buscar pessoas na Comic Vine.');
       },
     });
   }
@@ -430,15 +721,25 @@ export class DescobrirPage {
     return texto.length > limite ? `${texto.slice(0, limite)}...` : texto;
   }
 
-  listarCreditos(edicao: EdicaoComicVine) {
+  listarCreditos(edicao: EdicaoDescoberta) {
     return edicao.creditos
       .slice(0, 3)
       .map((credito) => [credito.nome, credito.papel].filter(Boolean).join(' · '))
       .join(' / ');
   }
 
-  abrirDetalhesEdicao(edicao: EdicaoComicVine) {
-    this.edicaoSelecionada.set(edicao);
+  abrirDetalhesEdicao(edicao: EdicaoDescoberta) {
+    if (edicao.fonte === 'HQ_HUB' && edicao.idInterno) {
+      this.historicoDetalhes.set([]);
+      this.abrirDetalhePorId(edicao.idInterno);
+      return;
+    }
+
+    if (!edicao.idExterno) {
+      return;
+    }
+
+    this.edicaoSelecionada.set(this.paraEdicaoComicVineDetalhe(edicao));
     this.publicacoesRelacionadas.set([]);
     this.carregandoPublicacoes.set(true);
     this.itemColecaoSelecionado.set(null);
@@ -454,7 +755,7 @@ export class DescobrirPage {
         this.dataInflacao = detalhe.dataVenda || detalhe.dataCapa || this.dataInflacao;
       },
       error: () => {
-        this.mensagem.set('Não foi possível carregar o detalhe completo da ComicVine. Exibindo os dados da listagem.');
+        this.mensagem.set('Não foi possível carregar o detalhe completo da Comic Vine. Exibindo os dados da listagem.');
       },
     });
 
@@ -488,11 +789,58 @@ export class DescobrirPage {
     });
   }
 
+  abrirDetalhePorId(edicaoId: number) {
+    this.carregandoDetalhe.set(true);
+    this.mensagem.set('');
+    forkJoin({
+      edicao: this.api.buscarEdicaoPorId(edicaoId),
+      conteudos: this.api.listarConteudosPorEdicao(edicaoId),
+      publicacoes: this.api.listarPublicacoesPorEdicaoPublicada(edicaoId),
+      publicacoesOriginais: this.api.listarPublicacoesPorEdicaoOriginal(edicaoId),
+    }).subscribe({
+      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais }) => {
+        const atual = this.edicaoDetalhe();
+        if (atual && atual.id !== edicao.id) {
+          this.historicoDetalhes.update((historico) => [...historico, atual]);
+        }
+        this.edicaoDetalhe.set(edicao);
+        this.conteudosDetalhe.set(conteudos);
+        this.publicacoesDetalhe.set(publicacoes);
+        this.publicacoesComoOriginal.set(publicacoesOriginais);
+        this.carregandoDetalhe.set(false);
+      },
+      error: () => {
+        this.carregandoDetalhe.set(false);
+        this.mensagem.set('Não foi possível carregar os detalhes desta edição.');
+      },
+    });
+  }
+
   fecharDetalhesEdicao() {
     this.edicaoSelecionada.set(null);
     this.publicacoesRelacionadas.set([]);
     this.itemColecaoSelecionado.set(null);
     this.calculoInflacao.set(null);
+  }
+
+  fecharDetalheInterno() {
+    this.edicaoDetalhe.set(null);
+    this.conteudosDetalhe.set([]);
+    this.publicacoesDetalhe.set([]);
+    this.publicacoesComoOriginal.set([]);
+    this.historicoDetalhes.set([]);
+  }
+
+  voltarDetalheAnterior() {
+    const historico = this.historicoDetalhes();
+    const anterior = historico[historico.length - 1];
+    if (!anterior) {
+      return;
+    }
+
+    this.historicoDetalhes.set(historico.slice(0, -1));
+    this.edicaoDetalhe.set(null);
+    this.abrirDetalhePorId(anterior.id);
   }
 
   abrirDetalhesPessoa(credito: { idExterno: string | null }) {
@@ -553,6 +901,225 @@ export class DescobrirPage {
 
   rotuloLeitura(status: string | null | undefined) {
     return status === 'LIDO' ? 'Lido' : 'Não lido';
+  }
+
+  usarCapaReserva(evento: Event) {
+    const imagem = evento.target as HTMLImageElement;
+    if (!imagem.src.endsWith(this.capaReserva)) {
+      imagem.src = this.capaReserva;
+    }
+  }
+
+  chaveVolume(volume: VolumeDescoberta) {
+    return `${volume.fonte}-${volume.idExterno}`;
+  }
+
+  chaveEdicao(edicao: EdicaoDescoberta) {
+    return `${edicao.fonte}-${edicao.idInterno || edicao.idExterno || edicao.numero}`;
+  }
+
+  rotuloFonteVolume(volume: VolumeDescoberta) {
+    return volume.fonte === 'HQ_HUB' ? 'HQ-HUB' : 'Comic Vine';
+  }
+
+  rotuloFonteEdicao(edicao: EdicaoDescoberta) {
+    return edicao.fonte === 'HQ_HUB' ? 'HQ-HUB' : 'Comic Vine';
+  }
+
+  tituloEdicaoInterna(edicao: Edicao) {
+    return `${edicao.serie?.titulo || 'Edição'} #${edicao.numero}`;
+  }
+
+  formatarDescricao(texto: string): SafeHtml {
+    const partes: string[] = [];
+    const regexLink = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+    let indiceAnterior = 0;
+    let resultado: RegExpExecArray | null;
+
+    while ((resultado = regexLink.exec(texto)) !== null) {
+      partes.push(this.escaparHtml(texto.slice(indiceAnterior, resultado.index)));
+      partes.push(
+        `<a href="${this.escaparAtributo(resultado[2])}" target="_blank" rel="noreferrer">${this.escaparHtml(resultado[1])}</a>`,
+      );
+      indiceAnterior = regexLink.lastIndex;
+    }
+
+    partes.push(this.escaparHtml(texto.slice(indiceAnterior)));
+    return this.sanitizador.bypassSecurityTrustHtml(partes.join('').replace(/\r?\n/g, '<br>'));
+  }
+
+  rotuloStatus(status: string) {
+    const rotulos: Record<string, string> = {
+      COMPLETA: 'Publicação completa',
+      PARCIAL: 'Publicação parcial',
+      CORTADA: 'Publicação cortada',
+      ADAPTADA: 'Publicação adaptada',
+      DESCONHECIDA: 'Status desconhecido',
+    };
+    return rotulos[status] || status;
+  }
+
+  tituloEdicaoOriginal(publicacao: PublicacaoHistoria) {
+    return `${publicacao.edicaoOriginal.serie?.titulo || 'Edição original'} #${publicacao.edicaoOriginal.numero}`;
+  }
+
+  tituloEdicaoPublicada(publicacao: PublicacaoHistoria) {
+    return `${publicacao.edicaoPublicada.serie?.titulo || 'Edição brasileira'} #${publicacao.edicaoPublicada.numero}`;
+  }
+
+  linkEdicaoOriginal(publicacao: PublicacaoHistoria) {
+    return publicacao.edicaoOriginal.urlComicVine || publicacao.edicaoOriginal.urlOrigem;
+  }
+
+  rotuloFonteEdicaoInterna(edicao: Edicao) {
+    if (edicao.urlComicVine) {
+      return 'Comic Vine';
+    }
+
+    if (edicao.urlOrigem?.includes('guiadosquadrinhos.com')) {
+      return 'Guia dos Quadrinhos';
+    }
+
+    return 'Fonte';
+  }
+
+  private buscarVolumesInternos(termoBusca: string) {
+    return this.api.listarSeries(termoBusca, 0, 12).pipe(
+      catchError(() => of([] as Serie[])),
+      map((resposta) => Array.isArray(resposta) ? resposta : resposta.itens),
+      switchMap((series) => {
+        if (!series.length) {
+          return of(this.paginaVazia<VolumeDescoberta>());
+        }
+
+        const contagens$ = series.map((serie) =>
+          this.api.listarEdicoes('', 0, 1, serie.id).pipe(
+            map((edicoes) => this.paraVolumeInterno(serie, edicoes.totalItens, edicoes.itens[0]?.urlCapa || null)),
+            catchError(() => of(this.paraVolumeInterno(serie, null))),
+          ),
+        );
+
+        return forkJoin(contagens$).pipe(
+          map((itens) => ({
+            itens,
+            pagina: 0,
+            tamanho: 12,
+            totalItens: itens.length,
+            totalPaginas: itens.length ? 1 : 0,
+          })),
+        );
+      }),
+    );
+  }
+
+  private paraVolumeComicVine(volume: VolumeComicVine): VolumeDescoberta {
+    return {
+      fonte: 'COMIC_VINE',
+      idExterno: volume.idExterno,
+      serieId: null,
+      titulo: volume.titulo,
+      editora: volume.editora,
+      anoInicio: volume.anoInicio,
+      quantidadeEdicoes: volume.quantidadeEdicoes,
+      descricao: volume.descricao,
+      urlOrigem: volume.urlOrigem,
+      urlImagem: volume.urlImagem,
+    };
+  }
+
+  private paraVolumeInterno(serie: Serie, quantidadeEdicoes: number | null, urlImagem: string | null = null): VolumeDescoberta {
+    return {
+      fonte: 'HQ_HUB',
+      idExterno: `serie-${serie.id}`,
+      serieId: serie.id,
+      titulo: serie.titulo,
+      editora: serie.editora?.nome || null,
+      anoInicio: serie.anoInicio,
+      quantidadeEdicoes,
+      descricao: serie.descricao,
+      urlOrigem: serie.urlOrigem,
+      urlImagem,
+    };
+  }
+
+  private paraEdicaoComicVine(edicao: EdicaoComicVine): EdicaoDescoberta {
+    return {
+      fonte: 'COMIC_VINE',
+      idExterno: edicao.idExterno,
+      idInterno: null,
+      numero: edicao.numero,
+      titulo: edicao.titulo,
+      nomeVolume: edicao.nomeVolume,
+      idVolume: edicao.idVolume,
+      dataCapa: edicao.dataCapa,
+      dataVenda: edicao.dataVenda,
+      descricao: edicao.descricao,
+      descricaoExibicao: edicao.descricaoExibicao,
+      urlOrigem: edicao.urlOrigem,
+      urlImagem: edicao.urlImagem,
+      creditos: edicao.creditos,
+      personagens: edicao.personagens,
+      conteudos: edicao.conteudos,
+    };
+  }
+
+  private paraEdicaoInterna(edicao: Edicao): EdicaoDescoberta {
+    return {
+      fonte: 'HQ_HUB',
+      idExterno: edicao.idComicVine || edicao.idExterno,
+      idInterno: edicao.id,
+      numero: edicao.numero,
+      titulo: edicao.titulo || edicao.serie?.titulo || null,
+      nomeVolume: edicao.nomeVolume || edicao.serie?.titulo || null,
+      idVolume: edicao.serie?.id ? String(edicao.serie.id) : null,
+      dataCapa: edicao.dataPublicacao || edicao.dataCobertura,
+      dataVenda: edicao.dataDisponibilidadeLoja,
+      descricao: edicao.descricao,
+      descricaoExibicao: edicao.descricaoExibicao,
+      urlOrigem: edicao.urlComicVine || edicao.urlOrigem,
+      urlImagem: edicao.urlCapa,
+      creditos: [],
+      personagens: [],
+      conteudos: [],
+    };
+  }
+
+  private paraEdicaoComicVineDetalhe(edicao: EdicaoDescoberta): EdicaoComicVine {
+    return {
+      idExterno: edicao.idExterno || '',
+      numero: edicao.numero,
+      titulo: edicao.titulo,
+      nomeVolume: edicao.nomeVolume,
+      idVolume: edicao.idVolume,
+      dataCapa: edicao.dataCapa,
+      dataVenda: edicao.dataVenda,
+      descricao: edicao.descricao,
+      descricaoOriginal: null,
+      descricaoPortugues: null,
+      descricaoExibicao: edicao.descricaoExibicao,
+      urlOrigem: edicao.urlOrigem,
+      urlImagem: edicao.urlImagem,
+      creditos: edicao.creditos,
+      personagens: edicao.personagens,
+      conteudos: edicao.conteudos,
+    };
+  }
+
+  private paginaVazia<T>(): PaginaResposta<T> {
+    return { itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 };
+  }
+
+  private escaparHtml(valor: string) {
+    return valor
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  private escaparAtributo(valor: string) {
+    return encodeURI(valor).replace(/"/g, '&quot;');
   }
 
   private rolarParaEdicoes() {

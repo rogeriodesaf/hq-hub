@@ -28,6 +28,7 @@ import br.com.hqhub.repository.ConteudoEdicaoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -87,7 +88,7 @@ public class HistoriaService {
     }
 
     public List<HistoriaRespostaDTO> listarHistorias() {
-        return historiaRepository.list("titulo")
+        return historiaRepository.listAll(Sort.by("titulo"))
                 .stream()
                 .map(historiaMapper::paraResposta)
                 .toList();
@@ -173,6 +174,24 @@ public class HistoriaService {
     public List<PublicacaoHistoriaRespostaDTO> listarPublicacoesPorHistoria(Long historiaId) {
         buscarHistoriaPorId(historiaId);
         return publicacaoHistoriaRepository.listarPorHistoria(historiaId)
+                .stream()
+                .map(publicacaoHistoriaMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
+    public List<PublicacaoHistoriaRespostaDTO> listarPublicacoesPorEdicaoPublicada(Long edicaoPublicadaId) {
+        buscarEdicaoPorId(edicaoPublicadaId);
+        return publicacaoHistoriaRepository.listarPorEdicaoPublicada(edicaoPublicadaId)
+                .stream()
+                .map(publicacaoHistoriaMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
+    public List<PublicacaoHistoriaRespostaDTO> listarPublicacoesPorEdicaoOriginal(Long edicaoOriginalId) {
+        buscarEdicaoPorId(edicaoOriginalId);
+        return publicacaoHistoriaRepository.listarPorEdicaoOriginal(edicaoOriginalId)
                 .stream()
                 .map(publicacaoHistoriaMapper::paraResposta)
                 .toList();

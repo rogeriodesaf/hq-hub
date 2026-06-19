@@ -1,4 +1,4 @@
-@if (mostrarShell()) {
+﻿@if (mostrarShell()) {
   <div class="app-shell">
     <aside class="barra-lateral">
       <a class="marca" routerLink="/painel" aria-label="HQ-HUB">
@@ -19,6 +19,18 @@
           <svg lucideBookOpen size="20"></svg>
           Catálogo
         </a>
+        <a routerLink="/conteudos" routerLinkActive="ativo">
+          <svg lucideGitCompare size="20"></svg>
+          Conteúdos
+        </a>
+        <a routerLink="/importacao" routerLinkActive="ativo">
+          <svg lucideUpload size="20"></svg>
+          Importação
+        </a>
+        <a routerLink="/revisao" routerLinkActive="ativo">
+          <svg lucideClipboardCheck size="20"></svg>
+          Revisão
+        </a>
         <a routerLink="/colecao" routerLinkActive="ativo">
           <svg lucideLibrary size="20"></svg>
           Estante
@@ -26,6 +38,10 @@
         <a routerLink="/compras" routerLinkActive="ativo">
           <svg lucideCalendarDays size="20"></svg>
           Compras
+        </a>
+        <a routerLink="/anuncios" routerLinkActive="ativo">
+          <svg lucideShoppingBag size="20"></svg>
+          Anuncios
         </a>
         <a routerLink="/amigos" routerLinkActive="ativo">
           <svg lucideUsers size="20"></svg>
@@ -66,9 +82,25 @@
         <svg lucideLibrary size="20"></svg>
         <span>Estante</span>
       </a>
+      <a routerLink="/conteudos" routerLinkActive="ativo">
+        <svg lucideGitCompare size="20"></svg>
+        <span>Conteúdo</span>
+      </a>
+      <a routerLink="/importacao" routerLinkActive="ativo">
+        <svg lucideUpload size="20"></svg>
+        <span>Importar</span>
+      </a>
+      <a routerLink="/revisao" routerLinkActive="ativo">
+        <svg lucideClipboardCheck size="20"></svg>
+        <span>Revisão</span>
+      </a>
       <a routerLink="/compras" routerLinkActive="ativo">
         <svg lucideCalendarDays size="20"></svg>
         <span>Compras</span>
+      </a>
+      <a routerLink="/anuncios" routerLinkActive="ativo">
+        <svg lucideShoppingBag size="20"></svg>
+        <span>Anuncios</span>
       </a>
       <a routerLink="/amigos" routerLinkActive="ativo">
         <svg lucideUsers size="20"></svg>
@@ -83,3 +115,4 @@
 } @else {
   <router-outlet />
 }
+

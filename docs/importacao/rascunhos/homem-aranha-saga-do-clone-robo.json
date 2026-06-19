@@ -1,0 +1,1670 @@
+{
+  "origem": {
+    "arquivoEntrada": "C:\\Users\\User\\.codex\\attachments\\6c06cab2-3a46-4558-ba97-8410b6a16e51\\pasted-text.txt",
+    "url": null,
+    "urlsProcessadas": [],
+    "geradoEm": "2026-06-19T00:24:59",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Homem-Aranha: A Saga do Clone",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 18,
+  "totalHistorias": 102,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Homem-Aranha contra... Peter Parker?",
+      "dataPublicacao": "2024-06-01",
+      "publicadoTexto": "junho de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 22.45,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=178218&path=ho01119201_178218.jpg&w=400&h=621",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 1\nPublicado em: junho de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 22,45\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nPrólogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Prólogo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 33,
+          "resumo": "Trechos de histórias dos quatro títulos mensais do Homem-Aranha nos EUA durante o ano de 1994, trazendo todos os elementos necessários para compreender \"A Saga do Clone\".\n+ 1 página de recapitulação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "391",
+            "anoOriginal": 1994,
+            "texto": "Amazing Spider-Man, The (1963) n° 391/1994 - Marvel Comics, n° 393/1994 - Marvel Comics, Peter Parker, The Spectacular Spider-Man (1976) n° 215/1994 - Marvel Comics, n° 216/1994 - Marvel Comics, Spider-Man (1990) n° 48/1994 - Marvel Comics, n° 49/1994 - Marvel Comics, n° 50/1994 - Marvel Comics, Web of Spider-Man (1985) n° 114/1994 - Marvel Comics, n° 115/1994 - Marvel Comics, n° 116/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Poderes e responsabilidades: A ascensão das sombras - Parte 1 de 4",
+          "tituloOriginal": "Power and Responsibility: Shadow Rising - Part One",
+          "quantidadePaginas": 23,
+          "resumo": "Peter e Ben ficam cara a cara e Judas Traveller prepara uma armadilha para o Homem-Aranha.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "117",
+            "anoOriginal": 1994,
+            "texto": "Web of Spider-Man (1985) n° 117/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Poderes e responsabilidades: Colapso! - Parte 2 de 4",
+          "tituloOriginal": "Power and Responsibility: Breakdown - Part Two",
+          "quantidadePaginas": 23,
+          "resumo": "Homem-Aranha invade Ravencroft para confrontar Traveller. O Clone visita a Tia May. Mary Jane parte para visitar a família.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "394",
+            "anoOriginal": 1994,
+            "texto": "Amazing Spider-Man, The (1963) n° 394/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Poderes e responsabilidades: Sinal de vida! - Parte 3 de 4",
+          "tituloOriginal": "Power and Responsibility: A Heart Beat Away! - Part Three",
+          "quantidadePaginas": 22,
+          "resumo": "Um Homem-Aranha totalmente exagerado é prisioneiro do novo vilão misterioso chamado Traveller, que tomou conta do Instituto Ravencroft! E com Ravencroft isolado do mundo por um campo de energia místico, quem poderá salvá-lo?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man (1990) n° 51/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Poderes e responsabilidades: A hora da verdade! - Parte 4 de 4.",
+          "tituloOriginal": "Power and Responsibility: Higher Ground - Part Four",
+          "quantidadePaginas": 22,
+          "resumo": "A origem de Ben Reilly é finalmente contada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "217",
+            "anoOriginal": 1994,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 217/1994 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": "O clone em sua primeira aventura! Convidado especial; Venom!",
+      "dataPublicacao": "2024-06-01",
+      "publicadoTexto": "junho de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 22.45,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=178219&path=ho01119202_178219.jpg&w=400&h=620",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 2\nPublicado em: junho de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 22,45\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nO clone: Renascido - Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O clone: Renascido - Parte um",
+          "tituloOriginal": "The Double: Born Again!",
+          "quantidadePaginas": 9,
+          "resumo": "Ben Reilly é o clone que foi considerado morto quando Peter Parker, o Homem-Aranha, o escondeu na chaminé de uma fábrica abandonada. No entanto, não apenas ele sobreviveu como está de volta à vida de Peter em seu momento mais desesperador. Dividido entre deixar toda a dor do passado para trás e iniciar uma nova vida. Reilly é assolado pelas lembranças daquele de quem foi clonado, tais como os ensinamentos do tio Ben e da tia May.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "117",
+            "anoOriginal": 1994,
+            "texto": "Web of Spider-Man (1985) n° 117/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O clone: Sem saída - Parte dois",
+          "tituloOriginal": "The Double: No Escape - Part Two",
+          "quantidadePaginas": 10,
+          "resumo": "E justamente por isso ele não consegue ficar indiferente quando inocentes precisam de ajuda. Agora, adotando a identidade de Aranha Escarlate, ele terá de encarar um dos maiores vilões da galeria do Amigão da Vizinhança: o simbiótico e imprevisível Venom!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "394",
+            "anoOriginal": 1994,
+            "texto": "Amazing Spider-Man, The (1963) n° 394/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O clone: Quem sou eu? - Parte três",
+          "tituloOriginal": "The Double - Who Am I? - Part Three",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man (1990) n° 51/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O clone: O enterro - Parte quatro",
+          "tituloOriginal": "The Double: The Burial - Part Four",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "217",
+            "anoOriginal": 1994,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 217/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "De volta do exílio: Memórias - Parte 1 de 4",
+          "tituloOriginal": "Exile Returns: Memories - Part 1",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "118",
+            "anoOriginal": 1994,
+            "texto": "Web of Spider-Man (1985) n° 118/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "De volta do exílio: Prazo fatal - Parte 2 de 4",
+          "tituloOriginal": "Exile Returns: Deadline - Part 2",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "52",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man (1990) n° 52/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "De volta do exílio: Ecos do silêncio - Parte 3 de 4",
+          "tituloOriginal": "Exile Returns: Echoes of Silence - Part 3",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "119",
+            "anoOriginal": 1994,
+            "texto": "Web of Spider-Man (1985) n° 119/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "De volta do exílio: Colhendo tempestades - Parte 4 de 4",
+          "tituloOriginal": "Exile Returns: Gathering Storms - Part 4",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man (1990) n° 53/1994 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": "2 Homens-Aranha!",
+      "dataPublicacao": "2024-07-01",
+      "publicadoTexto": "julho de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_04bijrokb57172joap0tpg1v0o/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 3\nPublicado em: julho de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Ron Lim Arte-Final: Allen \"Al\" Milgrom Editor: Levi Trindade\nEscolhas de segunda",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Escolhas de segunda",
+          "tituloOriginal": "Second Rate Choices",
+          "quantidadePaginas": 24,
+          "resumo": "Enquanto Ben Reily tenta se adaptar à vida na cidade de Nova York, ao mesmo tempo em que atua como o Aranha Escarlate, Peter Parker se vê diante do dilema de abandonar a sua identidade secreta e viver apenas como o Homem-Aranha. Porém, a chegada dos mortíferos Puma e Nocturna pode significar o fim para o Escalador de Paredes! E como se não bastasse, o Abutre e o Coruja colocam em prática um sinistro plano de vingança!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man Unlimited (1993) n° 7/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um conflito de interesses!",
+          "tituloOriginal": "A Conflict of Interests!",
+          "quantidadePaginas": 22,
+          "resumo": "Participação especial do Demolidor! E ainda: Mary Jane tem um dramático reencontro com o pai e a irmã que não via há muito tempo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man Unlimited (1993) n° 7/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Proteger e servir",
+          "tituloOriginal": "To Protect and Serve",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1994,
+            "texto": "Spider-Man Unlimited (1993) n° 7/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A volta do Abismo: Renegados! - Parte um",
+          "tituloOriginal": "Back from the Edge: Outcasts! - Part 1",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "395",
+            "anoOriginal": 1994,
+            "texto": "Amazing Spider-Man, The (1963) n° 395/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A volta do Abismo: Cidade dos monstros - Parte dois",
+          "tituloOriginal": "Back from the Edge: When Monsters Roam! - Part 2",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "218",
+            "anoOriginal": 1994,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 218/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A volta do Abismo: Defuntos - Parte três",
+          "tituloOriginal": "Back from the Edge: Deadmen - Part 3",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "396",
+            "anoOriginal": 1994,
+            "texto": "Amazing Spider-Man, The (1963) n° 396/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A volta do Abismo: Farinha do mesmo saco - Parte quatro",
+          "tituloOriginal": "Back from the Edge: Two of a Kind - Part 4",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "219",
+            "anoOriginal": 1994,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 219/1994 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": "A teia da vida + A teia da morte",
+      "dataPublicacao": "2024-08-01",
+      "publicadoTexto": "agosto de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 196,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_ovgddtkbnl1ftar9njtf8ot95h/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 4\nPublicado em: agosto de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 196\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Phil Gosier Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nA teia da vida: Em palpos de Aranha - Parte 1 de 4",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A teia da vida: Em palpos de Aranha - Parte 1 de 4",
+          "tituloOriginal": "Web of Life: Lure of the Spider - Part 1 of 4",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto Ben Reilly tenta se adaptar à vida na cidade de Nova York, ao mesmo tempo em que atua como o Aranha Escarlate, a chegada dos mortíferos Puma e Nocturna pode significar o fim para o Escalador de Paredes! E como não bastasse o Abutre e o Coruja colocam em prática um sinistro plano de vingança! Participação especial do Demolidor! E ainda: Mary Jane tem um dramático reencontro com o pai e a irmã que não via há muito tempo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "120",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 120/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A teia da vida: Confronto - Parte 2 de 4",
+          "tituloOriginal": "Web of Life: Snared - Part 2 of 4",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 54/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A teia da vida: A caçada - Parte 3 de 4",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Titulo original: \"Web of Life: The Hunting - Part 3 of 4\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "121",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 121/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A teia da vida: Fim da caçada - Parte 4 de 4",
+          "tituloOriginal": "Web of Life: End Hunt - Part 4 of 4",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 55/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A teia da morte: Tentáculos - Parte um",
+          "tituloOriginal": "Web of Death:",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "397",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 397/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A teia da morte: Tempo de viver - Parte dois",
+          "tituloOriginal": "Web of Death: A Time to Live! - Part Two",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "220",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 220/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A teia da morte: Antes de eu acordar - Parte três",
+          "tituloOriginal": "Web of Death: Before I Wake - Part Three",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "398",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 398/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "A teia da morte: Tempo de morrer - Parte quatro",
+          "tituloOriginal": "Web of Death: A Time to Die! - Part Four",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "221",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 221/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": "O Doutor Octopus está morto...",
+      "dataPublicacao": "2024-10-01",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_jn4ocn14tt609epnavnjqob251/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 5\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Ron Lim Arte-Final: Allen \"Al\" Milgrom Cores: Chia-Chi Wang (Chi Wang) Editor: Levi Trindade\nPor trás do terror",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Por trás do terror",
+          "tituloOriginal": null,
+          "quantidadePaginas": 50,
+          "resumo": "O Homem-Aranha e o Aranha Escarlate precisam lidar com as consequências da morte do temível Doutor Octopus, pois os seus antigos aliados do Sexteto Sinistro se mobilizam para colocar as mãos na perigosa tecnologia do falecido adversário de Peter Parker! E ainda: um bando de criminosos com armaduras altamente sofisticadas e letais realiza um ataque nas torres gêmeas do World Trade Center e faz dezenas de reféns. Cabe à dupla de heróis aracnídeos salvar o dia.\nTitulo original: \"Behind the Terror\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Unlimited (1993) n° 8/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Tentáculos de além-túmulo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Com a morte do Dr. Octopus, o Sexteto Sinistro é reunido sob uma nova liderança e em sua primeira missão eles são surpreendidos pelo Aranha Escarlate.\nTitulo original: \"Funeral for an Octopus: Eight Arms Beyond the Grave - Part One\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: Funeral For An Octopus (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: Funeral For An Octopus (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Armado e perigoso",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "O Sexteto invade uma instalação governamental em busca dos tentáculos do Dr. Octopus, mas para isso terão que enfrentar o Homem-Aranha.\nTitulo original: \"Funeral for an Octopus: Armed and Dangerous - Part Two\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: Funeral For An Octopus (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: Funeral For An Octopus (1995) n° 2/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Adeus aos tentáculos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "O Homem-Aranha usa os tentáculos para enfrentar o Sexteto, mas acaba perdendo o controle. Enquanto isso, Kaine ataca Elektron e Mystério. O Aranha Escarlate desvenda a trama por trás da invasão do Sexteto e enfrenta o vilão que orquestrou tudo.\nTitulo original: \"Funeral for an Octopus: A Farewell to Arms! - Part Three\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: Funeral For An Octopus (1995)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: Funeral For An Octopus (1995) n° 3/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": "O segredo do Chacal",
+      "dataPublicacao": "2024-10-01",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_b13tqg8d094932olforimj4c78/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 6\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nEspelhos e fumaça: O chamado - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Espelhos e fumaça: O chamado - Parte 1",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Aranha Escarlate enfrenta Kaine e o Chacal de igual para igual? Assolado por visões do falecido Chacal e de seu nascimento como um clone gerado em laboratório, o Aranha Escarlate é atraído até um esconderijo nas montanhas. No entanto, ele pode encontrar o seu fim nas mãos de uma criatura monstruosa e somente Peter Parker, o Homem-Aranha, será capaz de salvá-lo! Porém, o próprio Peter também tem essas visões, que o deixa desnorteado.\nTitulo original: \"Smoke and Mirrors: The Call - Part 1 of 3\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "122",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 122/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Espelhos e fumaça: Ressurreição! - Parte 2",
+          "tituloOriginal": "Smoke and Mirrors: Resurrection! - Part 2 of 3",
+          "quantidadePaginas": 23,
+          "resumo": "Depois do retorno do Chacal, ele enfrenta Kaine e o Homem-Aranha. Além das revelações do vilão, temos também a volta de Gwen Stacy! Mas como? E agora? E ainda: o retorno de um antigo vilão do Cabeça de Teia... e a morte de alguém muito próximo ao nosso herói é o estopim para uma reviravolta que vai alterar a sua vida com profundas consequências!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "399",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 399/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Espelhos e fumaça: Verdades & ilusões - Parte 3",
+          "tituloOriginal": "Smoke and Mirrors: Truths & Deceptions - Part 3 of 3",
+          "quantidadePaginas": 23,
+          "resumo": "O Chacal revela detalhes surpreendentes sobre quem é o clone e quem é o verdadeiro Peter.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 56/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Jogadores e peões: Falsas verdades - Parte 1",
+          "tituloOriginal": "Players and Powns: False Truths - Part 1",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "222",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 222/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Jogadores e peões: Mentiras verdadeiras - Parte 2",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Titulo original: \"Players and Pawns: True Lies - Part 2\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "123",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 123/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O presente",
+          "tituloOriginal": "The Gift",
+          "quantidadePaginas": 37,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "400",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 400/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "7",
+      "tituloChamada": "Peter Parker... atrás das grades!",
+      "dataPublicacao": "2024-12-01",
+      "publicadoTexto": "dezembro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_a6uoed17j96n355i0br21j4c3i/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 7\nPublicado em: dezembro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Klaus Janson Cores: Kevin Tinsley Editor: Levi Trindade\nRepercussões - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Repercussões - Parte 1",
+          "tituloOriginal": "Aftershocks - Part 1",
+          "quantidadePaginas": 22,
+          "resumo": "Preso por um crime que definitivamente não cometeu. Peter Parker tem de provar a sua inocência. Mas como fazer isso atrás das grades? Ao mesmo tempo, o enigmático KaIne pode ter a sua própria maneira de garantir que Parker saia da cadeia... não importando como vai atingir seu objetivo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 57/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Repercussões: Gritos futuros - Parte 2",
+          "tituloOriginal": "Aftershocks: Schemes & Dreams - For Future Screams - Part 2",
+          "quantidadePaginas": 22,
+          "resumo": "E ainda: revisite o dia em que Peter decidiu dedicar a sua vida a reparar o erro que cometeu na noite em que seu tio foi morto. E de quebra, também descubra como foram os primeiros dias de Ben Reilly quando descobriu que não havia morrido no primeiro confronto com o Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "223",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 223/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O legado dos Parker: Choque sistêmico - Parte um",
+          "tituloOriginal": "The Parker Legacy: A Shock to the System - Part One of Three",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "400",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 400/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O legado dos Parker: De quem é esta vida afinal? - Parte dois",
+          "tituloOriginal": "The Parker Legacy: Whose Life Is It, Anyway? - Part Two of Three",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 57/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O legado dos Parker: O começo - Parte três",
+          "tituloOriginal": "The Parker Legacy: The Beginning - Part Three of Three",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "223",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 223/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A manhã seguinte",
+          "tituloOriginal": "The Morning After",
+          "quantidadePaginas": 7,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "400",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 400/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O diário de um clone: Fantoche",
+          "tituloOriginal": "The Clone Journal: Puppet",
+          "quantidadePaginas": 31,
+          "resumo": "+ 1 página de recapitulação e créditos",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Clone Journal (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Clone Journal (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "8",
+      "tituloChamada": "A marca de Kaine",
+      "dataPublicacao": "2025-01-01",
+      "publicadoTexto": "janeiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_nu041m8jf52v188lenivaotn37/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 8\nPublicado em: janeiro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nA marca de Kaine: Paredes - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A marca de Kaine: Paredes - Parte 1",
+          "tituloOriginal": "Mark of Kaine: Walls Part 1",
+          "quantidadePaginas": 22,
+          "resumo": "Considerado extremamente perigoso, Peter Parker foi enviado para a Penitenciária da Ilha Ryker, onde alguns dos maiores criminosos de que se tem notícia são encarcerados para cumprir longas penas. No entanto, uma visita inesperada lhe faz uma proposta que pode alterar o rumo dos acontecimentos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "124",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 124/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A marca de Kaine: Mergulho na escuridão - Parte 2",
+          "tituloOriginal": "Mark of Kaine: Down in the Darkness - Part 2",
+          "quantidadePaginas": 22,
+          "resumo": "Ao mesmo tempo, Mary Jane recebe notícias angustiantes relacionadas à sua gestação! E, enquanto isso, o clone misterioso que fugiu do laboratório do Chacal traz novos questionamentos à sua gestação! E, enquanto isso, o clone misterioso que fugiu do laboratório do Chacal traz novos questionamentos sobre a real identidade de Peter... e de Ben Reilly. E ainda: o Sexteto Sinistro decide caçar Kaine!\nTítulo Original: \"Mark of Kaine: Down in the Darkness - Part 2\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "401",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 401/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A marca de Kaine: Melhor de três - Parte 3",
+          "tituloOriginal": "Mark of Kaiye: Spider, Spider, Who's Got the Spider? - Part 3",
+          "quantidadePaginas": 22,
+          "resumo": "Título Original: \"Mark of Kaiye: Spider, Spider, Who's Got the Spider? - Part 3\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "58",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 58/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A marca de Kaine: O assassino com o meu rosto - Parte 4",
+          "tituloOriginal": "Mark of Kaine: The Assassin With My Face! - Part 4",
+          "quantidadePaginas": 22,
+          "resumo": "Título Original: \"Mark of Kaine: The Assassin With My Face! - Part 4\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "224",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 224/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A marca de Kaine: Alianças profanas - Parte 5",
+          "tituloOriginal": "Mark of Kaine: Unholy Alliances! - Part 5",
+          "quantidadePaginas": 51,
+          "resumo": "Título Original: \"Mark of Kaine: Unholy Alliances! - Part 5\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Unlimited (1993) n° 9/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "9",
+      "tituloChamada": "Peter e Gwen: Juntos outra vez?",
+      "dataPublicacao": "2025-02-01",
+      "publicadoTexto": "fevereiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_tcvltqh30h7h95l42lgvnnlr7u/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 9\nPublicado em: fevereiro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Cores: Kevin Tinsley Editor: Levi Trindade\nVidas mortas!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Vidas mortas!",
+          "tituloOriginal": "Lives Unlived",
+          "quantidadePaginas": 33,
+          "resumo": "Decidido a provar a sua inocência custe o que custar, e, de quebra, livrar Ben Reilly da prisão, o Homem-Aranha investiga um endereço de propriedade do professor Miles Warren, a antiga identidade do vilão Chacal, onde acaba tendo uma surpresa! E ainda: o misterioso Judas Traveller decide testar Peter mais uma vez e agora toda a cidade de Nova York corre um grave perigo! E mais: surge um novo Duende Verde e a questão que fica é... ele é um amigo ou um inimigo?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "125",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 125/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Armadura reluzente",
+          "tituloOriginal": "Shining Armor",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "125",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 125/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Fogo cruzado: Mergulho na escuridão - Parte um",
+          "tituloOriginal": "Crossfire",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "402",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 402/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Fogo cruzado: O futuro é agora! - Parte dois",
+          "tituloOriginal": "The Future is Now",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 59/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A volta do Duende Verde",
+          "tituloOriginal": "The Return of the Green Goblin",
+          "quantidadePaginas": 30,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "225",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 225/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Ele era um rapaz tão bonzinho...",
+          "tituloOriginal": "He Was Such a Nice Boy...",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "225",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 225/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "10",
+      "tituloChamada": "Finalmente! O verdadeiro Homem-Aranha revelado!",
+      "dataPublicacao": "2025-03-01",
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_qgabo2rfe91ela4kprlq1dqq2j/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 10\nPublicado em: março de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Sal Buscema Arte-Final: Bill Sienkiewicz Cores: John Kalisz Editor: Yuri A. O. Primitz\nO julgamento de Peter Parker: Exposições preliminares - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O julgamento de Peter Parker: Exposições preliminares - Parte 1",
+          "tituloOriginal": "Trial of Peter Parker: Opening Statements",
+          "quantidadePaginas": 23,
+          "resumo": "Parker está no banco dos réus, acusado de ser o responsável pelo assassinato de Louise Kennedy e, com Carnificina atuando como promotor, nosso herói sobreviverá o suficiente para ouvir a sentença? Logo, outros elementos surgem no caso e Ben Reilly toma o lugar no banco de réus, e é claro que o único que pode livrá-lo das acusações é o homem de mais o odeia: Kaine!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "126",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 126/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O julgamento de Peter Parker: Julgamento no hospício - Parte 2",
+          "tituloOriginal": "Trial of Peter Parker: Judgement at Bedlam",
+          "quantidadePaginas": 23,
+          "resumo": "Finalmente, descobrimos a identidade e a origem chocantes de Kaine e o julgamento do amigão da vizinhança é concluído! Com o fim da aventura nas cortes, o Dr. Trainer chega a uma conclusão surpreendente, que vai abalar o mundo dos aracnídeos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "403",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 403/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O julgamento de Peter Parker: A verdade está lá fora! - Parte 3",
+          "tituloOriginal": "Trial of Peter Parker: The Truth is Out There!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 60/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O julgamento de Peter Parker: O veredicto final - Parte 4",
+          "tituloOriginal": "Trial of Peter Parker: The Final Verdict",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "226",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 226/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Os arquivos do Chacal",
+          "tituloOriginal": "Spider-Man: The Jackal Files",
+          "quantidadePaginas": 27,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Jackal Files (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Jackal Files (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "11",
+      "tituloChamada": "A origem dos Simbiontes!",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_e633navrtd33b65bl7k1gvv15h/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 11\nPublicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nArte: Steve Lightle Editor: Yuri A. O. Primitz\nPlaneta dos simbiontes: Um grito distante! - Capítulo um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Planeta dos simbiontes: Um grito distante! - Capítulo um",
+          "tituloOriginal": "Planet of the Symbiotes: The Far Cry! - Chapter One",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Planeta dos simbiontes: Predadores - Capítulo dois",
+          "tituloOriginal": "Planet of the Symbiotes: Lurkers! - Chapter Two",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Planeta dos simbiontes: Mundo dos monstros! - Capítulo três",
+          "tituloOriginal": "Planet of the Symbiotes: Monsterworld! - Chapter Three",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Venom Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Venom Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Planeta dos simbiontes: Invasão - Capítulo quatro",
+          "tituloOriginal": "Planet of the Symbiotes: Invasion! - Chapter Four",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spectacular Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spectacular Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Planeta dos simbiontes: Vitória mortífera - Capítulo cinco",
+          "tituloOriginal": "Planet of the Symbiotes: Mortal Victory - Conclusion",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Parque de destruições",
+          "tituloOriginal": "Street Fear",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Até que a morte nos separe",
+          "tituloOriginal": "Till Death Do Us Part",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "12",
+      "tituloChamada": "Protocolo de clonagem máxima - Parte um",
+      "dataPublicacao": "2025-05-01",
+      "publicadoTexto": "maio de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_q899tg1a494m162egjg39g3g28/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 12\nPublicado em: maio de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Ron Lim Arte-Final: Terry Austin Cores: Tom Smith Editor: Yuri A. O. Primitz\nClonagem máxima: Todos odeiam clones - Prólogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Clonagem máxima: Todos odeiam clones - Prólogo",
+          "tituloOriginal": "Maximum Clonage: Everyone Hates a Clone - Prologue",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 61/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Clonagem máxima: E o Chacal grita \"Morte!\" - Parte 1",
+          "tituloOriginal": "Maximum Clonage: ...And the Jackal Cries, 'Death! - Part 1",
+          "quantidadePaginas": 48,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: Maximum Clonage Alpha (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: Maximum Clonage Alpha (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Clonagem máxima: A última tentação de Peter Parker - Parte 2",
+          "tituloOriginal": "Maximum Clonage: The Last Temptation of Peter Parker - Part 2",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "127",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 127/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Clonagem máxima: Em nome do pai - Parte 3",
+          "tituloOriginal": "Maximum Clonage: In the Name of the Father - Part 3",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "404",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 404/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "13",
+      "tituloChamada": "Protocolo de clonagem máxima - Parte dois",
+      "dataPublicacao": "2025-06-01",
+      "publicadoTexto": "junho de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_c38k617jc53659beurk7ickf5g/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 13\nPublicado em: junho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nArte: Tom Lyle Editor: Yuri A. O. Primitz\nClonagem máxima: Rumo ao ômega - Parte 4",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Clonagem máxima: Rumo ao ômega - Parte 4",
+          "tituloOriginal": "Maximum Clonage: Heading Toward Omega - Part 4",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 61/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Clonagem máxima: Se a morte for meu destino...! - Parte 5",
+          "tituloOriginal": "Maximum Clonage: If Death Be My Destiny! - Part 5",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "227",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 227/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Clonagem máxima: O fim do começo! - Parte 6",
+          "tituloOriginal": "Maximum Clonage: The End of the Beginning! - Part 6",
+          "quantidadePaginas": 48,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: Maximum Clonage Omega (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: Maximum Clonage Omega (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Prisioneiros",
+          "tituloOriginal": "Captives",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 62/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "14",
+      "tituloChamada": "A lenda do Aracnoclone",
+      "dataPublicacao": "2025-08-01",
+      "publicadoTexto": "agosto de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_2ksi61l94d57j8sqt0o2sedl5t/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 14\nPublicado em: agosto de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nArte: Pedram Shohadai - ‘Pedi’ Editor: Yuri A. O. Primitz\nPrimeira aparição de personagens nesta edição: Bombardeira, Chumbo, Cordite, Ellen Grantz, Flama, Força Bruta, Greg Chasen, Noah Purl, Nocaute, Pólvora, Raymond Crow, Rick Barron, Rudev Broga, Sprint, Toni Moore\nDores de crescimento: Fantasmas - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Dores de crescimento: Fantasmas - Parte 1",
+          "tituloOriginal": "Ghosts",
+          "quantidadePaginas": 20,
+          "resumo": "Ben Reilly está tentando seguir a sua vida depois das revelações chocantes que recebeu, e precisará se provar como um verdadeiro aracnídeo quando enfrentar a Força Sombria Alfa de surpresa. Além disso, há boatos de um enorme lagarto rastejando ao redor de Nova York, e cabe ao Aranha Escarlate resolver essa situação escamosa!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Dores de crescimento: Sobreviver e conquistar - Parte 2",
+          "tituloOriginal": "Survive and Conquer",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dores de crescimento: Criaturas à solta! - Parte 3",
+          "tituloOriginal": "Creatures on the Loose",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Venom Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Venom Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Dores de crescimento: Festa monstruosa - Parte 4",
+          "tituloOriginal": "Party Monster",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spectacular Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spectacular Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Dores de crescimento: Onde monstros habitam - Parte 5",
+          "tituloOriginal": "Where Monsters Dwell",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O ciclo da vida",
+          "tituloOriginal": "The Cycle of Life",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spectacular Spider-Man Super Special, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spectacular Spider-Man Super Special, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Coisas jamais sonhadas...",
+          "tituloOriginal": "Things Undreamt of...",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Venom Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Venom Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Gatas & ladras",
+          "tituloOriginal": "Cat & Robbers",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man Super Special (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man Super Special (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "15",
+      "tituloChamada": "Exilado!",
+      "dataPublicacao": "2025-08-01",
+      "publicadoTexto": "agosto de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_u79k2hpfsd0rf4s7c53hqjse1v/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 15\nPublicado em: agosto de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nArte: Steven Butler Editor: Yuri A. O. Primitz\nExilado: Quem vai ser o dono da teia? - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Exilado: Quem vai ser o dono da teia? - Parte 1",
+          "tituloOriginal": "Exiled: Who Will Wear the Webs? - Part 1",
+          "quantidadePaginas": 23,
+          "resumo": "Após os eventos de Clonagem Máxima, Ben Reilly e Peter Parker precisam decidir quem ficará com o manto definitivo do homem-aranha, mas tal decisão não é a única coisa que trará dor de cabeça a ambos. Enquanto segue para o norte, Ben é interrompido por uma notícia inesperada, já Peter luta para entender um sonho vívido até demais!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "128",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 128/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Exilado: O valor de um homem - Parte 2",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Titulo original \"Exiled: The Worth of a Man - Part 2\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "405",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 405/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Exilado: Olhe para baixo - Parte 3",
+          "tituloOriginal": "Exiled: Look Down - Part 3",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 62/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Exilado: Uma promessa a cumprir - Parte 4",
+          "tituloOriginal": "Exiled: A Promise to Keep - Part 4",
+          "quantidadePaginas": 48,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Unlimited (1993)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Unlimited (1993) n° 10/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "16",
+      "tituloChamada": "Bomba-relógio!",
+      "dataPublicacao": "2025-09-01",
+      "publicadoTexto": "setembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_ir19qnq7fh7e7042436jlghv4p/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 16\nPublicado em: setembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Steven Butler Arte-Final: Randy Emberlin Editor: Yuri A. O. Primitz\nPrimeira aparição de personagens nesta edição: Doze, Nove, Onze\nBomba-relógio: Fuja para viver! - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Bomba-relógio: Fuja para viver! - Parte 1",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Kaine sempre alertou que Peter poderia trazer perigo a Mary Jane e essa hora chegou! As ações do Chacal ainda afetam o casal e Peter terá que se superar para vencer uma programação que acaba de despertar. Os Novos Guerreiros se envolvem pra ajudar, mesmo ainda tendo que cuidar de Helix e lidando com o Aranha Escarlate!\nTitulo original: \"Run for Your Life!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "228",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 228/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Bomba-relógio: Mary Jane tem de morrer pelas minhas mãos! - Parte 2",
+          "tituloOriginal": "By My Hand, Mary Jane Must Die",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "129",
+            "anoOriginal": 1995,
+            "texto": "Web of Spider-Man (1985) n° 129/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Seleção antinatural",
+          "tituloOriginal": "Unnatural Selection",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 63/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Choque e culpa",
+          "tituloOriginal": "Bang and Blame",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 64/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Sob controle remoto",
+          "tituloOriginal": "Slave Machine",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 65/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Retorno a Springdale",
+          "tituloOriginal": "Return to Springdale",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1995,
+            "texto": "New Warriors (1990) n° 66/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": "O fim de uma era...",
+      "dataPublicacao": "2025-10-01",
+      "publicadoTexto": "outubro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_pj6pch06lh1ob68ntdv5bjti7i/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 17\nPublicado em: outubro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Sal Buscema Arte-Final: Bill Sienkiewicz Editor: Yuri A. O. Primitz\nA responsabilidade maior: Encruzilhada - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A responsabilidade maior: Encruzilhada - Parte 1",
+          "tituloOriginal": "Crossroads",
+          "quantidadePaginas": 22,
+          "resumo": "Um antigo vilão parece ter retornado dos mortos... mas algo está diferente! Logo, os Aranhas se juntam para neutralizar essa velha ameaça, desta vez nova em folha, e descobrem como isso se relaciona com o Dr. Trainer. E, enquanto no Clarim assuntos mutantes se tornam parte da alçada de JJJ e vice-versa, Mary Jane e o bebê têm complicações que levam Peter a tomar uma decisão que mudará a vida de todos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "406",
+            "anoOriginal": 1995,
+            "texto": "Amazing Spider-Man, The (1963) n° 406/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A responsabilidade maior: Chutando a barriga - Parte 2",
+          "tituloOriginal": "The Kick Inside",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man (1990) n° 63/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O dobro ou nada",
+          "tituloOriginal": "Double or Nothing",
+          "quantidadePaginas": 39,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man Team-Up (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man Team-Up (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A responsabilidade maior: Herói nunca mais! - Parte 3",
+          "tituloOriginal": "No More The Hero",
+          "quantidadePaginas": 39,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "229",
+            "anoOriginal": 1995,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 229/1995 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "18",
+      "tituloChamada": "O adeus de Peter Parker!",
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Série completa",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_fe3o2nd2qt4kl8dnfvske9ln4p/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone n° 18\nPublicado em: novembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Série completaNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Andrew Wildman Editor: Yuri A. O. Primitz\nOs anos perdidos: Estranhos - Parte 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Os anos perdidos: Estranhos - Parte 1",
+          "tituloOriginal": "Strangers",
+          "quantidadePaginas": 27,
+          "resumo": "Antes de voltar a Nova York para visitar a Tia May (fato que resultou em tudo que vimos até aqui), Ben Reilly vagou pelos Estados Unidos, na esperança de encontrar um sentido para sua existência, imerso em melancolia e solidão. No entanto, ao chegar em Salt Lake City, tudo iria mudar. Mas para o bem ou para o mal? Kane estará lá para ajudar a decidir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Lost Years (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Lost Years (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os anos perdidos: Intimidade - Parte 2",
+          "tituloOriginal": "Intimacies",
+          "quantidadePaginas": 27,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Lost Years (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Lost Years (1995) n° 2/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Os anos perdidos: A verdade - Parte 3",
+          "tituloOriginal": null,
+          "quantidadePaginas": 32,
+          "resumo": "Tídtulo original: \"The Truth\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Lost Years (1995)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Lost Years (1995) n° 3/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Os anos de Parker",
+          "tituloOriginal": "The Parker Years",
+          "quantidadePaginas": 32,
+          "resumo": "E Peter Parker tomou sua decisão: é hora de passar o uniforme para Ben Reilly, então é hora de relembrar os grandes momentos de sua vida para encerrar este capítulo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man: The Parker's Years (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "texto": "Spider-Man: The Parker's Years (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

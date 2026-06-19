@@ -1,0 +1,1111 @@
+{
+  "origem": {
+    "descricao": "Texto colado manualmente pelo usuário a partir de consulta pública.",
+    "arquivoEntrada": "C:\\Users\\User\\.codex\\attachments\\f9567b03-c367-4c9f-b6a6-1a9342c8ae27\\pasted-text.txt",
+    "observacao": "Dados preparados para revisão humana antes de importação definitiva."
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "licenciador": "Marvel Comics",
+    "categoria": "Edição Especial",
+    "genero": "Super-heróis"
+  },
+  "totalEdicoes": 3,
+  "totalHistorias": 19,
+  "edicoes": [
+    {
+      "numero": 1,
+      "tituloSerie": "Saga do Homem-Aranha, A",
+      "faseSerie": "1ª Série",
+      "tituloChamada": "Alguém está matando todos eles!",
+      "capaOriginalTexto": "Peter Parker, The Spectacular Spider-Man (1976) n° 44",
+      "dataPublicacao": "2023-04-01",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "statusTitulo": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "acabamento": "Colorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "creditoCapaEditorTexto": "Desenho: Allen \"Al\" Milgrom Arte-Final: Josef \"Joe\" Rubinstein Editor: Diogo Prado",
+      "creditosCapa": {
+        "Desenho": [
+          "Allen \"Al\" Milgrom"
+        ],
+        "Arte-Final": [
+          "Josef \"Joe\" Rubinstein"
+        ],
+        "Editor": [
+          "Diogo Prado"
+        ]
+      },
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_eskpb9alip01l6riu7acumo76t/-S897-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Muito veneno!",
+          "tituloOriginal": "Pretty Poison",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Debra \"Debbie\" Whitman",
+            "Beladona",
+            "Duende Macabro I",
+            "Steve Hopkins",
+            "Sandy Jones"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "Mike Zeck"
+            ],
+            "Arte-Final": [
+              "Steve Mitchell"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Paulo Cesar Tavares",
+              "Rui Alves"
+            ],
+            "Tradutor": [
+              "Leandro Luigi Del Manto",
+              "Sandro Castelli",
+              "Marcelo Araújo"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "43",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 43/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Assaltantes roubam o laboratório do campus onde Peter Parker trabalha atrás de uma toxina. No encalço dos ladrões, o herói vai conhecer o estilista Roderick Kingsley e irá se deparar com Madame Beladona, uma misteriosa mulher sedenta de vingança.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Há método nessa loucura!",
+          "tituloOriginal": "A Method in His Madness!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "J. Jonah Jameson",
+            "Joseph \"Robbie\" Robertson",
+            "Marla Madison Jameson",
+            "Jonas Harrow"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "John Byrne"
+            ],
+            "Arte-Final": [
+              "Gene Day"
+            ],
+            "Cores": [
+              "George Roussos - ‘George Bell’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "206",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 206/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Acreditava-se que J. J. Jameson havia enlouquecido por culpa do Homem-Aranha (histórias de edições anteriores), porém tudo que lhe aconteceu foi por conta de um vilão que agora lhe mantém preso. Resta ao disparador de teias tentar resgatar Jameson e sua sanidade.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O jogo da vingança",
+          "tituloOriginal": "The Vengeance Gambit!",
+          "quantidadePaginas": 18,
+          "personagens": [
+            "Homem-Aranha",
+            "Abutre",
+            "Barney Bushkin"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Marv Wolfman",
+              "Steve Leialoha"
+            ],
+            "Desenho": [
+              "Steve Leialoha",
+              "Al Gordon"
+            ],
+            "Arte-Final": [
+              "Al Gordon"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "44",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 44/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "O Homem-Aranha enfrenta uma gangue de criminosos que descobre serem chefiados pelo Abutre.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Asas de fogo, asas de medo",
+          "tituloOriginal": "Wings of Fire, Wings of Fear",
+          "quantidadePaginas": 18,
+          "personagens": [
+            "Homem-Aranha",
+            "Abutre",
+            "Barney Bushkin"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "Marie Severin"
+            ],
+            "Arte-Final": [
+              "Steve Mitchell"
+            ],
+            "Cores": [
+              "Glynis Oliver-Wein"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "45",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 45/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A vingança de Mesmero!",
+          "tituloOriginal": "Mesmero's Revenge!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Mesmero",
+            "J. Jonah Jameson",
+            "Joseph \"Robbie\" Robertson",
+            "Debra \"Debbie\" Whitman"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "Jim Mooney"
+            ],
+            "Arte-Final": [
+              "Pablo Marcos"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "207",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 207/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Mesmero está ganhando a vida como ator de teatro. Descontente com as críticas, decide incrementá-lo com a participação do Homem-Aranha, que é convidado a integrar o show de hipnotismo. Porém, o vilão tem uma vingança a concretizar e planeja que aquela seja a primeiro e a última peça do herói.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O mortífero Cobra!",
+          "tituloOriginal": "Deadly Is the Cobra!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Mr. Hyde",
+            "Debra \"Debbie\" Whitman",
+            "Cobra (Rei Cobra)",
+            "Tenente Kris Keating",
+            "Marcy Kane"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "Mike Zeck"
+            ],
+            "Arte-Final": [
+              "Bruce D. Patterson"
+            ],
+            "Cores": [
+              "Petra Goldberg - ‘Petra Scotese’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 46/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "O Cobra consegue fugir da prisão conhecida como Ilha. Sabendo disso, os editores do Globo convocam Peter Parker para bater fotos do vilão, uma boa oportunidade para o Aranha também entrar em ação.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Fusão!",
+          "tituloOriginal": "Fusion!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Tia May",
+            "Anna May Watson",
+            "Lance Bannon"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Mark Gruenwald",
+              "Jim Shooter"
+            ],
+            "Desenho": [
+              "John Romita Jr."
+            ],
+            "Arte-Final": [
+              "Brett Breeding",
+              "Allen \"Al\" Milgrom"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "208",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 208/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Dois irmãos acabam se unindo na forma de uma criatura após acidente. Porém, ambos tem aspirações diferentes: enquanto um quer o poder o outro não pensa em ferir. E é tendo isso a favor que o soltador de teias tentará deter a criatura.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "tituloSerie": "Saga do Homem-Aranha, A",
+      "faseSerie": "1ª Série",
+      "tituloChamada": null,
+      "capaOriginalTexto": "Amazing Spider-Man Annual, The (1964) n° 14",
+      "dataPublicacao": "2023-05-01",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "statusTitulo": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "acabamento": "Colorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "creditoCapaEditorTexto": "Desenho: Frank Miller Arte-Final: Tom Palmer Cores: Tom Palmer Editor: Diogo Prado",
+      "creditosCapa": {
+        "Desenho": [
+          "Frank Miller"
+        ],
+        "Arte-Final": [
+          "Tom Palmer"
+        ],
+        "Cores": [
+          "Tom Palmer"
+        ],
+        "Editor": [
+          "Diogo Prado"
+        ]
+      },
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_i69vjrfnh576depj500kn9tp1a/-S897-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Pânico no parque!",
+          "tituloOriginal": "Panic In The Park",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Howard",
+            "O Pato"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Alan Kupperberg"
+            ],
+            "Arte": [
+              "Alan Kupperberg"
+            ],
+            "Cores": [
+              "Alan Kupperberg"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Marvel Team-Up (1972) n° 96/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Numa parceria incrível, Peter Parker vai se aliar a Howard, o Pato, para derrotar os mais variados e perigosos vilões!",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A noite do Gatuno!",
+          "tituloOriginal": "A Night On the Prowl!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Gatuno I",
+            "Tia May",
+            "Debra \"Debbie\" Whitman",
+            "Gato (Gatuno)",
+            "Beladona",
+            "Sargento Snider",
+            "Duende Macabro I"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "Marie Severin"
+            ],
+            "Arte-Final": [
+              "Bruce D. Patterson"
+            ],
+            "Cores": [
+              "Glynis Oliver-Wein"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 47/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "O disparador de teias é acusado de invadir apartamento e causar a morte de uma pessoa. Investigando, nosso herói desconfia de Hobie Brown, o Gatuno. Acaba descobrindo que um outro elemento, usando o equipamento de Brown, invadiu o apartamento, contratado por Beladona. No confronto com o verdadeiro velhaco, ambos acabam aprisionados pela mandante do crime.",
+          "observacoes": "No sumário, o nome da história está traduzida como \"Uma noite na ronda!\".",
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Derrota dupla!",
+          "tituloOriginal": "Double Defeat!",
+          "quantidadePaginas": 22,
+          "personagens": [
+            "Homem-Aranha",
+            "Gatuno I",
+            "J. Jonah Jameson",
+            "Tia May",
+            "Debra \"Debbie\" Whitman",
+            "Gato (Gatuno)",
+            "Beladona",
+            "Sargento Snider",
+            "Duende Macabro I"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Roger Stern"
+            ],
+            "Desenho": [
+              "Marie Severin"
+            ],
+            "Arte-Final": [
+              "Bruce D. Patterson"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "48",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 48/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Homem-Aranha e Gatuno são presos numa supercâmara sem saída preenchida com gás letal, e observados pela vilã Madame Beladona. O Aranha consegue escapar e desconfia que Desirre, dona do apartamento invadido possa ser a vilã. O herói acaba interrogando sua irmã, Narda Ravanna, que tenta inocentá-la e incriminar Roderick Kingsley. No caminho para seu apartamento, Peter desconfia que Ravanna é Beladona e retorna para surpreendê-la sendo ameaçado pelo novo Gatuno.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A atração fatal da Viúva-Negra!",
+          "tituloOriginal": "The Fatal Attraction of the Black Widow",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Viúva Negra II",
+            "Simon Stroud",
+            "Coruja"
+          ],
+          "creditos": {
+            "Argumento": [
+              "Marv Wolfman"
+            ],
+            "Roteiro": [
+              "Roger McKenzie"
+            ],
+            "Desenho": [
+              "Will Meugniot"
+            ],
+            "Arte-Final": [
+              "Bruce D. Patterson"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "98",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Marvel Team-Up (1972) n° 98/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Em nome do pai!",
+          "tituloOriginal": "To Salvage my Honor!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Mulher-Aranha",
+            "Kraven",
+            "O Caçador",
+            "Debra \"Debbie\" Whitman",
+            "Calypso"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "Alan Lee Weiss"
+            ],
+            "Arte-Final": [
+              "Bob Wiacek",
+              "Josef \"Joe\" Rubinstein",
+              "Klaus Janson",
+              "Allen \"Al\" Milgrom",
+              "Bob McLeod"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "209",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 209/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Kraven, o Caçador, não quer mais ir atrás do subidor de paredes. Mas acaba sendo persuadido a fazê-lo pela astuta Calypso.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O livro de Vishanti",
+          "tituloOriginal": "The Book of the Vishanti",
+          "quantidadePaginas": 40,
+          "personagens": [
+            "Homem-Aranha",
+            "Doutor Destino",
+            "Doutor Estranho",
+            "Dormammu",
+            "Wong",
+            "Debra \"Debbie\" Whitman",
+            "Lucius Dilby"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "Frank Miller"
+            ],
+            "Arte-Final": [
+              "Tom Palmer"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 14/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "tituloSerie": "Saga do Homem-Aranha, A",
+      "faseSerie": "1ª Série",
+      "tituloChamada": "...Conheça a Madame Teia!",
+      "capaOriginalTexto": "Amazing Spider-Man, The (1963) n° 210",
+      "dataPublicacao": "2023-06-01",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "statusTitulo": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "acabamento": "Colorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "creditoCapaEditorTexto": "Desenho: John Romita Jr. Arte-Final: Allen \"Al\" Milgrom Editor: Diogo Prado",
+      "creditosCapa": {
+        "Desenho": [
+          "John Romita Jr."
+        ],
+        "Arte-Final": [
+          "Allen \"Al\" Milgrom"
+        ],
+        "Editor": [
+          "Diogo Prado"
+        ]
+      },
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_sro0eb7onh5ohbth9onu9m4m0c/-S897-FWEBP",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "E com o Homem-Máquina são 3",
+          "tituloOriginal": "And Machine Man Makes 3",
+          "quantidadePaginas": 22,
+          "personagens": [
+            "Homem-Aranha",
+            "Homem-Máquina (X-51)"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Tom Defalco"
+            ],
+            "Desenho": [
+              "Jerry Bingham"
+            ],
+            "Arte-Final": [
+              "Mike Esposito - ‘Joe Gaudioso/Mickey Demeo’"
+            ],
+            "Cores": [
+              "Barry Grossman - ‘Ben Sean’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "99",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Marvel Team-Up (1972) n° 99/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "E apresentando... Karma! Ela tem o dom da possessão!",
+          "tituloOriginal": "And Introducing... Karmal! She Possesses People!",
+          "quantidadePaginas": 30,
+          "personagens": [
+            "Homem-Aranha",
+            "Karma",
+            "Quarteto Fantástico",
+            "Coisa",
+            "Tocha Humana II",
+            "X-Men",
+            "Wolverine",
+            "Tempestade",
+            "Colossus",
+            "Professor X",
+            "Mulher Invisível",
+            "Senhor Fantástico",
+            "Alicia Masters",
+            "General Ngoc Coy",
+            "Leong Xui Coy Manh",
+            "Nga Coy Manh",
+            "Tran Coy Manh",
+            "Padre Bowen"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Frank Miller",
+              "Chris Claremont"
+            ],
+            "Desenho": [
+              "Frank Miller"
+            ],
+            "Arte-Final": [
+              "Bob Wiacek"
+            ],
+            "Cores": [
+              "Carl Gafford - ‘Gaff’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Marvel Team-Up (1972) n° 100/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Uma misteriosa mutante vietnamita recruta o herói aracnídeo e o Quarteto para, juntos, resgatarem seu irmão e sua irmã caçula, vítimas de seu tio manipulador.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O julgamento do Falcão Noturno!",
+          "tituloOriginal": "To Judge a Nighthawk!",
+          "quantidadePaginas": 17,
+          "personagens": [
+            "Homem-Aranha",
+            "Falcão Noturno I"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "J.M. Dematteis"
+            ],
+            "Desenho": [
+              "Jerry Bingham"
+            ],
+            "Arte-Final": [
+              "Mike Esposito - ‘Joe Gaudioso/Mickey Demeo’"
+            ],
+            "Cores": [
+              "Carl Gafford - ‘Gaff’"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1981,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Marvel Team-Up (1972) n° 101/1981 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A profecia da Madame Teia!",
+          "tituloOriginal": "The Prophecy of Madam Web",
+          "quantidadePaginas": 22,
+          "personagens": [
+            "Homem-Aranha",
+            "Debra \"Debbie\" Whitman",
+            "Madame Teia",
+            "Rupert Dockery"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "John Romita Jr."
+            ],
+            "Arte-Final": [
+              "Joe Sinnott"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "210",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 210/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": null,
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Aranha e o flagelo dos mares!",
+          "tituloOriginal": "The Spider and the Sea-Scourge",
+          "quantidadePaginas": 22,
+          "personagens": [
+            "Homem-Aranha",
+            "Debra \"Debbie\" Whitman",
+            "Rupert Dockery",
+            "Namor",
+            "O Príncipe Submarino"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "John Romita Jr."
+            ],
+            "Arte-Final": [
+              "Jim Mooney"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "211",
+            "anoOriginal": 1980,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 211/1980 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Disposto a ajudar o tio de Debbie o Homem-Aranha irá se aventurar em um passeio de navio, sem saber que pesquisas feitas da embarcação estão afetando a vida no oceano mais precisamente no reino do Príncipe Namor. Agora o Homem-Aranha está em rota de colisão com Namor para resolver esse impasse.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Entra em cena: O Homem Hídrico!",
+          "tituloOriginal": "The Coming of Hydroman!",
+          "quantidadePaginas": 22,
+          "personagens": [
+            "Homem-Aranha",
+            "Debra \"Debbie\" Whitman",
+            "Rupert Dockery",
+            "Homem-Hídrico",
+            "J. Jonah Jameson",
+            "Joseph \"Robbie\" Robertson"
+          ],
+          "creditos": {
+            "Roteiro": [
+              "Denny O' Neil - ‘Sergius O' Shaugnessy’"
+            ],
+            "Desenho": [
+              "John Romita Jr."
+            ],
+            "Arte-Final": [
+              "Jim Mooney"
+            ],
+            "Cores": [
+              "Bob Sharen"
+            ],
+            "Letrista": [
+              "Fernando Chakur"
+            ],
+            "Tradutor": [
+              "Mario Luiz C. Barroso"
+            ],
+            "Editor original": [
+              "Allen \"Al\" Milgrom",
+              "Jim Shooter"
+            ],
+            "Adaptação": [
+              "Erick Garcia"
+            ]
+          },
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "212",
+            "anoOriginal": 1981,
+            "editoraOriginal": "Marvel Comics",
+            "texto": "Amazing Spider-Man, The (1963) n° 212/1981 - Marvel Comics",
+            "fonteSugerida": "COMICVINE"
+          },
+          "resumo": "Na retirada de um equipamento do fundo do mar, o mesmo que poluía a cidade do Príncipe Namor, um acidente envolve o homem-Aranha e um dos marinheiros. O homem acaba caindo no mar onde acontece uma terrível mutação: Surge assim o Homem-Hídrico, mais uma ameaça que quer eliminar o Homem-Aranha da terra.",
+          "observacoes": null,
+          "tipo": "HISTORIA"
+        }
+      ]
+    }
+  ]
+}

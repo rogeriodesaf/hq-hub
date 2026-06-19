@@ -62,6 +62,12 @@ export interface Edicao {
   numero: string;
   titulo: string | null;
   descricao: string | null;
+  descricaoOriginal: string | null;
+  descricaoPortugues: string | null;
+  descricaoExibicao: string | null;
+  nomeVolume: string | null;
+  dataCobertura: string | null;
+  dataDisponibilidadeLoja: string | null;
   dataPublicacao: string | null;
   urlCapa: string | null;
   codigoBarras: string | null;
@@ -70,6 +76,8 @@ export interface Edicao {
   fonteExterna: string | null;
   idExterno: string | null;
   urlOrigem: string | null;
+  urlComicVine: string | null;
+  idComicVine: string | null;
   serie: SerieResumo | null;
 }
 
@@ -193,6 +201,52 @@ export interface CompraPlanejada {
   observacoes: string | null;
 }
 
+export type TipoAnuncio = 'VENDA' | 'TROCA' | 'VENDA_E_TROCA';
+export type StatusAnuncio = 'ATIVO' | 'PAUSADO' | 'ENCERRADO' | 'REMOVIDO';
+export type EstadoConservacao = 'NOVO' | 'EXCELENTE' | 'MUITO_BOM' | 'BOM' | 'REGULAR' | 'RUIM';
+
+export interface Anuncio {
+  id: number;
+  edicaoId: number;
+  tituloEdicao: string;
+  nomeAnunciante: string;
+  anunciante: Usuario;
+  itemColecao: ItemColecao;
+  tipoAnuncio: TipoAnuncio;
+  preco: number | null;
+  estadoConservacao: EstadoConservacao;
+  descricao: string | null;
+  cidade: string | null;
+  estado: string | null;
+  exibirWhatsapp: boolean;
+  contatoWhatsapp: string | null;
+  linkContatoWhatsapp: string | null;
+  status: StatusAnuncio;
+  avisoResponsabilidade: string;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface CadastroAnuncio {
+  itemColecaoId: number;
+  tipoAnuncio: TipoAnuncio;
+  preco: number | null;
+  estadoConservacao: EstadoConservacao;
+  descricao: string | null;
+  cidade: string | null;
+  estado: string | null;
+  contatoWhatsapp: string | null;
+  exibirWhatsapp: boolean;
+}
+
+export interface ContatoAnuncio {
+  anuncioId: number;
+  contatoWhatsapp: string;
+  mensagem: string;
+  linkWhatsapp: string;
+  avisoResponsabilidade: string;
+}
+
 export interface CadastroCompraPlanejada {
   edicaoId: number;
   mes: number;
@@ -231,6 +285,131 @@ export interface PublicacaoRelacionada {
   observacoes: string | null;
   dataCriacao: string;
   dataAtualizacao: string;
+}
+
+export type TipoConteudoEdicao =
+  | 'HISTORIA'
+  | 'POSTER'
+  | 'GALERIA'
+  | 'MATERIAL_EDITORIAL'
+  | 'EXTRA'
+  | 'CAPA'
+  | 'PINUP'
+  | 'EDITORIAL'
+  | 'CHECKLIST'
+  | 'ENTREVISTA'
+  | 'MATERIA'
+  | 'PROPAGANDA'
+  | 'OUTRO';
+
+export type StatusPublicacaoHistoria = 'COMPLETA' | 'PARCIAL' | 'CORTADA' | 'ADAPTADA' | 'DESCONHECIDA';
+export type TipoPublicacaoHistoria = 'ORIGINAL' | 'REPUBLICACAO' | 'PUBLICACAO_BRASILEIRA' | 'PUBLICACAO_ESTRANGEIRA';
+
+export interface Historia {
+  id: number;
+  titulo: string;
+  tituloOriginal: string | null;
+  tituloPortugues: string | null;
+  tituloExibicao: string | null;
+  descricao: string | null;
+  descricaoOriginal: string | null;
+  descricaoPortugues: string | null;
+  descricaoExibicao: string | null;
+  quantidadePaginas: number | null;
+  tipo: TipoConteudoEdicao;
+  fonteExterna: string | null;
+  idExterno: string | null;
+  urlOrigem: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface ConteudoEdicao {
+  id: number;
+  edicao: Edicao;
+  historia: Historia;
+  ordem: number;
+  tituloUsado: string | null;
+  paginaInicio: number | null;
+  paginaFim: number | null;
+  quantidadePaginas: number | null;
+  tipo: TipoConteudoEdicao;
+  observacoes: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface PublicacaoHistoria {
+  id: number;
+  historia: Historia;
+  edicaoOriginal: Edicao;
+  edicaoPublicada: Edicao;
+  status: StatusPublicacaoHistoria;
+  tipoPublicacaoHistoria: TipoPublicacaoHistoria;
+  fonteInformacao: string | null;
+  urlFonteInformacao: string | null;
+  statusValidacao: string | null;
+  tituloUsado: string | null;
+  paginasPublicadas: number | null;
+  paginasCortadas: number | null;
+  fonteExterna: string | null;
+  urlOrigem: string | null;
+  observacoes: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface CruzamentoEdicao {
+  edicaoOriginal: Edicao;
+  edicaoComparada: Edicao;
+  conteudosOriginais: ConteudoEdicao[];
+  historiasIncluidas: PublicacaoHistoria[];
+  conteudosFora: ConteudoEdicao[];
+  totalConteudosOriginais: number;
+  totalHistoriasIncluidas: number;
+  totalConteudosFora: number;
+}
+
+export type TipoContribuicaoCatalogo =
+  | 'CAPA_EDICAO'
+  | 'DADOS_EDICAO'
+  | 'PUBLICACAO_BRASILEIRA'
+  | 'LINK_GUIA_DOS_QUADRINHOS'
+  | 'OUTRA_INFORMACAO';
+
+export type StatusContribuicaoCatalogo = 'PENDENTE' | 'APROVADA' | 'APLICADA' | 'RECUSADA';
+
+export interface ContribuicaoCatalogo {
+  id: number;
+  usuario: Usuario;
+  edicao: Edicao;
+  tipo: TipoContribuicaoCatalogo;
+  status: StatusContribuicaoCatalogo;
+  urlCapaSugerida: string | null;
+  edicaoDestinoId: number | null;
+  tipoPublicacaoRelacionada: string | null;
+  fonteExterna: string | null;
+  urlFonte: string | null;
+  dadosSugeridosJson: string | null;
+  observacoes: string | null;
+  mensagemRevisao: string | null;
+  dataRevisao: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface ResultadoImportacaoCatalogo {
+  serieId: number;
+  serieTitulo: string;
+  editorasCriadas: number;
+  seriesCriadas: number;
+  edicoesCriadas: number;
+  edicoesAtualizadas: number;
+  historiasCriadas: number;
+  conteudosCriados: number;
+  publicacoesCriadas: number;
+  itensReaproveitados: number;
+  avisos: string[];
 }
 
 export interface Amizade {

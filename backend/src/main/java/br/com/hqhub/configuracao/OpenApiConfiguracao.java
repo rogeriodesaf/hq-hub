@@ -5,8 +5,6 @@ import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 
-import jakarta.ws.rs.core.Application;
-
 @OpenAPIDefinition(
         info = @Info(
                 title = "HQ-HUB API",
@@ -17,5 +15,5 @@ import jakarta.ws.rs.core.Application;
         type = SecuritySchemeType.HTTP,
         scheme = "bearer",
         bearerFormat = "JWT")
-public class OpenApiConfiguracao extends Application {
+public class OpenApiConfiguracao {
 }

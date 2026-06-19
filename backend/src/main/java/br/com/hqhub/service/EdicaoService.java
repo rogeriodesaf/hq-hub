@@ -2,8 +2,11 @@ package br.com.hqhub.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.com.hqhub.dto.AtualizacaoEdicaoDTO;
+import br.com.hqhub.dto.AtualizacaoCapaEdicaoDTO;
 import br.com.hqhub.dto.CadastroEdicaoDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
@@ -19,6 +22,8 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class EdicaoService {
+
+    private static final Pattern PRIMEIRO_NUMERO = Pattern.compile("\\d+");
 
     private final EdicaoRepository edicaoRepository;
     private final SerieRepository serieRepository;
@@ -71,6 +76,13 @@ public class EdicaoService {
     }
 
     @Transactional
+    public EdicaoRespostaDTO atualizarCapa(Long id, AtualizacaoCapaEdicaoDTO dto) {
+        Edicao edicao = buscarEntidadePorId(id);
+        edicao.setUrlCapa(dto.urlCapa());
+        return edicaoMapper.paraResposta(edicao);
+    }
+
+    @Transactional
     public EdicaoRespostaDTO buscarPorId(Long id) {
         return edicaoMapper.paraResposta(buscarEntidadePorId(id));
     }
@@ -107,8 +119,16 @@ public class EdicaoService {
         long totalItens = edicaoRepository.contarComBusca(serieId, busca);
         int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
 
-        List<EdicaoRespostaDTO> itens = edicaoRepository.buscarPaginado(serieId, busca, paginaTratada, tamanhoTratado)
-                .stream()
+        List<Edicao> edicoes = serieId == null
+                ? edicaoRepository.buscarPaginado(serieId, busca, paginaTratada, tamanhoTratado)
+                : edicaoRepository.buscarTodosComBusca(serieId, busca)
+                        .stream()
+                        .sorted(this::compararNumeroEdicao)
+                        .skip((long) paginaTratada * tamanhoTratado)
+                        .limit(tamanhoTratado)
+                        .toList();
+
+        List<EdicaoRespostaDTO> itens = edicoes.stream()
                 .map(edicaoMapper::paraResposta)
                 .toList();
 
@@ -129,6 +149,26 @@ public class EdicaoService {
     private Serie buscarSeriePorId(Long id) {
         return serieRepository.findByIdOptional(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Série não encontrada."));
+    }
+
+    private int compararNumeroEdicao(Edicao primeira, Edicao segunda) {
+        int numeroPrimeira = extrairPrimeiroNumero(primeira.getNumero());
+        int numeroSegunda = extrairPrimeiroNumero(segunda.getNumero());
+
+        if (numeroPrimeira != numeroSegunda) {
+            return Integer.compare(numeroPrimeira, numeroSegunda);
+        }
+
+        return primeira.getNumero().compareToIgnoreCase(segunda.getNumero());
+    }
+
+    private int extrairPrimeiroNumero(String valor) {
+        if (valor == null) {
+            return Integer.MAX_VALUE;
+        }
+
+        Matcher matcher = PRIMEIRO_NUMERO.matcher(valor);
+        return matcher.find() ? Integer.parseInt(matcher.group()) : Integer.MAX_VALUE;
     }
 
     private void validarOrigemExterna(String fonteExterna, String idExterno) {

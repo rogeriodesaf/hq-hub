@@ -9,7 +9,6 @@ import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.UsuarioRepository;
-import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -31,7 +30,7 @@ public class UsuarioService {
         }
 
         Usuario usuario = usuarioMapper.paraEntidade(dto);
-        usuario.setSenha(BcryptUtil.bcryptHash(dto.senha()));
+        // TODO: implementar criptografia de senha posteriormente.
         usuarioRepository.persist(usuario);
 
         return usuarioMapper.paraResposta(usuario);

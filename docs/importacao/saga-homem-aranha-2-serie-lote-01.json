@@ -1,0 +1,1249 @@
+{
+  "origem": {
+    "arquivoEntrada": "C:\\Users\\User\\.codex\\attachments\\2f7290ba-757b-4def-acf6-43610c51f93b\\pasted-text.txt",
+    "geradoEm": "2026-06-18T03:11:32"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 15,
+  "totalHistorias": 81,
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Apresentando... o novo Homem-Aranha!",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_445ohpsa557j1cdb33evo7la2f/-S897-FWEBP",
+      "descricao": "Apresentando... o novo Homem-Aranha!\nPublicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Klaus Janson Editor: Erick Garcia, Maria Svab Valerio",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "De volta ao lar!",
+          "tituloOriginal": "Homecoming!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Espetacular Homem-Aranha retornou vitorioso das Guerras Secretas...e com um novo visual completamente diferente! Mas há mais por trás do novo uniforme negro? Assim que volta às ruas da cidade de Nova York, o Aranha está prestes a descobrir exatamente o que este fantástico traje pode fazer...mas logo percebe que, na verdade, a estranha vestimenta é muito mais perigosa do que ele jamais imaginou.\nTítulo original: \"Homecoming!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "252",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 252/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Justiça cega!",
+          "tituloOriginal": "Blind Justice!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Blind Justice!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "141",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 141/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Onde foi parar meu Homem-Aranha?",
+          "tituloOriginal": "Where, Oh Where Has My Spider-Man Gone?",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Where, Oh Where Has My Spider-Man Gone?\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "90",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 90/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Traído por mim!",
+          "tituloOriginal": "By Myself Betrayed!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nPeter acompanha Wendy Thornton numa partida esportiva do jornal, mas acaba se envolvendo com o novo vilão O Rosa.\nTítulo original: \"By Myself Betrayed!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "253",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 253/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Se não fosse pelo azar...",
+          "tituloOriginal": "If It Wasn't For Bad Luck...",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nPeter e Gata-Negra tentam consertar seu relacionamento enquanto enfrentam o Blob.\nTítulo original: \"If It Wasn't For Bad Luck...\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "91",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 91/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Com grandes poderes...",
+          "tituloOriginal": "With Great Power...",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"With Great Power...\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "254",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 254/1984 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": "Até um fantasma... ...pode temer a noite!",
+      "dataPublicacao": "2025-05-01",
+      "publicadoTexto": "maio de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_k77bqsirvd5p5a87hiefd8be5j/-S265-FWEBP",
+      "descricao": "Vol. 2 (26)\nAté um fantasma... ...pode temer a noite!\nPublicado em: maio de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: John Romita Editor: Erick Garcia, Maria Svab Valerio",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "E a resposta é...",
+          "tituloOriginal": "And the Answer Is...",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha enfrenta o enigmático Resposta, novo capanga do Rei do Crime, que usa seu poder de \"responder\" a qualquer ataque para explorar as fraquezas do herói.\nTítulo original: \"And the Answer Is...\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "92",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 92/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O remédio!",
+          "tituloOriginal": "Foiled!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nUma aventura do Homem-Aranha, vestindo seu uniforme negro, Starfox e a Capitã Marvel. Os heróis, vão de encontro à um grupo de ladrões, atrás de um novo material condutor de energia, que seria usado para abrir fendas no tempo-espaço, a fim de levar milhões de pessoas para outras dimensões habitáveis.\nTítulo original: \"Foiled!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "142",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 142/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Resgate interdimensional",
+          "tituloOriginal": "Shifts and Planes",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Shifts and Planes\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "143",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 143/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Até os fantasmas temem a noite!",
+          "tituloOriginal": "Even a Ghost Can Fear the Night!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nRaposa Negra é coagido pelo Fantasma Vermelho a cometer um assalto, mas o Homem-Aranha promete atrapalhar seus planos.\nTítulo original: \"Even a Ghost Can Fear the Night!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "255",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 255/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Homem-Aranha colecionável",
+          "tituloOriginal": "The Collected Spider-Man",
+          "quantidadePaginas": 34,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"The Collected Spider-Man\".\n34 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up Annual (1976)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up Annual (1976) n° 7/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Nenhum lugar para fugir",
+          "tituloOriginal": "No Place to Run",
+          "quantidadePaginas": 5,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"No Place to Run\".\n5 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up Annual (1976)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up Annual (1976) n° 7/1984 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-06-01",
+      "publicadoTexto": "junho de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_7at3fpr76l1lh2lle360e6sd1s/-S265-FWEBP",
+      "descricao": "Vol. 3 (27)\nPublicado em: junho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Josef \"Joe\" Rubinstein Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Noite quente no necrotério!",
+          "tituloOriginal": "A Hot Time In the Old Morgue Tonight",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO astuto Resposta pressiona o Homem-Aranha ao extremo, forçando-o a escolher entre salvar a Gata Negra ou desarmar uma bomba mortal plantada pelo Rei do Crime.\nTítulo original: \"A Hot Time In the Old Morgue Tonight\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "93",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 93/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Adeus às armas",
+          "tituloOriginal": "My Sword I Lay Down!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"My Sword I Lay Down!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "144",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 144/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Como vai segurá-los no necrotério depois de conhecerem Nova York?",
+          "tituloOriginal": "How Ya Gonna Keep 'Em Down at the Morgue After They've Seen NYC?",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Rei do Crime reativa o imortal Cabelo de Prata para atrapalhar a aliança entre Homem-Aranha e Gata Negra, obrigando-os a enfrentar esse adversário invencível.\nTítulo original: \"How Ya Gonna Keep 'Em Down at the Morgue After They've Seen NYC?\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "94",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 94/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A Adaga no fim do túnel!",
+          "tituloOriginal": "The Dagger At the End of the Tunnel!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nDepois de ser brutalmente derrotado por Cabelo de Prata, o Homem-Aranha e a Gatar Negra juntam-se a Manto e Adaga para impedir que o vilão capture Adaga e acabe com sua luz.\nTítulo original: \"The Dagger At the End of the Tunnel!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "95",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 95/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Garoto da cidade",
+          "tituloOriginal": "Hometown Boy",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n0 Homem-Aranha e o Homem de Ferro se unem contra a ameaça de...Magma!\nTítulo original: \"Hometown Boy\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "145",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 145/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Apresentando... o Puma!",
+          "tituloOriginal": "Introducing... Puma!",
+          "quantidadePaginas": 22,
+          "resumo": "Depois que o Homem-Aranha ataca um de seus armazéns, o Rosa contrata o Puma para matar o herói.\nTítulo original: \"Introducing... Puma!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "256",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 256/1984 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-07-01",
+      "publicadoTexto": "julho de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_a8a9f5gqs50rp4jvearpprqp78/-S897-FWEBP",
+      "descricao": "Vol. 4 (28)\nPublicado em: julho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Josef \"Joe\" Rubinstein Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Nas garras do... Puma!",
+          "tituloOriginal": "Beware the Claws of Puma!",
+          "quantidadePaginas": 22,
+          "resumo": "Peter volta ao seu apartamento, ferido. Lá, ele é surpreendido por Mary Jane e esta acaba presenciando um novo ataque do vilão. Ao final, ela revela que sempre soube a identidade secreta de Peter.\nTítulo original: \"Beware the Claws of Puma!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "257",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 257/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O segredo sinistro do novo traje do Homem-Aranha!",
+          "tituloOriginal": "The Sinister Secret of Spider-Man's New Costume!",
+          "quantidadePaginas": 23,
+          "resumo": "O Homem-Aranha finalmente leva seu novo uniforme para ser analisado por Reed Richards, e acaba descobrindo se tratar de um simbionte alienígena. E Mary Jane retorna para discutir sua descoberta.\nTítulo original: \"The Sinister Secret of Spider-Man's New Costume!\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "258",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 258/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ídolo heroico!",
+          "tituloOriginal": "Hero Worship!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Homem-Aranha e o Nômade estão perseguindo um garoto ladrão que está morrendo de vontade de se juntar a uma gangue quando encontram o Treinador recrutando capangas para o misterioso Abade Negro.\nTítulo original: \"Hero Worship!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "146",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 146/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Recordar é viver!",
+          "tituloOriginal": "Memory Lane!",
+          "quantidadePaginas": 29,
+          "resumo": "Adaptação: Erick Garcia\nApresentando uma retrospectiva da juventude da Tia May, enquanto ela é assombrada hoje por um antigo amor e um segredo do seu passado! Como seu sobrinho lançador de teias a salvará dos perigos externos e internos?\nTítulo original: \"Memory Lane!\"\n29 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 4/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Gata e rato",
+          "tituloOriginal": null,
+          "quantidadePaginas": 12,
+          "resumo": "Adaptação: Erick Garcia\n12 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 4/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Relembrando todos os meus passados!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": "Após revelar que sempre soube que Peter é o Homem-Aranha, Mary Jane conta um pouco de sua história de vida.\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "259",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man, The (1963) n° 259/1984 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-08-01",
+      "publicadoTexto": "agosto de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_s8esbgdvmt0q17t4sq0shu8m34/-S897-FWEBP",
+      "descricao": "Vol. 5 (29)\nPublicado em: agosto de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Allen \"Al\" Milgrom Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A resposta final",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Em meio à devastação de uma nevasca em Nova York, Adaga desaparece. O Homem-Aranha e a Gata Negra unem forças para encontrar a super-heroína, mas será que a busca será em vão? O Homem-Aranha precisa ajudar Manto a conter Cabelo de Prata antes que o senhor do crime retome sua perseguição a Adaga.\nMary Jane reflete sobre seu lugar na vida do Homem-Aranha, enquanto o Rei do Crime planeja seu próximo movimento.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 96/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O ermitão",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Aranha enfrenta um misterioso eremita que só quer ser deixado em paz, levando a um confronto inesperado.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "97",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 97/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dívida paga",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Tocha Humana contra a ameaça do Abade Negro e dos Apóstolos Negros! O que eles podem fazer ao seu corpo e alma é indescritível!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "147",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 147/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "E uma criança os guiará",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha e Thor unem forças contra o Abade Negro e seus selvagens Apóstolos Negros no ápice da trilogia do Abade Negro! O Abade Negro quer roubar o maior prêmio de todos: os poderes do poderoso Thor! Além disso, mais novidades sobre o uniforme do Homem-Aranha!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "148",
+            "anoOriginal": 1984,
+            "texto": "Marvel Team-Up (1972) n° 148/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "E o Escorpião leva a noiva!",
+          "tituloOriginal": "The Scorpion Takes a Bride! (But Not the Way You Think!)",
+          "quantidadePaginas": 39,
+          "resumo": "Adaptação: Erick Garcia\nÉ o dia do casamento de J. Jonah Jameson, mas o Escorpião, em busca de vingança, captura o filho de Jameson e Marla Madison, a noiva. Sobra para o Homem-Aranha salvar o dia e o casamento.\nTítulo original: \"The Scorpion Takes a Bride! (But Not the Way You Think!)\".\n39 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1984,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 18/1984 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-09-01",
+      "publicadoTexto": "setembro de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_mmhetp1t5d2v19vqjegf7fiq60/-S265-FWEBP",
+      "descricao": "Vol. 6 (30)\nPublicado em: setembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Charles Vess Cores: Charles Vess Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O desafio do Duende Macabro",
+          "tituloOriginal": "The Challenge of Hobgoblin!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTrajando novamente o seu tradicional uniforme azul e vermelho, o espetacular Aracnídeo sai à caça do Duende Macabro, que quer derrubar o Rei do Crime e dominar o submundo. Para desespero do Aranha, Macabro ainda tem uma vingança pessoal contra o filho do \"falecido\" Duende Verde: Harry Osborn!\nTítulo original: \"The Challenge of Hobgoblin!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "260",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 260/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os pecados do meu pai",
+          "tituloOriginal": "The Sins of my Father!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nA comando do Rosa o Duende Macabro sequestra Liz Allen e Mary Jane.\nO simbionte consegue escapar do edifício do Quarteto Fantástico.\nO espetacular Aracnídeo sai à caça do Duende Macabro, e acaba salvando Liz Allen e Mary Jane Watson.\nTítulo original: \"The Sins of my Father!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "261",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 261/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Epílogo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 2,
+          "resumo": "2 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "274",
+            "anoOriginal": 1985,
+            "texto": "Fantastic Four (1961) n° 274/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A Hora da Verdade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha enfrenta o vilão Mancha enquanto o Rei do Crime manipula a Gata Negra para semear desconfiança entre eles.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "98",
+            "anoOriginal": 1984,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 98/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Homem Incandescente",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "149",
+            "anoOriginal": 1985,
+            "texto": "Marvel Team-Up (1972) n° 149/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Segredo profissional",
+          "tituloOriginal": "Trade Secret",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Trade Secret\".\nUm repórter sem escrúpulos e sem ética profissional passa a investigar o Teioso e fica a beira de descobrir sua identidade e soltar o furo para quem pagar melhor.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "262",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 262/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Aranha na caçapa do canto!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha enfrenta o vilão Mancha — o cientista Jonathan Ohnn transformado em portais dimensionais — em um combate que desafia seus sentidos.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "99",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 99/1985 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "7",
+      "tituloChamada": "O fim da Saga do Uniforme Alienígena!",
+      "dataPublicacao": "2025-10-01",
+      "publicadoTexto": "outubro de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_a933can70l7s741uu0d9gugp07/-S265-FWEBP",
+      "descricao": "Vol. 7 (31)\nO fim da Saga do Uniforme Alienígena!\nPublicado em: outubro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Charles Vess Cores: Charles Vess Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Presente de grego",
+          "tituloOriginal": "Tis Better to Give!",
+          "quantidadePaginas": 38,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Tis Better to Give!\".\n38 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "150",
+            "anoOriginal": 1985,
+            "texto": "Marvel Team-Up (1972) n° 150/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O espetacular Menino-Aranha!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nNo hospital, enquanto Liz Allen entra em trabalho de parto, o Homem-Aranha precisa impedir o jovem fanático Ollie Osnick e a gangue Crânios Flamejantes de usar braços mecânicos inspirados em Doutor Octopus para usurpar seu manto e manchar sua reputação.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "263",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 263/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Separação",
+          "tituloOriginal": null,
+          "quantidadePaginas": 39,
+          "resumo": "Adaptação: Erick Garcia\nNo alto do arranha-céu do Rei do Crime, o Homem-Aranha trava batalha contra o Mancha enquanto a Gata Negra invade o QG do Rei do Crime para descobrir a origem maléfica de seus poderes.\n39 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 100/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Até que a morte nos separe!",
+          "tituloOriginal": "Til Death Do Us Part!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHorrorizado ao descobrir que seu Uniforme Negro era, na verdade, um parasita alienígena, o Aranha descartou o sinistro uniforme simbionte, mas agora ele está de volta, mesclado a um novo hospedeiro e faminto por vingança. O Uniforme Negro volta a tomar o corpo de Peter Parker, que ainda tem de enfrentar os Abutres pelo caminho. Ao final, o simbionte finalmente deixa o Homem-Aranha.\nTítulo original: \"Til Death Do Us Part!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 1/1985 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_kp4r9t59f51c3062j23ck5fv55/-S265-FWEBP",
+      "descricao": "Vol. 8 (32)\nPublicado em: novembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: John Byrne Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Ecos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Homem-Aranha é atormentado por pensamentos sobre Gwen Stacy enquanto resolve uma situação de reféns envolvendo o Flash Negro.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 101/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Tesouros",
+          "tituloOriginal": "Treasures!",
+          "quantidadePaginas": 22,
+          "resumo": "Um ex-presidiário junto com o Abutre original roubam o projeto das asas do abutre, formando então, com outros capangas, os abutres. Enquanto isso, o Aranha está levando um chapéu de presente para tia May, mas os abutres planejam derrotá-lo na frente do hotel do Rei do Crime para serem contratados por ele. Quando começa a batalha, o Aranha não sabe se luta ou protege o chapéu de sua tia.\nTítulo original: \"Treasures!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 2/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Nenhuma prisão... segura o Abutre!",
+          "tituloOriginal": "Vulture Is as Vulture Does!",
+          "quantidadePaginas": 22,
+          "resumo": "O Abutre lê nos jornais que tem capangas usando seu nome pela cidade, então ele escapa da cadeia, e assim, começa a batalha Aranha vs. Abutres vs. Abutre.\nTítulo original: \"Vulture Is as Vulture Does!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 3/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Burrice e burocracia",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "264",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 264/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Caça ao Raposa",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha intervém para proteger o ladrão Raposa Negra da caçada implacável da mercenária Silver?Sable e seu Comando Selvagem, enfrentando os mercenários e desafiando ordens para salvá-lo.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "265",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 265/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Uma vida por outra",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nÉ uma corrida contra o tempo enquanto o Homem-Aranha tenta localizar o irmão gêmeo de uma jovem que precisa desesperadamente de um transplante de rim após ser atropelada por um motorista bêbado. O lançador de teias localiza com sucesso o apartamento do irmão, mas não percebe que o Assassino Shrike mora no mesmo prédio! Será que o escalador de paredes conseguirá derrotar o Assassino Shrike e levar o doador de rim ao hospital a tempo?\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "102",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 102/1985 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-12-01",
+      "publicadoTexto": "dezembro de 2025",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_331j9u6opp5jn539tv3r9mo46u/-S265-FWEBP",
+      "descricao": "Vol. 9 (33)\nPublicado em: dezembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: John Byrne Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Compulsão!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 103/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Pulinhos de amor ou... engolindo sapos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha intervém no último instante para salvar o vilão Groxo de uma tentativa de suicídio e desarma a confusão gerada pelos Desajustados — Groxo, Homem-Sapo e Garoto-Aranha — que tentam provar seu valor como ajudantes improvisados.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "266",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 266/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Tentáculos à obra",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nHomem-Aranha investiga um armazém onde ladrões roubam casacos de pele, enfrenta a quadrilha e escapa por pouco de ser atropelado por seu caminhão de fuga.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 4/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A útima corrida",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Homem-Aranha se depara com Rocket Racer nas ruas e tenta sua captura. Mas outra pessoa quer mais que isso o Caçador de Recompensas quer a morte de Rocket. Ao investigar a história o escalador de paredes descobre que Rocket tem 6 irmãos, e sua família se envolveu com agiotas para pagar a fiança. Porém eles elevaram os juros para ganhar mais dinheiro, como não receberam decidiram matar Rocket. O Homem-Aranha agora deve intervir a favor de Rocket.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "104",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 104/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O inimigo interno!",
+          "tituloOriginal": "The Commuter Cometh!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nAo interromper um assalto de Doutor Octopus a um cofre bancário, o herói salva uma refém ferida levando-a ao hospital e frustra a fuga dos capangas.\nA aranha suburbana!\nAdaptação: Erick Garcia\nÉ uma das histórias mais hilárias do herói. O Aranha é enganado por um ladrão que usou uma arma de mentira e um manequim como refém. Mas o aracnídeo joga sobre ele um de seus rastreadores e o segue até os subúrbios. O problema é que lá não há prédios para ele se balançar. Após enfrentar a ira da vizinhança e o assédio de uma senhora, o Homem-Aranha é forçado até a pegar carona num caminhão de lixo para chegar na casa do bandido.\nTítulo original: \"The Commuter Cometh!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 5/1985 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-01-01",
+      "publicadoTexto": "janeiro de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_jv6sf23mct7djdgebud49l2j4q/-S265-FWEBP",
+      "descricao": "Vol. 10 (34)\nPublicado em: janeiro de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Josef \"Joe\" Rubinstein Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A corrida do ouro",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 6/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O ouro é meu!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nO Rei do Crime mobiliza seus capangas para limpar o “império de ouro” deixado pelo Beyonder, mas o Homem Aranha, exigindo respostas, confronta a operação clandestina do criminoso enquanto o governo tenta transportar o metal precioso em segredo.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "268",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 268/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Bem-vindo ao meu pesadelo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 7/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O poder do fogo",
+          "tituloOriginal": "Burn, Spider, Burn!",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nO Senhor do Fogo viajando pela galáxia vê o planeta Terra e resolver visitar o planeta para descansar um pouco, chegando a uma pizzaria ele pede ao dono do estabelecimento para lhe dar comida. O dono assustado pensa que o Senhor do Fogo é um mutante, e então o Senhor do Fogo destrói os fornos da pizzaria. Alguns operários de uma obra ao lado ao verem aquilo ficam revoltados e partem para cima do Senhor do Fogo que também parte para cima deles..\nTítulo original: \"Burn, Spider, Burn!\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "269",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 269/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O herói e o holocausto!",
+          "tituloOriginal": "The Hero and the Holocaust",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nQuando o Senhor do Fogo está a ponto de matar um dos operários o Homem-Aranha que estava vindo da casa da tia May salva o operário, então Senhor do Fogo promete não perdoar o Homem-Aranha por isso e começa a persegui-lo por toda Nova York.\nTítulo original: \"The Hero and the Holocaust\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "270",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 270/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Super-herói local!",
+          "tituloOriginal": "Local Superhero!",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Local Superhero!\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 8/1985 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-02-01",
+      "publicadoTexto": "fevereiro de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_8mh74v92jh0m34hp5417tick6t/-S265-FWEBP",
+      "descricao": "Vol. 11 (35)\nPublicado em: fevereiro de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Howard Chaykin Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O crepúsculo dos heróis",
+          "tituloOriginal": "The Twilight Heroes",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"The Twilight Heroes\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 9/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Unidos perderemos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nApós a explosão de um apartamento que mata o líder sindical Robert Sanchez, o Homem-Aranha e a Vespa unem forças para investigar a empresa CMNE e expor a trama criminosa por trás do atentado.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "105",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 105/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Um grito de fúria",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nQuando o traficante Vince Granetti ameaça acionistas da Compania Marítima Nordeste, o Homem-Aranha, junto ao mercenário Paladino e sob o auxílio da Vespa, invade os cais de Nova York para frustrar um carregamento de drogas.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 106/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O que aconteceu com o Esmagador Hogan?",
+          "tituloOriginal": "Whatever Happened to Crusher Hogan?",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Whatever Happened to Crusher Hogan?\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "271",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 271/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Abram alas pro Esquivo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "272",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 272/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A roda da fortuna",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1986,
+            "texto": "Web of Spider-Man (1985) n° 10/1986 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-02-01",
+      "publicadoTexto": "fevereiro de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_khig25qt0t4nh6v280n4d54v3j/-S265-FWEBP",
+      "descricao": "Vol. 11 (35)\nPublicado em: fevereiro de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Howard Chaykin Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O crepúsculo dos heróis",
+          "tituloOriginal": "The Twilight Heroes",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"The Twilight Heroes\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1985,
+            "texto": "Web of Spider-Man (1985) n° 9/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Unidos perderemos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nApós a explosão de um apartamento que mata o líder sindical Robert Sanchez, o Homem-Aranha e a Vespa unem forças para investigar a empresa CMNE e expor a trama criminosa por trás do atentado.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "105",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 105/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Um grito de fúria",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nQuando o traficante Vince Granetti ameaça acionistas da Compania Marítima Nordeste, o Homem-Aranha, junto ao mercenário Paladino e sob o auxílio da Vespa, invade os cais de Nova York para frustrar um carregamento de drogas.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1985,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 106/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O que aconteceu com o Esmagador Hogan?",
+          "tituloOriginal": "Whatever Happened to Crusher Hogan?",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Whatever Happened to Crusher Hogan?\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "271",
+            "anoOriginal": 1985,
+            "texto": "Amazing Spider-Man, The (1963) n° 271/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Abram alas pro Esquivo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "272",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 272/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A roda da fortuna",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1986,
+            "texto": "Web of Spider-Man (1985) n° 10/1986 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-04-01",
+      "publicadoTexto": "abril de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_rmeq7s41sl6tj9r2u4h6taj67e/-S265-FWEBP",
+      "descricao": "Vol. 13 (37)\nPublicado em: abril de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 136\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Rich Buckler Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Ponto de vista",
+          "tituloOriginal": "Point of View",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Point of View\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": null,
+            "numeroOriginal": null,
+            "anoOriginal": null,
+            "texto": null
+          }
+        }
+      ]
+    },
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_3ttepffo6p2nl85deutodj444j/-S265-FWEBP",
+      "descricao": "Vol. 14 (38)\nPublicado em: maio de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nEditor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Desafiando o Beyonder!",
+          "tituloOriginal": "To Challenge The Beyonder!",
+          "quantidadePaginas": 23,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"To Challenge The Beyonder!\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "273",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 273/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "...e então os deuses choraram!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "111",
+            "anoOriginal": 1986,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 111/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Eis que surge o campeão!",
+          "tituloOriginal": "Lo, There Shall Come a Champion!",
+          "quantidadePaginas": 28,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Lo, There Shall Come a Champion!\".\n28 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "274",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 274/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "E você nunca faz barulho",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nINÉDITA no Brasil! Publicada aqui pela primeira vez!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "112",
+            "anoOriginal": 1986,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 112/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A escolha e o desafio",
+          "tituloOriginal": "The Choice and the Challenger!",
+          "quantidadePaginas": 41,
+          "resumo": "Adaptação: Erick Garcia\nPeter Parker e Mary Jane conversam sobre o fardo de ser o Homem-Aranha. Flash Thompson e Sha Shan discutem e ela o abandona. O Duende Macabro sequestra Shan e cabe ao nosso herói detê-lo.\nTítulo original: \"The Choice and the Challenger!\".\n41 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "275",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 275/1986 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-06-01",
+      "publicadoTexto": "junho de 2026",
+      "numeroPaginas": null,
+      "precoCapa": null,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_f2er869igl33l1robc37f3c45l/-S265-FWEBP",
+      "descricao": "Vol. 15 (39)\nPublicado em: junho de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Tom Morgan Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Desmascarado",
+          "tituloOriginal": "Unmasked!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nO Duende Macabro é desmascarado durante a batalha contra o Aranha, mas escapa. Ao visitar Sha Shan no hospital, Flash Thompson dá uma entrevista atacando o Duende. Por fim herói e vilão voltam a se confrontar e, após uma aparente vitória, Peter encontra Flash vestindo o uniforme do inimigo (mas tudo não passa de uma armação do verdadeiro Duende).\nTítulo original: \"Unmasked!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "276",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 276/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Reféns",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nINÉDITA no Brasil! Publicada aqui pela primeira vez!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "113",
+            "anoOriginal": 1986,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 113/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "As regras do jogo",
+          "tituloOriginal": "Rules of the game!",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nTítulo original: \"Rules of the game!\".\nINÉDITA no Brasil! Publicada aqui pela primeira vez!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "277",
+            "anoOriginal": 1986,
+            "texto": "Amazing Spider-Man, The (1963) n° 277/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Nem tudo que reluz...",
+          "tituloOriginal": "All That Glitters",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nPeter Parker enfrenta um dilema moral: vender ou não o bloco de notas de ouro de Beyonder, que pode resolver diversos aspectos de sua vida? Enquanto isso, a tentativa do Raposa Negra de roubar o Olho da Carnélia é frustrada pelo Homem-Aranha, que, ao seguir o ladrão, encontra o corpo de seu parceiro morto.\nTítulo original: \"All That Glitters\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1986,
+            "texto": "Web of Spider-Man (1985) n° 14/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Caça ao Raposa!",
+          "tituloOriginal": "Fox Hunt",
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nDurante a perseguição ao Raposa Negra, o Homem-Aranha se depara com o Chance, que se revela o verdadeiro assassino do receptador de jóias. Após a fuga do vilão, os dois se enfrentam novamente e o aracnídeo leva a melhor. Peter decide vender o bloco de notas de ouro e usa dinheiro para pagar a conta do hospital de Nathan e descobre que Mary Jane mandou arrumar seu apartamento.\nTítulo original: \"Fox Hunt\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1986,
+            "texto": "Web of Spider-Man (1985) n° 15/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A chave",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Adaptação: Erick Garcia\nINÉDITA no Brasil! Publicada aqui pela primeira vez!\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "114",
+            "anoOriginal": 1986,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 114/1986 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

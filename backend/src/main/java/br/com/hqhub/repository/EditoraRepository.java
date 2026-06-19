@@ -10,7 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class EditoraRepository implements PanacheRepository<Editora> {
 
     public Optional<Editora> buscarPorNome(String nome) {
-        return find("lower(nome)", nome.toLowerCase()).firstResultOptional();
+        return find("lower(nome) = ?1", nome.toLowerCase()).firstResultOptional();
     }
 
     public boolean existePorNome(String nome) {

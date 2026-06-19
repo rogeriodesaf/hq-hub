@@ -1,0 +1,338 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-1/sa011126/157954",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-3/sa011126/159938"
+    ],
+    "geradoEm": "2026-06-18T09:59:57",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 3,
+  "totalHistorias": 20,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-03-01",
+      "publicadoTexto": "março de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 160,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=157954&path=sa01112601_157954.jpg&w=400&h=610",
+      "descricao": "Saga do Batman, A 1ª Série - n° 1\nPublicado em: março de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 160\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Alan Davis Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "[There's Nothing So Savage -- -- As a Man Destroying Himself!]",
+          "quantidadePaginas": 23,
+          "resumo": "Um violento Batman assassina bandidos em Gotham e chama a atenção da polícia. Será que o Homem Morcego pode matar?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "402",
+            "anoOriginal": 1986,
+            "texto": "Batman (1940) n° 402/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um Batman a mais",
+          "tituloOriginal": "One Batman too many",
+          "quantidadePaginas": 22,
+          "resumo": "O sósia de Batman escapa da prisão e volta a matar, o que põe o Batman original em seu encalço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "403",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 403/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Como pegar uma gata",
+          "tituloOriginal": "Catch as Catscan",
+          "quantidadePaginas": 22,
+          "resumo": "A Mulher-Gato está regenerada e atua em conjunto com a dupla dinâmica, mas o Coringa não está contente com isso e sequestra a moça a fim de forçá-la a retornar às origens criminosas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "569",
+            "anoOriginal": 1986,
+            "texto": "Detective Comics (1937) n° 569/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A última gargalhada",
+          "tituloOriginal": "The Last Laugh!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin partem em busca da Mulher-Gato, mas pode ser muito difícil desfazer a indução psicológica imposta pelo Coringa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "570",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 570/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Medo à venda",
+          "tituloOriginal": "Fear for Sale",
+          "quantidadePaginas": 22,
+          "resumo": "O Espantalho espalha uma nova toxina que inibe o medo das pessoas e as leva a cometer atos que podem custar suas vidas. O que acontecerá agora que o Batman acabou sendo uma das vítimas do vilão?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "571",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 571/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Barro mortal",
+          "tituloOriginal": "Mortal Clay",
+          "quantidadePaginas": 23,
+          "resumo": "O Cara-de-Barro III vive um ensandecido romance com uma manequim há tempos até começar a sentir ciúmes de uma possível relação entre sua companheira e o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "texto": "Batman Annual (1961) n° 11/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Pássaro do amor",
+          "tituloOriginal": "Love Bird",
+          "quantidadePaginas": 15,
+          "resumo": "O Pinguim está deixando a prisão e jura estar totalmente regenerado, apaixonado perdidamente por uma mulher que trocou cartas com ele e é tão fanática por pássaros quanto ele. Batman, é claro, acredita que o ornitólogo do mal está apenas fingindo e mantém vigilância cerrada sobre ele. O casal enamorado até abre uma fábrica de guarda-chuvas para começar vida nova. Será que o Pinguim mudou mesmo ou Batman tem razão em se manter desconfiado?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "texto": "Batman Annual (1961) n° 11/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-06-01",
+      "publicadoTexto": "junho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=159263&path=sa01112602_159263.jpg&w=400&h=615",
+      "descricao": "Saga do Batman, A 1ª Série - n° 2\nPublicado em: junho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Alan Davis Arte-Final: Paul Neary Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O livro do juízo final",
+          "tituloOriginal": "The Doomsday book/Chapter One/Chapter Two/The adventure of the lost adventure!/The adventure of the red leech/God save the kingdom!",
+          "quantidadePaginas": 54,
+          "resumo": "Cap. Um: Arte por Davis\nCap. Dois: Arte por Beatty & Giordano; Gafford cores\nCap. Três: O Homem Elástico - \" A Aventura da Aventura Perdida!\" Arte por Infantino & Al Vey; Gafford cores\nCap. Quatro: Sherlock Holmes - As Aventuras do Parasita Vermelho - Arte por E. R. Cruz\nCap. Cinco: \"Deus salve o Reino!\" - Arte por Davis & Neary",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "572",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 572/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O chapeleiro louco tira o chapéu",
+          "tituloOriginal": "The Mad Hatter Flips His Lids!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "573",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 573/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "... Meu começo... E meu provável fim.",
+          "tituloOriginal": "...My Beginning... and My Probable End.",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "574",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 574/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Robin morreu nesta noite?",
+          "tituloOriginal": "Did Robin die tonight?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "408",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 408/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Apenas outro garoto no Beco do Crime!",
+          "tituloOriginal": "Just another kid on Crime Alley",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "409",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 409/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dois iguais",
+          "tituloOriginal": "Two of a Kind",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "410",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 410/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-07-01",
+      "publicadoTexto": "julho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 170,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=159938&path=sa01112603_159938.jpg&w=400&h=620",
+      "descricao": "Saga do Batman, A 1ª Série - n° 3\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 170\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Jerry Bingham Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Segunda chance",
+          "tituloOriginal": "Second Chance",
+          "quantidadePaginas": 22,
+          "resumo": "Duas-Caras aplica vários assaltos em sua lógica dupla e Robin deverá controlar sua raiva pessoal contra o vilão para a dupla dinâmica conseguir prendê-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "411",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 411/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O som do silêncio",
+          "tituloOriginal": "The Sound of Silence",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin enfrentam uma mímica que abomina o barulho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "412",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 412/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O fantasma de Masahiko Tahara",
+          "tituloOriginal": "The Ghost of Masahiko Tahara",
+          "quantidadePaginas": 22,
+          "resumo": "Uma exposição de artigos japoneses no museu de Gotham atrai a atenção de Batman e Robin para investigar a misteriosa aparição de um fantasma samurai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "413",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 413/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Vítimas!",
+          "tituloOriginal": "Victims!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está ajudando a polícia de Gotham a tentar resolver os crimes do Assassino da Lixeira, um maníaco que mutila suas vítimas e as joga em uma lixeira. Ao investigar a cena da terceira vítima, Batman ajuda em um incêndio uma jovem chamada Kate. Mais tarde, ele a conhece como Bruce Wayne e se torna amigo dela, mas quando ela se torna uma vítima do Assassino, ele deixa suas emoções tomarem conta e a investigação se torna pessoal.\nContinua em Batman #421.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "414",
+            "anoOriginal": 1987,
+            "texto": "Batman (1940) n° 414/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A clínica escarlate do Doutor do Crime",
+          "tituloOriginal": "The Crime Doctor's Crimson Clinic",
+          "quantidadePaginas": 22,
+          "resumo": "Batman procura novamente o Dr. do Crime e usará toda sua astúcia para colocar na cadeia o médico que ajuda os vilões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "579",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 579/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Imagem dupla",
+          "tituloOriginal": "Double Image",
+          "quantidadePaginas": 22,
+          "resumo": "Duas Caras volta a cometer roubos em Gotham mas Batman percebe que não se trata de Harvey Dent exatamente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "580",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 580/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Um de dois... ...Não é ruim...",
+          "tituloOriginal": "One Out of Two... ...Isn't Bad...",
+          "quantidadePaginas": 22,
+          "resumo": "Batman consegue capturar o Duas-Caras falso e, com sua ajuda, elabora um plano para deter Harvey Dent.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "581",
+            "anoOriginal": 1987,
+            "texto": "Detective Comics (1937) n° 581/1987 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

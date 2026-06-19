@@ -112,6 +112,18 @@ public class HistoriaResource {
         return Response.ok(historiaService.listarPublicacoesPorHistoria(historiaId)).build();
     }
 
+    @GET
+    @Path("/publicacoes-historias/edicoes-publicadas/{edicaoId}")
+    public Response listarPublicacoesPorEdicaoPublicada(@PathParam("edicaoId") Long edicaoId) {
+        return Response.ok(historiaService.listarPublicacoesPorEdicaoPublicada(edicaoId)).build();
+    }
+
+    @GET
+    @Path("/publicacoes-historias/edicoes-originais/{edicaoId}")
+    public Response listarPublicacoesPorEdicaoOriginal(@PathParam("edicaoId") Long edicaoId) {
+        return Response.ok(historiaService.listarPublicacoesPorEdicaoOriginal(edicaoId)).build();
+    }
+
     @DELETE
     @Path("/publicacoes-historias/{id}")
     public Response removerPublicacao(@PathParam("id") Long id) {
