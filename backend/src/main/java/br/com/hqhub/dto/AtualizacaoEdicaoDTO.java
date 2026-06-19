@@ -34,6 +34,9 @@ public record AtualizacaoEdicaoDTO(
         @DecimalMin(value = "0.00", message = "Preço de capa não pode ser negativo.")
         BigDecimal precoCapa,
 
+        @Size(max = 100, message = "Formato deve ter no maximo 100 caracteres.")
+        String formato,
+
         @Size(max = 100, message = "Fonte externa deve ter no máximo 100 caracteres.")
         String fonteExterna,
 
@@ -46,3 +49,4 @@ public record AtualizacaoEdicaoDTO(
         @NotNull(message = "Série é obrigatória.")
         Long serieId) {
 }
+

@@ -126,6 +126,7 @@ export class ApiService {
     codigoBarras: string | null;
     quantidadePaginas: number | null;
     precoCapa: number | null;
+    formato: string | null;
     fonteExterna: string | null;
     idExterno: string | null;
     urlOrigem: string | null;

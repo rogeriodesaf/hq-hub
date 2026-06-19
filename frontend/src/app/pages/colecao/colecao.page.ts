@@ -165,7 +165,12 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
 
           <label>
             Número da edição
-            <input [(ngModel)]="novaEdicaoNumero" name="novaEdicaoNumero" placeholder="1, 25, 300..." />
+            <input [(ngModel)]="novaEdicaoNumero" name="novaEdicaoNumero" [disabled]="novaEdicaoSemNumero" placeholder="1, 25, 300..." />
+          </label>
+
+          <label class="checkbox-formulario">
+            <input type="checkbox" [(ngModel)]="novaEdicaoSemNumero" name="novaEdicaoSemNumero" (ngModelChange)="alternarEdicaoSemNumero()" />
+            Edição única ou sem número
           </label>
 
           <label>
@@ -181,6 +186,11 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
           <label>
             Link da imagem da capa
             <input [(ngModel)]="novaEdicaoUrlCapa" name="novaEdicaoUrlCapa" placeholder="Opcional. Cole uma URL de imagem" />
+          </label>
+
+          <label>
+            Formato/acabamento
+            <input [(ngModel)]="novaEdicaoFormato" name="novaEdicaoFormato" placeholder="Opcional. Ex.: capa dura, brochura, omnibus..." />
           </label>
 
           <label>
@@ -430,9 +440,11 @@ export class ColecaoPage implements OnInit {
   novaSerieVolume: number | null = 1;
   novaSerieAnoInicio: number | null = null;
   novaEdicaoNumero = '';
+  novaEdicaoSemNumero = false;
   novaEdicaoTitulo = '';
   novaEdicaoDataPublicacao = '';
   novaEdicaoUrlCapa = '';
+  novaEdicaoFormato = '';
   novaEdicaoUrlOrigem = '';
   observacoesRevisaoCatalogo = '';
   private temporizadorBuscaEdicao: ReturnType<typeof setTimeout> | null = null;
@@ -524,6 +536,12 @@ export class ColecaoPage implements OnInit {
     this.novaSerieVolume = 1;
     this.novaSerieAnoInicio = null;
     this.seriesSugeridas.set([]);
+  }
+
+  alternarEdicaoSemNumero() {
+    if (this.novaEdicaoSemNumero) {
+      this.novaEdicaoNumero = '';
+    }
   }
 
   buscarEdicoes() {
@@ -675,8 +693,8 @@ export class ColecaoPage implements OnInit {
   }
 
   async cadastrarEdicaoManual() {
-    if (!this.novaEditoraNome.trim() || !this.novaSerieTitulo.trim() || !this.novaEdicaoNumero.trim()) {
-      this.mensagem.set('Preencha pelo menos editora, série e número da edição.');
+    if (!this.novaEditoraNome.trim() || !this.novaSerieTitulo.trim() || !this.numeroManualTratado()) {
+      this.mensagem.set('Preencha pelo menos editora, série e número da edição, ou marque que é uma edição única.');
       return;
     }
 
@@ -966,11 +984,12 @@ export class ColecaoPage implements OnInit {
   }
 
   private async obterOuCriarEdicao(serieId: number) {
-    const resultado = await firstValueFrom(this.api.listarEdicoes(this.novaEdicaoNumero.trim(), 0, 30, serieId));
+    const numero = this.numeroManualTratado();
+    const resultado = await firstValueFrom(this.api.listarEdicoes(numero, 0, 30, serieId));
     const edicaoExistente = resultado.itens.find(
       (edicao) =>
         edicao.serie?.id === serieId &&
-        this.normalizar(edicao.numero) === this.normalizar(this.novaEdicaoNumero) &&
+        this.normalizar(edicao.numero) === this.normalizar(numero) &&
         this.normalizar(edicao.titulo || '') === this.normalizar(this.novaEdicaoTitulo || ''),
     );
 
@@ -980,7 +999,7 @@ export class ColecaoPage implements OnInit {
 
     const edicao = await firstValueFrom(
       this.api.cadastrarEdicao({
-        numero: this.novaEdicaoNumero.trim(),
+        numero,
         titulo: this.novaEdicaoTitulo.trim() || null,
         descricao: null,
         dataPublicacao: this.novaEdicaoDataPublicacao || null,
@@ -988,7 +1007,8 @@ export class ColecaoPage implements OnInit {
         codigoBarras: null,
         quantidadePaginas: null,
         precoCapa: null,
-        fonteExterna: 'CADASTRO_USUARIO',
+        formato: this.novaEdicaoFormato.trim() || null,
+        fonteExterna: null,
         idExterno: null,
         urlOrigem: this.novaEdicaoUrlOrigem.trim() || null,
         serieId,
@@ -1030,6 +1050,7 @@ export class ColecaoPage implements OnInit {
         codigoBarras: null,
         quantidadePaginas: null,
         precoCapa: null,
+        formato: null,
         fonteExterna: 'COMICVINE',
         idExterno: resultado.idExterno,
         urlOrigem: resultado.urlOrigem,
@@ -1045,10 +1066,12 @@ export class ColecaoPage implements OnInit {
       serie: this.novaSerieTitulo.trim(),
       volume: this.novaSerieVolume,
       anoInicio: this.novaSerieAnoInicio,
-      numero: this.novaEdicaoNumero.trim(),
+      numero: this.numeroManualTratado(),
+      edicaoSemNumero: this.novaEdicaoSemNumero,
       titulo: this.novaEdicaoTitulo.trim() || null,
       dataPublicacao: this.novaEdicaoDataPublicacao || null,
       urlCapa: this.novaEdicaoUrlCapa.trim() || null,
+      formato: this.novaEdicaoFormato.trim() || null,
       urlOrigem: this.novaEdicaoUrlOrigem.trim() || null,
     };
 
@@ -1079,6 +1102,10 @@ export class ColecaoPage implements OnInit {
     return resposta.error?.mensagem ?? mensagemPadrao;
   }
 
+  private numeroManualTratado() {
+    return this.novaEdicaoSemNumero ? 'UNICA' : this.novaEdicaoNumero.trim();
+  }
+
   private normalizar(valor: string | null | undefined) {
     return (valor || '').trim().toLocaleLowerCase('pt-BR');
   }
@@ -1099,9 +1126,11 @@ export class ColecaoPage implements OnInit {
     this.novaSerieVolume = 1;
     this.novaSerieAnoInicio = null;
     this.novaEdicaoNumero = '';
+    this.novaEdicaoSemNumero = false;
     this.novaEdicaoTitulo = '';
     this.novaEdicaoDataPublicacao = '';
     this.novaEdicaoUrlCapa = '';
+    this.novaEdicaoFormato = '';
     this.novaEdicaoUrlOrigem = '';
     this.observacoesRevisaoCatalogo = '';
     this.editorasSugeridas.set([]);

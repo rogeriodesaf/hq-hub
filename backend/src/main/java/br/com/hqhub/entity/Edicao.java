@@ -76,6 +76,9 @@ public class Edicao {
     @Column(name = "preco_capa", precision = 10, scale = 2)
     private BigDecimal precoCapa;
 
+    @Column(name = "formato")
+    private String formato;
+
     @Column(name = "fonte_externa")
     private String fonteExterna;
 

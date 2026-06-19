@@ -23,6 +23,7 @@ public class EdicaoMapper {
         edicao.setCodigoBarras(dto.codigoBarras());
         edicao.setQuantidadePaginas(dto.quantidadePaginas());
         edicao.setPrecoCapa(dto.precoCapa());
+        edicao.setFormato(dto.formato());
         edicao.setFonteExterna(dto.fonteExterna());
         edicao.setIdExterno(dto.idExterno());
         edicao.setUrlOrigem(dto.urlOrigem());
@@ -44,6 +45,7 @@ public class EdicaoMapper {
         edicao.setCodigoBarras(dto.codigoBarras());
         edicao.setQuantidadePaginas(dto.quantidadePaginas());
         edicao.setPrecoCapa(dto.precoCapa());
+        edicao.setFormato(dto.formato());
         edicao.setFonteExterna(dto.fonteExterna());
         edicao.setIdExterno(dto.idExterno());
         edicao.setUrlOrigem(dto.urlOrigem());
@@ -73,6 +75,7 @@ public class EdicaoMapper {
                 edicao.getCodigoBarras(),
                 edicao.getQuantidadePaginas(),
                 edicao.getPrecoCapa(),
+                edicao.getFormato(),
                 edicao.getFonteExterna(),
                 edicao.getIdExterno(),
                 edicao.getUrlOrigem(),

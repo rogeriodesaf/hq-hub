@@ -518,6 +518,17 @@ textarea:focus {
   margin-bottom: 0;
 }
 
+.grade-formulario .checkbox-formulario {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--texto);
+}
+
+.grade-formulario .checkbox-formulario input {
+  width: auto;
+}
+
 .grade-formulario .campo-largo {
   grid-column: span 2;
 }

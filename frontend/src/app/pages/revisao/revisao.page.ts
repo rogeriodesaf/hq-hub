@@ -59,6 +59,10 @@ import { ContribuicaoCatalogo } from '../../core/modelos';
               <span>{{ contribuicao.edicao.urlCapa ? 'Informada' : 'Pendente' }}</span>
             </div>
             <div>
+              <strong>Formato</strong>
+              <span>{{ contribuicao.edicao.formato || 'Pendente' }}</span>
+            </div>
+            <div>
               <strong>Fonte</strong>
               <span>{{ contribuicao.urlFonte || contribuicao.edicao.urlOrigem || 'Pendente' }}</span>
             </div>
@@ -138,7 +142,7 @@ import { ContribuicaoCatalogo } from '../../core/modelos';
 
     .grade-revisao {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
     }
 

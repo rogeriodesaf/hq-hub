@@ -20,6 +20,7 @@ public record EdicaoRespostaDTO(
         String codigoBarras,
         Integer quantidadePaginas,
         BigDecimal precoCapa,
+        String formato,
         String fonteExterna,
         String idExterno,
         String urlOrigem,

@@ -144,6 +144,9 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
                 @if (edicaoDetalhe()?.quantidadePaginas) {
                   <span>{{ edicaoDetalhe()?.quantidadePaginas }} páginas</span>
                 }
+                @if (edicaoDetalhe()?.formato) {
+                  <span>{{ edicaoDetalhe()?.formato }}</span>
+                }
                 @if (edicaoDetalhe()?.precoCapa) {
                   <span>{{ formatarMoeda(edicaoDetalhe()?.precoCapa || 0) }}</span>
                 }
