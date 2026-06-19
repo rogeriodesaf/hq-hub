@@ -16,6 +16,7 @@ import br.com.hqhub.mapper.ItemColecaoMapper;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -25,16 +26,19 @@ public class ItemColecaoService {
     private final EdicaoRepository edicaoRepository;
     private final ItemColecaoMapper itemColecaoMapper;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
+    private final EntityManager entityManager;
 
     public ItemColecaoService(
             ItemColecaoRepository itemColecaoRepository,
             EdicaoRepository edicaoRepository,
             ItemColecaoMapper itemColecaoMapper,
-            UsuarioAutenticadoService usuarioAutenticadoService) {
+            UsuarioAutenticadoService usuarioAutenticadoService,
+            EntityManager entityManager) {
         this.itemColecaoRepository = itemColecaoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoMapper = itemColecaoMapper;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
+        this.entityManager = entityManager;
     }
 
     @Transactional
@@ -88,7 +92,32 @@ public class ItemColecaoService {
     @Transactional
     public void remover(Long id) {
         ItemColecao item = buscarItemDoUsuarioPorId(id);
+        removerDependenciasDoItem(item.getId());
         itemColecaoRepository.delete(item);
+    }
+
+    private void removerDependenciasDoItem(Long itemColecaoId) {
+        entityManager.createNativeQuery("""
+                delete from denuncias_anuncios denuncia
+                 using anuncios anuncio
+                 where denuncia.anuncio_id = anuncio.id
+                   and anuncio.item_colecao_id = :itemColecaoId
+                """)
+                .setParameter("itemColecaoId", itemColecaoId)
+                .executeUpdate();
+
+        entityManager.createNativeQuery("""
+                delete from fotos_anuncios foto
+                 using anuncios anuncio
+                 where foto.anuncio_id = anuncio.id
+                   and anuncio.item_colecao_id = :itemColecaoId
+                """)
+                .setParameter("itemColecaoId", itemColecaoId)
+                .executeUpdate();
+
+        entityManager.createNativeQuery("delete from anuncios where item_colecao_id = :itemColecaoId")
+                .setParameter("itemColecaoId", itemColecaoId)
+                .executeUpdate();
     }
 
     private ItemColecao buscarItemDoUsuarioPorId(Long id) {
