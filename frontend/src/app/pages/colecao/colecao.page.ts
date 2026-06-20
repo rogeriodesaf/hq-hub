@@ -4,7 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
-import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisaCatalogo, Serie } from '../../core/modelos';
+import { AutenticacaoService } from '../../core/autenticacao.service';
+import {
+  Edicao,
+  EditoraResumo,
+  ConfiguracaoColecao,
+  EstanteEdicao,
+  EstanteEditora,
+  PaginaResposta,
+  ResultadoPesquisaCatalogo,
+  Serie,
+} from '../../core/modelos';
 
 @Component({
   selector: 'app-colecao-page',
@@ -260,52 +270,108 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
           <h2>Organize suas leituras e compras</h2>
         </div>
         <div class="acoes-estante">
-          <button class="botao compacto" type="button" (click)="deduplicarCatalogo()" [disabled]="deduplicandoCatalogo()">
-            {{ deduplicandoCatalogo() ? 'Limpando...' : 'Limpar duplicidades' }}
+          <button class="botao compacto" type="button" (click)="exportarColecao('EXCEL')" [disabled]="exportandoColecao()">
+            Excel
           </button>
-          <span>{{ resumoEstante().total }} itens</span>
+          <button class="botao compacto" type="button" (click)="exportarColecao('GOOGLE')" [disabled]="exportandoColecao()">
+            Google Sheets
+          </button>
+          @if (podeRevisarCatalogo()) {
+            <button class="botao compacto" type="button" (click)="deduplicarCatalogo()" [disabled]="deduplicandoCatalogo()">
+              {{ deduplicandoCatalogo() ? 'Limpando...' : 'Limpar duplicidades' }}
+            </button>
+          }
+          <span>{{ paginaEstante().totalItens }} itens</span>
         </div>
       </div>
 
       <div class="metricas-estante">
         <article>
-          <span>Total</span>
-          <strong>{{ resumoEstante().total }}</strong>
+          <span>Total filtrado</span>
+          <strong>{{ paginaEstante().totalItens }}</strong>
         </article>
         <article>
-          <span>Lidas</span>
+          <span>Lidas nesta página</span>
           <strong>{{ resumoEstante().lidas }}</strong>
         </article>
         <article>
-          <span>Não lidas</span>
+          <span>Não lidas nesta página</span>
           <strong>{{ resumoEstante().naoLidas }}</strong>
         </article>
         <article>
-          <span>Valor registrado</span>
-          <strong>{{ formatarMoeda(resumoEstante().valorTotal) }}</strong>
+          <span>Valor nesta página</span>
+          <strong>{{ (configuracaoColecao()?.exibirValorColecao ?? true) ? formatarMoeda(resumoEstante().valorTotal) : 'Oculto' }}</strong>
         </article>
       </div>
 
+      <div class="configuracao-estante">
+        <label>
+          Visibilidade da estante
+          <select
+            [ngModel]="configuracaoColecao()?.visibilidadeColecao || 'PRIVADA'"
+            name="visibilidadeColecao"
+            (ngModelChange)="alterarConfiguracaoEstante({ visibilidadeColecao: $event })"
+          >
+            <option value="PRIVADA">Privada</option>
+            <option value="AMIGOS">Somente amigos</option>
+            <option value="PUBLICA">Pública</option>
+          </select>
+        </label>
+
+        <label class="checkbox-formulario">
+          <input
+            type="checkbox"
+            [checked]="configuracaoColecao()?.exibirValorColecao ?? true"
+            (change)="alterarConfiguracaoEstante({ exibirValorColecao: ($any($event.target).checked) })"
+          />
+          Exibir valor da estante
+        </label>
+      </div>
+
       <div class="controles-estante">
-        <input [(ngModel)]="buscaEstante" placeholder="Filtrar por título, editora ou número" />
+        <input [(ngModel)]="buscaEstante" placeholder="Filtrar por título, editora ou número" (ngModelChange)="agendarBuscaEstante()" />
         <section class="abas-filtro">
-          <button type="button" [class.ativo]="filtroLeitura() === 'TODAS'" (click)="filtroLeitura.set('TODAS')">
+          <button type="button" [class.ativo]="filtroLeitura() === 'TODAS'" (click)="alterarFiltroLeitura('TODAS')">
             Todas
           </button>
-          <button type="button" [class.ativo]="filtroLeitura() === 'LIDO'" (click)="filtroLeitura.set('LIDO')">
+          <button type="button" [class.ativo]="filtroLeitura() === 'LIDO'" (click)="alterarFiltroLeitura('LIDO')">
             Lidas
           </button>
-          <button type="button" [class.ativo]="filtroLeitura() === 'NAO_LIDO'" (click)="filtroLeitura.set('NAO_LIDO')">
+          <button type="button" [class.ativo]="filtroLeitura() === 'NAO_LIDO'" (click)="alterarFiltroLeitura('NAO_LIDO')">
             Não lidas
           </button>
         </section>
       </div>
+
+      @if (paginaEstante().totalPaginas > 1) {
+        <div class="paginacao-estante">
+          <button class="botao compacto" type="button" [disabled]="carregandoEstante() || paginaEstante().pagina === 0" (click)="mudarPaginaEstante(-1)">
+            Anterior
+          </button>
+          <span>Página {{ paginaEstante().pagina + 1 }} de {{ paginaEstante().totalPaginas }}</span>
+          <button
+            class="botao compacto"
+            type="button"
+            [disabled]="carregandoEstante() || paginaEstante().pagina + 1 >= paginaEstante().totalPaginas"
+            (click)="mudarPaginaEstante(1)"
+          >
+            Próxima
+          </button>
+        </div>
+      }
     </section>
 
-    @if (!estanteFiltrada().length) {
+    @if (!carregandoEstante() && !estanteFiltrada().length) {
       <section class="estado-vazio">
         <h2>Nenhuma edição encontrada</h2>
         <p>Cadastre edições na coleção ou ajuste o filtro de leitura.</p>
+      </section>
+    }
+
+    @if (carregandoEstante()) {
+      <section class="estado-vazio">
+        <h2>Carregando estante</h2>
+        <p>Buscando apenas a página atual para manter a navegação leve.</p>
       </section>
     }
 
@@ -383,8 +449,16 @@ import { Edicao, EditoraResumo, EstanteEdicao, EstanteEditora, ResultadoPesquisa
 })
 export class ColecaoPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly autenticacao = inject(AutenticacaoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly estante = signal<EstanteEditora[]>([]);
+  readonly paginaEstante = signal<PaginaResposta<EstanteEditora>>({
+    itens: [],
+    pagina: 0,
+    tamanho: 48,
+    totalItens: 0,
+    totalPaginas: 0,
+  });
   readonly edicoesEncontradas = signal<Edicao[]>([]);
   readonly resultadosEncontrados = signal<ResultadoPesquisaCatalogo[]>([]);
   readonly edicaoSelecionada = signal<Edicao | null>(null);
@@ -401,6 +475,11 @@ export class ColecaoPage implements OnInit {
   readonly atualizandoLeitura = signal(false);
   readonly removendoItem = signal(false);
   readonly deduplicandoCatalogo = signal(false);
+  readonly carregandoEstante = signal(false);
+  readonly exportandoColecao = signal(false);
+  readonly podeRevisarCatalogo = this.autenticacao.podeRevisarCatalogo;
+  readonly configuracaoColecao = signal<ConfiguracaoColecao | null>(null);
+  readonly salvandoConfiguracao = signal(false);
   readonly mensagem = signal('');
   readonly filtroLeitura = signal<'TODAS' | 'LIDO' | 'NAO_LIDO'>('TODAS');
   readonly resumoEstante = computed(() => {
@@ -458,9 +537,57 @@ export class ColecaoPage implements OnInit {
   novaEdicaoUrlOrigem = '';
   observacoesRevisaoCatalogo = '';
   private temporizadorBuscaEdicao: ReturnType<typeof setTimeout> | null = null;
+  private temporizadorBuscaEstante: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit() {
+    this.carregarConfiguracaoColecao();
     this.carregarEstante();
+  }
+
+  alterarConfiguracaoEstante(patch: Partial<Pick<ConfiguracaoColecao, 'visibilidadeColecao' | 'exibirValorColecao'>>) {
+    const atual = this.configuracaoColecao();
+    if (!atual) {
+      return;
+    }
+
+    this.salvandoConfiguracao.set(true);
+    this.api.atualizarConfiguracaoColecao({
+      visibilidadeColecao: patch.visibilidadeColecao ?? atual.visibilidadeColecao,
+      exibirValorColecao: patch.exibirValorColecao ?? atual.exibirValorColecao,
+    }).subscribe({
+      next: (resposta) => {
+        this.configuracaoColecao.set(resposta);
+        this.salvandoConfiguracao.set(false);
+        this.mensagem.set('Configuração da estante atualizada.');
+      },
+      error: () => {
+        this.salvandoConfiguracao.set(false);
+        this.mensagem.set('Não foi possível atualizar a configuração da estante.');
+      },
+    });
+  }
+
+  agendarBuscaEstante() {
+    if (this.temporizadorBuscaEstante) {
+      clearTimeout(this.temporizadorBuscaEstante);
+    }
+
+    this.temporizadorBuscaEstante = setTimeout(() => this.carregarEstante(0), 350);
+  }
+
+  alterarFiltroLeitura(filtro: 'TODAS' | 'LIDO' | 'NAO_LIDO') {
+    this.filtroLeitura.set(filtro);
+    this.carregarEstante(0);
+  }
+
+  mudarPaginaEstante(delta: number) {
+    const paginaAtual = this.paginaEstante().pagina;
+    const proximaPagina = paginaAtual + delta;
+    if (proximaPagina < 0 || proximaPagina >= this.paginaEstante().totalPaginas) {
+      return;
+    }
+
+    this.carregarEstante(proximaPagina);
   }
 
   alternarCadastroManual() {
@@ -876,22 +1003,51 @@ export class ColecaoPage implements OnInit {
     });
   }
 
+  exportarColecao(formato: 'EXCEL' | 'GOOGLE') {
+    this.exportandoColecao.set(true);
+    this.mensagem.set('');
+    this.api.exportarColecao(formato).subscribe({
+      next: (arquivo) => {
+        this.exportandoColecao.set(false);
+        const url = URL.createObjectURL(arquivo);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = formato === 'GOOGLE' ? 'hqhub-colecao-google-sheets.csv' : 'hqhub-colecao-excel.csv';
+        link.click();
+        URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.exportandoColecao.set(false);
+        this.mensagem.set('Nao foi possivel baixar sua colecao agora.');
+      },
+    });
+  }
+
   deduplicarCatalogo() {
-    if (!window.confirm('Limpar duplicidades do catalogo agora? A rotina mantem a edicao mais completa e move os vinculos antes de remover as repetidas.')) {
+    if (!window.confirm('Limpar duplicidades do catalogo agora? A rotina mantem series e edicoes mais completas e move os vinculos antes de remover repetidas.')) {
       return;
     }
 
     this.deduplicandoCatalogo.set(true);
     this.mensagem.set('');
-    this.api.deduplicarEdicoes().subscribe({
-      next: (resultado) => {
-        this.deduplicandoCatalogo.set(false);
-        this.mensagem.set(
-          resultado.edicoesRemovidas
-            ? `Duplicidades limpas: ${resultado.edicoesRemovidas} edicao(oes) removida(s) em ${resultado.gruposMesclados} grupo(s).`
-            : 'Nenhuma duplicidade segura foi encontrada para limpar.',
-        );
-        this.carregarEstante();
+    this.api.deduplicarSeries().subscribe({
+      next: (series) => {
+        this.api.deduplicarEdicoes().subscribe({
+          next: (edicoes) => {
+            this.deduplicandoCatalogo.set(false);
+            const totalRemovido = series.seriesRemovidas + edicoes.edicoesRemovidas;
+            this.mensagem.set(
+              totalRemovido
+                ? `Duplicidades limpas: ${series.seriesRemovidas} serie(s) e ${edicoes.edicoesRemovidas} edicao(oes) removida(s).`
+                : 'Nenhuma duplicidade segura foi encontrada para limpar.',
+            );
+            this.carregarEstante();
+          },
+          error: () => {
+            this.deduplicandoCatalogo.set(false);
+            this.mensagem.set('As series foram verificadas, mas nao foi possivel limpar duplicidades de edicoes agora.');
+          },
+        });
       },
       error: () => {
         this.deduplicandoCatalogo.set(false);
@@ -917,10 +1073,19 @@ export class ColecaoPage implements OnInit {
     }
   }
 
-  private carregarEstante() {
-    this.api.obterEstante().subscribe({
-      next: (resposta) => this.estante.set(resposta),
-      error: () => this.estante.set([]),
+  private carregarEstante(pagina = this.paginaEstante().pagina) {
+    this.carregandoEstante.set(true);
+    this.api.obterEstantePaginada(this.buscaEstante, this.filtroLeitura(), pagina, this.paginaEstante().tamanho).subscribe({
+      next: (resposta) => {
+        this.paginaEstante.set(resposta);
+        this.estante.set(resposta.itens);
+        this.carregandoEstante.set(false);
+      },
+      error: () => {
+        this.estante.set([]);
+        this.paginaEstante.set({ itens: [], pagina: 0, tamanho: 48, totalItens: 0, totalPaginas: 0 });
+        this.carregandoEstante.set(false);
+      },
     });
   }
 
@@ -1169,6 +1334,20 @@ export class ColecaoPage implements OnInit {
 
   private normalizar(valor: string | null | undefined) {
     return (valor || '').trim().toLocaleLowerCase('pt-BR');
+  }
+
+  private carregarConfiguracaoColecao() {
+    this.api.obterConfiguracaoColecao().subscribe({
+      next: (configuracao) => this.configuracaoColecao.set(configuracao),
+      error: () =>
+        this.configuracaoColecao.set({
+          id: 0,
+          visibilidadeColecao: 'PRIVADA',
+          exibirValorColecao: true,
+          dataCriacao: new Date().toISOString(),
+          dataAtualizacao: new Date().toISOString(),
+        }),
+    });
   }
 
   private limparFormulario() {

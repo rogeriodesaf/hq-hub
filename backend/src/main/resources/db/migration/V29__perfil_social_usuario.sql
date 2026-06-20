@@ -1,0 +1,4 @@
+ALTER TABLE usuarios
+    ADD COLUMN IF NOT EXISTS bio VARCHAR(500),
+    ADD COLUMN IF NOT EXISTS foto_perfil_url VARCHAR(1000),
+    ADD COLUMN IF NOT EXISTS foto_perfil_thumbnail_url VARCHAR(1000);

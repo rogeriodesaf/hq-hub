@@ -64,6 +64,7 @@ public class ConfiguracaoColecaoService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         ConfiguracaoColecao configuracao = obterOuCriar(usuario);
         configuracao.setVisibilidadeColecao(dto.visibilidadeColecao());
+        configuracao.setExibirValorColecao(Boolean.TRUE.equals(dto.exibirValorColecao()));
         return configuracaoColecaoMapper.paraResposta(configuracao);
     }
 
@@ -86,6 +87,7 @@ public class ConfiguracaoColecaoService {
         return new ColecaoCompartilhadaRespostaDTO(
                 usuarioMapper.paraResposta(donoColecao),
                 configuracao.getVisibilidadeColecao(),
+                configuracao.isExibirValorColecao(),
                 itens);
     }
 

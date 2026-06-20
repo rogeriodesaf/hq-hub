@@ -84,13 +84,13 @@ public class SerieService {
                 .toList();
     }
 
-    public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(String busca, int pagina, int tamanho) {
+    public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(String busca, String inicial, int pagina, int tamanho) {
         int paginaTratada = Math.max(pagina, 0);
         int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
-        long totalItens = serieRepository.contarComBusca(busca);
+        long totalItens = serieRepository.contarComBusca(busca, inicial);
         int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
 
-        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(busca, paginaTratada, tamanhoTratado)
+        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(busca, inicial, paginaTratada, tamanhoTratado)
                 .stream()
                 .map(serieMapper::paraResposta)
                 .toList();

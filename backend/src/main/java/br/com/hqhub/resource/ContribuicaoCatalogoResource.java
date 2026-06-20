@@ -7,12 +7,14 @@ import br.com.hqhub.dto.ContribuicaoCatalogoRespostaDTO;
 import br.com.hqhub.dto.RevisaoContribuicaoCatalogoDTO;
 import br.com.hqhub.service.ContribuicaoCatalogoService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -45,18 +47,41 @@ public class ContribuicaoCatalogoResource {
 
     @GET
     @Path("/pendentes")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response listarPendentes() {
         return Response.ok(contribuicaoCatalogoService.listarPendentes()).build();
     }
 
+    @GET
+    @Path("/pendentes/total")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    public Response contarPendentes() {
+        return Response.ok(java.util.Map.of("total", contribuicaoCatalogoService.contarPendentes())).build();
+    }
+
+    @GET
+    @Path("/alteracoes-estante-amigos/total")
+    public Response contarAlteracoesEstanteAmigos(@QueryParam("desde") Long desde) {
+        return Response.ok(java.util.Map.of("total", contribuicaoCatalogoService.contarAlteracoesEstanteAmigos(desde)))
+                .build();
+    }
+
+    @GET
+    @Path("/alteracoes-estante-amigos")
+    public Response listarAlteracoesEstanteAmigos(@QueryParam("desde") Long desde) {
+        return Response.ok(contribuicaoCatalogoService.listarAlteracoesEstanteAmigos(desde)).build();
+    }
+
     @POST
     @Path("/{id}/aprovar")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response aprovar(@PathParam("id") Long id, @Valid RevisaoContribuicaoCatalogoDTO dto) {
         return Response.ok(contribuicaoCatalogoService.aprovar(id, dto)).build();
     }
 
     @POST
     @Path("/{id}/recusar")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response recusar(@PathParam("id") Long id, @Valid RevisaoContribuicaoCatalogoDTO dto) {
         return Response.ok(contribuicaoCatalogoService.recusar(id, dto)).build();
     }

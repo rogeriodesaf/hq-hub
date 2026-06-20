@@ -37,6 +37,15 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
           {{ buscandoEdicoes() ? 'Buscando...' : 'Buscar edicao' }}
         </button>
 
+        <div class="acoes-linha campo-largo acoes-busca-externa">
+          <button class="botao compacto" type="button" (click)="abrirBuscaPanini()" [disabled]="!buscaEdicao.trim()">
+            Panini
+          </button>
+          <button class="botao compacto" type="button" (click)="abrirBuscaAmazon()" [disabled]="!buscaEdicao.trim()">
+            Amazon
+          </button>
+        </div>
+
         @if (edicoesEncontradas().length) {
           <div class="lista-escolha campo-largo">
             @for (edicao of edicoesEncontradas(); track edicao.id) {
@@ -176,12 +185,12 @@ export class ComprasPage implements OnInit {
 
     this.buscandoEdicoes.set(true);
     this.mensagem.set('');
-    this.api.listarEdicoes(this.buscaEdicao, 0, 8).subscribe({
+    this.api.listarEdicoes(this.buscaEdicao, 0, 12).subscribe({
       next: (resposta) => {
         this.edicoesEncontradas.set(resposta.itens);
         this.buscandoEdicoes.set(false);
         if (!resposta.itens.length) {
-          this.mensagem.set('Nenhuma edicao encontrada no catalogo interno.');
+          this.mensagem.set('Nao achei essa edicao no catalogo interno. Tente Panini ou Amazon abaixo.');
         }
       },
       error: () => {
@@ -243,6 +252,16 @@ export class ComprasPage implements OnInit {
 
   formatarMoeda(valor: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+  }
+
+  abrirBuscaPanini() {
+    const termo = encodeURIComponent(this.buscaEdicao.trim());
+    window.open(`https://venda.panini.com.br/catalogsearch/result/?q=${termo}`, '_blank', 'noreferrer');
+  }
+
+  abrirBuscaAmazon() {
+    const termo = encodeURIComponent(this.buscaEdicao.trim());
+    window.open(`https://www.amazon.com.br/s?k=${termo}`, '_blank', 'noreferrer');
   }
 
   tituloEdicao(edicao: Edicao) {

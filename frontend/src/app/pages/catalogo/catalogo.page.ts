@@ -5,6 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
+import { AutenticacaoService } from '../../core/autenticacao.service';
 import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPesquisaCatalogo, Serie } from '../../core/modelos';
 
 @Component({
@@ -45,6 +46,22 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
           <span>{{ series().totalItens }} itens</span>
         </div>
 
+        <div class="controles-series">
+          <input
+            [(ngModel)]="buscaSeries"
+            placeholder="Filtrar séries internas"
+            (ngModelChange)="agendarBuscaSeries()"
+          />
+          <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
+            <button type="button" [class.ativo]="inicialSeries() === ''" (click)="alterarInicialSeries('')">Todas</button>
+            @for (letra of letrasIndice; track letra) {
+              <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)">
+                {{ letra }}
+              </button>
+            }
+          </div>
+        </div>
+
         <div class="lista-linhas">
           @for (serie of series().itens; track serie.id) {
             <button type="button" [class.ativo]="serieSelecionada()?.id === serie.id" (click)="selecionarSerie(serie)">
@@ -58,6 +75,23 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
             </section>
           }
         </div>
+
+        @if (series().totalPaginas > 1) {
+          <div class="paginacao catalogo-paginacao">
+            <button class="botao secundario compacto" type="button" (click)="paginaAnteriorSeries()" [disabled]="series().pagina === 0">
+              Anterior
+            </button>
+            <span>Página {{ series().pagina + 1 }} de {{ series().totalPaginas }}</span>
+            <button
+              class="botao secundario compacto"
+              type="button"
+              (click)="proximaPaginaSeries()"
+              [disabled]="series().pagina + 1 >= series().totalPaginas"
+            >
+              Próxima
+            </button>
+          </div>
+        }
       </article>
 
       <article class="bloco">
@@ -155,8 +189,77 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
                 class="descricao-formatada"
                 [innerHTML]="formatarDescricao(edicaoDetalhe()?.descricaoExibicao || edicaoDetalhe()?.descricao || 'Sem descrição cadastrada.')"
               ></div>
+              @if (podeEditarCatalogo()) {
+                <div class="acoes-detalhe-edicao">
+                  @if (!editandoDetalhe()) {
+                    <button class="botao compacto" type="button" (click)="iniciarEdicaoDetalhe()">
+                      Editar dados
+                    </button>
+                  } @else {
+                    <button class="botao compacto" type="button" (click)="cancelarEdicaoDetalhe()" [disabled]="salvandoDetalhe()">
+                      Cancelar
+                    </button>
+                  }
+                </div>
+              }
             </div>
           </div>
+
+          @if (editandoDetalhe()) {
+            <section class="painel-formulario editor-edicao-detalhe">
+              <h2>Dados editoriais da edicao</h2>
+              <div class="grade-formulario">
+                <label>
+                  Numero
+                  <input [(ngModel)]="formularioEdicao.numero" name="numeroEdicaoCatalogo" required />
+                </label>
+                <label>
+                  Titulo
+                  <input [(ngModel)]="formularioEdicao.titulo" name="tituloEdicaoCatalogo" />
+                </label>
+                <label>
+                  Publicacao
+                  <input [(ngModel)]="formularioEdicao.dataPublicacao" name="dataPublicacaoEdicaoCatalogo" type="date" />
+                </label>
+                <label>
+                  Paginas
+                  <input [(ngModel)]="formularioEdicao.quantidadePaginas" name="paginasEdicaoCatalogo" type="number" min="1" />
+                </label>
+                <label>
+                  Preco de capa
+                  <input [(ngModel)]="formularioEdicao.precoCapa" name="precoEdicaoCatalogo" type="number" min="0" step="0.01" />
+                </label>
+                <label>
+                  Formato
+                  <input [(ngModel)]="formularioEdicao.formato" name="formatoEdicaoCatalogo" />
+                </label>
+                <label>
+                  Codigo de barras
+                  <input [(ngModel)]="formularioEdicao.codigoBarras" name="codigoBarrasEdicaoCatalogo" />
+                </label>
+                <label class="campo-largo">
+                  URL da capa
+                  <input [(ngModel)]="formularioEdicao.urlCapa" name="urlCapaEdicaoCatalogo" />
+                </label>
+                <label class="campo-largo">
+                  Fonte
+                  <input [(ngModel)]="formularioEdicao.urlOrigem" name="urlOrigemEdicaoCatalogo" />
+                </label>
+                <label class="campo-largo campo-descricao-edicao">
+                  Descricao
+                  <textarea [(ngModel)]="formularioEdicao.descricao" name="descricaoEdicaoCatalogo" rows="7"></textarea>
+                </label>
+              </div>
+              <div class="acoes-formulario">
+                <button class="botao primario" type="button" (click)="salvarEdicaoDetalhe()" [disabled]="salvandoDetalhe()">
+                  {{ salvandoDetalhe() ? 'Salvando...' : 'Salvar dados' }}
+                </button>
+                <button class="botao secundario" type="button" (click)="cancelarEdicaoDetalhe()" [disabled]="salvandoDetalhe()">
+                  Cancelar
+                </button>
+              </div>
+            </section>
+          }
 
           @if (carregandoDetalhe()) {
             <section class="estado-carregando">
@@ -264,9 +367,12 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
 })
 export class CatalogoPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly autenticacao = inject(AutenticacaoService);
   private readonly sanitizador = inject(DomSanitizer);
   readonly capaReserva = 'assets/capa-reserva.svg';
-  readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 100, totalItens: 0, totalPaginas: 0 });
+  readonly letrasIndice = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
+  readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
     itens: [],
     pagina: 0,
@@ -282,10 +388,17 @@ export class CatalogoPage implements OnInit {
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
   readonly carregandoResultados = signal(false);
   readonly carregandoDetalhe = signal(false);
+  readonly editandoDetalhe = signal(false);
+  readonly salvandoDetalhe = signal(false);
   readonly mensagem = signal('');
   readonly paginaResultados = signal(0);
+  readonly inicialSeries = signal('');
   readonly tamanhoResultados = 20;
+  readonly tamanhoSeries = 12;
   busca = '';
+  buscaSeries = '';
+  formularioEdicao = this.formularioEdicaoVazio();
+  private temporizadorBuscaSeries: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit() {
     this.carregarSeriesInternas();
@@ -302,6 +415,31 @@ export class CatalogoPage implements OnInit {
     this.busca = serie.titulo;
     this.paginaResultados.set(0);
     this.buscarResultados(0);
+  }
+
+  agendarBuscaSeries() {
+    if (this.temporizadorBuscaSeries) {
+      clearTimeout(this.temporizadorBuscaSeries);
+    }
+
+    this.temporizadorBuscaSeries = setTimeout(() => this.carregarSeriesInternas(0), 300);
+  }
+
+  alterarInicialSeries(inicial: string) {
+    this.inicialSeries.set(inicial);
+    this.carregarSeriesInternas(0);
+  }
+
+  paginaAnteriorSeries() {
+    if (this.series().pagina > 0) {
+      this.carregarSeriesInternas(this.series().pagina - 1);
+    }
+  }
+
+  proximaPaginaSeries() {
+    if (this.series().pagina + 1 < this.series().totalPaginas) {
+      this.carregarSeriesInternas(this.series().pagina + 1);
+    }
   }
 
   paginaAnterior() {
@@ -347,7 +485,9 @@ export class CatalogoPage implements OnInit {
         if (atual && atual.id !== edicao.id) {
           this.historicoDetalhes.update((historico) => [...historico, atual]);
         }
+        this.editandoDetalhe.set(false);
         this.edicaoDetalhe.set(edicao);
+        this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
         this.publicacoesComoOriginal.set(publicacoesOriginais);
@@ -362,6 +502,9 @@ export class CatalogoPage implements OnInit {
 
   fecharDetalhe() {
     this.edicaoDetalhe.set(null);
+    this.editandoDetalhe.set(false);
+    this.salvandoDetalhe.set(false);
+    this.formularioEdicao = this.formularioEdicaoVazio();
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
@@ -378,6 +521,71 @@ export class CatalogoPage implements OnInit {
     this.historicoDetalhes.set(historico.slice(0, -1));
     this.edicaoDetalhe.set(null);
     this.abrirDetalhePorId(anterior.id);
+  }
+
+  iniciarEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao || !this.podeEditarCatalogo()) {
+      return;
+    }
+
+    this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
+    this.editandoDetalhe.set(true);
+  }
+
+  cancelarEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    this.formularioEdicao = edicao ? this.formularioAPartirDaEdicao(edicao) : this.formularioEdicaoVazio();
+    this.editandoDetalhe.set(false);
+  }
+
+  salvarEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    const numero = this.formularioEdicao.numero.trim();
+    const serieId = edicao?.serie?.id;
+    if (!edicao || !serieId) {
+      this.mensagem.set('Nao foi possivel identificar a serie desta edicao.');
+      return;
+    }
+
+    if (!numero) {
+      this.mensagem.set('Informe o nÃºmero da ediÃ§Ã£o antes de salvar.');
+      return;
+    }
+
+    this.salvandoDetalhe.set(true);
+    this.mensagem.set('');
+    this.api.atualizarEdicao(edicao.id, {
+      numero,
+      titulo: this.valorTextoOuNull(this.formularioEdicao.titulo),
+      descricao: this.valorTextoOuNull(this.formularioEdicao.descricao),
+      dataPublicacao: this.valorTextoOuNull(this.formularioEdicao.dataPublicacao),
+      urlCapa: this.valorTextoOuNull(this.formularioEdicao.urlCapa),
+      codigoBarras: this.valorTextoOuNull(this.formularioEdicao.codigoBarras),
+      quantidadePaginas: this.numeroOuNull(this.formularioEdicao.quantidadePaginas),
+      precoCapa: this.numeroOuNull(this.formularioEdicao.precoCapa),
+      formato: this.valorTextoOuNull(this.formularioEdicao.formato),
+      fonteExterna: edicao.fonteExterna,
+      idExterno: edicao.idExterno,
+      urlOrigem: this.valorTextoOuNull(this.formularioEdicao.urlOrigem),
+      serieId,
+    }).subscribe({
+      next: (atualizada) => {
+        this.edicaoDetalhe.set(atualizada);
+        this.formularioEdicao = this.formularioAPartirDaEdicao(atualizada);
+        this.resultadosCatalogo.update((pagina) => ({
+          ...pagina,
+          itens: pagina.itens.map((resultado) => resultado.id === atualizada.id ? this.paraResultadoInterno(atualizada) : resultado),
+        }));
+        this.editandoDetalhe.set(false);
+        this.salvandoDetalhe.set(false);
+        this.mensagem.set('Dados da edicao atualizados.');
+      },
+      error: () => {
+        this.salvandoDetalhe.set(false);
+        this.mensagem.set('Nao foi possivel salvar os dados desta edicao.');
+      },
+    });
   }
 
   tituloEdicao(edicao: Edicao) {
@@ -448,8 +656,8 @@ export class CatalogoPage implements OnInit {
     return 'Fonte';
   }
 
-  private carregarSeriesInternas() {
-    this.api.listarSeries('', 0, 100).subscribe({
+  private carregarSeriesInternas(pagina = this.series().pagina) {
+    this.api.listarSeries(this.buscaSeries, pagina, this.tamanhoSeries, this.inicialSeries()).subscribe({
       next: (resposta) => this.series.set(resposta),
       error: () => this.mensagem.set('Não foi possível carregar as séries internas agora.'),
     });
@@ -513,6 +721,50 @@ export class CatalogoPage implements OnInit {
 
   private escaparAtributo(valor: string) {
     return encodeURI(valor).replace(/"/g, '&quot;');
+  }
+
+  private formularioEdicaoVazio() {
+    return {
+      numero: '',
+      titulo: '',
+      descricao: '',
+      dataPublicacao: '',
+      urlCapa: '',
+      codigoBarras: '',
+      quantidadePaginas: null as number | null,
+      precoCapa: null as number | null,
+      formato: '',
+      urlOrigem: '',
+    };
+  }
+
+  private formularioAPartirDaEdicao(edicao: Edicao) {
+    return {
+      numero: edicao.numero || '',
+      titulo: edicao.titulo || '',
+      descricao: edicao.descricao || edicao.descricaoExibicao || '',
+      dataPublicacao: edicao.dataPublicacao || '',
+      urlCapa: edicao.urlCapa || '',
+      codigoBarras: edicao.codigoBarras || '',
+      quantidadePaginas: edicao.quantidadePaginas,
+      precoCapa: edicao.precoCapa,
+      formato: edicao.formato || '',
+      urlOrigem: edicao.urlOrigem || edicao.urlComicVine || '',
+    };
+  }
+
+  private valorTextoOuNull(valor: string | null) {
+    const texto = valor?.trim();
+    return texto ? texto : null;
+  }
+
+  private numeroOuNull(valor: number | string | null) {
+    if (valor === null || valor === '') {
+      return null;
+    }
+
+    const numero = Number(valor);
+    return Number.isFinite(numero) ? numero : null;
   }
 
   private paraResultadoInterno(edicao: Edicao): ResultadoPesquisaCatalogo {

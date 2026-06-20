@@ -3,7 +3,7 @@ package br.com.hqhub.resource;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.ImportacaoCatalogoService;
-import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/importacoes/catalogo")
-@Authenticated
+@RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ImportacaoCatalogoResource {

@@ -12,6 +12,7 @@ import br.com.hqhub.entity.PapelCriador;
 import br.com.hqhub.service.CreditoEdicaoService;
 import br.com.hqhub.service.CriadorService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -40,6 +41,7 @@ public class CriadorResource {
     }
 
     @POST
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrar(@Valid CadastroCriadorDTO dto) {
         CriadorRespostaDTO criador = criadorService.cadastrar(dto);
         return Response.created(URI.create("/criadores/" + criador.id()))
@@ -61,12 +63,14 @@ public class CriadorResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoCriadorDTO dto) {
         return Response.ok(criadorService.atualizar(id, dto)).build();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response remover(@PathParam("id") Long id) {
         criadorService.remover(id);
         return Response.noContent().build();
@@ -74,6 +78,7 @@ public class CriadorResource {
 
     @POST
     @Path("/creditos")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrarCredito(@Valid CadastroCreditoEdicaoDTO dto) {
         CreditoEdicaoRespostaDTO credito = creditoEdicaoService.cadastrar(dto);
         return Response.created(URI.create("/criadores/creditos/" + credito.id()))
@@ -90,6 +95,7 @@ public class CriadorResource {
 
     @DELETE
     @Path("/creditos/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response removerCredito(@PathParam("id") Long id) {
         creditoEdicaoService.remover(id);
         return Response.noContent().build();

@@ -8,29 +8,56 @@
 
       <nav class="navegacao-principal" aria-label="Principal">
         <a routerLink="/painel" routerLinkActive="ativo">
-          <svg lucideSparkles size="20"></svg>
-          Painel
+          <span class="nav-icone">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20">
+              <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+            </svg>
+            @if (totalNotificacoes() > 0) {
+              <span class="ponto-novidade" aria-hidden="true"></span>
+            }
+          </span>
+          Feed
+          @if (totalNotificacoes() > 0) {
+            <span class="badge-feed" aria-label="Atualizações pendentes">{{ totalNotificacoes() }}</span>
+          }
         </a>
         <a routerLink="/descobrir" routerLinkActive="ativo">
           <svg lucideSearch size="20"></svg>
           Descobrir
         </a>
+        <a routerLink="/mensagens" routerLinkActive="ativo">
+          <span class="nav-icone">
+            <svg lucideMessageCircle size="20"></svg>
+            @if (mensagensNaoLidas() > 0) {
+              <span class="ponto-novidade" aria-hidden="true"></span>
+            }
+          </span>
+          Direct
+          @if (mensagensNaoLidas() > 0) {
+            <span class="badge-feed" aria-label="Mensagens nao lidas">{{ mensagensNaoLidas() }}</span>
+          }
+        </a>
         <a routerLink="/catalogo" routerLinkActive="ativo">
           <svg lucideBookOpen size="20"></svg>
           Catálogo
         </a>
-        <a routerLink="/conteudos" routerLinkActive="ativo">
-          <svg lucideGitCompare size="20"></svg>
-          Conteúdos
-        </a>
-        <a routerLink="/importacao" routerLinkActive="ativo">
-          <svg lucideUpload size="20"></svg>
-          Importação
-        </a>
-        <a routerLink="/revisao" routerLinkActive="ativo">
-          <svg lucideClipboardCheck size="20"></svg>
-          Revisão
-        </a>
+        @if (podeRevisarCatalogo()) {
+          <a routerLink="/conteudos" routerLinkActive="ativo">
+            <svg lucideGitCompare size="20"></svg>
+            Conteúdos
+          </a>
+          <a routerLink="/importacao" routerLinkActive="ativo">
+            <svg lucideUpload size="20"></svg>
+            Importação
+          </a>
+          <a routerLink="/revisao" routerLinkActive="ativo">
+            <svg lucideClipboardCheck size="20"></svg>
+            Revisão
+            @if (pendenciasCatalogo() > 0) {
+              <span class="badge-pendencias">{{ pendenciasCatalogo() }}</span>
+            }
+          </a>
+        }
         <a routerLink="/colecao" routerLinkActive="ativo">
           <svg lucideLibrary size="20"></svg>
           Estante
@@ -44,8 +71,16 @@
           Anuncios
         </a>
         <a routerLink="/amigos" routerLinkActive="ativo">
-          <svg lucideUsers size="20"></svg>
+          <span class="nav-icone">
+            <svg lucideUsers size="20"></svg>
+            @if (solicitacoesAmizadePendentes() > 0) {
+              <span class="ponto-novidade" aria-hidden="true"></span>
+            }
+          </span>
           Amigos
+          @if (solicitacoesAmizadePendentes() > 0) {
+            <span class="badge-feed" aria-label="Solicitações de amizade pendentes">{{ solicitacoesAmizadePendentes() }}</span>
+          }
         </a>
         <a routerLink="/assistente" routerLinkActive="ativo">
           <svg lucideBot size="20"></svg>
@@ -54,11 +89,19 @@
       </nav>
 
       <footer class="usuario-box">
-        <span>{{ usuario()?.nome?.slice(0, 1) || 'H' }}</span>
-        <div>
-          <strong>{{ usuario()?.nome }}</strong>
-          <small>{{ usuario()?.email }}</small>
-        </div>
+        <a routerLink="/perfil" class="usuario-box-link">
+          <span class="avatar-shell">
+            @if (usuario()?.fotoPerfilThumbnailUrl) {
+              <img [src]="usuario()?.fotoPerfilThumbnailUrl || ''" alt="" />
+            } @else {
+              {{ usuario()?.nome?.slice(0, 1) || 'H' }}
+            }
+          </span>
+          <div>
+            <strong>{{ usuario()?.nome }}</strong>
+            <small>{{ usuario()?.email }}</small>
+          </div>
+        </a>
         <button type="button" (click)="sair()" aria-label="Sair">
           <svg lucideLogOut size="18"></svg>
         </button>
@@ -66,13 +109,136 @@
     </aside>
 
     <main class="conteudo-app">
+      <div class="atalhos-superiores">
+        <button
+          type="button"
+          class="atalho-superior"
+          aria-label="Ver atualizações"
+          [attr.aria-expanded]="notificacoesAbertas()"
+          (click)="abrirNotificacoes()"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18">
+            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+          </svg>
+          @if (totalNotificacoes() > 0) {
+            <span class="badge-feed">{{ totalNotificacoes() }}</span>
+          }
+        </button>
+        <a routerLink="/mensagens" class="atalho-superior" aria-label="Abrir directs">
+          <svg lucideMessageCircle size="18"></svg>
+          @if (mensagensNaoLidas() > 0) {
+            <span class="badge-feed">{{ mensagensNaoLidas() }}</span>
+          }
+        </a>
+      </div>
+
+      @if (notificacoesAbertas()) {
+        <div class="painel-notificacoes-backdrop" (click)="fecharNotificacoes()"></div>
+        <aside class="painel-notificacoes" role="dialog" aria-label="Atualizações recentes" (click)="$event.stopPropagation()">
+          <header class="painel-notificacoes-topo">
+            <div>
+              <p class="rotulo">Atualizações</p>
+              <h2>O que mudou agora</h2>
+            </div>
+            <button type="button" class="botao compacto" (click)="fecharNotificacoes()">Fechar</button>
+          </header>
+
+          @if (carregandoNotificacoes()) {
+            <p class="texto-suave">Carregando atualizações...</p>
+          } @else {
+            <section class="lista-notificacoes">
+              <div class="grupo-notificacoes">
+                <p class="rotulo">Solicitações de amizade</p>
+                @if (solicitacoesRecebidas().length) {
+                  @for (solicitacao of solicitacoesRecebidas(); track solicitacao.id) {
+                    <article class="notificacao-item">
+                      <span class="notificacao-icone">A</span>
+                      <div>
+                        <strong>{{ solicitacao.solicitante.nome }}</strong>
+                        <p>Quer se conectar com você.</p>
+                      </div>
+                      <a
+                        [routerLink]="['/amigos']"
+                        [queryParams]="{ aba: 'recebidas' }"
+                        class="botao compacto"
+                        (click)="fecharNotificacoes()"
+                      >
+                        Ver
+                      </a>
+                    </article>
+                  }
+                } @else {
+                  <p class="texto-suave">Sem solicitações no momento.</p>
+                }
+              </div>
+
+              <div class="grupo-notificacoes">
+                <p class="rotulo">Mensagens diretas</p>
+                @if (conversasComNaoLidas().length) {
+                  @for (conversa of conversasComNaoLidas(); track conversa.usuario.id) {
+                    <article class="notificacao-item">
+                      <span class="notificacao-icone">M</span>
+                      <div>
+                        <strong>{{ conversa.usuario.nome }}</strong>
+                        <p>{{ conversa.ultimaMensagem.texto }}</p>
+                      </div>
+                      <a
+                        [routerLink]="['/mensagens']"
+                        [queryParams]="{ usuarioId: conversa.usuario.id }"
+                        class="botao compacto"
+                        (click)="fecharNotificacoes()"
+                      >
+                        Abrir
+                      </a>
+                    </article>
+                  }
+                } @else {
+                  <p class="texto-suave">Nenhuma mensagem nova.</p>
+                }
+              </div>
+
+              <div class="grupo-notificacoes">
+                <p class="rotulo">Estante de amigos</p>
+                @if (alteracoesEstanteRecentes().length) {
+                  @for (alteracao of alteracoesEstanteRecentes(); track alteracao.id) {
+                    <article class="notificacao-item">
+                      <span class="notificacao-icone">H</span>
+                      <div>
+                        <strong>{{ alteracao.usuario.nome }}</strong>
+                        <p>
+                          Atualizou {{ alteracao.edicao.serie?.titulo || 'uma edição' }} -
+                          {{ alteracao.edicao.titulo || alteracao.edicao.numero }}
+                        </p>
+                      </div>
+                      <a routerLink="/catalogo" class="botao compacto" (click)="fecharNotificacoes()">Ver catálogo</a>
+                    </article>
+                  }
+                } @else {
+                  <p class="texto-suave">Nenhuma alteração recente na estante dos amigos.</p>
+                }
+              </div>
+            </section>
+          }
+        </aside>
+      }
+
       <router-outlet />
     </main>
 
     <nav class="navegacao-mobile" aria-label="Principal">
       <a routerLink="/painel" routerLinkActive="ativo">
-        <svg lucideSparkles size="20"></svg>
-        <span>Painel</span>
+        <span class="nav-icone">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20">
+            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+          </svg>
+          @if (totalNotificacoes() > 0) {
+            <span class="ponto-novidade" aria-hidden="true"></span>
+          }
+        </span>
+        <span>Feed</span>
+        @if (totalNotificacoes() > 0) {
+          <small class="badge-feed">{{ totalNotificacoes() }}</small>
+        }
       </a>
       <a routerLink="/descobrir" routerLinkActive="ativo">
         <svg lucideSearch size="20"></svg>
@@ -82,18 +248,23 @@
         <svg lucideLibrary size="20"></svg>
         <span>Estante</span>
       </a>
-      <a routerLink="/conteudos" routerLinkActive="ativo">
-        <svg lucideGitCompare size="20"></svg>
-        <span>Conteúdo</span>
-      </a>
-      <a routerLink="/importacao" routerLinkActive="ativo">
-        <svg lucideUpload size="20"></svg>
-        <span>Importar</span>
-      </a>
-      <a routerLink="/revisao" routerLinkActive="ativo">
-        <svg lucideClipboardCheck size="20"></svg>
-        <span>Revisão</span>
-      </a>
+      @if (podeRevisarCatalogo()) {
+        <a routerLink="/conteudos" routerLinkActive="ativo">
+          <svg lucideGitCompare size="20"></svg>
+          <span>Conteúdo</span>
+        </a>
+        <a routerLink="/importacao" routerLinkActive="ativo">
+          <svg lucideUpload size="20"></svg>
+          <span>Importar</span>
+        </a>
+        <a routerLink="/revisao" routerLinkActive="ativo">
+          <svg lucideClipboardCheck size="20"></svg>
+          <span>Revisão</span>
+          @if (pendenciasCatalogo() > 0) {
+            <small class="badge-pendencias">{{ pendenciasCatalogo() }}</small>
+          }
+        </a>
+      }
       <a routerLink="/compras" routerLinkActive="ativo">
         <svg lucideCalendarDays size="20"></svg>
         <span>Compras</span>
@@ -103,8 +274,28 @@
         <span>Anuncios</span>
       </a>
       <a routerLink="/amigos" routerLinkActive="ativo">
-        <svg lucideUsers size="20"></svg>
+        <span class="nav-icone">
+          <svg lucideUsers size="20"></svg>
+          @if (solicitacoesAmizadePendentes() > 0) {
+            <span class="ponto-novidade" aria-hidden="true"></span>
+          }
+        </span>
         <span>Amigos</span>
+        @if (solicitacoesAmizadePendentes() > 0) {
+          <small class="badge-feed">{{ solicitacoesAmizadePendentes() }}</small>
+        }
+      </a>
+      <a routerLink="/mensagens" routerLinkActive="ativo">
+        <span class="nav-icone">
+          <svg lucideMessageCircle size="20"></svg>
+          @if (mensagensNaoLidas() > 0) {
+            <span class="ponto-novidade" aria-hidden="true"></span>
+          }
+        </span>
+        <span>Direct</span>
+        @if (mensagensNaoLidas() > 0) {
+          <small class="badge-feed">{{ mensagensNaoLidas() }}</small>
+        }
       </a>
       <a routerLink="/assistente" routerLinkActive="ativo">
         <svg lucideBot size="20"></svg>

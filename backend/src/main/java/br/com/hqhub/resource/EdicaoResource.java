@@ -11,6 +11,7 @@ import br.com.hqhub.service.AnuncioService;
 import br.com.hqhub.service.DeduplicacaoEdicaoService;
 import br.com.hqhub.service.EdicaoService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -81,18 +82,21 @@ public class EdicaoResource {
 
     @GET
     @Path("/duplicidades")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response listarDuplicidades() {
         return Response.ok(deduplicacaoEdicaoService.listarDuplicidades()).build();
     }
 
     @POST
     @Path("/deduplicar")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response deduplicar() {
         return Response.ok(deduplicacaoEdicaoService.deduplicar()).build();
     }
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoEdicaoDTO dto) {
         EdicaoRespostaDTO edicao = edicaoService.atualizar(id, dto);
         return Response.ok(edicao).build();
@@ -100,6 +104,7 @@ public class EdicaoResource {
 
     @PATCH
     @Path("/{id}/capa")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizarCapa(@PathParam("id") Long id, @Valid AtualizacaoCapaEdicaoDTO dto) {
         EdicaoRespostaDTO edicao = edicaoService.atualizarCapa(id, dto);
         return Response.ok(edicao).build();
@@ -107,6 +112,7 @@ public class EdicaoResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response remover(@PathParam("id") Long id) {
         edicaoService.remover(id);
         return Response.noContent().build();

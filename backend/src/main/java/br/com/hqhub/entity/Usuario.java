@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,6 +34,19 @@ public class Usuario {
 
     @Column(nullable = false)
     private String senha;
+
+    @Column(length = 500)
+    private String bio;
+
+    @Column(name = "foto_perfil_url", length = 1000)
+    private String fotoPerfilUrl;
+
+    @Column(name = "foto_perfil_thumbnail_url", length = 1000)
+    private String fotoPerfilThumbnailUrl;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PerfilUsuario perfil = PerfilUsuario.USUARIO;
 
     @Column(name = "data_criacao", nullable = false)
     @CreationTimestamp

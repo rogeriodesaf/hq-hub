@@ -60,9 +60,7 @@ public class DeduplicacaoEdicaoService {
                     .toList();
 
             for (Edicao descartada : descartadas) {
-                copiarCamposFaltantes(mantida, descartada);
-                referenciasAtualizadas += moverReferencias(descartada.getId(), mantida.getId());
-                entityManager.remove(entityManager.contains(descartada) ? descartada : entityManager.merge(descartada));
+                referenciasAtualizadas += mesclarEdicao(mantida, descartada);
                 edicoesRemovidas++;
             }
 
@@ -77,6 +75,24 @@ public class DeduplicacaoEdicaoService {
                 edicoesRemovidas,
                 referenciasAtualizadas,
                 gruposMesclados);
+    }
+
+    @Transactional
+    public int mesclarEdicoes(Long descartadaId, Long mantidaId) {
+        if (Objects.equals(descartadaId, mantidaId)) {
+            return 0;
+        }
+
+        Edicao descartada = edicaoRepository.findByIdOptional(descartadaId).orElseThrow();
+        Edicao mantida = edicaoRepository.findByIdOptional(mantidaId).orElseThrow();
+        return mesclarEdicao(mantida, descartada);
+    }
+
+    private int mesclarEdicao(Edicao mantida, Edicao descartada) {
+        copiarCamposFaltantes(mantida, descartada);
+        int referenciasAtualizadas = moverReferencias(descartada.getId(), mantida.getId());
+        entityManager.remove(entityManager.contains(descartada) ? descartada : entityManager.merge(descartada));
+        return referenciasAtualizadas;
     }
 
     private List<List<Edicao>> montarGruposDuplicados() {

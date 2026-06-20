@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
-import { UsuarioAutenticado } from './modelos';
+import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
 
@@ -13,6 +13,10 @@ export class AutenticacaoService {
 
   readonly usuario = this.usuarioAtual.asReadonly();
   readonly autenticado = computed(() => this.sessaoValida());
+  readonly podeRevisarCatalogo = computed(() => {
+    const perfil = this.usuarioAtual()?.perfil;
+    return perfil === 'COLABORADOR' || perfil === 'ADMINISTRADOR';
+  });
 
   entrar(email: string, senha: string) {
     return this.http.post<UsuarioAutenticado>('/api/auth/login', { email, senha }).pipe(
@@ -25,6 +29,25 @@ export class AutenticacaoService {
 
   cadastrar(nome: string, email: string, senha: string) {
     return this.http.post('/api/usuarios', { nome, email, senha });
+  }
+
+  atualizarPerfilLocal(usuario: Usuario) {
+    const atual = this.usuarioAtual();
+    if (!atual) {
+      return;
+    }
+
+    const atualizado: UsuarioAutenticado = {
+      ...atual,
+      nome: usuario.nome,
+      email: usuario.email,
+      perfil: usuario.perfil,
+      bio: usuario.bio,
+      fotoPerfilUrl: usuario.fotoPerfilUrl,
+      fotoPerfilThumbnailUrl: usuario.fotoPerfilThumbnailUrl,
+    };
+    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(atualizado));
+    this.usuarioAtual.set(atualizado);
   }
 
   sair() {

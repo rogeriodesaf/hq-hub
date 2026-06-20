@@ -13,6 +13,7 @@ public class ConfiguracaoColecaoMapper {
         ConfiguracaoColecao configuracao = new ConfiguracaoColecao();
         configuracao.setUsuario(usuario);
         configuracao.setVisibilidadeColecao(VisibilidadeColecao.PRIVADA);
+        configuracao.setExibirValorColecao(true);
         return configuracao;
     }
 
@@ -20,6 +21,7 @@ public class ConfiguracaoColecaoMapper {
         return new ConfiguracaoColecaoRespostaDTO(
                 configuracao.getId(),
                 configuracao.getVisibilidadeColecao(),
+                configuracao.isExibirValorColecao(),
                 configuracao.getDataCriacao(),
                 configuracao.getDataAtualizacao());
     }

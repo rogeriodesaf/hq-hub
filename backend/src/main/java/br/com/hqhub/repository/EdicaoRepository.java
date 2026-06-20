@@ -2,7 +2,8 @@ package br.com.hqhub.repository;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -12,13 +13,25 @@ import br.com.hqhub.entity.Edicao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
 public class EdicaoRepository implements PanacheRepository<Edicao> {
 
-    private static final Set<String> PALAVRAS_IGNORADAS = Set.of(
-            "a", "as", "o", "os", "de", "da", "das", "do", "dos", "e",
-            "colecao", "coleção", "edicao", "edição", "revista", "hq", "numero", "n");
+    private static final Set<String> STOPWORDS = Set.of(
+            "a", "o", "os", "as",
+            "de", "da", "do", "das", "dos",
+            "e", "em", "na", "no", "nas", "nos",
+            "para", "por", "com", "sem", "ao", "aos");
+
+    private static final String ACENTOS = "áàâãäéèêëíìîïóòôõöúùûüçÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ";
+    private static final String SEM_ACENTOS = "aaaaaeeeeiiiiooooouuuucAAAAAEEEEIIIIOOOOOUUUUC";
+
+    private final EntityManager entityManager;
+
+    public EdicaoRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public boolean existePorNumeroESerie(String numero, Long serieId) {
         return find("lower(numero) = ?1 and serie.id = ?2", numero.toLowerCase(), serieId)
@@ -62,127 +75,139 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
     }
 
     public List<Edicao> buscarPaginado(Long serieId, String busca, int pagina, int tamanho) {
-        List<String> termos = extrairTermosBusca(busca);
-        if (serieId != null && !termos.isEmpty()) {
-            List<Object> parametros = criarParametrosBusca(serieId, termos);
-            return find(criarConsultaBusca(true, termos, "order by numero"), parametros.toArray())
-                    .page(Page.of(pagina, tamanho))
-                    .list();
+        if (busca == null || busca.isBlank()) {
+            if (serieId != null) {
+                return find("serie.id = ?1 order by numero", serieId).page(Page.of(pagina, tamanho)).list();
+            }
+            return find("order by serie.titulo, numero").page(Page.of(pagina, tamanho)).list();
         }
 
-        if (serieId != null) {
-            return find("serie.id = ?1 order by numero", serieId)
-                    .page(Page.of(pagina, tamanho))
-                    .list();
-        }
-
-        if (!termos.isEmpty()) {
-            return find(criarConsultaBusca(false, termos, "order by serie.titulo, numero"), criarParametrosBusca(null, termos).toArray())
-                    .page(Page.of(pagina, tamanho))
-                    .list();
-        }
-
-        return find("order by numero").page(Page.of(pagina, tamanho)).list();
+        ConsultaBusca consulta = montarConsultaBusca(busca);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false), Edicao.class);
+        aplicarParametrosBusca(query, serieId, consulta);
+        query.setFirstResult(pagina * tamanho);
+        query.setMaxResults(tamanho);
+        return query.getResultList();
     }
 
     public List<Edicao> buscarTodosComBusca(Long serieId, String busca) {
-        List<String> termos = extrairTermosBusca(busca);
-        if (serieId != null && !termos.isEmpty()) {
-            return find(criarConsultaBusca(true, termos, ""), criarParametrosBusca(serieId, termos).toArray())
-                    .list();
+        if (busca == null || busca.isBlank()) {
+            return serieId == null ? listAll() : find("serie.id", serieId).list();
         }
 
-        if (serieId != null) {
-            return find("serie.id", serieId).list();
-        }
-
-        if (!termos.isEmpty()) {
-            return find(criarConsultaBusca(false, termos, ""), criarParametrosBusca(null, termos).toArray())
-                    .list();
-        }
-
-        return listAll();
+        ConsultaBusca consulta = montarConsultaBusca(busca);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false), Edicao.class);
+        aplicarParametrosBusca(query, serieId, consulta);
+        return query.getResultList();
     }
 
     public long contarComBusca(Long serieId, String busca) {
-        List<String> termos = extrairTermosBusca(busca);
-        if (serieId != null && !termos.isEmpty()) {
-            return count(criarConsultaBusca(true, termos, ""), criarParametrosBusca(serieId, termos).toArray());
-        }
-
-        if (serieId != null) {
-            return count("serie.id", serieId);
-        }
-
-        if (!termos.isEmpty()) {
-            return count(criarConsultaBusca(false, termos, ""), criarParametrosBusca(null, termos).toArray());
-        }
-
-        return count();
-    }
-
-    private String criarConsultaBusca(boolean filtrarSerie, List<String> termos, String ordenacao) {
-        StringBuilder consulta = new StringBuilder();
-        int indiceParametro = 1;
-
-        if (filtrarSerie) {
-            consulta.append("serie.id = ?1");
-            indiceParametro = 2;
-        }
-
-        for (int i = 0; i < termos.size(); i++) {
-            if (consulta.length() > 0) {
-                consulta.append(" and ");
-            }
-
-            int parametro = indiceParametro + i;
-            consulta.append("(lower(numero) like ?").append(parametro)
-                    .append(" or lower(titulo) like ?").append(parametro)
-                    .append(" or lower(descricao) like ?").append(parametro)
-                    .append(" or lower(nomeVolume) like ?").append(parametro)
-                    .append(" or lower(serie.titulo) like ?").append(parametro)
-                    .append(" or lower(serie.descricao) like ?").append(parametro)
-                    .append(" or lower(serie.editora.nome) like ?").append(parametro)
-                    .append(")");
-        }
-
-        if (!ordenacao.isBlank()) {
-            consulta.append(" ").append(ordenacao);
-        }
-
-        return consulta.toString();
-    }
-
-    private List<Object> criarParametrosBusca(Long serieId, List<String> termos) {
-        List<Object> parametros = new ArrayList<>();
-        if (serieId != null) {
-            parametros.add(serieId);
-        }
-
-        termos.forEach(termo -> parametros.add("%" + termo + "%"));
-        return parametros;
-    }
-
-    private List<String> extrairTermosBusca(String busca) {
         if (busca == null || busca.isBlank()) {
-            return List.of();
+            return serieId == null ? count() : count("serie.id", serieId);
         }
 
-        String texto = Normalizer.normalize(busca.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .replaceAll("[^a-z0-9]+", " ");
-
-        List<String> termos = new ArrayList<>(Arrays.stream(texto.split("\\s+"))
-                .map(String::trim)
-                .filter(termo -> termo.length() >= 2)
-                .filter(termo -> !PALAVRAS_IGNORADAS.contains(termo))
-                .distinct()
-                .toList());
-
-        if (termos.isEmpty() && !texto.isBlank()) {
-            termos.add(texto.trim());
-        }
-
-        return termos;
+        ConsultaBusca consulta = montarConsultaBusca(busca);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), true));
+        aplicarParametrosBusca(query, serieId, consulta);
+        Number total = (Number) query.getSingleResult();
+        return total.longValue();
     }
+
+    private String sqlBusca(Long serieId, List<String> termos, boolean contar) {
+        String select = contar ? "select count(*)" : "select ed.*";
+        String ordem = contar ? "" : " order by lower(s.titulo), lower(ed.numero), ed.id";
+        String filtroSerie = serieId == null ? "" : " and s.id = :serieId";
+        String condicaoBusca = construirCondicaoBusca(termos);
+
+        return """
+                %s
+                  from edicoes ed
+                  join series s on s.id = ed.serie_id
+                  join editoras e on e.id = s.editora_id
+                 where 1 = 1
+                   %s
+                   and (%s)
+                %s
+                """.formatted(
+                select,
+                filtroSerie,
+                condicaoBusca,
+                ordem);
+    }
+
+    private String construirCondicaoBusca(List<String> termos) {
+        if (termos.isEmpty()) {
+            return "(" + expressaoNormalizada("ed.numero") + " like :termoFallback"
+                    + " or " + expressaoNormalizada("ed.titulo") + " like :termoFallback"
+                    + " or " + expressaoNormalizada("ed.descricao") + " like :termoFallback"
+                    + " or " + expressaoNormalizada("ed.nome_volume") + " like :termoFallback"
+                    + " or " + expressaoNormalizada("s.titulo") + " like :termoFallback"
+                    + " or " + expressaoNormalizada("e.nome") + " like :termoFallback" + ")";
+        }
+
+        List<String> grupos = new ArrayList<>();
+        for (int i = 0; i < termos.size(); i++) {
+            String parametro = ":termo" + i;
+            grupos.add("("
+                    + expressaoNormalizada("ed.numero") + " like " + parametro
+                    + " or " + expressaoNormalizada("ed.titulo") + " like " + parametro
+                    + " or " + expressaoNormalizada("ed.descricao") + " like " + parametro
+                    + " or " + expressaoNormalizada("ed.nome_volume") + " like " + parametro
+                    + " or " + expressaoNormalizada("s.titulo") + " like " + parametro
+                    + " or " + expressaoNormalizada("e.nome") + " like " + parametro
+                    + ")");
+        }
+        return String.join(" and ", grupos);
+    }
+
+    private String expressaoNormalizada(String coluna) {
+        return "regexp_replace(lower(translate(coalesce(" + coluna + ", ''), '" + ACENTOS + "', '" + SEM_ACENTOS + "')), '[^a-z0-9]+', '', 'g')";
+    }
+
+    private String normalizarCompacto(String valor) {
+        return Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("[^a-z0-9]+", "");
+    }
+
+    private void aplicarParametrosBusca(jakarta.persistence.Query query, Long serieId, ConsultaBusca consulta) {
+        if (serieId != null) {
+            query.setParameter("serieId", serieId);
+        }
+
+        if (consulta.termos().isEmpty()) {
+            query.setParameter("termoFallback", "%" + consulta.termoFallback() + "%");
+        }
+        for (int i = 0; i < consulta.termos().size(); i++) {
+            query.setParameter("termo" + i, "%" + consulta.termos().get(i) + "%");
+        }
+    }
+
+    private ConsultaBusca montarConsultaBusca(String busca) {
+        String termoFallback = normalizarCompacto(busca);
+        List<String> termos = tokenizarBusca(busca).stream()
+                .map(this::normalizarCompacto)
+                .filter(termo -> !termo.isBlank())
+                .toList();
+        if (termos.isEmpty()) {
+            termos = Collections.singletonList(termoFallback);
+        }
+        return new ConsultaBusca(termos, termoFallback);
+    }
+
+    private List<String> tokenizarBusca(String busca) {
+        String[] bruto = Normalizer.normalize(busca, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase(Locale.ROOT)
+                .split("[^a-z0-9]+");
+        List<String> termos = new ArrayList<>();
+        for (String termo : bruto) {
+            if (termo.length() >= 2 && !STOPWORDS.contains(termo)) {
+                termos.add(termo);
+            }
+        }
+        return new ArrayList<>(new LinkedHashSet<>(termos));
+    }
+
+    private record ConsultaBusca(List<String> termos, String termoFallback) {}
 }

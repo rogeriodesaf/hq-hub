@@ -7,5 +7,6 @@ import br.com.hqhub.entity.VisibilidadeColecao;
 public record ColecaoCompartilhadaRespostaDTO(
         UsuarioRespostaDTO usuario,
         VisibilidadeColecao visibilidadeColecao,
+        boolean exibirValorColecao,
         List<ItemColecaoRespostaDTO> itens) {
 }

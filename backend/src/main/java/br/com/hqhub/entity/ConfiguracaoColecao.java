@@ -37,6 +37,9 @@ public class ConfiguracaoColecao {
     @Enumerated(EnumType.STRING)
     private VisibilidadeColecao visibilidadeColecao;
 
+    @Column(name = "exibir_valor_colecao", nullable = false)
+    private boolean exibirValorColecao = true;
+
     @Column(name = "data_criacao", nullable = false)
     @CreationTimestamp
     private LocalDateTime dataCriacao;

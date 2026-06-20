@@ -122,12 +122,27 @@ public class AmizadeService {
                 .toList();
     }
 
+    public List<Long> listarIdsAmigos() {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        return amizadeRepository.listarAmigos(usuario.getId())
+                .stream()
+                .map(amizade -> amizade.getSolicitante().getId().equals(usuario.getId())
+                        ? amizade.getSolicitado().getId()
+                        : amizade.getSolicitante().getId())
+                .toList();
+    }
+
     public List<AmizadeRespostaDTO> listarSolicitacoesPendentesRecebidas() {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         return amizadeRepository.listarPendentesRecebidas(usuario.getId())
                 .stream()
                 .map(amizadeMapper::paraResposta)
                 .toList();
+    }
+
+    public long contarSolicitacoesPendentesRecebidas() {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        return amizadeRepository.listarPendentesRecebidas(usuario.getId()).size();
     }
 
     public List<AmizadeRespostaDTO> listarSolicitacoesPendentesEnviadas() {
@@ -148,6 +163,10 @@ public class AmizadeService {
 
     public boolean saoAmigos(Long usuarioId, Long outroUsuarioId) {
         return amizadeRepository.saoAmigos(usuarioId, outroUsuarioId);
+    }
+
+    public boolean usuarioBloqueou(Long usuarioId, Long outroUsuarioId) {
+        return bloqueioUsuarioRepository.buscarPorUsuarioEBloqueado(usuarioId, outroUsuarioId).isPresent();
     }
 
     private Amizade buscarSolicitacaoPendenteRecebida(Long id) {

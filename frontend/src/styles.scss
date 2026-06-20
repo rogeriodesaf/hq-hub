@@ -99,6 +99,9 @@ img {
 .navegacao-principal {
   display: grid;
   gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 .navegacao-principal a,
@@ -121,6 +124,66 @@ img {
   color: #fff;
 }
 
+.badge-pendencias {
+  margin-left: auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--vermelho);
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.badge-feed {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 900;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.16);
+}
+
+.nav-icone {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.ponto-novidade {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px #15191f;
+}
+
+.avatar-shell {
+  overflow: hidden;
+}
+
+.avatar-shell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .usuario-box {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) 38px;
@@ -130,6 +193,15 @@ img {
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
+}
+
+.usuario-box-link {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: inherit;
 }
 
 .usuario-box > span {
@@ -169,6 +241,104 @@ img {
 .conteudo-app {
   width: min(1280px, 100%);
   padding: 34px;
+}
+
+.atalhos-superiores {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.atalho-superior {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  box-shadow: 0 8px 24px rgba(21, 25, 31, 0.08);
+}
+
+.painel-notificacoes-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(21, 25, 31, 0.18);
+}
+
+.painel-notificacoes {
+  position: fixed;
+  top: 88px;
+  right: 34px;
+  z-index: 41;
+  width: min(460px, calc(100vw - 24px));
+  max-height: calc(100vh - 116px);
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  box-shadow: 0 24px 60px rgba(21, 25, 31, 0.18);
+}
+
+.painel-notificacoes-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.painel-notificacoes-topo h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.lista-notificacoes {
+  display: grid;
+  gap: 14px;
+}
+
+.grupo-notificacoes {
+  display: grid;
+  gap: 10px;
+}
+
+.notificacao-item {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+
+.notificacao-item strong,
+.notificacao-item p {
+  display: block;
+  margin: 0;
+}
+
+.notificacao-item p {
+  margin-top: 4px;
+  color: var(--texto-suave);
+}
+
+.notificacao-icone {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 8px;
+  background: #15191f;
+  color: #fff;
+  font-weight: 900;
 }
 
 .cabecalho-pagina {
@@ -708,6 +878,35 @@ textarea:focus {
   color: var(--texto-suave);
 }
 
+.controles-series {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.indice-alfabetico {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.indice-alfabetico button {
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto-suave);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.indice-alfabetico button.ativo,
+.indice-alfabetico button:hover {
+  border-color: var(--azul);
+  color: var(--azul);
+}
+
 .grade-edicoes {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -825,6 +1024,37 @@ textarea:focus {
 
 .descricao-formatada a:hover {
   text-decoration: underline;
+}
+
+.acoes-detalhe-edicao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.editor-edicao-detalhe {
+  margin: 0 0 18px;
+}
+
+.editor-edicao-detalhe .grade-formulario {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.editor-edicao-detalhe .campo-descricao-edicao {
+  grid-column: 1 / -1;
+}
+
+.editor-edicao-detalhe textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.acoes-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .chips {
@@ -1138,6 +1368,207 @@ textarea:focus {
   color: var(--texto-suave);
 }
 
+.mensagens-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.conversas-coluna,
+.chat-coluna {
+  min-height: 640px;
+}
+
+.conversas-coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lista-conversas,
+.lista-amigos-chat {
+  display: grid;
+  gap: 8px;
+}
+
+.lista-conversas button,
+.lista-amigos-chat button {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  text-align: left;
+  cursor: pointer;
+}
+
+.lista-amigos-chat button {
+  grid-template-columns: 32px minmax(0, 1fr);
+}
+
+.lista-conversas button.ativo,
+.lista-conversas button:hover,
+.lista-amigos-chat button:hover {
+  border-color: rgba(38, 106, 127, 0.42);
+  background: rgba(38, 106, 127, 0.08);
+}
+
+.lista-conversas strong,
+.lista-conversas small,
+.lista-amigos-chat span:last-child {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lista-conversas small {
+  color: var(--texto-suave);
+}
+
+.lista-conversas em {
+  min-width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--vermelho);
+  color: #fff;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.avatar-chat {
+  overflow: hidden;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--azul);
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.avatar-chat.mini {
+  width: 32px;
+  height: 32px;
+}
+
+.avatar-chat.grande {
+  width: 58px;
+  height: 58px;
+}
+
+.avatar-chat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-coluna {
+  display: grid;
+  grid-template-rows: auto minmax(320px, 1fr) auto auto;
+  gap: 14px;
+}
+
+.chat-topo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.chat-topo h2,
+.chat-topo p {
+  margin: 0;
+}
+
+.chat-topo p {
+  color: var(--texto-suave);
+}
+
+.janela-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  max-height: 58vh;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #fbfaf6;
+}
+
+.bolha-mensagem {
+  width: min(560px, 82%);
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+}
+
+.bolha-mensagem.minha {
+  align-self: flex-end;
+  border-color: rgba(47, 143, 107, 0.28);
+  background: rgba(47, 143, 107, 0.1);
+}
+
+.bolha-mensagem p,
+.bolha-mensagem small {
+  margin: 0;
+}
+
+.bolha-mensagem p {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.bolha-mensagem small {
+  display: block;
+  margin-top: 6px;
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+}
+
+.composer-chat {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.composer-chat textarea {
+  resize: vertical;
+  min-height: 48px;
+  max-height: 140px;
+}
+
+.estado-vazio-chat {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 440px;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.estado-vazio-chat h2 {
+  margin: 0 0 6px;
+  color: var(--texto);
+}
+
 .acoes-linha {
   display: flex;
   flex-wrap: wrap;
@@ -1309,6 +1740,16 @@ textarea:focus {
 
 .controles-estante .abas-filtro {
   margin: 0;
+}
+
+.paginacao-estante {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--texto-suave);
+  font-weight: 800;
 }
 
 .prateleira {
@@ -1653,6 +2094,10 @@ textarea:focus {
     padding: 22px 16px 92px;
   }
 
+  .atalhos-superiores {
+    justify-content: flex-start;
+  }
+
   .navegacao-mobile {
     position: fixed;
     left: 12px;
@@ -1705,9 +2150,19 @@ textarea:focus {
   .conteudos-layout,
   .cruzamento-colunas,
   .estante,
+  .mensagens-layout,
   .amizades-layout,
   .anuncios-layout {
     grid-template-columns: 1fr;
+  }
+
+  .conversas-coluna,
+  .chat-coluna {
+    min-height: auto;
+  }
+
+  .janela-chat {
+    max-height: 52vh;
   }
 
   .controles-estante {
@@ -1757,6 +2212,12 @@ textarea:focus {
   }
 
   .grade-formulario .campo-largo {
+    grid-column: auto;
+  }
+
+  .editor-edicao-detalhe .grade-formulario,
+  .editor-edicao-detalhe .campo-descricao-edicao {
+    grid-template-columns: 1fr;
     grid-column: auto;
   }
 
@@ -1814,5 +2275,22 @@ textarea:focus {
 
   .capa-publicacao {
     width: 74px;
+  }
+
+  .painel-notificacoes {
+    top: 70px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-height: calc(100vh - 92px);
+  }
+
+  .notificacao-item {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .notificacao-item .botao {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 }

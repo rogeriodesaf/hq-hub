@@ -12,6 +12,7 @@ import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
 import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.service.HistoriaService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -39,6 +40,7 @@ public class HistoriaResource {
 
     @POST
     @Path("/historias")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrarHistoria(@Valid CadastroHistoriaDTO dto) {
         HistoriaRespostaDTO resposta = historiaService.cadastrarHistoria(dto);
         return Response.created(URI.create("/historias/" + resposta.id()))
@@ -60,12 +62,14 @@ public class HistoriaResource {
 
     @PUT
     @Path("/historias/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizarHistoria(@PathParam("id") Long id, @Valid AtualizacaoHistoriaDTO dto) {
         return Response.ok(historiaService.atualizarHistoria(id, dto)).build();
     }
 
     @POST
     @Path("/conteudos-edicoes")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response adicionarConteudo(@Valid CadastroConteudoEdicaoDTO dto) {
         ConteudoEdicaoRespostaDTO resposta = historiaService.adicionarConteudo(dto);
         return Response.created(URI.create("/conteudos-edicoes/" + resposta.id()))
@@ -81,6 +85,7 @@ public class HistoriaResource {
 
     @DELETE
     @Path("/conteudos-edicoes/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response removerConteudo(@PathParam("id") Long id) {
         historiaService.removerConteudo(id);
         return Response.noContent().build();
@@ -88,6 +93,7 @@ public class HistoriaResource {
 
     @POST
     @Path("/publicacoes-historias")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrarPublicacao(@Valid CadastroPublicacaoHistoriaDTO dto) {
         PublicacaoHistoriaRespostaDTO resposta = historiaService.cadastrarPublicacao(dto);
         return Response.created(URI.create("/publicacoes-historias/" + resposta.id()))
@@ -97,6 +103,7 @@ public class HistoriaResource {
 
     @POST
     @Path("/historias/{idHistoria}/publicacoes")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response sugerirPublicacao(
             @PathParam("idHistoria") Long idHistoria,
             @Valid SugestaoPublicacaoHistoriaDTO dto) {
@@ -126,6 +133,7 @@ public class HistoriaResource {
 
     @DELETE
     @Path("/publicacoes-historias/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response removerPublicacao(@PathParam("id") Long id) {
         historiaService.removerPublicacao(id);
         return Response.noContent().build();

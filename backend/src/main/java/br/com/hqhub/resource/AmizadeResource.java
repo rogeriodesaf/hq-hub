@@ -7,6 +7,7 @@ import br.com.hqhub.dto.AmizadeRespostaDTO;
 import br.com.hqhub.dto.BloqueioUsuarioDTO;
 import br.com.hqhub.dto.BloqueioUsuarioRespostaDTO;
 import br.com.hqhub.dto.CadastroSolicitacaoAmizadeDTO;
+import br.com.hqhub.dto.TotalNaoLidasDTO;
 import br.com.hqhub.service.AmizadeService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -59,6 +60,12 @@ public class AmizadeResource {
     @Path("/solicitacoes/recebidas")
     public Response listarRecebidas() {
         return Response.ok(amizadeService.listarSolicitacoesPendentesRecebidas()).build();
+    }
+
+    @GET
+    @Path("/solicitacoes/recebidas/total")
+    public Response contarRecebidas() {
+        return Response.ok(new TotalNaoLidasDTO(amizadeService.contarSolicitacoesPendentesRecebidas())).build();
     }
 
     @GET

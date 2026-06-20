@@ -17,6 +17,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -51,6 +52,17 @@ public class ItemColecaoResource {
     public Response listarTodos() {
         List<ItemColecaoRespostaDTO> itens = itemColecaoService.listarTodos();
         return Response.ok(itens).build();
+    }
+
+    @GET
+    @Path("/exportar")
+    @Produces("text/csv; charset=UTF-8")
+    public Response exportar(@QueryParam("formato") String formato) {
+        String formatoTratado = "GOOGLE".equalsIgnoreCase(formato) ? "google" : "excel";
+        String csv = itemColecaoService.exportarColecao(formato);
+        return Response.ok(csv)
+                .header("Content-Disposition", "attachment; filename=\"hqhub-colecao-" + formatoTratado + ".csv\"")
+                .build();
     }
 
     @GET

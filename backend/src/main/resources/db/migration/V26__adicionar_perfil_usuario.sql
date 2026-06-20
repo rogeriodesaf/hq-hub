@@ -1,0 +1,6 @@
+ALTER TABLE usuarios
+    ADD COLUMN IF NOT EXISTS perfil VARCHAR(30) NOT NULL DEFAULT 'USUARIO';
+
+UPDATE usuarios
+   SET perfil = 'ADMINISTRADOR'
+ WHERE id = (SELECT MIN(id) FROM usuarios);

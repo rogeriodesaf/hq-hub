@@ -8,6 +8,7 @@ import br.com.hqhub.dto.CadastroEditoraDTO;
 import br.com.hqhub.dto.EditoraRespostaDTO;
 import br.com.hqhub.service.EditoraService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -55,6 +56,7 @@ public class EditoraResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoEditoraDTO dto) {
         EditoraRespostaDTO editora = editoraService.atualizar(id, dto);
         return Response.ok(editora).build();
@@ -62,6 +64,7 @@ public class EditoraResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response remover(@PathParam("id") Long id) {
         editoraService.remover(id);
         return Response.noContent().build();

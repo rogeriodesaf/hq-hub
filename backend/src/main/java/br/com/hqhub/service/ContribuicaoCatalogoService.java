@@ -1,6 +1,7 @@
 package br.com.hqhub.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hqhub.dto.CadastroContribuicaoCatalogoDTO;
@@ -32,6 +33,7 @@ public class ContribuicaoCatalogoService {
     private final PublicacaoRelacionadaRepository publicacaoRelacionadaRepository;
     private final LinkEdicaoRepository linkEdicaoRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
+    private final AmizadeService amizadeService;
     private final ContribuicaoCatalogoMapper contribuicaoCatalogoMapper;
 
     public ContribuicaoCatalogoService(
@@ -40,12 +42,14 @@ public class ContribuicaoCatalogoService {
             PublicacaoRelacionadaRepository publicacaoRelacionadaRepository,
             LinkEdicaoRepository linkEdicaoRepository,
             UsuarioAutenticadoService usuarioAutenticadoService,
+            AmizadeService amizadeService,
             ContribuicaoCatalogoMapper contribuicaoCatalogoMapper) {
         this.contribuicaoCatalogoRepository = contribuicaoCatalogoRepository;
         this.edicaoRepository = edicaoRepository;
         this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.linkEdicaoRepository = linkEdicaoRepository;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
+        this.amizadeService = amizadeService;
         this.contribuicaoCatalogoMapper = contribuicaoCatalogoMapper;
     }
 
@@ -71,6 +75,41 @@ public class ContribuicaoCatalogoService {
 
     public List<ContribuicaoCatalogoRespostaDTO> listarPendentes() {
         return contribuicaoCatalogoRepository.listarPendentes()
+                .stream()
+                .map(contribuicaoCatalogoMapper::paraResposta)
+                .toList();
+    }
+
+    public long contarPendentes() {
+        return contribuicaoCatalogoRepository.contarPendentes();
+    }
+
+    public long contarAlteracoesEstanteAmigos(Long desdeMillis) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        List<Long> amigosIds = new ArrayList<>(amizadeService.listarIdsAmigos());
+        amigosIds.remove(usuario.getId());
+
+        LocalDateTime desde = desdeMillis == null || desdeMillis <= 0
+                ? null
+                : java.time.Instant.ofEpochMilli(desdeMillis)
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDateTime();
+
+        return contribuicaoCatalogoRepository.contarAlteracoesEstantePorUsuarios(amigosIds, desde);
+    }
+
+    public List<ContribuicaoCatalogoRespostaDTO> listarAlteracoesEstanteAmigos(Long desdeMillis) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        List<Long> amigosIds = new ArrayList<>(amizadeService.listarIdsAmigos());
+        amigosIds.remove(usuario.getId());
+
+        LocalDateTime desde = desdeMillis == null || desdeMillis <= 0
+                ? null
+                : java.time.Instant.ofEpochMilli(desdeMillis)
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDateTime();
+
+        return contribuicaoCatalogoRepository.listarAlteracoesEstantePorUsuarios(amigosIds, desde)
                 .stream()
                 .map(contribuicaoCatalogoMapper::paraResposta)
                 .toList();

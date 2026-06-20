@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { ApiService } from '../../core/api.service';
@@ -8,7 +9,7 @@ import { Amizade, Usuario } from '../../core/modelos';
 
 @Component({
   selector: 'app-amigos-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -30,22 +31,13 @@ import { Amizade, Usuario } from '../../core/modelos';
         <button class="botao primario" type="button" (click)="buscarUsuarios()">Buscar usuários</button>
       </div>
 
-      <form class="formulario-inline" (ngSubmit)="enviarConvite()">
-        <label>
-          ID do usuário
-          <input type="number" min="1" [(ngModel)]="usuarioSolicitadoId" name="usuarioSolicitadoId" />
-        </label>
-        <button class="botao primario" type="submit" [disabled]="enviandoConvite()">
-          {{ enviandoConvite() ? 'Enviando...' : 'Enviar convite' }}
-        </button>
-      </form>
-
       @if (usuariosFiltrados().length) {
         <div class="lista-escolha usuarios-escolha">
           @for (usuario of usuariosFiltrados(); track usuario.id) {
-            <button type="button" (click)="selecionarUsuario(usuario)">
+            <button type="button" (click)="enviarConvite(usuario)" [disabled]="enviandoConvite()">
               <strong>{{ usuario.nome }}</strong>
-              <span>#{{ usuario.id }} · {{ usuario.email }}</span>
+              <span>{{ usuario.email }}</span>
+              <small>{{ enviandoConvite() ? 'Enviando...' : 'Enviar convite' }}</small>
             </button>
           }
         </div>
@@ -57,7 +49,7 @@ import { Amizade, Usuario } from '../../core/modelos';
     </section>
 
     <section class="amizades-layout">
-      <article class="bloco">
+      <article class="bloco" id="solicitacoes-recebidas">
         <div class="secao-titulo">
           <h2>Solicitações recebidas</h2>
           <span>{{ recebidas().length }}</span>
@@ -106,7 +98,10 @@ import { Amizade, Usuario } from '../../core/modelos';
             <div>
               <strong>{{ outroUsuario(amizade).nome }}</strong>
               <span>{{ outroUsuario(amizade).email }}</span>
-              <button class="botao compacto" type="button" (click)="remover(amizade)">Remover</button>
+              <div class="acoes-linha">
+                <a class="botao compacto" routerLink="/mensagens" [queryParams]="{ usuarioId: outroUsuario(amizade).id }">Direct</a>
+                <button class="botao compacto" type="button" (click)="remover(amizade)">Remover</button>
+              </div>
             </div>
           } @empty {
             <p class="texto-suave">Você ainda não adicionou amigos.</p>
@@ -116,9 +111,10 @@ import { Amizade, Usuario } from '../../core/modelos';
     </section>
   `,
 })
-export class AmigosPage implements OnInit {
+export class AmigosPage implements OnInit, AfterViewInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
+  private readonly rota = inject(ActivatedRoute);
 
   readonly usuarios = signal<Usuario[]>([]);
   readonly usuariosFiltrados = signal<Usuario[]>([]);
@@ -129,10 +125,19 @@ export class AmigosPage implements OnInit {
   readonly enviandoConvite = signal(false);
 
   buscaUsuario = '';
-  usuarioSolicitadoId: number | null = null;
+  private focoSolicitacoesRecebidas = false;
 
   ngOnInit() {
+    this.focoSolicitacoesRecebidas = this.rota.snapshot.queryParamMap.get('aba') === 'recebidas';
     this.carregarTudo();
+  }
+
+  ngAfterViewInit() {
+    if (this.focoSolicitacoesRecebidas) {
+      queueMicrotask(() => {
+        document.getElementById('solicitacoes-recebidas')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }
 
   buscarUsuarios() {
@@ -156,25 +161,15 @@ export class AmigosPage implements OnInit {
     });
   }
 
-  selecionarUsuario(usuario: Usuario) {
-    this.usuarioSolicitadoId = usuario.id;
-    this.mensagem.set(`Usuário selecionado: ${usuario.nome}.`);
-  }
-
-  enviarConvite() {
-    if (!this.usuarioSolicitadoId) {
-      this.mensagem.set('Informe ou escolha o ID do usuário.');
-      return;
-    }
-
+  enviarConvite(usuario: Usuario) {
     this.enviandoConvite.set(true);
-    this.api.enviarSolicitacaoAmizade(this.usuarioSolicitadoId).subscribe({
+    this.api.enviarSolicitacaoAmizade(usuario.id).subscribe({
       next: () => {
         this.enviandoConvite.set(false);
-        this.usuarioSolicitadoId = null;
         this.buscaUsuario = '';
         this.usuariosFiltrados.set([]);
         this.mensagem.set('Convite enviado.');
+        this.notificarAtualizacaoAmizades();
         this.carregarTudo();
       },
       error: () => {
@@ -186,21 +181,30 @@ export class AmigosPage implements OnInit {
 
   aceitar(id: number) {
     this.api.aceitarSolicitacaoAmizade(id).subscribe({
-      next: () => this.carregarTudo(),
+      next: () => {
+        this.notificarAtualizacaoAmizades();
+        this.carregarTudo();
+      },
       error: () => this.mensagem.set('Não foi possível aceitar a solicitação.'),
     });
   }
 
   recusar(id: number) {
     this.api.recusarSolicitacaoAmizade(id).subscribe({
-      next: () => this.carregarTudo(),
+      next: () => {
+        this.notificarAtualizacaoAmizades();
+        this.carregarTudo();
+      },
       error: () => this.mensagem.set('Não foi possível recusar a solicitação.'),
     });
   }
 
   remover(amizade: Amizade) {
     this.api.removerAmigo(this.outroUsuario(amizade).id).subscribe({
-      next: () => this.carregarTudo(),
+      next: () => {
+        this.notificarAtualizacaoAmizades();
+        this.carregarTudo();
+      },
       error: () => this.mensagem.set('Não foi possível remover este amigo.'),
     });
   }
@@ -223,6 +227,10 @@ export class AmigosPage implements OnInit {
       next: (resposta) => this.enviadas.set(resposta),
       error: () => this.enviadas.set([]),
     });
+  }
+
+  private notificarAtualizacaoAmizades() {
+    window.dispatchEvent(new CustomEvent('hqhub-amizades-atualizadas'));
   }
 }
 

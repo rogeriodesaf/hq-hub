@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 import br.com.hqhub.dto.EstanteEdicaoDTO;
 import br.com.hqhub.dto.EstanteEditoraDTO;
 import br.com.hqhub.dto.EstanteSerieDTO;
+import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.StatusLeitura;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,6 +34,32 @@ public class EstanteService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         List<ItemColecao> itens = itemColecaoRepository.list("usuario.id", usuario.getId());
 
+        return montarEstantePorItens(itens);
+    }
+
+    @Transactional
+    public PaginaRespostaDTO<EstanteEditoraDTO> montarEstantePaginada(String busca, StatusLeitura statusLeitura, int pagina, int tamanho) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        int paginaTratada = Math.max(pagina, 0);
+        int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
+        long totalItens = itemColecaoRepository.contarPorUsuarioComFiltros(usuario.getId(), busca, statusLeitura);
+        int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
+        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioPaginado(
+                usuario.getId(),
+                busca,
+                statusLeitura,
+                paginaTratada,
+                tamanhoTratado);
+
+        return new PaginaRespostaDTO<>(
+                montarEstantePorItens(itens),
+                paginaTratada,
+                tamanhoTratado,
+                totalItens,
+                totalPaginas);
+    }
+
+    private List<EstanteEditoraDTO> montarEstantePorItens(List<ItemColecao> itens) {
         Map<Editora, Map<Serie, List<ItemColecao>>> agrupado = itens.stream()
                 .collect(Collectors.groupingBy(
                         item -> item.getEdicao().getSerie().getEditora(),

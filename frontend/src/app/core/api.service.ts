@@ -6,12 +6,14 @@ import {
   Amizade,
   CadastroAnuncio,
   ColecaoResumo,
+  ConfiguracaoColecao,
   CadastroItemColecao,
   CadastroCompraPlanejada,
   CalculoInflacao,
   CompraPlanejada,
   ContatoAnuncio,
   ConteudoEdicao,
+  ConversaDireta,
   ContribuicaoCatalogo,
   CruzamentoEdicao,
   Edicao,
@@ -20,11 +22,15 @@ import {
   EstanteEditora,
   Historia,
   ItemColecao,
+  MensagemDireta,
   PaginaResposta,
   PessoaComicVine,
+  PostagemFeed,
+  ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
   ResultadoDeduplicacaoEdicoes,
+  ResultadoDeduplicacaoSeries,
   ResultadoPesquisaCatalogo,
   ResultadoImportacaoCatalogo,
   RespostaAssistente,
@@ -45,11 +51,48 @@ export class ApiService {
     return this.http.get<ColecaoResumo>('/api/colecao/resumo');
   }
 
-  listarSeries(busca = '', pagina = 0, tamanho = 12) {
+  obterConfiguracaoColecao() {
+    return this.http.get<ConfiguracaoColecao>('/api/colecao/configuracao');
+  }
+
+  atualizarConfiguracaoColecao(dto: { visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA'; exibirValorColecao: boolean }) {
+    return this.http.put<ConfiguracaoColecao>('/api/colecao/configuracao', dto);
+  }
+
+  listarFeed(pagina = 0, tamanho = 20) {
     const params = new HttpParams()
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+    return this.http.get<PostagemFeed[]>('/api/feed', { params });
+  }
+
+  enviarImagensFeed(arquivos: File[]) {
+    const dados = new FormData();
+    arquivos.forEach((arquivo) => dados.append('imagens', arquivo));
+    return this.http.post<ImagemFeed[]>('/api/feed/imagens', dados);
+  }
+
+  publicarNoFeed(dto: { conteudo: string; urlImagem: string | null; imagens?: ImagemFeed[] }) {
+    return this.http.post<PostagemFeed>('/api/feed', dto);
+  }
+
+  alternarCurtidaPostagem(id: number) {
+    return this.http.post<PostagemFeed>(`/api/feed/${id}/curtidas`, {});
+  }
+
+  comentarPostagem(id: number, texto: string) {
+    return this.http.post<PostagemFeed>(`/api/feed/${id}/comentarios`, { texto });
+  }
+
+  listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '') {
+    let params = new HttpParams()
       .set('busca', busca)
       .set('pagina', pagina)
       .set('tamanho', tamanho);
+
+    if (inicial) {
+      params = params.set('inicial', inicial);
+    }
 
     return this.http.get<PaginaResposta<Serie>>('/api/series', { params });
   }
@@ -86,6 +129,20 @@ export class ApiService {
 
   listarUsuarios() {
     return this.http.get<Usuario[]>('/api/usuarios');
+  }
+
+  obterMeuPerfil() {
+    return this.http.get<Usuario>('/api/usuarios/me');
+  }
+
+  atualizarMeuPerfil(dto: { nome: string; bio: string | null }) {
+    return this.http.put<Usuario>('/api/usuarios/me/perfil', dto);
+  }
+
+  atualizarFotoPerfil(arquivo: File) {
+    const dados = new FormData();
+    dados.append('foto', arquivo);
+    return this.http.post<Usuario>('/api/usuarios/me/foto', dados);
   }
 
   listarEditoras() {
@@ -136,6 +193,24 @@ export class ApiService {
     return this.http.post<Edicao>('/api/edicoes', dto);
   }
 
+  atualizarEdicao(id: number, dto: {
+    numero: string;
+    titulo: string | null;
+    descricao: string | null;
+    dataPublicacao: string | null;
+    urlCapa: string | null;
+    codigoBarras: string | null;
+    quantidadePaginas: number | null;
+    precoCapa: number | null;
+    formato: string | null;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+    serieId: number;
+  }) {
+    return this.http.put<Edicao>(`/api/edicoes/${id}`, dto);
+  }
+
   buscarVolumesComicVine(termo: string, pagina = 0, tamanho = 12) {
     const params = new HttpParams()
       .set('termo', termo)
@@ -184,6 +259,19 @@ export class ApiService {
     return this.http.get<EstanteEditora[]>('/api/estante');
   }
 
+  obterEstantePaginada(busca = '', statusLeitura: 'TODAS' | 'LIDO' | 'NAO_LIDO' = 'TODAS', pagina = 0, tamanho = 48) {
+    let params = new HttpParams()
+      .set('busca', busca)
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+
+    if (statusLeitura !== 'TODAS') {
+      params = params.set('statusLeitura', statusLeitura);
+    }
+
+    return this.http.get<PaginaResposta<EstanteEditora>>('/api/estante/paginada', { params });
+  }
+
   cadastrarItemColecao(dto: CadastroItemColecao) {
     return this.http.post<ItemColecao>('/api/colecao/itens', dto);
   }
@@ -204,8 +292,20 @@ export class ApiService {
     return this.http.delete<void>(`/api/colecao/itens/${id}`);
   }
 
+  exportarColecao(formato: 'EXCEL' | 'GOOGLE') {
+    const params = new HttpParams().set('formato', formato);
+    return this.http.get('/api/colecao/itens/exportar', {
+      params,
+      responseType: 'blob',
+    });
+  }
+
   deduplicarEdicoes() {
     return this.http.post<ResultadoDeduplicacaoEdicoes>('/api/edicoes/deduplicar', {});
+  }
+
+  deduplicarSeries() {
+    return this.http.post<ResultadoDeduplicacaoSeries>('/api/series/deduplicar', {});
   }
 
   enviarSolicitacaoAmizade(usuarioSolicitadoId: number) {
@@ -218,6 +318,32 @@ export class ApiService {
 
   listarSolicitacoesRecebidas() {
     return this.http.get<Amizade[]>('/api/amizades/solicitacoes/recebidas');
+  }
+
+  contarSolicitacoesRecebidas() {
+    return this.http.get<{ total: number }>('/api/amizades/solicitacoes/recebidas/total');
+  }
+
+  contarAlteracoesEstanteAmigos(desde?: number) {
+    let params = new HttpParams();
+    if (desde && desde > 0) {
+      params = params.set('desde', desde);
+    }
+
+    return this.http.get<{ total: number }>('/api/contribuicoes-catalogo/alteracoes-estante-amigos/total', {
+      params,
+    });
+  }
+
+  listarAlteracoesEstanteAmigos(desde?: number) {
+    let params = new HttpParams();
+    if (desde && desde > 0) {
+      params = params.set('desde', desde);
+    }
+
+    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/alteracoes-estante-amigos', {
+      params,
+    });
   }
 
   listarSolicitacoesEnviadas() {
@@ -234,6 +360,22 @@ export class ApiService {
 
   removerAmigo(usuarioId: number) {
     return this.http.delete<void>(`/api/amizades/amigos/${usuarioId}`);
+  }
+
+  listarConversasDiretas() {
+    return this.http.get<ConversaDireta[]>('/api/mensagens/conversas');
+  }
+
+  listarMensagensDiretas(usuarioId: number) {
+    return this.http.get<MensagemDireta[]>(`/api/mensagens/usuarios/${usuarioId}`);
+  }
+
+  enviarMensagemDireta(destinatarioId: number, texto: string) {
+    return this.http.post<MensagemDireta>('/api/mensagens', { destinatarioId, texto });
+  }
+
+  contarMensagensNaoLidas() {
+    return this.http.get<{ total: number }>('/api/mensagens/nao-lidas/total');
   }
 
   listarComprasPlanejadas(mes?: number, ano?: number) {
@@ -391,6 +533,10 @@ export class ApiService {
 
   listarContribuicoesPendentes() {
     return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/pendentes');
+  }
+
+  contarContribuicoesPendentes() {
+    return this.http.get<{ total: number }>('/api/contribuicoes-catalogo/pendentes/total');
   }
 
   aprovarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {

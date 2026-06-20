@@ -10,6 +10,10 @@ export interface UsuarioAutenticado {
   id: number;
   nome: string;
   email: string;
+  perfil: 'USUARIO' | 'COLABORADOR' | 'ADMINISTRADOR';
+  bio: string | null;
+  fotoPerfilUrl: string | null;
+  fotoPerfilThumbnailUrl: string | null;
   token: string;
   tipoToken: string;
   expiraEm: number;
@@ -20,6 +24,10 @@ export interface Usuario {
   id: number;
   nome: string;
   email: string;
+  perfil: 'USUARIO' | 'COLABORADOR' | 'ADMINISTRADOR';
+  bio: string | null;
+  fotoPerfilUrl: string | null;
+  fotoPerfilThumbnailUrl: string | null;
   dataCriacao: string;
   dataAtualizacao: string;
 }
@@ -29,6 +37,21 @@ export interface ColecaoResumo {
   totalSeries: number;
   totalEditoras: number;
   valorTotalPago: number;
+}
+
+export interface ConfiguracaoColecao {
+  id: number;
+  visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
+  exibirValorColecao: boolean;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface ColecaoCompartilhada {
+  usuario: Usuario;
+  visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
+  exibirValorColecao: boolean;
+  itens: ItemColecao[];
 }
 
 export interface EditoraResumo {
@@ -203,6 +226,22 @@ export interface ResultadoDeduplicacaoEdicoes {
   edicoesRemovidas: number;
   referenciasAtualizadas: number;
   grupos: GrupoDuplicidadeEdicao[];
+}
+
+export interface GrupoDuplicidadeSerie {
+  chave: string;
+  serieMantida: Serie;
+  seriesDescartadas: Serie[];
+  pontuacaoMantida: number;
+}
+
+export interface ResultadoDeduplicacaoSeries {
+  gruposAnalisados: number;
+  gruposMesclados: number;
+  seriesRemovidas: number;
+  edicoesMescladas: number;
+  referenciasAtualizadas: number;
+  grupos: GrupoDuplicidadeSerie[];
 }
 
 export interface CompraPlanejada {
@@ -435,4 +474,51 @@ export interface Amizade {
   status: string;
   dataSolicitacao: string;
   dataResposta: string | null;
+}
+
+export interface ComentarioFeed {
+  id: number;
+  usuario: Usuario;
+  texto: string;
+  dataCriacao: string;
+}
+
+export interface ImagemFeed {
+  urlImagem: string;
+  urlThumbnail: string;
+  nomeArquivo: string;
+  tipoMime: string;
+  tamanhoBytes: number;
+  largura: number | null;
+  altura: number | null;
+  ordem: number | null;
+}
+
+export interface PostagemFeed {
+  id: number;
+  usuario: Usuario;
+  conteudo: string;
+  urlImagem: string | null;
+  imagens: ImagemFeed[];
+  totalCurtidas: number;
+  curtidaPeloUsuario: boolean;
+  comentarios: ComentarioFeed[];
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
+export interface MensagemDireta {
+  id: number;
+  remetente: Usuario;
+  destinatario: Usuario;
+  texto: string;
+  lida: boolean;
+  dataCriacao: string;
+}
+
+export interface ConversaDireta {
+  usuario: Usuario;
+  ultimaMensagem: MensagemDireta;
+  naoLidas: number;
+  dataUltimaMensagem: string;
 }

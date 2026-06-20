@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { autenticadoGuard } from './core/autenticado.guard';
+import { revisorCatalogoGuard } from './core/perfil.guard';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/painel/painel.page').then((m) => m.PainelPage),
       },
       {
+        path: 'perfil',
+        loadComponent: () => import('./pages/perfil/perfil.page').then((m) => m.PerfilPage),
+      },
+      {
         path: 'descobrir',
         loadComponent: () => import('./pages/descobrir/descobrir.page').then((m) => m.DescobrirPage),
       },
@@ -25,14 +30,17 @@ export const routes: Routes = [
       },
       {
         path: 'conteudos',
+        canActivate: [revisorCatalogoGuard],
         loadComponent: () => import('./pages/conteudos/conteudos.page').then((m) => m.ConteudosPage),
       },
       {
         path: 'importacao',
+        canActivate: [revisorCatalogoGuard],
         loadComponent: () => import('./pages/importacao/importacao.page').then((m) => m.ImportacaoPage),
       },
       {
         path: 'revisao',
+        canActivate: [revisorCatalogoGuard],
         loadComponent: () => import('./pages/revisao/revisao.page').then((m) => m.RevisaoPage),
       },
       {
@@ -50,6 +58,10 @@ export const routes: Routes = [
       {
         path: 'amigos',
         loadComponent: () => import('./pages/amigos/amigos.page').then((m) => m.AmigosPage),
+      },
+      {
+        path: 'mensagens',
+        loadComponent: () => import('./pages/mensagens/mensagens.page').then((m) => m.MensagensPage),
       },
       {
         path: 'assistente',

@@ -21,6 +21,10 @@ public class UsuarioMapper {
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getEmail(),
+                usuario.getPerfil().name(),
+                usuario.getBio(),
+                usuario.getFotoPerfilUrl(),
+                usuario.getFotoPerfilThumbnailUrl(),
                 usuario.getDataCriacao(),
                 usuario.getDataAtualizacao());
     }
