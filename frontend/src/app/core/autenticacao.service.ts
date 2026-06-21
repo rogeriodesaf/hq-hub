@@ -5,6 +5,7 @@ import { tap } from 'rxjs';
 import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
+const API_URL = 'https://hqhub-backend.onrender.com/api';
 
 @Injectable({ providedIn: 'root' })
 export class AutenticacaoService {
@@ -18,26 +19,26 @@ export class AutenticacaoService {
     return perfil === 'COLABORADOR' || perfil === 'ADMINISTRADOR';
   });
 
-  entrar(email: string, senha: string) {
-    return this.http.post<UsuarioAutenticado>('/api/auth/login', { email, senha }).pipe(
-      tap((usuario) => {
-        localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
-        this.usuarioAtual.set(usuario);
-      }),
-    );
-  }
+entrar(email: string, senha: string) {
+  return this.http.post<UsuarioAutenticado>(`${API_URL}/auth/login`, { email, senha }).pipe(
+    tap((usuario) => {
+      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
+      this.usuarioAtual.set(usuario);
+    }),
+  );
+}
 
-  cadastrar(nome: string, email: string, senha: string) {
-    return this.http.post('/api/usuarios', { nome, email, senha });
-  }
+cadastrar(nome: string, email: string, senha: string) {
+  return this.http.post(`${API_URL}/usuarios`, { nome, email, senha });
+}
 
-  solicitarRedefinicaoSenha(email: string) {
-    return this.http.post('/api/auth/redefinir-senha/solicitar', { email });
-  }
+solicitarRedefinicaoSenha(email: string) {
+  return this.http.post(`${API_URL}/auth/redefinir-senha/solicitar`, { email });
+}
 
-  redefinirSenha(token: string, novaSenha: string) {
-    return this.http.post('/api/auth/redefinir-senha/confirmar', { token, novaSenha });
-  }
+redefinirSenha(token: string, novaSenha: string) {
+  return this.http.post(`${API_URL}/auth/redefinir-senha/confirmar`, { token, novaSenha });
+}
 
   atualizarPerfilLocal(usuario: Usuario) {
     const atual = this.usuarioAtual();
