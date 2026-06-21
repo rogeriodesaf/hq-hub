@@ -3,11 +3,17 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import { AutenticacaoService } from './autenticacao.service';
 
 export const autenticacaoInterceptor: HttpInterceptorFn = (requisicao, proximo) => {
   const autenticacaoService = inject(AutenticacaoService);
   const roteador = inject(Router);
+
+  if (environment.apiUrl && requisicao.url.startsWith('/api')) {
+    requisicao = requisicao.clone({ url: `${environment.apiUrl}${requisicao.url}` });
+  }
+
   const token = autenticacaoService.obterToken();
 
   const requisicaoAutenticada = token
