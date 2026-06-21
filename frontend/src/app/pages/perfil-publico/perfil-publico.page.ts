@@ -425,9 +425,6 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
         font-size: 0.82rem;
       }
     }
-      display: grid;
-      gap: 18px;
-    }
 
     .perfil-secao {
       display: grid;
