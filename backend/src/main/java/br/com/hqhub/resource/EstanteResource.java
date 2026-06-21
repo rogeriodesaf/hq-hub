@@ -9,6 +9,7 @@ import br.com.hqhub.service.EstanteService;
 import io.quarkus.security.Authenticated;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -29,6 +30,27 @@ public class EstanteResource {
     public Response montarEstante() {
         List<EstanteEditoraDTO> estante = estanteService.montarEstante();
         return Response.ok(estante).build();
+    }
+
+    @GET
+    @Path("/usuarios/{id}")
+    public Response montarEstantePublica(@PathParam("id") Long id) {
+        List<EstanteEditoraDTO> estante = estanteService.montarEstantePublica(id);
+        return Response.ok(estante).build();
+    }
+
+    @GET
+    @Path("/usuarios/{id}/paginada")
+    public Response montarEstantePublicaPaginada(
+            @PathParam("id") Long id,
+            @QueryParam("busca") String busca,
+            @QueryParam("statusLeitura") StatusLeitura statusLeitura,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(estanteService.montarEstantePublicaPaginada(
+                id, busca, statusLeitura,
+                pagina == null ? 0 : pagina,
+                tamanho == null ? 24 : tamanho)).build();
     }
 
     @GET

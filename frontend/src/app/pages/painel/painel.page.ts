@@ -96,14 +96,18 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
             <article class="bloco postagem-card">
               <header>
                 <div class="avatar-feed">
-                  @if (postagem.usuario.fotoPerfilThumbnailUrl) {
-                    <img [src]="postagem.usuario.fotoPerfilThumbnailUrl" alt="" />
-                  } @else {
-                    {{ iniciais(postagem.usuario.nome) }}
-                  }
+                  <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-perfil">
+                    @if (postagem.usuario.fotoPerfilThumbnailUrl) {
+                      <img [src]="postagem.usuario.fotoPerfilThumbnailUrl" alt="" />
+                    } @else {
+                      {{ iniciais(postagem.usuario.nome) }}
+                    }
+                  </a>
                 </div>
                 <div>
-                  <strong>{{ postagem.usuario.nome }}</strong>
+                  <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-nome-amigo">
+                    <strong>{{ postagem.usuario.nome }}</strong>
+                  </a>
                   @if (postagem.usuario.bio) {
                     <small>{{ postagem.usuario.bio }}</small>
                   }
@@ -146,14 +150,18 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                 @for (comentario of postagem.comentarios; track comentario.id) {
                   <article>
                     <div class="avatar-feed mini">
-                      @if (comentario.usuario.fotoPerfilThumbnailUrl) {
-                        <img [src]="comentario.usuario.fotoPerfilThumbnailUrl" alt="" />
-                      } @else {
-                        {{ iniciais(comentario.usuario.nome) }}
-                      }
+                      <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-perfil">
+                        @if (comentario.usuario.fotoPerfilThumbnailUrl) {
+                          <img [src]="comentario.usuario.fotoPerfilThumbnailUrl" alt="" />
+                        } @else {
+                          {{ iniciais(comentario.usuario.nome) }}
+                        }
+                      </a>
                     </div>
                     <div>
-                      <strong>{{ comentario.usuario.nome }}</strong>
+                      <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-nome-amigo">
+                        <strong>{{ comentario.usuario.nome }}</strong>
+                      </a>
                       <p>{{ comentario.texto }}</p>
                     </div>
                   </article>
@@ -404,6 +412,27 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       gap: 16px;
     }
 
+    .link-perfil {
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .link-perfil:hover {
+      opacity: 0.7;
+    }
+
+    .link-nome-amigo {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .link-nome-amigo:hover {
+      color: var(--azul);
+    }
+
     @media (max-width: 900px) {
       .feed-layout {
         grid-template-columns: 1fr;
@@ -422,6 +451,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 export class PainelPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
+
   readonly usuario = this.autenticacao.usuario;
   readonly resumo = signal<ColecaoResumo | null>(null);
   readonly feed = signal<PostagemFeed[]>([]);

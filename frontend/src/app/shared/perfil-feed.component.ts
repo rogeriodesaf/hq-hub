@@ -137,7 +137,7 @@ export class PerfilFeedComponent {
   @Input() nome = '';
   @Input() bio = '';
   @Input() salvando = false;
-  @Input() modo: 'resumo' | 'edicao' = 'resumo';
+  @Input() modo: 'resumo' | 'edicao' | 'visualizacao' = 'resumo';
 
   @Output() nomeChange = new EventEmitter<string>();
   @Output() bioChange = new EventEmitter<string>();

@@ -42,6 +42,16 @@ public class FeedSocialResource {
                 .build();
     }
 
+    @GET
+    @Path("/usuarios/{id}")
+    public Response listarPorUsuario(@PathParam("id") Long id, @QueryParam("pagina") Integer pagina, @QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(feedSocialService.listarPostagensPorUsuario(
+                id,
+                pagina == null ? 0 : pagina,
+                tamanho == null ? 20 : tamanho))
+                .build();
+    }
+
     @POST
     public Response publicar(@Valid CadastroPostagemFeedDTO dto) {
         return Response.ok(feedSocialService.publicar(dto)).build();

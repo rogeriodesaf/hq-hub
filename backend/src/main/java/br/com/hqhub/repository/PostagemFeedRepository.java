@@ -11,6 +11,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
 
+    public List<PostagemFeed> listarPorUsuario(Long usuarioId, int pagina, int tamanho) {
+        return find("usuario.id = ?1 order by dataCriacao desc", usuarioId)
+                .page(Page.of(pagina, tamanho))
+                .list();
+    }
+
     public List<PostagemFeed> listarFeed(Long usuarioId, int pagina, int tamanho) {
         return find("""
                 usuario.id = ?1

@@ -8,11 +8,13 @@ import java.util.Set;
 
 import br.com.hqhub.dto.ColecaoResumoDTO;
 import br.com.hqhub.dto.EditoraResumoDTO;
+import br.com.hqhub.dto.EstatisticasPublicasColecaoDTO;
 import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.dto.SerieResumoDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.StatusLeitura;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.repository.EdicaoRepository;
@@ -63,6 +65,41 @@ public class ResumoColecaoService {
                 itens.size(),
                 idsSeries.size(),
                 idsEditoras.size(),
+                valorTotalPago);
+    }
+
+    @Transactional
+    public EstatisticasPublicasColecaoDTO gerarEstatisticasPublicas(Long usuarioId) {
+        List<ItemColecao> itens = itemColecaoRepository.list("usuario.id", usuarioId);
+
+        Set<Long> idsSeries = new HashSet<>();
+        Set<Long> idsEditoras = new HashSet<>();
+        BigDecimal valorTotalPago = BigDecimal.ZERO;
+        long totalLidos = 0;
+        long totalNaoLidos = 0;
+
+        for (ItemColecao item : itens) {
+            Serie serie = item.getEdicao().getSerie();
+            idsSeries.add(serie.getId());
+            idsEditoras.add(serie.getEditora().getId());
+
+            if (item.getPrecoPago() != null) {
+                valorTotalPago = valorTotalPago.add(item.getPrecoPago());
+            }
+
+            if (StatusLeitura.LIDO.equals(item.getStatusLeitura())) {
+                totalLidos++;
+            } else {
+                totalNaoLidos++;
+            }
+        }
+
+        return new EstatisticasPublicasColecaoDTO(
+                itens.size(),
+                idsSeries.size(),
+                idsEditoras.size(),
+                totalLidos,
+                totalNaoLidos,
                 valorTotalPago);
     }
 

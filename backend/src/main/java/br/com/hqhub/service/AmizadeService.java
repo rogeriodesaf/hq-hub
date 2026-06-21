@@ -165,6 +165,13 @@ public class AmizadeService {
         return amizadeRepository.saoAmigos(usuarioId, outroUsuarioId);
     }
 
+    public AmizadeRespostaDTO buscarRelacionamento(Long outroUsuarioId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        return amizadeRepository.buscarEntreUsuarios(usuario.getId(), outroUsuarioId)
+                .map(amizadeMapper::paraResposta)
+                .orElse(null);
+    }
+
     public boolean usuarioBloqueou(Long usuarioId, Long outroUsuarioId) {
         return bloqueioUsuarioRepository.buscarPorUsuarioEBloqueado(usuarioId, outroUsuarioId).isPresent();
     }

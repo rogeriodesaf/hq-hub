@@ -7,6 +7,7 @@
   --fundo: #f6f2ea;
   --superficie: #ffffff;
   --superficie-2: #fff9ef;
+  --superficie-suave: #f0ece4;
   --texto: #15191f;
   --texto-suave: #65717d;
   --borda: #d9d5cc;
@@ -20,6 +21,7 @@
 html {
   min-height: 100%;
   background: var(--fundo);
+  overflow-x: hidden;
 }
 
 body {
@@ -105,7 +107,8 @@ img {
 }
 
 .navegacao-principal a,
-.navegacao-mobile a {
+.navegacao-mobile a,
+.navegacao-mobile button {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -655,6 +658,30 @@ textarea:focus {
 
 .mensagem-erro.compacto {
   margin: 8px 0 0;
+}
+
+.mensagem-sucesso {
+  padding: 10px 12px;
+  border: 1px solid rgba(34, 150, 83, 0.28);
+  border-radius: 8px;
+  color: #1a6633;
+  background: rgba(34, 150, 83, 0.08);
+}
+
+.link-botao {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--azul);
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+}
+
+.link-esqueci-senha {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 0.88rem;
 }
 
 .estado-pesquisa {
@@ -2105,7 +2132,7 @@ textarea:focus {
     bottom: 12px;
     z-index: 20;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     gap: 4px;
     padding: 6px;
     border: 1px solid rgba(21, 25, 31, 0.14);
@@ -2114,13 +2141,23 @@ textarea:focus {
     box-shadow: var(--sombra);
   }
 
-  .navegacao-mobile a {
+  .navegacao-mobile a,
+  .navegacao-mobile button {
     min-height: 52px;
     flex-direction: column;
     justify-content: center;
     gap: 2px;
+    overflow: hidden;
     color: rgba(255, 255, 255, 0.65);
     font-size: 0.72rem;
+  }
+
+  .navegacao-mobile button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
   }
 
   .navegacao-mobile a.ativo {
@@ -2168,6 +2205,15 @@ textarea:focus {
   .controles-estante {
     grid-template-columns: 1fr;
   }
+
+  .bloco {
+    padding: 14px;
+  }
+
+  .prateleira,
+  .painel-formulario {
+    padding: 14px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -2176,7 +2222,7 @@ textarea:focus {
   }
 
   .cabecalho-pagina h1 {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
   }
 
   .barra-busca,
@@ -2292,5 +2338,29 @@ textarea:focus {
   .notificacao-item .botao {
     grid-column: 1 / -1;
     justify-self: start;
+  }
+
+  .metricas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bloco {
+    padding: 12px;
+  }
+
+  .prateleira,
+  .painel-formulario {
+    padding: 12px;
+  }
+
+  .anuncio-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .destaque-busca {
+    min-height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
   }
 }

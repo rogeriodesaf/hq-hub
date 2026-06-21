@@ -38,6 +38,32 @@ public class EstanteService {
     }
 
     @Transactional
+    public List<EstanteEditoraDTO> montarEstantePublica(Long usuarioId) {
+        List<ItemColecao> itens = itemColecaoRepository.list("usuario.id", usuarioId);
+        return montarEstantePorItens(itens);
+    }
+
+    @Transactional
+    public PaginaRespostaDTO<EstanteEditoraDTO> montarEstantePublicaPaginada(Long usuarioId, String busca, StatusLeitura statusLeitura, int pagina, int tamanho) {
+        int paginaTratada = Math.max(pagina, 0);
+        int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
+        long totalItens = itemColecaoRepository.contarPorUsuarioComFiltros(usuarioId, busca, statusLeitura);
+        int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
+        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioPaginado(
+                usuarioId,
+                busca,
+                statusLeitura,
+                paginaTratada,
+                tamanhoTratado);
+        return new PaginaRespostaDTO<>(
+                montarEstantePorItens(itens),
+                paginaTratada,
+                tamanhoTratado,
+                totalItens,
+                totalPaginas);
+    }
+
+    @Transactional
     public PaginaRespostaDTO<EstanteEditoraDTO> montarEstantePaginada(String busca, StatusLeitura statusLeitura, int pagina, int tamanho) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         int paginaTratada = Math.max(pagina, 0);

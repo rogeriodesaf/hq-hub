@@ -20,6 +20,7 @@ import {
   EditoraResumo,
   EdicaoComicVine,
   EstanteEditora,
+  EstatisticasPublicasColecao,
   Historia,
   ItemColecao,
   MensagemDireta,
@@ -64,6 +65,13 @@ export class ApiService {
       .set('pagina', pagina)
       .set('tamanho', tamanho);
     return this.http.get<PostagemFeed[]>('/api/feed', { params });
+  }
+
+  obterFeedUsuario(usuarioId: number, pagina = 0, tamanho = 20) {
+    const params = new HttpParams()
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+    return this.http.get<PostagemFeed[]>(`/api/feed/usuarios/${usuarioId}`, { params });
   }
 
   enviarImagensFeed(arquivos: File[]) {
@@ -143,6 +151,30 @@ export class ApiService {
     const dados = new FormData();
     dados.append('foto', arquivo);
     return this.http.post<Usuario>('/api/usuarios/me/foto', dados);
+  }
+
+  obterPerfilUsuario(id: number) {
+    return this.http.get<Usuario>(`/api/usuarios/${id}`);
+  }
+
+  obterRelacionamentoAmizade(usuarioId: number) {
+    return this.http.get<Amizade | null>(`/api/amizades/relacionamento/${usuarioId}`);
+  }
+
+  obterEstantePublica(usuarioId: number) {
+    return this.http.get<EstanteEditora[]>(`/api/estante/usuarios/${usuarioId}`);
+  }
+
+  obterEstantePublicaPaginada(usuarioId: number, pagina = 0, tamanho = 24, busca = '') {
+    let params = new HttpParams()
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+    if (busca) params = params.set('busca', busca);
+    return this.http.get<PaginaResposta<EstanteEditora>>(`/api/estante/usuarios/${usuarioId}/paginada`, { params });
+  }
+
+  obterEstatisticasPublicasColecao(usuarioId: number) {
+    return this.http.get<EstatisticasPublicasColecao>(`/api/colecao/resumo/usuarios/${usuarioId}`);
   }
 
   listarEditoras() {
@@ -412,6 +444,10 @@ export class ApiService {
 
   listarAnuncios() {
     return this.http.get<Anuncio[]>('/api/anuncios');
+  }
+
+  listarAnunciosPorUsuario(usuarioId: number) {
+    return this.http.get<Anuncio[]>(`/api/anuncios/usuarios/${usuarioId}`);
   }
 
   listarMeusAnuncios() {

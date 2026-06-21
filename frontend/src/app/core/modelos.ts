@@ -522,3 +522,20 @@ export interface ConversaDireta {
   naoLidas: number;
   dataUltimaMensagem: string;
 }
+
+export interface PerfilResumo {
+  id: number;
+  nome: string;
+  bio: string | null;
+  fotoPerfilUrl: string | null;
+  fotoPerfilThumbnailUrl: string | null;
+}
+
+export interface EstatisticasPublicasColecao {
+  totalItens: number;
+  totalSeries: number;
+  totalEditoras: number;
+  totalLidos: number;
+  totalNaoLidos: number;
+  valorTotalPago: number;
+}

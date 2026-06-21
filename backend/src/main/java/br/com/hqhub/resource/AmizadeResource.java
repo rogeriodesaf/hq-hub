@@ -49,6 +49,15 @@ public class AmizadeResource {
         return Response.ok(amigos).build();
     }
 
+    @GET
+    @Path("/relacionamento/{usuarioId}")
+    public Response buscarRelacionamento(@PathParam("usuarioId") Long usuarioId) {
+        AmizadeRespostaDTO relacionamento = amizadeService.buscarRelacionamento(usuarioId);
+        return relacionamento != null
+                ? Response.ok(relacionamento).build()
+                : Response.noContent().build();
+    }
+
     @DELETE
     @Path("/amigos/{usuarioId}")
     public Response removerAmigo(@PathParam("usuarioId") Long usuarioId) {

@@ -31,6 +31,14 @@ export class AutenticacaoService {
     return this.http.post('/api/usuarios', { nome, email, senha });
   }
 
+  solicitarRedefinicaoSenha(email: string) {
+    return this.http.post('/api/auth/redefinir-senha/solicitar', { email });
+  }
+
+  redefinirSenha(token: string, novaSenha: string) {
+    return this.http.post('/api/auth/redefinir-senha/confirmar', { token, novaSenha });
+  }
+
   atualizarPerfilLocal(usuario: Usuario) {
     const atual = this.usuarioAtual();
     if (!atual) {

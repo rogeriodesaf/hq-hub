@@ -57,7 +57,9 @@ import { Amizade, Usuario } from '../../core/modelos';
         <div class="lista-amizades">
           @for (amizade of recebidas(); track amizade.id) {
             <div>
-              <strong>{{ amizade.solicitante.nome }}</strong>
+              <a [routerLink]="['/usuario', amizade.solicitante.id]" class="link-nome-amigo">
+                <strong>{{ amizade.solicitante.nome }}</strong>
+              </a>
               <span>{{ amizade.solicitante.email }}</span>
               <div class="acoes-linha">
                 <button class="botao compacto" type="button" (click)="aceitar(amizade.id)">Aceitar</button>
@@ -96,9 +98,12 @@ import { Amizade, Usuario } from '../../core/modelos';
         <div class="lista-amizades">
           @for (amizade of amigos(); track amizade.id) {
             <div>
-              <strong>{{ outroUsuario(amizade).nome }}</strong>
+              <a [routerLink]="['/usuario', outroUsuario(amizade).id]" class="link-nome-amigo">
+                <strong>{{ outroUsuario(amizade).nome }}</strong>
+              </a>
               <span>{{ outroUsuario(amizade).email }}</span>
               <div class="acoes-linha">
+                <a class="botao compacto secundario" [routerLink]="['/usuario', outroUsuario(amizade).id]">Ver perfil</a>
                 <a class="botao compacto" routerLink="/mensagens" [queryParams]="{ usuarioId: outroUsuario(amizade).id }">Direct</a>
                 <button class="botao compacto" type="button" (click)="remover(amizade)">Remover</button>
               </div>

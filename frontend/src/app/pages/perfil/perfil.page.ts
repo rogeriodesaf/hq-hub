@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
+import { Usuario, UsuarioAutenticado } from '../../core/modelos';
 
 @Component({
   selector: 'app-perfil-page',
@@ -14,7 +15,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
     <section class="cabecalho-pagina">
       <div>
         <p class="rotulo">Perfil</p>
-        <h1>Foto, nome e bio ficam aqui.</h1>
+        <h1>{{ modo() === 'edicao' ? 'Foto, nome e bio ficam aqui.' : usuarioVisualizacao()?.nome }}</h1>
       </div>
       <a class="botao secundario" routerLink="/painel">Voltar ao feed</a>
     </section>
@@ -22,11 +23,11 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
     <section class="perfil-layout">
       <article class="bloco">
         <app-perfil-feed
-          [usuario]="usuario()"
+          [usuario]="usuarioVisualizacao()"
           [nome]="perfilNome"
           [bio]="perfilBio"
           [salvando]="salvandoPerfil()"
-          modo="edicao"
+          [modo]="modo()"
           (nomeChange)="perfilNome = $event"
           (bioChange)="perfilBio = $event"
           (fotoSelecionada)="selecionarFotoPerfil($event)"
@@ -39,9 +40,16 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       </article>
 
       <aside class="bloco painel-ajuda-perfil">
-        <p class="rotulo">Resumo</p>
-        <p>A imagem e a bio atualizadas aqui aparecem no topo do feed e nas interações do sistema.</p>
-        <a class="botao compacto" routerLink="/amigos">Ver amigos</a>
+        <p class="rotulo">{{ modo() === 'edicao' ? 'Resumo' : 'Informacoes' }}</p>
+        @if (modo() === 'edicao') {
+          <p>A imagem e a bio atualizadas aqui aparecem no topo do feed e nas interações do sistema.</p>
+          <a class="botao compacto" routerLink="/amigos">Ver amigos</a>
+        } @else {
+          <p>Perfil de {{ usuarioVisualizacao()?.nome }}</p>
+          <button class="botao compacto" (click)="enviarMensagem()" *ngIf="usuarioVisualizacao()?.id !== usuarioAtual()?.id">
+            Enviar Mensagem
+          </button>
+        }
       </aside>
     </section>
   `,
@@ -80,14 +88,25 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 export class PerfilPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
-  readonly usuario = this.autenticacao.usuario;
+  private readonly route = inject(ActivatedRoute);
+  
+  readonly usuarioAtual = this.autenticacao.usuario;
+  readonly usuarioVisualizacao = signal<(Usuario | UsuarioAutenticado) | null>(null);
+  readonly modo = signal<'edicao' | 'visualizacao'>('edicao');
   readonly salvandoPerfil = signal(false);
   readonly mensagem = signal('');
   perfilNome = '';
   perfilBio = '';
 
   ngOnInit() {
-    this.carregarPerfil();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.modo.set('visualizacao');
+      this.carregarPerfilOutroUsuario(parseInt(id, 10));
+    } else {
+      this.modo.set('edicao');
+      this.carregarPerfilPropio();
+    }
   }
 
   salvarPerfil() {
@@ -100,6 +119,7 @@ export class PerfilPage implements OnInit {
     this.api.atualizarMeuPerfil({ nome, bio: this.perfilBio.trim() || null }).subscribe({
       next: (usuario) => {
         this.autenticacao.atualizarPerfilLocal(usuario);
+        this.usuarioVisualizacao.set(usuario);
         this.perfilNome = usuario.nome;
         this.perfilBio = usuario.bio || '';
         this.salvandoPerfil.set(false);
@@ -124,6 +144,7 @@ export class PerfilPage implements OnInit {
     this.api.atualizarFotoPerfil(arquivo).subscribe({
       next: (usuario) => {
         this.autenticacao.atualizarPerfilLocal(usuario);
+        this.usuarioVisualizacao.set(usuario);
         this.salvandoPerfil.set(false);
         this.mensagem.set('Foto de perfil atualizada.');
       },
@@ -134,17 +155,39 @@ export class PerfilPage implements OnInit {
     });
   }
 
-  private carregarPerfil() {
+  enviarMensagem() {
+    const usuarioId = this.usuarioVisualizacao()?.id;
+    if (usuarioId) {
+      // TODO: Navegar para página de mensagens com o usuário
+    }
+  }
+
+  private carregarPerfilPropio() {
     this.api.obterMeuPerfil().subscribe({
       next: (usuario) => {
         this.autenticacao.atualizarPerfilLocal(usuario);
+        this.usuarioVisualizacao.set(usuario);
         this.perfilNome = usuario.nome;
         this.perfilBio = usuario.bio || '';
       },
       error: () => {
-        const usuario = this.usuario();
+        const usuario = this.usuarioAtual();
+        this.usuarioVisualizacao.set(usuario);
         this.perfilNome = usuario?.nome || '';
         this.perfilBio = usuario?.bio || '';
+      },
+    });
+  }
+
+  private carregarPerfilOutroUsuario(id: number) {
+    this.api.obterPerfilUsuario(id).subscribe({
+      next: (usuario) => {
+        this.usuarioVisualizacao.set(usuario);
+        this.perfilNome = usuario.nome;
+        this.perfilBio = usuario.bio || '';
+      },
+      error: () => {
+        this.mensagem.set('Perfil não encontrado.');
       },
     });
   }

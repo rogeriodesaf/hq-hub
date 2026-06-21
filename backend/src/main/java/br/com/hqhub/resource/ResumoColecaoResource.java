@@ -1,6 +1,7 @@
 package br.com.hqhub.resource;
 
 import br.com.hqhub.dto.ColecaoResumoDTO;
+import br.com.hqhub.dto.EstatisticasPublicasColecaoDTO;
 import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.service.ResumoColecaoService;
 import io.quarkus.security.Authenticated;
@@ -33,5 +34,12 @@ public class ResumoColecaoResource {
     public Response calcularCompletudePorSerie(@PathParam("serieId") Long serieId) {
         SerieCompletudeDTO completude = resumoColecaoService.calcularCompletudePorSerie(serieId);
         return Response.ok(completude).build();
+    }
+
+    @GET
+    @Path("/usuarios/{usuarioId}")
+    public Response gerarEstatisticasPublicas(@PathParam("usuarioId") Long usuarioId) {
+        EstatisticasPublicasColecaoDTO stats = resumoColecaoService.gerarEstatisticasPublicas(usuarioId);
+        return Response.ok(stats).build();
     }
 }

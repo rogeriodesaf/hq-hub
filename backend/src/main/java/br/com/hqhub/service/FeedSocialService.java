@@ -64,6 +64,17 @@ public class FeedSocialService {
     }
 
     @Transactional
+    public List<PostagemFeedRespostaDTO> listarPostagensPorUsuario(Long usuarioId, int pagina, int tamanho) {
+        Usuario usuarioAutenticado = usuarioAutenticadoService.obterUsuario();
+        int paginaTratada = Math.max(pagina, 0);
+        int tamanhoTratado = Math.min(Math.max(tamanho, 1), 50);
+        return postagemRepository.listarPorUsuario(usuarioId, paginaTratada, tamanhoTratado)
+                .stream()
+                .map(postagem -> paraResposta(postagem, usuarioAutenticado.getId()))
+                .toList();
+    }
+
+    @Transactional
     public PostagemFeedRespostaDTO publicar(CadastroPostagemFeedDTO dto) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         PostagemFeed postagem = new PostagemFeed();
