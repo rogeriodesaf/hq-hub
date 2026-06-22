@@ -85,24 +85,27 @@ redefinirSenha(token: string, novaSenha: string) {
     }
 
     const payload = this.lerPayloadToken(token);
-    if (!payload || typeof payload.exp !== 'number') {
+    const exp = payload?.exp ? Number(payload.exp) : NaN;
+    if (!Number.isFinite(exp)) {
       return false;
     }
 
     const agoraEmSegundos = Math.floor(Date.now() / 1000);
-    return payload.exp > agoraEmSegundos;
+    return exp > agoraEmSegundos;
   }
 
-  private lerPayloadToken(token: string): { exp?: number } | null {
+  private lerPayloadToken(token: string): { exp?: number | string } | null {
     const partes = token.split('.');
     if (partes.length < 2) {
       return null;
     }
 
     try {
-      const base64 = partes[1].replace(/-/g, '+').replace(/_/g, '/');
+      const base64Url = partes[1].replace(/-/g, '+').replace(/_/g, '/');
+      const paddingNecessario = (4 - (base64Url.length % 4)) % 4;
+      const base64 = base64Url + '='.repeat(paddingNecessario);
       const conteudo = atob(base64);
-      return JSON.parse(conteudo) as { exp?: number };
+      return JSON.parse(conteudo) as { exp?: number | string };
     } catch {
       return null;
     }
