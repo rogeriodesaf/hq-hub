@@ -1,5 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { map } from 'rxjs';
+
+import { environment } from '../../environments/environment';
 
 import {
   Anuncio,
@@ -64,32 +67,42 @@ export class ApiService {
     const params = new HttpParams()
       .set('pagina', pagina)
       .set('tamanho', tamanho);
-    return this.http.get<PostagemFeed[]>('/api/feed', { params });
+    return this.http.get<PostagemFeed[]>('/api/feed', { params }).pipe(
+      map((postagens) => postagens.map((postagem) => this.normalizarPostagem(postagem))),
+    );
   }
 
   obterFeedUsuario(usuarioId: number, pagina = 0, tamanho = 20) {
     const params = new HttpParams()
       .set('pagina', pagina)
       .set('tamanho', tamanho);
-    return this.http.get<PostagemFeed[]>(`/api/feed/usuarios/${usuarioId}`, { params });
+    return this.http.get<PostagemFeed[]>(`/api/feed/usuarios/${usuarioId}`, { params }).pipe(
+      map((postagens) => postagens.map((postagem) => this.normalizarPostagem(postagem))),
+    );
   }
 
   enviarImagensFeed(arquivos: File[]) {
     const dados = new FormData();
     arquivos.forEach((arquivo) => dados.append('imagens', arquivo));
-    return this.http.post<ImagemFeed[]>('/api/feed/imagens', dados);
+    return this.http.post<ImagemFeed[]>('/api/feed/imagens', dados).pipe(
+      map((imagens) => imagens.map((imagem) => this.normalizarImagem(imagem))),
+    );
   }
 
   publicarNoFeed(dto: { conteudo: string; urlImagem: string | null; imagens?: ImagemFeed[] }) {
-    return this.http.post<PostagemFeed>('/api/feed', dto);
+    return this.http.post<PostagemFeed>('/api/feed', dto).pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
   alternarCurtidaPostagem(id: number) {
-    return this.http.post<PostagemFeed>(`/api/feed/${id}/curtidas`, {});
+    return this.http
+      .post<PostagemFeed>(`/api/feed/${id}/curtidas`, {})
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
   comentarPostagem(id: number, texto: string) {
-    return this.http.post<PostagemFeed>(`/api/feed/${id}/comentarios`, { texto });
+    return this.http
+      .post<PostagemFeed>(`/api/feed/${id}/comentarios`, { texto })
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
   listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '') {
@@ -136,25 +149,25 @@ export class ApiService {
   }
 
   listarUsuarios() {
-    return this.http.get<Usuario[]>('/api/usuarios');
+    return this.http.get<Usuario[]>('/api/usuarios').pipe(map((usuarios) => usuarios.map((usuario) => this.normalizarUsuario(usuario))));
   }
 
   obterMeuPerfil() {
-    return this.http.get<Usuario>('/api/usuarios/me');
+    return this.http.get<Usuario>('/api/usuarios/me').pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
   atualizarMeuPerfil(dto: { nome: string; bio: string | null }) {
-    return this.http.put<Usuario>('/api/usuarios/me/perfil', dto);
+    return this.http.put<Usuario>('/api/usuarios/me/perfil', dto).pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
   atualizarFotoPerfil(arquivo: File) {
     const dados = new FormData();
     dados.append('foto', arquivo);
-    return this.http.post<Usuario>('/api/usuarios/me/foto', dados);
+    return this.http.post<Usuario>('/api/usuarios/me/foto', dados).pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
   obterPerfilUsuario(id: number) {
-    return this.http.get<Usuario>(`/api/usuarios/${id}`);
+    return this.http.get<Usuario>(`/api/usuarios/${id}`).pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
   obterRelacionamentoAmizade(usuarioId: number) {
@@ -395,15 +408,21 @@ export class ApiService {
   }
 
   listarConversasDiretas() {
-    return this.http.get<ConversaDireta[]>('/api/mensagens/conversas');
+    return this.http.get<ConversaDireta[]>('/api/mensagens/conversas').pipe(
+      map((conversas) => conversas.map((conversa) => this.normalizarConversa(conversa))),
+    );
   }
 
   listarMensagensDiretas(usuarioId: number) {
-    return this.http.get<MensagemDireta[]>(`/api/mensagens/usuarios/${usuarioId}`);
+    return this.http.get<MensagemDireta[]>(`/api/mensagens/usuarios/${usuarioId}`).pipe(
+      map((mensagens) => mensagens.map((mensagem) => this.normalizarMensagem(mensagem))),
+    );
   }
 
   enviarMensagemDireta(destinatarioId: number, texto: string) {
-    return this.http.post<MensagemDireta>('/api/mensagens', { destinatarioId, texto });
+    return this.http
+      .post<MensagemDireta>('/api/mensagens', { destinatarioId, texto })
+      .pipe(map((mensagem) => this.normalizarMensagem(mensagem)));
   }
 
   contarMensagensNaoLidas() {
@@ -581,5 +600,70 @@ export class ApiService {
 
   recusarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {
     return this.http.post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/recusar`, { mensagemRevisao });
+  }
+
+  private normalizarUrlMidia(url: string | null | undefined): string | null {
+    if (!url) {
+      return null;
+    }
+
+    if (environment.apiUrl && url.startsWith('/api/')) {
+      return `${environment.apiUrl}${url}`;
+    }
+
+    if (environment.apiUrl && (url.startsWith('http://localhost:62375/api/') || url.startsWith('https://localhost:62375/api/'))) {
+      return url.replace(/^https?:\/\/localhost:62375/i, environment.apiUrl);
+    }
+
+    if (url.startsWith('http://hqhub-backend.onrender.com/')) {
+      return url.replace('http://hqhub-backend.onrender.com/', 'https://hqhub-backend.onrender.com/');
+    }
+
+    return url;
+  }
+
+  private normalizarUsuario(usuario: Usuario): Usuario {
+    return {
+      ...usuario,
+      fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
+      fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+    };
+  }
+
+  private normalizarImagem(imagem: ImagemFeed): ImagemFeed {
+    return {
+      ...imagem,
+      urlImagem: this.normalizarUrlMidia(imagem.urlImagem) || imagem.urlImagem,
+      urlThumbnail: this.normalizarUrlMidia(imagem.urlThumbnail) || imagem.urlThumbnail,
+    };
+  }
+
+  private normalizarPostagem(postagem: PostagemFeed): PostagemFeed {
+    return {
+      ...postagem,
+      usuario: this.normalizarUsuario(postagem.usuario),
+      urlImagem: this.normalizarUrlMidia(postagem.urlImagem),
+      imagens: (postagem.imagens || []).map((imagem) => this.normalizarImagem(imagem)),
+      comentarios: (postagem.comentarios || []).map((comentario) => ({
+        ...comentario,
+        usuario: this.normalizarUsuario(comentario.usuario),
+      })),
+    };
+  }
+
+  private normalizarMensagem(mensagem: MensagemDireta): MensagemDireta {
+    return {
+      ...mensagem,
+      remetente: this.normalizarUsuario(mensagem.remetente),
+      destinatario: this.normalizarUsuario(mensagem.destinatario),
+    };
+  }
+
+  private normalizarConversa(conversa: ConversaDireta): ConversaDireta {
+    return {
+      ...conversa,
+      usuario: this.normalizarUsuario(conversa.usuario),
+      ultimaMensagem: this.normalizarMensagem(conversa.ultimaMensagem),
+    };
   }
 }

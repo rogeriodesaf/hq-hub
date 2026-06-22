@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class UrlPublicaService {
 
-    @ConfigProperty(name = "hqhub.url-base", defaultValue = "http://localhost:62375")
+    @ConfigProperty(name = "hqhub.url-base", defaultValue = "")
     String urlBase;
 
     public String normalizarApiUrl(String url) {
@@ -20,12 +20,14 @@ public class UrlPublicaService {
             return valor;
         }
 
+        String base = baseNormalizada();
+
         if (valor.startsWith("/api/")) {
-            return baseNormalizada() + valor;
+            return base.isEmpty() ? valor : base + valor;
         }
 
         if (valor.startsWith("api/")) {
-            return baseNormalizada() + "/" + valor;
+            return base.isEmpty() ? "/" + valor : base + "/" + valor;
         }
 
         return valor;

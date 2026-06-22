@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
@@ -33,6 +35,8 @@ entrar(email: string, senha: string) {
       const usuarioNormalizado: UsuarioAutenticado = {
         ...usuario,
         token: this.normalizarToken(usuario.token),
+        fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
+        fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
       };
       console.log('[AUTH] Token normalizado:', usuarioNormalizado.token);
       localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
@@ -66,8 +70,8 @@ redefinirSenha(token: string, novaSenha: string) {
       email: usuario.email,
       perfil: usuario.perfil,
       bio: usuario.bio,
-      fotoPerfilUrl: usuario.fotoPerfilUrl,
-      fotoPerfilThumbnailUrl: usuario.fotoPerfilThumbnailUrl,
+      fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
+      fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
     };
     localStorage.setItem(CHAVE_USUARIO, JSON.stringify(atualizado));
     this.usuarioAtual.set(atualizado);
@@ -150,13 +154,39 @@ redefinirSenha(token: string, novaSenha: string) {
 
     try {
       const usuario = JSON.parse(salvo) as UsuarioAutenticado;
+      const usuarioNormalizado: UsuarioAutenticado = {
+        ...usuario,
+        fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
+        fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+      };
+      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
       console.warn('🔐 Usuário recuperado:', { email: usuario.email, perfil: usuario.perfil, temToken: !!usuario.token });
-      return usuario;
+      return usuarioNormalizado;
     } catch (erro) {
       console.error('🔐 Erro ao parsear usuário salvo:', erro);
       localStorage.removeItem(CHAVE_USUARIO);
       return null;
     }
+  }
+
+  private normalizarUrlMidia(url: string | null | undefined): string | null {
+    if (!url) {
+      return null;
+    }
+
+    if (environment.apiUrl && url.startsWith('/api/')) {
+      return `${environment.apiUrl}${url}`;
+    }
+
+    if (environment.apiUrl && (url.startsWith('http://localhost:62375/api/') || url.startsWith('https://localhost:62375/api/'))) {
+      return url.replace(/^https?:\/\/localhost:62375/i, environment.apiUrl);
+    }
+
+    if (url.startsWith('http://hqhub-backend.onrender.com/')) {
+      return url.replace('http://hqhub-backend.onrender.com/', 'https://hqhub-backend.onrender.com/');
+    }
+
+    return url;
   }
 }
 
