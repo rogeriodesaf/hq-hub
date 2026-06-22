@@ -1,5 +1,5 @@
 -- V37: Limpa V33 do histórico do Flyway e cria usuário administrador
-DELETE FROM flyway_schema_history WHERE version = 33;
+DELETE FROM flyway_schema_history WHERE version = '33';
 
 DELETE FROM usuarios WHERE email = 'rogeriodesaf@adm';
 
