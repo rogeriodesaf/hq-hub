@@ -1,0 +1,1 @@
+-- Placeholder: V33 foi deletado intencionalmente. V37 limpará o histórico do Flyway.
