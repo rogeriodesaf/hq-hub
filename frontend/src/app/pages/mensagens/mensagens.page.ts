@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { resolverUrlMidia } from '../../core/midia-url';
 import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/modelos';
 
 @Component({
@@ -36,7 +37,7 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
             <button type="button" [class.ativo]="destinatarioSelecionado()?.id === conversa.usuario.id" (click)="selecionarUsuario(conversa.usuario)">
               <span class="avatar-chat">
                 @if (conversa.usuario.fotoPerfilThumbnailUrl) {
-                  <img [src]="conversa.usuario.fotoPerfilThumbnailUrl" alt="" />
+                  <img [src]="resolverUrlMidia(conversa.usuario.fotoPerfilThumbnailUrl)" alt="" />
                 } @else {
                   {{ conversa.usuario.nome.slice(0, 1) }}
                 }
@@ -61,7 +62,7 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
               <button type="button" (click)="selecionarUsuario(pessoa)">
                 <span class="avatar-chat mini">
                   @if (pessoa.fotoPerfilThumbnailUrl) {
-                    <img [src]="pessoa.fotoPerfilThumbnailUrl" alt="" />
+                    <img [src]="resolverUrlMidia(pessoa.fotoPerfilThumbnailUrl)" alt="" />
                   } @else {
                     {{ pessoa.nome.slice(0, 1) }}
                   }
@@ -78,7 +79,7 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
           <header class="chat-topo">
             <span class="avatar-chat grande">
               @if (destinatario.fotoPerfilThumbnailUrl) {
-                <img [src]="destinatario.fotoPerfilThumbnailUrl" alt="" />
+                <img [src]="resolverUrlMidia(destinatario.fotoPerfilThumbnailUrl)" alt="" />
               } @else {
                 {{ destinatario.nome.slice(0, 1) }}
               }
@@ -124,6 +125,7 @@ export class MensagensPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly rota = inject(ActivatedRoute);
+  readonly resolverUrlMidia = resolverUrlMidia;
 
   readonly conversas = signal<ConversaDireta[]>([]);
   readonly amigos = signal<Usuario[]>([]);

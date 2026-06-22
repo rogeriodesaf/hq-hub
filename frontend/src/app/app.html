@@ -92,7 +92,7 @@
         <a routerLink="/perfil" class="usuario-box-link">
           <span class="avatar-shell">
             @if (usuario()?.fotoPerfilThumbnailUrl) {
-              <img [src]="usuario()?.fotoPerfilThumbnailUrl || ''" alt="" />
+              <img [src]="resolverUrlMidia(usuario()?.fotoPerfilThumbnailUrl)" alt="" />
             } @else {
               {{ usuario()?.nome?.slice(0, 1) || 'H' }}
             }

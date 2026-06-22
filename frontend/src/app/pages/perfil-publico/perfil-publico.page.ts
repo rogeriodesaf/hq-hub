@@ -159,7 +159,7 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                         <div class="avatar-feed mini">
                           <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-perfil">
                             @if (comentario.usuario.fotoPerfilThumbnailUrl) {
-                              <img [src]="comentario.usuario.fotoPerfilThumbnailUrl" alt="" />
+                              <img [src]="resolverUrlMidia(comentario.usuario.fotoPerfilThumbnailUrl)" alt="" />
                             } @else {
                               {{ iniciais(comentario.usuario.nome) }}
                             }

@@ -18,6 +18,7 @@ import { filter, forkJoin } from 'rxjs';
 
 import { AutenticacaoService } from './core/autenticacao.service';
 import { ApiService } from './core/api.service';
+import { resolverUrlMidia } from './core/midia-url';
 import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
 
 @Component({
@@ -60,6 +61,7 @@ export class App implements OnInit {
   readonly solicitacoesRecebidas = signal<Amizade[]>([]);
   readonly conversasComNaoLidas = signal<ConversaDireta[]>([]);
   readonly alteracoesEstanteRecentes = signal<ContribuicaoCatalogo[]>([]);
+  readonly resolverUrlMidia = resolverUrlMidia;
   readonly totalNotificacoes = computed(() =>
     Math.min(
       9,

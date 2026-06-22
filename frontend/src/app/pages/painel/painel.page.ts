@@ -99,7 +99,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                 <div class="avatar-feed">
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-perfil">
                     @if (postagem.usuario.fotoPerfilThumbnailUrl) {
-                      <img [src]="postagem.usuario.fotoPerfilThumbnailUrl" alt="" />
+                      <img [src]="resolverUrlMidia(postagem.usuario.fotoPerfilThumbnailUrl)" alt="" />
                     } @else {
                       {{ iniciais(postagem.usuario.nome) }}
                     }
@@ -121,7 +121,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
               @if (imagensPostagem(postagem).length) {
                 <div class="grade-imagens-feed imagens-postagem" [class.multipla]="imagensPostagem(postagem).length > 1">
                   @for (imagem of imagensPostagem(postagem); track imagem.urlImagem) {
-                    <a [href]="imagem.urlImagem" target="_blank" rel="noreferrer">
+                    <a [href]="resolverUrlMidia(imagem.urlImagem)" target="_blank" rel="noreferrer">
                       <img
                         class="imagem-postagem"
                         [src]="resolverUrlMidia(imagem.urlThumbnail)"
@@ -153,7 +153,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     <div class="avatar-feed mini">
                       <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-perfil">
                         @if (comentario.usuario.fotoPerfilThumbnailUrl) {
-                          <img [src]="comentario.usuario.fotoPerfilThumbnailUrl" alt="" />
+                          <img [src]="resolverUrlMidia(comentario.usuario.fotoPerfilThumbnailUrl)" alt="" />
                         } @else {
                           {{ iniciais(comentario.usuario.nome) }}
                         }

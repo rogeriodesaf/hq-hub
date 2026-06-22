@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { resolverUrlMidia } from '../core/midia-url';
 import { Usuario } from '../core/modelos';
 
 type PerfilResumo = Pick<Usuario, 'nome' | 'bio' | 'fotoPerfilThumbnailUrl'>;
@@ -15,7 +16,7 @@ type PerfilResumo = Pick<Usuario, 'nome' | 'bio' | 'fotoPerfilThumbnailUrl'>;
       <div class="perfil-cabecalho">
         <div class="foto-perfil-feed">
           @if (usuario?.fotoPerfilThumbnailUrl) {
-            <img [src]="usuario?.fotoPerfilThumbnailUrl || ''" alt="Foto de perfil" />
+            <img [src]="resolverUrlMidia(usuario?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
           } @else {
             {{ iniciais(usuario?.nome || nome || 'HQ') }}
           }
@@ -133,6 +134,8 @@ type PerfilResumo = Pick<Usuario, 'nome' | 'bio' | 'fotoPerfilThumbnailUrl'>;
   `,
 })
 export class PerfilFeedComponent {
+  readonly resolverUrlMidia = resolverUrlMidia;
+
   @Input() usuario: PerfilResumo | null = null;
   @Input() nome = '';
   @Input() bio = '';
