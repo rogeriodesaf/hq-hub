@@ -3,6 +3,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
+import { environment } from '../../../environments/environment';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaResposta, PostagemFeed, Usuario } from '../../core/modelos';
@@ -871,16 +872,20 @@ export class PerfilPublicoPage implements OnInit {
 
 
   resolverUrlMidia(url: string | null | undefined): string {
-  if (!url) {
-    return this.capaReserva;
-  }
+    if (!url) {
+      return this.capaReserva;
+    }
 
-  if (url.startsWith('http')) {
-    return url;
-  }
+    if (url.startsWith('http://')) {
+      url = url.replace('http://', 'https://');
+    }
 
-  return `https://hqhub-backend.onrender.com${url}`;
-}
+    if (url.startsWith('https://')) {
+      return url;
+    }
+
+    return `${environment.apiUrl}${url}`;
+  }
 
   imagensPostagem(postagem: PostagemFeed) {
     return postagem.imagens?.length ? postagem.imagens : [];
