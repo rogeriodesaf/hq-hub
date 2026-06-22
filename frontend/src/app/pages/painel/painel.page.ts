@@ -3,6 +3,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
+import { environment } from '../../../environments/environment';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { ColecaoResumo, ImagemFeed, PostagemFeed } from '../../core/modelos';
@@ -123,7 +124,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     <a [href]="imagem.urlImagem" target="_blank" rel="noreferrer">
                       <img
                         class="imagem-postagem"
-                        [src]="imagem.urlThumbnail"
+                        [src]="resolverUrlMidia(imagem.urlThumbnail)"
                         alt="Imagem publicada por {{ postagem.usuario.nome }}"
                         loading="lazy"
                       />
@@ -578,6 +579,13 @@ export class PainelPage implements OnInit {
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel comentar esta postagem.'),
       complete: () => this.interagindoId.set(null),
     });
+  }
+
+  resolverUrlMidia(url: string | null | undefined): string {
+    if (!url) return '';
+    if (url.startsWith('http://')) url = url.replace('http://', 'https://');
+    if (url.startsWith('https://')) return url;
+    return `${environment.apiUrl}${url}`;
   }
 
   iniciais(nome: string) {
