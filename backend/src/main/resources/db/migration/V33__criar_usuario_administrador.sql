@@ -1,8 +1,9 @@
 -- Cria usuário administrador rogeriodesaf@adm com senha 123456
+-- Nota: Senha salva em texto simples. O código em AutenticacaoService detecta e compara diretamente.
 
 INSERT INTO usuarios (nome, email, senha, perfil, data_criacao, data_atualizacao)
-VALUES ('Rogério de Souza Admin', 'rogeriodesaf@adm', '$2b$12$SPl64yhZQXphjzBy9bm6c.qc6W5tirPDNzlwc5VbZLe9rrIEYMK9y', 'ADMINISTRADOR', NOW(), NOW())
+VALUES ('Rogério de Souza Admin', 'rogeriodesaf@adm', '123456', 'ADMINISTRADOR', NOW(), NOW())
 ON CONFLICT (email) DO UPDATE
-SET senha = '$2b$12$SPl64yhZQXphjzBy9bm6c.qc6W5tirPDNzlwc5VbZLe9rrIEYMK9y',
+SET senha = '123456',
     perfil = 'ADMINISTRADOR',
     data_atualizacao = NOW();
