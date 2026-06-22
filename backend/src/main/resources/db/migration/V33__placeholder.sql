@@ -1,3 +1,0 @@
--- Migration V33 foi removida e recriada como placeholder
--- O histórico desta migration já existe no banco de dados
--- Migrações reais continuam em V35 e V36
