@@ -10,9 +10,15 @@
   "description": "Organizador de coleções de quadrinhos.",
   "icons": [
     {
-      "src": "assets/icone-hqhub.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "assets/icone-hqhub-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icone-hqhub-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
