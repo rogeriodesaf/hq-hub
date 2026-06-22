@@ -5,7 +5,7 @@ import { tap } from 'rxjs';
 import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
-const AUTH_BASE = '/auth';
+const AUTH_BASE = '/api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AutenticacaoService {
@@ -29,7 +29,7 @@ entrar(email: string, senha: string) {
 }
 
 cadastrar(nome: string, email: string, senha: string) {
-  return this.http.post(`/api/usuarios`, { nome, email, senha });
+  return this.http.post('/api/usuarios', { nome, email, senha });
 }
 
 solicitarRedefinicaoSenha(email: string) {
