@@ -22,8 +22,12 @@ export class AutenticacaoService {
 entrar(email: string, senha: string) {
   return this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/login`, { email, senha }).pipe(
     tap((usuario) => {
-      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
-      this.usuarioAtual.set(usuario);
+      const usuarioNormalizado: UsuarioAutenticado = {
+        ...usuario,
+        token: this.normalizarToken(usuario.token),
+      };
+      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
+      this.usuarioAtual.set(usuarioNormalizado);
     }),
   );
 }
@@ -65,23 +69,24 @@ redefinirSenha(token: string, novaSenha: string) {
   }
 
   obterToken() {
-    if (!this.sessaoValida()) {
+    const token = this.normalizarToken(this.usuarioAtual()?.token);
+    if (!token || !this.sessaoValida()) {
       this.sair();
       return null;
     }
 
-    return this.usuarioAtual()?.token ?? null;
+    return token;
   }
 
   private sessaoValida() {
-    const usuario = this.usuarioAtual();
-    if (!usuario?.token) {
+    const token = this.normalizarToken(this.usuarioAtual()?.token);
+    if (!token) {
       return false;
     }
 
-    const payload = this.lerPayloadToken(usuario.token);
-    if (!payload?.exp) {
-      return true;
+    const payload = this.lerPayloadToken(token);
+    if (!payload || typeof payload.exp !== 'number') {
+      return false;
     }
 
     const agoraEmSegundos = Math.floor(Date.now() / 1000);
@@ -101,6 +106,14 @@ redefinirSenha(token: string, novaSenha: string) {
     } catch {
       return null;
     }
+  }
+
+  private normalizarToken(token: string | null | undefined): string {
+    if (!token) {
+      return '';
+    }
+
+    return token.replace(/^Bearer\s+/i, '').trim();
   }
 
   private lerUsuarioSalvo(): UsuarioAutenticado | null {
