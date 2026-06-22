@@ -33,6 +33,7 @@ public class FeedSocialService {
     private final AmizadeRepository amizadeRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final UsuarioMapper usuarioMapper;
+    private final UrlPublicaService urlPublicaService;
 
     public FeedSocialService(
             PostagemFeedRepository postagemRepository,
@@ -41,7 +42,8 @@ public class FeedSocialService {
             ImagemPostagemFeedRepository imagemRepository,
             AmizadeRepository amizadeRepository,
             UsuarioAutenticadoService usuarioAutenticadoService,
-            UsuarioMapper usuarioMapper) {
+            UsuarioMapper usuarioMapper,
+            UrlPublicaService urlPublicaService) {
         this.postagemRepository = postagemRepository;
         this.comentarioRepository = comentarioRepository;
         this.curtidaRepository = curtidaRepository;
@@ -49,6 +51,7 @@ public class FeedSocialService {
         this.amizadeRepository = amizadeRepository;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.usuarioMapper = usuarioMapper;
+        this.urlPublicaService = urlPublicaService;
     }
 
     @Transactional
@@ -196,8 +199,8 @@ public class FeedSocialService {
 
     private ImagemFeedDTO paraImagemResposta(ImagemPostagemFeed imagem) {
         return new ImagemFeedDTO(
-                imagem.getUrlImagem(),
-                imagem.getUrlThumbnail(),
+            urlPublicaService.normalizarApiUrl(imagem.getUrlImagem()),
+            urlPublicaService.normalizarApiUrl(imagem.getUrlThumbnail()),
                 imagem.getNomeArquivo(),
                 imagem.getTipoMime(),
                 imagem.getTamanhoBytes(),
@@ -210,6 +213,6 @@ public class FeedSocialService {
         if (!imagens.isEmpty()) {
             return imagens.get(0).urlImagem();
         }
-        return postagem.getUrlImagem();
+        return urlPublicaService.normalizarApiUrl(postagem.getUrlImagem());
     }
 }

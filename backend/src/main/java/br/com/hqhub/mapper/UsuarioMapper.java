@@ -3,10 +3,17 @@ package br.com.hqhub.mapper;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
 import br.com.hqhub.dto.UsuarioRespostaDTO;
 import br.com.hqhub.entity.Usuario;
+import br.com.hqhub.service.UrlPublicaService;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class UsuarioMapper {
+
+    private final UrlPublicaService urlPublicaService;
+
+    public UsuarioMapper(UrlPublicaService urlPublicaService) {
+        this.urlPublicaService = urlPublicaService;
+    }
 
     public Usuario paraEntidade(CadastroUsuarioDTO dto) {
         Usuario usuario = new Usuario();
@@ -23,8 +30,8 @@ public class UsuarioMapper {
                 usuario.getEmail(),
                 usuario.getPerfil().name(),
                 usuario.getBio(),
-                usuario.getFotoPerfilUrl(),
-                usuario.getFotoPerfilThumbnailUrl(),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilUrl()),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilThumbnailUrl()),
                 usuario.getDataCriacao(),
                 usuario.getDataAtualizacao());
     }

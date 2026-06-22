@@ -13,10 +13,12 @@ public class AutenticacaoService {
 
     private final UsuarioRepository usuarioRepository;
     private final TokenService tokenService;
+    private final UrlPublicaService urlPublicaService;
 
-    public AutenticacaoService(UsuarioRepository usuarioRepository, TokenService tokenService) {
+    public AutenticacaoService(UsuarioRepository usuarioRepository, TokenService tokenService, UrlPublicaService urlPublicaService) {
         this.usuarioRepository = usuarioRepository;
         this.tokenService = tokenService;
+        this.urlPublicaService = urlPublicaService;
     }
 
     public UsuarioAutenticadoDTO autenticar(AutenticacaoUsuarioDTO dto) {
@@ -33,8 +35,8 @@ public class AutenticacaoService {
                 usuario.getEmail(),
                 usuario.getPerfil().name(),
                 usuario.getBio(),
-                usuario.getFotoPerfilUrl(),
-                usuario.getFotoPerfilThumbnailUrl(),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilUrl()),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilThumbnailUrl()),
                 tokenService.gerarToken(usuario),
                 "Bearer",
                 tokenService.obterTempoExpiracaoEmSegundos(),

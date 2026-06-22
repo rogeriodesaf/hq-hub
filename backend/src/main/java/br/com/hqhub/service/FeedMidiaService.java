@@ -38,6 +38,9 @@ public class FeedMidiaService {
     @ConfigProperty(name = "hqhub.uploads.feed.diretorio", defaultValue = "uploads/feed")
     String diretorioFeed;
 
+    @ConfigProperty(name = "hqhub.url-base", defaultValue = "http://localhost:62375")
+    String urlBase;
+
     public List<ImagemFeedDTO> salvarImagens(List<FileUpload> arquivos) {
         if (arquivos == null || arquivos.isEmpty()) {
             return List.of();
@@ -195,10 +198,18 @@ public class FeedMidiaService {
     }
 
     private String url(String nomeArquivo) {
-        return "/api/midia/feed/" + nomeArquivo;
+        return urlMidia(nomeArquivo);
     }
 
     private String urlThumb(String nomeArquivo) {
-        return "/api/midia/feed/" + nomeArquivo;
+        return urlMidia(nomeArquivo);
+    }
+
+    private String urlMidia(String nomeArquivo) {
+        String base = urlBase == null ? "" : urlBase.trim();
+        if (base.endsWith("/")) {
+            base = base.substring(0, base.length() - 1);
+        }
+        return base + "/api/midia/feed/" + nomeArquivo;
     }
 }
