@@ -19,6 +19,12 @@ export class AutenticacaoService {
     return perfil === 'COLABORADOR' || perfil === 'ADMINISTRADOR';
   });
 
+  constructor() {
+    console.warn('🔐 AutenticacaoService inicializado');
+    console.warn('🔐 Usuário salvo no localStorage:', this.usuarioAtual());
+    console.warn('🔐 Autenticado?', this.autenticado());
+  }
+
 entrar(email: string, senha: string) {
   return this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/login`, { email, senha }).pipe(
     tap((usuario) => {
@@ -125,21 +131,29 @@ redefinirSenha(token: string, novaSenha: string) {
 
   private normalizarToken(token: string | null | undefined): string {
     if (!token) {
+      console.warn('🔐 normalizarToken: token vazio');
       return '';
     }
 
-    return token.replace(/^Bearer\s+/i, '').trim();
+    const normalizado = token.replace(/^Bearer\s+/i, '').trim();
+    console.warn('🔐 normalizarToken:', { original: token.substring(0, 30), normalizado: normalizado.substring(0, 30) });
+    return normalizado;
   }
 
   private lerUsuarioSalvo(): UsuarioAutenticado | null {
     const salvo = localStorage.getItem(CHAVE_USUARIO);
+    console.warn('🔐 lerUsuarioSalvo:', { chaveBuscada: CHAVE_USUARIO, encontrado: !!salvo, conteudo: salvo?.substring(0, 100) });
     if (!salvo) {
+      console.warn('🔐 Nenhum usuário salvo no localStorage');
       return null;
     }
 
     try {
-      return JSON.parse(salvo) as UsuarioAutenticado;
-    } catch {
+      const usuario = JSON.parse(salvo) as UsuarioAutenticado;
+      console.warn('🔐 Usuário recuperado:', { email: usuario.email, perfil: usuario.perfil, temToken: !!usuario.token });
+      return usuario;
+    } catch (erro) {
+      console.error('🔐 Erro ao parsear usuário salvo:', erro);
       localStorage.removeItem(CHAVE_USUARIO);
       return null;
     }
