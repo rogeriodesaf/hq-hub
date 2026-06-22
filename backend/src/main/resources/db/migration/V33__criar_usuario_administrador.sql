@@ -1,5 +1,4 @@
 -- Cria usuário administrador rogeriodesaf@adm com senha 123456
--- Nota: Senha salva em texto simples. O código em AutenticacaoService detecta e compara diretamente.
 
 INSERT INTO usuarios (nome, email, senha, perfil, data_criacao, data_atualizacao)
 VALUES ('Rogério de Souza Admin', 'rogeriodesaf@adm', '123456', 'ADMINISTRADOR', NOW(), NOW())
