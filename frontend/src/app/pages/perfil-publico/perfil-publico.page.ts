@@ -26,7 +26,7 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
         <div class="perfil-publico-identidade">
           <div class="avatar-publico">
             @if (usuario()!.fotoPerfilUrl) {
-              <img [src]="usuario()!.fotoPerfilUrl" [alt]="'Foto de ' + usuario()!.nome" />
+              <img [src]="resolverUrlMidia(usuario()!.fotoPerfilUrl)" [alt]="'Foto de ' + usuario()!.nome" />
             } @else {
               {{ iniciais(usuario()!.nome) }}
             }
@@ -107,7 +107,7 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                   <header>
                     <div class="avatar-feed">
                       @if (usuario()!.fotoPerfilThumbnailUrl) {
-                        <img [src]="usuario()!.fotoPerfilThumbnailUrl" alt="" />
+                        <img [src]="resolverUrlMidia(usuario()!.fotoPerfilThumbnailUrl)" alt="" />
                       } @else {
                         {{ iniciais(usuario()!.nome) }}
                       }
@@ -126,10 +126,10 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                   @if (imagensPostagem(postagem).length) {
                     <div class="grade-imagens-feed imagens-postagem" [class.multipla]="imagensPostagem(postagem).length > 1">
                       @for (imagem of imagensPostagem(postagem); track imagem.urlImagem) {
-                        <a [href]="imagem.urlImagem" target="_blank" rel="noreferrer">
+                        <a [href]="resolverUrlMidia(imagem.urlImagem)" target="_blank" rel="noreferrer">
                           <img
                             class="imagem-postagem"
-                            [src]="imagem.urlThumbnail"
+                            [src]="resolverUrlMidia(imagem.urlThumbnail)"
                             [alt]="'Imagem de ' + usuario()!.nome"
                             loading="lazy"
                           />
@@ -868,6 +868,19 @@ export class PerfilPublicoPage implements OnInit {
       complete: () => this.interagindoId.set(null),
     });
   }
+
+
+  resolverUrlMidia(url: string | null | undefined): string {
+  if (!url) {
+    return this.capaReserva;
+  }
+
+  if (url.startsWith('http')) {
+    return url;
+  }
+
+  return `https://hqhub-backend.onrender.com${url}`;
+}
 
   imagensPostagem(postagem: PostagemFeed) {
     return postagem.imagens?.length ? postagem.imagens : [];
