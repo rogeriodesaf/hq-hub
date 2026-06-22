@@ -2,19 +2,17 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
-  isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideServiceWorker } from '@angular/service-worker';
 
 import { autenticacaoInterceptor } from './core/autenticacao.interceptor';
 import { routes } from './app.routes';
 
-function limparServiceWorkersDesenvolvimento() {
+function limparServiceWorkersLegados() {
   return async () => {
-    if (!isDevMode() || !('serviceWorker' in navigator)) {
+    if (!('serviceWorker' in navigator)) {
       return;
     }
 
@@ -36,12 +34,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([autenticacaoInterceptor])),
     {
       provide: APP_INITIALIZER,
-      useFactory: limparServiceWorkersDesenvolvimento,
+      useFactory: limparServiceWorkersLegados,
       multi: true,
     },
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
   ]
 };
