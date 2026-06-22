@@ -5,7 +5,7 @@ import { tap } from 'rxjs';
 import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
-const API_URL = 'https://hqhub-backend.onrender.com/api';
+const API_URL = 'https://hqhub-backend.onrender.com';
 
 @Injectable({ providedIn: 'root' })
 export class AutenticacaoService {
