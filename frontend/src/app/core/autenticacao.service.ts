@@ -22,12 +22,16 @@ export class AutenticacaoService {
 entrar(email: string, senha: string) {
   return this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/login`, { email, senha }).pipe(
     tap((usuario) => {
+      console.log('[AUTH] Login recebido:', { email, perfil: usuario.perfil, expiraEm: usuario.expiraEm, tipoToken: usuario.tipoToken });
+      console.log('[AUTH] Token completo:', usuario.token);
       const usuarioNormalizado: UsuarioAutenticado = {
         ...usuario,
         token: this.normalizarToken(usuario.token),
       };
+      console.log('[AUTH] Token normalizado:', usuarioNormalizado.token);
       localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
       this.usuarioAtual.set(usuarioNormalizado);
+      console.log('[AUTH] Sessão válida após login?', this.sessaoValida());
     }),
   );
 }
@@ -70,7 +74,10 @@ redefinirSenha(token: string, novaSenha: string) {
 
   obterToken() {
     const token = this.normalizarToken(this.usuarioAtual()?.token);
-    if (!token || !this.sessaoValida()) {
+    const valida = this.sessaoValida();
+    console.log('[AUTH] obterToken:', { temToken: !!token, sessaoValida: valida });
+    if (!token || !valida) {
+      console.log('[AUTH] Token ou sessão inválidos, fazendo logout');
       this.sair();
       return null;
     }
@@ -81,12 +88,17 @@ redefinirSenha(token: string, novaSenha: string) {
   private sessaoValida() {
     const token = this.normalizarToken(this.usuarioAtual()?.token);
     if (!token) {
+      console.log('[AUTH] sessaoValida: token vazio');
       return false;
     }
 
     const payload = this.lerPayloadToken(token);
+    console.log('[AUTH] sessaoValida - payload:', payload);
     const exp = payload?.exp ? Number(payload.exp) : NaN;
+    const agora = Math.floor(Date.now() / 1000);
+    console.log('[AUTH] sessaoValida - exp:', exp, 'agora:', agora, 'válido?', exp > agora);
     if (!Number.isFinite(exp)) {
+      console.log('[AUTH] exp não é número válido');
       return false;
     }
 

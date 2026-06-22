@@ -15,6 +15,7 @@ export const autenticacaoInterceptor: HttpInterceptorFn = (requisicao, proximo) 
   }
 
   const token = autenticacaoService.obterToken();
+  console.log('[INTERCEPTOR]', requisicao.url, '- token:', !!token ? token.substring(0, 20) + '...' : 'nenhum');
 
   const requisicaoAutenticada = token
     ? requisicao.clone({
@@ -27,6 +28,7 @@ export const autenticacaoInterceptor: HttpInterceptorFn = (requisicao, proximo) 
   return proximo(requisicaoAutenticada).pipe(
     catchError((erro) => {
       if (erro instanceof HttpErrorResponse && erro.status === 401 && !requisicao.url.includes('/auth/login')) {
+        console.log('[INTERCEPTOR] 401 recebido, fazendo logout');
         autenticacaoService.sair();
         roteador.navigateByUrl('/entrar');
       }
