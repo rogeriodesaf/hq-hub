@@ -3,9 +3,9 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { environment } from '../../../environments/environment';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import { ColecaoResumo, ImagemFeed, PostagemFeed } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
@@ -582,10 +582,7 @@ export class PainelPage implements OnInit {
   }
 
   resolverUrlMidia(url: string | null | undefined): string {
-    if (!url) return '';
-    if (url.startsWith('http://')) url = url.replace('http://', 'https://');
-    if (url.startsWith('https://')) return url;
-    return `${environment.apiUrl}${url}`;
+    return resolverUrlMidiaCore(url, '');
   }
 
   iniciais(nome: string) {

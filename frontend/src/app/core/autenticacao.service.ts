@@ -3,6 +3,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import { normalizarUrlMidia } from './midia-url';
 
 import { Usuario, UsuarioAutenticado } from './modelos';
 
@@ -170,23 +171,7 @@ redefinirSenha(token: string, novaSenha: string) {
   }
 
   private normalizarUrlMidia(url: string | null | undefined): string | null {
-    if (!url) {
-      return null;
-    }
-
-    if (environment.apiUrl && url.startsWith('/api/')) {
-      return `${environment.apiUrl}${url}`;
-    }
-
-    if (environment.apiUrl && (url.startsWith('http://localhost:62375/api/') || url.startsWith('https://localhost:62375/api/'))) {
-      return url.replace(/^https?:\/\/localhost:62375/i, environment.apiUrl);
-    }
-
-    if (url.startsWith('http://hqhub-backend.onrender.com/')) {
-      return url.replace('http://hqhub-backend.onrender.com/', 'https://hqhub-backend.onrender.com/');
-    }
-
-    return url;
+    return normalizarUrlMidia(url);
   }
 }
 
