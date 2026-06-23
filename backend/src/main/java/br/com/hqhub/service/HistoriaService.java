@@ -1,6 +1,8 @@
 package br.com.hqhub.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,6 +12,8 @@ import br.com.hqhub.dto.CadastroHistoriaDTO;
 import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
 import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.CruzamentoEdicaoRespostaDTO;
+import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
+import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
 import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
 import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
@@ -43,6 +47,7 @@ public class HistoriaService {
     private final ConteudoEdicaoMapper conteudoEdicaoMapper;
     private final PublicacaoHistoriaMapper publicacaoHistoriaMapper;
     private final EdicaoMapper edicaoMapper;
+    private final IntegracaoExternaService integracaoExternaService;
 
     public HistoriaService(
             HistoriaRepository historiaRepository,
@@ -52,7 +57,8 @@ public class HistoriaService {
             HistoriaMapper historiaMapper,
             ConteudoEdicaoMapper conteudoEdicaoMapper,
             PublicacaoHistoriaMapper publicacaoHistoriaMapper,
-            EdicaoMapper edicaoMapper) {
+            EdicaoMapper edicaoMapper,
+            IntegracaoExternaService integracaoExternaService) {
         this.historiaRepository = historiaRepository;
         this.edicaoRepository = edicaoRepository;
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
@@ -61,6 +67,7 @@ public class HistoriaService {
         this.conteudoEdicaoMapper = conteudoEdicaoMapper;
         this.publicacaoHistoriaMapper = publicacaoHistoriaMapper;
         this.edicaoMapper = edicaoMapper;
+        this.integracaoExternaService = integracaoExternaService;
     }
 
     @Transactional
@@ -182,9 +189,12 @@ public class HistoriaService {
     @Transactional
     public List<PublicacaoHistoriaRespostaDTO> listarPublicacoesPorEdicaoPublicada(Long edicaoPublicadaId) {
         buscarEdicaoPorId(edicaoPublicadaId);
+        Map<String, String> capasOriginaisComicVine = new HashMap<>();
+
         return publicacaoHistoriaRepository.listarPorEdicaoPublicada(edicaoPublicadaId)
                 .stream()
                 .map(publicacaoHistoriaMapper::paraResposta)
+                .map(publicacao -> aplicarCapaOriginalComicVine(publicacao, capasOriginaisComicVine))
                 .toList();
     }
 
@@ -260,6 +270,81 @@ public class HistoriaService {
     private void validarOrigemExterna(String fonteExterna, String idExterno) {
         if ((fonteExterna == null) != (idExterno == null)) {
             throw new RegraNegocioException("Fonte externa e id externo devem ser informados juntos.");
+        }
+    }
+
+    private PublicacaoHistoriaRespostaDTO aplicarCapaOriginalComicVine(
+            PublicacaoHistoriaRespostaDTO publicacao,
+            Map<String, String> cacheCapasComicVine) {
+        EdicaoRespostaDTO edicaoOriginal = publicacao.edicaoOriginal();
+        if (edicaoOriginal == null || edicaoOriginal.idComicVine() == null || edicaoOriginal.idComicVine().isBlank()) {
+            return publicacao;
+        }
+
+        String urlComicVine = cacheCapasComicVine.computeIfAbsent(
+                edicaoOriginal.idComicVine(),
+                this::buscarCapaComicVineSegura);
+
+        if (urlComicVine == null || urlComicVine.isBlank()) {
+            return publicacao;
+        }
+
+        EdicaoRespostaDTO edicaoOriginalComCapaComicVine = copiarEdicaoComNovaCapa(edicaoOriginal, urlComicVine);
+
+        return new PublicacaoHistoriaRespostaDTO(
+                publicacao.id(),
+                publicacao.historia(),
+                edicaoOriginalComCapaComicVine,
+                publicacao.edicaoPublicada(),
+                publicacao.status(),
+                publicacao.tipoPublicacaoHistoria(),
+                publicacao.fonteInformacao(),
+                publicacao.urlFonteInformacao(),
+                publicacao.statusValidacao(),
+                publicacao.tituloUsado(),
+                publicacao.paginasPublicadas(),
+                publicacao.paginasCortadas(),
+                publicacao.fonteExterna(),
+                publicacao.urlOrigem(),
+                publicacao.observacoes(),
+                publicacao.dataCriacao(),
+                publicacao.dataAtualizacao());
+    }
+
+    private EdicaoRespostaDTO copiarEdicaoComNovaCapa(EdicaoRespostaDTO edicao, String urlCapa) {
+        return new EdicaoRespostaDTO(
+                edicao.id(),
+                edicao.numero(),
+                edicao.titulo(),
+                edicao.descricao(),
+                edicao.descricaoOriginal(),
+                edicao.descricaoPortugues(),
+                edicao.descricaoExibicao(),
+                edicao.nomeVolume(),
+                edicao.dataCobertura(),
+                edicao.dataDisponibilidadeLoja(),
+                edicao.dataPublicacao(),
+                urlCapa,
+                edicao.codigoBarras(),
+                edicao.quantidadePaginas(),
+                edicao.precoCapa(),
+                edicao.formato(),
+                edicao.fonteExterna(),
+                edicao.idExterno(),
+                edicao.urlOrigem(),
+                edicao.urlComicVine(),
+                edicao.idComicVine(),
+                edicao.serie(),
+                edicao.dataCriacao(),
+                edicao.dataAtualizacao());
+    }
+
+    private String buscarCapaComicVineSegura(String idComicVine) {
+        try {
+            EdicaoComicVineRespostaDTO detalhe = integracaoExternaService.buscarDetalheEdicaoComicVine(idComicVine);
+            return detalhe.urlImagem();
+        } catch (Exception ex) {
+            return null;
         }
     }
 }
