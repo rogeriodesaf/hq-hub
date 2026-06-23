@@ -34,6 +34,22 @@ Os arquivos ficam em:
 dist/frontend/browser
 ```
 
+## Deploy no Render
+
+Para funcionar como SPA Angular (rotas diretas como /painel), use Render Static Site com fallback para /index.html.
+
+Arquivos de deploy usados no projeto:
+
+- ../../render.yaml (blueprint na raiz do repositório)
+- render.yaml (configuração equivalente para uso local da pasta frontend)
+- public/_redirects (fallback complementar de rota)
+
+Pontos obrigatórios:
+
+- Build Command: npm install && npm run build
+- Publish Directory: dist/frontend/browser
+- Rewrite de SPA: /* -> /index.html
+
 ## PWA
 
 O PWA é habilitado no build de produção. Para testar instalação no celular, publique ou sirva o conteúdo de `dist/frontend/browser` por HTTPS. Em ambiente local, navegadores também aceitam PWA em `localhost`.
