@@ -1,5 +1,9 @@
 package br.com.hqhub.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.utils.ObjectUtils;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -10,6 +14,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,6 +29,7 @@ import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.exception.RegraNegocioException;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -41,6 +47,30 @@ public class FeedMidiaService {
     @ConfigProperty(name = "hqhub.url-base", defaultValue = "http://localhost:62375")
     String urlBase;
 
+    @ConfigProperty(name = "CLOUDINARY_CLOUD_NAME", defaultValue = "")
+    String cloudinaryCloudName;
+
+    @ConfigProperty(name = "CLOUDINARY_API_KEY", defaultValue = "")
+    String cloudinaryApiKey;
+
+    @ConfigProperty(name = "CLOUDINARY_API_SECRET", defaultValue = "")
+    String cloudinaryApiSecret;
+
+    private Cloudinary cloudinary;
+
+    @PostConstruct
+    void inicializarCloudinary() {
+        if (!cloudinaryConfigurado()) {
+            return;
+        }
+
+        cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", cloudinaryCloudName.trim(),
+                "api_key", cloudinaryApiKey.trim(),
+                "api_secret", cloudinaryApiSecret.trim(),
+                "secure", true));
+    }
+
     public List<ImagemFeedDTO> salvarImagens(List<FileUpload> arquivos) {
         if (arquivos == null || arquivos.isEmpty()) {
             return List.of();
@@ -50,11 +80,13 @@ public class FeedMidiaService {
             throw new RegraNegocioException("A postagem pode ter no maximo 3 imagens.");
         }
 
-        try {
-            Files.createDirectories(diretorioBase());
-            Files.createDirectories(diretorioThumbs());
-        } catch (IOException e) {
-            throw new RegraNegocioException("Nao foi possivel preparar o armazenamento de imagens.");
+        if (!cloudinaryAtivo()) {
+            try {
+                Files.createDirectories(diretorioBase());
+                Files.createDirectories(diretorioThumbs());
+            } catch (IOException e) {
+                throw new RegraNegocioException("Nao foi possivel preparar o armazenamento de imagens.");
+            }
         }
 
         List<ImagemFeedDTO> imagens = new ArrayList<>();
@@ -87,6 +119,10 @@ public class FeedMidiaService {
 
         if (tamanho > LIMITE_BYTES) {
             throw new RegraNegocioException("Cada imagem deve ter no maximo 2 MB.");
+        }
+
+        if (cloudinaryAtivo()) {
+            return salvarImagemCloudinary(origem, tipoMime, ordem);
         }
 
         String base = UUID.randomUUID().toString();
@@ -125,6 +161,87 @@ public class FeedMidiaService {
         } catch (IOException e) {
             throw new RegraNegocioException("Nao foi possivel salvar a imagem enviada.");
         }
+    }
+
+    private ImagemFeedDTO salvarImagemCloudinary(Path origem, String tipoMime, int ordem) {
+        try {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> upload = cloudinary.uploader().upload(
+                    origem.toFile(),
+                    ObjectUtils.asMap(
+                            "folder", "hqhub/feed",
+                            "resource_type", "image",
+                            "use_filename", false,
+                            "unique_filename", true,
+                            "overwrite", false));
+
+            String urlImagem = stringOuVazio(upload.get("secure_url"));
+            String publicId = stringOuVazio(upload.get("public_id"));
+
+            if (urlImagem.isBlank() || publicId.isBlank()) {
+                throw new RegraNegocioException("Nao foi possivel salvar a imagem enviada.");
+            }
+
+            String formato = stringOuVazio(upload.get("format"));
+            long tamanho = numeroComoLong(upload.get("bytes"));
+            Integer largura = numeroComoInt(upload.get("width"));
+            Integer altura = numeroComoInt(upload.get("height"));
+
+            String urlThumb = cloudinary.url()
+                    .secure(true)
+                    .transformation(new Transformation<>()
+                            .width(THUMB_MAXIMA)
+                            .height(THUMB_MAXIMA)
+                            .crop("limit")
+                            .fetchFormat("auto")
+                            .quality("auto"))
+                    .generate(publicId);
+
+            String tipoResposta = tipoMime;
+            if (tipoResposta.isBlank() && !formato.isBlank()) {
+                tipoResposta = "image/" + formato.toLowerCase(Locale.ROOT);
+            }
+
+            return new ImagemFeedDTO(
+                    urlImagem,
+                    urlThumb,
+                    publicId,
+                    tipoResposta,
+                    tamanho,
+                    largura,
+                    altura,
+                    ordem);
+        } catch (IOException e) {
+            throw new RegraNegocioException("Nao foi possivel salvar a imagem enviada.");
+        }
+    }
+
+    private boolean cloudinaryConfigurado() {
+        return cloudinaryCloudName != null && !cloudinaryCloudName.isBlank()
+                && cloudinaryApiKey != null && !cloudinaryApiKey.isBlank()
+                && cloudinaryApiSecret != null && !cloudinaryApiSecret.isBlank();
+    }
+
+    private boolean cloudinaryAtivo() {
+        return cloudinary != null;
+    }
+
+    private String stringOuVazio(Object valor) {
+        return valor == null ? "" : String.valueOf(valor).trim();
+    }
+
+    private long numeroComoLong(Object valor) {
+        if (valor instanceof Number numero) {
+            return numero.longValue();
+        }
+        return 0L;
+    }
+
+    private Integer numeroComoInt(Object valor) {
+        if (valor instanceof Number numero) {
+            return numero.intValue();
+        }
+        return null;
     }
 
     private String normalizarTipo(String contentType) {
