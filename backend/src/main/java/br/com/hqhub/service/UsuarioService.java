@@ -20,14 +20,17 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
+    private final FeedMidiaService feedMidiaService;
 
     public UsuarioService(
             UsuarioRepository usuarioRepository,
             UsuarioMapper usuarioMapper,
-            UsuarioAutenticadoService usuarioAutenticadoService) {
+            UsuarioAutenticadoService usuarioAutenticadoService,
+            FeedMidiaService feedMidiaService) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
+        this.feedMidiaService = feedMidiaService;
     }
 
     @Transactional
@@ -72,8 +75,14 @@ public class UsuarioService {
     @Transactional
     public UsuarioRespostaDTO atualizarFotoPerfil(ImagemFeedDTO imagem) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        String fotoAnterior = usuario.getFotoPerfilUrl();
         usuario.setFotoPerfilUrl(imagem.urlImagem());
         usuario.setFotoPerfilThumbnailUrl(imagem.urlThumbnail());
+
+        if (fotoAnterior != null && !fotoAnterior.isBlank() && !fotoAnterior.equals(imagem.urlImagem())) {
+            feedMidiaService.excluirImagemCloudinaryPorUrl(fotoAnterior);
+        }
+
         return usuarioMapper.paraResposta(usuario);
     }
 

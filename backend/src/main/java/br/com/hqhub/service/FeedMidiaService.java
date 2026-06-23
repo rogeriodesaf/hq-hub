@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -40,6 +43,7 @@ public class FeedMidiaService {
     private static final int LARGURA_MAXIMA = 1600;
     private static final int THUMB_MAXIMA = 420;
     private static final Set<String> TIPOS_PERMITIDOS = Set.of("image/jpeg", "image/png", "image/webp");
+    private static final Pattern PADRAO_PUBLIC_ID_COM_VERSAO = Pattern.compile("^(?:.+/)?v\\d+/(.+)$");
 
     @ConfigProperty(name = "hqhub.uploads.feed.diretorio", defaultValue = "uploads/feed")
     String diretorioFeed;
@@ -106,6 +110,25 @@ public class FeedMidiaService {
             arquivo = diretorioThumbs().resolve(nomeArquivo).normalize();
         }
         return arquivo;
+    }
+
+    public void excluirImagemCloudinaryPorUrl(String urlImagem) {
+        if (!cloudinaryAtivo() || urlImagem == null || urlImagem.isBlank()) {
+            return;
+        }
+
+        String publicId = extrairPublicIdCloudinary(urlImagem);
+        if (publicId == null || publicId.isBlank()) {
+            return;
+        }
+
+        try {
+            cloudinary.uploader().destroy(publicId, ObjectUtils.asMap(
+                    "resource_type", "image",
+                    "invalidate", true));
+        } catch (IOException e) {
+            // Melhor esforço: nao falhar atualizacao de perfil por erro na limpeza da imagem antiga.
+        }
     }
 
     private ImagemFeedDTO salvarImagem(FileUpload arquivo, int ordem) {
@@ -249,6 +272,33 @@ public class FeedMidiaService {
             return "";
         }
         return contentType.split(";")[0].trim().toLowerCase(Locale.ROOT);
+    }
+
+    private String extrairPublicIdCloudinary(String urlImagem) {
+        try {
+            URI uri = URI.create(urlImagem);
+            String caminho = uri.getPath();
+            int indiceUpload = caminho.indexOf("/upload/");
+            if (indiceUpload < 0) {
+                return null;
+            }
+
+            String restante = caminho.substring(indiceUpload + "/upload/".length());
+            Matcher matcher = PADRAO_PUBLIC_ID_COM_VERSAO.matcher(restante);
+            if (matcher.matches()) {
+                restante = matcher.group(1);
+            }
+
+            int ultimaBarra = restante.lastIndexOf('/');
+            int ultimoPonto = restante.lastIndexOf('.');
+            if (ultimoPonto > ultimaBarra) {
+                restante = restante.substring(0, ultimoPonto);
+            }
+
+            return restante.isBlank() ? null : restante;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     private long tamanhoArquivo(Path arquivo) {
