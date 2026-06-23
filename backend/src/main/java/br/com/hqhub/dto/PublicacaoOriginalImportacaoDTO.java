@@ -10,7 +10,5 @@ public record PublicacaoOriginalImportacaoDTO(
         String numeroOriginal,
 
         Integer anoOriginal,
-        String texto,
-        String urlEdicaoOriginal,
-        String urlCapaOriginal) {
+        String texto) {
 }
