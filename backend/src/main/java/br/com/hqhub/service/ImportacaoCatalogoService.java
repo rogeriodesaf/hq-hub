@@ -230,6 +230,7 @@ public class ImportacaoCatalogoService {
         }
 
         if (existente.isPresent()) {
+            atualizarEdicaoOriginal(existente.get(), dto, importacao);
             contadores.itensReaproveitados++;
             return existente.get();
         }
@@ -237,11 +238,9 @@ public class ImportacaoCatalogoService {
         Edicao edicao = new Edicao();
         edicao.setSerie(serie);
         edicao.setNumero(limitar(dto.numeroOriginal(), 255));
-        edicao.setTitulo(limitar(dto.texto(), 255));
-        edicao.setDataPublicacao(dataOriginal(dto.anoOriginal()));
         edicao.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
         edicao.setIdExterno(idExterno);
-        edicao.setUrlOrigem(urlOrigem(importacao));
+        atualizarEdicaoOriginal(edicao, dto, importacao);
         edicaoRepository.persist(edicao);
         contadores.edicoesCriadas++;
         return edicao;
@@ -304,6 +303,32 @@ public class ImportacaoCatalogoService {
         edicao.setUrlOrigem(urlOrigem(importacao));
     }
 
+    private void atualizarEdicaoOriginal(
+            Edicao edicao,
+            PublicacaoOriginalImportacaoDTO dto,
+            ImportacaoCatalogoDTO importacao) {
+        if (edicao.getTitulo() == null || edicao.getTitulo().isBlank()) {
+            edicao.setTitulo(limitar(dto.texto(), 255));
+        }
+
+        if (edicao.getDataPublicacao() == null) {
+            edicao.setDataPublicacao(dataOriginal(dto.anoOriginal()));
+        }
+
+        if (deveAtualizarCapa(edicao.getUrlCapa(), dto.urlCapaOriginal())) {
+            edicao.setUrlCapa(limitar(dto.urlCapaOriginal(), 1000));
+        }
+
+        if (deveAtualizarOrigem(edicao.getUrlOrigem(), dto.urlEdicaoOriginal())) {
+            edicao.setUrlOrigem(limitar(dto.urlEdicaoOriginal(), 1000));
+            return;
+        }
+
+        if (edicao.getUrlOrigem() == null || edicao.getUrlOrigem().isBlank()) {
+            edicao.setUrlOrigem(urlOrigem(importacao));
+        }
+    }
+
     private boolean deveAtualizarCapa(String capaAtual, String novaCapa) {
         if (novaCapa == null || novaCapa.isBlank()) {
             return false;
@@ -316,6 +341,14 @@ public class ImportacaoCatalogoService {
         boolean capaAtualGuia = capaAtual.contains("guiadosquadrinhos.com/edicao/ShowImage.aspx");
         boolean novaCapaGuia = novaCapa.contains("guiadosquadrinhos.com/edicao/ShowImage.aspx");
         return capaAtualGuia || !novaCapaGuia;
+    }
+
+    private boolean deveAtualizarOrigem(String origemAtual, String novaOrigem) {
+        if (novaOrigem == null || novaOrigem.isBlank()) {
+            return false;
+        }
+
+        return origemAtual == null || origemAtual.isBlank();
     }
 
     private void criarConteudoSeNecessario(
