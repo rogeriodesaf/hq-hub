@@ -222,6 +222,21 @@ export class ApiService {
     return this.http.post<Serie>('/api/series', dto);
   }
 
+  atualizarSerie(id: number, dto: {
+    titulo: string;
+    descricao: string | null;
+    anoInicio: number | null;
+    anoFim: number | null;
+    volume: number | null;
+    ordemCronologica: number | null;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+    editoraId: number;
+  }) {
+    return this.http.put<Serie>(`/api/series/${id}`, dto);
+  }
+
   cadastrarEdicao(dto: {
     numero: string;
     titulo: string | null;
