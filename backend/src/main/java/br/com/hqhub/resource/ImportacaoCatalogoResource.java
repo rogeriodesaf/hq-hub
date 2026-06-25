@@ -1,8 +1,11 @@
 package br.com.hqhub.resource;
 
+import java.util.List;
+
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.ImportacaoCatalogoService;
+import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -19,9 +22,11 @@ import jakarta.ws.rs.core.Response;
 public class ImportacaoCatalogoResource {
 
     private final ImportacaoCatalogoService importacaoCatalogoService;
+    private final SecurityIdentity securityIdentity;
 
-    public ImportacaoCatalogoResource(ImportacaoCatalogoService importacaoCatalogoService) {
+    public ImportacaoCatalogoResource(ImportacaoCatalogoService importacaoCatalogoService, SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
+        this.securityIdentity = securityIdentity;
     }
 
     @POST
@@ -32,9 +37,28 @@ public class ImportacaoCatalogoResource {
 
     @POST
     @Path("/backfill/comic-vine/originais-guia")
-    @RolesAllowed("ADMINISTRADOR")
     public Response preencherComicVineEdicoesOriginaisGuia() {
-        ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia();
-        return Response.ok(resultado).build();
+        if (!securityIdentity.hasRole("ADMINISTRADOR")) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        try {
+            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia();
+            return Response.ok(resultado).build();
+        } catch (Throwable e) {
+            return Response.ok(new ResultadoImportacaoCatalogoDTO(
+                    null,
+                    "Backfill Comic Vine",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    List.of("Falha geral no backfill: " + e.getClass().getSimpleName() + " - " + e.getMessage())))
+                    .build();
+        }
     }
 }
