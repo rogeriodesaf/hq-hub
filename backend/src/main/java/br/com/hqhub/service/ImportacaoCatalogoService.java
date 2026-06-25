@@ -43,6 +43,7 @@ public class ImportacaoCatalogoService {
 
     private static final String FONTE_GUIA_DOS_QUADRINHOS = "GUIA_DOS_QUADRINHOS";
     private static final int TAMANHO_MAXIMO_ID_EXTERNO = 100;
+    private static final int LIMITE_AVISOS_BACKFILL = 50;
 
     private final EditoraRepository editoraRepository;
     private final SerieRepository serieRepository;
@@ -102,17 +103,41 @@ public class ImportacaoCatalogoService {
 
     @Transactional
     public ResultadoImportacaoCatalogoDTO preencherComicVineEdicoesOriginaisGuia() {
-        List<Edicao> edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS);
+        List<Edicao> edicoes;
+        try {
+            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS);
+        } catch (RuntimeException e) {
+            return new ResultadoImportacaoCatalogoDTO(
+                    null,
+                    "Backfill Comic Vine",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    List.of("Falha ao listar edicoes originais do Guia para backfill: " + e.getClass().getSimpleName()));
+        }
+
         int atualizadas = 0;
+        int semCorrespondencia = 0;
         List<String> avisos = new ArrayList<>();
 
         for (Edicao edicao : edicoes) {
             if (enriquecerEdicaoOriginalComicVine(edicao)) {
                 atualizadas++;
             } else {
-                avisos.add("Sem correspondencia segura na Comic Vine para "
+                semCorrespondencia++;
+                adicionarAvisoBackfill(avisos, "Sem correspondencia segura na Comic Vine para "
                         + edicao.getSerie().getTitulo() + " #" + edicao.getNumero());
             }
+        }
+
+        if (semCorrespondencia > LIMITE_AVISOS_BACKFILL && !avisos.isEmpty()) {
+            avisos.set(avisos.size() - 1, "Outras " + (semCorrespondencia - avisos.size() + 1)
+                    + " edicoes ficaram sem correspondencia segura.");
         }
 
         return new ResultadoImportacaoCatalogoDTO(
@@ -125,7 +150,7 @@ public class ImportacaoCatalogoService {
                 0,
                 0,
                 0,
-                edicoes.size() - atualizadas,
+                semCorrespondencia,
                 avisos);
     }
 
@@ -637,6 +662,12 @@ public class ImportacaoCatalogoService {
 
     private String textoOuPadrao(String texto, String padrao) {
         return texto == null || texto.isBlank() ? padrao : texto.trim();
+    }
+
+    private void adicionarAvisoBackfill(List<String> avisos, String mensagem) {
+        if (avisos.size() < LIMITE_AVISOS_BACKFILL) {
+            avisos.add(mensagem);
+        }
     }
 
     private boolean estaVazio(String texto) {
