@@ -1,6 +1,7 @@
 package br.com.hqhub.entity;
 
 public enum TipoLinkEdicao {
+    AMAZON,
     COMPRA,
     REFERENCIA,
     WIKIPEDIA,

@@ -22,17 +22,20 @@ import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Historia;
+import br.com.hqhub.entity.LinkEdicao;
 import br.com.hqhub.entity.PublicacaoHistoria;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusPublicacaoHistoria;
 import br.com.hqhub.entity.StatusValidacao;
 import br.com.hqhub.entity.TipoConteudoEdicao;
+import br.com.hqhub.entity.TipoLinkEdicao;
 import br.com.hqhub.entity.TipoPublicacaoHistoria;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.ConteudoEdicaoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.HistoriaRepository;
+import br.com.hqhub.repository.LinkEdicaoRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
 import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -52,6 +55,7 @@ public class ImportacaoCatalogoService {
     private final ConteudoEdicaoRepository conteudoEdicaoRepository;
     private final PublicacaoHistoriaRepository publicacaoHistoriaRepository;
     private final IntegracaoExternaService integracaoExternaService;
+    private final LinkEdicaoRepository linkEdicaoRepository;
 
     public ImportacaoCatalogoService(
             EditoraRepository editoraRepository,
@@ -60,7 +64,8 @@ public class ImportacaoCatalogoService {
             HistoriaRepository historiaRepository,
             ConteudoEdicaoRepository conteudoEdicaoRepository,
             PublicacaoHistoriaRepository publicacaoHistoriaRepository,
-            IntegracaoExternaService integracaoExternaService) {
+            IntegracaoExternaService integracaoExternaService,
+            LinkEdicaoRepository linkEdicaoRepository) {
         this.editoraRepository = editoraRepository;
         this.serieRepository = serieRepository;
         this.edicaoRepository = edicaoRepository;
@@ -68,6 +73,7 @@ public class ImportacaoCatalogoService {
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
         this.publicacaoHistoriaRepository = publicacaoHistoriaRepository;
         this.integracaoExternaService = integracaoExternaService;
+        this.linkEdicaoRepository = linkEdicaoRepository;
     }
 
     @Transactional
@@ -253,6 +259,7 @@ public class ImportacaoCatalogoService {
             }
 
             Edicao edicaoOriginal = obterOuCriarEdicaoOriginal(historiaDto.publicacaoOriginal(), importacao, contadores);
+            criarLinkCompraAmazonSeNecessario(edicaoOriginal, historiaDto.publicacaoOriginal(), contadores);
             criarConteudoOriginalSeNecessario(edicaoOriginal, historia, historiaDto, contadores);
             criarPublicacaoSeNecessario(edicaoOriginal, edicaoBrasileira, historia, historiaDto, importacao, contadores);
         }
@@ -467,6 +474,29 @@ public class ImportacaoCatalogoService {
         if (dataVenda != null) {
             edicao.setDataDisponibilidadeLoja(dataVenda);
         }
+    }
+
+    private void criarLinkCompraAmazonSeNecessario(
+            Edicao edicaoOriginal,
+            PublicacaoOriginalImportacaoDTO dto,
+            ContadoresImportacao contadores) {
+        if (dto.urlCompraAmazon() == null || dto.urlCompraAmazon().isBlank()) {
+            return;
+        }
+
+        String url = limitar(dto.urlCompraAmazon(), 1000);
+        if (linkEdicaoRepository.existePorEdicaoEUrl(edicaoOriginal.getId(), url)) {
+            contadores.itensReaproveitados++;
+            return;
+        }
+
+        LinkEdicao link = new LinkEdicao();
+        link.setEdicao(edicaoOriginal);
+        link.setTipo(TipoLinkEdicao.AMAZON);
+        link.setTitulo("Comprar na Amazon");
+        link.setUrl(url);
+        link.setObservacoes("Link de compra informado na importacao.");
+        linkEdicaoRepository.persist(link);
     }
 
     private boolean temDadosComicVineCompletos(Edicao edicao) {

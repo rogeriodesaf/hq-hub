@@ -105,6 +105,17 @@ export interface Edicao {
   serie: SerieResumo | null;
 }
 
+export interface LinkEdicao {
+  id: number;
+  edicaoId: number;
+  tipo: 'AMAZON' | 'COMPRA' | 'REFERENCIA' | 'WIKIPEDIA' | 'GUIA_DOS_QUADRINHOS' | 'OUTRO';
+  titulo: string;
+  url: string;
+  observacoes: string | null;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
 export interface ResultadoPesquisaCatalogo {
   id: number | null;
   idExterno: string | null;

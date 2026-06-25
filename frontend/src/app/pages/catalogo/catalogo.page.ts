@@ -10,6 +10,7 @@ import {
   ConteudoEdicao,
   Edicao,
   EdicaoComicVine,
+  LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
   ResultadoPesquisaCatalogo,
@@ -197,6 +198,15 @@ import {
                 class="descricao-formatada"
                 [innerHTML]="formatarDescricao(descricaoEdicaoDetalhe())"
               ></div>
+              @if (linksAmazonDetalhe().length) {
+                <div class="acoes-detalhe-edicao">
+                  @for (link of linksAmazonDetalhe(); track link.id) {
+                    <a class="botao compacto" [href]="link.url" target="_blank" rel="noreferrer">
+                      {{ link.titulo || 'Comprar na Amazon' }}
+                    </a>
+                  }
+                </div>
+              }
               @if (podeEditarCatalogo()) {
                 <div class="acoes-detalhe-edicao">
                   @if (!editandoDetalhe()) {
@@ -398,6 +408,7 @@ export class CatalogoPage implements OnInit {
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly linksDetalhe = signal<LinkEdicao[]>([]);
   readonly historiaEmFoco = signal<number | null>(null);
   readonly detalheComicVineInterno = signal<EdicaoComicVine | null>(null);
   readonly capasComicVineOriginais = signal<Record<number, string>>({});
@@ -494,8 +505,9 @@ export class CatalogoPage implements OnInit {
       conteudos: this.api.listarConteudosPorEdicao(edicaoId),
       publicacoes: this.api.listarPublicacoesPorEdicaoPublicada(edicaoId),
       publicacoesOriginais: this.api.listarPublicacoesPorEdicaoOriginal(edicaoId),
+      links: this.api.listarLinksPorEdicao(edicaoId),
     }).subscribe({
-      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais }) => {
+      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais, links }) => {
         const atual = this.edicaoDetalhe();
         if (atual && atual.id !== edicao.id) {
           this.historicoDetalhes.update((historico) => [...historico, atual]);
@@ -506,6 +518,7 @@ export class CatalogoPage implements OnInit {
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
         this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
+        this.linksDetalhe.set(links);
         this.historiaEmFoco.set(historiaId);
         this.carregarCapasOriginaisComicVine(publicacoes);
         this.carregarComplementoComicVine(edicao);
@@ -526,6 +539,7 @@ export class CatalogoPage implements OnInit {
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.linksDetalhe.set([]);
     this.historiaEmFoco.set(null);
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
@@ -543,7 +557,12 @@ export class CatalogoPage implements OnInit {
     this.edicaoDetalhe.set(null);
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
+    this.linksDetalhe.set([]);
     this.abrirDetalhePorId(anterior.id);
+  }
+
+  linksAmazonDetalhe() {
+    return this.linksDetalhe().filter((link) => link.tipo === 'AMAZON');
   }
 
   iniciarEdicaoDetalhe() {

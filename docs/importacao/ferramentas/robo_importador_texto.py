@@ -366,6 +366,7 @@ def extrair_publicacao_original(linha):
         "anoOriginal": ano,
         "urlOrigem": None,
         "urlCapa": None,
+        "urlCompraAmazon": None,
         "texto": f"{serie} n° {numero}/{ano} - {editora}",
     }
 

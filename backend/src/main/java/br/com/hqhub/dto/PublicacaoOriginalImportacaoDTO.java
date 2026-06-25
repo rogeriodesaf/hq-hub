@@ -17,6 +17,7 @@ public record PublicacaoOriginalImportacaoDTO(
         String urlComicVine,
         String urlCapa,
         String urlOrigem,
+        String urlCompraAmazon,
         String titulo,
         String nomeVolume,
         LocalDate dataCapa,

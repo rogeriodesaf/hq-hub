@@ -27,6 +27,7 @@ import {
   EstatisticasPublicasColecao,
   Historia,
   ItemColecao,
+  LinkEdicao,
   MensagemDireta,
   PaginaResposta,
   PessoaComicVine,
@@ -576,6 +577,10 @@ export class ApiService {
 
   listarPublicacoesPorEdicaoOriginal(edicaoId: number) {
     return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/edicoes-originais/${edicaoId}`);
+  }
+
+  listarLinksPorEdicao(edicaoId: number) {
+    return this.http.get<LinkEdicao[]>(`/api/links-edicoes/edicoes/${edicaoId}`);
   }
 
   cruzarEdicoes(edicaoOriginalId: number, edicaoComparadaId: number) {
