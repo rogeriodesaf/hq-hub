@@ -721,7 +721,7 @@ export class CatalogoPage implements OnInit {
       return;
     }
 
-    this.api.pesquisarCatalogo(termo, 0, 20).subscribe({
+    this.api.buscarEdicoesComicVinePorTermo(termo, 0, 20).subscribe({
       next: (resposta) => {
         const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
         if (resultado?.idExterno) {
@@ -756,7 +756,7 @@ export class CatalogoPage implements OnInit {
       return;
     }
 
-    this.api.pesquisarCatalogo(termo, 0, 20).subscribe({
+    this.api.buscarEdicoesComicVinePorTermo(termo, 0, 20).subscribe({
       next: (resposta) => {
         const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
         if (resultado?.idExterno) {
@@ -789,8 +789,8 @@ export class CatalogoPage implements OnInit {
     });
   }
 
-  private resultadoComicVineCombina(edicao: Edicao, resultado: ResultadoPesquisaCatalogo) {
-    if (resultado.fonte !== 'COMIC_VINE' || !this.mesmoNumeroEdicao(edicao.numero, resultado.numero)) {
+  private resultadoComicVineCombina(edicao: Edicao, resultado: EdicaoComicVine) {
+    if (!this.mesmoNumeroEdicao(edicao.numero, resultado.numero)) {
       return false;
     }
 

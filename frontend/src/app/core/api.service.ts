@@ -284,6 +284,15 @@ export class ApiService {
     );
   }
 
+  buscarEdicoesComicVinePorTermo(termo: string, pagina = 0, tamanho = 20) {
+    const params = new HttpParams()
+      .set('termo', termo)
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+
+    return this.http.get<PaginaResposta<EdicaoComicVine>>('/api/integracoes-externas/COMICVINE/edicoes', { params });
+  }
+
   buscarDetalheEdicaoComicVine(idEdicao: string) {
     return this.http.get<EdicaoComicVine>(`/api/integracoes-externas/COMICVINE/edicoes/${idEdicao}/detalhes`);
   }
