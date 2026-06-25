@@ -418,16 +418,22 @@ export class ConteudosPage {
     this.salvandoDadosOriginais.set(true);
     this.mensagem.set('');
 
-    this.salvarDadosManuaisOriginal(original).subscribe({
-      next: () => {
-        this.salvandoDadosOriginais.set(false);
-        this.mensagem.set('Dados da edição original salvos.');
-      },
-      error: (erro) => {
-        this.salvandoDadosOriginais.set(false);
-        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
-      },
-    });
+    const resultado = this.salvarDadosManuaisOriginal(original);
+    if (resultado) {
+      resultado.subscribe({
+        next: () => {
+          this.salvandoDadosOriginais.set(false);
+          this.mensagem.set('Dados da edição original salvos.');
+        },
+        error: (erro: unknown) => {
+          this.salvandoDadosOriginais.set(false);
+          this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
+        },
+      });
+    } else {
+      this.salvandoDadosOriginais.set(false);
+      this.mensagem.set('Nenhuma capa ou link para salvar.');
+    }
   }
 
   cruzarEdicoesSelecionadas() {
@@ -497,7 +503,7 @@ export class ConteudosPage {
           this.mensagem.set('Nenhuma edição interna encontrada. Cadastre a edição pelo catálogo/estante antes de criar vínculos.');
         }
       },
-      error: (erro) => {
+      error: (erro: unknown) => {
         carregando.set(false);
         this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível buscar edições.'));
       },
@@ -515,7 +521,7 @@ export class ConteudosPage {
         this.conteudosOriginais.set(conteudos);
         this.carregarPublicacoesHistorias();
       },
-      error: (erro) => this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível carregar os conteúdos da edição.')),
+      error: (erro: unknown) => this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível carregar os conteúdos da edição.')),
     });
   }
 
@@ -532,10 +538,10 @@ export class ConteudosPage {
     });
   }
 
-  private salvarDadosManuaisOriginal(edicao: Edicao) {
+  private salvarDadosManuaisOriginal(edicao: Edicao): Observable<unknown> | null {
     const urlCapa = this.urlCapaOriginal.trim();
     const urlAmazon = this.urlCompraAmazonOriginal.trim();
-    const tarefas = [];
+    const tarefas: Observable<unknown>[] = [];
 
     if (urlCapa && urlCapa !== edicao.urlCapa) {
       tarefas.push(
@@ -582,7 +588,7 @@ export class ConteudosPage {
       );
     }
 
-    return tarefas.length ? forkJoin(tarefas) : of(null);
+    return tarefas.length ? forkJoin(tarefas) : null;
   }
 
   private carregarPublicacoesHistorias() {
