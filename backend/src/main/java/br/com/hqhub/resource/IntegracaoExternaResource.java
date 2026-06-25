@@ -63,6 +63,14 @@ public class IntegracaoExternaResource {
     }
 
     @GET
+    @Path("/COMICVINE/edicoes/resolver")
+    public Response resolverEdicaoComicVinePorSerieENumero(
+            @QueryParam("serie") String serie,
+            @QueryParam("numero") String numero) {
+        return Response.ok(integracaoExternaService.resolverEdicaoComicVinePorSerieENumero(serie, numero)).build();
+    }
+
+    @GET
     @Path("/COMICVINE/edicoes/{idEdicao}/detalhes")
     public Response buscarDetalheEdicaoComicVine(@PathParam("idEdicao") String idEdicao) {
         return Response.ok(integracaoExternaService.buscarDetalheEdicaoComicVine(idEdicao)).build();

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -170,6 +171,28 @@ public class IntegracaoExternaService {
 
         return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
                 calcularTotalPaginas(totalItens, tamanhoTratado));
+    }
+
+    public EdicaoComicVineRespostaDTO resolverEdicaoComicVinePorSerieENumero(String serie, String numero) {
+        validarComicVineConfigurada();
+
+        if (serie == null || serie.isBlank() || numero == null || numero.isBlank()) {
+            throw new RegraNegocioException("SÃ©rie e nÃºmero da ediÃ§Ã£o sÃ£o obrigatÃ³rios.");
+        }
+
+        for (String termo : termosResolucaoComicVine(serie, numero)) {
+            PaginaRespostaDTO<EdicaoComicVineRespostaDTO> resposta = buscarEdicoesComicVinePorTermo(termo, 0,
+                    TAMANHO_MAXIMO_COMICVINE);
+            Optional<EdicaoComicVineRespostaDTO> encontrada = resposta.itens().stream()
+                    .filter(edicao -> edicaoComicVineCombina(serie, numero, edicao))
+                    .findFirst();
+
+            if (encontrada.isPresent()) {
+                return buscarDetalheEdicaoComicVine(encontrada.get().idExterno());
+            }
+        }
+
+        throw new RegraNegocioException("EdiÃ§Ã£o nÃ£o encontrada na ComicVine para a sÃ©rie e nÃºmero informados.");
     }
 
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(
@@ -735,6 +758,96 @@ public class IntegracaoExternaService {
         }
 
         return Math.min(tamanho, TAMANHO_MAXIMO_COMICVINE);
+    }
+
+    private Set<String> termosResolucaoComicVine(String serie, String numero) {
+        Set<String> termos = new LinkedHashSet<>();
+        String serieLimpa = tituloSerieParaBuscaComicVine(serie);
+        String numeroLimpo = numero.trim();
+
+        adicionarTermoResolucao(termos, serieLimpa, numeroLimpo);
+        adicionarTermoResolucao(termos, inverterArtigoFinal(serieLimpa), numeroLimpo);
+        adicionarTermoResolucao(termos, removerArtigos(serieLimpa), numeroLimpo);
+        adicionarTermoResolucao(termos, serie, numeroLimpo);
+
+        return termos;
+    }
+
+    private void adicionarTermoResolucao(Set<String> termos, String serie, String numero) {
+        if (serie != null && !serie.isBlank() && numero != null && !numero.isBlank()) {
+            termos.add((serie.trim() + " " + numero.trim()).trim());
+        }
+    }
+
+    private boolean edicaoComicVineCombina(String serie, String numero, EdicaoComicVineRespostaDTO edicao) {
+        if (!normalizarNumeroEdicao(numero).equals(normalizarNumeroEdicao(edicao.numero()))) {
+            return false;
+        }
+
+        List<String> tokensSerie = tokensBuscaComicVine(serie);
+        String textoResultado = normalizarBuscaComicVine(
+                (edicao.nomeVolume() == null ? "" : edicao.nomeVolume()) + " "
+                        + (edicao.titulo() == null ? "" : edicao.titulo()));
+        return tokensSerie.isEmpty() || tokensSerie.stream().allMatch(textoResultado::contains);
+    }
+
+    private String tituloSerieParaBuscaComicVine(String titulo) {
+        if (titulo == null) {
+            return "";
+        }
+
+        return titulo.replaceAll("\\(\\d{4}\\)", " ")
+                .replaceAll("(?i),\\s*the\\b", " ")
+                .replaceAll("(?i)\\bthe\\b", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
+    }
+
+    private String inverterArtigoFinal(String titulo) {
+        if (titulo == null || titulo.isBlank()) {
+            return "";
+        }
+
+        java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("(?i)^(.+),\\s*the\\b.*$").matcher(titulo);
+        if (matcher.find()) {
+            return "The " + matcher.group(1).trim();
+        }
+
+        return "The " + titulo.trim();
+    }
+
+    private String removerArtigos(String titulo) {
+        if (titulo == null) {
+            return "";
+        }
+
+        return titulo.replaceAll("(?i)\\bthe\\b", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
+    }
+
+    private List<String> tokensBuscaComicVine(String texto) {
+        return List.of(normalizarBuscaComicVine(tituloSerieParaBuscaComicVine(texto)).split(" "))
+                .stream()
+                .filter(token -> token.length() > 2)
+                .toList();
+    }
+
+    private String normalizarNumeroEdicao(String numero) {
+        return numero == null ? "" : numero.toLowerCase(Locale.ROOT).replaceFirst("^#", "").trim();
+    }
+
+    private String normalizarBuscaComicVine(String texto) {
+        if (texto == null) {
+            return "";
+        }
+
+        String normalizado = java.text.Normalizer.normalize(texto, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+        return normalizado.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9]+", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
     }
 
     private int calcularTotalPaginas(long totalItens, int tamanho) {

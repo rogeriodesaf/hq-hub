@@ -1038,16 +1038,14 @@ export class DescobrirPage {
       return;
     }
 
-    const termo = this.termoBuscaComicVine(edicao);
-    if (!termo) {
+    if (!edicao.serie?.titulo || !edicao.numero) {
       return;
     }
 
-    this.api.buscarEdicoesComicVinePorTermo(termo, 0, 20).subscribe({
-      next: (resposta) => {
-        const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
-        if (resultado?.idExterno) {
-          this.carregarDetalheComicVine(edicao, resultado.idExterno);
+    this.api.resolverEdicaoComicVine(edicao.serie.titulo, edicao.numero).subscribe({
+      next: (detalhe) => {
+        if (this.edicaoDetalhe()?.id === edicao.id) {
+          this.detalheComicVineInterno.set(detalhe);
         }
       },
       error: () => undefined,
@@ -1073,16 +1071,14 @@ export class DescobrirPage {
       return;
     }
 
-    const termo = this.termoBuscaComicVine(edicao);
-    if (!termo) {
+    if (!edicao.serie?.titulo || !edicao.numero) {
       return;
     }
 
-    this.api.buscarEdicoesComicVinePorTermo(termo, 0, 20).subscribe({
-      next: (resposta) => {
-        const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
-        if (resultado?.idExterno) {
-          this.carregarDetalheComicVineParaCapaOriginal(edicao.id, resultado.idExterno);
+    this.api.resolverEdicaoComicVine(edicao.serie.titulo, edicao.numero).subscribe({
+      next: (detalhe) => {
+        if (detalhe.urlImagem) {
+          this.capasComicVineOriginais.update((capas) => ({ ...capas, [edicao.id]: detalhe.urlImagem! }));
         }
       },
       error: () => undefined,

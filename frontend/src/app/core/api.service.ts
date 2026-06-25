@@ -293,6 +293,14 @@ export class ApiService {
     return this.http.get<PaginaResposta<EdicaoComicVine>>('/api/integracoes-externas/COMICVINE/edicoes', { params });
   }
 
+  resolverEdicaoComicVine(serie: string, numero: string) {
+    const params = new HttpParams()
+      .set('serie', serie)
+      .set('numero', numero);
+
+    return this.http.get<EdicaoComicVine>('/api/integracoes-externas/COMICVINE/edicoes/resolver', { params });
+  }
+
   buscarDetalheEdicaoComicVine(idEdicao: string) {
     return this.http.get<EdicaoComicVine>(`/api/integracoes-externas/COMICVINE/edicoes/${idEdicao}/detalhes`);
   }
