@@ -428,7 +428,6 @@ export class ConteudosPage {
         this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
       },
     });
-    private salvarDadosManuaisOriginal(edicao: Edicao): Observable<unknown> {
   }
 
   cruzarEdicoesSelecionadas() {
@@ -533,7 +532,7 @@ export class ConteudosPage {
     });
   }
 
-  private salvarDadosManuaisOriginal(edicao: Edicao): Observable<unknown> | null {
+  private salvarDadosManuaisOriginal(edicao: Edicao): Observable<unknown> {
     const urlCapa = this.urlCapaOriginal.trim();
     const urlAmazon = this.urlCompraAmazonOriginal.trim();
     const tarefas: Observable<unknown>[] = [];
