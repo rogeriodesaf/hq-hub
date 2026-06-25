@@ -552,12 +552,146 @@ export class RevisaoPage implements OnInit {
   }
 
   private historias(form: FormularioImportacaoRevisao) {
+    const texto = form.historiasJson || '';
     try {
-      const valor = JSON.parse(form.historiasJson || '[]');
-      return Array.isArray(valor) ? valor : [];
+      const valor = JSON.parse(texto || '[]');
+      if (Array.isArray(valor)) {
+        return valor;
+      }
     } catch {
-      return [];
+      return this.historiasAPartirDeTextoGuia(texto);
     }
+
+    return this.historiasAPartirDeTextoGuia(texto);
+  }
+
+  private historiasAPartirDeTextoGuia(texto: string) {
+    const blocos = this.blocosHistoriasGuia(texto);
+    return blocos
+      .map((bloco, indice) => this.historiaAPartirDeBlocoGuia(bloco, indice + 1))
+      .filter((historia) => !!historia);
+  }
+
+  private blocosHistoriasGuia(texto: string) {
+    const linhas = texto
+      .replace(/\r/g, '')
+      .split('\n')
+      .map((linha) => linha.trim())
+      .filter(Boolean);
+
+    const blocos: string[][] = [];
+    let atual: string[] = [];
+
+    for (const linha of linhas) {
+      const novaHistoria = this.pareceTituloHistoria(linha) && atual.some((item) => this.ehLinhaPaginas(item));
+      if (novaHistoria) {
+        blocos.push(atual);
+        atual = [linha];
+        continue;
+      }
+
+      atual.push(linha);
+    }
+
+    if (atual.length) {
+      blocos.push(atual);
+    }
+
+    return blocos;
+  }
+
+  private historiaAPartirDeBlocoGuia(linhas: string[], ordem: number) {
+    const tituloPortugues = linhas[0]?.trim();
+    const linhaOriginal = linhas.find((linha) => linha.toLocaleLowerCase('pt-BR').startsWith('título original:'));
+    const linhaPublicacao = linhas.find((linha) => linha.toLocaleLowerCase('pt-BR').startsWith('publicada pela primeira vez em'));
+    const linhaPaginas = linhas.find((linha) => this.ehLinhaPaginas(linha));
+
+    if (!tituloPortugues || !linhaPublicacao) {
+      return null;
+    }
+
+    const publicacaoOriginal = this.publicacaoOriginalAPartirDeLinha(linhaPublicacao);
+    if (!publicacaoOriginal) {
+      return null;
+    }
+
+    return {
+      ordem,
+      tituloPortugues,
+      tituloOriginal: this.tituloOriginalAPartirDeLinha(linhaOriginal),
+      quantidadePaginas: this.paginasAPartirDeLinha(linhaPaginas),
+      resumo: this.resumoAPartirDeBloco(linhas),
+      publicacaoOriginal,
+    };
+  }
+
+  private publicacaoOriginalAPartirDeLinha(linha: string) {
+    const texto = linha.replace(/^Publicada pela primeira vez em\s*/i, '').trim();
+    const correspondencia = texto.match(/^(.*?)\s+n[°º]\s*([^/]+)\/(\d{4})(?:\s*-\s*(.*))?$/i);
+    if (!correspondencia) {
+      return null;
+    }
+
+    const serieOriginal = correspondencia[1]?.trim();
+    const numeroOriginal = correspondencia[2]?.trim();
+    const anoOriginal = Number(correspondencia[3]);
+
+    return {
+      serieOriginal,
+      numeroOriginal,
+      anoOriginal: Number.isFinite(anoOriginal) ? anoOriginal : null,
+      texto,
+      urlOrigem: null,
+      urlCapa: null,
+      urlCompraAmazon: null,
+    };
+  }
+
+  private resumoAPartirDeBloco(linhas: string[]) {
+    const inicio = linhas.findIndex((linha) => linha.toLocaleLowerCase('pt-BR').startsWith('publicada pela primeira vez em'));
+    const fim = linhas.findIndex((linha) => linha.toLocaleLowerCase('pt-BR').startsWith('título original:'));
+    if (inicio < 0) {
+      return null;
+    }
+
+    const trecho = linhas
+      .slice(inicio + 1, fim > inicio ? fim : linhas.length)
+      .filter((linha) => !this.ehLinhaPaginas(linha))
+      .join(' ')
+      .trim();
+
+    return trecho || null;
+  }
+
+  private tituloOriginalAPartirDeLinha(linha: string | undefined) {
+    if (!linha) {
+      return null;
+    }
+
+    const titulo = linha
+      .replace(/^Título original:\s*/i, '')
+      .replace(/^["“”]|["“”]\.?$/g, '')
+      .trim();
+
+    return titulo || null;
+  }
+
+  private paginasAPartirDeLinha(linha: string | undefined) {
+    const paginas = linha?.match(/(\d+)/)?.[1];
+    return paginas ? Number(paginas) : null;
+  }
+
+  private pareceTituloHistoria(linha: string) {
+    if (!linha || linha.includes(':')) {
+      return false;
+    }
+
+    return !this.ehLinhaPaginas(linha)
+      && !linha.toLocaleLowerCase('pt-BR').startsWith('publicada pela primeira vez em');
+  }
+
+  private ehLinhaPaginas(linha: string) {
+    return /^\d+\s+p[aá]ginas?$/i.test(linha.trim());
   }
 
   private async obterOuCriarEditora(nome: string): Promise<EditoraResumo> {
