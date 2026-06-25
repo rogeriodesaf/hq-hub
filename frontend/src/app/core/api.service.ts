@@ -583,6 +583,16 @@ export class ApiService {
     return this.http.get<LinkEdicao[]>(`/api/links-edicoes/edicoes/${edicaoId}`);
   }
 
+  cadastrarLinkEdicao(dto: {
+    edicaoId: number;
+    tipo: 'AMAZON' | 'COMPRA' | 'REFERENCIA' | 'WIKIPEDIA' | 'GUIA_DOS_QUADRINHOS' | 'OUTRO';
+    titulo: string;
+    url: string;
+    observacoes: string | null;
+  }) {
+    return this.http.post<LinkEdicao>('/api/links-edicoes', dto);
+  }
+
   cruzarEdicoes(edicaoOriginalId: number, edicaoComparadaId: number) {
     const params = new HttpParams()
       .set('edicaoOriginalId', edicaoOriginalId)

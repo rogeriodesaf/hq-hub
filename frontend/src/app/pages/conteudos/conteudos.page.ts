@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import {
@@ -55,6 +55,17 @@ import {
             <strong>{{ tituloEdicao(edicaoOriginal()!) }}</strong>
             <span>{{ edicaoOriginal()?.serie?.titulo }}</span>
           </section>
+
+          <div class="grade-formulario conteudo-formulario">
+            <label class="campo-largo">
+              URL da capa da edição original
+              <input [(ngModel)]="urlCapaOriginal" name="urlCapaOriginal" placeholder="Cole a URL da capa confirmada" />
+            </label>
+            <label class="campo-largo">
+              Link de compra da Amazon
+              <input [(ngModel)]="urlCompraAmazonOriginal" name="urlCompraAmazonOriginal" placeholder="Cole seu link da Amazon" />
+            </label>
+          </div>
 
           <form class="grade-formulario conteudo-formulario" (ngSubmit)="cadastrarConteudoOriginal()">
             <label class="campo-largo">
@@ -261,6 +272,8 @@ export class ConteudosPage {
   tipoConteudo: TipoConteudoEdicao = 'HISTORIA';
   urlOrigemHistoria = '';
   observacoesConteudo = '';
+  urlCapaOriginal = '';
+  urlCompraAmazonOriginal = '';
   statusPublicacao: StatusPublicacaoHistoria = 'COMPLETA';
   tipoPublicacao: TipoPublicacaoHistoria = 'PUBLICACAO_BRASILEIRA';
   urlFontePublicacao = '';
@@ -275,6 +288,8 @@ export class ConteudosPage {
 
   selecionarOriginal(edicao: Edicao) {
     this.edicaoOriginal.set(edicao);
+    this.urlCapaOriginal = edicao.urlCapa || '';
+    this.carregarLinkAmazonOriginal(edicao);
     this.cruzamento.set(null);
     this.carregarConteudos();
   }
@@ -367,6 +382,7 @@ export class ConteudosPage {
         urlOrigem: this.urlFontePublicacao.trim() || null,
         observacoes: null,
       })
+      .pipe(switchMap(() => this.salvarDadosManuaisOriginal(original)))
       .subscribe({
         next: () => {
           this.salvandoPublicacao.set(false);
@@ -467,6 +483,72 @@ export class ConteudosPage {
       },
       error: (erro) => this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível carregar os conteúdos da edição.')),
     });
+  }
+
+  private carregarLinkAmazonOriginal(edicao: Edicao) {
+    this.urlCompraAmazonOriginal = '';
+    this.api.listarLinksPorEdicao(edicao.id).subscribe({
+      next: (links) => {
+        const amazon = links.find((link) => link.tipo === 'AMAZON');
+        this.urlCompraAmazonOriginal = amazon?.url || '';
+      },
+      error: () => {
+        this.urlCompraAmazonOriginal = '';
+      },
+    });
+  }
+
+  private salvarDadosManuaisOriginal(edicao: Edicao) {
+    const urlCapa = this.urlCapaOriginal.trim();
+    const urlAmazon = this.urlCompraAmazonOriginal.trim();
+    const tarefas = [];
+
+    if (urlCapa && urlCapa !== edicao.urlCapa) {
+      tarefas.push(
+        this.api.atualizarEdicao(edicao.id, {
+          numero: edicao.numero,
+          titulo: edicao.titulo,
+          descricao: edicao.descricao,
+          dataPublicacao: edicao.dataPublicacao,
+          urlCapa,
+          codigoBarras: edicao.codigoBarras,
+          quantidadePaginas: edicao.quantidadePaginas,
+          precoCapa: edicao.precoCapa,
+          formato: edicao.formato,
+          fonteExterna: edicao.fonteExterna,
+          idExterno: edicao.idExterno,
+          urlOrigem: edicao.urlOrigem,
+          serieId: edicao.serie?.id || 0,
+        }).pipe(
+          switchMap((edicaoAtualizada) => {
+            this.edicaoOriginal.set(edicaoAtualizada);
+            return of(edicaoAtualizada);
+          }),
+        ),
+      );
+    }
+
+    if (urlAmazon) {
+      tarefas.push(
+        this.api.listarLinksPorEdicao(edicao.id).pipe(
+          switchMap((links) => {
+            const jaExiste = links.some((link) => link.url === urlAmazon);
+            if (jaExiste) {
+              return of(null);
+            }
+            return this.api.cadastrarLinkEdicao({
+              edicaoId: edicao.id,
+              tipo: 'AMAZON',
+              titulo: 'Comprar na Amazon',
+              url: urlAmazon,
+              observacoes: 'Link de compra informado na tela de conteudos.',
+            });
+          }),
+        ),
+      );
+    }
+
+    return tarefas.length ? forkJoin(tarefas) : of(null);
   }
 
   private carregarPublicacoesHistorias() {
