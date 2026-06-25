@@ -616,14 +616,12 @@ export class CatalogoPage implements OnInit {
   }
 
   capaEdicaoDetalhe() {
-    const capaInterna = this.capaInternaUtil(this.edicaoDetalhe()?.urlCapa);
-    const capaComicVine = this.detalheComicVineInterno()?.urlImagem || null;
-    return this.historiaEmFoco() ? (capaComicVine || capaInterna) : (capaInterna || capaComicVine);
+    return this.capaInternaUtil(this.edicaoDetalhe()?.urlCapa) || this.detalheComicVineInterno()?.urlImagem || null;
   }
 
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
-    return this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
-      || this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)
+    return this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)
+      || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
       || this.capaInternaUtil(publicacao.edicaoPublicada.urlCapa)
       || null;
   }
@@ -714,7 +712,7 @@ export class CatalogoPage implements OnInit {
       return;
     }
 
-    if (!this.historiaEmFoco() && this.capaInternaUtil(edicao.urlCapa)) {
+    if (this.capaInternaUtil(edicao.urlCapa)) {
       return;
     }
 
@@ -737,7 +735,9 @@ export class CatalogoPage implements OnInit {
 
     const edicoesOriginais = new Map<number, Edicao>();
     publicacoes.forEach((publicacao) => {
-      edicoesOriginais.set(publicacao.edicaoOriginal.id, publicacao.edicaoOriginal);
+      if (!this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)) {
+        edicoesOriginais.set(publicacao.edicaoOriginal.id, publicacao.edicaoOriginal);
+      }
     });
 
     edicoesOriginais.forEach((edicao) => this.carregarCapaComicVineOriginal(edicao));
