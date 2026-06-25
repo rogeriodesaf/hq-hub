@@ -616,13 +616,13 @@ export class CatalogoPage implements OnInit {
   }
 
   capaEdicaoDetalhe() {
-    return this.capaInternaUtil(this.edicaoDetalhe()?.urlCapa) || this.detalheComicVineInterno()?.urlImagem || null;
+    return this.edicaoDetalhe()?.urlCapa || this.detalheComicVineInterno()?.urlImagem || null;
   }
 
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
-    return this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)
+    return publicacao.edicaoOriginal.urlCapa
       || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
-      || this.capaInternaUtil(publicacao.edicaoPublicada.urlCapa)
+      || publicacao.edicaoPublicada.urlCapa
       || null;
   }
 
@@ -712,7 +712,7 @@ export class CatalogoPage implements OnInit {
       return;
     }
 
-    if (this.capaInternaUtil(edicao.urlCapa)) {
+    if (edicao.urlCapa) {
       return;
     }
 
@@ -735,7 +735,7 @@ export class CatalogoPage implements OnInit {
 
     const edicoesOriginais = new Map<number, Edicao>();
     publicacoes.forEach((publicacao) => {
-      if (!this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)) {
+      if (!publicacao.edicaoOriginal.urlCapa) {
         edicoesOriginais.set(publicacao.edicaoOriginal.id, publicacao.edicaoOriginal);
       }
     });
@@ -839,14 +839,6 @@ export class CatalogoPage implements OnInit {
     }
 
     return this.normalizarBusca(texto).startsWith('descricao nao disponivel') ? null : texto;
-  }
-
-  private capaInternaUtil(url: string | null | undefined) {
-    if (!url || !url.trim()) {
-      return null;
-    }
-
-    return url.includes('capa-reserva.svg') ? null : url;
   }
 
   private carregarSeriesInternas(pagina = this.series().pagina) {
