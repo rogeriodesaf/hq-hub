@@ -102,11 +102,11 @@ public class ImportacaoCatalogoService {
     }
 
     @Transactional
-    public ResultadoImportacaoCatalogoDTO preencherComicVineEdicoesOriginaisGuia(Integer limite) {
+    public ResultadoImportacaoCatalogoDTO preencherComicVineEdicoesOriginaisGuia(Integer limite, String serie, String numero) {
         int limiteTratado = limite == null || limite <= 0 ? 10 : Math.min(limite, 50);
         List<Edicao> edicoes;
         try {
-            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS, limiteTratado);
+            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS, limiteTratado, serie, numero);
         } catch (Throwable e) {
             return new ResultadoImportacaoCatalogoDTO(
                     null,

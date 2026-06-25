@@ -64,22 +64,43 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .firstResultOptional();
     }
 
-    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna, int limite) {
-        return entityManager.createNativeQuery("""
+    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna, int limite, String serie, String numero) {
+        StringBuilder sql = new StringBuilder("""
                 select distinct e.*
                 from edicoes e
                 inner join publicacoes_historias p on p.edicao_original_id = e.id
+                inner join series s on s.id = e.serie_id
                 where e.fonte_externa = :fonteExterna
                   and (
                     e.id_comic_vine is null or e.id_comic_vine = ''
                     or e.url_comic_vine is null or e.url_comic_vine = ''
                     or e.url_capa is null or e.url_capa = ''
                   )
-                order by e.id
-                """, Edicao.class)
+                """);
+
+        if (serie != null && !serie.isBlank()) {
+            sql.append(" and lower(s.titulo) like :serie");
+        }
+
+        if (numero != null && !numero.isBlank()) {
+            sql.append(" and lower(e.numero) = :numero");
+        }
+
+        sql.append(" order by e.id");
+
+        var query = entityManager.createNativeQuery(sql.toString(), Edicao.class)
                 .setParameter("fonteExterna", fonteExterna)
-                .setMaxResults(limite)
-                .getResultList();
+                .setMaxResults(limite);
+
+        if (serie != null && !serie.isBlank()) {
+            query.setParameter("serie", "%" + serie.trim().toLowerCase() + "%");
+        }
+
+        if (numero != null && !numero.isBlank()) {
+            query.setParameter("numero", numero.trim().toLowerCase());
+        }
+
+        return query.getResultList();
     }
 
     public boolean existePorOrigemExternaEmOutraEdicao(String fonteExterna, String idExterno, Long id) {

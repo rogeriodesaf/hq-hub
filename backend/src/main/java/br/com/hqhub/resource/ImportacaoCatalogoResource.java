@@ -38,13 +38,17 @@ public class ImportacaoCatalogoResource {
 
     @POST
     @Path("/backfill/comic-vine/originais-guia")
-    public Response preencherComicVineEdicoesOriginaisGuia(@QueryParam("limite") Integer limite) {
+    public Response preencherComicVineEdicoesOriginaisGuia(
+            @QueryParam("limite") Integer limite,
+            @QueryParam("serie") String serie,
+            @QueryParam("numero") String numero) {
         if (!securityIdentity.hasRole("ADMINISTRADOR")) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
         try {
-            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia(limite);
+            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService
+                    .preencherComicVineEdicoesOriginaisGuia(limite, serie, numero);
             return Response.ok(resultado).build();
         } catch (Throwable e) {
             return Response.ok(new ResultadoImportacaoCatalogoDTO(
