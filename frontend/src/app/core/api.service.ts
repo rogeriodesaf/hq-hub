@@ -579,6 +579,10 @@ export class ApiService {
     return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/edicoes-originais/${edicaoId}`);
   }
 
+  removerPublicacaoHistoria(id: number) {
+    return this.http.delete<void>(`/api/publicacoes-historias/${id}`);
+  }
+
   listarLinksPorEdicao(edicaoId: number) {
     return this.http.get<LinkEdicao[]>(`/api/links-edicoes/edicoes/${edicaoId}`);
   }

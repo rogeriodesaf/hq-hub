@@ -325,6 +325,13 @@ import {
                     @if (publicacao.historia.descricaoExibicao) {
                       <p>{{ publicacao.historia.descricaoExibicao }}</p>
                     }
+                    @if (podeEditarCatalogo()) {
+                      <div class="acoes-detalhe-edicao">
+                        <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">
+                          {{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir publicacao' }}
+                        </button>
+                      </div>
+                    }
                   </div>
                 </article>
               } @empty {
@@ -420,6 +427,7 @@ export class CatalogoPage implements OnInit {
   readonly carregandoDetalhe = signal(false);
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
+  readonly removendoPublicacao = signal<number | null>(null);
   readonly mensagem = signal('');
   readonly paginaResultados = signal(0);
   readonly inicialSeries = signal('');
@@ -540,6 +548,7 @@ export class CatalogoPage implements OnInit {
     this.edicaoDetalhe.set(null);
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
+    this.removendoPublicacao.set(null);
     this.formularioEdicao = this.formularioEdicaoVazio();
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
@@ -568,6 +577,33 @@ export class CatalogoPage implements OnInit {
 
   linksAmazonDetalhe() {
     return this.linksDetalhe().filter((link) => link.tipo === 'AMAZON');
+  }
+
+  removerPublicacaoDetalhe(publicacao: PublicacaoHistoria) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const titulo = publicacao.historia.tituloExibicao || publicacao.historia.titulo;
+    const confirmar = window.confirm(`Excluir o vinculo da historia "${titulo}" desta edicao?`);
+    if (!confirmar) {
+      return;
+    }
+
+    this.removendoPublicacao.set(publicacao.id);
+    this.mensagem.set('');
+    this.api.removerPublicacaoHistoria(publicacao.id).subscribe({
+      next: () => {
+        this.publicacoesDetalhe.update((publicacoes) => publicacoes.filter((item) => item.id !== publicacao.id));
+        this.publicacoesComoOriginal.update((publicacoes) => publicacoes.filter((item) => item.id !== publicacao.id));
+        this.removendoPublicacao.set(null);
+        this.mensagem.set('Publicacao removida desta edicao.');
+      },
+      error: () => {
+        this.removendoPublicacao.set(null);
+        this.mensagem.set('Nao foi possivel remover esta publicacao.');
+      },
+    });
   }
 
   iniciarEdicaoDetalhe() {
