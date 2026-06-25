@@ -275,7 +275,7 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
                 <article class="publicacao-card">
                   <img
                     class="capa-publicacao"
-                    [src]="publicacao.edicaoOriginal.urlCapa || publicacao.edicaoPublicada.urlCapa || capaReserva"
+                    [src]="publicacao.edicaoPublicada.urlCapa || publicacao.edicaoOriginal.urlCapa || capaReserva"
                     [alt]="tituloEdicaoOriginal(publicacao)"
                     loading="lazy"
                     (error)="usarCapaReserva($event)"
@@ -285,7 +285,7 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
                     <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
                     <p>
                       Publicada originalmente em
-                      <button class="link-edicao-original" type="button" (click)="abrirDetalhePorId(publicacao.edicaoOriginal.id)">
+                      <button class="link-edicao-original" type="button" (click)="abrirDetalheOriginal(publicacao)">
                         {{ tituloEdicaoOriginal(publicacao) }}
                       </button>
                       @if (linkEdicaoOriginal(publicacao)) {
@@ -313,7 +313,11 @@ import { ConteudoEdicao, Edicao, PaginaResposta, PublicacaoHistoria, ResultadoPe
 
           @if (publicacoesComoOriginal().length || !publicacoesDetalhe().length) {
             <section class="detalhe-secao">
+              @if (historiaEmFoco()) {
+                <h3>Edições que publicaram esta história</h3>
+              } @else {
               <h3>Publicações brasileiras desta edição original</h3>
+              }
               @for (publicacao of publicacoesComoOriginal(); track publicacao.id) {
                 <article class="publicacao-card">
                   <img
@@ -386,6 +390,7 @@ export class CatalogoPage implements OnInit {
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly historiaEmFoco = signal<number | null>(null);
   readonly carregandoResultados = signal(false);
   readonly carregandoDetalhe = signal(false);
   readonly editandoDetalhe = signal(false);
@@ -471,7 +476,7 @@ export class CatalogoPage implements OnInit {
     this.abrirDetalhePorId(resultado.id);
   }
 
-  abrirDetalhePorId(edicaoId: number) {
+  abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
     this.mensagem.set('');
     forkJoin({
@@ -490,7 +495,8 @@ export class CatalogoPage implements OnInit {
         this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
-        this.publicacoesComoOriginal.set(publicacoesOriginais);
+        this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
+        this.historiaEmFoco.set(historiaId);
         this.carregandoDetalhe.set(false);
       },
       error: () => {
@@ -508,6 +514,7 @@ export class CatalogoPage implements OnInit {
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.historiaEmFoco.set(null);
     this.historicoDetalhes.set([]);
   }
 
@@ -644,6 +651,10 @@ export class CatalogoPage implements OnInit {
     return publicacao.edicaoOriginal.urlComicVine || publicacao.edicaoOriginal.urlOrigem;
   }
 
+  abrirDetalheOriginal(publicacao: PublicacaoHistoria) {
+    this.abrirDetalhePorId(publicacao.edicaoOriginal.id, publicacao.historia.id);
+  }
+
   rotuloFonteEdicao(edicao: Edicao) {
     if (edicao.urlComicVine) {
       return 'Comic Vine';
@@ -765,6 +776,14 @@ export class CatalogoPage implements OnInit {
 
     const numero = Number(valor);
     return Number.isFinite(numero) ? numero : null;
+  }
+
+  private filtrarPublicacoesComoOriginal(publicacoes: PublicacaoHistoria[], historiaId: number | null) {
+    if (!historiaId) {
+      return publicacoes;
+    }
+
+    return publicacoes.filter((publicacao) => publicacao.historia.id === historiaId);
   }
 
   private paraResultadoInterno(edicao: Edicao): ResultadoPesquisaCatalogo {

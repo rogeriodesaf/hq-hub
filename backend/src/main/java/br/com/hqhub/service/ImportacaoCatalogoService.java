@@ -230,6 +230,7 @@ public class ImportacaoCatalogoService {
         }
 
         if (existente.isPresent()) {
+            atualizarDadosComicVineOriginal(existente.get(), dto);
             contadores.itensReaproveitados++;
             return existente.get();
         }
@@ -242,6 +243,7 @@ public class ImportacaoCatalogoService {
         edicao.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
         edicao.setIdExterno(idExterno);
         edicao.setUrlOrigem(urlOrigem(importacao));
+        atualizarDadosComicVineOriginal(edicao, dto);
         edicaoRepository.persist(edicao);
         contadores.edicoesCriadas++;
         return edicao;
@@ -302,6 +304,34 @@ public class ImportacaoCatalogoService {
         edicao.setQuantidadePaginas(dto.numeroPaginas());
         edicao.setPrecoCapa(dto.precoCapa());
         edicao.setUrlOrigem(urlOrigem(importacao));
+    }
+
+    private void atualizarDadosComicVineOriginal(Edicao edicao, PublicacaoOriginalImportacaoDTO dto) {
+        copiarSeInformado(dto.idComicVine(), edicao::setIdComicVine, 100);
+        copiarSeInformado(dto.urlComicVine(), edicao::setUrlComicVine, 1000);
+        copiarSeInformado(dto.nomeVolume(), edicao::setNomeVolume, 255);
+        copiarSeInformado(dto.titulo(), edicao::setTitulo, 255);
+        copiarSeInformado(dto.descricaoOriginal(), edicao::setDescricaoOriginal, 4000);
+        copiarSeInformado(dto.descricaoPortugues(), edicao::setDescricaoPortugues, 4000);
+
+        if (dto.dataCapa() != null) {
+            edicao.setDataCobertura(dto.dataCapa());
+            if (edicao.getDataPublicacao() == null) {
+                edicao.setDataPublicacao(dto.dataCapa());
+            }
+        }
+
+        if (dto.dataVenda() != null) {
+            edicao.setDataDisponibilidadeLoja(dto.dataVenda());
+            if (edicao.getDataPublicacao() == null) {
+                edicao.setDataPublicacao(dto.dataVenda());
+            }
+        }
+
+        if (dto.urlCapa() != null && !dto.urlCapa().isBlank()
+                && (edicao.getUrlCapa() == null || edicao.getUrlCapa().isBlank())) {
+            edicao.setUrlCapa(limitar(dto.urlCapa(), 1000));
+        }
     }
 
     private boolean deveAtualizarCapa(String capaAtual, String novaCapa) {
@@ -502,6 +532,12 @@ public class ImportacaoCatalogoService {
 
         String limpo = texto.trim();
         return limpo.length() <= tamanho ? limpo : limpo.substring(0, tamanho);
+    }
+
+    private void copiarSeInformado(String valor, java.util.function.Consumer<String> destino, int tamanho) {
+        if (valor != null && !valor.isBlank()) {
+            destino.accept(limitar(valor, tamanho));
+        }
     }
 
     private static class ContadoresImportacao {

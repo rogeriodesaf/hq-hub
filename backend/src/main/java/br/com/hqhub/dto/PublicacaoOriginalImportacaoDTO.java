@@ -1,14 +1,25 @@
 package br.com.hqhub.dto;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotBlank;
 
 public record PublicacaoOriginalImportacaoDTO(
-        @NotBlank(message = "Série original é obrigatória.")
+        @NotBlank(message = "Serie original e obrigatoria.")
         String serieOriginal,
 
-        @NotBlank(message = "Número original é obrigatório.")
+        @NotBlank(message = "Numero original e obrigatorio.")
         String numeroOriginal,
 
         Integer anoOriginal,
-        String texto) {
+        String texto,
+        String idComicVine,
+        String urlComicVine,
+        String urlCapa,
+        String titulo,
+        String nomeVolume,
+        LocalDate dataCapa,
+        LocalDate dataVenda,
+        String descricaoOriginal,
+        String descricaoPortugues) {
 }

@@ -393,7 +393,7 @@ interface EdicaoDescoberta {
                 <article class="publicacao-card">
                   <img
                     class="capa-publicacao"
-                    [src]="publicacao.edicaoOriginal.urlCapa || publicacao.edicaoPublicada.urlCapa || capaReserva"
+                    [src]="publicacao.edicaoPublicada.urlCapa || publicacao.edicaoOriginal.urlCapa || capaReserva"
                     [alt]="tituloEdicaoOriginal(publicacao)"
                     loading="lazy"
                     (error)="usarCapaReserva($event)"
@@ -403,7 +403,7 @@ interface EdicaoDescoberta {
                     <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
                     <p>
                       Publicada originalmente em
-                      <button class="link-edicao-original" type="button" (click)="abrirDetalhePorId(publicacao.edicaoOriginal.id)">
+                      <button class="link-edicao-original" type="button" (click)="abrirDetalheOriginal(publicacao)">
                         {{ tituloEdicaoOriginal(publicacao) }}
                       </button>
                       @if (linkEdicaoOriginal(publicacao)) {
@@ -431,7 +431,11 @@ interface EdicaoDescoberta {
 
           @if (publicacoesComoOriginal().length || !publicacoesDetalhe().length) {
             <section class="detalhe-secao">
+              @if (historiaEmFoco()) {
+                <h3>Edições que publicaram esta história</h3>
+              } @else {
               <h3>Publicações brasileiras desta edição original</h3>
+              }
               @for (publicacao of publicacoesComoOriginal(); track publicacao.id) {
                 <article class="publicacao-card">
                   <img
@@ -538,6 +542,7 @@ export class DescobrirPage {
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly historiaEmFoco = signal<number | null>(null);
   readonly carregandoDetalhe = signal(false);
   readonly publicacoesRelacionadas = signal<PublicacaoRelacionada[]>([]);
   readonly carregandoPublicacoes = signal(false);
@@ -792,7 +797,7 @@ export class DescobrirPage {
     });
   }
 
-  abrirDetalhePorId(edicaoId: number) {
+  abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
     this.mensagem.set('');
     forkJoin({
@@ -809,7 +814,8 @@ export class DescobrirPage {
         this.edicaoDetalhe.set(edicao);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
-        this.publicacoesComoOriginal.set(publicacoesOriginais);
+        this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
+        this.historiaEmFoco.set(historiaId);
         this.carregandoDetalhe.set(false);
       },
       error: () => {
@@ -831,6 +837,7 @@ export class DescobrirPage {
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.historiaEmFoco.set(null);
     this.historicoDetalhes.set([]);
   }
 
@@ -974,6 +981,10 @@ export class DescobrirPage {
     return publicacao.edicaoOriginal.urlComicVine || publicacao.edicaoOriginal.urlOrigem;
   }
 
+  abrirDetalheOriginal(publicacao: PublicacaoHistoria) {
+    this.abrirDetalhePorId(publicacao.edicaoOriginal.id, publicacao.historia.id);
+  }
+
   rotuloFonteEdicaoInterna(edicao: Edicao) {
     if (edicao.urlComicVine) {
       return 'Comic Vine';
@@ -1106,6 +1117,14 @@ export class DescobrirPage {
       personagens: edicao.personagens,
       conteudos: edicao.conteudos,
     };
+  }
+
+  private filtrarPublicacoesComoOriginal(publicacoes: PublicacaoHistoria[], historiaId: number | null) {
+    if (!historiaId) {
+      return publicacoes;
+    }
+
+    return publicacoes.filter((publicacao) => publicacao.historia.id === historiaId);
   }
 
   private paginaVazia<T>(): PaginaResposta<T> {
