@@ -18,6 +18,7 @@ import br.com.hqhub.mapper.EdicaoMapper;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -28,11 +29,17 @@ public class EdicaoService {
     private final EdicaoRepository edicaoRepository;
     private final SerieRepository serieRepository;
     private final EdicaoMapper edicaoMapper;
+    private final EntityManager entityManager;
 
-    public EdicaoService(EdicaoRepository edicaoRepository, SerieRepository serieRepository, EdicaoMapper edicaoMapper) {
+    public EdicaoService(
+            EdicaoRepository edicaoRepository,
+            SerieRepository serieRepository,
+            EdicaoMapper edicaoMapper,
+            EntityManager entityManager) {
         this.edicaoRepository = edicaoRepository;
         this.serieRepository = serieRepository;
         this.edicaoMapper = edicaoMapper;
+        this.entityManager = entityManager;
     }
 
     @Transactional
@@ -138,7 +145,42 @@ public class EdicaoService {
     @Transactional
     public void remover(Long id) {
         Edicao edicao = buscarEntidadePorId(id);
+        validarExclusaoEdicao(edicao.getId());
+        removerVinculosCatalogo(edicao.getId());
         edicaoRepository.delete(edicao);
+    }
+
+    private void validarExclusaoEdicao(Long id) {
+        long itensColecao = contarPorEdicao("select count(*) from itens_colecao where edicao_id = :edicaoId", id);
+        long comprasPlanejadas = contarPorEdicao("select count(*) from compras_planejadas where edicao_id = :edicaoId", id);
+
+        if (itensColecao > 0 || comprasPlanejadas > 0) {
+            throw new RegraNegocioException(
+                    "Esta edição está vinculada a uma coleção ou compra planejada. Remova esses vínculos antes de excluir.");
+        }
+    }
+
+    private void removerVinculosCatalogo(Long id) {
+        executarPorEdicao("delete from contribuicoes_catalogo where edicao_destino_id = :edicaoId", id);
+        executarPorEdicao("delete from contribuicoes_catalogo where edicao_id = :edicaoId", id);
+        executarPorEdicao("delete from publicacoes_relacionadas where edicao_origem_id = :edicaoId or edicao_destino_id = :edicaoId", id);
+        executarPorEdicao("delete from publicacoes_historias where edicao_original_id = :edicaoId or edicao_publicada_id = :edicaoId", id);
+        executarPorEdicao("delete from conteudos_edicoes where edicao_id = :edicaoId", id);
+        executarPorEdicao("delete from links_edicoes where edicao_id = :edicaoId", id);
+        executarPorEdicao("delete from creditos_edicoes where edicao_id = :edicaoId", id);
+    }
+
+    private long contarPorEdicao(String sql, Long id) {
+        Object resultado = entityManager.createNativeQuery(sql)
+                .setParameter("edicaoId", id)
+                .getSingleResult();
+        return ((Number) resultado).longValue();
+    }
+
+    private int executarPorEdicao(String sql, Long id) {
+        return entityManager.createNativeQuery(sql)
+                .setParameter("edicaoId", id)
+                .executeUpdate();
     }
 
     private Edicao buscarEntidadePorId(Long id) {
