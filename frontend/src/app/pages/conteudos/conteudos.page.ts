@@ -418,22 +418,17 @@ export class ConteudosPage {
     this.salvandoDadosOriginais.set(true);
     this.mensagem.set('');
 
-    const resultado = this.salvarDadosManuaisOriginal(original);
-    if (resultado) {
-      resultado.subscribe({
-        next: () => {
-          this.salvandoDadosOriginais.set(false);
-          this.mensagem.set('Dados da edição original salvos.');
-        },
-        error: (erro: unknown) => {
-          this.salvandoDadosOriginais.set(false);
-          this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
-        },
-      });
-    } else {
-      this.salvandoDadosOriginais.set(false);
-      this.mensagem.set('Nenhuma capa ou link para salvar.');
-    }
+    this.salvarDadosManuaisOriginal(original).subscribe({
+      next: () => {
+        this.salvandoDadosOriginais.set(false);
+        this.mensagem.set('Dados da edição original salvos.');
+      },
+      error: (erro: unknown) => {
+        this.salvandoDadosOriginais.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
+      },
+    });
+    private salvarDadosManuaisOriginal(edicao: Edicao): Observable<unknown> {
   }
 
   cruzarEdicoesSelecionadas() {
@@ -588,7 +583,7 @@ export class ConteudosPage {
       );
     }
 
-    return tarefas.length ? forkJoin(tarefas) : null;
+    return tarefas.length ? forkJoin(tarefas) : of(null);
   }
 
   private carregarPublicacoesHistorias() {
