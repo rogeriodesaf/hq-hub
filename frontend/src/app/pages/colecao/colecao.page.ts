@@ -851,6 +851,7 @@ export class ColecaoPage implements OnInit {
           precoPago: this.precoPago,
           statusLeitura: this.statusLeitura,
           observacoes: this.observacoes || null,
+          suprimirRevisaoCatalogo: criada,
         }),
       );
 

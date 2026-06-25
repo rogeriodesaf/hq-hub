@@ -24,5 +24,7 @@ public record CadastroItemColecaoDTO(
         StatusLeitura statusLeitura,
 
         @Size(max = 1000, message = "Observações devem ter no máximo 1000 caracteres.")
-        String observacoes) {
+        String observacoes,
+
+        Boolean suprimirRevisaoCatalogo) {
 }

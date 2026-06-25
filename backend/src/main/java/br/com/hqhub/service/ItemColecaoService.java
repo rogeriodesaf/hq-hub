@@ -61,7 +61,9 @@ public class ItemColecaoService {
 
         ItemColecao item = itemColecaoMapper.paraEntidade(dto, usuario, edicao);
         itemColecaoRepository.persist(item);
-        registrarRevisaoEstante(usuario, item, "ITEM_ADICIONADO", montarDadosItemJson(item, null));
+        if (!Boolean.TRUE.equals(dto.suprimirRevisaoCatalogo())) {
+            registrarRevisaoEstante(usuario, item, "ITEM_ADICIONADO", montarDadosItemJson(item, null));
+        }
 
         return itemColecaoMapper.paraResposta(item);
     }

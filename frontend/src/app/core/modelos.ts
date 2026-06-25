@@ -199,6 +199,7 @@ export interface CadastroItemColecao {
   precoPago: number | null;
   statusLeitura: string;
   observacoes: string | null;
+  suprimirRevisaoCatalogo?: boolean;
 }
 
 export interface EstanteEdicao {
