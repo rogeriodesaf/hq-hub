@@ -12,6 +12,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -37,13 +38,13 @@ public class ImportacaoCatalogoResource {
 
     @POST
     @Path("/backfill/comic-vine/originais-guia")
-    public Response preencherComicVineEdicoesOriginaisGuia() {
+    public Response preencherComicVineEdicoesOriginaisGuia(@QueryParam("limite") Integer limite) {
         if (!securityIdentity.hasRole("ADMINISTRADOR")) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
         try {
-            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia();
+            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia(limite);
             return Response.ok(resultado).build();
         } catch (Throwable e) {
             return Response.ok(new ResultadoImportacaoCatalogoDTO(

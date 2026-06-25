@@ -64,7 +64,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .firstResultOptional();
     }
 
-    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna) {
+    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna, int limite) {
         return entityManager.createNativeQuery("""
                 select distinct e.*
                 from edicoes e
@@ -78,6 +78,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 order by e.id
                 """, Edicao.class)
                 .setParameter("fonteExterna", fonteExterna)
+                .setMaxResults(limite)
                 .getResultList();
     }
 
