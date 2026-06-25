@@ -327,6 +327,16 @@ import {
                     }
                     @if (podeEditarCatalogo()) {
                       <div class="acoes-detalhe-edicao">
+                        <input
+                          class="input-capa-publicacao"
+                          [ngModel]="urlCapaPublicacao(publicacao)"
+                          (ngModelChange)="alterarUrlCapaPublicacao(publicacao, $event)"
+                          [name]="'urlCapaPublicacao' + publicacao.id"
+                          placeholder="URL da capa original"
+                        />
+                        <button class="botao compacto" type="button" (click)="salvarCapaPublicacao(publicacao)" [disabled]="salvandoCapaPublicacao() === publicacao.id">
+                          {{ salvandoCapaPublicacao() === publicacao.id ? 'Salvando...' : 'Salvar capa' }}
+                        </button>
                         <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">
                           {{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir publicacao' }}
                         </button>
@@ -428,6 +438,8 @@ export class CatalogoPage implements OnInit {
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
   readonly removendoPublicacao = signal<number | null>(null);
+  readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
   readonly paginaResultados = signal(0);
   readonly inicialSeries = signal('');
@@ -530,6 +542,7 @@ export class CatalogoPage implements OnInit {
         this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(links);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
+        this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
         this.linksDetalhe.set(links);
         this.historiaEmFoco.set(historiaId);
@@ -549,10 +562,12 @@ export class CatalogoPage implements OnInit {
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
     this.removendoPublicacao.set(null);
+    this.salvandoCapaPublicacao.set(null);
     this.formularioEdicao = this.formularioEdicaoVazio();
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.urlsCapasPublicacoes.set({});
     this.linksDetalhe.set([]);
     this.historiaEmFoco.set(null);
     this.detalheComicVineInterno.set(null);
@@ -572,11 +587,74 @@ export class CatalogoPage implements OnInit {
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
     this.linksDetalhe.set([]);
+    this.urlsCapasPublicacoes.set({});
     this.abrirDetalhePorId(anterior.id);
   }
 
   linksAmazonDetalhe() {
     return this.linksDetalhe().filter((link) => link.tipo === 'AMAZON');
+  }
+
+  urlCapaPublicacao(publicacao: PublicacaoHistoria) {
+    return this.urlsCapasPublicacoes()[publicacao.id] || '';
+  }
+
+  alterarUrlCapaPublicacao(publicacao: PublicacaoHistoria, url: string) {
+    this.urlsCapasPublicacoes.update((urls) => ({
+      ...urls,
+      [publicacao.id]: url,
+    }));
+  }
+
+  salvarCapaPublicacao(publicacao: PublicacaoHistoria) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const urlCapa = this.urlCapaPublicacao(publicacao).trim();
+    const edicaoOriginal = publicacao.edicaoOriginal;
+    const serieId = edicaoOriginal.serie?.id;
+    if (!urlCapa) {
+      this.mensagem.set('Informe a URL da capa original antes de salvar.');
+      return;
+    }
+    if (!serieId) {
+      this.mensagem.set('Nao foi possivel identificar a serie da edicao original.');
+      return;
+    }
+
+    this.salvandoCapaPublicacao.set(publicacao.id);
+    this.mensagem.set('');
+    this.api.atualizarEdicao(edicaoOriginal.id, {
+      numero: edicaoOriginal.numero,
+      titulo: edicaoOriginal.titulo,
+      descricao: edicaoOriginal.descricao,
+      dataPublicacao: edicaoOriginal.dataPublicacao,
+      urlCapa,
+      codigoBarras: edicaoOriginal.codigoBarras,
+      quantidadePaginas: edicaoOriginal.quantidadePaginas,
+      precoCapa: edicaoOriginal.precoCapa,
+      formato: edicaoOriginal.formato,
+      fonteExterna: edicaoOriginal.fonteExterna,
+      idExterno: edicaoOriginal.idExterno,
+      urlOrigem: edicaoOriginal.urlOrigem,
+      serieId,
+    }).subscribe({
+      next: (edicaoAtualizada) => {
+        this.atualizarEdicaoOriginalNasPublicacoes(edicaoAtualizada);
+        this.capasComicVineOriginais.update((capas) => {
+          const atualizadas = { ...capas };
+          delete atualizadas[edicaoAtualizada.id];
+          return atualizadas;
+        });
+        this.salvandoCapaPublicacao.set(null);
+        this.mensagem.set('Capa da edicao original salva.');
+      },
+      error: () => {
+        this.salvandoCapaPublicacao.set(null);
+        this.mensagem.set('Nao foi possivel salvar a capa da edicao original.');
+      },
+    });
   }
 
   removerPublicacaoDetalhe(publicacao: PublicacaoHistoria) {
@@ -1036,6 +1114,33 @@ export class CatalogoPage implements OnInit {
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
     this.mensagem.set(mensagem);
+  }
+
+  private montarUrlsCapasPublicacoes(publicacoes: PublicacaoHistoria[]) {
+    return publicacoes.reduce<Record<number, string>>((urls, publicacao) => {
+      urls[publicacao.id] = publicacao.edicaoOriginal.urlCapa || '';
+      return urls;
+    }, {});
+  }
+
+  private atualizarEdicaoOriginalNasPublicacoes(edicao: Edicao) {
+    const atualizar = (publicacao: PublicacaoHistoria) => (
+      publicacao.edicaoOriginal.id === edicao.id
+        ? { ...publicacao, edicaoOriginal: edicao }
+        : publicacao
+    );
+
+    this.publicacoesDetalhe.update((publicacoes) => publicacoes.map(atualizar));
+    this.publicacoesComoOriginal.update((publicacoes) => publicacoes.map(atualizar));
+    this.urlsCapasPublicacoes.update((urls) => {
+      const atualizadas = { ...urls };
+      for (const publicacao of this.publicacoesDetalhe()) {
+        if (publicacao.edicaoOriginal.id === edicao.id) {
+          atualizadas[publicacao.id] = edicao.urlCapa || '';
+        }
+      }
+      return atualizadas;
+    });
   }
 
   private valorTextoOuNull(valor: string | null) {
