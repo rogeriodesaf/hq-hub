@@ -634,7 +634,7 @@ export class CatalogoPage implements OnInit {
     }
 
     if (!numero) {
-      this.mensagem.set('Informe o nÃºmero da ediÃ§Ã£o antes de salvar.');
+      this.mensagem.set('Informe o número da edição antes de salvar.');
       return;
     }
 

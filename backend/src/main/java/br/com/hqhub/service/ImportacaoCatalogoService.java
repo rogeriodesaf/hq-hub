@@ -38,6 +38,7 @@ import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.LinkEdicaoRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
 import br.com.hqhub.repository.SerieRepository;
+import br.com.hqhub.util.NormalizadorTexto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -705,7 +706,7 @@ public class ImportacaoCatalogoService {
     }
 
     private String textoOuPadrao(String texto, String padrao) {
-        return texto == null || texto.isBlank() ? padrao : texto.trim();
+        return texto == null || texto.isBlank() ? padrao : NormalizadorTexto.corrigirMojibake(texto.trim());
     }
 
     private void adicionarAvisoBackfill(List<String> avisos, String mensagem) {
@@ -723,7 +724,7 @@ public class ImportacaoCatalogoService {
             return null;
         }
 
-        String limpo = texto.trim();
+        String limpo = NormalizadorTexto.corrigirMojibake(texto.trim());
         return limpo.length() <= tamanho ? limpo : limpo.substring(0, tamanho);
     }
 

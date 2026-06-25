@@ -207,7 +207,7 @@ public class IntegracaoExternaService {
         validarComicVineConfigurada();
 
         if (serie == null || serie.isBlank() || numero == null || numero.isBlank()) {
-            throw new RegraNegocioException("SÃ©rie e nÃºmero da ediÃ§Ã£o sÃ£o obrigatÃ³rios.");
+            throw new RegraNegocioException("Série e número da edição são obrigatórios.");
         }
 
         for (String termo : termosResolucaoComicVine(serie, numero)) {
@@ -222,7 +222,7 @@ public class IntegracaoExternaService {
             }
         }
 
-        throw new RegraNegocioException("EdiÃ§Ã£o nÃ£o encontrada na ComicVine para a sÃ©rie e nÃºmero informados.");
+        throw new RegraNegocioException("Edição não encontrada na ComicVine para a série e número informados.");
     }
 
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(
