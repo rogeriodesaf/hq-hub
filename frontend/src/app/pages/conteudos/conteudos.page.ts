@@ -67,6 +67,17 @@ import {
             </label>
           </div>
 
+          <div class="acoes-formulario">
+            <button
+              class="botao compacto"
+              type="button"
+              (click)="salvarDadosOriginaisManual()"
+              [disabled]="salvandoDadosOriginais()"
+            >
+              {{ salvandoDadosOriginais() ? 'Salvando...' : 'Salvar capa/link da edição original' }}
+            </button>
+          </div>
+
           <form class="grade-formulario conteudo-formulario" (ngSubmit)="cadastrarConteudoOriginal()">
             <label class="campo-largo">
               Título da história
@@ -260,6 +271,7 @@ export class ConteudosPage {
   readonly carregandoPublicadas = signal(false);
   readonly salvandoConteudo = signal(false);
   readonly salvandoPublicacao = signal(false);
+  readonly salvandoDadosOriginais = signal(false);
   readonly cruzando = signal(false);
   readonly mensagem = signal('');
 
@@ -394,6 +406,28 @@ export class ConteudosPage {
           this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível vincular esta publicação.'));
         },
       });
+  }
+
+  salvarDadosOriginaisManual() {
+    const original = this.edicaoOriginal();
+    if (!original) {
+      this.mensagem.set('Escolha uma edição original antes de salvar capa e link.');
+      return;
+    }
+
+    this.salvandoDadosOriginais.set(true);
+    this.mensagem.set('');
+
+    this.salvarDadosManuaisOriginal(original).subscribe({
+      next: () => {
+        this.salvandoDadosOriginais.set(false);
+        this.mensagem.set('Dados da edição original salvos.');
+      },
+      error: (erro) => {
+        this.salvandoDadosOriginais.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
+      },
+    });
   }
 
   cruzarEdicoesSelecionadas() {

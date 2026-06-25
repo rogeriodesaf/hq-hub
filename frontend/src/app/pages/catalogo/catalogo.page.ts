@@ -260,6 +260,10 @@ import {
                   <input [(ngModel)]="formularioEdicao.urlCapa" name="urlCapaEdicaoCatalogo" />
                 </label>
                 <label class="campo-largo">
+                  Link Amazon
+                  <input [(ngModel)]="formularioEdicao.urlCompraAmazon" name="urlCompraAmazonEdicaoCatalogo" />
+                </label>
+                <label class="campo-largo">
                   Fonte
                   <input [(ngModel)]="formularioEdicao.urlOrigem" name="urlOrigemEdicaoCatalogo" />
                 </label>
@@ -515,6 +519,7 @@ export class CatalogoPage implements OnInit {
         this.editandoDetalhe.set(false);
         this.edicaoDetalhe.set(edicao);
         this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
+        this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(links);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
         this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
@@ -572,12 +577,14 @@ export class CatalogoPage implements OnInit {
     }
 
     this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
+    this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(this.linksDetalhe());
     this.editandoDetalhe.set(true);
   }
 
   cancelarEdicaoDetalhe() {
     const edicao = this.edicaoDetalhe();
     this.formularioEdicao = edicao ? this.formularioAPartirDaEdicao(edicao) : this.formularioEdicaoVazio();
+    this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(this.linksDetalhe());
     this.editandoDetalhe.set(false);
   }
 
@@ -597,6 +604,7 @@ export class CatalogoPage implements OnInit {
 
     this.salvandoDetalhe.set(true);
     this.mensagem.set('');
+    const urlAmazon = this.valorTextoOuNull(this.formularioEdicao.urlCompraAmazon);
     this.api.atualizarEdicao(edicao.id, {
       numero,
       titulo: this.valorTextoOuNull(this.formularioEdicao.titulo),
@@ -613,15 +621,33 @@ export class CatalogoPage implements OnInit {
       serieId,
     }).subscribe({
       next: (atualizada) => {
-        this.edicaoDetalhe.set(atualizada);
-        this.formularioEdicao = this.formularioAPartirDaEdicao(atualizada);
-        this.resultadosCatalogo.update((pagina) => ({
-          ...pagina,
-          itens: pagina.itens.map((resultado) => resultado.id === atualizada.id ? this.paraResultadoInterno(atualizada) : resultado),
-        }));
-        this.editandoDetalhe.set(false);
-        this.salvandoDetalhe.set(false);
-        this.mensagem.set('Dados da edicao atualizados.');
+        const linksAtuais = this.linksDetalhe();
+        const jaExisteAmazon = !!urlAmazon
+          && linksAtuais.some((link) => link.tipo === 'AMAZON' && link.url === urlAmazon);
+
+        if (urlAmazon && !jaExisteAmazon) {
+          this.api.cadastrarLinkEdicao({
+            edicaoId: atualizada.id,
+            tipo: 'AMAZON',
+            titulo: 'Comprar na Amazon',
+            url: urlAmazon,
+            observacoes: 'Link salvo no modal de detalhes do catálogo.',
+          }).subscribe({
+            next: (novoLink) => {
+              this.finalizarSalvamentoDetalhe(atualizada, [...linksAtuais, novoLink], 'Dados da edicao atualizados.');
+            },
+            error: () => {
+              this.finalizarSalvamentoDetalhe(
+                atualizada,
+                linksAtuais,
+                'Dados da edicao atualizados, mas nao foi possivel salvar o link da Amazon.',
+              );
+            },
+          });
+          return;
+        }
+
+        this.finalizarSalvamentoDetalhe(atualizada, linksAtuais, 'Dados da edicao atualizados.');
       },
       error: () => {
         this.salvandoDetalhe.set(false);
@@ -933,6 +959,7 @@ export class CatalogoPage implements OnInit {
       descricao: '',
       dataPublicacao: '',
       urlCapa: '',
+      urlCompraAmazon: '',
       codigoBarras: '',
       quantidadePaginas: null as number | null,
       precoCapa: null as number | null,
@@ -948,12 +975,31 @@ export class CatalogoPage implements OnInit {
       descricao: edicao.descricao || edicao.descricaoExibicao || '',
       dataPublicacao: edicao.dataPublicacao || '',
       urlCapa: edicao.urlCapa || '',
+      urlCompraAmazon: '',
       codigoBarras: edicao.codigoBarras || '',
       quantidadePaginas: edicao.quantidadePaginas,
       precoCapa: edicao.precoCapa,
       formato: edicao.formato || '',
       urlOrigem: edicao.urlOrigem || edicao.urlComicVine || '',
     };
+  }
+
+  private primeiroLinkAmazon(links: LinkEdicao[]) {
+    return links.find((link) => link.tipo === 'AMAZON')?.url || '';
+  }
+
+  private finalizarSalvamentoDetalhe(edicao: Edicao, links: LinkEdicao[], mensagem: string) {
+    this.edicaoDetalhe.set(edicao);
+    this.linksDetalhe.set(links);
+    this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
+    this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(links);
+    this.resultadosCatalogo.update((pagina) => ({
+      ...pagina,
+      itens: pagina.itens.map((resultado) => resultado.id === edicao.id ? this.paraResultadoInterno(edicao) : resultado),
+    }));
+    this.editandoDetalhe.set(false);
+    this.salvandoDetalhe.set(false);
+    this.mensagem.set(mensagem);
   }
 
   private valorTextoOuNull(valor: string | null) {
