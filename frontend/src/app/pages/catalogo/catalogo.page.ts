@@ -622,7 +622,6 @@ export class CatalogoPage implements OnInit {
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
     return publicacao.edicaoOriginal.urlCapa
       || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
-      || publicacao.edicaoPublicada.urlCapa
       || null;
   }
 

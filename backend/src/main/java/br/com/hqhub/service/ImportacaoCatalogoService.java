@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import br.com.hqhub.dto.EdicaoImportacaoDTO;
+import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.HistoriaImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.PublicacaoOriginalImportacaoDTO;
@@ -49,6 +50,7 @@ public class ImportacaoCatalogoService {
     private final HistoriaRepository historiaRepository;
     private final ConteudoEdicaoRepository conteudoEdicaoRepository;
     private final PublicacaoHistoriaRepository publicacaoHistoriaRepository;
+    private final IntegracaoExternaService integracaoExternaService;
 
     public ImportacaoCatalogoService(
             EditoraRepository editoraRepository,
@@ -56,13 +58,15 @@ public class ImportacaoCatalogoService {
             EdicaoRepository edicaoRepository,
             HistoriaRepository historiaRepository,
             ConteudoEdicaoRepository conteudoEdicaoRepository,
-            PublicacaoHistoriaRepository publicacaoHistoriaRepository) {
+            PublicacaoHistoriaRepository publicacaoHistoriaRepository,
+            IntegracaoExternaService integracaoExternaService) {
         this.editoraRepository = editoraRepository;
         this.serieRepository = serieRepository;
         this.edicaoRepository = edicaoRepository;
         this.historiaRepository = historiaRepository;
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
         this.publicacaoHistoriaRepository = publicacaoHistoriaRepository;
+        this.integracaoExternaService = integracaoExternaService;
     }
 
     @Transactional
@@ -93,6 +97,35 @@ public class ImportacaoCatalogoService {
                 contadores.conteudosCriados,
                 contadores.publicacoesCriadas,
                 contadores.itensReaproveitados,
+                avisos);
+    }
+
+    @Transactional
+    public ResultadoImportacaoCatalogoDTO preencherComicVineEdicoesOriginaisGuia() {
+        List<Edicao> edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS);
+        int atualizadas = 0;
+        List<String> avisos = new ArrayList<>();
+
+        for (Edicao edicao : edicoes) {
+            if (enriquecerEdicaoOriginalComicVine(edicao)) {
+                atualizadas++;
+            } else {
+                avisos.add("Sem correspondencia segura na Comic Vine para "
+                        + edicao.getSerie().getTitulo() + " #" + edicao.getNumero());
+            }
+        }
+
+        return new ResultadoImportacaoCatalogoDTO(
+                null,
+                "Backfill Comic Vine",
+                0,
+                0,
+                0,
+                atualizadas,
+                0,
+                0,
+                0,
+                edicoes.size() - atualizadas,
                 avisos);
     }
 
@@ -231,6 +264,7 @@ public class ImportacaoCatalogoService {
 
         if (existente.isPresent()) {
             atualizarDadosComicVineOriginal(existente.get(), dto);
+            enriquecerEdicaoOriginalComicVine(existente.get(), dto, editora.getNome());
             contadores.itensReaproveitados++;
             return existente.get();
         }
@@ -244,6 +278,7 @@ public class ImportacaoCatalogoService {
         edicao.setIdExterno(idExterno);
         edicao.setUrlOrigem(urlOrigem(importacao));
         atualizarDadosComicVineOriginal(edicao, dto);
+        enriquecerEdicaoOriginalComicVine(edicao, dto, editora.getNome());
         edicaoRepository.persist(edicao);
         contadores.edicoesCriadas++;
         return edicao;
@@ -307,8 +342,6 @@ public class ImportacaoCatalogoService {
     }
 
     private void atualizarDadosComicVineOriginal(Edicao edicao, PublicacaoOriginalImportacaoDTO dto) {
-        copiarSeInformado(dto.idComicVine(), edicao::setIdComicVine, 100);
-        copiarSeInformado(dto.urlComicVine(), edicao::setUrlComicVine, 1000);
         copiarSeInformado(dto.nomeVolume(), edicao::setNomeVolume, 255);
         copiarSeInformado(dto.titulo(), edicao::setTitulo, 255);
         copiarSeInformado(dto.descricaoOriginal(), edicao::setDescricaoOriginal, 4000);
@@ -328,9 +361,90 @@ public class ImportacaoCatalogoService {
             }
         }
 
-        if (dto.urlCapa() != null && !dto.urlCapa().isBlank()
-                && (edicao.getUrlCapa() == null || edicao.getUrlCapa().isBlank())) {
-            edicao.setUrlCapa(limitar(dto.urlCapa(), 1000));
+    }
+
+    private boolean enriquecerEdicaoOriginalComicVine(
+            Edicao edicao,
+            PublicacaoOriginalImportacaoDTO dto,
+            String editoraOriginal) {
+        if (temDadosComicVineCompletos(edicao)) {
+            return false;
+        }
+
+        try {
+            Optional<EdicaoComicVineRespostaDTO> encontrada = integracaoExternaService.resolverEdicaoComicVineOriginal(
+                    dto.serieOriginal(),
+                    dto.numeroOriginal(),
+                    dto.anoOriginal(),
+                    editoraOriginal);
+            if (encontrada.isEmpty()) {
+                return false;
+            }
+
+            aplicarDadosComicVineOriginal(edicao, encontrada.get());
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    private boolean enriquecerEdicaoOriginalComicVine(Edicao edicao) {
+        if (temDadosComicVineCompletos(edicao)) {
+            return false;
+        }
+
+        try {
+            Optional<EdicaoComicVineRespostaDTO> encontrada = integracaoExternaService.resolverEdicaoComicVineOriginal(
+                    edicao.getSerie().getTitulo(),
+                    edicao.getNumero(),
+                    edicao.getDataPublicacao() == null ? edicao.getSerie().getAnoInicio() : edicao.getDataPublicacao().getYear(),
+                    edicao.getSerie().getEditora().getNome());
+            if (encontrada.isEmpty()) {
+                return false;
+            }
+
+            aplicarDadosComicVineOriginal(edicao, encontrada.get());
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    private void aplicarDadosComicVineOriginal(Edicao edicao, EdicaoComicVineRespostaDTO comicVine) {
+        edicao.setIdComicVine(limitar(comicVine.idExterno(), 100));
+        edicao.setUrlComicVine(limitar(comicVine.urlOrigem(), 1000));
+        edicao.setUrlCapa(limitar(comicVine.urlImagem(), 1000));
+        copiarSeInformado(comicVine.nomeVolume(), edicao::setNomeVolume, 255);
+        copiarSeInformado(comicVine.titulo(), edicao::setTitulo, 255);
+        copiarSeInformado(comicVine.descricaoOriginal(), edicao::setDescricaoOriginal, 4000);
+        copiarSeInformado(comicVine.descricaoPortugues(), edicao::setDescricaoPortugues, 4000);
+
+        LocalDate dataCapa = dataComicVine(comicVine.dataCapa());
+        if (dataCapa != null) {
+            edicao.setDataCobertura(dataCapa);
+        }
+
+        LocalDate dataVenda = dataComicVine(comicVine.dataVenda());
+        if (dataVenda != null) {
+            edicao.setDataDisponibilidadeLoja(dataVenda);
+        }
+    }
+
+    private boolean temDadosComicVineCompletos(Edicao edicao) {
+        return !estaVazio(edicao.getIdComicVine())
+                && !estaVazio(edicao.getUrlComicVine())
+                && !estaVazio(edicao.getUrlCapa());
+    }
+
+    private LocalDate dataComicVine(String data) {
+        if (data == null || data.isBlank()) {
+            return null;
+        }
+
+        try {
+            return LocalDate.parse(data);
+        } catch (RuntimeException e) {
+            return null;
         }
     }
 
@@ -523,6 +637,10 @@ public class ImportacaoCatalogoService {
 
     private String textoOuPadrao(String texto, String padrao) {
         return texto == null || texto.isBlank() ? padrao : texto.trim();
+    }
+
+    private boolean estaVazio(String texto) {
+        return texto == null || texto.isBlank();
     }
 
     private String limitar(String texto, int tamanho) {

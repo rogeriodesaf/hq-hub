@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +133,35 @@ public class IntegracaoExternaService {
 
         return new PaginaRespostaDTO<>(itens, paginaTratada, tamanhoTratado, totalItens,
                 calcularTotalPaginas(totalItens, tamanhoTratado));
+    }
+
+    public Optional<EdicaoComicVineRespostaDTO> resolverEdicaoComicVineOriginal(
+            String serie,
+            String numero,
+            Integer ano,
+            String editora) {
+        validarComicVineConfigurada();
+
+        if (serie == null || serie.isBlank() || numero == null || numero.isBlank()) {
+            return Optional.empty();
+        }
+
+        for (String termo : termosResolucaoComicVineOriginal(serie, numero, ano, editora)) {
+            PaginaRespostaDTO<EdicaoComicVineRespostaDTO> resposta = buscarEdicoesComicVinePorTermo(termo, 0,
+                    TAMANHO_MAXIMO_COMICVINE);
+            Optional<EdicaoComicVineRespostaDTO> encontrada = resposta.itens().stream()
+                    .filter(edicao -> edicaoComicVineOriginalCombina(serie, numero, ano, editora, edicao))
+                    .findFirst();
+
+            if (encontrada.isPresent()) {
+                EdicaoComicVineRespostaDTO detalhe = buscarDetalheEdicaoComicVine(encontrada.get().idExterno());
+                if (edicaoComicVineOriginalCombina(serie, numero, ano, editora, detalhe)) {
+                    return Optional.of(detalhe);
+                }
+            }
+        }
+
+        return Optional.empty();
     }
 
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(
@@ -496,6 +526,7 @@ public class IntegracaoExternaService {
         String titulo = item.path("name").asText(null);
         JsonNode volume = item.path("volume");
         String nomeVolume = volume.path("name").asText(null);
+        String editora = volume.path("publisher").path("name").asText(null);
         String idVolume = volume.path("id").asText(null);
         String dataCapa = item.path("cover_date").asText(null);
         String dataVenda = item.path("store_date").asText(null);
@@ -512,7 +543,7 @@ public class IntegracaoExternaService {
                 .toList();
         List<String> conteudos = montarConteudosComicVine(titulo, item.path("aliases").asText(null));
 
-        return new EdicaoComicVineRespostaDTO(id, numero, titulo, nomeVolume, idVolume, dataCapa, dataVenda,
+        return new EdicaoComicVineRespostaDTO(id, numero, titulo, nomeVolume, editora, idVolume, dataCapa, dataVenda,
                 descricao, descricaoOriginal, null, descricao, url, imagem, creditos, personagens, conteudos);
     }
 
@@ -773,6 +804,20 @@ public class IntegracaoExternaService {
         return termos;
     }
 
+    private Set<String> termosResolucaoComicVineOriginal(String serie, String numero, Integer ano, String editora) {
+        Set<String> termos = new LinkedHashSet<>();
+        for (String termo : termosResolucaoComicVine(serie, numero)) {
+            termos.add(termo);
+            if (ano != null) {
+                termos.add((termo + " " + ano).trim());
+            }
+            if (editora != null && !editora.isBlank()) {
+                termos.add((termo + " " + editora.trim()).trim());
+            }
+        }
+        return termos;
+    }
+
     private void adicionarTermoResolucao(Set<String> termos, String serie, String numero) {
         if (serie != null && !serie.isBlank() && numero != null && !numero.isBlank()) {
             termos.add((serie.trim() + " " + numero.trim()).trim());
@@ -789,6 +834,54 @@ public class IntegracaoExternaService {
                 (edicao.nomeVolume() == null ? "" : edicao.nomeVolume()) + " "
                         + (edicao.titulo() == null ? "" : edicao.titulo()));
         return tokensSerie.isEmpty() || tokensSerie.stream().allMatch(textoResultado::contains);
+    }
+
+    private boolean edicaoComicVineOriginalCombina(
+            String serie,
+            String numero,
+            Integer ano,
+            String editora,
+            EdicaoComicVineRespostaDTO edicao) {
+        return edicaoComicVineCombina(serie, numero, edicao)
+                && anoComicVineCompativel(ano, edicao)
+                && editoraComicVineCompativel(editora, edicao)
+                && edicao.idExterno() != null
+                && !edicao.idExterno().isBlank()
+                && edicao.urlOrigem() != null
+                && !edicao.urlOrigem().isBlank()
+                && edicao.urlImagem() != null
+                && !edicao.urlImagem().isBlank();
+    }
+
+    private boolean anoComicVineCompativel(Integer ano, EdicaoComicVineRespostaDTO edicao) {
+        if (ano == null) {
+            return true;
+        }
+
+        return ano.equals(anoDataComicVine(edicao.dataCapa()))
+                || ano.equals(anoDataComicVine(edicao.dataVenda()));
+    }
+
+    private Integer anoDataComicVine(String data) {
+        if (data == null || data.isBlank()) {
+            return null;
+        }
+
+        try {
+            return LocalDate.parse(data).getYear();
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
+    private boolean editoraComicVineCompativel(String editora, EdicaoComicVineRespostaDTO edicao) {
+        if (editora == null || editora.isBlank() || edicao.editora() == null || edicao.editora().isBlank()) {
+            return true;
+        }
+
+        List<String> tokensEditora = tokensBuscaComicVine(editora);
+        String editoraResultado = normalizarBuscaComicVine(edicao.editora());
+        return tokensEditora.isEmpty() || tokensEditora.stream().allMatch(editoraResultado::contains);
     }
 
     private String tituloSerieParaBuscaComicVine(String titulo) {

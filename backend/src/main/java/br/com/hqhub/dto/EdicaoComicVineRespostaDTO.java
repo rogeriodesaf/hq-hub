@@ -7,6 +7,7 @@ public record EdicaoComicVineRespostaDTO(
         String numero,
         String titulo,
         String nomeVolume,
+        String editora,
         String idVolume,
         String dataCapa,
         String dataVenda,

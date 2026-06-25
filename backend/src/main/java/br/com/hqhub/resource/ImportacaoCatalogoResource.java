@@ -29,4 +29,12 @@ public class ImportacaoCatalogoResource {
         ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.importar(dto);
         return Response.ok(resultado).build();
     }
+
+    @POST
+    @Path("/backfill/comic-vine/originais-guia")
+    @RolesAllowed("ADMINISTRADOR")
+    public Response preencherComicVineEdicoesOriginaisGuia() {
+        ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.preencherComicVineEdicoesOriginaisGuia();
+        return Response.ok(resultado).build();
+    }
 }

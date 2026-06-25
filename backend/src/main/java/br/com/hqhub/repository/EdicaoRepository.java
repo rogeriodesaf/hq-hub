@@ -64,6 +64,29 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .firstResultOptional();
     }
 
+    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna) {
+        return entityManager.createQuery("""
+                select distinct e
+                from Edicao e
+                join fetch e.serie s
+                join fetch s.editora
+                where e.fonteExterna = :fonteExterna
+                  and (
+                    e.idComicVine is null or e.idComicVine = ''
+                    or e.urlComicVine is null or e.urlComicVine = ''
+                    or e.urlCapa is null or e.urlCapa = ''
+                  )
+                  and exists (
+                    select p.id
+                    from PublicacaoHistoria p
+                    where p.edicaoOriginal = e
+                  )
+                order by e.id
+                """, Edicao.class)
+                .setParameter("fonteExterna", fonteExterna)
+                .getResultList();
+    }
+
     public boolean existePorOrigemExternaEmOutraEdicao(String fonteExterna, String idExterno, Long id) {
         if (fonteExterna == null || idExterno == null) {
             return false;

@@ -955,7 +955,6 @@ export class DescobrirPage {
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
     return publicacao.edicaoOriginal.urlCapa
       || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
-      || publicacao.edicaoPublicada.urlCapa
       || null;
   }
 
@@ -1270,6 +1269,7 @@ export class DescobrirPage {
       numero: edicao.numero,
       titulo: edicao.titulo,
       nomeVolume: edicao.nomeVolume,
+      editora: null,
       idVolume: edicao.idVolume,
       dataCapa: edicao.dataCapa,
       dataVenda: edicao.dataVenda,

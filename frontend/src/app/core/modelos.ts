@@ -154,6 +154,7 @@ export interface EdicaoComicVine {
   numero: string | null;
   titulo: string | null;
   nomeVolume: string | null;
+  editora: string | null;
   idVolume: string | null;
   dataCapa: string | null;
   dataVenda: string | null;
