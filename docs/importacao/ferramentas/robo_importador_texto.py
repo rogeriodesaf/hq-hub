@@ -364,6 +364,8 @@ def extrair_publicacao_original(linha):
         "serieOriginal": serie,
         "numeroOriginal": numero,
         "anoOriginal": ano,
+        "urlOrigem": None,
+        "urlCapa": None,
         "texto": f"{serie} n° {numero}/{ano} - {editora}",
     }
 

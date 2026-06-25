@@ -379,6 +379,12 @@ public class ImportacaoCatalogoService {
         copiarSeInformado(dto.titulo(), edicao::setTitulo, 255);
         copiarSeInformado(dto.descricaoOriginal(), edicao::setDescricaoOriginal, 4000);
         copiarSeInformado(dto.descricaoPortugues(), edicao::setDescricaoPortugues, 4000);
+        copiarSeInformado(dto.urlOrigem(), edicao::setUrlOrigem, 1000);
+
+        if (dto.urlCapa() != null && !dto.urlCapa().isBlank()
+                && (edicao.getUrlCapa() == null || edicao.getUrlCapa().isBlank())) {
+            edicao.setUrlCapa(limitar(dto.urlCapa(), 1000));
+        }
 
         if (dto.dataCapa() != null) {
             edicao.setDataCobertura(dto.dataCapa());
