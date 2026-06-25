@@ -1,0 +1,57 @@
+{
+  "origem": {
+    "arquivoEntrada": "cadastro-manual-os-fabulosos-x-men-edicao-definitiva-vol-10-minimo",
+    "url": null,
+    "urlsProcessadas": [],
+    "geradoEm": "2026-06-25",
+    "gerador": "Cadastro manual"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men: Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 1,
+  "avisos": [
+    "Versão mínima para teste de importação.",
+    "Link Amazon da edição brasileira: https://link.amazon/B0ipyaJjb"
+  ],
+  "edicoes": [
+    {
+      "numero": "10",
+      "tituloChamada": "Os Fabulosos X-Men: Edição Definitiva Vol. 10",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 468,
+      "formato": "(18,5 x 27,5 cm) Colorido/Capa dura",
+      "precoCapa": 195.90,
+      "urlCapa": "https://m.media-amazon.com/images/I/613-zK19T9L._SY385_.jpg",
+      "descricao": "Publicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 468\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 195,90\nCrédito da capa e editor\nArte: Paul Smith\nEditor: Leandro Luigi Del Manto\nLink Amazon: https://link.amazon/B0ipyaJjb",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O professor Xavier é um babaca!",
+          "tituloOriginal": "Professor Xavier Is a Jerk!",
+          "quantidadePaginas": 22,
+          "resumo": "Xavier decide afastar Kitty do grupo principal por julgar que ela é jovem e não deve se arriscar. Contrariada, ela tenta de todas as maneiras provar que é importante para o grupo. Por fim, a mutante descobre a presença de Lockheed, o dragão que a ajudou no mundo da Ninhada. Xavier aceita recolocá-la no grupo principal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "168",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 168/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        }
+      ]
+    }
+  ]
+}

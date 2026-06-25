@@ -1158,11 +1158,15 @@ export class CatalogoPage implements OnInit {
   }
 
   private filtrarPublicacoesComoOriginal(publicacoes: PublicacaoHistoria[], historiaId: number | null) {
+    const publicacoesBrasileiras = publicacoes.filter((publicacao) =>
+      publicacao.edicaoPublicada.id !== publicacao.edicaoOriginal.id
+    );
+
     if (!historiaId) {
-      return publicacoes;
+      return publicacoesBrasileiras;
     }
 
-    return publicacoes.filter((publicacao) => publicacao.historia.id === historiaId);
+    return publicacoesBrasileiras.filter((publicacao) => publicacao.historia.id === historiaId);
   }
 
   private paraResultadoInterno(edicao: Edicao): ResultadoPesquisaCatalogo {

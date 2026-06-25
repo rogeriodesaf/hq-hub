@@ -584,6 +584,11 @@ public class ImportacaoCatalogoService {
             HistoriaImportacaoDTO dto,
             ImportacaoCatalogoDTO importacao,
             ContadoresImportacao contadores) {
+        if (edicaoOriginal.getId().equals(edicaoBrasileira.getId())) {
+            contadores.itensReaproveitados++;
+            return;
+        }
+
         if (publicacaoHistoriaRepository.existePorHistoriaEEdicaoPublicada(historia.getId(), edicaoBrasileira.getId())) {
             contadores.itensReaproveitados++;
             return;

@@ -1,0 +1,312 @@
+{
+  "origem": {
+    "arquivoEntrada": "cadastro-manual-os-fabulosos-x-men-edicao-definitiva-vol-10",
+    "url": null,
+    "urlsProcessadas": [],
+    "geradoEm": "2026-06-25",
+    "gerador": "Cadastro manual"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men: Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 17,
+  "avisos": [
+    "Link Amazon da edição brasileira: https://link.amazon/B0ipyaJjb"
+  ],
+  "edicoes": [
+    {
+      "numero": "10",
+      "tituloChamada": "Os Fabulosos X-Men: Edição Definitiva Vol. 10",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 468,
+      "formato": "(18,5 x 27,5 cm) Colorido/Capa dura",
+      "precoCapa": 195.90,
+      "urlCapa": "https://m.media-amazon.com/images/I/613-zK19T9L._SY385_.jpg",
+      "descricao": "Publicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 468\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 195,90\nCrédito da capa e editor\nArte: Paul Smith\nEditor: Leandro Luigi Del Manto\nLink Amazon: https://link.amazon/B0ipyaJjb",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Deus ama, o homem mata",
+          "tituloOriginal": "God Loves, Man Kills",
+          "quantidadePaginas": 62,
+          "resumo": "Charles Xavier, Ciclope, Tempestade, Wolverine, Noturno, Kitty Pryde e Colossus entram na mira do fanático pastor William Stryker, um influente religioso que considera os mutantes uma cria diabólica e contra Deus e Sua Criação. Seja com suas palavras, seja com sua milícia assassina de mutantes, os Purificadores, Stryker quer guerra e até Magneto se unirá aos heróis nesse confronto feroz combatido não só com punhos, mas com palavras e sentimentos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Graphic Novel (1982)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1983,
+            "texto": "Marvel Graphic Novel (1982) n° 5/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Elegia",
+          "tituloOriginal": null,
+          "quantidadePaginas": 13,
+          "resumo": "Carol Danvers, em visita à Mansão dos Vingadores, recebe a notícia de que o Capitão Marvel faleceu durante sua ausência.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "24",
+            "anoOriginal": 1986,
+            "texto": "Marvel Fanfare (1982) n° 24/1986 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O professor Xavier é um babaca!",
+          "tituloOriginal": "Professor Xavier Is a Jerk!",
+          "quantidadePaginas": 22,
+          "resumo": "Xavier decide afastar Kitty do grupo principal por julgar que ela é jovem e não deve se arriscar. Contrariada, ela tenta de todas as maneiras provar que é importante para o grupo. Por fim, a mutante descobre a presença de Lockheed, o dragão que a ajudou no mundo da Ninhada. Xavier aceita recolocá-la no grupo principal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "168",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 168/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Catacumbas",
+          "tituloOriginal": "Catacombs",
+          "quantidadePaginas": 22,
+          "resumo": "Anjo foi capturado, e os X-Men se unem para encontrá-lo. A Rainha Branca foi ferida e surpreende Sebastian Shaw. Os X-Men, Tempestade, Colossus e Noturno acabam nos esgotos para encontrar Warren, mas são capturados por um bando de mutantes que vivem escondidos da população. Kitty é atacada pela mutante Podre que ao tocá-la deixa em seu sangue um vírus mortal. Porém, ela é salva por Caliban.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "169",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 169/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Dançando no escuro",
+          "tituloOriginal": "Dancin' in the Dark",
+          "quantidadePaginas": 22,
+          "resumo": "Scott se envolve com Madelyne e revela seu dom mutante. Callisto é a chefe dos Morlocks, mutantes que vivem no submundo. Ela deseja se casar com Warren. Os X-Men decidem que um duelo deveria existir, e Tempestade resolve lutar. Ela fere mortalmente Callisto, que só não morre graças aos dons de cura de outro mutante.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "170",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 170/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Párias",
+          "tituloOriginal": "Rogue",
+          "quantidadePaginas": 23,
+          "resumo": "Mística tem pesadelos com a Fênix, enquanto bate na porta da Mansão dos X-Men ninguém menos que Vampira. A contragosto de todos, Xavier a aceita na equipe como membro experimental. Binária volta à mansão sem saber dos fatos e ataca Vampira com força total.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "171",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 171/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Eu sou Wolverine",
+          "tituloOriginal": "I'm Wolverine",
+          "quantidadePaginas": 22,
+          "resumo": "Wolverine descobre o amor de uma mulher no Japão, uma nobre do clã Yashida. Tal sentimento é rejeitado e sua honra desgraçada pelo pai da jovem. O mutante enfrenta ninjas assassinos para alcançar a verdade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Wolverine (1982)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1982,
+            "texto": "Wolverine (1982) n° 1/1982 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Deveres e obrigações",
+          "tituloOriginal": "Debts and Obligations",
+          "quantidadePaginas": 22,
+          "resumo": "Wolverine enfrenta membros do Tentáculo. Yukio, mercenária contratada por Lorde Shingen, assume a missão de matar Wolverine e se aproveita dele para eliminar o maior rival de Shingen no mundo do crime.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Wolverine (1982)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1982,
+            "texto": "Wolverine (1982) n° 2/1982 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Perda",
+          "tituloOriginal": "Loss",
+          "quantidadePaginas": 22,
+          "resumo": "Os ninjas assassinos do Tentáculo voltaram, deixando claro a Yukio que sua missão é matar Wolverine. Ela liquida os guerreiros e também Asano Kimura, o melhor amigo de Wolverine no Japão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Wolverine (1982)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1982,
+            "texto": "Wolverine (1982) n° 3/1982 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Honra",
+          "tituloOriginal": "Honor",
+          "quantidadePaginas": 22,
+          "resumo": "Noburu Hideki é morto por Yukio e Wolverine trava um combate mortal com Lorde Shingen.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Wolverine (1982)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1982,
+            "texto": "Wolverine (1982) n° 4/1982 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Glória escarlate",
+          "tituloOriginal": "Scarlet in Glory",
+          "quantidadePaginas": 22,
+          "resumo": "Wolverine está de casamento marcado com Mariko, e os X-Men o visitam no Japão para a cerimônia. Samurai de Prata quer acabar com o casamento e reclamar seu papel como líder da família.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "172",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 172/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Ter ou não ter...",
+          "tituloOriginal": "To Have and Have Not",
+          "quantidadePaginas": 22,
+          "resumo": "Wolverine se degladia com a Madame Hidra e o Samurai de Prata para salvar sua amada, e Vampira fica gravemente ferida. Wolverine recebe um não no altar diante de todos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "173",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 173/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Eu sou Kitty Pryde",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": "Uma homenagem à era Claremont. A história é narrada por Kitty, refletindo sobre sua relação com seus colegas de equipe e contando sobre um embate contra um molde mestre na China.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Gold (2014)",
+            "numeroOriginal": "1",
+            "anoOriginal": 2014,
+            "texto": "X-Men Gold (2014) n° 1/2014 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Romances",
+          "tituloOriginal": "Romances",
+          "quantidadePaginas": 22,
+          "resumo": "Membros da equipe estão envolvidos em conflitos amorosos. Xavier tenta fazer seu novo corpo andar, Wolverine quer tirar satisfação da desistência de Mariko e Scott noiva com Madelyne Pryor.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "174",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 174/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Renascimento",
+          "tituloOriginal": "Rebirth",
+          "quantidadePaginas": 12,
+          "resumo": "Após tentar salvar Yukio de cair de um penhasco, Ororo e ela são pegas por uma grande onda e submergem no mar revolto. Para Tempestade, isso significa mergulhar em traumas e sentimentos reprimidos para renascer.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Unlimited (1993)",
+            "numeroOriginal": "39",
+            "anoOriginal": 2003,
+            "texto": "X-Men Unlimited (1993) n° 39/2003 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Fênix!",
+          "tituloOriginal": "Phoenix!",
+          "quantidadePaginas": 38,
+          "resumo": "Os X-Men se deparam com a ameaça da Fênix novamente. Porém, Ciclope percebe que tudo se trata de ilusões mentais do Mestre Mental. Usando Vampira como condutora dos poderes de Xavier, ele ajuda os amigos a desfazerem as ilusões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "175",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 175/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Caça ao tesouro",
+          "tituloOriginal": "Scavenger Hunt",
+          "quantidadePaginas": 40,
+          "resumo": "Os X-Men se envolvem em uma espécie de gincana empreendida pelo Homem-Impossível, que faz com que eles tenham de viajar pelo mundo e encontrar vários outros heróis e seus artefatos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1983,
+            "texto": "X-Men Annual (1970) n° 7/1983 - Marvel Comics",
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        }
+      ]
+    }
+  ]
+}

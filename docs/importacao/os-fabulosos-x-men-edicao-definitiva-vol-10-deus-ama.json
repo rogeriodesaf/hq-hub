@@ -1,0 +1,57 @@
+{
+  "origem": {
+    "arquivoEntrada": "cadastro-manual-os-fabulosos-x-men-edicao-definitiva-vol-10-deus-ama",
+    "url": null,
+    "urlsProcessadas": [],
+    "geradoEm": "2026-06-25",
+    "gerador": "Cadastro manual"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men: Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 1,
+  "avisos": [
+    "Versão mínima para teste de importação.",
+    "Link Amazon da edição brasileira: https://link.amazon/B0ipyaJjb"
+  ],
+  "edicoes": [
+    {
+      "numero": "10",
+      "tituloChamada": "Os Fabulosos X-Men: Edição Definitiva Vol. 10",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 468,
+      "formato": "(18,5 x 27,5 cm) Colorido/Capa dura",
+      "precoCapa": 195.90,
+      "urlCapa": "https://m.media-amazon.com/images/I/613-zK19T9L._SY385_.jpg",
+      "descricao": "Publicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 468\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 195,90\nCrédito da capa e editor\nArte: Paul Smith\nEditor: Leandro Luigi Del Manto\nLink Amazon: https://link.amazon/B0ipyaJjb",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Deus ama, o homem mata",
+          "tituloOriginal": "God Loves, Man Kills",
+          "quantidadePaginas": 62,
+          "resumo": "Charles Xavier, Ciclope, Tempestade, Wolverine, Noturno, Kitty Pryde e Colossus entram na mira do fanático pastor William Stryker, um influente religioso que considera os mutantes uma cria diabólica e contra Deus e Sua Criação. Seja com suas palavras, seja com sua milícia assassina de mutantes, os Purificadores, Stryker quer guerra e até Magneto se unirá aos heróis nesse confronto feroz combatido não só com punhos, mas com palavras e sentimentos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Graphic Novel (1982)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1983,
+            "texto": "Marvel Graphic Novel (1982) n° 5/1983 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/marvel-graphic-novel-(1982)-n-5/162/4517",
+            "urlCapa": null,
+            "urlCompraAmazon": null
+          }
+        }
+      ]
+    }
+  ]
+}
