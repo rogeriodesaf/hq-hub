@@ -218,6 +218,9 @@ import {
                       Cancelar
                     </button>
                   }
+                  <button class="botao perigo compacto" type="button" (click)="removerEdicaoDetalhe()" [disabled]="removendoEdicao() || salvandoDetalhe()">
+                    {{ removendoEdicao() ? 'Excluindo...' : 'Excluir' }}
+                  </button>
                 </div>
               }
             </div>
@@ -437,6 +440,7 @@ export class CatalogoPage implements OnInit {
   readonly carregandoDetalhe = signal(false);
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
+  readonly removendoEdicao = signal(false);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
@@ -561,6 +565,7 @@ export class CatalogoPage implements OnInit {
     this.edicaoDetalhe.set(null);
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
+    this.removendoEdicao.set(false);
     this.removendoPublicacao.set(null);
     this.salvandoCapaPublicacao.set(null);
     this.formularioEdicao = this.formularioEdicaoVazio();
@@ -680,6 +685,38 @@ export class CatalogoPage implements OnInit {
       error: () => {
         this.removendoPublicacao.set(null);
         this.mensagem.set('Nao foi possivel remover esta publicacao.');
+      },
+    });
+  }
+
+  removerEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao || !this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const confirmar = window.confirm(`Excluir a edicao "${this.tituloEdicao(edicao)}"? Esta acao nao pode ser desfeita.`);
+    if (!confirmar) {
+      return;
+    }
+
+    this.removendoEdicao.set(true);
+    this.mensagem.set('');
+    this.api.removerEdicao(edicao.id).subscribe({
+      next: () => {
+        this.resultadosCatalogo.update((pagina) => ({
+          ...pagina,
+          itens: pagina.itens.filter((resultado) => resultado.id !== edicao.id),
+          totalItens: Math.max(0, pagina.totalItens - 1),
+        }));
+        this.fecharDetalhe();
+        this.mensagem.set('Edicao excluida do catalogo.');
+        this.buscarResultados(this.paginaResultados());
+        this.carregarSeriesInternas(this.series().pagina);
+      },
+      error: () => {
+        this.removendoEdicao.set(false);
+        this.mensagem.set('Nao foi possivel excluir esta edicao. Verifique se ela possui vinculos no catalogo ou na colecao.');
       },
     });
   }

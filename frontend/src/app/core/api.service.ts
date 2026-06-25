@@ -258,6 +258,10 @@ export class ApiService {
     return this.http.put<Edicao>(`/api/edicoes/${id}`, dto);
   }
 
+  removerEdicao(id: number) {
+    return this.http.delete<void>(`/api/edicoes/${id}`);
+  }
+
   buscarVolumesComicVine(termo: string, pagina = 0, tamanho = 12) {
     const params = new HttpParams()
       .set('termo', termo)
