@@ -106,7 +106,7 @@ public class ImportacaoCatalogoService {
         List<Edicao> edicoes;
         try {
             edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS);
-        } catch (RuntimeException e) {
+        } catch (Throwable e) {
             return new ResultadoImportacaoCatalogoDTO(
                     null,
                     "Backfill Comic Vine",
@@ -118,7 +118,8 @@ public class ImportacaoCatalogoService {
                     0,
                     0,
                     0,
-                    List.of("Falha ao listar edicoes originais do Guia para backfill: " + e.getClass().getSimpleName()));
+                    List.of("Falha ao listar edicoes originais do Guia para backfill: "
+                            + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes")));
         }
 
         int atualizadas = 0;
@@ -126,12 +127,18 @@ public class ImportacaoCatalogoService {
         List<String> avisos = new ArrayList<>();
 
         for (Edicao edicao : edicoes) {
-            if (enriquecerEdicaoOriginalComicVine(edicao)) {
-                atualizadas++;
-            } else {
+            try {
+                if (enriquecerEdicaoOriginalComicVine(edicao)) {
+                    atualizadas++;
+                } else {
+                    semCorrespondencia++;
+                    adicionarAvisoBackfill(avisos, "Sem correspondencia segura na Comic Vine para "
+                            + edicao.getSerie().getTitulo() + " #" + edicao.getNumero());
+                }
+            } catch (Throwable e) {
                 semCorrespondencia++;
-                adicionarAvisoBackfill(avisos, "Sem correspondencia segura na Comic Vine para "
-                        + edicao.getSerie().getTitulo() + " #" + edicao.getNumero());
+                adicionarAvisoBackfill(avisos, "Falha ao enriquecer edicao original " + edicao.getId()
+                        + ": " + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes"));
             }
         }
 
@@ -408,7 +415,7 @@ public class ImportacaoCatalogoService {
 
             aplicarDadosComicVineOriginal(edicao, encontrada.get());
             return true;
-        } catch (RuntimeException e) {
+        } catch (Throwable e) {
             return false;
         }
     }
@@ -430,7 +437,7 @@ public class ImportacaoCatalogoService {
 
             aplicarDadosComicVineOriginal(edicao, encontrada.get());
             return true;
-        } catch (RuntimeException e) {
+        } catch (Throwable e) {
             return false;
         }
     }
