@@ -65,21 +65,15 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
     }
 
     public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna) {
-        return entityManager.createQuery("""
-                select distinct e
-                from Edicao e
-                join fetch e.serie s
-                join fetch s.editora
-                where e.fonteExterna = :fonteExterna
+        return entityManager.createNativeQuery("""
+                select distinct e.*
+                from edicoes e
+                inner join publicacoes_historias p on p.edicao_original_id = e.id
+                where e.fonte_externa = :fonteExterna
                   and (
-                    e.idComicVine is null or e.idComicVine = ''
-                    or e.urlComicVine is null or e.urlComicVine = ''
-                    or e.urlCapa is null or e.urlCapa = ''
-                  )
-                  and exists (
-                    select p.id
-                    from PublicacaoHistoria p
-                    where p.edicaoOriginal = e
+                    e.id_comic_vine is null or e.id_comic_vine = ''
+                    or e.url_comic_vine is null or e.url_comic_vine = ''
+                    or e.url_capa is null or e.url_capa = ''
                   )
                 order by e.id
                 """, Edicao.class)
