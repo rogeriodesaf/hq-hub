@@ -584,7 +584,7 @@ public class ImportacaoCatalogoService {
             HistoriaImportacaoDTO dto,
             ImportacaoCatalogoDTO importacao,
             ContadoresImportacao contadores) {
-        if (edicaoOriginal.getId().equals(edicaoBrasileira.getId())) {
+        if (mesmaEdicaoCatalografica(edicaoOriginal, edicaoBrasileira)) {
             contadores.itensReaproveitados++;
             return;
         }
@@ -609,6 +609,17 @@ public class ImportacaoCatalogoService {
         publicacao.setUrlOrigem(urlOrigem(importacao));
         publicacaoHistoriaRepository.persist(publicacao);
         contadores.publicacoesCriadas++;
+    }
+
+    private boolean mesmaEdicaoCatalografica(Edicao primeira, Edicao segunda) {
+        if (primeira.getId() != null && primeira.getId().equals(segunda.getId())) {
+            return true;
+        }
+
+        return normalizarBusca(primeira.getNumero()).equals(normalizarBusca(segunda.getNumero()))
+                && primeira.getSerie() != null
+                && segunda.getSerie() != null
+                && normalizarBusca(primeira.getSerie().getTitulo()).equals(normalizarBusca(segunda.getSerie().getTitulo()));
     }
 
     private String editoraOriginal(PublicacaoOriginalImportacaoDTO dto) {

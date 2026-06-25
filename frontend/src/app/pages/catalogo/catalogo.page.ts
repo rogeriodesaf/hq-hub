@@ -1159,7 +1159,7 @@ export class CatalogoPage implements OnInit {
 
   private filtrarPublicacoesComoOriginal(publicacoes: PublicacaoHistoria[], historiaId: number | null) {
     const publicacoesBrasileiras = publicacoes.filter((publicacao) =>
-      publicacao.edicaoPublicada.id !== publicacao.edicaoOriginal.id
+      !this.mesmaEdicaoCatalografica(publicacao.edicaoOriginal, publicacao.edicaoPublicada)
     );
 
     if (!historiaId) {
@@ -1167,6 +1167,19 @@ export class CatalogoPage implements OnInit {
     }
 
     return publicacoesBrasileiras.filter((publicacao) => publicacao.historia.id === historiaId);
+  }
+
+  private mesmaEdicaoCatalografica(original: Edicao, publicada: Edicao) {
+    if (original.id === publicada.id) {
+      return true;
+    }
+
+    return this.normalizarComparacao(original.numero) === this.normalizarComparacao(publicada.numero)
+      && this.normalizarComparacao(original.serie?.titulo) === this.normalizarComparacao(publicada.serie?.titulo);
+  }
+
+  private normalizarComparacao(valor: string | null | undefined) {
+    return (valor || '').trim().toLocaleLowerCase('pt-BR');
   }
 
   private paraResultadoInterno(edicao: Edicao): ResultadoPesquisaCatalogo {

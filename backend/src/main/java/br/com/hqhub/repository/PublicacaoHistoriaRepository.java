@@ -25,12 +25,28 @@ public class PublicacaoHistoriaRepository implements PanacheRepository<Publicaca
     }
 
     public List<PublicacaoHistoria> listarPorEdicaoPublicada(Long edicaoPublicadaId) {
-        return list("edicaoPublicada.id = ?1 and edicaoOriginal.id <> edicaoPublicada.id order by historia.titulo asc",
+        return list("""
+                edicaoPublicada.id = ?1
+                and edicaoOriginal.id <> edicaoPublicada.id
+                and not (
+                    lower(edicaoOriginal.numero) = lower(edicaoPublicada.numero)
+                    and lower(edicaoOriginal.serie.titulo) = lower(edicaoPublicada.serie.titulo)
+                )
+                order by historia.titulo asc
+                """,
                 edicaoPublicadaId);
     }
 
     public List<PublicacaoHistoria> listarPorEdicaoOriginal(Long edicaoOriginalId) {
-        return list("edicaoOriginal.id = ?1 and edicaoPublicada.id <> edicaoOriginal.id order by edicaoPublicada.dataPublicacao asc, edicaoPublicada.numero asc, historia.titulo asc",
+        return list("""
+                edicaoOriginal.id = ?1
+                and edicaoPublicada.id <> edicaoOriginal.id
+                and not (
+                    lower(edicaoOriginal.numero) = lower(edicaoPublicada.numero)
+                    and lower(edicaoOriginal.serie.titulo) = lower(edicaoPublicada.serie.titulo)
+                )
+                order by edicaoPublicada.dataPublicacao asc, edicaoPublicada.numero asc, historia.titulo asc
+                """,
                 edicaoOriginalId);
     }
 }
