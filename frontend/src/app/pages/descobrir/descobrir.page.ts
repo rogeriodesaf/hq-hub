@@ -949,13 +949,13 @@ export class DescobrirPage {
   }
 
   capaEdicaoDetalhe() {
-    return this.edicaoDetalhe()?.urlCapa || this.detalheComicVineInterno()?.urlImagem || null;
+    return this.capaInternaUtil(this.edicaoDetalhe()?.urlCapa) || this.detalheComicVineInterno()?.urlImagem || null;
   }
 
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
-    return publicacao.edicaoOriginal.urlCapa
+    return this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)
       || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
-      || publicacao.edicaoPublicada.urlCapa
+      || this.capaInternaUtil(publicacao.edicaoPublicada.urlCapa)
       || null;
   }
 
@@ -1034,7 +1034,7 @@ export class DescobrirPage {
       return;
     }
 
-    if (edicao.urlCapa) {
+    if (this.capaInternaUtil(edicao.urlCapa)) {
       return;
     }
 
@@ -1057,7 +1057,7 @@ export class DescobrirPage {
 
     const edicoesOriginais = new Map<number, Edicao>();
     publicacoes.forEach((publicacao) => {
-      if (!publicacao.edicaoOriginal.urlCapa) {
+      if (!this.capaInternaUtil(publicacao.edicaoOriginal.urlCapa)) {
         edicoesOriginais.set(publicacao.edicaoOriginal.id, publicacao.edicaoOriginal);
       }
     });
@@ -1161,6 +1161,14 @@ export class DescobrirPage {
     }
 
     return this.normalizarBusca(texto).startsWith('descricao nao disponivel') ? null : texto;
+  }
+
+  private capaInternaUtil(url: string | null | undefined) {
+    if (!url || !url.trim()) {
+      return null;
+    }
+
+    return url.includes('capa-reserva.svg') ? null : url;
   }
 
   private buscarVolumesInternos(termoBusca: string) {
