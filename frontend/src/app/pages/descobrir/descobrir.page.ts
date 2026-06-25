@@ -15,6 +15,7 @@ import {
   PessoaComicVine,
   PublicacaoHistoria,
   PublicacaoRelacionada,
+  ResultadoPesquisaCatalogo,
   Serie,
   VolumeComicVine,
 } from '../../core/modelos';
@@ -356,7 +357,7 @@ interface EdicaoDescoberta {
           }
 
           <div class="detalhe-cabecalho">
-            <img [src]="edicaoDetalhe()?.urlCapa || capaReserva" [alt]="tituloEdicaoInterna(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
+            <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="tituloEdicaoInterna(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
             <div>
               <p class="rotulo">HQ-HUB · {{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
               <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
@@ -374,7 +375,7 @@ interface EdicaoDescoberta {
               </div>
               <div
                 class="descricao-formatada"
-                [innerHTML]="formatarDescricao(edicaoDetalhe()?.descricaoExibicao || edicaoDetalhe()?.descricao || 'Sem descrição cadastrada.')"
+                [innerHTML]="formatarDescricao(descricaoEdicaoDetalhe())"
               ></div>
             </div>
           </div>
@@ -393,7 +394,7 @@ interface EdicaoDescoberta {
                 <article class="publicacao-card">
                   <img
                     class="capa-publicacao"
-                    [src]="publicacao.edicaoPublicada.urlCapa || publicacao.edicaoOriginal.urlCapa || capaReserva"
+                    [src]="capaPublicacaoOriginal(publicacao) || capaReserva"
                     [alt]="tituloEdicaoOriginal(publicacao)"
                     loading="lazy"
                     (error)="usarCapaReserva($event)"
@@ -543,6 +544,8 @@ export class DescobrirPage {
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
   readonly historiaEmFoco = signal<number | null>(null);
+  readonly detalheComicVineInterno = signal<EdicaoComicVine | null>(null);
+  readonly capasComicVineOriginais = signal<Record<number, string>>({});
   readonly carregandoDetalhe = signal(false);
   readonly publicacoesRelacionadas = signal<PublicacaoRelacionada[]>([]);
   readonly carregandoPublicacoes = signal(false);
@@ -816,6 +819,8 @@ export class DescobrirPage {
         this.publicacoesDetalhe.set(publicacoes);
         this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
         this.historiaEmFoco.set(historiaId);
+        this.carregarCapasOriginaisComicVine(publicacoes);
+        this.carregarComplementoComicVine(edicao);
         this.carregandoDetalhe.set(false);
       },
       error: () => {
@@ -838,6 +843,8 @@ export class DescobrirPage {
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
     this.historiaEmFoco.set(null);
+    this.detalheComicVineInterno.set(null);
+    this.capasComicVineOriginais.set({});
     this.historicoDetalhes.set([]);
   }
 
@@ -850,6 +857,8 @@ export class DescobrirPage {
 
     this.historicoDetalhes.set(historico.slice(0, -1));
     this.edicaoDetalhe.set(null);
+    this.detalheComicVineInterno.set(null);
+    this.capasComicVineOriginais.set({});
     this.abrirDetalhePorId(anterior.id);
   }
 
@@ -940,6 +949,27 @@ export class DescobrirPage {
     return `${edicao.serie?.titulo || 'Edição'} #${edicao.numero}`;
   }
 
+  capaEdicaoDetalhe() {
+    return this.edicaoDetalhe()?.urlCapa || this.detalheComicVineInterno()?.urlImagem || null;
+  }
+
+  capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {
+    return publicacao.edicaoOriginal.urlCapa
+      || this.capasComicVineOriginais()[publicacao.edicaoOriginal.id]
+      || publicacao.edicaoPublicada.urlCapa
+      || null;
+  }
+
+  descricaoEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    const comicVine = this.detalheComicVineInterno();
+    return this.descricaoInternaUtil(edicao?.descricaoExibicao)
+      || this.descricaoInternaUtil(edicao?.descricao)
+      || comicVine?.descricaoExibicao
+      || comicVine?.descricao
+      || 'Sem descrição cadastrada.';
+  }
+
   formatarDescricao(texto: string): SafeHtml {
     const partes: string[] = [];
     const regexLink = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
@@ -995,6 +1025,147 @@ export class DescobrirPage {
     }
 
     return 'Fonte';
+  }
+
+  private carregarComplementoComicVine(edicao: Edicao) {
+    this.detalheComicVineInterno.set(null);
+
+    if (edicao.idComicVine) {
+      this.carregarDetalheComicVine(edicao, edicao.idComicVine);
+      return;
+    }
+
+    if (edicao.urlCapa) {
+      return;
+    }
+
+    const termo = this.termoBuscaComicVine(edicao);
+    if (!termo) {
+      return;
+    }
+
+    this.api.pesquisarCatalogo(termo, 0, 20).subscribe({
+      next: (resposta) => {
+        const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
+        if (resultado?.idExterno) {
+          this.carregarDetalheComicVine(edicao, resultado.idExterno);
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  private carregarCapasOriginaisComicVine(publicacoes: PublicacaoHistoria[]) {
+    this.capasComicVineOriginais.set({});
+
+    const edicoesOriginais = new Map<number, Edicao>();
+    publicacoes.forEach((publicacao) => {
+      if (!publicacao.edicaoOriginal.urlCapa) {
+        edicoesOriginais.set(publicacao.edicaoOriginal.id, publicacao.edicaoOriginal);
+      }
+    });
+
+    edicoesOriginais.forEach((edicao) => this.carregarCapaComicVineOriginal(edicao));
+  }
+
+  private carregarCapaComicVineOriginal(edicao: Edicao) {
+    if (edicao.idComicVine) {
+      this.carregarDetalheComicVineParaCapaOriginal(edicao.id, edicao.idComicVine);
+      return;
+    }
+
+    const termo = this.termoBuscaComicVine(edicao);
+    if (!termo) {
+      return;
+    }
+
+    this.api.pesquisarCatalogo(termo, 0, 20).subscribe({
+      next: (resposta) => {
+        const resultado = resposta.itens.find((item) => this.resultadoComicVineCombina(edicao, item));
+        if (resultado?.idExterno) {
+          this.carregarDetalheComicVineParaCapaOriginal(edicao.id, resultado.idExterno);
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  private carregarDetalheComicVineParaCapaOriginal(edicaoId: number, idComicVine: string) {
+    this.api.buscarDetalheEdicaoComicVine(idComicVine).subscribe({
+      next: (detalhe) => {
+        if (detalhe.urlImagem) {
+          this.capasComicVineOriginais.update((capas) => ({ ...capas, [edicaoId]: detalhe.urlImagem! }));
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  private carregarDetalheComicVine(edicao: Edicao, idComicVine: string) {
+    this.api.buscarDetalheEdicaoComicVine(idComicVine).subscribe({
+      next: (detalhe) => {
+        if (this.edicaoDetalhe()?.id === edicao.id) {
+          this.detalheComicVineInterno.set(detalhe);
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  private resultadoComicVineCombina(edicao: Edicao, resultado: ResultadoPesquisaCatalogo) {
+    if (resultado.fonte !== 'COMIC_VINE' || !this.mesmoNumeroEdicao(edicao.numero, resultado.numero)) {
+      return false;
+    }
+
+    const tokensSerie = this.tokensBusca(edicao.serie?.titulo || '');
+    const textoResultado = this.normalizarBusca(`${resultado.nomeVolume || ''} ${resultado.titulo || ''}`);
+    return tokensSerie.length === 0 || tokensSerie.every((token) => textoResultado.includes(token));
+  }
+
+  private termoBuscaComicVine(edicao: Edicao) {
+    const serie = this.tituloSerieParaBusca(edicao.serie?.titulo || '');
+    return [serie, edicao.numero].filter(Boolean).join(' ').trim();
+  }
+
+  private tituloSerieParaBusca(titulo: string) {
+    return titulo
+      .replace(/\(\d{4}\)/g, ' ')
+      .replace(/,\s*the\b/gi, ' ')
+      .replace(/\bthe\b/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private tokensBusca(texto: string) {
+    return this.normalizarBusca(this.tituloSerieParaBusca(texto))
+      .split(' ')
+      .filter((token) => token.length > 2);
+  }
+
+  private mesmoNumeroEdicao(primeiro: string | null | undefined, segundo: string | null | undefined) {
+    return this.normalizarNumeroEdicao(primeiro) === this.normalizarNumeroEdicao(segundo);
+  }
+
+  private normalizarNumeroEdicao(numero: string | null | undefined) {
+    return (numero || '').toLowerCase().replace(/^#/, '').trim();
+  }
+
+  private normalizarBusca(texto: string) {
+    return texto
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private descricaoInternaUtil(texto: string | null | undefined) {
+    if (!texto || !texto.trim()) {
+      return null;
+    }
+
+    return this.normalizarBusca(texto).startsWith('descricao nao disponivel') ? null : texto;
   }
 
   private buscarVolumesInternos(termoBusca: string) {
