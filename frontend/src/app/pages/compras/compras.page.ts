@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { ApiService } from '../../core/api.service';
 import { CompraPlanejada, Edicao } from '../../core/modelos';
@@ -46,7 +48,7 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
           </button>
         </div>
 
-        @if (edicoesEncontradas().length) {
+        @if (mostrarResultadosEdicoes() && edicoesEncontradas().length) {
           <div class="lista-escolha campo-largo">
             @for (edicao of edicoesEncontradas(); track edicao.id) {
               <button type="button" [class.ativo]="edicaoSelecionada()?.id === edicao.id" (click)="selecionarEdicao(edicao)">
@@ -86,8 +88,8 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
         </label>
 
         <label>
-          Valor estimado
-          <input type="number" min="0" step="0.01" name="precoEstimado" [(ngModel)]="formulario.precoEstimado" />
+          Valor que pretende gastar no período
+          <input type="number" min="0" step="0.01" name="orcamentoPeriodo" [(ngModel)]="orcamentoPeriodo" />
         </label>
 
         <label class="campo-largo">
@@ -101,7 +103,7 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
         </label>
 
         <button class="botao primario" type="submit" [disabled]="salvando() || !edicaoSelecionada()">
-          {{ salvando() ? 'Salvando...' : 'Cadastrar compra' }}
+          {{ salvando() ? 'Salvando...' : 'Adicionar ao planejamento' }}
         </button>
       </form>
 
@@ -118,6 +120,33 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
       </select>
       <input type="number" [(ngModel)]="ano" (change)="carregar()" />
     </section>
+
+    @if (compras().length) {
+      <section class="bloco resumo-planejamento">
+        <div>
+          <p class="rotulo">Resumo do período</p>
+          <h2>{{ meses[mes - 1] }} de {{ ano }}</h2>
+        </div>
+        <div class="metricas-planejamento">
+          <article>
+            <span>Edições planejadas</span>
+            <strong>{{ compras().length }}</strong>
+          </article>
+          <article>
+            <span>Total estimado</span>
+            <strong>{{ formatarMoeda(totalPlanejado()) }}</strong>
+          </article>
+          <article>
+            <span>Orçamento informado</span>
+            <strong>{{ orcamentoPeriodo ? formatarMoeda(orcamentoPeriodo) : 'Não informado' }}</strong>
+          </article>
+          <article [class.estourou]="orcamentoPeriodo && totalPlanejado() > orcamentoPeriodo" [class.dentro]="orcamentoPeriodo && totalPlanejado() <= orcamentoPeriodo">
+            <span>Status</span>
+            <strong>{{ resumoOrcamento() }}</strong>
+          </article>
+        </div>
+      </section>
+    }
 
     <section class="compras-lista">
       @for (compra of compras(); track compra.id) {
@@ -149,12 +178,14 @@ export class ComprasPage implements OnInit {
   readonly compras = signal<CompraPlanejada[]>([]);
   readonly edicoesEncontradas = signal<Edicao[]>([]);
   readonly edicaoSelecionada = signal<Edicao | null>(null);
+  readonly mostrarResultadosEdicoes = signal(false);
   readonly buscandoEdicoes = signal(false);
   readonly salvando = signal(false);
   readonly mensagem = signal('');
   mes = new Date().getMonth() + 1;
   ano = new Date().getFullYear();
   buscaEdicao = '';
+  orcamentoPeriodo: number | null = null;
   formulario = {
     edicaoId: null as number | null,
     mes: this.mes,
@@ -185,26 +216,112 @@ export class ComprasPage implements OnInit {
 
     this.buscandoEdicoes.set(true);
     this.mensagem.set('');
-    this.api.listarEdicoes(this.buscaEdicao, 0, 12).subscribe({
-      next: (resposta) => {
-        this.edicoesEncontradas.set(resposta.itens);
-        this.buscandoEdicoes.set(false);
-        if (!resposta.itens.length) {
-          this.mensagem.set('Nao achei essa edicao no catalogo interno. Tente Panini ou Amazon abaixo.');
-        }
+    const termo = this.buscaEdicao.trim();
+
+    this.api.listarSeries(termo, 0, 5).subscribe({
+      next: (series) => {
+        const buscasSeries = series.itens.map((serie) =>
+          this.api.listarEdicoes('', 0, 80, serie.id).pipe(catchError(() => of({ itens: [] } as any))),
+        );
+        const buscas = [
+          this.api.listarEdicoes(termo, 0, 80).pipe(catchError(() => of({ itens: [] } as any))),
+          ...buscasSeries,
+        ];
+
+        forkJoin(buscas).subscribe({
+          next: (respostas) => {
+            const edicoes = this.ordenarEdicoes(this.deduplicarEdicoes(respostas.flatMap((resposta: any) => resposta.itens || [])));
+            this.edicoesEncontradas.set(edicoes);
+            this.mostrarResultadosEdicoes.set(true);
+            this.buscandoEdicoes.set(false);
+            if (!edicoes.length) {
+              this.mensagem.set('Nao achei essa edicao no catalogo interno. Tente Panini ou Amazon abaixo.');
+            }
+          },
+          error: () => {
+            this.edicoesEncontradas.set([]);
+            this.mostrarResultadosEdicoes.set(false);
+            this.buscandoEdicoes.set(false);
+            this.mensagem.set('Nao foi possivel buscar edicoes agora.');
+          },
+        });
       },
       error: () => {
-        this.edicoesEncontradas.set([]);
-        this.buscandoEdicoes.set(false);
-        this.mensagem.set('Nao foi possivel buscar edicoes agora.');
+        this.api.listarEdicoes(termo, 0, 80).subscribe({
+          next: (resposta) => {
+            this.edicoesEncontradas.set(this.ordenarEdicoes(resposta.itens));
+            this.mostrarResultadosEdicoes.set(true);
+            this.buscandoEdicoes.set(false);
+          },
+          error: () => {
+            this.edicoesEncontradas.set([]);
+            this.mostrarResultadosEdicoes.set(false);
+            this.buscandoEdicoes.set(false);
+            this.mensagem.set('Nao foi possivel buscar edicoes agora.');
+          },
+        });
       },
     });
+  }
+
+  private deduplicarEdicoes(edicoes: Edicao[]) {
+    return Array.from(new Map(edicoes.map((edicao) => [edicao.id, edicao])).values());
+  }
+
+  private ordenarEdicoes(edicoes: Edicao[]) {
+    return [...edicoes].sort((a, b) => {
+      const serie = (a.serie?.titulo || '').localeCompare(b.serie?.titulo || '', 'pt-BR');
+      if (serie !== 0) {
+        return serie;
+      }
+      return this.numeroOrdenacao(a.numero) - this.numeroOrdenacao(b.numero);
+    });
+  }
+
+  private numeroOrdenacao(numero: string | null | undefined) {
+    const valor = Number(String(numero || '').match(/\d+/)?.[0] || Number.MAX_SAFE_INTEGER);
+    return Number.isFinite(valor) ? valor : Number.MAX_SAFE_INTEGER;
   }
 
   selecionarEdicao(edicao: Edicao) {
     this.edicaoSelecionada.set(edicao);
     this.formulario.edicaoId = edicao.id;
+    this.formulario.precoEstimado = edicao.precoCapa;
+    this.mostrarResultadosEdicoes.set(false);
+    this.buscaEdicao = this.tituloEdicao(edicao);
     this.mensagem.set('');
+    this.preencherLinkCompra(edicao.id);
+  }
+
+  private preencherLinkCompra(edicaoId: number) {
+    this.api.listarLinksPorEdicao(edicaoId).subscribe({
+      next: (links) => {
+        const link = links.find((item) => item.tipo === 'AMAZON')
+          || links.find((item) => item.tipo === 'COMPRA')
+          || links[0];
+        this.formulario.linkCompra = link?.url || '';
+      },
+      error: () => {
+        this.formulario.linkCompra = '';
+      },
+    });
+  }
+
+  totalPlanejado() {
+    return this.compras().reduce((total, compra) => total + (compra.precoEstimado || compra.edicao.precoCapa || 0), 0);
+  }
+
+  resumoOrcamento() {
+    if (!this.orcamentoPeriodo) {
+      return 'Informe um orçamento';
+    }
+
+    const diferenca = this.orcamentoPeriodo - this.totalPlanejado();
+    if (diferenca >= 0) {
+      return `Dentro do orçamento: sobra ${this.formatarMoeda(diferenca)}`;
+    }
+
+    return `Ultrapassou em ${this.formatarMoeda(Math.abs(diferenca))}`;
   }
 
   cadastrarCompra() {
