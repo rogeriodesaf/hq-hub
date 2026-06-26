@@ -343,6 +343,25 @@ export interface RespostaAssistente {
   dados: unknown;
 }
 
+export interface AssistenteFaqItem {
+  id: string;
+  intencao: string;
+  modulo: string;
+  pergunta: string;
+  variacoes: string[];
+  resposta: string;
+  tags: string[];
+  acaoSugerida: string;
+}
+
+export interface AssistenteFaqBase {
+  schemaVersion: string;
+  idioma: string;
+  geradoEm: string;
+  descricao: string;
+  itens: AssistenteFaqItem[];
+}
+
 export interface PublicacaoRelacionada {
   id: number;
   edicaoOrigem: Edicao;

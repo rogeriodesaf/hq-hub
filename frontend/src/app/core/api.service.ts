@@ -40,6 +40,7 @@ import {
   ResultadoPesquisaCatalogo,
   ResultadoImportacaoCatalogo,
   RespostaAssistente,
+  AssistenteFaqBase,
   Serie,
   TipoContribuicaoCatalogo,
   StatusPublicacaoHistoria,
@@ -522,6 +523,10 @@ export class ApiService {
 
   perguntarAoAssistente(pergunta: string) {
     return this.http.post<RespostaAssistente>('/api/assistente/perguntar', { pergunta });
+  }
+
+  obterFaqAssistente() {
+    return this.http.get<AssistenteFaqBase>('/assets/assistente/faq-assistente-hq-hub.v2.json');
   }
 
   listarAnuncios() {

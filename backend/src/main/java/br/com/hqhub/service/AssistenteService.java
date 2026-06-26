@@ -12,6 +12,7 @@ import br.com.hqhub.dto.CreditoEdicaoRespostaDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.RelacionamentoSerieRespostaDTO;
 import br.com.hqhub.dto.RespostaAssistenteDTO;
+import br.com.hqhub.dto.ResultadoBuscaConhecimentoDTO;
 import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.entity.Criador;
 import br.com.hqhub.entity.Serie;
@@ -25,6 +26,7 @@ public class AssistenteService {
 
     private static final String ORIGEM_BANCO_LOCAL = "BANCO_LOCAL";
     private static final String ORIGEM_NAO_ENCONTRADO = "NAO_ENCONTRADO";
+    private static final String ORIGEM_CONHECIMENTO_EDITORIAL = "CONHECIMENTO_EDITORIAL";
     private static final Pattern PADRAO_ID = Pattern.compile("\\b(?:id|serieId|sérieId|serie|série)\\s*[:=]?\\s*(\\d+)\\b",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern PADRAO_ANO = Pattern.compile("\\b(20\\d{2}|19\\d{2})\\b");
@@ -34,6 +36,7 @@ public class AssistenteService {
     private final CompraPlanejadaService compraPlanejadaService;
     private final CreditoEdicaoService creditoEdicaoService;
     private final RelacionamentoSerieService relacionamentoSerieService;
+    private final ConhecimentoEditorialService conhecimentoEditorialService;
     private final SerieRepository serieRepository;
     private final CriadorRepository criadorRepository;
 
@@ -43,6 +46,7 @@ public class AssistenteService {
             CompraPlanejadaService compraPlanejadaService,
             CreditoEdicaoService creditoEdicaoService,
             RelacionamentoSerieService relacionamentoSerieService,
+            ConhecimentoEditorialService conhecimentoEditorialService,
             SerieRepository serieRepository,
             CriadorRepository criadorRepository) {
         this.resumoColecaoService = resumoColecaoService;
@@ -50,6 +54,7 @@ public class AssistenteService {
         this.compraPlanejadaService = compraPlanejadaService;
         this.creditoEdicaoService = creditoEdicaoService;
         this.relacionamentoSerieService = relacionamentoSerieService;
+        this.conhecimentoEditorialService = conhecimentoEditorialService;
         this.serieRepository = serieRepository;
         this.criadorRepository = criadorRepository;
     }
@@ -83,8 +88,14 @@ public class AssistenteService {
             return responderResumo();
         }
 
+        // Tentar consultar base editorial de conhecimento sobre quadrinhos
+        List<ResultadoBuscaConhecimentoDTO> resultados = conhecimentoEditorialService.buscarRelevante(pergunta);
+        if (!resultados.isEmpty()) {
+            return responderComConhecimentoEditorial(resultados);
+        }
+
         return new RespostaAssistenteDTO(
-                "Ainda não encontrei uma intenção clara nessa pergunta. Por enquanto consigo responder sobre resumo da coleção, edições faltantes, completude por série, compras planejadas, criadores e continuidade entre séries usando os dados cadastrados no HQ-HUB.",
+                "Ainda não encontrei uma intenção clara nessa pergunta. Por enquanto consigo responder sobre: resumo da coleção, edições faltantes, completude por série, compras planejadas, criadores, continuidade entre séries e curiosidades sobre quadrinhos (se disponíveis na base editorial).",
                 ORIGEM_NAO_ENCONTRADO,
                 null);
     }
@@ -259,5 +270,25 @@ public class AssistenteService {
                 "Não encontrei essa série no catálogo local. Informe o título exatamente como foi cadastrado ou use o id da série, por exemplo: serieId=1.",
                 ORIGEM_NAO_ENCONTRADO,
                 null);
+    }
+
+    private RespostaAssistenteDTO responderComConhecimentoEditorial(List<ResultadoBuscaConhecimentoDTO> resultados) {
+        if (resultados.isEmpty()) {
+            return new RespostaAssistenteDTO(
+                    "Não encontrei conhecimento disponível sobre esse tema.",
+                    ORIGEM_CONHECIMENTO_EDITORIAL,
+                    null);
+        }
+
+        ResultadoBuscaConhecimentoDTO top = resultados.get(0);
+        String resposta = top.conteudo() + "\n\n📌 Fonte: " + (top.fonte() != null ? top.fonte() : "Base Editorial HQ-HUB");
+        
+        if (top.urlFonte() != null && !top.urlFonte().isEmpty()) {
+            resposta += " - " + top.urlFonte();
+        }
+        
+        resposta += "\n🎯 Confiança: " + top.confianca();
+
+        return new RespostaAssistenteDTO(resposta, ORIGEM_CONHECIMENTO_EDITORIAL, resultados);
     }
 }

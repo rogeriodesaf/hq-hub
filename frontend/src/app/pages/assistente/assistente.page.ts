@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../../core/api.service';
+import { AssistenteFaqItem } from '../../core/modelos';
 
 interface MensagemTela {
   autor: 'usuario' | 'assistente';
@@ -21,6 +22,19 @@ interface MensagemTela {
     </section>
 
     <section class="chat">
+      @if (sugestoes().length) {
+        <div class="sugestoes-assistente">
+          <p class="sugestoes-titulo">Sugestoes rapidas</p>
+          <div class="sugestoes-lista">
+            @for (sugestao of sugestoes(); track sugestao.id) {
+              <button type="button" class="botao-sugestao" (click)="usarSugestao(sugestao.pergunta)" [disabled]="carregando()">
+                {{ sugestao.pergunta }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
       <div class="mensagens">
         @for (mensagem of mensagens(); track $index) {
           <article [class.usuario]="mensagem.autor === 'usuario'">
@@ -38,12 +52,28 @@ interface MensagemTela {
   `,
 })
 export class AssistentePage {
+  private static readonly TOTAL_SUGESTOES = 6;
+
   private readonly api = inject(ApiService);
   readonly mensagens = signal<MensagemTela[]>([
     { autor: 'assistente', texto: 'Olá. Posso ajudar com dúvidas sobre catálogo, coleção e planejamento.' },
   ]);
+  readonly sugestoes = signal<AssistenteFaqItem[]>([]);
   readonly carregando = signal(false);
   pergunta = '';
+
+  constructor() {
+    this.carregarSugestoes();
+  }
+
+  usarSugestao(pergunta: string) {
+    if (this.carregando()) {
+      return;
+    }
+
+    this.pergunta = pergunta;
+    this.perguntar();
+  }
 
   perguntar() {
     const texto = this.pergunta.trim();
@@ -66,6 +96,17 @@ export class AssistentePage {
           ...mensagens,
           { autor: 'assistente', texto: 'Não consegui responder agora. Tente novamente em instantes.' },
         ]);
+      },
+    });
+  }
+
+  private carregarSugestoes() {
+    this.api.obterFaqAssistente().subscribe({
+      next: (faq) => {
+        this.sugestoes.set(faq.itens.slice(0, AssistentePage.TOTAL_SUGESTOES));
+      },
+      error: () => {
+        this.sugestoes.set([]);
       },
     });
   }

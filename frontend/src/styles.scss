@@ -2253,12 +2253,56 @@ textarea:focus {
   display: grid;
   height: calc(100vh - 170px);
   min-height: 540px;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   border: 1px solid var(--borda);
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
   box-shadow: var(--sombra);
+}
+
+.sugestoes-assistente {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--borda);
+  background: linear-gradient(180deg, #fffaf3 0%, #fff 100%);
+}
+
+.sugestoes-titulo {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sugestoes-lista {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.botao-sugestao {
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--texto);
+  padding: 6px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.botao-sugestao:hover:not(:disabled) {
+  border-color: var(--marca);
+  transform: translateY(-1px);
+}
+
+.botao-sugestao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .mensagens {

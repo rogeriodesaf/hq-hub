@@ -1,0 +1,458 @@
+{
+  "schemaVersion": "1.0.0",
+  "idioma": "pt-BR",
+  "geradoEm": "2026-06-26",
+  "descricao": "Base estruturada de FAQ para o assistente do HQ-HUB.",
+  "itens": [
+    {
+      "id": "resumo-01",
+      "intencao": "resumo_colecao",
+      "modulo": "colecao",
+      "pergunta": "Qual e o resumo da minha colecao?",
+      "variacoes": [
+        "me mostra o resumo da colecao",
+        "visao geral da minha colecao",
+        "como esta minha colecao hoje",
+        "resumo geral da colecao"
+      ],
+      "resposta": "Sua colecao tem X item(ns), Y serie(s), Z editora(s) e valor pago total de R$ N.",
+      "tags": ["resumo", "colecao", "visao-geral"],
+      "acaoSugerida": "Se quiser, posso detalhar faltantes ou completude por serie."
+    },
+    {
+      "id": "resumo-02",
+      "intencao": "resumo_colecao",
+      "modulo": "colecao",
+      "pergunta": "Me mostre a visao geral da minha colecao.",
+      "variacoes": [
+        "quero ver a visao geral",
+        "como esta o panorama da colecao",
+        "me passa um consolidado",
+        "overview da colecao"
+      ],
+      "resposta": "Resumo geral: total de itens, total de series, total de editoras e valor total pago.",
+      "tags": ["resumo", "panorama", "colecao"],
+      "acaoSugerida": "Para precisao maxima, mantenha valores e editoras sempre atualizados."
+    },
+    {
+      "id": "resumo-03",
+      "intencao": "resumo_colecao",
+      "modulo": "colecao",
+      "pergunta": "Quantas series eu tenho cadastradas?",
+      "variacoes": [
+        "quantas series existem na minha colecao",
+        "numero de series cadastradas",
+        "qtd de series",
+        "quantidade de series"
+      ],
+      "resposta": "No seu resumo da colecao, o campo total de series mostra exatamente isso.",
+      "tags": ["series", "resumo", "quantidade"],
+      "acaoSugerida": "Se quiser, tambem posso informar completude por serie."
+    },
+    {
+      "id": "resumo-04",
+      "intencao": "resumo_colecao",
+      "modulo": "colecao",
+      "pergunta": "Qual o valor total que ja paguei?",
+      "variacoes": [
+        "quanto ja investi na colecao",
+        "valor total pago",
+        "quanto gastei em hqs",
+        "total pago da colecao"
+      ],
+      "resposta": "O assistente retorna esse dado no resumo da colecao como valor pago total.",
+      "tags": ["valor", "gasto", "resumo"],
+      "acaoSugerida": "Mantenha os valores de compra preenchidos para um total mais realista."
+    },
+    {
+      "id": "resumo-05",
+      "intencao": "resumo_colecao",
+      "modulo": "colecao",
+      "pergunta": "Quantas editoras aparecem na minha colecao?",
+      "variacoes": [
+        "numero de editoras",
+        "quantidade de editoras",
+        "quais editoras tenho",
+        "editoras cadastradas na colecao"
+      ],
+      "resposta": "Esse numero tambem vem no resumo da colecao, no campo total de editoras.",
+      "tags": ["editoras", "resumo", "colecao"],
+      "acaoSugerida": "Posso te ajudar a revisar series por editora em seguida."
+    },
+    {
+      "id": "faltantes-01",
+      "intencao": "faltantes_serie",
+      "modulo": "colecao",
+      "pergunta": "Quais edicoes faltam na minha colecao da Saga do Homem-Aranha 2 serie?",
+      "variacoes": [
+        "o que falta da saga do homem aranha 2 serie",
+        "faltantes da saga 2 serie",
+        "quais numeros faltam dessa serie",
+        "serie saga homem aranha faltando"
+      ],
+      "resposta": "Vou buscar as faltantes dessa serie. Se eu nao localizar o titulo com precisao, informe serieId=NN para busca direta.",
+      "tags": ["faltantes", "serie", "edicoes"],
+      "acaoSugerida": "Dica: use serieId para evitar ambiguidades de titulo."
+    },
+    {
+      "id": "faltantes-02",
+      "intencao": "faltantes_serie",
+      "modulo": "colecao",
+      "pergunta": "Quais faltantes da serieId=1?",
+      "variacoes": [
+        "faltantes serieid 1",
+        "o que falta na serie 1",
+        "quais edicoes faltam da serie 1",
+        "lista de faltantes id 1"
+      ],
+      "resposta": "Encontrei N edicao(oes) faltante(s) para essa serie.",
+      "tags": ["faltantes", "serieId", "edicoes"],
+      "acaoSugerida": "Se quiser, posso calcular a completude dessa mesma serie."
+    },
+    {
+      "id": "faltantes-03",
+      "intencao": "faltantes_serie",
+      "modulo": "colecao",
+      "pergunta": "Tenho alguma falta na serie X?",
+      "variacoes": [
+        "falta algo nessa serie",
+        "tem edicao faltando na serie x",
+        "minha serie x esta incompleta",
+        "quero saber faltantes da serie"
+      ],
+      "resposta": "Se houver registros, listo as faltantes. Se nao houver, respondo que nao ha edicoes faltantes cadastradas.",
+      "tags": ["faltantes", "incompleta", "serie"],
+      "acaoSugerida": "Use o titulo exato da serie para melhorar a busca."
+    },
+    {
+      "id": "faltantes-04",
+      "intencao": "faltantes_serie",
+      "modulo": "colecao",
+      "pergunta": "Lista so as que faltam da serie Y.",
+      "variacoes": [
+        "mostra somente faltantes",
+        "filtra apenas o que falta",
+        "quero so as faltantes",
+        "lista faltas da serie y"
+      ],
+      "resposta": "Retorno apenas as edicoes faltantes da serie informada.",
+      "tags": ["faltantes", "filtro", "serie"],
+      "acaoSugerida": "Depois voce pode registrar compras planejadas para essas faltantes."
+    },
+    {
+      "id": "faltantes-05",
+      "intencao": "faltantes_serie",
+      "modulo": "colecao",
+      "pergunta": "Nao achou a serie. O que faco?",
+      "variacoes": [
+        "serie nao encontrada",
+        "nao localizou o titulo",
+        "erro ao buscar serie",
+        "como melhorar a busca da serie"
+      ],
+      "resposta": "Informe o titulo exatamente como cadastrado ou use serieId=NN (exemplo: serieId=1).",
+      "tags": ["suporte", "serie", "busca"],
+      "acaoSugerida": "Se necessario, consulte primeiro a lista de series para copiar o titulo correto."
+    },
+    {
+      "id": "completude-01",
+      "intencao": "completude_serie",
+      "modulo": "colecao",
+      "pergunta": "Qual a completude da serieId=1?",
+      "variacoes": [
+        "percentual da serie 1",
+        "quao completa esta a serie 1",
+        "progresso da serieid 1",
+        "completude id 1"
+      ],
+      "resposta": "A serie esta com P% de completude: A de B edicao(oes), faltando C.",
+      "tags": ["completude", "percentual", "serieId"],
+      "acaoSugerida": "Posso listar as faltantes da mesma serie logo depois."
+    },
+    {
+      "id": "completude-02",
+      "intencao": "completude_serie",
+      "modulo": "colecao",
+      "pergunta": "Minha serie X esta completa?",
+      "variacoes": [
+        "serie x fechada",
+        "ja completei essa serie",
+        "tenho todos os numeros da serie x",
+        "serie x concluida"
+      ],
+      "resposta": "Vou calcular a completude da serie e informar percentual, total possuido, total de edicoes e faltantes.",
+      "tags": ["completude", "serie", "conclusao"],
+      "acaoSugerida": "Se houver faltantes, posso sugerir as proximas compras."
+    },
+    {
+      "id": "completude-03",
+      "intencao": "completude_serie",
+      "modulo": "colecao",
+      "pergunta": "Quanto falta para fechar a serie Y?",
+      "variacoes": [
+        "o que falta para completar",
+        "faltam quantas edicoes",
+        "quanto falta da serie y",
+        "progresso para fechar a serie"
+      ],
+      "resposta": "Retorno o numero de faltantes e a porcentagem atual de conclusao da serie.",
+      "tags": ["faltantes", "completude", "serie"],
+      "acaoSugerida": "Para maior precisao, use serieId quando houver series com nome parecido."
+    },
+    {
+      "id": "completude-04",
+      "intencao": "completude_serie",
+      "modulo": "colecao",
+      "pergunta": "Me passe percentual de conclusao da serie Z.",
+      "variacoes": [
+        "qual a porcentagem da serie z",
+        "percentual de progresso",
+        "nivel de completude serie z",
+        "taxa de conclusao da serie"
+      ],
+      "resposta": "Entrego o percentual de completude com base no que esta catalogado no HQ-HUB.",
+      "tags": ["percentual", "completude", "serie"],
+      "acaoSugerida": "Depois voce pode pedir os faltantes para montar um plano de compra."
+    },
+    {
+      "id": "completude-05",
+      "intencao": "completude_serie",
+      "modulo": "colecao",
+      "pergunta": "Quero saber o progresso da serie X.",
+      "variacoes": [
+        "status da serie x",
+        "andamento da serie",
+        "como esta o progresso",
+        "medir progresso da serie"
+      ],
+      "resposta": "O progresso inclui: possuidas, total previsto, faltantes e percentual.",
+      "tags": ["progresso", "completude", "serie"],
+      "acaoSugerida": "Posso trazer tambem os relacionamentos dessa serie com outras."
+    },
+    {
+      "id": "compras-01",
+      "intencao": "compras_planejadas",
+      "modulo": "compras-planejadas",
+      "pergunta": "Quais compras tenho planejadas para junho de 2026?",
+      "variacoes": [
+        "compras planejadas junho 2026",
+        "planejamento de compras 06/2026",
+        "o que vou comprar em junho de 2026",
+        "lista de compras de junho"
+      ],
+      "resposta": "Encontrei N compra(s) planejada(s) para 06/2026.",
+      "tags": ["compras", "planejamento", "mes", "ano"],
+      "acaoSugerida": "Se nao houver itens, voce pode cadastrar compras planejadas para as faltantes."
+    },
+    {
+      "id": "compras-02",
+      "intencao": "compras_planejadas",
+      "modulo": "compras-planejadas",
+      "pergunta": "Mostre minhas compras planejadas para 08/2026.",
+      "variacoes": [
+        "compras planejadas agosto 2026",
+        "lista de compras 08/2026",
+        "planejamento de agosto",
+        "o que tenho para agosto"
+      ],
+      "resposta": "Filtro o planejamento por mes e ano informados e retorno as compras encontradas.",
+      "tags": ["compras", "mes", "ano", "planejamento"],
+      "acaoSugerida": "Use sempre mes e ano para respostas mais objetivas."
+    },
+    {
+      "id": "compras-03",
+      "intencao": "compras_planejadas",
+      "modulo": "compras-planejadas",
+      "pergunta": "O que tenho de compra planejada este mes?",
+      "variacoes": [
+        "compras do mes",
+        "planejado para esse mes",
+        "o que falta comprar agora",
+        "compras atuais"
+      ],
+      "resposta": "Posso listar as compras planejadas do mes atual quando o periodo estiver explicito na pergunta.",
+      "tags": ["compras", "mes-atual", "planejamento"],
+      "acaoSugerida": "Se quiser, pergunte no formato: compras para junho de 2026."
+    },
+    {
+      "id": "compras-04",
+      "intencao": "compras_planejadas",
+      "modulo": "compras-planejadas",
+      "pergunta": "Nao tenho nada planejado. Confere?",
+      "variacoes": [
+        "existe compra planejada",
+        "nao achei compras",
+        "planejamento vazio",
+        "sem compras cadastradas"
+      ],
+      "resposta": "Se nao houver registros no periodo consultado, respondo que nao ha compras planejadas.",
+      "tags": ["compras", "vazio", "planejamento"],
+      "acaoSugerida": "Cadastre prioridades para organizar melhor o cronograma de compra."
+    },
+    {
+      "id": "compras-05",
+      "intencao": "compras_planejadas",
+      "modulo": "compras-planejadas",
+      "pergunta": "Como eu pergunto compras por mes de forma segura?",
+      "variacoes": [
+        "como consultar compras por periodo",
+        "modelo de pergunta compras",
+        "prompt para compras mensais",
+        "formato ideal para compras"
+      ],
+      "resposta": "Use formato como: Quais compras tenho planejadas para junho de 2026? ou para 06/2026?",
+      "tags": ["ajuda", "compras", "formato"],
+      "acaoSugerida": "Posso gerar exemplos de consulta para os proximos meses."
+    },
+    {
+      "id": "criador-01",
+      "intencao": "creditos_criador",
+      "modulo": "catalogo",
+      "pergunta": "Quais publicacoes do criador Alan Moore existem no catalogo?",
+      "variacoes": [
+        "edicoes do alan moore",
+        "obras de alan moore",
+        "quais creditos do alan moore",
+        "catalogo alan moore"
+      ],
+      "resposta": "Encontrei N credito(s) para Alan Moore, ordenados por data de publicacao das edicoes.",
+      "tags": ["criador", "creditos", "catalogo"],
+      "acaoSugerida": "Tambem posso filtrar por outro criador, autor ou desenhista."
+    },
+    {
+      "id": "criador-02",
+      "intencao": "creditos_criador",
+      "modulo": "catalogo",
+      "pergunta": "Quais edicoes com creditos do criador X?",
+      "variacoes": [
+        "lista de creditos do criador",
+        "edicoes ligadas ao criador x",
+        "creditos por autor",
+        "quais publicacoes do criador"
+      ],
+      "resposta": "Retorno as edicoes associadas ao criador informado com base nos creditos cadastrados.",
+      "tags": ["criador", "edicoes", "creditos"],
+      "acaoSugerida": "Se nao encontrar, confira se o nome artistico foi cadastrado."
+    },
+    {
+      "id": "criador-03",
+      "intencao": "creditos_criador",
+      "modulo": "catalogo",
+      "pergunta": "Pode listar trabalhos do roteirista Y?",
+      "variacoes": [
+        "quais trabalhos do roteirista",
+        "obras do autor y",
+        "roteiros do criador y",
+        "historico do roteirista"
+      ],
+      "resposta": "Sim. Para isso, preciso que o criador esteja cadastrado e com creditos vinculados as edicoes.",
+      "tags": ["roteirista", "criador", "creditos"],
+      "acaoSugerida": "Posso orientar os campos minimos para cadastrar o criador corretamente."
+    },
+    {
+      "id": "criador-04",
+      "intencao": "creditos_criador",
+      "modulo": "catalogo",
+      "pergunta": "Procure obras do desenhista Z.",
+      "variacoes": [
+        "quais hqs do desenhista z",
+        "creditos de arte do criador z",
+        "artista z no catalogo",
+        "trabalhos do desenhista"
+      ],
+      "resposta": "Vou consultar por criador/artista e retornar os creditos encontrados no catalogo local.",
+      "tags": ["desenhista", "artista", "creditos"],
+      "acaoSugerida": "Se houver homonimos, use nome completo para reduzir ruido."
+    },
+    {
+      "id": "criador-05",
+      "intencao": "creditos_criador",
+      "modulo": "catalogo",
+      "pergunta": "Nao encontrou o criador. Qual o proximo passo?",
+      "variacoes": [
+        "criador nao encontrado",
+        "como cadastrar criador",
+        "erro ao buscar autor",
+        "nao localizou desenhista"
+      ],
+      "resposta": "Cadastre o criador e os creditos das edicoes; depois disso consigo listar em ordem cronologica.",
+      "tags": ["suporte", "criador", "cadastro"],
+      "acaoSugerida": "Depois do cadastro, repita a pergunta para validar os creditos."
+    },
+    {
+      "id": "relacionamento-01",
+      "intencao": "relacionamento_series",
+      "modulo": "catalogo",
+      "pergunta": "A serieId=1 continua em alguma v2 ou relancamento?",
+      "variacoes": [
+        "serie 1 tem v2",
+        "continuidade da serie 1",
+        "relancamento da serie 1",
+        "reboot ligado a serie 1"
+      ],
+      "resposta": "Encontrei N relacionamento(s) de continuidade ou ligacao para essa serie.",
+      "tags": ["relacionamento", "continuidade", "v2", "relancamento"],
+      "acaoSugerida": "Se quiser, mostro tambem os detalhes da serie relacionada."
+    },
+    {
+      "id": "relacionamento-02",
+      "intencao": "relacionamento_series",
+      "modulo": "catalogo",
+      "pergunta": "Essa serie tem continuacao?",
+      "variacoes": [
+        "tem sequencia",
+        "qual a continuacao da serie",
+        "essa serie continua em outra",
+        "serie com desdobramento"
+      ],
+      "resposta": "Consulto os relacionamentos cadastrados e informo se existe continuidade.",
+      "tags": ["continuidade", "serie", "relacionamento"],
+      "acaoSugerida": "Use serieId se o titulo puder causar ambiguidade."
+    },
+    {
+      "id": "relacionamento-03",
+      "intencao": "relacionamento_series",
+      "modulo": "catalogo",
+      "pergunta": "Existe reboot ligado a serie X?",
+      "variacoes": [
+        "essa serie teve reboot",
+        "reboot da serie x",
+        "nova fase ligada a serie x",
+        "serie x relancou"
+      ],
+      "resposta": "Se houver relacionamento registrado, retorno os vinculos entre as series relacionadas.",
+      "tags": ["reboot", "relancamento", "relacionamento"],
+      "acaoSugerida": "Tambem posso validar se existe ligacao de continuidade direta."
+    },
+    {
+      "id": "relacionamento-04",
+      "intencao": "relacionamento_series",
+      "modulo": "catalogo",
+      "pergunta": "Quais series se conectam com a serie Y?",
+      "variacoes": [
+        "series relacionadas a y",
+        "ligacoes da serie y",
+        "conexoes entre series",
+        "serie y conecta com quais"
+      ],
+      "resposta": "Listo os relacionamentos de ligacao/continuidade da serie consultada.",
+      "tags": ["series", "conexao", "relacionamento"],
+      "acaoSugerida": "Se precisar, posso cruzar isso com sua completude atual."
+    },
+    {
+      "id": "relacionamento-05",
+      "intencao": "relacionamento_series",
+      "modulo": "catalogo",
+      "pergunta": "Como consultar relacionamento sem erro?",
+      "variacoes": [
+        "forma correta de perguntar relacionamento",
+        "modelo de pergunta para continuidade",
+        "como achar v2 de uma serie",
+        "consulta segura de relacionamento"
+      ],
+      "resposta": "Informe serieId=NN para maior precisao ou use o titulo exatamente como cadastrado.",
+      "tags": ["ajuda", "relacionamento", "serieId"],
+      "acaoSugerida": "Posso te passar exemplos prontos para copiar e colar."
+    }
+  ]
+}

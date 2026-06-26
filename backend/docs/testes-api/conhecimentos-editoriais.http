@@ -1,0 +1,79 @@
+@url = http://localhost:8080
+@token = cole_aqui_o_token_jwt
+
+### Criar conhecimento editorial (manual)
+POST {{url}}/conhecimentos-editoriais
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tipo": "SAGA",
+  "titulo": "Saga do Batman - Asilo de Arkham",
+  "conteudo": "Clássica trilogia de graphic novels de Batman que inclui os arcos mais famosos do personagem. Inclui origem, vilões memoráveis e momentos marcantes.",
+  "fonte": "DC Comics Oficial",
+  "urlFonte": "https://www.dccomics.com/batman",
+  "confianca": "OFICIAL",
+  "origemDados": "MANUAL",
+  "tags": "batman,saga,clássico,quadrinhos"
+}
+
+### Buscar conhecimento por pergunta
+GET {{url}}/conhecimentos-editoriais/buscar?q=quantos arcos famosos tem o batman
+
+### Buscar por tipo
+GET {{url}}/conhecimentos-editoriais/tipo/SAGA
+
+### Importar série do Comic Vine
+POST {{url}}/conhecimentos-editoriais/scraping/serie/Batman
+Authorization: Bearer {{token}}
+
+### Importar personagem do Comic Vine
+POST {{url}}/conhecimentos-editoriais/scraping/personagem/Batman
+Authorization: Bearer {{token}}
+
+### Importar criador do Comic Vine
+POST {{url}}/conhecimentos-editoriais/scraping/criador/Frank%20Miller
+Authorization: Bearer {{token}}
+
+### Atualizar conhecimento editorial
+PUT {{url}}/conhecimentos-editoriais/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tipo": "SAGA",
+  "titulo": "Saga do Batman - Asilo de Arkham (revisado)",
+  "conteudo": "Clássica trilogia atualizada com mais informações.",
+  "fonte": "DC Comics Oficial",
+  "urlFonte": "https://www.dccomics.com/batman",
+  "confianca": "VERIFICADA",
+  "origemDados": "MANUAL",
+  "tags": "batman,saga,clássico,quadrinhos,asilo"
+}
+
+### Perguntar ao assistente sobre curiosidade
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Qual é a história por trás do Batman?"
+}
+
+### Perguntar ao assistente sobre arcos famosos
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quantos arcos famosos tem a Saga do Batman?"
+}
+
+### Perguntar sobre autor
+POST {{url}}/assistente/perguntar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "pergunta": "Quem é Frank Miller? Quais suas principais obras?"
+}
