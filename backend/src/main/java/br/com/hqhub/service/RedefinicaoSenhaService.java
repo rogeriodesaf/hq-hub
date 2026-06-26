@@ -17,6 +17,7 @@ import org.jboss.logging.Logger;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 @ApplicationScoped
 public class RedefinicaoSenhaService {
@@ -46,9 +47,14 @@ public class RedefinicaoSenhaService {
     }
 
     @Transactional
-    public void solicitar(SolicitacaoRedefinicaoSenhaDTO dto) {
+    public String solicitar(SolicitacaoRedefinicaoSenhaDTO dto) {
+        String erroConfiguracao = validarConfiguracaoEmail();
+        if (erroConfiguracao != null) {
+            return erroConfiguracao;
+        }
+
+        AtomicReference<String> erroEnvio = new AtomicReference<>();
         usuarioRepository.buscarPorEmail(dto.email()).ifPresent(usuario -> {
-            validarConfiguracaoEmail();
             tokenRepository.excluirPorUsuario(usuario);
 
             String token = UUID.randomUUID().toString();
@@ -59,30 +65,31 @@ public class RedefinicaoSenhaService {
             tokenRepository.persist(entidade);
 
             String link = urlBase + "/entrar?token=" + token;
-            String html = "<p>Olá, <strong>" + usuario.getNome() + "</strong>!</p>"
+            String html = "<p>Ola, <strong>" + usuario.getNome() + "</strong>!</p>"
                     + "<p>Clique no link abaixo para redefinir sua senha no HQ-HUB. "
-                    + "O link é válido por <strong>1 hora</strong>.</p>"
+                    + "O link e valido por <strong>1 hora</strong>.</p>"
                     + "<p><a href=\"" + link + "\">" + link + "</a></p>"
-                    + "<p>Se você não solicitou a redefinição, ignore este e-mail.</p>";
+                    + "<p>Se voce nao solicitou a redefinicao, ignore este e-mail.</p>";
 
             try {
-                mailer.send(Mail.withHtml(dto.email(), "Redefinição de senha — HQ-HUB", html));
+                mailer.send(Mail.withHtml(dto.email(), "Redefinicao de senha - HQ-HUB", html));
             } catch (RuntimeException excecao) {
-                LOG.errorf(excecao, "Falha ao enviar e-mail de redefinição de senha para %s.", dto.email());
-                throw new RegraNegocioException("Não foi possível enviar o e-mail de redefinição agora.");
+                LOG.errorf(excecao, "Falha ao enviar e-mail de redefinicao de senha para %s.", dto.email());
+                erroEnvio.set("Nao foi possivel enviar o e-mail de redefinicao agora.");
             }
         });
-        // Não revelar se o e-mail existe ou não (prevenção de enumeração)
+        // Nao revelar se o e-mail existe ou nao (prevencao de enumeracao).
+        return erroEnvio.get();
     }
 
     @Transactional
     public void redefinir(RedefinicaoSenhaDTO dto) {
         TokenRedefinicaoSenha entidade = tokenRepository.buscarPorToken(dto.token())
-                .orElseThrow(() -> new RegraNegocioException("Token inválido ou expirado."));
+                .orElseThrow(() -> new RegraNegocioException("Token invalido ou expirado."));
 
         if (entidade.getExpiraEm().isBefore(LocalDateTime.now())) {
             tokenRepository.delete(entidade);
-            throw new RegraNegocioException("Token inválido ou expirado.");
+            throw new RegraNegocioException("Token invalido ou expirado.");
         }
 
         Usuario usuario = entidade.getUsuario();
@@ -90,10 +97,11 @@ public class RedefinicaoSenhaService {
         tokenRepository.delete(entidade);
     }
 
-    private void validarConfiguracaoEmail() {
+    private String validarConfiguracaoEmail() {
         if (smtpUsuario == null || smtpUsuario.isBlank() || smtpSenha == null || smtpSenha.isBlank()) {
-            LOG.error("SMTP de redefinição de senha não configurado. Informe HQHUB_SMTP_USER e HQHUB_SMTP_PASS.");
-            throw new RegraNegocioException("Envio de e-mail não configurado no servidor.");
+            LOG.error("SMTP de redefinicao de senha nao configurado. Informe HQHUB_SMTP_USER e HQHUB_SMTP_PASS.");
+            return "Envio de e-mail nao configurado no servidor.";
         }
+        return null;
     }
 }

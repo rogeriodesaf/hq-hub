@@ -45,7 +45,10 @@ public class AutenticacaoResource {
     @Path("/redefinir-senha/solicitar")
     public Response solicitarRedefinicao(@Valid SolicitacaoRedefinicaoSenhaDTO dto) {
         try {
-            redefinicaoSenhaService.solicitar(dto);
+            String erro = redefinicaoSenhaService.solicitar(dto);
+            if (erro != null) {
+                return erroSolicitacaoRedefinicao(erro);
+            }
             return Response.ok().build();
         } catch (RegraNegocioException excecao) {
             return erroSolicitacaoRedefinicao(excecao.getMessage());
