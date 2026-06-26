@@ -88,10 +88,17 @@ public class AssistenteService {
             return responderResumo();
         }
 
-        // Tentar consultar base editorial de conhecimento sobre quadrinhos
-        List<ResultadoBuscaConhecimentoDTO> resultados = conhecimentoEditorialService.buscarRelevante(pergunta);
-        if (!resultados.isEmpty()) {
-            return responderComConhecimentoEditorial(resultados);
+        try {
+            // Tentar consultar base editorial de conhecimento sobre quadrinhos
+            List<ResultadoBuscaConhecimentoDTO> resultados = conhecimentoEditorialService.buscarRelevante(pergunta);
+            if (!resultados.isEmpty()) {
+                return responderComConhecimentoEditorial(resultados);
+            }
+        } catch (Exception excecao) {
+            return new RespostaAssistenteDTO(
+                    "Ainda nao consegui consultar a base editorial de quadrinhos. Tente novamente em instantes ou faca uma pergunta sobre sua colecao.",
+                    ORIGEM_NAO_ENCONTRADO,
+                    null);
         }
 
         return new RespostaAssistenteDTO(

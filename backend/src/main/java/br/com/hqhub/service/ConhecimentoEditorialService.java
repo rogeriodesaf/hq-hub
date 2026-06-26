@@ -1,6 +1,9 @@
 package br.com.hqhub.service;
 
+import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +17,11 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class ConhecimentoEditorialService {
+
+    private static final Set<String> STOPWORDS = Set.of(
+            "a", "o", "as", "os", "de", "do", "da", "dos", "das",
+            "e", "em", "um", "uma", "para", "por", "com", "que", "qual",
+            "quais", "quem", "sobre", "tem", "tenho", "me", "minha", "meu");
 
     private final ConhecimentoEditorialRepository repository;
 
@@ -45,7 +53,7 @@ public class ConhecimentoEditorialService {
     }
 
     public List<ResultadoBuscaConhecimentoDTO> buscarRelevante(String pergunta) {
-        String perguntaNormalizada = pergunta.toLowerCase().trim();
+        String perguntaNormalizada = normalizar(pergunta);
 
         // Buscar por múltiplas estratégias
         List<ConhecimentoEditorial> resultado = repository.listAll();
@@ -82,24 +90,44 @@ public class ConhecimentoEditorialService {
 
     private double calcularRelevancia(String pergunta, ConhecimentoEditorial conhecimento) {
         double score = 0;
+        String titulo = normalizar(conhecimento.titulo);
+        String conteudo = normalizar(conhecimento.conteudo);
+        String tags = normalizar(conhecimento.tags);
+        String confianca = conhecimento.confianca == null ? "COMUNITARIA" : conhecimento.confianca;
+        List<String> termos = Arrays.stream(pergunta.split("\\s+"))
+                .map(String::trim)
+                .map(this::normalizar)
+                .filter(termo -> termo.length() >= 3)
+                .filter(termo -> !STOPWORDS.contains(termo))
+                .distinct()
+                .toList();
 
-        // Correspondência no título (peso alto)
-        if (conhecimento.titulo.toLowerCase().contains(pergunta)) {
-            score += 10;
+        if (!pergunta.isBlank()) {
+            if (titulo.contains(pergunta)) {
+                score += 10;
+            }
+            if (conteudo.contains(pergunta)) {
+                score += 5;
+            }
+            if (tags.contains(pergunta)) {
+                score += 5;
+            }
         }
 
-        // Correspondência no conteúdo (peso médio)
-        if (conhecimento.conteudo.toLowerCase().contains(pergunta)) {
-            score += 5;
-        }
-
-        // Correspondência em tags (peso médio)
-        if (conhecimento.tags != null && conhecimento.tags.toLowerCase().contains(pergunta)) {
-            score += 5;
+        for (String termo : termos) {
+            if (titulo.contains(termo)) {
+                score += 4;
+            }
+            if (conteudo.contains(termo)) {
+                score += 2;
+            }
+            if (!tags.isEmpty() && tags.contains(termo)) {
+                score += 3;
+            }
         }
 
         // Bônus por confiança
-        switch (conhecimento.confianca) {
+        switch (confianca) {
             case "VERIFICADA":
                 score *= 1.5;
                 break;
@@ -117,6 +145,16 @@ public class ConhecimentoEditorialService {
         }
 
         return score;
+    }
+
+    private String normalizar(String texto) {
+        if (texto == null) {
+            return "";
+        }
+
+        String semAcentos = Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+        return semAcentos.toLowerCase().trim();
     }
 
     @Transactional
