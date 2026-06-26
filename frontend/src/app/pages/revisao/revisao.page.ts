@@ -203,14 +203,21 @@ interface PublicacaoOriginalFormulario {
                 <input [(ngModel)]="formulario(contribuicao).edicaoCodigoBarras" [name]="'edicaoCodigoBarras' + contribuicao.id" />
               </label>
               <label class="campo-largo">
-                edicoes[0].descricao
+                Descricao da edicao
+                <small class="campo-chave">edicoes[0].descricao</small>
                 <textarea rows="4" [(ngModel)]="formulario(contribuicao).edicaoDescricao" [name]="'edicaoDescricao' + contribuicao.id"></textarea>
               </label>
               <section class="campo-largo historias-revisao">
                 <div class="secao-titulo compacta">
-                  <p class="rotulo">edicoes[0].historias</p>
+                  <div>
+                    <p class="rotulo">Historias publicadas nesta edicao</p>
+                    <small class="campo-chave">edicoes[0].historias</small>
+                  </div>
                   <button class="botao compacto" type="button" (click)="adicionarHistoria(contribuicao)">+ Mais historia</button>
                 </div>
+                <p class="historia-ajuda">
+                  Para a historia aparecer no catalogo, preencha pelo menos titulo em portugues, serie original e numero original, depois use Importar JSON revisado.
+                </p>
 
                 @for (historia of formulario(contribuicao).historias; track $index; let indice = $index) {
                   <article class="historia-revisao">
@@ -228,51 +235,63 @@ interface PublicacaoOriginalFormulario {
 
                     <div class="editor-json-revisao historia-campos">
                       <label>
-                        edicoes[0].historias[{{ indice }}].ordem
+                        Ordem
+                        <small class="campo-chave">ordem</small>
                         <input type="number" min="1" [(ngModel)]="historia.ordem" [name]="'historiaOrdem' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].tituloPortugues
+                        Titulo em portugues
+                        <small class="campo-chave">tituloPortugues</small>
                         <input [(ngModel)]="historia.tituloPortugues" [name]="'historiaTituloPortugues' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].tituloOriginal
+                        Titulo original
+                        <small class="campo-chave">tituloOriginal</small>
                         <input [(ngModel)]="historia.tituloOriginal" [name]="'historiaTituloOriginal' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].quantidadePaginas
+                        Quantidade de paginas
+                        <small class="campo-chave">quantidadePaginas</small>
                         <input type="number" min="1" [(ngModel)]="historia.quantidadePaginas" [name]="'historiaQuantidadePaginas' + contribuicao.id + '-' + indice" />
                       </label>
                       <label class="campo-largo">
-                        edicoes[0].historias[{{ indice }}].resumo
+                        Resumo da historia
+                        <small class="campo-chave">resumo</small>
                         <textarea rows="4" [(ngModel)]="historia.resumo" [name]="'historiaResumo' + contribuicao.id + '-' + indice"></textarea>
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.serieOriginal
+                        Serie original
+                        <small class="campo-chave">publicacaoOriginal.serieOriginal</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.serieOriginal" [name]="'historiaSerieOriginal' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.numeroOriginal
+                        Numero original
+                        <small class="campo-chave">publicacaoOriginal.numeroOriginal</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.numeroOriginal" [name]="'historiaNumeroOriginal' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.anoOriginal
+                        Ano original
+                        <small class="campo-chave">publicacaoOriginal.anoOriginal</small>
                         <input type="number" min="1900" [(ngModel)]="historia.publicacaoOriginal.anoOriginal" [name]="'historiaAnoOriginal' + contribuicao.id + '-' + indice" />
                       </label>
                       <label>
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.texto
+                        Texto da publicacao original
+                        <small class="campo-chave">publicacaoOriginal.texto</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'historiaTextoOriginal' + contribuicao.id + '-' + indice" />
                       </label>
                       <label class="campo-largo">
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlOrigem
+                        Link da fonte da publicacao original
+                        <small class="campo-chave">publicacaoOriginal.urlOrigem</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.urlOrigem" [name]="'historiaUrlOrigem' + contribuicao.id + '-' + indice" />
                       </label>
                       <label class="campo-largo">
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlCapa
+                        URL da capa da publicacao original
+                        <small class="campo-chave">publicacaoOriginal.urlCapa</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.urlCapa" [name]="'historiaUrlCapa' + contribuicao.id + '-' + indice" />
                       </label>
                       <label class="campo-largo">
-                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlCompraAmazon
+                        Link de compra da Amazon
+                        <small class="campo-chave">publicacaoOriginal.urlCompraAmazon</small>
                         <input [(ngModel)]="historia.publicacaoOriginal.urlCompraAmazon" [name]="'historiaUrlCompraAmazon' + contribuicao.id + '-' + indice" />
                       </label>
                     </div>
@@ -305,10 +324,10 @@ interface PublicacaoOriginalFormulario {
 
           <div class="acoes-revisao">
             <button class="botao compacto" type="button" (click)="salvarDadosCatalogo(contribuicao)" [disabled]="revisandoId() === contribuicao.id">
-              Salvar dados editoriais
+              Salvar dados da edicao
             </button>
             <button class="botao primario compacto" type="button" (click)="importarJsonRevisado(contribuicao)" [disabled]="revisandoId() === contribuicao.id">
-              Importar JSON revisado
+              Importar edicao e historias
             </button>
             <button class="botao compacto" type="button" (click)="aprovar(contribuicao)" [disabled]="revisandoId() === contribuicao.id">
               Marcar como checado
@@ -376,6 +395,13 @@ interface PublicacaoOriginalFormulario {
       color: var(--texto-suave);
     }
 
+    .campo-chave {
+      color: var(--texto-suave);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.72rem;
+      overflow-wrap: anywhere;
+    }
+
     .campo-largo {
       grid-column: 1 / -1;
     }
@@ -428,6 +454,12 @@ interface PublicacaoOriginalFormulario {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .historia-ajuda {
+      margin: -4px 0 0;
+      color: var(--texto-suave);
+      line-height: 1.45;
+    }
+
     .secao-titulo.compacta {
       align-items: center;
       gap: 10px;
@@ -437,6 +469,10 @@ interface PublicacaoOriginalFormulario {
       .metricas-revisao,
       .grade-revisao,
       .editor-json-revisao {
+        grid-template-columns: 1fr;
+      }
+
+      .historia-campos {
         grid-template-columns: 1fr;
       }
     }
@@ -531,7 +567,7 @@ export class RevisaoPage implements OnInit {
         urlOrigem: this.textoOuNull(form.origemUrl),
         serieId: serie.id,
       }));
-      this.mensagem.set('Dados editoriais salvos no catalogo.');
+      this.mensagem.set('Dados da edicao salvos no catalogo. Para criar historias e vinculos, use Importar edicao e historias.');
       this.carregar();
     } catch (erro) {
       this.mensagem.set(this.mensagemErro(erro, 'Nao foi possivel salvar os dados editoriais.'));
@@ -541,6 +577,12 @@ export class RevisaoPage implements OnInit {
   }
 
   async importarJsonRevisado(contribuicao: ContribuicaoCatalogo) {
+    const form = this.formulario(contribuicao);
+    if (this.temHistoriaPreenchida(form) && this.historias(form).length === 0) {
+      this.mensagem.set('A historia comecou a ser preenchida, mas faltam campos obrigatorios: titulo em portugues, serie original e numero original.');
+      return;
+    }
+
     this.revisandoId.set(contribuicao.id);
     this.mensagem.set('');
     try {
@@ -666,6 +708,24 @@ export class RevisaoPage implements OnInit {
     return form.historias
       .map((historia, indice) => this.historiaParaJson(historia, indice + 1))
       .filter((historia) => !!historia);
+  }
+
+  private temHistoriaPreenchida(form: FormularioImportacaoRevisao) {
+    return form.historias.some((historia) =>
+      [
+        historia.tituloPortugues,
+        historia.tituloOriginal,
+        historia.resumo,
+        historia.publicacaoOriginal.serieOriginal,
+        historia.publicacaoOriginal.numeroOriginal,
+        historia.publicacaoOriginal.texto,
+        historia.publicacaoOriginal.urlOrigem,
+        historia.publicacaoOriginal.urlCapa,
+        historia.publicacaoOriginal.urlCompraAmazon,
+      ].some((valor) => !!this.textoOuNull(valor))
+        || this.numeroOuNull(historia.quantidadePaginas) !== null
+        || this.numeroOuNull(historia.publicacaoOriginal.anoOriginal) !== null,
+    );
   }
 
   private historiasAPartirDeTextoGuia(texto: string) {
