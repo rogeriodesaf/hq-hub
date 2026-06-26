@@ -56,7 +56,11 @@ export class AssistentePage {
 
   private readonly api = inject(ApiService);
   readonly mensagens = signal<MensagemTela[]>([
-    { autor: 'assistente', texto: 'Olá. Posso ajudar com dúvidas sobre catálogo, coleção e planejamento.' },
+    {
+      autor: 'assistente',
+      texto:
+        'Olá! Eu sou o Huguinho, o seu assistente virtual! Tenho hiperfoco sazonal. Já fui hiperfocado em Lanterna Verde, Demolidor, Homem Aranha e agora é a vez do Tex. Mas chega de falar de mim, diga em que posso lhe ajudar, antes que eu me invoque e bloqueie a sua conta!',
+    },
   ]);
   readonly sugestoes = signal<AssistenteFaqItem[]>([]);
   readonly carregando = signal(false);
