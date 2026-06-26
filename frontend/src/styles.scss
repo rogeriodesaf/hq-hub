@@ -2314,20 +2314,36 @@ textarea:focus {
 }
 
 .mensagens article {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   max-width: min(680px, 86%);
+}
+
+.mensagens article.usuario {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.mensagens article p {
+  margin: 0;
   padding: 12px 14px;
   border-radius: 8px;
   background: var(--fundo);
 }
 
-.mensagens article.usuario {
-  align-self: flex-end;
+.mensagens article.usuario p {
   color: #fff;
   background: var(--azul);
 }
 
-.mensagens p {
-  margin: 0;
+.avatar-assistente {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: #fff;
+  flex-shrink: 0;
 }
 
 .entrada-chat {

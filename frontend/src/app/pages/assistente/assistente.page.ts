@@ -38,6 +38,14 @@ interface MensagemTela {
       <div class="mensagens">
         @for (mensagem of mensagens(); track $index) {
           <article [class.usuario]="mensagem.autor === 'usuario'">
+            @if (mensagem.autor === 'assistente') {
+              <img
+                class="avatar-assistente"
+                src="/assets/assistente/avatar-huguinho.svg"
+                alt="Avatar do Huguinho"
+                loading="lazy"
+              />
+            }
             <p>{{ mensagem.texto }}</p>
           </article>
         }
