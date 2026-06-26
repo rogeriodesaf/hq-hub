@@ -31,6 +31,12 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
             Selecionar JSON
             <input type="file" accept="application/json,.json" (change)="selecionarArquivo($event)" />
           </label>
+          <button class="botao compacto" type="button" (click)="preencherModeloEmBranco()">
+            Modelo em branco
+          </button>
+          <button class="botao compacto" type="button" (click)="adicionarHistoriaAoModelo()" [disabled]="!jsonTexto.trim()">
+            + Historia no JSON
+          </button>
           <button class="botao compacto" type="button" (click)="preencherExemploBatman()">
             Exemplo da Saga do Batman
           </button>
@@ -433,17 +439,59 @@ export class ImportacaoPage {
     this.mensagem.set('Exemplo estrutural carregado. Para importar de verdade, selecione o JSON completo gerado pelo robô.');
   }
 
+  preencherModeloEmBranco() {
+    this.jsonTexto = JSON.stringify(this.modeloImportacao(), null, 2);
+    this.nomeArquivo.set('modelo-importacao-hqhub.json');
+    this.resultado.set(null);
+    this.mensagem.set('Modelo em branco carregado. Preencha serie, editora e numero da edicao antes de importar.');
+  }
+
+  adicionarHistoriaAoModelo() {
+    this.mensagem.set('');
+    let corpo: any;
+    try {
+      corpo = JSON.parse(this.jsonTexto);
+    } catch {
+      this.mensagem.set('Carregue um JSON valido antes de adicionar historia.');
+      return;
+    }
+
+    if (!Array.isArray(corpo.edicoes)) {
+      corpo.edicoes = [this.modeloEdicao()];
+    }
+    if (!corpo.edicoes.length) {
+      corpo.edicoes.push(this.modeloEdicao());
+    }
+    if (!Array.isArray(corpo.edicoes[0].historias)) {
+      corpo.edicoes[0].historias = [];
+    }
+
+    corpo.edicoes[0].historias.push(this.modeloHistoria(corpo.edicoes[0].historias.length + 1));
+    corpo.totalHistorias = corpo.edicoes.reduce((total: number, edicao: any) => total + (Array.isArray(edicao.historias) ? edicao.historias.length : 0), 0);
+    this.jsonTexto = JSON.stringify(corpo, null, 2);
+    this.mensagem.set('Historia adicionada ao JSON carregado.');
+  }
+
   importar() {
     this.mensagem.set('');
     this.resultado.set(null);
 
-    let corpo: unknown;
+    let corpo: any;
     try {
       corpo = JSON.parse(this.jsonTexto);
     } catch {
       this.mensagem.set('O conteúdo informado não é um JSON válido.');
       return;
     }
+
+    const validacao = this.validarMinimoImportacao(corpo);
+    if (validacao) {
+      this.mensagem.set(validacao);
+      return;
+    }
+
+    corpo = this.normalizarImportacao(corpo);
+    this.jsonTexto = JSON.stringify(corpo, null, 2);
 
     this.importando.set(true);
     this.api.importarCatalogo(corpo).subscribe({
@@ -568,5 +616,131 @@ export class ImportacaoPage {
     this.serieCapaSelecionada.set(null);
     this.numeroEdicaoCapa = '';
     this.urlCapaManual = '';
+  }
+
+  private modeloImportacao() {
+    return {
+      origem: {
+        arquivoEntrada: '',
+        url: '',
+        urlsProcessadas: [],
+        geradoEm: new Date().toISOString().slice(0, 10),
+        gerador: 'HQ-HUB',
+      },
+      serieBrasileira: {
+        titulo: '',
+        fase: '',
+        editora: '',
+        volume: null,
+      },
+      totalEdicoes: 1,
+      totalHistorias: 1,
+      avisos: [],
+      edicoes: [this.modeloEdicao()],
+    };
+  }
+
+  private modeloEdicao() {
+    return {
+      numero: '',
+      tituloChamada: '',
+      dataPublicacao: null,
+      publicadoTexto: '',
+      editora: '',
+      licenciador: '',
+      categoria: '',
+      genero: '',
+      status: '',
+      numeroPaginas: null,
+      formato: '',
+      precoCapa: null,
+      urlCapa: '',
+      descricao: '',
+      historias: [this.modeloHistoria(1)],
+    };
+  }
+
+  private modeloHistoria(ordem: number) {
+    return {
+      ordem,
+      tituloPortugues: '',
+      tituloOriginal: '',
+      quantidadePaginas: null,
+      resumo: '',
+      publicacaoOriginal: {
+        serieOriginal: '',
+        numeroOriginal: '',
+        anoOriginal: null,
+        texto: '',
+        urlOrigem: '',
+        urlCapa: '',
+        urlCompraAmazon: '',
+      },
+    };
+  }
+
+  private validarMinimoImportacao(corpo: any) {
+    if (!corpo?.serieBrasileira?.titulo?.trim()) {
+      return 'Preencha serieBrasileira.titulo antes de importar.';
+    }
+    if (!corpo?.serieBrasileira?.editora?.trim()) {
+      return 'Preencha serieBrasileira.editora antes de importar.';
+    }
+    if (!Array.isArray(corpo.edicoes) || !corpo.edicoes.length) {
+      return 'Inclua pelo menos uma edicao no JSON.';
+    }
+
+    const edicaoSemNumero = corpo.edicoes.findIndex((edicao: any) => !String(edicao?.numero || '').trim());
+    if (edicaoSemNumero >= 0) {
+      return `Preencha edicoes[${edicaoSemNumero}].numero antes de importar.`;
+    }
+    return '';
+  }
+
+  private normalizarImportacao(corpo: any) {
+    const normalizado = this.removerVazios(corpo);
+    normalizado.edicoes = (normalizado.edicoes || []).map((edicao: any) => ({
+      ...edicao,
+      historias: this.normalizarHistorias(edicao.historias),
+    }));
+    normalizado.totalEdicoes = normalizado.edicoes.length;
+    normalizado.totalHistorias = normalizado.edicoes.reduce((total: number, edicao: any) => total + (edicao.historias?.length || 0), 0);
+    return normalizado;
+  }
+
+  private normalizarHistorias(historias: any[] | null | undefined) {
+    if (!Array.isArray(historias)) {
+      return [];
+    }
+
+    return historias
+      .map((historia) => this.removerVazios(historia))
+      .filter((historia) => this.historiaTemMinimo(historia));
+  }
+
+  private historiaTemMinimo(historia: any) {
+    return !!historia?.tituloPortugues
+      && !!historia?.publicacaoOriginal?.serieOriginal
+      && !!historia?.publicacaoOriginal?.numeroOriginal;
+  }
+
+  private removerVazios(valor: any): any {
+    if (Array.isArray(valor)) {
+      return valor.map((item) => this.removerVazios(item)).filter((item) => item !== null);
+    }
+    if (valor && typeof valor === 'object') {
+      return Object.entries(valor).reduce<Record<string, any>>((objeto, [chave, item]) => {
+        const tratado = this.removerVazios(item);
+        if (tratado !== null) {
+          objeto[chave] = tratado;
+        }
+        return objeto;
+      }, {});
+    }
+    if (typeof valor === 'string') {
+      const texto = valor.trim();
+      return texto ? texto : null;
+    }
+    return valor ?? null;
   }
 }
