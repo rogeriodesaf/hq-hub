@@ -16,25 +16,3 @@ public record ConhecimentoEditorialDTO(
         String tags,
         String relacionadas) {
 }
-
-public record CadastroConhecimentoEditorialDTO(
-        String tipo,
-        String titulo,
-        String conteudo,
-        String fonte,
-        String urlFonte,
-        String confianca,
-        String origemDados,
-        String tags) {
-}
-
-public record ResultadoBuscaConhecimentoDTO(
-        Long id,
-        String tipo,
-        String titulo,
-        String conteudo,
-        String fonte,
-        String urlFonte,
-        String confianca,
-        Double relevancia) {
-}
