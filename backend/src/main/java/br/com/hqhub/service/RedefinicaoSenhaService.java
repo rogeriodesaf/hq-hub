@@ -13,6 +13,7 @@ import io.quarkus.mailer.Mailer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,25 +21,34 @@ import java.util.UUID;
 @ApplicationScoped
 public class RedefinicaoSenhaService {
 
+    private static final Logger LOG = Logger.getLogger(RedefinicaoSenhaService.class);
+
     private final UsuarioRepository usuarioRepository;
     private final TokenRedefinicaoSenhaRepository tokenRepository;
     private final Mailer mailer;
     private final String urlBase;
+    private final String smtpUsuario;
+    private final String smtpSenha;
 
     public RedefinicaoSenhaService(
             UsuarioRepository usuarioRepository,
             TokenRedefinicaoSenhaRepository tokenRepository,
             Mailer mailer,
-            @ConfigProperty(name = "hqhub.url-base") String urlBase) {
+            @ConfigProperty(name = "hqhub.url-base") String urlBase,
+            @ConfigProperty(name = "quarkus.mailer.username", defaultValue = "") String smtpUsuario,
+            @ConfigProperty(name = "quarkus.mailer.password", defaultValue = "") String smtpSenha) {
         this.usuarioRepository = usuarioRepository;
         this.tokenRepository = tokenRepository;
         this.mailer = mailer;
         this.urlBase = urlBase;
+        this.smtpUsuario = smtpUsuario;
+        this.smtpSenha = smtpSenha;
     }
 
     @Transactional
     public void solicitar(SolicitacaoRedefinicaoSenhaDTO dto) {
         usuarioRepository.buscarPorEmail(dto.email()).ifPresent(usuario -> {
+            validarConfiguracaoEmail();
             tokenRepository.excluirPorUsuario(usuario);
 
             String token = UUID.randomUUID().toString();
@@ -55,7 +65,12 @@ public class RedefinicaoSenhaService {
                     + "<p><a href=\"" + link + "\">" + link + "</a></p>"
                     + "<p>Se você não solicitou a redefinição, ignore este e-mail.</p>";
 
-            mailer.send(Mail.withHtml(dto.email(), "Redefinição de senha — HQ-HUB", html));
+            try {
+                mailer.send(Mail.withHtml(dto.email(), "Redefinição de senha — HQ-HUB", html));
+            } catch (RuntimeException excecao) {
+                LOG.errorf(excecao, "Falha ao enviar e-mail de redefinição de senha para %s.", dto.email());
+                throw new RegraNegocioException("Não foi possível enviar o e-mail de redefinição agora.");
+            }
         });
         // Não revelar se o e-mail existe ou não (prevenção de enumeração)
     }
@@ -73,5 +88,12 @@ public class RedefinicaoSenhaService {
         Usuario usuario = entidade.getUsuario();
         usuario.setSenha(BcryptUtil.bcryptHash(dto.novaSenha()));
         tokenRepository.delete(entidade);
+    }
+
+    private void validarConfiguracaoEmail() {
+        if (smtpUsuario == null || smtpUsuario.isBlank() || smtpSenha == null || smtpSenha.isBlank()) {
+            LOG.error("SMTP de redefinição de senha não configurado. Informe HQHUB_SMTP_USER e HQHUB_SMTP_PASS.");
+            throw new RegraNegocioException("Envio de e-mail não configurado no servidor.");
+        }
     }
 }

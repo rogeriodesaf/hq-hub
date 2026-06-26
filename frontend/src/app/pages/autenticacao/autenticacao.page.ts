@@ -90,7 +90,7 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
               </button>
             </form>
           } @else {
-            <p class="mensagem-sucesso">Link enviado! Verifique sua caixa de entrada (e a pasta de spam).</p>
+            <p class="mensagem-sucesso">Se houver uma conta com este e-mail, enviaremos um link de redefinição. Verifique sua caixa de entrada e a pasta de spam.</p>
           }
 
           <p class="link-esqueci-senha">
@@ -216,11 +216,7 @@ export class AutenticacaoPage implements OnInit {
         this.carregando.set(false);
         this.emailEnviado.set(true);
       },
-      error: () => {
-        this.carregando.set(false);
-        // Não revelar se o e-mail existe: sempre mostrar mensagem de sucesso
-        this.emailEnviado.set(true);
-      },
+      error: (erro) => this.tratarErro(erro),
     });
   }
 
