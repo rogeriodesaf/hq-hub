@@ -121,6 +121,40 @@ public class FeedSocialService {
         return paraResposta(postagem, usuario.getId());
     }
 
+    @Transactional
+    public void removerPostagem(Long postagemId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
+
+        if (!postagem.getUsuario().getId().equals(usuario.getId())) {
+            throw new RegraNegocioException("Voce so pode apagar postagens criadas por voce.");
+        }
+
+        comentarioRepository.delete("postagem.id", postagem.getId());
+        curtidaRepository.delete("postagem.id", postagem.getId());
+        imagemRepository.delete("postagem.id", postagem.getId());
+        postagemRepository.delete(postagem);
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO removerComentario(Long postagemId, Long comentarioId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemVisivel(postagemId, usuario);
+        ComentarioFeed comentario = comentarioRepository.findByIdOptional(comentarioId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Comentario nao encontrado."));
+
+        if (!comentario.getPostagem().getId().equals(postagem.getId())) {
+            throw new RecursoNaoEncontradoException("Comentario nao encontrado.");
+        }
+        if (!comentario.getUsuario().getId().equals(usuario.getId())) {
+            throw new RegraNegocioException("Voce so pode apagar comentarios criados por voce.");
+        }
+
+        comentarioRepository.delete(comentario);
+        return paraResposta(postagem, usuario.getId());
+    }
+
     private PostagemFeed buscarPostagemVisivel(Long postagemId, Usuario usuario) {
         PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));

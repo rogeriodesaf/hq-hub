@@ -142,17 +142,19 @@ img {
 
 .badge-feed {
   margin-left: auto;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
   border-radius: 999px;
-  background: #ef4444;
+  background: #dc2626;
   color: #fff;
   display: inline-grid;
   place-items: center;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 900;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.16);
+  box-shadow:
+    0 0 0 3px rgba(220, 38, 38, 0.22),
+    0 8px 18px rgba(220, 38, 38, 0.34);
 }
 
 .nav-icone {
@@ -166,13 +168,15 @@ img {
 
 .ponto-novidade {
   position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 10px;
-  height: 10px;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
-  background: #ef4444;
-  box-shadow: 0 0 0 3px #15191f;
+  background: #dc2626;
+  box-shadow:
+    0 0 0 3px #15191f,
+    0 0 0 6px rgba(220, 38, 38, 0.18);
 }
 
 .avatar-shell {

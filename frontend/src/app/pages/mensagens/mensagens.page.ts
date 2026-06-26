@@ -29,7 +29,11 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
         </div>
 
         <div class="barra-busca interna">
-          <input [(ngModel)]="busca" placeholder="Buscar pessoa ou conversa" />
+          <input
+            [(ngModel)]="busca"
+            (ngModelChange)="buscarPessoas()"
+            placeholder="Buscar pessoa ou conversa"
+          />
         </div>
 
         <div class="lista-conversas">
@@ -55,7 +59,7 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
           }
         </div>
 
-        @if (pessoasDisponiveis().length) {
+        @if (busca.trim().length >= 2 && pessoasDisponiveis().length) {
           <div class="lista-amigos-chat">
             <p class="rotulo">Comecar conversa</p>
             @for (pessoa of pessoasDisponiveis(); track pessoa.id) {
@@ -133,6 +137,7 @@ export class MensagensPage implements OnInit {
   readonly mensagens = signal<MensagemDireta[]>([]);
   readonly destinatarioSelecionado = signal<Usuario | null>(null);
   readonly enviando = signal(false);
+  readonly buscandoPessoas = signal(false);
   readonly mensagemErro = signal('');
   readonly usuarioAtualId = computed(() => this.autenticacao.usuario()?.id);
 
@@ -150,6 +155,10 @@ export class MensagensPage implements OnInit {
   readonly pessoasDisponiveis = computed(() => {
     const idsComConversa = new Set(this.conversas().map((conversa) => conversa.usuario.id));
     const termo = this.busca.trim().toLowerCase();
+    if (termo.length < 2) {
+      return [];
+    }
+
     const usuarioAtualId = this.usuarioAtualId();
     return this.usuarios()
       .filter((usuario) => usuario.id !== usuarioAtualId)
@@ -197,6 +206,26 @@ export class MensagensPage implements OnInit {
     });
   }
 
+  buscarPessoas() {
+    const termo = this.busca.trim();
+    if (termo.length < 2) {
+      this.usuarios.set([]);
+      return;
+    }
+
+    this.buscandoPessoas.set(true);
+    this.api.listarUsuarios(termo).subscribe({
+      next: (usuarios) => {
+        this.usuarios.set(usuarios);
+        this.buscandoPessoas.set(false);
+      },
+      error: () => {
+        this.usuarios.set([]);
+        this.buscandoPessoas.set(false);
+      },
+    });
+  }
+
   private carregarBase() {
     this.carregarConversas();
     this.api.listarAmigos().subscribe({
@@ -206,13 +235,7 @@ export class MensagensPage implements OnInit {
       },
       error: () => this.amigos.set([]),
     });
-    this.api.listarUsuarios().subscribe({
-      next: (usuarios) => {
-        this.usuarios.set(usuarios);
-        this.abrirUsuarioDaRota(usuarios);
-      },
-      error: () => this.usuarios.set([]),
-    });
+    this.abrirUsuarioDaRota();
   }
 
   private carregarConversas() {
@@ -228,16 +251,16 @@ export class MensagensPage implements OnInit {
     });
   }
 
-  private abrirUsuarioDaRota(usuarios: Usuario[]) {
+  private abrirUsuarioDaRota() {
     const usuarioId = Number(this.rota.snapshot.queryParamMap.get('usuarioId') || '0');
     if (!usuarioId) {
       return;
     }
 
-    const usuario = usuarios.find((item) => item.id === usuarioId);
-    if (usuario) {
-      this.selecionarUsuario(usuario);
-    }
+    this.api.obterPerfilUsuario(usuarioId).subscribe({
+      next: (usuario) => this.selecionarUsuario(usuario),
+      error: () => undefined,
+    });
   }
 
   private outroUsuario(amizade: Amizade) {

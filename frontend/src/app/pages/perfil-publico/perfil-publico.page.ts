@@ -120,6 +120,11 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                       }
                       <span>{{ dataRelativa(postagem.dataCriacao) }}</span>
                     </div>
+                    @if (postagem.usuario.id === usuarioAtual()?.id) {
+                      <button class="botao compacto" type="button" (click)="removerPostagem(postagem)" [disabled]="interagindoId() === postagem.id">
+                        Excluir
+                      </button>
+                    }
                   </header>
 
                   <p class="texto-postagem">{{ postagem.conteudo }}</p>
@@ -170,6 +175,11 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                             <strong>{{ comentario.usuario.nome }}</strong>
                           </a>
                           <p>{{ comentario.texto }}</p>
+                          @if (comentario.usuario.id === usuarioAtual()?.id) {
+                            <button class="botao compacto" type="button" (click)="removerComentario(postagem, comentario.id)" [disabled]="interagindoId() === postagem.id">
+                              Excluir comentario
+                            </button>
+                          }
                         </div>
                       </article>
                     }
@@ -866,6 +876,23 @@ export class PerfilPublicoPage implements OnInit {
         this.comentarios[postagem.id] = '';
         this.postagens.update((lista) => lista.map((p) => (p.id === atualizada.id ? atualizada : p)));
       },
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  removerPostagem(postagem: PostagemFeed) {
+    if (!confirm('Apagar esta postagem?')) return;
+    this.interagindoId.set(postagem.id);
+    this.api.removerPostagemFeed(postagem.id).subscribe({
+      next: () => this.postagens.update((lista) => lista.filter((p) => p.id !== postagem.id)),
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  removerComentario(postagem: PostagemFeed, comentarioId: number) {
+    this.interagindoId.set(postagem.id);
+    this.api.removerComentarioFeed(postagem.id, comentarioId).subscribe({
+      next: (atualizada) => this.postagens.update((lista) => lista.map((p) => (p.id === atualizada.id ? atualizada : p))),
       complete: () => this.interagindoId.set(null),
     });
   }

@@ -107,6 +107,16 @@ export class ApiService {
       .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
+  removerPostagemFeed(id: number) {
+    return this.http.delete<void>(`/api/feed/${id}`);
+  }
+
+  removerComentarioFeed(postagemId: number, comentarioId: number) {
+    return this.http
+      .delete<PostagemFeed>(`/api/feed/${postagemId}/comentarios/${comentarioId}`)
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
   listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '') {
     let params = new HttpParams()
       .set('busca', busca)
@@ -150,8 +160,13 @@ export class ApiService {
     return this.http.get<PaginaResposta<ResultadoPesquisaCatalogo>>('/api/catalogo/pesquisa', { params });
   }
 
-  listarUsuarios() {
-    return this.http.get<Usuario[]>('/api/usuarios').pipe(map((usuarios) => usuarios.map((usuario) => this.normalizarUsuario(usuario))));
+  listarUsuarios(busca = '') {
+    let params = new HttpParams();
+    if (busca.trim()) {
+      params = params.set('busca', busca.trim());
+    }
+
+    return this.http.get<Usuario[]>('/api/usuarios', { params }).pipe(map((usuarios) => usuarios.map((usuario) => this.normalizarUsuario(usuario))));
   }
 
   obterMeuPerfil() {

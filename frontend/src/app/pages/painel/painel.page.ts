@@ -114,6 +114,16 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                   }
                   <span>{{ dataRelativa(postagem.dataCriacao) }}</span>
                 </div>
+                @if (postagem.usuario.id === usuario()?.id) {
+                  <button
+                    class="botao compacto perigo acao-postagem"
+                    type="button"
+                    (click)="removerPostagem(postagem)"
+                    [disabled]="interagindoId() === postagem.id"
+                  >
+                    Excluir
+                  </button>
+                }
               </header>
 
               <p class="texto-postagem">{{ postagem.conteudo }}</p>
@@ -164,6 +174,16 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                         <strong>{{ comentario.usuario.nome }}</strong>
                       </a>
                       <p>{{ comentario.texto }}</p>
+                      @if (comentario.usuario.id === usuario()?.id) {
+                        <button
+                          class="botao-texto perigo"
+                          type="button"
+                          (click)="removerComentario(postagem, comentario.id)"
+                          [disabled]="interagindoId() === postagem.id"
+                        >
+                          Excluir comentario
+                        </button>
+                      }
                     </div>
                   </article>
                 }
@@ -347,6 +367,10 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       gap: 2px;
     }
 
+    .acao-postagem {
+      margin-left: auto;
+    }
+
     .postagem-card header small {
       color: var(--texto-suave);
       font-size: 0.82rem;
@@ -418,6 +442,28 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
     .comentarios-feed article p {
       margin: 4px 0 0;
+    }
+
+    .botao-texto {
+      width: fit-content;
+      margin-top: 6px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--texto-suave);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 850;
+    }
+
+    .botao-texto.perigo,
+    .botao.perigo {
+      color: #b42318;
+    }
+
+    .botao.perigo {
+      border-color: rgba(180, 35, 24, 0.24);
+      background: rgba(180, 35, 24, 0.08);
     }
 
     .novo-comentario {
@@ -694,6 +740,28 @@ export class PainelPage implements OnInit {
     this.api.listarFeed().subscribe({
       next: (feed) => this.feed.set(feed),
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel carregar o feed.'),
+    });
+  }
+
+  removerPostagem(postagem: PostagemFeed) {
+    if (!confirm('Apagar esta postagem?')) {
+      return;
+    }
+
+    this.interagindoId.set(postagem.id);
+    this.api.removerPostagemFeed(postagem.id).subscribe({
+      next: () => this.feed.update((feed) => feed.filter((item) => item.id !== postagem.id)),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel apagar esta postagem.'),
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  removerComentario(postagem: PostagemFeed, comentarioId: number) {
+    this.interagindoId.set(postagem.id);
+    this.api.removerComentarioFeed(postagem.id, comentarioId).subscribe({
+      next: (atualizada) => this.substituirPostagem(atualizada),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel apagar este comentario.'),
+      complete: () => this.interagindoId.set(null),
     });
   }
 

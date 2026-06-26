@@ -21,6 +21,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -81,8 +82,8 @@ public class UsuarioResource {
 
     @GET
     @Authenticated
-    public Response listarTodos() {
-        List<UsuarioRespostaDTO> usuarios = usuarioService.listarTodos();
+    public Response listarTodos(@QueryParam("busca") String busca) {
+        List<UsuarioRespostaDTO> usuarios = usuarioService.listarTodos(busca);
         return Response.ok(usuarios).build();
     }
 }

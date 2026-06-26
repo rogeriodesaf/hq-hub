@@ -11,6 +11,7 @@ import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import java.util.List;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -74,5 +75,18 @@ public class FeedSocialResource {
     @Path("/{id}/comentarios")
     public Response comentar(@PathParam("id") Long id, @Valid CadastroComentarioFeedDTO dto) {
         return Response.ok(feedSocialService.comentar(id, dto)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response removerPostagem(@PathParam("id") Long id) {
+        feedSocialService.removerPostagem(id);
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    @Path("/{id}/comentarios/{comentarioId}")
+    public Response removerComentario(@PathParam("id") Long id, @PathParam("comentarioId") Long comentarioId) {
+        return Response.ok(feedSocialService.removerComentario(id, comentarioId)).build();
     }
 }

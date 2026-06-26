@@ -53,8 +53,8 @@ public class UsuarioService {
         return usuarioMapper.paraResposta(usuario);
     }
 
-    public List<UsuarioRespostaDTO> listarTodos() {
-        return usuarioRepository.listAll()
+    public List<UsuarioRespostaDTO> listarTodos(String busca) {
+        return usuarioRepository.buscar(busca)
                 .stream()
                 .map(usuarioMapper::paraResposta)
                 .toList();
