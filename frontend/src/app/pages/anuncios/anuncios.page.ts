@@ -37,14 +37,20 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
           </label>
 
           @if (itensFiltrados().length) {
-            <div class="lista-escolha campo-largo">
+            <div class="estante-anuncio campo-largo">
               @for (item of itensFiltrados(); track item.id) {
                 <button type="button" [class.ativo]="itemSelecionado()?.id === item.id" (click)="selecionarItem(item)">
+                  <img [src]="item.edicao.urlCapa || capaReserva" [alt]="tituloItem(item)" loading="lazy" />
                   <strong>{{ tituloItem(item) }}</strong>
                   <span>{{ item.estadoConservacao }} · {{ item.statusLeitura === 'LIDO' ? 'Lido' : 'Nao lido' }}</span>
                 </button>
               }
             </div>
+          } @else {
+            <section class="estado-vazio compacto campo-largo">
+              <h2>Nenhum item encontrado</h2>
+              <p>Use o nome da serie ou o numero da edicao para localizar uma HQ da sua estante.</p>
+            </section>
           }
 
           <label class="campo-largo">
@@ -188,6 +194,25 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
         }
       </section>
     </section>
+
+    <section class="bloco canais-hq">
+      <div class="secao-titulo">
+        <div>
+          <p class="rotulo">Canais parceiros</p>
+          <h2>Conteudo sobre colecionismo e HQs</h2>
+        </div>
+      </div>
+
+      <div class="grade-canais">
+        @for (canal of canaisYoutube; track canal.url) {
+          <a [href]="canal.url" target="_blank" rel="noreferrer">
+            <span>{{ iniciaisCanal(canal.nome) }}</span>
+            <strong>{{ canal.nome }}</strong>
+            <small>YouTube</small>
+          </a>
+        }
+      </div>
+    </section>
   `,
 })
 export class AnunciosPage implements OnInit {
@@ -200,6 +225,14 @@ export class AnunciosPage implements OnInit {
   readonly meusAnuncios = signal<Anuncio[]>([]);
   readonly salvando = signal(false);
   readonly mensagemFormulario = signal('');
+  readonly canaisYoutube = [
+    { nome: 'Nona Dimensao', url: 'https://www.youtube.com/@Nonadimens%C3%A3o' },
+    { nome: 'Colecionador por Hobby', url: 'https://www.youtube.com/@colecionadorporhobby' },
+    { nome: 'Na Minha Estante HQs', url: 'https://www.youtube.com/@NaMinhaEstanteHQs' },
+    { nome: 'Chiclete com Lombada', url: 'https://www.youtube.com/@Chicletecomlombada' },
+    { nome: 'Ola Mundo Geek', url: 'https://www.youtube.com/@Ol%C3%A1MundoGeek' },
+    { nome: 'Contraponto HQs', url: 'https://www.youtube.com/@contrapontohqs' },
+  ];
   buscaItem = '';
   formulario = {
     tipoAnuncio: 'VENDA' as TipoAnuncio,
@@ -220,7 +253,7 @@ export class AnunciosPage implements OnInit {
     this.api.listarItensColecao().subscribe({
       next: (itens) => {
         this.itensColecao.set(itens);
-        this.itensFiltrados.set(itens.slice(0, 8));
+        this.itensFiltrados.set(itens);
       },
       error: () => {
         this.itensColecao.set([]);
@@ -248,14 +281,13 @@ export class AnunciosPage implements OnInit {
     const itens = this.itensColecao();
 
     if (!termo) {
-      this.itensFiltrados.set(itens.slice(0, 8));
+      this.itensFiltrados.set(itens);
       return;
     }
 
     this.itensFiltrados.set(
       itens
-        .filter((item) => this.normalizar(this.tituloItem(item)).includes(termo))
-        .slice(0, 8),
+        .filter((item) => this.normalizar(this.tituloItem(item)).includes(termo)),
     );
   }
 
@@ -336,6 +368,15 @@ export class AnunciosPage implements OnInit {
 
   formatarMoeda(valor: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+  }
+
+  iniciaisCanal(nome: string) {
+    return nome
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((parte) => parte[0]?.toUpperCase())
+      .join('');
   }
 
   private limparFormulario() {
