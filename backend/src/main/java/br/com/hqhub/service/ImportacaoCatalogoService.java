@@ -270,22 +270,30 @@ public class ImportacaoCatalogoService {
         String idExterno = idHistoria(dto);
         Optional<Historia> existente = historiaRepository.buscarPorOrigemExterna(FONTE_GUIA_DOS_QUADRINHOS, idExterno);
         if (existente.isPresent()) {
+            atualizarHistoria(existente.get(), dto);
             contadores.itensReaproveitados++;
             return existente.get();
         }
 
         Historia historia = new Historia();
-        historia.setTitulo(limitar(tituloPreferencial(dto), 255));
-        historia.setTituloPortugues(limitar(dto.tituloPortugues(), 255));
-        historia.setTituloOriginal(limitar(dto.tituloOriginal(), 255));
-        historia.setDescricaoPortugues(limitar(dto.resumo(), 4000));
-        historia.setQuantidadePaginas(dto.quantidadePaginas());
         historia.setTipo(TipoConteudoEdicao.HISTORIA);
         historia.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
         historia.setIdExterno(idExterno);
+        atualizarHistoria(historia, dto);
         historiaRepository.persist(historia);
         contadores.historiasCriadas++;
         return historia;
+    }
+
+    private void atualizarHistoria(Historia historia, HistoriaImportacaoDTO dto) {
+        copiarSeInformado(tituloPreferencial(dto), historia::setTitulo, 255);
+        copiarSeInformado(dto.tituloPortugues(), historia::setTituloPortugues, 255);
+        copiarSeInformado(dto.tituloOriginal(), historia::setTituloOriginal, 255);
+        copiarSeInformado(dto.resumo(), historia::setDescricaoPortugues, 4000);
+        copiarSeInformado(dto.resumo(), historia::setDescricao, 4000);
+        if (dto.quantidadePaginas() != null) {
+            historia.setQuantidadePaginas(dto.quantidadePaginas());
+        }
     }
 
     private Edicao obterOuCriarEdicaoOriginal(
@@ -538,8 +546,14 @@ public class ImportacaoCatalogoService {
             HistoriaImportacaoDTO dto,
             int ordem,
             ContadoresImportacao contadores) {
-        if (conteudoEdicaoRepository.buscarPorEdicaoEHistoria(edicao.getId(), historia.getId()).isPresent()
-                || conteudoEdicaoRepository.existePorEdicaoEOrdem(edicao.getId(), ordem)) {
+        Optional<ConteudoEdicao> existente = conteudoEdicaoRepository.buscarPorEdicaoEHistoria(edicao.getId(), historia.getId());
+        if (existente.isPresent()) {
+            atualizarConteudoImportado(existente.get(), dto, ordem, true);
+            contadores.itensReaproveitados++;
+            return;
+        }
+
+        if (conteudoEdicaoRepository.existePorEdicaoEOrdem(edicao.getId(), ordem)) {
             contadores.itensReaproveitados++;
             return;
         }
@@ -547,11 +561,8 @@ public class ImportacaoCatalogoService {
         ConteudoEdicao conteudo = new ConteudoEdicao();
         conteudo.setEdicao(edicao);
         conteudo.setHistoria(historia);
-        conteudo.setOrdem(ordem);
-        conteudo.setTituloUsado(limitar(dto.tituloPortugues(), 255));
-        conteudo.setQuantidadePaginas(dto.quantidadePaginas());
         conteudo.setTipo(TipoConteudoEdicao.HISTORIA);
-        conteudo.setObservacoes(limitar(dto.resumo(), 1000));
+        atualizarConteudoImportado(conteudo, dto, ordem, true);
         conteudoEdicaoRepository.persist(conteudo);
         contadores.conteudosCriados++;
     }
@@ -561,7 +572,9 @@ public class ImportacaoCatalogoService {
             Historia historia,
             HistoriaImportacaoDTO dto,
             ContadoresImportacao contadores) {
-        if (conteudoEdicaoRepository.buscarPorEdicaoEHistoria(edicaoOriginal.getId(), historia.getId()).isPresent()) {
+        Optional<ConteudoEdicao> existente = conteudoEdicaoRepository.buscarPorEdicaoEHistoria(edicaoOriginal.getId(), historia.getId());
+        if (existente.isPresent()) {
+            atualizarConteudoImportado(existente.get(), dto, existente.get().getOrdem(), false);
             contadores.itensReaproveitados++;
             return;
         }
@@ -569,12 +582,19 @@ public class ImportacaoCatalogoService {
         ConteudoEdicao conteudo = new ConteudoEdicao();
         conteudo.setEdicao(edicaoOriginal);
         conteudo.setHistoria(historia);
-        conteudo.setOrdem((int) conteudoEdicaoRepository.contarPorEdicao(edicaoOriginal.getId()) + 1);
-        conteudo.setTituloUsado(limitar(tituloPreferencial(dto), 255));
-        conteudo.setQuantidadePaginas(dto.quantidadePaginas());
         conteudo.setTipo(TipoConteudoEdicao.HISTORIA);
+        atualizarConteudoImportado(conteudo, dto, (int) conteudoEdicaoRepository.contarPorEdicao(edicaoOriginal.getId()) + 1, false);
         conteudoEdicaoRepository.persist(conteudo);
         contadores.conteudosCriados++;
+    }
+
+    private void atualizarConteudoImportado(ConteudoEdicao conteudo, HistoriaImportacaoDTO dto, int ordem, boolean publicacaoBrasileira) {
+        conteudo.setOrdem(ordem);
+        copiarSeInformado(publicacaoBrasileira ? dto.tituloPortugues() : tituloPreferencial(dto), conteudo::setTituloUsado, 255);
+        copiarSeInformado(dto.resumo(), conteudo::setObservacoes, 1000);
+        if (dto.quantidadePaginas() != null) {
+            conteudo.setQuantidadePaginas(dto.quantidadePaginas());
+        }
     }
 
     private void criarPublicacaoSeNecessario(
@@ -589,7 +609,9 @@ public class ImportacaoCatalogoService {
             return;
         }
 
-        if (publicacaoHistoriaRepository.existePorHistoriaEEdicaoPublicada(historia.getId(), edicaoBrasileira.getId())) {
+        Optional<PublicacaoHistoria> existente = publicacaoHistoriaRepository.buscarPorHistoriaEEdicaoPublicada(historia.getId(), edicaoBrasileira.getId());
+        if (existente.isPresent()) {
+            atualizarPublicacaoImportada(existente.get(), dto, importacao);
             contadores.itensReaproveitados++;
             return;
         }
@@ -600,15 +622,26 @@ public class ImportacaoCatalogoService {
         publicacao.setEdicaoPublicada(edicaoBrasileira);
         publicacao.setStatus(StatusPublicacaoHistoria.COMPLETA);
         publicacao.setTipoPublicacaoHistoria(TipoPublicacaoHistoria.PUBLICACAO_BRASILEIRA);
-        publicacao.setFonteInformacao(FONTE_GUIA_DOS_QUADRINHOS);
-        publicacao.setUrlFonteInformacao(urlOrigem(importacao));
         publicacao.setStatusValidacao(StatusValidacao.APROVADA);
-        publicacao.setTituloUsado(limitar(dto.tituloPortugues(), 255));
-        publicacao.setPaginasPublicadas(dto.quantidadePaginas());
         publicacao.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
-        publicacao.setUrlOrigem(urlOrigem(importacao));
+        atualizarPublicacaoImportada(publicacao, dto, importacao);
         publicacaoHistoriaRepository.persist(publicacao);
         contadores.publicacoesCriadas++;
+    }
+
+    private void atualizarPublicacaoImportada(
+            PublicacaoHistoria publicacao,
+            HistoriaImportacaoDTO dto,
+            ImportacaoCatalogoDTO importacao) {
+        publicacao.setFonteInformacao(FONTE_GUIA_DOS_QUADRINHOS);
+        publicacao.setUrlFonteInformacao(urlOrigem(importacao));
+        publicacao.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
+        publicacao.setUrlOrigem(urlOrigem(importacao));
+        copiarSeInformado(dto.tituloPortugues(), publicacao::setTituloUsado, 255);
+        copiarSeInformado(dto.resumo(), publicacao::setObservacoes, 1000);
+        if (dto.quantidadePaginas() != null) {
+            publicacao.setPaginasPublicadas(dto.quantidadePaginas());
+        }
     }
 
     private boolean mesmaEdicaoCatalografica(Edicao primeira, Edicao segunda) {

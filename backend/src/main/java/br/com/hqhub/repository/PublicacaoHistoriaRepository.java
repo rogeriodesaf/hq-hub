@@ -1,6 +1,7 @@
 package br.com.hqhub.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.hqhub.entity.PublicacaoHistoria;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -10,9 +11,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class PublicacaoHistoriaRepository implements PanacheRepository<PublicacaoHistoria> {
 
     public boolean existePorHistoriaEEdicaoPublicada(Long historiaId, Long edicaoPublicadaId) {
+        return buscarPorHistoriaEEdicaoPublicada(historiaId, edicaoPublicadaId).isPresent();
+    }
+
+    public Optional<PublicacaoHistoria> buscarPorHistoriaEEdicaoPublicada(Long historiaId, Long edicaoPublicadaId) {
         return find("historia.id = ?1 and edicaoPublicada.id = ?2", historiaId, edicaoPublicadaId)
-                .firstResultOptional()
-                .isPresent();
+                .firstResultOptional();
     }
 
     public List<PublicacaoHistoria> listarPorHistoria(Long historiaId) {

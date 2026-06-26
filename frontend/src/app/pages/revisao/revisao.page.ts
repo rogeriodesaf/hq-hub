@@ -204,19 +204,18 @@ interface PublicacaoOriginalFormulario {
               </label>
               <label class="campo-largo">
                 Descricao da edicao
-                <small class="campo-chave">edicoes[0].descricao</small>
                 <textarea rows="4" [(ngModel)]="formulario(contribuicao).edicaoDescricao" [name]="'edicaoDescricao' + contribuicao.id"></textarea>
               </label>
               <section class="campo-largo historias-revisao">
                 <div class="secao-titulo compacta">
                   <div>
                     <p class="rotulo">Historias publicadas nesta edicao</p>
-                    <small class="campo-chave">edicoes[0].historias</small>
+                    <span class="contador-historias">{{ totalHistoriasValidas(contribuicao) }} pronta(s) para importar</span>
                   </div>
                   <button class="botao compacto" type="button" (click)="adicionarHistoria(contribuicao)">+ Mais historia</button>
                 </div>
                 <p class="historia-ajuda">
-                  Para a historia aparecer no catalogo, preencha pelo menos titulo em portugues, serie original e numero original, depois use Importar JSON revisado.
+                  Para aparecer no catalogo, cada historia precisa ter titulo em portugues, serie original e numero original.
                 </p>
 
                 @for (historia of formulario(contribuicao).historias; track $index; let indice = $index) {
@@ -233,68 +232,71 @@ interface PublicacaoOriginalFormulario {
                       </button>
                     </div>
 
-                    <div class="editor-json-revisao historia-campos">
-                      <label>
-                        Ordem
-                        <small class="campo-chave">ordem</small>
-                        <input type="number" min="1" [(ngModel)]="historia.ordem" [name]="'historiaOrdem' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Titulo em portugues
-                        <small class="campo-chave">tituloPortugues</small>
-                        <input [(ngModel)]="historia.tituloPortugues" [name]="'historiaTituloPortugues' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Titulo original
-                        <small class="campo-chave">tituloOriginal</small>
-                        <input [(ngModel)]="historia.tituloOriginal" [name]="'historiaTituloOriginal' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Quantidade de paginas
-                        <small class="campo-chave">quantidadePaginas</small>
-                        <input type="number" min="1" [(ngModel)]="historia.quantidadePaginas" [name]="'historiaQuantidadePaginas' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label class="campo-largo">
-                        Resumo da historia
-                        <small class="campo-chave">resumo</small>
-                        <textarea rows="4" [(ngModel)]="historia.resumo" [name]="'historiaResumo' + contribuicao.id + '-' + indice"></textarea>
-                      </label>
-                      <label>
-                        Serie original
-                        <small class="campo-chave">publicacaoOriginal.serieOriginal</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.serieOriginal" [name]="'historiaSerieOriginal' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Numero original
-                        <small class="campo-chave">publicacaoOriginal.numeroOriginal</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.numeroOriginal" [name]="'historiaNumeroOriginal' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Ano original
-                        <small class="campo-chave">publicacaoOriginal.anoOriginal</small>
-                        <input type="number" min="1900" [(ngModel)]="historia.publicacaoOriginal.anoOriginal" [name]="'historiaAnoOriginal' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label>
-                        Texto da publicacao original
-                        <small class="campo-chave">publicacaoOriginal.texto</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'historiaTextoOriginal' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label class="campo-largo">
-                        Link da fonte da publicacao original
-                        <small class="campo-chave">publicacaoOriginal.urlOrigem</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.urlOrigem" [name]="'historiaUrlOrigem' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label class="campo-largo">
-                        URL da capa da publicacao original
-                        <small class="campo-chave">publicacaoOriginal.urlCapa</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.urlCapa" [name]="'historiaUrlCapa' + contribuicao.id + '-' + indice" />
-                      </label>
-                      <label class="campo-largo">
-                        Link de compra da Amazon
-                        <small class="campo-chave">publicacaoOriginal.urlCompraAmazon</small>
-                        <input [(ngModel)]="historia.publicacaoOriginal.urlCompraAmazon" [name]="'historiaUrlCompraAmazon' + contribuicao.id + '-' + indice" />
-                      </label>
+                    <div class="historia-grupos">
+                      <fieldset>
+                        <legend>Dados da historia</legend>
+                        <div class="editor-json-revisao historia-campos">
+                          <label>
+                            Ordem
+                            <input type="number" min="1" [(ngModel)]="historia.ordem" [name]="'historiaOrdem' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Titulo em portugues
+                            <input [(ngModel)]="historia.tituloPortugues" [name]="'historiaTituloPortugues' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Titulo original
+                            <input [(ngModel)]="historia.tituloOriginal" [name]="'historiaTituloOriginal' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Paginas
+                            <input type="number" min="1" [(ngModel)]="historia.quantidadePaginas" [name]="'historiaQuantidadePaginas' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label class="campo-largo">
+                            Resumo
+                            <textarea rows="4" [(ngModel)]="historia.resumo" [name]="'historiaResumo' + contribuicao.id + '-' + indice"></textarea>
+                          </label>
+                        </div>
+                      </fieldset>
+
+                      <fieldset>
+                        <legend>Publicacao original</legend>
+                        <div class="editor-json-revisao historia-campos">
+                          <label>
+                            Serie original
+                            <input [(ngModel)]="historia.publicacaoOriginal.serieOriginal" [name]="'historiaSerieOriginal' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Numero original
+                            <input [(ngModel)]="historia.publicacaoOriginal.numeroOriginal" [name]="'historiaNumeroOriginal' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Ano original
+                            <input type="number" min="1900" [(ngModel)]="historia.publicacaoOriginal.anoOriginal" [name]="'historiaAnoOriginal' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label>
+                            Texto exibido
+                            <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'historiaTextoOriginal' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label class="campo-largo">
+                            Link da fonte
+                            <input [(ngModel)]="historia.publicacaoOriginal.urlOrigem" [name]="'historiaUrlOrigem' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label class="campo-largo">
+                            URL da capa
+                            <input [(ngModel)]="historia.publicacaoOriginal.urlCapa" [name]="'historiaUrlCapa' + contribuicao.id + '-' + indice" />
+                          </label>
+                          <label class="campo-largo">
+                            Link Amazon
+                            <input [(ngModel)]="historia.publicacaoOriginal.urlCompraAmazon" [name]="'historiaUrlCompraAmazon' + contribuicao.id + '-' + indice" />
+                          </label>
+                        </div>
+                      </fieldset>
                     </div>
+
+                    @if (mensagemHistoriaIncompleta(historia)) {
+                      <p class="mensagem-historia">{{ mensagemHistoriaIncompleta(historia) }}</p>
+                    }
                   </article>
                 }
               </section>
@@ -395,13 +397,6 @@ interface PublicacaoOriginalFormulario {
       color: var(--texto-suave);
     }
 
-    .campo-chave {
-      color: var(--texto-suave);
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: 0.72rem;
-      overflow-wrap: anywhere;
-    }
-
     .campo-largo {
       grid-column: 1 / -1;
     }
@@ -451,13 +446,48 @@ interface PublicacaoOriginalFormulario {
     }
 
     .historia-campos {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .historia-grupos {
+      display: grid;
+      gap: 12px;
+    }
+
+    .historia-grupos fieldset {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 12px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+    }
+
+    .historia-grupos legend {
+      padding: 0 6px;
+      color: var(--texto);
+      font-weight: 800;
+    }
+
+    .contador-historias {
+      color: var(--texto-suave);
+      font-size: 0.86rem;
+      font-weight: 700;
     }
 
     .historia-ajuda {
       margin: -4px 0 0;
       color: var(--texto-suave);
       line-height: 1.45;
+    }
+
+    .mensagem-historia {
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(217, 65, 65, 0.28);
+      border-radius: 8px;
+      color: #8f2424;
+      background: rgba(217, 65, 65, 0.08);
     }
 
     .secao-titulo.compacta {
@@ -578,8 +608,8 @@ export class RevisaoPage implements OnInit {
 
   async importarJsonRevisado(contribuicao: ContribuicaoCatalogo) {
     const form = this.formulario(contribuicao);
-    if (this.temHistoriaPreenchida(form) && this.historias(form).length === 0) {
-      this.mensagem.set('A historia comecou a ser preenchida, mas faltam campos obrigatorios: titulo em portugues, serie original e numero original.');
+    if (this.historias(form).length === 0) {
+      this.mensagem.set('Preencha pelo menos uma historia completa antes de importar. Campos obrigatorios: titulo em portugues, serie original e numero original.');
       return;
     }
 
@@ -710,22 +740,43 @@ export class RevisaoPage implements OnInit {
       .filter((historia) => !!historia);
   }
 
-  private temHistoriaPreenchida(form: FormularioImportacaoRevisao) {
-    return form.historias.some((historia) =>
-      [
-        historia.tituloPortugues,
-        historia.tituloOriginal,
-        historia.resumo,
-        historia.publicacaoOriginal.serieOriginal,
-        historia.publicacaoOriginal.numeroOriginal,
-        historia.publicacaoOriginal.texto,
-        historia.publicacaoOriginal.urlOrigem,
-        historia.publicacaoOriginal.urlCapa,
-        historia.publicacaoOriginal.urlCompraAmazon,
-      ].some((valor) => !!this.textoOuNull(valor))
-        || this.numeroOuNull(historia.quantidadePaginas) !== null
-        || this.numeroOuNull(historia.publicacaoOriginal.anoOriginal) !== null,
-    );
+  totalHistoriasValidas(contribuicao: ContribuicaoCatalogo) {
+    return this.historias(this.formulario(contribuicao)).length;
+  }
+
+  mensagemHistoriaIncompleta(historia: HistoriaImportacaoFormulario) {
+    if (!this.historiaTemAlgumDado(historia) || this.historiaParaJson(historia, historia.ordem || 1)) {
+      return '';
+    }
+
+    const faltando: string[] = [];
+    if (!this.textoOuNull(historia.tituloPortugues)) {
+      faltando.push('titulo em portugues');
+    }
+    if (!this.textoOuNull(historia.publicacaoOriginal.serieOriginal)) {
+      faltando.push('serie original');
+    }
+    if (!this.textoOuNull(historia.publicacaoOriginal.numeroOriginal)) {
+      faltando.push('numero original');
+    }
+
+    return faltando.length ? `Falta preencher: ${faltando.join(', ')}.` : '';
+  }
+
+  private historiaTemAlgumDado(historia: HistoriaImportacaoFormulario) {
+    return [
+      historia.tituloPortugues,
+      historia.tituloOriginal,
+      historia.resumo,
+      historia.publicacaoOriginal.serieOriginal,
+      historia.publicacaoOriginal.numeroOriginal,
+      historia.publicacaoOriginal.texto,
+      historia.publicacaoOriginal.urlOrigem,
+      historia.publicacaoOriginal.urlCapa,
+      historia.publicacaoOriginal.urlCompraAmazon,
+    ].some((valor) => !!this.textoOuNull(valor))
+      || this.numeroOuNull(historia.quantidadePaginas) !== null
+      || this.numeroOuNull(historia.publicacaoOriginal.anoOriginal) !== null;
   }
 
   private historiasAPartirDeTextoGuia(texto: string) {
