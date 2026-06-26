@@ -28,7 +28,26 @@ interface FormularioImportacaoRevisao {
   edicaoUrlCapa: string;
   edicaoDescricao: string;
   edicaoCodigoBarras: string;
-  historiasJson: string;
+  historias: HistoriaImportacaoFormulario[];
+}
+
+interface HistoriaImportacaoFormulario {
+  ordem: number | null;
+  tituloPortugues: string;
+  tituloOriginal: string;
+  quantidadePaginas: number | null;
+  resumo: string;
+  publicacaoOriginal: PublicacaoOriginalFormulario;
+}
+
+interface PublicacaoOriginalFormulario {
+  serieOriginal: string;
+  numeroOriginal: string;
+  anoOriginal: number | null;
+  texto: string;
+  urlOrigem: string;
+  urlCapa: string;
+  urlCompraAmazon: string;
 }
 
 @Component({
@@ -187,10 +206,79 @@ interface FormularioImportacaoRevisao {
                 edicoes[0].descricao
                 <textarea rows="4" [(ngModel)]="formulario(contribuicao).edicaoDescricao" [name]="'edicaoDescricao' + contribuicao.id"></textarea>
               </label>
-              <label class="campo-largo">
-                edicoes[0].historias
-                <textarea rows="10" [(ngModel)]="formulario(contribuicao).historiasJson" [name]="'historiasJson' + contribuicao.id"></textarea>
-              </label>
+              <section class="campo-largo historias-revisao">
+                <div class="secao-titulo compacta">
+                  <p class="rotulo">edicoes[0].historias</p>
+                  <button class="botao compacto" type="button" (click)="adicionarHistoria(contribuicao)">+ Mais historia</button>
+                </div>
+
+                @for (historia of formulario(contribuicao).historias; track $index; let indice = $index) {
+                  <article class="historia-revisao">
+                    <div class="secao-titulo compacta">
+                      <strong>Historia {{ indice + 1 }}</strong>
+                      <button
+                        class="botao perigo compacto"
+                        type="button"
+                        (click)="removerHistoria(contribuicao, indice)"
+                        [disabled]="formulario(contribuicao).historias.length === 1"
+                      >
+                        Remover
+                      </button>
+                    </div>
+
+                    <div class="editor-json-revisao historia-campos">
+                      <label>
+                        edicoes[0].historias[{{ indice }}].ordem
+                        <input type="number" min="1" [(ngModel)]="historia.ordem" [name]="'historiaOrdem' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].tituloPortugues
+                        <input [(ngModel)]="historia.tituloPortugues" [name]="'historiaTituloPortugues' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].tituloOriginal
+                        <input [(ngModel)]="historia.tituloOriginal" [name]="'historiaTituloOriginal' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].quantidadePaginas
+                        <input type="number" min="1" [(ngModel)]="historia.quantidadePaginas" [name]="'historiaQuantidadePaginas' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label class="campo-largo">
+                        edicoes[0].historias[{{ indice }}].resumo
+                        <textarea rows="4" [(ngModel)]="historia.resumo" [name]="'historiaResumo' + contribuicao.id + '-' + indice"></textarea>
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.serieOriginal
+                        <input [(ngModel)]="historia.publicacaoOriginal.serieOriginal" [name]="'historiaSerieOriginal' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.numeroOriginal
+                        <input [(ngModel)]="historia.publicacaoOriginal.numeroOriginal" [name]="'historiaNumeroOriginal' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.anoOriginal
+                        <input type="number" min="1900" [(ngModel)]="historia.publicacaoOriginal.anoOriginal" [name]="'historiaAnoOriginal' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label>
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.texto
+                        <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'historiaTextoOriginal' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label class="campo-largo">
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlOrigem
+                        <input [(ngModel)]="historia.publicacaoOriginal.urlOrigem" [name]="'historiaUrlOrigem' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label class="campo-largo">
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlCapa
+                        <input [(ngModel)]="historia.publicacaoOriginal.urlCapa" [name]="'historiaUrlCapa' + contribuicao.id + '-' + indice" />
+                      </label>
+                      <label class="campo-largo">
+                        edicoes[0].historias[{{ indice }}].publicacaoOriginal.urlCompraAmazon
+                        <input [(ngModel)]="historia.publicacaoOriginal.urlCompraAmazon" [name]="'historiaUrlCompraAmazon' + contribuicao.id + '-' + indice" />
+                      </label>
+                    </div>
+                  </article>
+                }
+              </section>
             </div>
           </details>
 
@@ -320,6 +408,29 @@ interface FormularioImportacaoRevisao {
 
     textarea {
       resize: vertical;
+    }
+
+    .historias-revisao {
+      display: grid;
+      gap: 12px;
+    }
+
+    .historia-revisao {
+      display: grid;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie);
+    }
+
+    .historia-campos {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .secao-titulo.compacta {
+      align-items: center;
+      gap: 10px;
     }
 
     @media (max-width: 900px) {
@@ -505,7 +616,7 @@ export class RevisaoPage implements OnInit {
       edicaoUrlCapa: edicao.urlCapa || dados?.['urlCapa'] || '',
       edicaoDescricao: edicao.descricao || edicao.descricaoExibicao || '',
       edicaoCodigoBarras: edicao.codigoBarras || '',
-      historiasJson: '[]',
+      historias: [this.historiaVazia(1)],
     };
   }
 
@@ -552,17 +663,9 @@ export class RevisaoPage implements OnInit {
   }
 
   private historias(form: FormularioImportacaoRevisao) {
-    const texto = form.historiasJson || '';
-    try {
-      const valor = JSON.parse(texto || '[]');
-      if (Array.isArray(valor)) {
-        return valor;
-      }
-    } catch {
-      return this.historiasAPartirDeTextoGuia(texto);
-    }
-
-    return this.historiasAPartirDeTextoGuia(texto);
+    return form.historias
+      .map((historia, indice) => this.historiaParaJson(historia, indice + 1))
+      .filter((historia) => !!historia);
   }
 
   private historiasAPartirDeTextoGuia(texto: string) {
@@ -692,6 +795,65 @@ export class RevisaoPage implements OnInit {
 
   private ehLinhaPaginas(linha: string) {
     return /^\d+\s+p[aá]ginas?$/i.test(linha.trim());
+  }
+
+  adicionarHistoria(contribuicao: ContribuicaoCatalogo) {
+    const form = this.formulario(contribuicao);
+    form.historias.push(this.historiaVazia(form.historias.length + 1));
+  }
+
+  removerHistoria(contribuicao: ContribuicaoCatalogo, indice: number) {
+    const form = this.formulario(contribuicao);
+    if (form.historias.length <= 1) {
+      return;
+    }
+
+    form.historias.splice(indice, 1);
+  }
+
+  private historiaVazia(ordem: number): HistoriaImportacaoFormulario {
+    return {
+      ordem,
+      tituloPortugues: '',
+      tituloOriginal: '',
+      quantidadePaginas: null,
+      resumo: '',
+      publicacaoOriginal: {
+        serieOriginal: '',
+        numeroOriginal: '',
+        anoOriginal: null,
+        texto: '',
+        urlOrigem: '',
+        urlCapa: '',
+        urlCompraAmazon: '',
+      },
+    };
+  }
+
+  private historiaParaJson(historia: HistoriaImportacaoFormulario, ordemPadrao: number) {
+    const tituloPortugues = this.textoOuNull(historia.tituloPortugues);
+    const serieOriginal = this.textoOuNull(historia.publicacaoOriginal.serieOriginal);
+    const numeroOriginal = this.textoOuNull(historia.publicacaoOriginal.numeroOriginal);
+    if (!tituloPortugues || !serieOriginal || !numeroOriginal) {
+      return null;
+    }
+
+    return {
+      ordem: this.numeroOuNull(historia.ordem) ?? ordemPadrao,
+      tituloPortugues,
+      tituloOriginal: this.textoOuNull(historia.tituloOriginal),
+      quantidadePaginas: this.numeroOuNull(historia.quantidadePaginas),
+      resumo: this.textoOuNull(historia.resumo),
+      publicacaoOriginal: {
+        serieOriginal,
+        numeroOriginal,
+        anoOriginal: this.numeroOuNull(historia.publicacaoOriginal.anoOriginal),
+        texto: this.textoOuNull(historia.publicacaoOriginal.texto),
+        urlOrigem: this.textoOuNull(historia.publicacaoOriginal.urlOrigem),
+        urlCapa: this.textoOuNull(historia.publicacaoOriginal.urlCapa),
+        urlCompraAmazon: this.textoOuNull(historia.publicacaoOriginal.urlCompraAmazon),
+      },
+    };
   }
 
   private async obterOuCriarEditora(nome: string): Promise<EditoraResumo> {
