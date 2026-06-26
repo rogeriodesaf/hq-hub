@@ -2338,12 +2338,19 @@ textarea:focus {
 }
 
 .avatar-assistente {
-  width: 34px;
-  height: 34px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: 1px solid var(--borda);
   background: #fff;
   flex-shrink: 0;
+}
+
+@media (max-width: 980px) {
+  .avatar-assistente {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .entrada-chat {
