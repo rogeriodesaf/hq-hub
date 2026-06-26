@@ -36,8 +36,8 @@ public class RedefinicaoSenhaService {
             TokenRedefinicaoSenhaRepository tokenRepository,
             Mailer mailer,
             @ConfigProperty(name = "hqhub.url-base") String urlBase,
-            @ConfigProperty(name = "quarkus.mailer.username", defaultValue = "") String smtpUsuario,
-            @ConfigProperty(name = "quarkus.mailer.password", defaultValue = "") String smtpSenha) {
+            @ConfigProperty(name = "hqhub.smtp.usuario") String smtpUsuario,
+            @ConfigProperty(name = "hqhub.smtp.senha") String smtpSenha) {
         this.usuarioRepository = usuarioRepository;
         this.tokenRepository = tokenRepository;
         this.mailer = mailer;
@@ -98,7 +98,8 @@ public class RedefinicaoSenhaService {
     }
 
     private String validarConfiguracaoEmail() {
-        if (smtpUsuario == null || smtpUsuario.isBlank() || smtpSenha == null || smtpSenha.isBlank()) {
+        if (smtpUsuario == null || smtpUsuario.isBlank() || "__NAO_CONFIGURADO__".equals(smtpUsuario)
+                || smtpSenha == null || smtpSenha.isBlank() || "__NAO_CONFIGURADO__".equals(smtpSenha)) {
             LOG.error("SMTP de redefinicao de senha nao configurado. Informe HQHUB_SMTP_USER e HQHUB_SMTP_PASS.");
             return "Envio de e-mail nao configurado no servidor.";
         }
