@@ -41,7 +41,7 @@ interface MensagemTela {
             @if (mensagem.autor === 'assistente') {
               <img
                 class="avatar-assistente"
-                src="/assets/assistente/avatar-huguinho.svg"
+                src="/assets/Captura%20de%20tela%202026-06-26%20184223.png"
                 alt="Avatar do Huguinho"
                 loading="lazy"
               />
