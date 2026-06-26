@@ -62,7 +62,11 @@ export class CanaisPage {
       url: 'https://www.youtube.com/@Ol%C3%A1MundoGeek',
       imagemUrl: 'https://yt3.googleusercontent.com/zK6K2vSmDIm9vaLZ4ljK_ro7ubPHMrFfSK3NE1aTlt1WxZCRCnxI-AfRY8YpQTjvNn-Ix-OLOQ=s160-c-k-c0x00ffffff-no-rj',
     },
-    { nome: 'Contraponto HQs', url: 'https://www.youtube.com/@contrapontohqs', imagemUrl: null },
+    {
+      nome: 'Contraponto HQs',
+      url: 'https://www.youtube.com/@contrapontohqs',
+      imagemUrl: 'https://yt3.googleusercontent.com/O2qyig_ZyWlProg-wc_P1r4IPoFhbO-myKNiAFoOSZSoFvuoGfpwPC__kLTSp-GHi3YNnmh1=s160-c-k-c0x00ffffff-no-rj',
+    },
   ];
 
   iniciaisCanal(nome: string) {
