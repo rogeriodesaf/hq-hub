@@ -22,9 +22,11 @@ html {
   min-height: 100%;
   background: var(--fundo);
   overflow-x: hidden;
+  width: 100%;
 }
 
 body {
+  width: 100%;
   min-height: 100vh;
   margin: 0;
   color: var(--texto);
@@ -244,6 +246,7 @@ img {
 .conteudo-app {
   width: min(1280px, 100%);
   padding: 34px;
+  min-width: 0;
 }
 
 .atalhos-superiores {
@@ -2118,7 +2121,8 @@ textarea:focus {
   }
 
   .conteudo-app {
-    padding: 22px 16px 92px;
+    width: 100%;
+    padding: 22px 16px 112px;
   }
 
   .atalhos-superiores {
@@ -2131,18 +2135,23 @@ textarea:focus {
     right: 12px;
     bottom: 12px;
     z-index: 20;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    display: flex;
     gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 6px;
     border: 1px solid rgba(21, 25, 31, 0.14);
     border-radius: 8px;
     background: rgba(21, 25, 31, 0.94);
     box-shadow: var(--sombra);
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
   }
 
   .navegacao-mobile a,
   .navegacao-mobile button {
+    position: relative;
+    flex: 0 0 72px;
     min-height: 52px;
     flex-direction: column;
     justify-content: center;
@@ -2214,15 +2223,70 @@ textarea:focus {
   .painel-formulario {
     padding: 14px;
   }
+
+  .rodape-copyright {
+    display: none;
+  }
 }
 
 @media (max-width: 620px) {
+  body {
+    background: var(--fundo);
+  }
+
+  .barra-lateral {
+    padding: 12px;
+  }
+
+  .marca span {
+    width: 40px;
+    height: 40px;
+  }
+
+  .conteudo-app {
+    padding: 18px 12px 112px;
+  }
+
+  .atalhos-superiores {
+    margin-bottom: 10px;
+  }
+
+  .botao {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .botao.compacto {
+    min-height: 40px;
+  }
+
+  .acoes-revisao,
+  .acoes-formulario,
+  .acoes-detalhe-edicao,
+  .acoes-estante,
+  .historia-acoes {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .acoes-revisao .botao,
+  .acoes-formulario .botao,
+  .acoes-detalhe-edicao .botao,
+  .acoes-estante .botao,
+  .historia-acoes .botao {
+    width: 100%;
+  }
+
   .cabecalho-pagina {
     display: grid;
+    gap: 12px;
+    margin-bottom: 18px;
   }
 
   .cabecalho-pagina h1 {
     font-size: 1.6rem;
+    line-height: 1.08;
   }
 
   .barra-busca,
@@ -2271,6 +2335,7 @@ textarea:focus {
     width: 100%;
     grid-auto-flow: row;
     grid-template-columns: repeat(3, 1fr);
+    overflow-x: auto;
   }
 
   .grade-volumes,
@@ -2281,6 +2346,14 @@ textarea:focus {
   .cartao-volume,
   .compra-card {
     grid-template-columns: 82px minmax(0, 1fr);
+  }
+
+  .cartao-volume,
+  .cartao-edicao,
+  .compra-card,
+  .anuncio-card,
+  .publicacao-card {
+    box-shadow: 0 10px 28px rgba(21, 25, 31, 0.1);
   }
 
   .compra-card strong {
@@ -2303,7 +2376,7 @@ textarea:focus {
     height: 100vh;
     margin: 0;
     border-radius: 0;
-    padding: 16px;
+    padding: 14px 12px 104px;
   }
 
   .detalhe-cabecalho,
@@ -2362,5 +2435,44 @@ textarea:focus {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .conteudo-app {
+    padding-inline: 10px;
+  }
+
+  .metricas,
+  .metricas-estante {
+    grid-template-columns: 1fr;
+  }
+
+  .navegacao-mobile {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .navegacao-mobile a,
+  .navegacao-mobile button {
+    flex-basis: 66px;
+    font-size: 0.68rem;
+  }
+
+  .cartao-volume,
+  .compra-card,
+  .anuncio-card {
+    grid-template-columns: 68px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .detalhe-cabecalho img {
+    max-width: 190px;
+  }
+
+  .linha-info {
+    display: grid;
+    gap: 2px;
   }
 }
