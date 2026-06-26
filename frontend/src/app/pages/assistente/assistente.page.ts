@@ -67,7 +67,7 @@ export class AssistentePage {
     {
       autor: 'assistente',
       texto:
-        'Olá! Eu sou o Huguinho, o seu assistente virtual! Tenho hiperfoco sazonal. Já fui hiperfocado em Lanterna Verde, Demolidor, Homem Aranha e agora é a vez do Tex. Mas chega de falar de mim, diga em que posso lhe ajudar, antes que eu me invoque e bloqueie a sua conta!',
+        'Oi, eu sou o Huguinho! O seu assistente virtual. Quer que eu te ajude com algo? Diga logo antes que eu me invoque e apague a sua conta!',
     },
   ]);
   readonly sugestoes = signal<AssistenteFaqItem[]>([]);
