@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.jboss.logging.Logger;
 
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
@@ -32,6 +33,10 @@ public class TratadorGlobalException implements ExceptionMapper<Exception> {
                     .map(item -> item.getMessage())
                     .collect(Collectors.joining(" "));
             return criarResposta(Response.Status.BAD_REQUEST, mensagem);
+        }
+
+        if (excecao instanceof ValidationException) {
+            return criarResposta(Response.Status.BAD_REQUEST, "Verifique se os dados enviados estão válidos.");
         }
 
         if (excecao instanceof WebApplicationException webApplicationException
