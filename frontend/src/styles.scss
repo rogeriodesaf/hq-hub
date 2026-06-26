@@ -1864,6 +1864,24 @@ textarea:focus {
   gap: 12px;
 }
 
+.filtros-periodo-compras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.filtros-periodo-compras span {
+  color: var(--texto-suave);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.filtros-periodo-compras select,
+.filtros-periodo-compras input {
+  min-width: 110px;
+}
+
 .resumo-planejamento {
   display: grid;
   gap: 14px;
@@ -2085,6 +2103,10 @@ textarea:focus {
   gap: 14px;
   align-items: center;
   padding: 12px;
+}
+
+.compra-card select {
+  max-width: 180px;
 }
 
 .compra-card strong {

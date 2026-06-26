@@ -467,12 +467,18 @@ export class ApiService {
     return this.http.get<{ total: number }>('/api/mensagens/nao-lidas/total');
   }
 
-  listarComprasPlanejadas(mes?: number, ano?: number) {
+  listarComprasPlanejadas(mes?: number, ano?: number, periodo?: { mesInicio: number; anoInicio: number; mesFim: number; anoFim: number }) {
     let params = new HttpParams();
-    if (mes) {
+    if (periodo) {
+      params = params
+        .set('mesInicio', periodo.mesInicio)
+        .set('anoInicio', periodo.anoInicio)
+        .set('mesFim', periodo.mesFim)
+        .set('anoFim', periodo.anoFim);
+    } else if (mes) {
       params = params.set('mes', mes);
     }
-    if (ano) {
+    if (!periodo && ano) {
       params = params.set('ano', ano);
     }
 
@@ -481,6 +487,10 @@ export class ApiService {
 
   cadastrarCompraPlanejada(dto: CadastroCompraPlanejada) {
     return this.http.post<CompraPlanejada>('/api/compras-planejadas', dto);
+  }
+
+  atualizarCompraPlanejada(id: number, dto: Omit<CadastroCompraPlanejada, 'edicaoId'>) {
+    return this.http.put<CompraPlanejada>(`/api/compras-planejadas/${id}`, dto);
   }
 
   buscarItemColecaoPorOrigemExterna(fonteExterna: string, idExterno: string) {

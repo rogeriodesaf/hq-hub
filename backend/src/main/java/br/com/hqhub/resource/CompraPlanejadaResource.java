@@ -48,8 +48,14 @@ public class CompraPlanejadaResource {
     }
 
     @GET
-    public Response listar(@QueryParam("mes") Integer mes, @QueryParam("ano") Integer ano) {
-        List<CompraPlanejadaRespostaDTO> compras = compraPlanejadaService.listar(mes, ano);
+    public Response listar(
+            @QueryParam("mes") Integer mes,
+            @QueryParam("ano") Integer ano,
+            @QueryParam("mesInicio") Integer mesInicio,
+            @QueryParam("anoInicio") Integer anoInicio,
+            @QueryParam("mesFim") Integer mesFim,
+            @QueryParam("anoFim") Integer anoFim) {
+        List<CompraPlanejadaRespostaDTO> compras = compraPlanejadaService.listar(mes, ano, mesInicio, anoInicio, mesFim, anoFim);
         return Response.ok(compras).build();
     }
 

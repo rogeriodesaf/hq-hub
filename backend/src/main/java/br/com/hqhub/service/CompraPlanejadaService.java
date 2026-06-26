@@ -66,10 +66,22 @@ public class CompraPlanejadaService {
 
     @Transactional
     public List<CompraPlanejadaRespostaDTO> listar(Integer mes, Integer ano) {
+        return listar(mes, ano, null, null, null, null);
+    }
+
+    @Transactional
+    public List<CompraPlanejadaRespostaDTO> listar(Integer mes, Integer ano, Integer mesInicio, Integer anoInicio, Integer mesFim, Integer anoFim) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        List<CompraPlanejada> compras = mes != null && ano != null
-                ? compraPlanejadaRepository.list("usuario.id = ?1 and mes = ?2 and ano = ?3", usuario.getId(), mes, ano)
-                : compraPlanejadaRepository.list("usuario.id", usuario.getId());
+        List<CompraPlanejada> compras;
+        if (mesInicio != null && anoInicio != null && mesFim != null && anoFim != null) {
+            compras = compraPlanejadaRepository.list(
+                    "usuario.id = ?1 and (ano > ?2 or (ano = ?2 and mes >= ?3)) and (ano < ?4 or (ano = ?4 and mes <= ?5))",
+                    usuario.getId(), anoInicio, mesInicio, anoFim, mesFim);
+        } else if (mes != null && ano != null) {
+            compras = compraPlanejadaRepository.list("usuario.id = ?1 and mes = ?2 and ano = ?3", usuario.getId(), mes, ano);
+        } else {
+            compras = compraPlanejadaRepository.list("usuario.id", usuario.getId());
+        }
 
         return compras.stream()
                 .sorted(Comparator.comparing(CompraPlanejada::getAno)

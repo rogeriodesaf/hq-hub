@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { ColecaoResumo, ImagemFeed, PostagemFeed } from '../../core/modelos';
+import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
 @Component({
@@ -196,6 +196,26 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       </div>
 
       <aside class="bloco feed-lateral">
+        @if (anuncios().length) {
+          <section class="anuncios-feed-card">
+            <div>
+              <p class="rotulo">Classificados</p>
+              <h2>Revistas anunciadas</h2>
+            </div>
+            @for (anuncio of anuncios().slice(0, 3); track anuncio.id) {
+              <article>
+                <img [src]="anuncio.itemColecao.edicao.urlCapa || 'assets/capa-reserva.svg'" [alt]="anuncio.tituloEdicao" loading="lazy" />
+                <div>
+                  <strong>{{ anuncio.tituloEdicao }}</strong>
+                  <span>{{ anuncio.nomeAnunciante }}</span>
+                  <small>{{ anuncio.preco ? formatarMoeda(anuncio.preco) : 'Valor a combinar' }}</small>
+                </div>
+              </article>
+            }
+            <a class="botao compacto primario" routerLink="/anuncios">Ver anuncios</a>
+          </section>
+        }
+
         <p class="rotulo">Atalhos</p>
         <div class="lista-acoes">
           <a routerLink="/perfil">Meu perfil</a>
@@ -413,6 +433,53 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       gap: 16px;
     }
 
+    .anuncios-feed-card {
+      display: grid;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .anuncios-feed-card h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .anuncios-feed-card article {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    .anuncios-feed-card img {
+      width: 52px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--superficie-suave);
+    }
+
+    .anuncios-feed-card article div {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .anuncios-feed-card strong,
+    .anuncios-feed-card span,
+    .anuncios-feed-card small {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .anuncios-feed-card span,
+    .anuncios-feed-card small {
+      color: var(--texto-suave);
+      font-size: 0.82rem;
+    }
+
     .link-perfil {
       display: block;
       cursor: pointer;
@@ -456,6 +523,7 @@ export class PainelPage implements OnInit {
   readonly usuario = this.autenticacao.usuario;
   readonly resumo = signal<ColecaoResumo | null>(null);
   readonly feed = signal<PostagemFeed[]>([]);
+  readonly anuncios = signal<Anuncio[]>([]);
   readonly publicando = signal(false);
   readonly interagindoId = signal<number | null>(null);
   readonly mensagem = signal('');
@@ -467,6 +535,7 @@ export class PainelPage implements OnInit {
   ngOnInit() {
     this.carregarResumo();
     this.carregarFeed();
+    this.carregarAnuncios();
   }
 
   publicar() {
@@ -625,6 +694,13 @@ export class PainelPage implements OnInit {
     this.api.listarFeed().subscribe({
       next: (feed) => this.feed.set(feed),
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel carregar o feed.'),
+    });
+  }
+
+  private carregarAnuncios() {
+    this.api.listarAnuncios().subscribe({
+      next: (anuncios) => this.anuncios.set(anuncios.slice(0, 3)),
+      error: () => this.anuncios.set([]),
     });
   }
 

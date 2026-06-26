@@ -112,20 +112,28 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
       }
     </section>
 
-    <section class="filtros-mes">
-      <select [(ngModel)]="mes" (change)="carregar()">
+    <section class="filtros-mes filtros-periodo-compras">
+      <span>De</span>
+      <select [(ngModel)]="mesInicio" (change)="carregar()">
         @for (nome of meses; track nome; let indice = $index) {
           <option [ngValue]="indice + 1">{{ nome }}</option>
         }
       </select>
-      <input type="number" [(ngModel)]="ano" (change)="carregar()" />
+      <input type="number" [(ngModel)]="anoInicio" (change)="carregar()" />
+      <span>Ate</span>
+      <select [(ngModel)]="mesFim" (change)="carregar()">
+        @for (nome of meses; track nome; let indice = $index) {
+          <option [ngValue]="indice + 1">{{ nome }}</option>
+        }
+      </select>
+      <input type="number" [(ngModel)]="anoFim" (change)="carregar()" />
     </section>
 
     @if (compras().length) {
       <section class="bloco resumo-planejamento">
         <div>
           <p class="rotulo">Resumo do período</p>
-          <h2>{{ meses[mes - 1] }} de {{ ano }}</h2>
+          <h2>{{ rotuloPeriodo() }}</h2>
         </div>
         <div class="metricas-planejamento">
           <article>
@@ -156,6 +164,14 @@ import { CompraPlanejada, Edicao } from '../../core/modelos';
             <p class="rotulo">{{ compra.prioridade }} · {{ compra.status }}</p>
             <h2>{{ compra.edicao.serie?.titulo }} #{{ compra.edicao.numero }}</h2>
             <p>{{ compra.observacoes || 'Sem observacoes.' }}</p>
+            <div class="acoes-linha">
+              <select [ngModel]="compra.status" (ngModelChange)="alterarStatus(compra, $event)" [disabled]="salvando()">
+                <option value="PLANEJADA">Planejada</option>
+                <option value="COMPRADA">Comprada</option>
+                <option value="ADIADA">Adiada</option>
+                <option value="CANCELADA">Cancelada</option>
+              </select>
+            </div>
             @if (compra.linkCompra) {
               <a class="botao compacto" [href]="compra.linkCompra" target="_blank" rel="noreferrer">Abrir loja</a>
             }
@@ -184,6 +200,10 @@ export class ComprasPage implements OnInit {
   readonly mensagem = signal('');
   mes = new Date().getMonth() + 1;
   ano = new Date().getFullYear();
+  mesInicio = this.mes;
+  anoInicio = this.ano;
+  mesFim = this.mes;
+  anoFim = this.ano;
   buscaEdicao = '';
   orcamentoPeriodo: number | null = null;
   formulario = {
@@ -202,7 +222,15 @@ export class ComprasPage implements OnInit {
   }
 
   carregar() {
-    this.api.listarComprasPlanejadas(this.mes, this.ano).subscribe({
+    this.ordenarPeriodo();
+    this.mes = this.mesInicio;
+    this.ano = this.anoInicio;
+    this.api.listarComprasPlanejadas(undefined, undefined, {
+      mesInicio: this.mesInicio,
+      anoInicio: this.anoInicio,
+      mesFim: this.mesFim,
+      anoFim: this.anoFim,
+    }).subscribe({
       next: (resposta) => this.compras.set(resposta),
       error: () => this.compras.set([]),
     });
@@ -230,7 +258,9 @@ export class ComprasPage implements OnInit {
 
         forkJoin(buscas).subscribe({
           next: (respostas) => {
-            const edicoes = this.ordenarEdicoes(this.deduplicarEdicoes(respostas.flatMap((resposta: any) => resposta.itens || [])));
+            const edicoes = this.ordenarEdicoes(
+              this.filtrarEdicoesPorTermos(this.deduplicarEdicoes(respostas.flatMap((resposta: any) => resposta.itens || [])), termo),
+            );
             this.edicoesEncontradas.set(edicoes);
             this.mostrarResultadosEdicoes.set(true);
             this.buscandoEdicoes.set(false);
@@ -249,7 +279,7 @@ export class ComprasPage implements OnInit {
       error: () => {
         this.api.listarEdicoes(termo, 0, 80).subscribe({
           next: (resposta) => {
-            this.edicoesEncontradas.set(this.ordenarEdicoes(resposta.itens));
+            this.edicoesEncontradas.set(this.ordenarEdicoes(this.filtrarEdicoesPorTermos(resposta.itens, termo)));
             this.mostrarResultadosEdicoes.set(true);
             this.buscandoEdicoes.set(false);
           },
@@ -276,6 +306,43 @@ export class ComprasPage implements OnInit {
       }
       return this.numeroOrdenacao(a.numero) - this.numeroOrdenacao(b.numero);
     });
+  }
+
+  private filtrarEdicoesPorTermos(edicoes: Edicao[], termo: string) {
+    const termos = this.termosObrigatorios(termo);
+    if (!termos.length) {
+      return edicoes;
+    }
+
+    return edicoes.filter((edicao) => {
+      const texto = this.normalizarBusca([
+        edicao.serie?.titulo,
+        edicao.numero,
+        edicao.titulo,
+        edicao.serie?.editora?.nome,
+      ].filter(Boolean).join(' '));
+      return termos.every((item) => texto.includes(item));
+    });
+  }
+
+  private termosObrigatorios(termo: string) {
+    const ignorar = new Set(['a', 'o', 'os', 'as', 'do', 'da', 'dos', 'das', 'de', 'e', 'the']);
+    return this.normalizarBusca(termo)
+      .split(' ')
+      .map((item) => item.trim())
+      .filter((item) => item.length > 1 && !ignorar.has(item));
+  }
+
+  private normalizarBusca(valor: string) {
+    return valor
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('pt-BR')
+      .replace(/x[\s-]?m[e]?m/g, 'xmen')
+      .replace(/x[\s-]?men/g, 'xmen')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   private numeroOrdenacao(numero: string | null | undefined) {
@@ -348,6 +415,10 @@ export class ComprasPage implements OnInit {
           this.salvando.set(false);
           this.mes = this.formulario.mes;
           this.ano = this.formulario.ano;
+          this.mesInicio = this.formulario.mes;
+          this.anoInicio = this.formulario.ano;
+          this.mesFim = this.formulario.mes;
+          this.anoFim = this.formulario.ano;
           this.formulario = {
             ...this.formulario,
             edicaoId: null,
@@ -377,12 +448,56 @@ export class ComprasPage implements OnInit {
   }
 
   abrirBuscaAmazon() {
+    if (this.formulario.linkCompra?.trim()) {
+      window.open(this.formulario.linkCompra.trim(), '_blank', 'noreferrer');
+      return;
+    }
+
     const termo = encodeURIComponent(this.buscaEdicao.trim());
     window.open(`https://www.amazon.com.br/s?k=${termo}`, '_blank', 'noreferrer');
   }
 
   tituloEdicao(edicao: Edicao) {
     return `${edicao.serie?.titulo || 'Serie nao informada'} #${edicao.numero}${edicao.titulo ? ' - ' + edicao.titulo : ''}`;
+  }
+
+  alterarStatus(compra: CompraPlanejada, status: string) {
+    this.salvando.set(true);
+    this.api.atualizarCompraPlanejada(compra.id, {
+      mes: compra.mes,
+      ano: compra.ano,
+      prioridade: compra.prioridade,
+      status,
+      precoEstimado: compra.precoEstimado,
+      linkCompra: compra.linkCompra,
+      observacoes: compra.observacoes,
+    }).subscribe({
+      next: (atualizada) => {
+        this.compras.update((compras) => compras.map((item) => item.id === atualizada.id ? atualizada : item));
+        this.salvando.set(false);
+      },
+      error: () => {
+        this.salvando.set(false);
+        this.mensagem.set('Nao foi possivel atualizar o status da compra.');
+      },
+    });
+  }
+
+  rotuloPeriodo() {
+    const inicio = `${this.meses[this.mesInicio - 1]} de ${this.anoInicio}`;
+    const fim = `${this.meses[this.mesFim - 1]} de ${this.anoFim}`;
+    return inicio === fim ? inicio : `${inicio} a ${fim}`;
+  }
+
+  private ordenarPeriodo() {
+    const inicio = this.anoInicio * 100 + this.mesInicio;
+    const fim = this.anoFim * 100 + this.mesFim;
+    if (inicio <= fim) {
+      return;
+    }
+
+    [this.mesInicio, this.mesFim] = [this.mesFim, this.mesInicio];
+    [this.anoInicio, this.anoFim] = [this.anoFim, this.anoInicio];
   }
 }
 
