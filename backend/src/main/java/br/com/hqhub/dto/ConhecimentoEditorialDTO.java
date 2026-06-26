@@ -17,7 +17,7 @@ public record ConhecimentoEditorialDTO(
         String relacionadas) {
 }
 
-record CadastroConhecimentoEditorialDTO(
+public record CadastroConhecimentoEditorialDTO(
         String tipo,
         String titulo,
         String conteudo,
@@ -28,7 +28,7 @@ record CadastroConhecimentoEditorialDTO(
         String tags) {
 }
 
-record ResultadoBuscaConhecimentoDTO(
+public record ResultadoBuscaConhecimentoDTO(
         Long id,
         String tipo,
         String titulo,
