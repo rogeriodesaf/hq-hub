@@ -125,11 +125,27 @@ public class AnuncioMapper {
                 + tituloEdicao(anuncio)
                 + ". Ela ainda está disponível?";
 
-        return "https://wa.me/" + contato + "?text=" + URLEncoder.encode(mensagem, StandardCharsets.UTF_8);
+        return "https://api.whatsapp.com/send?phone=" + numeroWhatsappParaLink(contato)
+                + "&text=" + codificarMensagemWhatsapp(mensagem);
     }
 
     private String tituloEdicao(Anuncio anuncio) {
         return anuncio.getItemColecao().getEdicao().getSerie().getTitulo()
                 + " #" + anuncio.getItemColecao().getEdicao().getNumero();
+    }
+
+    private String numeroWhatsappParaLink(String contato) {
+        String numero = contato.replaceAll("\\D", "");
+        while (numero.startsWith("0")) {
+            numero = numero.substring(1);
+        }
+        if ((numero.length() == 10 || numero.length() == 11) && !numero.startsWith("55")) {
+            return "55" + numero;
+        }
+        return numero;
+    }
+
+    private String codificarMensagemWhatsapp(String mensagem) {
+        return URLEncoder.encode(mensagem, StandardCharsets.UTF_8).replace("+", "%20");
     }
 }

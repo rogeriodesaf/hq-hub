@@ -2107,6 +2107,15 @@ textarea:focus {
   font-weight: 900;
 }
 
+.grade-canais img {
+  width: 44px;
+  height: 44px;
+  grid-row: span 2;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #15191f;
+}
+
 .grade-canais strong,
 .grade-canais small {
   display: block;

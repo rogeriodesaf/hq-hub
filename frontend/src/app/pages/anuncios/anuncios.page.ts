@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core/modelos';
 
 @Component({
   selector: 'app-anuncios-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <section class="cabecalho-pagina">
       <div>
         <p class="rotulo">Classificados</p>
         <h1>Venda, troca e procura entre colecionadores.</h1>
       </div>
+      <a class="botao" routerLink="/canais">Ver canais</a>
     </section>
 
     <section class="anuncios-layout">
@@ -177,9 +179,9 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
               <strong>{{ anuncio.preco ? formatarMoeda(anuncio.preco) : 'Valor a combinar' }}</strong>
               <div class="acoes-linha">
                 @if (anuncio.linkContatoWhatsapp) {
-                  <a class="botao compacto primario" [href]="anuncio.linkContatoWhatsapp" target="_blank" rel="noreferrer">
+                  <button class="botao compacto primario" type="button" (click)="abrirWhatsapp(anuncio.linkContatoWhatsapp)">
                     Chamar no WhatsApp
-                  </a>
+                  </button>
                 } @else {
                   <button class="botao compacto" type="button" (click)="obterContato(anuncio)">Ver contato</button>
                 }
@@ -194,25 +196,6 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
         }
       </section>
     </section>
-
-    <section class="bloco canais-hq">
-      <div class="secao-titulo">
-        <div>
-          <p class="rotulo">Canais parceiros</p>
-          <h2>Conteudo sobre colecionismo e HQs</h2>
-        </div>
-      </div>
-
-      <div class="grade-canais">
-        @for (canal of canaisYoutube; track canal.url) {
-          <a [href]="canal.url" target="_blank" rel="noreferrer">
-            <span>{{ iniciaisCanal(canal.nome) }}</span>
-            <strong>{{ canal.nome }}</strong>
-            <small>YouTube</small>
-          </a>
-        }
-      </div>
-    </section>
   `,
 })
 export class AnunciosPage implements OnInit {
@@ -225,14 +208,6 @@ export class AnunciosPage implements OnInit {
   readonly meusAnuncios = signal<Anuncio[]>([]);
   readonly salvando = signal(false);
   readonly mensagemFormulario = signal('');
-  readonly canaisYoutube = [
-    { nome: 'Nona Dimensao', url: 'https://www.youtube.com/@Nonadimens%C3%A3o' },
-    { nome: 'Colecionador por Hobby', url: 'https://www.youtube.com/@colecionadorporhobby' },
-    { nome: 'Na Minha Estante HQs', url: 'https://www.youtube.com/@NaMinhaEstanteHQs' },
-    { nome: 'Chiclete com Lombada', url: 'https://www.youtube.com/@Chicletecomlombada' },
-    { nome: 'Ola Mundo Geek', url: 'https://www.youtube.com/@Ol%C3%A1MundoGeek' },
-    { nome: 'Contraponto HQs', url: 'https://www.youtube.com/@contrapontohqs' },
-  ];
   buscaItem = '';
   formulario = {
     tipoAnuncio: 'VENDA' as TipoAnuncio,
@@ -347,9 +322,18 @@ export class AnunciosPage implements OnInit {
 
   obterContato(anuncio: Anuncio) {
     this.api.obterContatoAnuncio(anuncio.id).subscribe({
-      next: (contato) => window.open(contato.linkWhatsapp, '_blank', 'noreferrer'),
+      next: (contato) => this.abrirWhatsapp(contato.linkWhatsapp),
       error: () => this.mensagemFormulario.set('Este anunciante nao disponibilizou contato pelo WhatsApp.'),
     });
+  }
+
+  abrirWhatsapp(url: string) {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.location.href = url;
+      return;
+    }
+
+    window.open(url, '_blank', 'noreferrer');
   }
 
   tituloItem(item: ItemColecao) {
@@ -368,15 +352,6 @@ export class AnunciosPage implements OnInit {
 
   formatarMoeda(valor: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-  }
-
-  iniciaisCanal(nome: string) {
-    return nome
-      .split(' ')
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((parte) => parte[0]?.toUpperCase())
-      .join('');
   }
 
   private limparFormulario() {

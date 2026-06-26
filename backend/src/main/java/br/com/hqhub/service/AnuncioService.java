@@ -195,8 +195,9 @@ public class AnuncioService {
         String titulo = anuncio.getItemColecao().getEdicao().getSerie().getTitulo()
                 + " nº " + anuncio.getItemColecao().getEdicao().getNumero();
         String mensagem = "Olá, vi no HQ-HUB que você está anunciando a HQ " + titulo + ". Ela ainda está disponível?";
-        String contatoLimpo = anuncio.getContatoWhatsapp().replaceAll("\\D", "");
-        String link = "https://wa.me/" + contatoLimpo + "?text=" + URLEncoder.encode(mensagem, StandardCharsets.UTF_8);
+        String contatoLimpo = numeroWhatsappParaLink(anuncio.getContatoWhatsapp());
+        String link = "https://api.whatsapp.com/send?phone=" + contatoLimpo
+                + "&text=" + codificarMensagemWhatsapp(mensagem);
 
         return new ContatoAnuncioRespostaDTO(
                 anuncio.getId(),
@@ -223,5 +224,20 @@ public class AnuncioService {
         if ((tipoAnuncio == TipoAnuncio.VENDA || tipoAnuncio == TipoAnuncio.VENDA_E_TROCA) && preco == null) {
             return;
         }
+    }
+
+    private String numeroWhatsappParaLink(String contato) {
+        String numero = contato.replaceAll("\\D", "");
+        while (numero.startsWith("0")) {
+            numero = numero.substring(1);
+        }
+        if ((numero.length() == 10 || numero.length() == 11) && !numero.startsWith("55")) {
+            return "55" + numero;
+        }
+        return numero;
+    }
+
+    private String codificarMensagemWhatsapp(String mensagem) {
+        return URLEncoder.encode(mensagem, StandardCharsets.UTF_8).replace("+", "%20");
     }
 }

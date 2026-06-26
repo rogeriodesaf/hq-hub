@@ -14,6 +14,7 @@ import {
   LucideSearch,
   LucideShoppingBag,
   LucideUsers,
+  LucideTv,
 } from '@lucide/angular';
 import { filter, forkJoin } from 'rxjs';
 
@@ -41,6 +42,7 @@ import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
     LucideSearch,
     LucideShoppingBag,
     LucideUsers,
+    LucideTv,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
