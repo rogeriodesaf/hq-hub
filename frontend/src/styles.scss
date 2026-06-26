@@ -85,15 +85,12 @@ img {
   min-height: 48px;
 }
 
-.marca span {
-  display: grid;
-  width: 46px;
-  height: 46px;
-  place-items: center;
+.marca img {
+  width: 54px;
+  height: 54px;
   border-radius: 8px;
-  background: var(--amarelo);
-  color: #15191f;
-  font-weight: 900;
+  object-fit: cover;
+  background: #15191f;
 }
 
 .marca strong {
@@ -536,13 +533,13 @@ img {
 }
 
 .marca-grande {
-  width: max-content;
+  width: 118px;
+  height: 118px;
   margin-bottom: auto;
-  padding: 10px 14px;
   border-radius: 8px;
-  color: #15191f;
-  background: var(--amarelo);
-  font-weight: 900;
+  object-fit: cover;
+  background: #15191f;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
 .auth-visual h1 {
@@ -2238,9 +2235,9 @@ textarea:focus {
     padding: 12px;
   }
 
-  .marca span {
-    width: 40px;
-    height: 40px;
+  .marca img {
+    width: 46px;
+    height: 46px;
   }
 
   .conteudo-app {

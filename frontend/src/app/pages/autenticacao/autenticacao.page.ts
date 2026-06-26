@@ -13,7 +13,7 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
   template: `
     <main class="auth-page">
       <section class="auth-visual">
-        <div class="marca-grande">HQ-HUB</div>
+        <img class="marca-grande" src="assets/logo-hqhub.png" alt="HQ-HUB" />
         <h1>Sua coleção inteira, organizada para caber no bolso.</h1>
         <p>Pesquise edições, acompanhe faltantes, monte sua estante e planeje próximas compras.</p>
         <div class="capas-demo" aria-hidden="true">
@@ -258,4 +258,3 @@ export class AutenticacaoPage implements OnInit {
     this.mensagem.set(resposta.error?.mensagem ?? 'Não foi possível completar a ação.');
   }
 }
-
