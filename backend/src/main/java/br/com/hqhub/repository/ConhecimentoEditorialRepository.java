@@ -26,7 +26,7 @@ public class ConhecimentoEditorialRepository implements PanacheRepository<Conhec
     }
 
     public List<ConhecimentoEditorial> buscarRecentes(int limite) {
-        return list("ORDER BY dataAtualizacao DESC")
+        return find("ORDER BY dataAtualizacao DESC")
                 .page(0, limite)
                 .list();
     }

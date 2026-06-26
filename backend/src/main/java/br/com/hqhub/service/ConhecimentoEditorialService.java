@@ -128,7 +128,7 @@ public class ConhecimentoEditorialService {
                     k.conteudo = dto.conteudo();
                     k.fonte = dto.fonte();
                     k.urlFonte = dto.urlFonte();
-                    k.confianca = dto.confianca() != null ? dto.confianca() : k.confianca();
+                    k.confianca = dto.confianca() != null ? dto.confianca() : k.confianca;
                     k.tags = dto.tags();
                     k.dataAtualizacao = LocalDateTime.now();
                     repository.persist(k);
