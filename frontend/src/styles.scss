@@ -12,8 +12,11 @@
   --texto-suave: #65717d;
   --borda: #d9d5cc;
   --vermelho: #d94141;
+  --marca: #ff7a00;
+  --marca-escura: #b84a00;
+  --marca-suave: rgba(255, 122, 0, 0.14);
   --amarelo: #f0b429;
-  --azul: #266a7f;
+  --azul: var(--marca-escura);
   --verde: #2f8f6b;
   --sombra: 0 18px 48px rgba(21, 25, 31, 0.12);
 }
@@ -122,7 +125,7 @@ img {
 
 .navegacao-principal a.ativo,
 .navegacao-principal a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 122, 0, 0.18);
   color: #fff;
 }
 
@@ -216,7 +219,8 @@ img {
   height: 42px;
   place-items: center;
   border-radius: 8px;
-  background: var(--vermelho);
+  color: #15191f;
+  background: var(--marca);
   font-weight: 800;
 }
 
@@ -393,9 +397,10 @@ img {
 }
 
 .botao.primario {
-  border-color: #15191f;
-  color: #fff;
-  background: #15191f;
+  border-color: var(--marca);
+  color: #15191f;
+  background: var(--marca);
+  box-shadow: 0 10px 22px rgba(255, 122, 0, 0.24);
 }
 
 .botao.perigo {
@@ -480,7 +485,7 @@ img {
   gap: 22px;
   color: #fff;
   background:
-    linear-gradient(135deg, rgba(21, 25, 31, 0.96), rgba(38, 106, 127, 0.9)),
+    linear-gradient(135deg, rgba(21, 25, 31, 0.96), rgba(184, 74, 0, 0.9)),
     #15191f;
 }
 
@@ -531,7 +536,7 @@ img {
   border-radius: 8px;
   color: #fff;
   background:
-    linear-gradient(145deg, rgba(21, 25, 31, 0.94), rgba(217, 65, 65, 0.72)),
+    linear-gradient(145deg, rgba(21, 25, 31, 0.94), rgba(255, 122, 0, 0.72)),
     #15191f;
   overflow: hidden;
 }
@@ -649,7 +654,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--azul);
-  box-shadow: 0 0 0 3px rgba(38, 106, 127, 0.14);
+  box-shadow: 0 0 0 3px var(--marca-suave);
 }
 
 .mensagem-erro {
@@ -691,10 +696,10 @@ textarea:focus {
 .estado-pesquisa {
   margin: 0 0 18px;
   padding: 12px 14px;
-  border: 1px solid rgba(38, 106, 127, 0.18);
+  border: 1px solid rgba(255, 122, 0, 0.22);
   border-radius: 8px;
   color: var(--texto);
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.1);
 }
 
 .estado-pesquisa p {
@@ -1136,10 +1141,10 @@ textarea:focus {
   align-items: center;
   min-height: 32px;
   padding: 0 10px;
-  border: 1px solid rgba(38, 106, 127, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.22);
   border-radius: 999px;
   color: var(--azul);
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
   font-size: 0.9rem;
   font-weight: 800;
 }
@@ -1174,9 +1179,9 @@ textarea:focus {
   gap: 8px;
   margin-top: 12px;
   padding: 12px;
-  border: 1px solid rgba(38, 106, 127, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.22);
   border-radius: 8px;
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .resultado-inflacao strong {
@@ -1267,10 +1272,10 @@ textarea:focus {
   min-height: 24px;
   margin-left: 8px;
   padding: 0 8px;
-  border: 1px solid rgba(38, 106, 127, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.22);
   border-radius: 999px;
   color: var(--azul);
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
   font-size: 0.78rem;
   font-weight: 850;
   text-decoration: none;
@@ -1316,7 +1321,7 @@ textarea:focus {
 .lista-escolha button.ativo,
 .lista-escolha button:hover {
   border-color: var(--azul);
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .lista-escolha strong,
@@ -1340,9 +1345,9 @@ textarea:focus {
   gap: 10px;
   min-height: 46px;
   padding: 10px 12px;
-  border: 1px solid rgba(38, 106, 127, 0.22);
+  border: 1px solid rgba(255, 122, 0, 0.22);
   border-radius: 8px;
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .selecao-existente strong {
@@ -1447,8 +1452,8 @@ textarea:focus {
 .lista-conversas button.ativo,
 .lista-conversas button:hover,
 .lista-amigos-chat button:hover {
-  border-color: rgba(38, 106, 127, 0.42);
-  background: rgba(38, 106, 127, 0.08);
+  border-color: rgba(255, 122, 0, 0.42);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .lista-conversas strong,
@@ -1612,7 +1617,7 @@ textarea:focus {
 
 .lista-linhas button.ativo {
   border-color: var(--azul);
-  background: rgba(38, 106, 127, 0.08);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .lista-linhas strong,
@@ -1645,8 +1650,8 @@ textarea:focus {
 }
 
 .resultado-catalogo.externo {
-  border-color: rgba(38, 106, 127, 0.32);
-  background: rgba(38, 106, 127, 0.08);
+  border-color: rgba(255, 122, 0, 0.32);
+  background: rgba(255, 122, 0, 0.08);
 }
 
 .mini-capa strong,
@@ -1669,7 +1674,7 @@ textarea:focus {
   padding: 3px 7px;
   border-radius: 999px;
   color: var(--azul);
-  background: rgba(38, 106, 127, 0.1);
+  background: rgba(255, 122, 0, 0.1);
   font-size: 0.72rem;
   font-style: normal;
   font-weight: 850;
@@ -1706,7 +1711,7 @@ textarea:focus {
 .estado-carregando span {
   width: 42px;
   height: 42px;
-  border: 4px solid rgba(38, 106, 127, 0.18);
+  border: 4px solid rgba(255, 122, 0, 0.18);
   border-top-color: var(--azul);
   border-radius: 50%;
   animation: girar 0.85s linear infinite;
@@ -2235,7 +2240,7 @@ textarea:focus {
 
   .navegacao-mobile a.ativo {
     color: #fff;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 122, 0, 0.2);
   }
 
   .auth-page {

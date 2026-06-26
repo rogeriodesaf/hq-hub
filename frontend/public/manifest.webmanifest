@@ -1,7 +1,7 @@
 {
   "name": "HQ-HUB",
   "short_name": "HQ-HUB",
-  "theme_color": "#15191f",
+  "theme_color": "#ff7a00",
   "background_color": "#f6f2ea",
   "display": "standalone",
   "orientation": "portrait",
