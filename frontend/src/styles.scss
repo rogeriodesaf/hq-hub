@@ -812,9 +812,22 @@ body.tema-escuro .fechar-detalhe,
 body.tema-escuro .chat,
 body.tema-escuro .botao-sugestao,
 body.tema-escuro .painel-notificacoes,
+body.tema-escuro .metricas article,
 body.tema-escuro .card,
 body.tema-escuro .bloco {
   background: var(--superficie);
+}
+
+body.tema-escuro .metricas article {
+  border-color: var(--borda);
+}
+
+body.tema-escuro .metricas span {
+  color: var(--marca-escura);
+}
+
+body.tema-escuro .metricas p {
+  color: var(--texto);
 }
 
 body.tema-escuro .abas-filtro button.ativo,
