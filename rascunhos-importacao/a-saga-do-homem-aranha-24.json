@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-24/sa011137/183525",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-24/sa011137/183525"
+    ],
+    "geradoEm": "2026-06-26T21:34:37",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "24",
+      "tituloChamada": "A última edição da primeira temporada!",
+      "dataPublicacao": "2025-03-01",
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61UaNM-jwsL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Homem-Aranha, A 1ª Série - n° 24\nPublicado em: março de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Allen \"Al\" Milgrom Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Quem é esta garota?",
+          "tituloOriginal": "Who's That Lady?",
+          "quantidadePaginas": 37,
+          "resumo": "Origem e primeira aparição da Capitã Marvel, Monica Rambeau (também conhecida posteriormente como Fóton).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1982,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 16/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os caçadores e a caça!",
+          "tituloOriginal": "The Hunters and the Hunted!",
+          "quantidadePaginas": 32,
+          "resumo": "Ao investigar uma quadrilha suspeita do assassinato de adolescentes em Nova York nosso cabaça-de-teia vai contar com a surpreendente ajuda de Manto e Adaga e dos Novos Mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up Annual (1976)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up Annual (1976) n° 6/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O aranha e o monstro",
+          "tituloOriginal": "Hyde and Seek!",
+          "quantidadePaginas": 22,
+          "resumo": "A Gata Negra quer lutar lado a lado com o Homem-Aranha, mas lutar contra o Senhor Hyde e o Cobra pode ser mais do que ambos os heróis conseguem suportar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "88",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 88/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Em busca de poder",
+          "tituloOriginal": "Power Search",
+          "quantidadePaginas": 21,
+          "resumo": "Uma fantasia não basta para Felicia Hardy! Ela quer superpoderes a qualquer custo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "89",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 89/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Onde você estava quando as luzes apagaram?",
+          "tituloOriginal": "Where Were You ...When the Lights Went Out?",
+          "quantidadePaginas": 21,
+          "resumo": "Luzes apagadas! Quando um apagão atinge a cidade, saqueadores começam a roubar a loja de penhores de Jack Zelnick e a noite termina em fatalidade. Será que o Homem-Aranha e a Viúva Negra conseguirão encontrar os verdadeiros criminosos?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "140",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 140/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

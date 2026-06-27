@@ -253,6 +253,10 @@ export class ApiService {
     return this.http.put<Serie>(`/api/series/${id}`, dto);
   }
 
+  removerSerie(id: number) {
+    return this.http.delete<void>(`/api/series/${id}`);
+  }
+
   cadastrarEdicao(dto: {
     numero: string;
     titulo: string | null;

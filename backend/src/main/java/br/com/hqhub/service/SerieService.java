@@ -11,6 +11,7 @@ import br.com.hqhub.entity.Serie;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.SerieMapper;
+import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,11 +22,13 @@ public class SerieService {
 
     private final SerieRepository serieRepository;
     private final EditoraRepository editoraRepository;
+    private final EdicaoRepository edicaoRepository;
     private final SerieMapper serieMapper;
 
-    public SerieService(SerieRepository serieRepository, EditoraRepository editoraRepository, SerieMapper serieMapper) {
+    public SerieService(SerieRepository serieRepository, EditoraRepository editoraRepository, EdicaoRepository edicaoRepository, SerieMapper serieMapper) {
         this.serieRepository = serieRepository;
         this.editoraRepository = editoraRepository;
+        this.edicaoRepository = edicaoRepository;
         this.serieMapper = serieMapper;
     }
 
@@ -101,6 +104,9 @@ public class SerieService {
     @Transactional
     public void remover(Long id) {
         Serie serie = buscarEntidadePorId(id);
+        if (edicaoRepository.count("serie.id", id) > 0) {
+            throw new RegraNegocioException("Remova as edições desta série antes de excluir a série.");
+        }
         serieRepository.delete(serie);
     }
 

@@ -473,6 +473,11 @@ def montar_json(args):
     }
 
 
+def salvar_json_utf8(caminho, dados):
+    # Mantem acentos legiveis no JSON e grava em UTF-8 sem BOM.
+    caminho.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Gera JSON de importação do HQ-HUB a partir de texto colado.")
     origem = parser.add_mutually_exclusive_group(required=True)
@@ -492,7 +497,7 @@ def main():
     resultado = montar_json(args)
     saida = Path(args.saida)
     saida.parent.mkdir(parents=True, exist_ok=True)
-    saida.write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    salvar_json_utf8(saida, resultado)
 
     print(f"Arquivo gerado: {saida}")
     print(f"Edições: {resultado['totalEdicoes']}")

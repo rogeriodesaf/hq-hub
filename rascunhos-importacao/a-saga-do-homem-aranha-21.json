@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-21/sa011137/181113",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-21/sa011137/181113"
+    ],
+    "geradoEm": "2026-06-26T21:34:37",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "21",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-12-01",
+      "publicadoTexto": "dezembro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71tVoU-nMeL._SY445_SX342_ML2_.jpg",
+      "descricao": "Capa original: Amazing Spider-Man, The (1963) n° 248\nPublicado em: dezembro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Terry Austin Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Delírios",
+          "tituloOriginal": "Delusions",
+          "quantidadePaginas": 22,
+          "resumo": "Balançando pela cidade, o Homem-Aranha reflete sobre seus encontros recentes com o Duende Macabro. Seus pensamentos então se voltam para o Justiceiro, que está indo ao tribunal pagar pelos seus crimes, fazendo com que Peter Parker tire fotos do julgamento para o Clarim Diário.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "83",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 83/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os Sonhadores",
+          "tituloOriginal": "The Daydreamers!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "246",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 246/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Na escuridão das profundezas!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Aranha ajuda Kitty Pryde contra os Morlocks.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "135",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 135/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Meu bebê foi sequestrado!",
+          "tituloOriginal": "Interruptions",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "84",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 84/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Interrupções",
+          "tituloOriginal": "Interruptions",
+          "quantidadePaginas": 22,
+          "resumo": "Uma gangue arma uma emboscada para um carro forte ,quando os capangas atiram no carro e o explode os capangas em vez de dinheiro ,encontram um pé de cabra então eles começam a questionar ao seu chefe não sabendo eles que seu chefe era o maça que estava exatamente atrás do pé- de-cabra que traz sua força de volta",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "247",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 247/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Ele chega como uma bola de demolição!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 11,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "248",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 248/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O menino que colecionava Homem-Aranha!",
+          "tituloOriginal": "The Kid Who Collects Spider-Man!",
+          "quantidadePaginas": 11,
+          "resumo": "Na calada da noite, o Aranha visita um garoto que se diz seu maior fã, colecionando tudo que já saiu do Aranha na imprensa. Ao mesmo tempo, são mostrados trechos da reportagem sobre o garoto, que foi publicada no Clarim, dias antes. O Aranha conta ao impressionado menino como adquiriu seus poderes e porque luta contra o crime e revela a ele seu maior segredo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "248",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 248/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

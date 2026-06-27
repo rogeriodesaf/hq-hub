@@ -1615,6 +1615,21 @@ textarea:focus {
   cursor: pointer;
 }
 
+.linha-serie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.linha-serie > button:first-child {
+  min-width: 0;
+}
+
+.botao-remover-serie {
+  align-self: stretch;
+}
+
 .lista-linhas button.ativo {
   border-color: var(--azul);
   background: rgba(255, 122, 0, 0.08);

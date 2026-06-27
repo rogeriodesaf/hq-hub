@@ -73,10 +73,23 @@ import {
 
         <div class="lista-linhas">
           @for (serie of series().itens; track serie.id) {
-            <button type="button" [class.ativo]="serieSelecionada()?.id === serie.id" (click)="selecionarSerie(serie)">
-              <strong>{{ serie.titulo }}</strong>
-              <span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }}</span>
-            </button>
+            <div class="linha-serie">
+              <button type="button" [class.ativo]="serieSelecionada()?.id === serie.id" (click)="selecionarSerie(serie)">
+                <strong>{{ serie.titulo }}</strong>
+                <span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }}</span>
+              </button>
+              @if (podeEditarCatalogo()) {
+                <button
+                  class="botao perigo compacto botao-remover-serie"
+                  type="button"
+                  (click)="removerSerie(serie)"
+                  [disabled]="removendoSerie() === serie.id"
+                  aria-label="Excluir série"
+                >
+                  {{ removendoSerie() === serie.id ? '...' : 'Excluir' }}
+                </button>
+              }
+            </div>
           } @empty {
             <section class="estado-vazio compacto">
               <h2>Nenhuma série interna cadastrada</h2>
@@ -441,6 +454,7 @@ export class CatalogoPage implements OnInit {
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
   readonly removendoEdicao = signal(false);
+  readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
@@ -469,6 +483,36 @@ export class CatalogoPage implements OnInit {
     this.busca = serie.titulo;
     this.paginaResultados.set(0);
     this.buscarResultados(0);
+  }
+
+  removerSerie(serie: Serie) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const rotulo = `${serie.titulo} - ${serie.editora?.nome || 'Sem editora'} - V${serie.volume || '-'}`;
+    const confirmar = window.confirm(`Excluir a série "${rotulo}"? Só é possível excluir séries sem edições.`);
+    if (!confirmar) {
+      return;
+    }
+
+    this.removendoSerie.set(serie.id);
+    this.mensagem.set('');
+    this.api.removerSerie(serie.id).subscribe({
+      next: () => {
+        this.removendoSerie.set(null);
+        if (this.serieSelecionada()?.id === serie.id) {
+          this.serieSelecionada.set(null);
+          this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
+        }
+        this.mensagem.set('Série excluída do catálogo.');
+        this.carregarSeriesInternas(this.series().pagina);
+      },
+      error: () => {
+        this.removendoSerie.set(null);
+        this.mensagem.set('Não foi possível excluir esta série. Remova as edições dela primeiro.');
+      },
+    });
   }
 
   agendarBuscaSeries() {

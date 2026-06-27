@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-23/sa011137/181828",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-1-serie-n-23/sa011137/181828"
+    ],
+    "geradoEm": "2026-06-26T21:34:37",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": null
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "23",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-02-01",
+      "publicadoTexto": "fevereiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61efCTJ4j8L._SY445_SX342_ML2_.jpg",
+      "descricao": "Capa original: Amazing Spider Man, The (1963) nº 250\nPublicado em: fevereiro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Klaus Janson Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Recomeço",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Nosso Cabeça de Teia acompanha a regeneração do Homem-Areia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "138",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 138/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Identidades trocadas",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Finalmente! O Homem-Aranha está pronto para revelar sua verdadeira identidade à Gata Negra, mas será que ela está preparada para conhecer o homem por trás da máscara?\nTodo mundo ama alguém alguma vez!\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 139 /1984 - Marvel Comics\nNick Fury, agente da SHIELD, sabe lidar com praticamente qualquer coisa, mas quando Maggia sequestra a namorada de seu antigo amigo do Comando Selvagem, Dino Minnelli, o simpático Homem-Aranha da vizinhança dá uma ajudinha! Pena que Maggia também tenha ajuda – do Encouraçado portador da perdição! E o Aranha ainda está lutando sem seu sentido aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "87",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 87/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Todo mundo ama alguém alguma vez!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Nick Fury, agente da SHIELD, sabe lidar com praticamente qualquer coisa, mas quando Maggia sequestra a namorada de seu antigo amigo do Comando Selvagem, Dino Minnelli, o simpático Homem-Aranha da vizinhança dá uma ajudinha! Pena que Maggia também tenha ajuda – do Encouraçado portador da perdição! E o Aranha ainda está lutando sem seu sentido aranha!\nSegredos\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 249 /1984 - Marvel Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "139",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 139/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Segredos",
+          "tituloOriginal": "Secrets!",
+          "quantidadePaginas": null,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "249",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 249/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Confissões!",
+          "tituloOriginal": "Confessions!",
+          "quantidadePaginas": null,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "250",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 250/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Finais!",
+          "tituloOriginal": "Endings!",
+          "quantidadePaginas": null,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "251",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 251/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}
