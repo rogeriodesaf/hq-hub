@@ -80,6 +80,14 @@ import {
               </button>
               @if (podeEditarCatalogo()) {
                 <button
+                  class="botao secundario compacto"
+                  type="button"
+                  (click)="editarVolumeSerie(serie)"
+                  [disabled]="salvandoSerie() === serie.id || removendoSerie() === serie.id"
+                >
+                  {{ salvandoSerie() === serie.id ? '...' : 'Editar' }}
+                </button>
+                <button
                   class="botao perigo compacto botao-remover-serie"
                   type="button"
                   (click)="removerSerie(serie)"
@@ -454,6 +462,7 @@ export class CatalogoPage implements OnInit {
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
   readonly removendoEdicao = signal(false);
+  readonly salvandoSerie = signal<number | null>(null);
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
@@ -483,6 +492,64 @@ export class CatalogoPage implements OnInit {
     this.busca = serie.titulo;
     this.paginaResultados.set(0);
     this.buscarResultados(0);
+  }
+
+  editarVolumeSerie(serie: Serie) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const valorAtual = serie.volume?.toString() || '';
+    const valor = window.prompt('Volume da série. Deixe vazio para V-.', valorAtual);
+    if (valor === null) {
+      return;
+    }
+
+    const volume = valor.trim() ? Number(valor.trim()) : null;
+    if (volume !== null && (!Number.isInteger(volume) || volume < 1)) {
+      this.mensagem.set('Informe um volume inteiro maior que zero, ou deixe vazio para V-.');
+      return;
+    }
+
+    if (volume === serie.volume) {
+      return;
+    }
+
+    if (!serie.editora?.id) {
+      this.mensagem.set('Não foi possível identificar a editora desta série.');
+      return;
+    }
+
+    this.salvandoSerie.set(serie.id);
+    this.mensagem.set('');
+    this.api.atualizarSerie(serie.id, {
+      titulo: serie.titulo,
+      descricao: serie.descricao,
+      anoInicio: serie.anoInicio,
+      anoFim: serie.anoFim,
+      volume,
+      ordemCronologica: serie.ordemCronologica,
+      fonteExterna: serie.fonteExterna,
+      idExterno: serie.idExterno,
+      urlOrigem: serie.urlOrigem,
+      editoraId: serie.editora.id,
+    }).subscribe({
+      next: (serieAtualizada) => {
+        this.salvandoSerie.set(null);
+        this.series.update((pagina) => ({
+          ...pagina,
+          itens: pagina.itens.map((item) => item.id === serieAtualizada.id ? serieAtualizada : item),
+        }));
+        if (this.serieSelecionada()?.id === serieAtualizada.id) {
+          this.serieSelecionada.set(serieAtualizada);
+        }
+        this.mensagem.set('Série atualizada.');
+      },
+      error: () => {
+        this.salvandoSerie.set(null);
+        this.mensagem.set('Não foi possível atualizar a série. Verifique se já existe outra série com este volume.');
+      },
+    });
   }
 
   removerSerie(serie: Serie) {
