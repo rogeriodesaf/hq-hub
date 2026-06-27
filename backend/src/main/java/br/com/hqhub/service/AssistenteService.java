@@ -1,7 +1,9 @@
 package br.com.hqhub.service;
 
 import java.text.Normalizer;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,9 +29,11 @@ public class AssistenteService {
     private static final String ORIGEM_BANCO_LOCAL = "BANCO_LOCAL";
     private static final String ORIGEM_NAO_ENCONTRADO = "NAO_ENCONTRADO";
     private static final String ORIGEM_CONHECIMENTO_EDITORIAL = "CONHECIMENTO_EDITORIAL";
+    private static final String ORIGEM_CONHECIMENTO_ESSENCIAL = "CONHECIMENTO_ESSENCIAL";
     private static final Pattern PADRAO_ID = Pattern.compile("\\b(?:id|serieId|sérieId|serie|série)\\s*[:=]?\\s*(\\d+)\\b",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern PADRAO_ANO = Pattern.compile("\\b(20\\d{2}|19\\d{2})\\b");
+    private static final Map<String, String> CONHECIMENTOS_ESSENCIAIS = criarConhecimentosEssenciais();
 
     private final ResumoColecaoService resumoColecaoService;
     private final FaltanteService faltanteService;
@@ -95,10 +99,20 @@ public class AssistenteService {
                 return responderComConhecimentoEditorial(resultados);
             }
         } catch (Exception excecao) {
+            Optional<RespostaAssistenteDTO> respostaEssencial = responderComConhecimentoEssencial(perguntaNormalizada);
+            if (respostaEssencial.isPresent()) {
+                return respostaEssencial.get();
+            }
+
             return new RespostaAssistenteDTO(
                     "Ainda nao consegui consultar a base editorial de quadrinhos. Tente novamente em instantes ou faca uma pergunta sobre sua colecao.",
                     ORIGEM_NAO_ENCONTRADO,
                     null);
+        }
+
+        Optional<RespostaAssistenteDTO> respostaEssencial = responderComConhecimentoEssencial(perguntaNormalizada);
+        if (respostaEssencial.isPresent()) {
+            return respostaEssencial.get();
         }
 
         return new RespostaAssistenteDTO(
@@ -297,5 +311,31 @@ public class AssistenteService {
         resposta += "\n🎯 Confiança: " + top.confianca();
 
         return new RespostaAssistenteDTO(resposta, ORIGEM_CONHECIMENTO_EDITORIAL, resultados);
+    }
+
+    private Optional<RespostaAssistenteDTO> responderComConhecimentoEssencial(String perguntaNormalizada) {
+        return CONHECIMENTOS_ESSENCIAIS.entrySet()
+                .stream()
+                .filter(entrada -> perguntaNormalizada.contains(entrada.getKey()))
+                .findFirst()
+                .map(entrada -> new RespostaAssistenteDTO(
+                        entrada.getValue(),
+                        ORIGEM_CONHECIMENTO_ESSENCIAL,
+                        null));
+    }
+
+    private static Map<String, String> criarConhecimentosEssenciais() {
+        Map<String, String> conhecimentos = new LinkedHashMap<>();
+        conhecimentos.put(
+                "batman",
+                "Batman e o alter ego de Bruce Wayne, criado por Bob Kane e Bill Finger. Ele apareceu pela primeira vez em Detective Comics #27, em 1939, e e um dos principais personagens da DC Comics.");
+        conhecimentos.put(
+                "superman",
+                "Superman e o alter ego de Clark Kent/Kal-El, criado por Jerry Siegel e Joe Shuster. Ele estreou em Action Comics #1, em 1938, e se tornou um dos simbolos centrais dos super-herois.");
+        conhecimentos.put(
+                "homem aranha",
+                "Homem-Aranha e o alter ego de Peter Parker, criado por Stan Lee e Steve Ditko. Ele apareceu pela primeira vez em Amazing Fantasy #15, em 1962, pela Marvel Comics.");
+        conhecimentos.put("spider man", conhecimentos.get("homem aranha"));
+        return conhecimentos;
     }
 }
