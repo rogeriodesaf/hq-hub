@@ -813,9 +813,57 @@ body.tema-escuro .chat,
 body.tema-escuro .botao-sugestao,
 body.tema-escuro .painel-notificacoes,
 body.tema-escuro .metricas article,
+body.tema-escuro .cartao-volume,
+body.tema-escuro .cartao-edicao,
+body.tema-escuro .compra-card,
+body.tema-escuro .anuncio-card,
+body.tema-escuro .historia-card,
+body.tema-escuro .resultado-catalogo,
+body.tema-escuro .publicacao-card,
+body.tema-escuro .prateleira,
+body.tema-escuro .painel-estante,
+body.tema-escuro .estado-carregando,
 body.tema-escuro .card,
 body.tema-escuro .bloco {
   background: var(--superficie);
+}
+
+body.tema-escuro .cartao-volume,
+body.tema-escuro .cartao-edicao,
+body.tema-escuro .compra-card,
+body.tema-escuro .anuncio-card,
+body.tema-escuro .historia-card,
+body.tema-escuro .resultado-catalogo,
+body.tema-escuro .publicacao-card,
+body.tema-escuro .prateleira,
+body.tema-escuro .painel-estante {
+  color: var(--texto);
+}
+
+body.tema-escuro .resultado-catalogo.externo,
+body.tema-escuro .lista-conversas button.ativo,
+body.tema-escuro .lista-conversas button:hover,
+body.tema-escuro .lista-amigos-chat button:hover {
+  background: rgba(255, 138, 31, 0.16);
+}
+
+body.tema-escuro .janela-chat {
+  background: var(--superficie-suave);
+}
+
+body.tema-escuro .bolha-mensagem {
+  background: var(--superficie-2);
+  color: var(--texto);
+}
+
+body.tema-escuro .bolha-mensagem.minha {
+  border-color: rgba(85, 189, 145, 0.46);
+  background: #1f6f52;
+  color: #fff;
+}
+
+body.tema-escuro .bolha-mensagem.minha small {
+  color: rgba(255, 255, 255, 0.78);
 }
 
 body.tema-escuro .metricas article {
