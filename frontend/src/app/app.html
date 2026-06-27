@@ -340,6 +340,23 @@
   <router-outlet />
 }
 
+@if (atualizacaoApp.novaVersaoDisponivel()) {
+  <aside class="aviso-nova-versao" role="status" aria-live="polite">
+    <div>
+      <strong>Nova versão disponível</strong>
+      <span>Atualize para carregar a versão mais recente do HQ-HUB.</span>
+    </div>
+    <button
+      type="button"
+      class="botao primario compacto"
+      [disabled]="atualizacaoApp.atualizando()"
+      (click)="atualizacaoApp.atualizarAgora()"
+    >
+      {{ atualizacaoApp.atualizando() ? 'Atualizando...' : 'Atualizar agora' }}
+    </button>
+  </aside>
+}
+
 <footer class="rodape-copyright">
   &copy; 2026 Rogério de Sá &mdash; Engenheiro de Software
 </footer>

@@ -295,6 +295,40 @@ img {
   box-shadow: 0 8px 24px rgba(21, 25, 31, 0.08);
 }
 
+.aviso-nova-versao {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  width: min(520px, calc(100vw - 32px));
+  padding: 14px;
+  border: 1px solid rgba(255, 122, 0, 0.34);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  box-shadow: 0 22px 54px rgba(21, 25, 31, 0.22);
+}
+
+.aviso-nova-versao div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.aviso-nova-versao strong,
+.aviso-nova-versao span {
+  overflow-wrap: anywhere;
+}
+
+.aviso-nova-versao span {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
 .painel-notificacoes-backdrop {
   position: fixed;
   inset: 0;
@@ -2482,6 +2516,16 @@ body.tema-escuro .sugestoes-assistente {
 
   .atalhos-superiores {
     justify-content: flex-start;
+  }
+
+  .aviso-nova-versao {
+    right: 12px;
+    bottom: 88px;
+    grid-template-columns: 1fr;
+  }
+
+  .aviso-nova-versao .botao {
+    width: 100%;
   }
 
   .navegacao-mobile {

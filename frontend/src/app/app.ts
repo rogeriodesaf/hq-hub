@@ -22,6 +22,7 @@ import { filter, forkJoin } from 'rxjs';
 
 import { AutenticacaoService } from './core/autenticacao.service';
 import { ApiService } from './core/api.service';
+import { AtualizacaoAppService } from './core/atualizacao-app.service';
 import { resolverUrlMidia } from './core/midia-url';
 import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
 
@@ -56,6 +57,7 @@ export class App implements OnInit {
   private static readonly CHAVE_TEMA = 'hqhub.tema';
   private readonly roteador = inject(Router);
   private readonly api = inject(ApiService);
+  readonly atualizacaoApp = inject(AtualizacaoAppService);
   readonly autenticacaoService = inject(AutenticacaoService);
   readonly usuario = this.autenticacaoService.usuario;
   readonly mostrarShell = computed(() => this.autenticacaoService.autenticado());
