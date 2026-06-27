@@ -115,6 +115,19 @@
         <button
           type="button"
           class="atalho-superior"
+          [attr.aria-label]="modoEscuro() ? 'Ativar modo claro' : 'Ativar modo escuro'"
+          [attr.title]="modoEscuro() ? 'Modo claro' : 'Modo escuro'"
+          (click)="alternarTema()"
+        >
+          @if (modoEscuro()) {
+            <svg lucideSun size="18"></svg>
+          } @else {
+            <svg lucideMoon size="18"></svg>
+          }
+        </button>
+        <button
+          type="button"
+          class="atalho-superior"
           aria-label="Ver atualizações"
           [attr.aria-expanded]="notificacoesAbertas()"
           (click)="abrirNotificacoes()"
@@ -306,6 +319,20 @@
       <button type="button" class="nav-sair" (click)="sair()" aria-label="Sair do aplicativo">
         <svg lucideLogOut size="20"></svg>
         <span>Sair</span>
+      </button>
+      <button
+        type="button"
+        class="nav-sair"
+        (click)="alternarTema()"
+        [attr.aria-label]="modoEscuro() ? 'Ativar modo claro' : 'Ativar modo escuro'"
+      >
+        @if (modoEscuro()) {
+          <svg lucideSun size="20"></svg>
+          <span>Claro</span>
+        } @else {
+          <svg lucideMoon size="20"></svg>
+          <span>Escuro</span>
+        }
       </button>
     </nav>
   </div>

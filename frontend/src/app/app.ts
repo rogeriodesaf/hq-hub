@@ -10,9 +10,11 @@ import {
   LucideLibrary,
   LucideLogOut,
   LucideMessageCircle,
+  LucideMoon,
   LucideNewspaper,
   LucideSearch,
   LucideShoppingBag,
+  LucideSun,
   LucideUsers,
   LucideTv,
 } from '@lucide/angular';
@@ -38,9 +40,11 @@ import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
     LucideLibrary,
     LucideLogOut,
     LucideMessageCircle,
+    LucideMoon,
     LucideNewspaper,
     LucideSearch,
     LucideShoppingBag,
+    LucideSun,
     LucideUsers,
     LucideTv,
   ],
@@ -49,6 +53,7 @@ import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
 })
 export class App implements OnInit {
   private static readonly CHAVE_FEED_VISTO = 'hqhub.feed.vistoEm';
+  private static readonly CHAVE_TEMA = 'hqhub.tema';
   private readonly roteador = inject(Router);
   private readonly api = inject(ApiService);
   readonly autenticacaoService = inject(AutenticacaoService);
@@ -61,6 +66,7 @@ export class App implements OnInit {
   readonly solicitacoesAmizadePendentes = signal(0);
   readonly alteracoesEstanteAmigos = signal(0);
   readonly notificacoesAbertas = signal(false);
+  readonly modoEscuro = signal(false);
   readonly carregandoNotificacoes = signal(false);
   readonly solicitacoesRecebidas = signal<Amizade[]>([]);
   readonly conversasComNaoLidas = signal<ConversaDireta[]>([]);
@@ -78,6 +84,7 @@ export class App implements OnInit {
   private intervaloNotificacoes: number | null = null;
 
   ngOnInit() {
+    this.carregarTema();
     this.carregarPendenciasCatalogo();
     this.carregarNovidadesFeed();
     this.carregarMensagensNaoLidas();
@@ -132,6 +139,20 @@ export class App implements OnInit {
   sair() {
     this.autenticacaoService.sair();
     this.roteador.navigateByUrl('/entrar');
+  }
+
+  alternarTema() {
+    this.aplicarTema(!this.modoEscuro());
+  }
+
+  private carregarTema() {
+    this.aplicarTema(localStorage.getItem(App.CHAVE_TEMA) === 'escuro');
+  }
+
+  private aplicarTema(escuro: boolean) {
+    this.modoEscuro.set(escuro);
+    document.body.classList.toggle('tema-escuro', escuro);
+    localStorage.setItem(App.CHAVE_TEMA, escuro ? 'escuro' : 'claro');
   }
 
   private carregarPendenciasCatalogo() {

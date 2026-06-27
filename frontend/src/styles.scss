@@ -41,6 +41,27 @@ body {
   letter-spacing: 0;
 }
 
+body.tema-escuro {
+  color-scheme: dark;
+  --fundo: #101317;
+  --superficie: #1a1f25;
+  --superficie-2: #232a32;
+  --superficie-suave: #171c22;
+  --texto: #f4efe7;
+  --texto-suave: #a7b0ba;
+  --borda: #36404a;
+  --marca: #ff8a1f;
+  --marca-escura: #ffb05f;
+  --marca-suave: rgba(255, 138, 31, 0.2);
+  --amarelo: #f4bf43;
+  --azul: #ffb05f;
+  --verde: #55bd91;
+  --sombra: 0 18px 48px rgba(0, 0, 0, 0.36);
+  background:
+    linear-gradient(180deg, rgba(255, 138, 31, 0.08), rgba(16, 19, 23, 0.94)),
+    var(--fundo);
+}
+
 button,
 input,
 select,
@@ -672,6 +693,12 @@ textarea {
   outline: none;
 }
 
+body.tema-escuro input,
+body.tema-escuro select,
+body.tema-escuro textarea {
+  background: var(--superficie);
+}
+
 textarea {
   min-height: 92px;
   padding: 12px 13px;
@@ -741,6 +768,28 @@ textarea:focus {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.86);
   box-shadow: var(--sombra);
+}
+
+body.tema-escuro .painel-formulario,
+body.tema-escuro .abas-filtro,
+body.tema-escuro .filtro-criador,
+body.tema-escuro .pessoas-encontradas button,
+body.tema-escuro .fechar-detalhe,
+body.tema-escuro .chat,
+body.tema-escuro .botao-sugestao,
+body.tema-escuro .painel-notificacoes,
+body.tema-escuro .card,
+body.tema-escuro .bloco {
+  background: var(--superficie);
+}
+
+body.tema-escuro .abas-filtro button.ativo,
+body.tema-escuro .alternador button.ativo {
+  background: var(--superficie-2);
+}
+
+body.tema-escuro .sugestoes-assistente {
+  background: linear-gradient(180deg, var(--superficie-2) 0%, var(--superficie) 100%);
 }
 
 .painel-formulario h2 {
