@@ -2531,6 +2531,14 @@ body.tema-escuro .sugestoes-assistente {
     justify-content: flex-start;
   }
 
+  .atalho-tema {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    right: 12px;
+    z-index: 35;
+    background: var(--superficie);
+  }
+
   .aviso-nova-versao {
     right: 12px;
     bottom: 88px;
@@ -2582,6 +2590,12 @@ body.tema-escuro .sugestoes-assistente {
   }
 
   .navegacao-mobile a.ativo {
+    color: #fff;
+    background: rgba(255, 122, 0, 0.2);
+  }
+
+  .navegacao-mobile .nav-tema {
+    order: -1;
     color: #fff;
     background: rgba(255, 122, 0, 0.2);
   }

@@ -114,7 +114,7 @@
       <div class="atalhos-superiores">
         <button
           type="button"
-          class="atalho-superior"
+          class="atalho-superior atalho-tema"
           [attr.aria-label]="modoEscuro() ? 'Ativar modo claro' : 'Ativar modo escuro'"
           [attr.title]="modoEscuro() ? 'Modo claro' : 'Modo escuro'"
           (click)="alternarTema()"
@@ -322,7 +322,7 @@
       </button>
       <button
         type="button"
-        class="nav-sair"
+        class="nav-sair nav-tema"
         (click)="alternarTema()"
         [attr.aria-label]="modoEscuro() ? 'Ativar modo claro' : 'Ativar modo escuro'"
       >
