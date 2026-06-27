@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
@@ -116,7 +116,7 @@ import {
         }
       </article>
 
-      <article class="bloco">
+      <article class="bloco resultados-catalogo-bloco" #resultadosCatalogoBloco>
         <div class="secao-titulo">
           <div>
             <h2>Resultados da busca</h2>
@@ -179,10 +179,10 @@ import {
       </article>
     </section>
 
-    @if (edicaoDetalhe()) {
+    @if (exibirPainelDetalhe()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
         <div class="detalhe-fundo" (click)="fecharDetalhe()"></div>
-        <article class="detalhe-painel">
+        <article class="detalhe-painel" #detalhePainel>
           <button class="fechar-detalhe" type="button" (click)="fecharDetalhe()" aria-label="Fechar detalhes">×</button>
           @if (historicoDetalhes().length) {
             <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
@@ -190,8 +190,9 @@ import {
             </button>
           }
 
+          @if (edicaoDetalhe()) {
           <div class="detalhe-cabecalho">
-            <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="tituloEdicao(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
+            <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="edicaoDetalhe() ? tituloEdicao(edicaoDetalhe()!) : 'Edicao'" (error)="usarCapaReserva($event)" />
             <div>
               <p class="rotulo">{{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
               <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
@@ -221,7 +222,7 @@ import {
                   }
                 </div>
               }
-              @if (podeEditarCatalogo()) {
+              @if (edicaoDetalhe() && podeEditarCatalogo()) {
                 <div class="acoes-detalhe-edicao">
                   @if (!editandoDetalhe()) {
                     <button class="botao compacto" type="button" (click)="iniciarEdicaoDetalhe()">
@@ -239,6 +240,7 @@ import {
               }
             </div>
           </div>
+          }
 
           @if (editandoDetalhe()) {
             <section class="painel-formulario editor-edicao-detalhe">
@@ -307,7 +309,7 @@ import {
             </section>
           }
 
-          @if (publicacoesDetalhe().length || !publicacoesComoOriginal().length) {
+          @if (!carregandoDetalhe() && (publicacoesDetalhe().length || !publicacoesComoOriginal().length)) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
               @for (publicacao of publicacoesDetalhe(); track publicacao.id) {
@@ -367,7 +369,7 @@ import {
             </section>
           }
 
-          @if (publicacoesComoOriginal().length || !publicacoesDetalhe().length) {
+          @if (!carregandoDetalhe() && (publicacoesComoOriginal().length || !publicacoesDetalhe().length)) {
             <section class="detalhe-secao">
               @if (historiaEmFoco()) {
                 <h3>Edições que publicaram esta história</h3>
@@ -406,6 +408,7 @@ import {
             </section>
           }
 
+          @if (!carregandoDetalhe()) {
           <section class="detalhe-secao">
             <h3>Conteúdos cadastrados diretamente nesta edição</h3>
             @for (conteudo of conteudosDetalhe(); track conteudo.id) {
@@ -420,12 +423,16 @@ import {
               <p class="texto-suave">Esta edição não tem conteúdos diretos cadastrados.</p>
             }
           </section>
+          }
         </article>
       </section>
     }
   `,
 })
 export class CatalogoPage implements OnInit {
+  @ViewChild('resultadosCatalogoBloco') private resultadosCatalogoBloco?: ElementRef<HTMLElement>;
+  @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
+
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly sanitizador = inject(DomSanitizer);
@@ -482,7 +489,7 @@ export class CatalogoPage implements OnInit {
     this.serieSelecionada.set(serie);
     this.busca = serie.titulo;
     this.paginaResultados.set(0);
-    this.buscarResultados(0);
+    this.buscarResultados(0, true);
   }
 
   editarVolumeSerie(serie: Serie) {
@@ -596,13 +603,13 @@ export class CatalogoPage implements OnInit {
 
   paginaAnterior() {
     if (this.paginaResultados() > 0) {
-      this.buscarResultados(this.paginaResultados() - 1);
+      this.buscarResultados(this.paginaResultados() - 1, true);
     }
   }
 
   proximaPagina() {
     if (this.paginaResultados() + 1 < this.resultadosCatalogo().totalPaginas) {
-      this.buscarResultados(this.paginaResultados() + 1);
+      this.buscarResultados(this.paginaResultados() + 1, true);
     }
   }
 
@@ -626,6 +633,7 @@ export class CatalogoPage implements OnInit {
   abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
     this.mensagem.set('');
+    this.rolarPainelDetalheMobile();
     forkJoin({
       edicao: this.api.buscarEdicaoPorId(edicaoId),
       conteudos: this.api.listarConteudosPorEdicao(edicaoId),
@@ -651,12 +659,17 @@ export class CatalogoPage implements OnInit {
         this.carregarCapasOriginaisComicVine(publicacoes);
         this.carregarComplementoComicVine(edicao);
         this.carregandoDetalhe.set(false);
+        this.rolarPainelDetalheMobile();
       },
       error: () => {
         this.carregandoDetalhe.set(false);
         this.mensagem.set('Não foi possível carregar os detalhes desta edição.');
       },
     });
+  }
+
+  exibirPainelDetalhe() {
+    return !!this.edicaoDetalhe() || (this.carregandoDetalhe() && this.ehViewportMobile());
   }
 
   fecharDetalhe() {
@@ -1141,7 +1154,7 @@ export class CatalogoPage implements OnInit {
     });
   }
 
-  private buscarResultados(pagina: number) {
+  private buscarResultados(pagina: number, rolarAoResultadoMobile = false) {
     const termoBusca = this.busca.trim();
     if (!termoBusca && !this.serieSelecionada()) {
       this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
@@ -1162,6 +1175,9 @@ export class CatalogoPage implements OnInit {
           });
           this.paginaResultados.set(resposta.pagina);
           this.carregandoResultados.set(false);
+          if (rolarAoResultadoMobile) {
+            this.rolarParaResultadosMobile();
+          }
           this.mensagem.set(resposta.itens.length ? '' : `Nenhuma edição cadastrada para "${termo}".`);
         },
         error: () => {
@@ -1178,6 +1194,9 @@ export class CatalogoPage implements OnInit {
         this.resultadosCatalogo.set(resposta);
         this.paginaResultados.set(resposta.pagina);
         this.carregandoResultados.set(false);
+        if (rolarAoResultadoMobile) {
+          this.rolarParaResultadosMobile();
+        }
         this.mensagem.set(resposta.itens.length ? '' : `Nenhum resultado encontrado para "${termo}".`);
       },
       error: () => {
@@ -1186,6 +1205,30 @@ export class CatalogoPage implements OnInit {
         this.mensagem.set('Não foi possível pesquisar no catálogo agora.');
       },
     });
+  }
+
+  private rolarParaResultadosMobile() {
+    if (!this.ehViewportMobile()) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.resultadosCatalogoBloco?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
+  private rolarPainelDetalheMobile() {
+    if (!this.ehViewportMobile()) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.detalhePainel?.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  }
+
+  private ehViewportMobile() {
+    return window.matchMedia('(max-width: 980px)').matches;
   }
 
   private escaparHtml(valor: string) {
