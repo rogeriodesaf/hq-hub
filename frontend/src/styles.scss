@@ -488,10 +488,15 @@ img {
   color: var(--texto-suave);
 }
 
-.painel-grade,
-.catalogo-layout {
+.painel-grade {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 18px;
+}
+
+.catalogo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
 }
 
