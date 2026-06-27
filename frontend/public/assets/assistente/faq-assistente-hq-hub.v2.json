@@ -453,6 +453,96 @@
       "resposta": "Informe serieId=NN para maior precisao ou use o titulo exatamente como cadastrado.",
       "tags": ["ajuda", "relacionamento", "serieId"],
       "acaoSugerida": "Posso te passar exemplos prontos para copiar e colar."
+    },
+    {
+      "id": "sistema-01",
+      "intencao": "ajuda_sistema",
+      "modulo": "hq-hub",
+      "pergunta": "Como adiciono uma HQ a minha colecao?",
+      "variacoes": [
+        "como cadastrar uma hq na colecao",
+        "como colocar uma edicao na estante",
+        "adicionar hq na minha colecao",
+        "registrar uma edicao que comprei"
+      ],
+      "resposta": "Explico o fluxo de catalogo, edicao e colecao para registrar a HQ corretamente.",
+      "tags": ["sistema", "colecao", "catalogo", "ajuda"],
+      "acaoSugerida": "Depois voce pode perguntar como consultar faltantes dessa mesma serie."
+    },
+    {
+      "id": "sistema-02",
+      "intencao": "ajuda_sistema",
+      "modulo": "hq-hub",
+      "pergunta": "Qual a diferenca entre colecao, wishlist e catalogo?",
+      "variacoes": [
+        "explique colecao wishlist e catalogo",
+        "catalogo e colecao sao a mesma coisa",
+        "o que fica na wishlist",
+        "diferenca entre estante e catalogo"
+      ],
+      "resposta": "Explico o papel de cada area do HQ-HUB e como elas se conectam.",
+      "tags": ["sistema", "colecao", "wishlist", "catalogo"],
+      "acaoSugerida": "Se quiser, posso explicar tambem o que e catalogo interno."
+    },
+    {
+      "id": "sistema-03",
+      "intencao": "ajuda_sistema",
+      "modulo": "catalogo",
+      "pergunta": "O que significa catalogo interno?",
+      "variacoes": [
+        "o que e catalogo interno",
+        "por que aparece catalogo interno",
+        "resultado do catalogo interno",
+        "catalogo interno na busca"
+      ],
+      "resposta": "Explico quando uma edicao ja esta salva no banco local do HQ-HUB.",
+      "tags": ["sistema", "catalogo", "busca"],
+      "acaoSugerida": "Posso explicar tambem como o volume da serie ajuda na busca."
+    },
+    {
+      "id": "quadrinhos-01",
+      "intencao": "conhecimento_editorial",
+      "modulo": "quadrinhos",
+      "pergunta": "Quem e o Demolidor?",
+      "variacoes": [
+        "me explica o demolidor",
+        "quem e matt murdock",
+        "daredevil da marvel",
+        "origem do demolidor"
+      ],
+      "resposta": "Busco a resposta na base editorial local de quadrinhos.",
+      "tags": ["quadrinhos", "demolidor", "marvel"],
+      "acaoSugerida": "Depois pergunte sobre A Queda de Murdock."
+    },
+    {
+      "id": "quadrinhos-02",
+      "intencao": "conhecimento_editorial",
+      "modulo": "quadrinhos",
+      "pergunta": "O que e a Saga do Clone?",
+      "variacoes": [
+        "explique saga do clone",
+        "quem e ben reilly",
+        "saga do clone homem aranha",
+        "peter parker e ben reilly"
+      ],
+      "resposta": "Busco a resposta na base editorial local de quadrinhos.",
+      "tags": ["quadrinhos", "homem-aranha", "saga-do-clone"],
+      "acaoSugerida": "Tambem posso responder sobre Homem-Aranha e Peter Parker."
+    },
+    {
+      "id": "quadrinhos-03",
+      "intencao": "conhecimento_editorial",
+      "modulo": "quadrinhos",
+      "pergunta": "Qual a diferenca entre universo, cronologia e fase?",
+      "variacoes": [
+        "explique universo cronologia e fase",
+        "o que e cronologia nos quadrinhos",
+        "o que significa fase editorial",
+        "diferenca entre continuidade e fase"
+      ],
+      "resposta": "Busco a explicacao na base editorial local de conceitos de quadrinhos.",
+      "tags": ["quadrinhos", "conceito", "cronologia", "fase"],
+      "acaoSugerida": "Se quiser, posso relacionar isso com volumes de serie no HQ-HUB."
     }
   ]
 }

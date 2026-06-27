@@ -28,17 +28,6 @@ import {
       </div>
     </section>
 
-    <section class="barra-busca">
-      <input
-        [(ngModel)]="busca"
-        placeholder="Buscar HQ no catálogo ou na Comic Vine"
-        (keyup.enter)="carregar()"
-      />
-      <button class="botao primario" type="button" (click)="carregar()" [disabled]="carregandoResultados()">
-        {{ carregandoResultados() ? 'Buscando...' : 'Buscar' }}
-      </button>
-    </section>
-
     @if (mensagem()) {
       <section class="estado-pesquisa">
         <p>{{ mensagem() }}</p>
@@ -59,8 +48,11 @@ import {
           <input
             [(ngModel)]="buscaSeries"
             placeholder="Filtrar séries internas"
-            (ngModelChange)="agendarBuscaSeries()"
+            (keyup.enter)="buscarSeriesInternas()"
           />
+          <button class="botao primario compacto" type="button" (click)="buscarSeriesInternas()">
+            Buscar
+          </button>
           <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
             <button type="button" [class.ativo]="inicialSeries() === ''" (click)="alterarInicialSeries('')">Todas</button>
             @for (letra of letrasIndice; track letra) {
@@ -476,11 +468,9 @@ export class CatalogoPage implements OnInit {
   busca = '';
   buscaSeries = '';
   formularioEdicao = this.formularioEdicaoVazio();
-  private temporizadorBuscaSeries: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit() {
     this.carregarSeriesInternas();
-    this.carregar();
   }
 
   carregar() {
@@ -583,12 +573,8 @@ export class CatalogoPage implements OnInit {
     });
   }
 
-  agendarBuscaSeries() {
-    if (this.temporizadorBuscaSeries) {
-      clearTimeout(this.temporizadorBuscaSeries);
-    }
-
-    this.temporizadorBuscaSeries = setTimeout(() => this.carregarSeriesInternas(0), 300);
+  buscarSeriesInternas() {
+    this.carregarSeriesInternas(0);
   }
 
   alterarInicialSeries(inicial: string) {

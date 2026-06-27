@@ -30,6 +30,7 @@ public class AssistenteService {
     private static final String ORIGEM_NAO_ENCONTRADO = "NAO_ENCONTRADO";
     private static final String ORIGEM_CONHECIMENTO_EDITORIAL = "CONHECIMENTO_EDITORIAL";
     private static final String ORIGEM_CONHECIMENTO_ESSENCIAL = "CONHECIMENTO_ESSENCIAL";
+    private static final String PREFERENCIA_TEX = "\n\nMas, entre nos, eu prefiro o Tex.";
     private static final Pattern PADRAO_ID = Pattern.compile("\\b(?:id|serieId|sérieId|serie|série)\\s*[:=]?\\s*(\\d+)\\b",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern PADRAO_ANO = Pattern.compile("\\b(20\\d{2}|19\\d{2})\\b");
@@ -88,7 +89,7 @@ public class AssistenteService {
             return responderRelacionamentos(pergunta);
         }
 
-        if (contemAlguma(perguntaNormalizada, "resumo", "colecao", "colecao geral", "minha colecao")) {
+        if (ehPerguntaResumoColecao(perguntaNormalizada)) {
             return responderResumo();
         }
 
@@ -280,6 +281,18 @@ public class AssistenteService {
         return false;
     }
 
+    private boolean ehPerguntaResumoColecao(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "resumo",
+                "visao geral",
+                "panorama",
+                "overview",
+                "como esta minha colecao",
+                "como esta a minha colecao",
+                "valor total que ja paguei",
+                "valor total pago");
+    }
+
     private String normalizar(String texto) {
         String semAcentos = Normalizer.normalize(texto, Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "");
@@ -310,6 +323,10 @@ public class AssistenteService {
         
         resposta += "\n🎯 Confiança: " + top.confianca();
 
+        if (ehConhecimentoDeHeroi(top)) {
+            resposta += PREFERENCIA_TEX;
+        }
+
         return new RespostaAssistenteDTO(resposta, ORIGEM_CONHECIMENTO_EDITORIAL, resultados);
     }
 
@@ -319,9 +336,13 @@ public class AssistenteService {
                 .filter(entrada -> perguntaNormalizada.contains(entrada.getKey()))
                 .findFirst()
                 .map(entrada -> new RespostaAssistenteDTO(
-                        entrada.getValue(),
+                        entrada.getValue() + PREFERENCIA_TEX,
                         ORIGEM_CONHECIMENTO_ESSENCIAL,
                         null));
+    }
+
+    private boolean ehConhecimentoDeHeroi(ResultadoBuscaConhecimentoDTO resultado) {
+        return "HEROI".equalsIgnoreCase(resultado.tipo());
     }
 
     private static Map<String, String> criarConhecimentosEssenciais() {
