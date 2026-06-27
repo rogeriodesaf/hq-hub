@@ -9,6 +9,7 @@ public record ResultadoPesquisaCatalogoDTO(
         String titulo,
         String numero,
         String nomeVolume,
+        Integer serieVolume,
         String urlCapa,
         LocalDate dataPublicacao,
         Boolean jaCadastrada,

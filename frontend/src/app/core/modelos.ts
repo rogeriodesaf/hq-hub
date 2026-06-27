@@ -123,6 +123,7 @@ export interface ResultadoPesquisaCatalogo {
   titulo: string | null;
   numero: string | null;
   nomeVolume: string | null;
+  serieVolume: number | null;
   urlCapa: string | null;
   dataPublicacao: string | null;
   jaCadastrada: boolean;

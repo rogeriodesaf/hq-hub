@@ -56,7 +56,7 @@ import {
             @for (resultado of resultadosEncontrados(); track chaveResultado(resultado)) {
               <button type="button" [class.ativo]="resultadoSelecionado()?.idExterno === resultado.idExterno && resultadoSelecionado()?.id === resultado.id" (click)="selecionarResultado(resultado)">
                 <strong>{{ tituloResultado(resultado) }}</strong>
-                <span>{{ resultado.nomeVolume || 'Série não informada' }} · {{ rotuloFonte(resultado) }}</span>
+                <span>{{ descricaoResultado(resultado) }}</span>
               </button>
             }
           </div>
@@ -889,6 +889,16 @@ export class ColecaoPage implements OnInit {
 
   rotuloFonte(resultado: ResultadoPesquisaCatalogo) {
     return resultado.fonte === 'HQ_HUB' || resultado.jaCadastrada ? 'Catálogo interno' : 'Comic Vine';
+  }
+
+  descricaoResultado(resultado: ResultadoPesquisaCatalogo) {
+    const partes = [
+      resultado.nomeVolume || 'Série não informada',
+      resultado.serieVolume ? `V${resultado.serieVolume}` : null,
+      this.rotuloFonte(resultado),
+    ].filter(Boolean);
+
+    return partes.join(' · ');
   }
 
   chaveResultado(resultado: ResultadoPesquisaCatalogo) {

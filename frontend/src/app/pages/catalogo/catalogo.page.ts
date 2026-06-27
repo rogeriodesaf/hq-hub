@@ -1339,6 +1339,7 @@ export class CatalogoPage implements OnInit {
       titulo: edicao.titulo || edicao.serie?.titulo || null,
       numero: edicao.numero,
       nomeVolume: edicao.nomeVolume || edicao.serie?.titulo || null,
+      serieVolume: edicao.serie?.volume ?? null,
       urlCapa: edicao.urlCapa,
       dataPublicacao: edicao.dataPublicacao,
       jaCadastrada: true,
