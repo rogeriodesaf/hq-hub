@@ -421,6 +421,34 @@ img {
   font-size: 0.9rem;
 }
 
+.botao-amazon {
+  gap: 7px;
+}
+
+.amazon-marca {
+  position: relative;
+  display: inline-block;
+  padding: 0 2px 7px;
+  color: #111;
+  font-size: 1.08em;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.amazon-marca::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  bottom: 1px;
+  width: 42px;
+  height: 9px;
+  border-bottom: 3px solid #ff9900;
+  border-radius: 0 0 50% 50%;
+  transform: rotate(-7deg);
+}
+
 .botao.cheio {
   width: 100%;
 }

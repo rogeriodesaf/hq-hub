@@ -222,8 +222,9 @@ import {
               @if (linksAmazonDetalhe().length) {
                 <div class="acoes-detalhe-edicao">
                   @for (link of linksAmazonDetalhe(); track link.id) {
-                    <a class="botao compacto" [href]="link.url" target="_blank" rel="noreferrer">
-                      {{ link.titulo || 'Comprar na Amazon' }}
+                    <a class="botao compacto botao-amazon" [href]="link.url" target="_blank" rel="noreferrer" [attr.aria-label]="link.titulo || 'Comprar na Amazon'">
+                      <span>Comprar na</span>
+                      <span class="amazon-marca" aria-hidden="true">amazon</span>
                     </a>
                   }
                 </div>
