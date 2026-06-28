@@ -731,6 +731,13 @@ body.tema-escuro input,
 body.tema-escuro select,
 body.tema-escuro textarea {
   background: var(--superficie);
+  border-color: var(--borda);
+  color: var(--texto);
+}
+
+body.tema-escuro input::placeholder,
+body.tema-escuro textarea::placeholder {
+  color: var(--texto-suave);
 }
 
 textarea {
@@ -820,6 +827,7 @@ body.tema-escuro .anuncio-card,
 body.tema-escuro .historia-card,
 body.tema-escuro .resultado-catalogo,
 body.tema-escuro .publicacao-card,
+body.tema-escuro .detalhe-secao,
 body.tema-escuro .prateleira,
 body.tema-escuro .painel-estante,
 body.tema-escuro .estado-carregando,
@@ -835,9 +843,21 @@ body.tema-escuro .anuncio-card,
 body.tema-escuro .historia-card,
 body.tema-escuro .resultado-catalogo,
 body.tema-escuro .publicacao-card,
+body.tema-escuro .detalhe-secao,
 body.tema-escuro .prateleira,
 body.tema-escuro .painel-estante {
   color: var(--texto);
+}
+
+body.tema-escuro .detalhe-secao h3,
+body.tema-escuro .detalhe-secao h4,
+body.tema-escuro .publicacao-card h4 {
+  color: var(--texto);
+}
+
+body.tema-escuro .detalhe-secao p,
+body.tema-escuro .publicacao-card p {
+  color: var(--texto-suave);
 }
 
 body.tema-escuro .resultado-catalogo.externo,

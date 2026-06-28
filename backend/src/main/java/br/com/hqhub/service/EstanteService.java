@@ -3,6 +3,8 @@ package br.com.hqhub.service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import br.com.hqhub.dto.EstanteEdicaoDTO;
@@ -20,6 +22,8 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class EstanteService {
+
+    private static final Pattern PRIMEIRO_NUMERO = Pattern.compile("\\d+");
 
     private final ItemColecaoRepository itemColecaoRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
@@ -114,7 +118,7 @@ public class EstanteService {
 
     private List<EstanteEdicaoDTO> montarEdicoes(List<ItemColecao> itens) {
         return itens.stream()
-                .sorted(Comparator.comparing(item -> item.getEdicao().getNumero()))
+                .sorted(this::compararItemPorNumeroEdicao)
                 .map(item -> new EstanteEdicaoDTO(
                         item.getId(),
                         item.getEdicao().getId(),
@@ -126,5 +130,31 @@ public class EstanteService {
                         item.getDataAquisicao(),
                         item.getPrecoPago()))
                 .toList();
+    }
+
+    private int compararItemPorNumeroEdicao(ItemColecao primeiro, ItemColecao segundo) {
+        String numeroPrimeiro = primeiro.getEdicao().getNumero();
+        String numeroSegundo = segundo.getEdicao().getNumero();
+        int valorPrimeiro = extrairPrimeiroNumero(numeroPrimeiro);
+        int valorSegundo = extrairPrimeiroNumero(numeroSegundo);
+
+        if (valorPrimeiro != valorSegundo) {
+            return Integer.compare(valorPrimeiro, valorSegundo);
+        }
+
+        return normalizarNumero(numeroPrimeiro).compareToIgnoreCase(normalizarNumero(numeroSegundo));
+    }
+
+    private int extrairPrimeiroNumero(String valor) {
+        if (valor == null) {
+            return Integer.MAX_VALUE;
+        }
+
+        Matcher matcher = PRIMEIRO_NUMERO.matcher(valor);
+        return matcher.find() ? Integer.parseInt(matcher.group()) : Integer.MAX_VALUE;
+    }
+
+    private String normalizarNumero(String valor) {
+        return valor == null ? "" : valor;
     }
 }
