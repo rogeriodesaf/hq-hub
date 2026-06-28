@@ -473,7 +473,11 @@ export class ComprasPage implements OnInit {
       observacoes: compra.observacoes,
     }).subscribe({
       next: (atualizada) => {
-        this.compras.update((compras) => compras.map((item) => item.id === atualizada.id ? atualizada : item));
+        this.compras.update((compras) =>
+          atualizada.status === 'PLANEJADA'
+            ? compras.map((item) => item.id === atualizada.id ? atualizada : item)
+            : compras.filter((item) => item.id !== atualizada.id),
+        );
         this.salvando.set(false);
       },
       error: () => {

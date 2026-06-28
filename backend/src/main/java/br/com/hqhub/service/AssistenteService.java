@@ -19,6 +19,7 @@ import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.entity.Criador;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.repository.CriadorRepository;
+import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -43,6 +44,7 @@ public class AssistenteService {
     private final RelacionamentoSerieService relacionamentoSerieService;
     private final ConhecimentoEditorialService conhecimentoEditorialService;
     private final SerieRepository serieRepository;
+    private final EdicaoRepository edicaoRepository;
     private final CriadorRepository criadorRepository;
 
     public AssistenteService(
@@ -53,6 +55,7 @@ public class AssistenteService {
             RelacionamentoSerieService relacionamentoSerieService,
             ConhecimentoEditorialService conhecimentoEditorialService,
             SerieRepository serieRepository,
+            EdicaoRepository edicaoRepository,
             CriadorRepository criadorRepository) {
         this.resumoColecaoService = resumoColecaoService;
         this.faltanteService = faltanteService;
@@ -61,6 +64,7 @@ public class AssistenteService {
         this.relacionamentoSerieService = relacionamentoSerieService;
         this.conhecimentoEditorialService = conhecimentoEditorialService;
         this.serieRepository = serieRepository;
+        this.edicaoRepository = edicaoRepository;
         this.criadorRepository = criadorRepository;
     }
 
@@ -91,6 +95,10 @@ public class AssistenteService {
 
         if (ehPerguntaResumoColecao(perguntaNormalizada)) {
             return responderResumo();
+        }
+
+        if (ehPerguntaQuantidadeEdicoes(perguntaNormalizada)) {
+            return responderQuantidadeEdicoesSerie(pergunta);
         }
 
         try {
@@ -218,6 +226,29 @@ public class AssistenteService {
         return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, relacionamentos);
     }
 
+    private RespostaAssistenteDTO responderQuantidadeEdicoesSerie(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        long totalEdicoes = edicaoRepository.count("serie.id", serie.getId());
+        String volume = serie.getVolume() != null ? " V%d".formatted(serie.getVolume()) : "";
+        String editora = serie.getEditora() != null ? " pela %s".formatted(serie.getEditora().getNome()) : "";
+        String resposta = "%s%s tem %d edicao(oes) cadastrada(s) no catalogo interno%s. Esse total reflete o que ja esta registrado no HQ-HUB."
+                .formatted(serie.getTitulo(), volume, totalEdicoes, editora);
+
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("serieId", serie.getId());
+        dados.put("titulo", serie.getTitulo());
+        dados.put("volume", serie.getVolume());
+        dados.put("editora", serie.getEditora() != null ? serie.getEditora().getNome() : null);
+        dados.put("totalEdicoes", totalEdicoes);
+
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    }
+
     private Optional<Serie> localizarSerie(String pergunta) {
         Optional<Long> id = extrairId(pergunta);
         if (id.isPresent()) {
@@ -225,9 +256,17 @@ public class AssistenteService {
         }
 
         String perguntaNormalizada = normalizar(pergunta);
-        return serieRepository.buscarPaginado(null, 0, 200)
+        Optional<Serie> porTitulo = serieRepository.buscarPaginado(null, 0, 200)
                 .stream()
                 .filter(serie -> perguntaNormalizada.contains(normalizar(serie.getTitulo())))
+                .findFirst();
+
+        if (porTitulo.isPresent()) {
+            return porTitulo;
+        }
+
+        return serieRepository.buscarPaginado(pergunta, 0, 5)
+                .stream()
                 .findFirst();
     }
 
@@ -291,6 +330,18 @@ public class AssistenteService {
                 "como esta a minha colecao",
                 "valor total que ja paguei",
                 "valor total pago");
+    }
+
+    private boolean ehPerguntaQuantidadeEdicoes(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "quantas edicoes",
+                "quantos numeros",
+                "quantas revistas",
+                "quantas hqs",
+                "quantos volumes",
+                "total de edicoes",
+                "total de numeros",
+                "total de revistas");
     }
 
     private String normalizar(String texto) {

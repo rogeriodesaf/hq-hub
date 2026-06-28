@@ -8,6 +8,7 @@ import br.com.hqhub.dto.CadastroCompraPlanejadaDTO;
 import br.com.hqhub.dto.CompraPlanejadaRespostaDTO;
 import br.com.hqhub.entity.CompraPlanejada;
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.StatusCompraPlanejada;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
@@ -75,12 +76,16 @@ public class CompraPlanejadaService {
         List<CompraPlanejada> compras;
         if (mesInicio != null && anoInicio != null && mesFim != null && anoFim != null) {
             compras = compraPlanejadaRepository.list(
-                    "usuario.id = ?1 and (ano > ?2 or (ano = ?2 and mes >= ?3)) and (ano < ?4 or (ano = ?4 and mes <= ?5))",
-                    usuario.getId(), anoInicio, mesInicio, anoFim, mesFim);
+                    "usuario.id = ?1 and status = ?2 and (ano > ?3 or (ano = ?3 and mes >= ?4)) and (ano < ?5 or (ano = ?5 and mes <= ?6))",
+                    usuario.getId(), StatusCompraPlanejada.PLANEJADA, anoInicio, mesInicio, anoFim, mesFim);
         } else if (mes != null && ano != null) {
-            compras = compraPlanejadaRepository.list("usuario.id = ?1 and mes = ?2 and ano = ?3", usuario.getId(), mes, ano);
+            compras = compraPlanejadaRepository.list(
+                    "usuario.id = ?1 and status = ?2 and mes = ?3 and ano = ?4",
+                    usuario.getId(), StatusCompraPlanejada.PLANEJADA, mes, ano);
         } else {
-            compras = compraPlanejadaRepository.list("usuario.id", usuario.getId());
+            compras = compraPlanejadaRepository.list(
+                    "usuario.id = ?1 and status = ?2",
+                    usuario.getId(), StatusCompraPlanejada.PLANEJADA);
         }
 
         return compras.stream()

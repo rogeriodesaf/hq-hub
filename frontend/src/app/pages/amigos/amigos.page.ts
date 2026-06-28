@@ -97,16 +97,19 @@ import { Amizade, Usuario } from '../../core/modelos';
         </div>
         <div class="lista-amizades">
           @for (amizade of amigos(); track amizade.id) {
-            <div>
-              <a [routerLink]="['/usuario', outroUsuario(amizade).id]" class="link-nome-amigo">
+            <div class="amigo-card">
+              <div class="foto-amigo" aria-hidden="true">
+                @if (fotoAmigo(amizade)) {
+                  <img [src]="fotoAmigo(amizade)!" alt="" loading="lazy" />
+                } @else {
+                  <span>{{ inicialAmigo(amizade) }}</span>
+                }
+              </div>
+              <a [routerLink]="['/usuario', outroUsuario(amizade).id]" class="nome-amigo-link">
                 <strong>{{ outroUsuario(amizade).nome }}</strong>
               </a>
-              <span>{{ outroUsuario(amizade).email }}</span>
-              <div class="acoes-linha">
-                <a class="botao compacto secundario" [routerLink]="['/usuario', outroUsuario(amizade).id]">Ver perfil</a>
-                <a class="botao compacto" routerLink="/mensagens" [queryParams]="{ usuarioId: outroUsuario(amizade).id }">Direct</a>
-                <button class="botao compacto" type="button" (click)="remover(amizade)">Remover</button>
-              </div>
+              <a class="link-mensagem-amigo" routerLink="/mensagens" [queryParams]="{ usuarioId: outroUsuario(amizade).id }">Mensagem</a>
+              <button class="botao compacto secundario botao-remover-amigo" type="button" (click)="remover(amizade)">Remover</button>
             </div>
           } @empty {
             <p class="texto-suave">Você ainda não adicionou amigos.</p>
@@ -219,6 +222,15 @@ export class AmigosPage implements OnInit, AfterViewInit {
     return amizade.solicitante.id === usuarioAtualId ? amizade.solicitado : amizade.solicitante;
   }
 
+  fotoAmigo(amizade: Amizade) {
+    const amigo = this.outroUsuario(amizade);
+    return amigo.fotoPerfilThumbnailUrl || amigo.fotoPerfilUrl || null;
+  }
+
+  inicialAmigo(amizade: Amizade) {
+    return (this.outroUsuario(amizade).nome || '?').trim().charAt(0).toUpperCase();
+  }
+
   private carregarTudo() {
     this.api.listarAmigos().subscribe({
       next: (resposta) => this.amigos.set(resposta),
@@ -238,4 +250,3 @@ export class AmigosPage implements OnInit, AfterViewInit {
     window.dispatchEvent(new CustomEvent('hqhub-amizades-atualizadas'));
   }
 }
-

@@ -34,17 +34,17 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
             </button>
           </div>
 
-          <form [formGroup]="formulario" (ngSubmit)="enviar()">
+          <form [formGroup]="formulario" (ngSubmit)="enviar()" autocomplete="on">
             @if (modo() === 'cadastrar') {
               <label>
                 Nome
-                <input formControlName="nome" autocomplete="name" placeholder="Seu nome" />
+                <input formControlName="nome" name="name" autocomplete="name" placeholder="Seu nome" />
               </label>
             }
 
             <label>
               E-mail
-              <input formControlName="email" autocomplete="email" placeholder="voce@email.com" />
+              <input formControlName="email" name="username" autocomplete="username" inputmode="email" placeholder="voce@email.com" />
             </label>
 
             <label>
@@ -142,6 +142,7 @@ export class AutenticacaoPage implements OnInit {
   readonly emailEnviado = signal(false);
   readonly senhaTrocada = signal(false);
   private tokenRedefinicao = '';
+  private readonly chaveEmailLembrado = 'hqhub-login-email';
 
   readonly formulario = this.fb.group({
     nome: [''],
@@ -158,6 +159,12 @@ export class AutenticacaoPage implements OnInit {
   });
 
   ngOnInit() {
+    const emailLembrado = localStorage.getItem(this.chaveEmailLembrado);
+    if (emailLembrado) {
+      this.formulario.patchValue({ email: emailLembrado });
+      this.formularioRedefinir.patchValue({ email: emailLembrado });
+    }
+
     this.rota.queryParams.subscribe((params) => {
       const token = params['token'] as string | undefined;
       if (token) {
@@ -243,7 +250,10 @@ export class AutenticacaoPage implements OnInit {
 
   private entrar(email: string, senha: string) {
     this.autenticacaoService.entrar(email, senha).subscribe({
-      next: () => this.roteador.navigateByUrl('/painel'),
+      next: () => {
+        localStorage.setItem(this.chaveEmailLembrado, email);
+        this.roteador.navigateByUrl('/painel');
+      },
       error: (erro) => this.tratarErro(erro),
     });
   }
