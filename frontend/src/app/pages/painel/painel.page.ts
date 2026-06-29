@@ -42,6 +42,26 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
     <section class="feed-layout">
       <div class="feed-coluna">
+        <a
+          class="banner-feed banner-evolukit"
+          href="https://link.amazon/B09ZELm0N"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Adquira sua evolukit"
+        >
+          <img
+            src="https://acdn-us.mitiendanube.com/stores/005/843/311/themes/common/logo-1653308187-1764589351-c5659b892bb2b592b88048f01fe6900f1764589351.png?0"
+            alt=""
+            loading="lazy"
+          />
+          <span>Adquira sua evolukit</span>
+        </a>
+
+        <a class="banner-feed banner-apoio" routerLink="/apoie">
+          <strong>Torne-se apoiador desse projeto</strong>
+          <span>Ajude o HQ-HUB a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
+        </a>
+
         <app-perfil-feed
           [usuario]="usuario()"
           modo="resumo"

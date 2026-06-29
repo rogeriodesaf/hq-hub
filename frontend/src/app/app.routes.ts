@@ -68,6 +68,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/canais/canais.page').then((m) => m.CanaisPage),
       },
       {
+        path: 'colaboradores',
+        loadComponent: () => import('./pages/colaboradores/colaboradores.page').then((m) => m.ColaboradoresPage),
+      },
+      {
+        path: 'apoie',
+        loadComponent: () => import('./pages/apoie/apoie.page').then((m) => m.ApoiePage),
+      },
+      {
         path: 'amigos',
         loadComponent: () => import('./pages/amigos/amigos.page').then((m) => m.AmigosPage),
       },

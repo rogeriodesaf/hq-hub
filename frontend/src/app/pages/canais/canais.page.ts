@@ -67,6 +67,11 @@ export class CanaisPage {
       url: 'https://www.youtube.com/@contrapontohqs',
       imagemUrl: 'https://yt3.googleusercontent.com/O2qyig_ZyWlProg-wc_P1r4IPoFhbO-myKNiAFoOSZSoFvuoGfpwPC__kLTSp-GHi3YNnmh1=s160-c-k-c0x00ffffff-no-rj',
     },
+    {
+      nome: 'Em Estado de Banca',
+      url: 'https://www.youtube.com/@EmestadodeBanca43',
+      imagemUrl: 'https://yt3.googleusercontent.com/AN8kidmJQaIXgGmKbcGS3KJwQGjmukgGUCWJOGUcEWwiCzokXeTrHuI0Lv7LqHsVnD7sRnWV9g=s160-c-k-c0x00ffffff-no-rj',
+    },
   ];
 
   iniciaisCanal(nome: string) {
