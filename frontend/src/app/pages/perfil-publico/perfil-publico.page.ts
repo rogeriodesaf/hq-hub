@@ -113,12 +113,14 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                         {{ iniciais(usuario()!.nome) }}
                       }
                     </div>
-                    <div>
+                    <div class="autor-postagem">
                       <strong>{{ usuario()!.nome }}</strong>
-                      @if (usuario()!.bio) {
-                        <small>{{ usuario()!.bio }}</small>
-                      }
-                      <span>{{ dataRelativa(postagem.dataCriacao) }}</span>
+                      <small>
+                        @if (usuario()!.bio) {
+                          {{ usuario()!.bio }} ·
+                        }
+                        {{ dataRelativa(postagem.dataCriacao) }}
+                      </small>
                     </div>
                     @if (postagem.usuario.id === usuarioAtual()?.id) {
                       <button class="botao compacto" type="button" (click)="removerPostagem(postagem)" [disabled]="interagindoId() === postagem.id">
@@ -458,20 +460,16 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
       align-items: center;
     }
 
-    .postagem-card header div:last-child {
+    .autor-postagem {
       display: grid;
-      gap: 2px;
+      gap: 4px;
+      min-width: 0;
     }
 
-    .postagem-card header small {
+    .autor-postagem small {
       color: var(--texto-suave);
       font-size: 0.82rem;
       overflow-wrap: anywhere;
-    }
-
-    .postagem-card header span {
-      color: var(--texto-suave);
-      font-size: 0.88rem;
     }
 
     .avatar-feed {

@@ -125,14 +125,16 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     }
                   </a>
                 </div>
-                <div>
+                <div class="autor-postagem">
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-nome-amigo">
                     <strong>{{ postagem.usuario.nome }}</strong>
                   </a>
-                  @if (postagem.usuario.bio) {
-                    <small>{{ postagem.usuario.bio }}</small>
-                  }
-                  <span>{{ dataRelativa(postagem.dataCriacao) }}</span>
+                  <small>
+                    @if (postagem.usuario.bio) {
+                      {{ postagem.usuario.bio }} ·
+                    }
+                    {{ dataRelativa(postagem.dataCriacao) }}
+                  </small>
                 </div>
                 @if (postagem.usuario.id === usuario()?.id) {
                   <button
@@ -382,22 +384,22 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       align-items: center;
     }
 
-    .postagem-card header div:last-child {
+    .autor-postagem {
       display: grid;
-      gap: 2px;
+      gap: 4px;
+      min-width: 0;
     }
 
     .acao-postagem {
       margin-left: auto;
     }
 
-    .postagem-card header small {
+    .autor-postagem small {
       color: var(--texto-suave);
       font-size: 0.82rem;
       overflow-wrap: anywhere;
     }
 
-    .postagem-card header span,
     .barra-postagem,
     .comentarios-feed article p {
       color: var(--texto-suave);
