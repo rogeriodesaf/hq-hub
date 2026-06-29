@@ -124,6 +124,10 @@ public class AssistenteService {
             return respostaEssencial.get();
         }
 
+        if (ehPerguntaSobreSistema(perguntaNormalizada)) {
+            return responderAjudaSistema();
+        }
+
         return new RespostaAssistenteDTO(
                 "Ainda não encontrei uma intenção clara nessa pergunta. Por enquanto consigo responder sobre: resumo da coleção, edições faltantes, completude por série, compras planejadas, criadores, continuidade entre séries e curiosidades sobre quadrinhos (se disponíveis na base editorial).",
                 ORIGEM_NAO_ENCONTRADO,
@@ -342,6 +346,35 @@ public class AssistenteService {
                 "total de edicoes",
                 "total de numeros",
                 "total de revistas");
+    }
+
+    private boolean ehPerguntaSobreSistema(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "hq-hub",
+                "hqhub",
+                "sistema",
+                "app",
+                "aplicativo",
+                "funciona",
+                "como faco",
+                "como usar",
+                "onde cadastro",
+                "onde vejo",
+                "catalogo",
+                "colecao",
+                "estante",
+                "compras",
+                "amigos",
+                "mensagens",
+                "importacao",
+                "revisao");
+    }
+
+    private RespostaAssistenteDTO responderAjudaSistema() {
+        return new RespostaAssistenteDTO(
+                "Posso ajudar com o funcionamento do HQ-HUB. As areas principais sao: Catalogo para series e edicoes cadastradas, Colecao/Estante para o que voce possui, Compras para a wishlist planejada, Amigos e Mensagens para interacao entre colecionadores, Importacao/Revisao para alimentar o catalogo e Assistente para consultar dados da colecao ou curiosidades de quadrinhos. Tente perguntar algo como: como adiciono uma HQ?, como funciona compras?, como importo uma edicao? ou quantas edicoes existem em uma serie?",
+                ORIGEM_CONHECIMENTO_ESSENCIAL,
+                null);
     }
 
     private String normalizar(String texto) {

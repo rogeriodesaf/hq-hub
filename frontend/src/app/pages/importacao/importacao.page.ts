@@ -45,6 +45,207 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
           </button>
         </div>
 
+        <details class="editor-visual-importacao" open>
+          <summary>Cadastro visual do JSON</summary>
+          <div class="grade-importacao-visual">
+            <label>
+              Arquivo de origem
+              <small>origem.arquivoEntrada</small>
+              <input [(ngModel)]="visualImportacao.origem.arquivoEntrada" name="visualOrigemArquivo" />
+            </label>
+            <label class="campo-largo">
+              URL da fonte
+              <small>origem.url</small>
+              <input [(ngModel)]="visualImportacao.origem.url" name="visualOrigemUrl" placeholder="https://..." />
+            </label>
+            <label>
+              Titulo da serie
+              <small>serieBrasileira.titulo</small>
+              <input [(ngModel)]="visualImportacao.serieBrasileira.titulo" name="visualSerieTitulo" />
+            </label>
+            <label>
+              Fase
+              <small>serieBrasileira.fase</small>
+              <input [(ngModel)]="visualImportacao.serieBrasileira.fase" name="visualSerieFase" />
+            </label>
+            <label>
+              Editora
+              <small>serieBrasileira.editora</small>
+              <input [(ngModel)]="visualImportacao.serieBrasileira.editora" name="visualSerieEditora" />
+            </label>
+            <label>
+              Volume
+              <small>serieBrasileira.volume</small>
+              <input type="number" min="1" [(ngModel)]="visualImportacao.serieBrasileira.volume" name="visualSerieVolume" />
+            </label>
+            <label>
+              Total de edicoes
+              <small>totalEdicoes</small>
+              <input type="number" [ngModel]="visualImportacao.edicoes.length" name="visualTotalEdicoes" disabled />
+            </label>
+            <label>
+              Total de historias
+              <small>totalHistorias</small>
+              <input type="number" [ngModel]="totalHistoriasVisual()" name="visualTotalHistorias" disabled />
+            </label>
+          </div>
+
+          <section class="edicoes-visuais">
+            <div class="secao-titulo compacta">
+              <h3>Edicoes</h3>
+              <button class="botao compacto" type="button" (click)="adicionarEdicaoVisual()">+ Edicao</button>
+            </div>
+
+            @for (edicao of visualImportacao.edicoes; track $index; let indiceEdicao = $index) {
+              <article class="edicao-visual">
+                <div class="secao-titulo compacta">
+                  <strong>Edicao {{ indiceEdicao + 1 }}</strong>
+                  <button class="botao perigo compacto" type="button" (click)="removerEdicaoVisual(indiceEdicao)" [disabled]="visualImportacao.edicoes.length === 1">Remover</button>
+                </div>
+                <div class="grade-importacao-visual">
+                  <label>
+                    Numero
+                    <small>edicoes[{{ indiceEdicao }}].numero</small>
+                    <input [(ngModel)]="edicao.numero" [name]="'visualEdicaoNumero' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Titulo de chamada
+                    <small>edicoes[{{ indiceEdicao }}].tituloChamada</small>
+                    <input [(ngModel)]="edicao.tituloChamada" [name]="'visualEdicaoTitulo' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Data
+                    <small>edicoes[{{ indiceEdicao }}].dataPublicacao</small>
+                    <input type="date" [(ngModel)]="edicao.dataPublicacao" [name]="'visualEdicaoData' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Publicado texto
+                    <small>edicoes[{{ indiceEdicao }}].publicadoTexto</small>
+                    <input [(ngModel)]="edicao.publicadoTexto" [name]="'visualEdicaoPublicado' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Editora
+                    <small>edicoes[{{ indiceEdicao }}].editora</small>
+                    <input [(ngModel)]="edicao.editora" [name]="'visualEdicaoEditora' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Licenciador
+                    <small>edicoes[{{ indiceEdicao }}].licenciador</small>
+                    <input [(ngModel)]="edicao.licenciador" [name]="'visualEdicaoLicenciador' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Categoria
+                    <small>edicoes[{{ indiceEdicao }}].categoria</small>
+                    <input [(ngModel)]="edicao.categoria" [name]="'visualEdicaoCategoria' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Genero
+                    <small>edicoes[{{ indiceEdicao }}].genero</small>
+                    <input [(ngModel)]="edicao.genero" [name]="'visualEdicaoGenero' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Status
+                    <small>edicoes[{{ indiceEdicao }}].status</small>
+                    <input [(ngModel)]="edicao.status" [name]="'visualEdicaoStatus' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Paginas
+                    <small>edicoes[{{ indiceEdicao }}].numeroPaginas</small>
+                    <input type="number" min="1" [(ngModel)]="edicao.numeroPaginas" [name]="'visualEdicaoPaginas' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Formato
+                    <small>edicoes[{{ indiceEdicao }}].formato</small>
+                    <input [(ngModel)]="edicao.formato" [name]="'visualEdicaoFormato' + indiceEdicao" />
+                  </label>
+                  <label>
+                    Preco de capa
+                    <small>edicoes[{{ indiceEdicao }}].precoCapa</small>
+                    <input type="number" min="0" step="0.01" [(ngModel)]="edicao.precoCapa" [name]="'visualEdicaoPreco' + indiceEdicao" />
+                  </label>
+                  <label class="campo-largo">
+                    URL da capa
+                    <small>edicoes[{{ indiceEdicao }}].urlCapa</small>
+                    <input [(ngModel)]="edicao.urlCapa" [name]="'visualEdicaoCapa' + indiceEdicao" placeholder="https://..." />
+                  </label>
+                  <label class="campo-largo">
+                    Descricao
+                    <small>edicoes[{{ indiceEdicao }}].descricao</small>
+                    <textarea rows="3" [(ngModel)]="edicao.descricao" [name]="'visualEdicaoDescricao' + indiceEdicao"></textarea>
+                  </label>
+                </div>
+
+                <section class="historias-visuais">
+                  <div class="secao-titulo compacta">
+                    <strong>Historias</strong>
+                    <button class="botao compacto" type="button" (click)="adicionarHistoriaVisual(edicao)">+ Historia</button>
+                  </div>
+                  @for (historia of edicao.historias; track $index; let indiceHistoria = $index) {
+                    <article class="historia-visual">
+                      <div class="secao-titulo compacta">
+                        <span>Historia {{ indiceHistoria + 1 }}</span>
+                        <button class="botao perigo compacto" type="button" (click)="removerHistoriaVisual(edicao, indiceHistoria)" [disabled]="edicao.historias.length === 1">Remover</button>
+                      </div>
+                      <div class="grade-importacao-visual">
+                        <label>
+                          Ordem
+                          <small>historias[{{ indiceHistoria }}].ordem</small>
+                          <input type="number" min="1" [(ngModel)]="historia.ordem" [name]="'visualHistoriaOrdem' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Titulo em portugues
+                          <small>historias[{{ indiceHistoria }}].tituloPortugues</small>
+                          <input [(ngModel)]="historia.tituloPortugues" [name]="'visualHistoriaTituloPt' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Titulo original
+                          <small>historias[{{ indiceHistoria }}].tituloOriginal</small>
+                          <input [(ngModel)]="historia.tituloOriginal" [name]="'visualHistoriaTituloOriginal' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Paginas
+                          <small>historias[{{ indiceHistoria }}].quantidadePaginas</small>
+                          <input type="number" min="1" [(ngModel)]="historia.quantidadePaginas" [name]="'visualHistoriaPaginas' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label class="campo-largo">
+                          Resumo
+                          <small>historias[{{ indiceHistoria }}].resumo</small>
+                          <textarea rows="3" [(ngModel)]="historia.resumo" [name]="'visualHistoriaResumo' + indiceEdicao + '-' + indiceHistoria"></textarea>
+                        </label>
+                        <label>
+                          Serie original
+                          <small>publicacaoOriginal.serieOriginal</small>
+                          <input [(ngModel)]="historia.publicacaoOriginal.serieOriginal" [name]="'visualHistoriaSerieOriginal' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Numero original
+                          <small>publicacaoOriginal.numeroOriginal</small>
+                          <input [(ngModel)]="historia.publicacaoOriginal.numeroOriginal" [name]="'visualHistoriaNumeroOriginal' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Ano original
+                          <small>publicacaoOriginal.anoOriginal</small>
+                          <input type="number" min="1900" [(ngModel)]="historia.publicacaoOriginal.anoOriginal" [name]="'visualHistoriaAnoOriginal' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                        <label>
+                          Texto da publicacao
+                          <small>publicacaoOriginal.texto</small>
+                          <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'visualHistoriaTextoOriginal' + indiceEdicao + '-' + indiceHistoria" />
+                        </label>
+                      </div>
+                    </article>
+                  }
+                </section>
+              </article>
+            }
+          </section>
+
+          <div class="acoes-importacao">
+            <button class="botao compacto" type="button" (click)="atualizarJsonPeloVisual()">Atualizar JSON pelo formulario</button>
+            <button class="botao compacto secundario" type="button" (click)="carregarVisualDoJson()" [disabled]="!jsonTexto.trim()">Carregar formulario pelo JSON</button>
+          </div>
+        </details>
+
         @if (nomeArquivo()) {
           <p class="texto-suave arquivo-selecionado">Arquivo selecionado: {{ nomeArquivo() }}</p>
         }
@@ -239,6 +440,62 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
       line-height: 1.5;
     }
 
+    .editor-visual-importacao,
+    .edicao-visual,
+    .historia-visual {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie-suave);
+    }
+
+    .editor-visual-importacao summary {
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .grade-importacao-visual {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .grade-importacao-visual label {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+      color: var(--texto);
+      font-size: 0.9rem;
+      font-weight: 750;
+    }
+
+    .grade-importacao-visual small {
+      color: var(--texto-suave);
+      font-size: 0.76rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .campo-largo {
+      grid-column: 1 / -1;
+    }
+
+    .edicoes-visuais,
+    .historias-visuais {
+      display: grid;
+      gap: 12px;
+    }
+
+    .edicao-visual {
+      background: var(--superficie);
+    }
+
+    .historia-visual {
+      background: var(--superficie-2);
+    }
+
     .resultado-destaque {
       display: grid;
       gap: 8px;
@@ -380,6 +637,10 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
         grid-template-columns: 1fr;
       }
 
+      .grade-importacao-visual {
+        grid-template-columns: 1fr;
+      }
+
       .campo-json textarea {
         min-height: 320px;
       }
@@ -401,6 +662,7 @@ export class ImportacaoPage {
   numeroEdicaoCapa = '';
   urlCapaManual = '';
   jsonTexto = '';
+  visualImportacao: any = this.modeloImportacao();
 
   selecionarArquivo(evento: Event) {
     const input = evento.target as HTMLInputElement;
@@ -414,6 +676,7 @@ export class ImportacaoPage {
     leitor.onload = () => {
       this.jsonTexto = String(leitor.result || '');
       this.mensagem.set('');
+      this.carregarVisualDoJson(false);
     };
     leitor.onerror = () => this.mensagem.set('Não foi possível ler o arquivo selecionado.');
     leitor.readAsText(arquivo, 'utf-8');
@@ -436,11 +699,13 @@ export class ImportacaoPage {
     ].join('\n');
     this.nomeArquivo.set('exemplo-estrutura.json');
     this.resultado.set(null);
+    this.carregarVisualDoJson(false);
     this.mensagem.set('Exemplo estrutural carregado. Para importar de verdade, selecione o JSON completo gerado pelo robô.');
   }
 
   preencherModeloEmBranco() {
-    this.jsonTexto = JSON.stringify(this.modeloImportacao(), null, 2);
+    this.visualImportacao = this.modeloImportacao();
+    this.jsonTexto = JSON.stringify(this.visualImportacao, null, 2);
     this.nomeArquivo.set('modelo-importacao-hqhub.json');
     this.resultado.set(null);
     this.mensagem.set('Modelo em branco carregado. Preencha serie, editora e numero da edicao antes de importar.');
@@ -469,6 +734,7 @@ export class ImportacaoPage {
     corpo.edicoes[0].historias.push(this.modeloHistoria(corpo.edicoes[0].historias.length + 1));
     corpo.totalHistorias = corpo.edicoes.reduce((total: number, edicao: any) => total + (Array.isArray(edicao.historias) ? edicao.historias.length : 0), 0);
     this.jsonTexto = JSON.stringify(corpo, null, 2);
+    this.visualImportacao = this.completarVisualImportacao(corpo);
     this.mensagem.set('Historia adicionada ao JSON carregado.');
   }
 
@@ -608,6 +874,7 @@ export class ImportacaoPage {
 
   limpar() {
     this.jsonTexto = '';
+    this.visualImportacao = this.modeloImportacao();
     this.nomeArquivo.set('');
     this.resultado.set(null);
     this.mensagem.set('');
@@ -616,6 +883,109 @@ export class ImportacaoPage {
     this.serieCapaSelecionada.set(null);
     this.numeroEdicaoCapa = '';
     this.urlCapaManual = '';
+  }
+
+  totalHistoriasVisual() {
+    return (this.visualImportacao.edicoes || [])
+      .reduce((total: number, edicao: any) => total + (Array.isArray(edicao.historias) ? edicao.historias.length : 0), 0);
+  }
+
+  adicionarEdicaoVisual() {
+    this.visualImportacao.edicoes.push(this.modeloEdicao());
+    this.atualizarTotaisVisuais();
+  }
+
+  removerEdicaoVisual(indice: number) {
+    if (this.visualImportacao.edicoes.length <= 1) {
+      return;
+    }
+
+    this.visualImportacao.edicoes.splice(indice, 1);
+    this.atualizarTotaisVisuais();
+  }
+
+  adicionarHistoriaVisual(edicao: any) {
+    if (!Array.isArray(edicao.historias)) {
+      edicao.historias = [];
+    }
+
+    edicao.historias.push(this.modeloHistoria(edicao.historias.length + 1));
+    this.atualizarTotaisVisuais();
+  }
+
+  removerHistoriaVisual(edicao: any, indice: number) {
+    if (!Array.isArray(edicao.historias) || edicao.historias.length <= 1) {
+      return;
+    }
+
+    edicao.historias.splice(indice, 1);
+    this.atualizarTotaisVisuais();
+  }
+
+  atualizarJsonPeloVisual() {
+    this.atualizarTotaisVisuais();
+    this.jsonTexto = JSON.stringify(this.visualImportacao, null, 2);
+    this.mensagem.set('JSON atualizado a partir do formulario visual.');
+  }
+
+  carregarVisualDoJson(exibirMensagem = true) {
+    try {
+      const corpo = JSON.parse(this.jsonTexto);
+      this.visualImportacao = this.completarVisualImportacao(corpo);
+      this.atualizarTotaisVisuais();
+      if (exibirMensagem) {
+        this.mensagem.set('Formulario visual carregado a partir do JSON.');
+      }
+    } catch {
+      if (exibirMensagem) {
+        this.mensagem.set('Nao foi possivel carregar o formulario porque o JSON esta invalido.');
+      }
+    }
+  }
+
+  private atualizarTotaisVisuais() {
+    if (!Array.isArray(this.visualImportacao.edicoes) || !this.visualImportacao.edicoes.length) {
+      this.visualImportacao.edicoes = [this.modeloEdicao()];
+    }
+
+    this.visualImportacao.totalEdicoes = this.visualImportacao.edicoes.length;
+    this.visualImportacao.totalHistorias = this.totalHistoriasVisual();
+    if (this.visualImportacao.origem?.url) {
+      this.visualImportacao.origem.urlsProcessadas = [this.visualImportacao.origem.url];
+    }
+    if (this.visualImportacao.origem) {
+      this.visualImportacao.origem.geradoEm = this.visualImportacao.origem.geradoEm || new Date().toISOString().slice(0, 10);
+      this.visualImportacao.origem.gerador = this.visualImportacao.origem.gerador || 'HQ-HUB formulario visual';
+    }
+  }
+
+  private completarVisualImportacao(corpo: any) {
+    const modelo = this.modeloImportacao();
+    const origem = { ...modelo.origem, ...(corpo?.origem || {}) };
+    const serieBrasileira = { ...modelo.serieBrasileira, ...(corpo?.serieBrasileira || {}) };
+    const edicoes = Array.isArray(corpo?.edicoes) && corpo.edicoes.length ? corpo.edicoes : [this.modeloEdicao()];
+
+    return {
+      ...modelo,
+      ...corpo,
+      origem,
+      serieBrasileira,
+      avisos: Array.isArray(corpo?.avisos) ? corpo.avisos : [],
+      edicoes: edicoes.map((edicao: any) => ({
+        ...this.modeloEdicao(),
+        ...edicao,
+        historias: Array.isArray(edicao?.historias) && edicao.historias.length
+          ? edicao.historias.map((historia: any, indice: number) => ({
+              ...this.modeloHistoria(indice + 1),
+              ...historia,
+              publicacaoOriginal: {
+                ...this.modeloHistoria(indice + 1).publicacaoOriginal,
+                ...(historia?.publicacaoOriginal || {}),
+              },
+            }))
+          : [this.modeloHistoria(1)],
+      })),
+    };
   }
 
   private modeloImportacao() {

@@ -677,6 +677,27 @@ img {
   padding: 20px;
 }
 
+body.tema-escuro .auth-card {
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+body.tema-escuro .auth-card form label,
+body.tema-escuro .auth-card .texto-suave,
+body.tema-escuro .link-esqueci-senha {
+  color: var(--texto);
+}
+
+body.tema-escuro .auth-card input {
+  background: var(--superficie-2);
+  color: var(--texto);
+  border-color: var(--borda);
+}
+
+body.tema-escuro .auth-card input::placeholder {
+  color: var(--texto-suave);
+}
+
 .alternador {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -700,6 +721,19 @@ img {
 .alternador button.ativo {
   background: var(--superficie);
   box-shadow: 0 6px 18px rgba(21, 25, 31, 0.08);
+}
+
+body.tema-escuro .alternador {
+  background: var(--superficie-2);
+}
+
+body.tema-escuro .alternador button {
+  color: var(--texto);
+}
+
+body.tema-escuro .alternador button.ativo {
+  background: var(--superficie);
+  box-shadow: none;
 }
 
 .alternador.descobrir-fontes {
