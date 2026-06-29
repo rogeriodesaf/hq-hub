@@ -441,6 +441,15 @@ public class AssistenteService {
                 "homem aranha",
                 "Homem-Aranha e o alter ego de Peter Parker, criado por Stan Lee e Steve Ditko. Ele apareceu pela primeira vez em Amazing Fantasy #15, em 1962, pela Marvel Comics.");
         conhecimentos.put("spider man", conhecimentos.get("homem aranha"));
+        conhecimentos.put(
+                "universo marvel",
+                "Para conhecer o universo Marvel, nao tente comecar pela cronologia inteira. Comece por historias fechadas ou fases com bom ponto de entrada: Homem-Aranha: A Ultima Cacada de Kraven, X-Men: Deus Ama, o Homem Mata, Marvels, Demolidor: O Diabo da Guarda, Demolidor de Frank Miller, Vingadores de Jonathan Hickman ou alguma fase recente da Panini como Nova Marvel/Fresh Start. Se quiser algo mais simples, escolha um personagem que voce gosta e leia um encadernado fechado antes de entrar em eventos grandes.");
+        conhecimentos.put("marvel", conhecimentos.get("universo marvel"));
+        conhecimentos.put(
+                "comecar a ler quadrinhos",
+                "Para comecar a ler quadrinhos, escolha uma historia fechada ou um arco famoso, sem tentar entender toda a cronologia de uma vez. Encadernados e graphic novels costumam ser melhores portas de entrada que eventos enormes. Boas escolhas sao Batman: Ano Um, Grandes Astros Superman, Homem-Aranha: A Ultima Cacada de Kraven, X-Men: Deus Ama, o Homem Mata, Demolidor: O Diabo da Guarda, Watchmen, Sandman ou uma colecao recente de personagem que voce ja goste.");
+        conhecimentos.put("por onde comecar", conhecimentos.get("comecar a ler quadrinhos"));
+        conhecimentos.put("por qual hq eu comeco", conhecimentos.get("comecar a ler quadrinhos"));
         return conhecimentos;
     }
 }
