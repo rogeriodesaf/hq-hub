@@ -70,7 +70,7 @@ public class CriadorResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         criadorService.remover(id);
         return Response.noContent().build();
@@ -95,9 +95,10 @@ public class CriadorResource {
 
     @DELETE
     @Path("/creditos/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response removerCredito(@PathParam("id") Long id) {
         creditoEdicaoService.remover(id);
         return Response.noContent().build();
     }
 }
+

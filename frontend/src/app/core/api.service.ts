@@ -170,6 +170,10 @@ export class ApiService {
     return this.http.get<Usuario[]>('/api/usuarios', { params }).pipe(map((usuarios) => usuarios.map((usuario) => this.normalizarUsuario(usuario))));
   }
 
+  cadastrarColaborador(dto: { nome: string; email: string; senha: string }) {
+    return this.http.post<Usuario>('/api/usuarios/colaboradores', dto).pipe(map((usuario) => this.normalizarUsuario(usuario)));
+  }
+
   obterMeuPerfil() {
     return this.http.get<Usuario>('/api/usuarios/me').pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }

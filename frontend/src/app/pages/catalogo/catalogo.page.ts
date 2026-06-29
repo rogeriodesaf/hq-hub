@@ -79,15 +79,17 @@ import {
                 >
                   {{ salvandoSerie() === serie.id ? '...' : 'Editar' }}
                 </button>
-                <button
-                  class="botao perigo compacto botao-remover-serie"
-                  type="button"
-                  (click)="removerSerie(serie)"
-                  [disabled]="removendoSerie() === serie.id"
-                  aria-label="Excluir série"
-                >
-                  {{ removendoSerie() === serie.id ? '...' : 'Excluir' }}
-                </button>
+                @if (podeExcluirCatalogo()) {
+                  <button
+                    class="botao perigo compacto botao-remover-serie"
+                    type="button"
+                    (click)="removerSerie(serie)"
+                    [disabled]="removendoSerie() === serie.id"
+                    aria-label="Excluir série"
+                  >
+                    {{ removendoSerie() === serie.id ? '...' : 'Excluir' }}
+                  </button>
+                }
               }
             </div>
           } @empty {
@@ -233,9 +235,11 @@ import {
                       Cancelar
                     </button>
                   }
-                  <button class="botao perigo compacto" type="button" (click)="removerEdicaoDetalhe()" [disabled]="removendoEdicao() || salvandoDetalhe()">
-                    {{ removendoEdicao() ? 'Excluindo...' : 'Excluir' }}
-                  </button>
+                  @if (podeExcluirCatalogo()) {
+                    <button class="botao perigo compacto" type="button" (click)="removerEdicaoDetalhe()" [disabled]="removendoEdicao() || salvandoDetalhe()">
+                      {{ removendoEdicao() ? 'Excluindo...' : 'Excluir' }}
+                    </button>
+                  }
                 </div>
               }
             </div>
@@ -356,9 +360,11 @@ import {
                         <button class="botao compacto" type="button" (click)="salvarCapaPublicacao(publicacao)" [disabled]="salvandoCapaPublicacao() === publicacao.id">
                           {{ salvandoCapaPublicacao() === publicacao.id ? 'Salvando...' : 'Salvar capa' }}
                         </button>
-                        <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">
-                          {{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir publicacao' }}
-                        </button>
+                        @if (podeExcluirCatalogo()) {
+                          <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">
+                            {{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir publicacao' }}
+                          </button>
+                        }
                       </div>
                     }
                   </div>
@@ -439,6 +445,7 @@ export class CatalogoPage implements OnInit {
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly letrasIndice = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
+  readonly podeExcluirCatalogo = this.autenticacao.ehAdministrador;
   readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
     itens: [],
@@ -551,7 +558,7 @@ export class CatalogoPage implements OnInit {
   }
 
   removerSerie(serie: Serie) {
-    if (!this.podeEditarCatalogo()) {
+    if (!this.podeExcluirCatalogo()) {
       return;
     }
 
@@ -774,7 +781,7 @@ export class CatalogoPage implements OnInit {
   }
 
   removerPublicacaoDetalhe(publicacao: PublicacaoHistoria) {
-    if (!this.podeEditarCatalogo()) {
+    if (!this.podeExcluirCatalogo()) {
       return;
     }
 
@@ -802,7 +809,7 @@ export class CatalogoPage implements OnInit {
 
   removerEdicaoDetalhe() {
     const edicao = this.edicaoDetalhe();
-    if (!edicao || !this.podeEditarCatalogo()) {
+    if (!edicao || !this.podeExcluirCatalogo()) {
       return;
     }
 

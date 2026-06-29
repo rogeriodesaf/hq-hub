@@ -64,9 +64,10 @@ public class EditoraResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         editoraService.remover(id);
         return Response.noContent().build();
     }
 }
+

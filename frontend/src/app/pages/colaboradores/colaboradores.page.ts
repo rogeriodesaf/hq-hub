@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ApiService } from '../../core/api.service';
+import { AutenticacaoService } from '../../core/autenticacao.service';
+import { Usuario } from '../../core/modelos';
 
 @Component({
   selector: 'app-colaboradores-page',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -11,6 +16,42 @@ import { Component } from '@angular/core';
         <h1>Seja colaborador do HQ-HUB.</h1>
       </div>
     </section>
+
+    @if (ehAdministrador()) {
+      <section class="bloco painel-admin-colaboradores">
+        <div class="secao-titulo">
+          <div>
+            <h2>Cadastrar colaborador</h2>
+            <p class="texto-suave">Crie um acesso com permissao de edicao do catalogo, sem permissao de exclusao.</p>
+          </div>
+        </div>
+
+        <div class="grade-formulario">
+          <label>
+            Nome
+            <input [(ngModel)]="formulario.nome" name="colaboradorNome" autocomplete="name" />
+          </label>
+          <label>
+            E-mail
+            <input [(ngModel)]="formulario.email" name="colaboradorEmail" type="email" autocomplete="email" />
+          </label>
+          <label>
+            Senha provisoria
+            <input [(ngModel)]="formulario.senha" name="colaboradorSenha" type="password" autocomplete="new-password" />
+          </label>
+        </div>
+
+        <div class="acoes-formulario">
+          <button class="botao primario" type="button" (click)="cadastrarColaborador()" [disabled]="salvando()">
+            {{ salvando() ? 'Cadastrando...' : 'Cadastrar colaborador' }}
+          </button>
+        </div>
+
+        @if (mensagem()) {
+          <p class="mensagem-formulario">{{ mensagem() }}</p>
+        }
+      </section>
+    }
 
     <section class="bloco colaboradores-convite">
       <div>
@@ -33,11 +74,50 @@ import { Component } from '@angular/core';
     <section class="bloco lista-colaboradores">
       <h2>Colaboradores do HQ-HUB</h2>
       <ul>
-        <li *ngFor="let colaborador of colaboradores">{{ colaborador }}</li>
+        <li *ngFor="let colaborador of colaboradores()">{{ colaborador }}</li>
       </ul>
     </section>
   `,
   styles: `
+    .painel-admin-colaboradores {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grade-formulario {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .grade-formulario label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      color: var(--texto);
+    }
+
+    .grade-formulario input {
+      min-height: 42px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 0 12px;
+      background: var(--superficie);
+      color: var(--texto);
+    }
+
+    .acoes-formulario {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mensagem-formulario {
+      margin: 0;
+      color: var(--texto-suave);
+      font-weight: 700;
+    }
+
     .colaboradores-convite {
       display: grid;
       gap: 10px;
@@ -123,5 +203,49 @@ import { Component } from '@angular/core';
   `,
 })
 export class ColaboradoresPage {
-  protected readonly colaboradores = ['César', 'Pedro José', 'Elivelton', 'Wenderson'];
+  private readonly api = inject(ApiService);
+  private readonly autenticacao = inject(AutenticacaoService);
+
+  protected readonly ehAdministrador = this.autenticacao.ehAdministrador;
+  protected readonly salvando = signal(false);
+  protected readonly mensagem = signal('');
+  protected readonly colaboradoresCadastrados = signal<Usuario[]>([]);
+  protected formulario = {
+    nome: '',
+    email: '',
+    senha: '',
+  };
+  protected readonly colaboradores = computed(() => [
+    'Cesar',
+    'Pedro Jose',
+    'Elivelton',
+    'Wenderson',
+    ...this.colaboradoresCadastrados().map((usuario) => usuario.nome),
+  ]);
+
+  cadastrarColaborador() {
+    const nome = this.formulario.nome.trim();
+    const email = this.formulario.email.trim();
+    const senha = this.formulario.senha;
+
+    if (!nome || !email || senha.length < 6) {
+      this.mensagem.set('Informe nome, e-mail e uma senha com pelo menos 6 caracteres.');
+      return;
+    }
+
+    this.salvando.set(true);
+    this.mensagem.set('');
+    this.api.cadastrarColaborador({ nome, email, senha }).subscribe({
+      next: (usuario) => {
+        this.colaboradoresCadastrados.update((usuarios) => [...usuarios, usuario]);
+        this.formulario = { nome: '', email: '', senha: '' };
+        this.salvando.set(false);
+        this.mensagem.set('Colaborador cadastrado com acesso de edicao.');
+      },
+      error: (erro) => {
+        this.salvando.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel cadastrar este colaborador.');
+      },
+    });
+  }
 }

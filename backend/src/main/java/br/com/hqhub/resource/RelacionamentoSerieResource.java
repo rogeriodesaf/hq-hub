@@ -7,6 +7,7 @@ import br.com.hqhub.dto.CadastroRelacionamentoSerieDTO;
 import br.com.hqhub.dto.RelacionamentoSerieRespostaDTO;
 import br.com.hqhub.service.RelacionamentoSerieService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -31,6 +32,7 @@ public class RelacionamentoSerieResource {
     }
 
     @POST
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrar(@Valid CadastroRelacionamentoSerieDTO dto) {
         RelacionamentoSerieRespostaDTO relacionamento = relacionamentoSerieService.cadastrar(dto);
         return Response.created(URI.create("/relacionamentos-series/" + relacionamento.id()))
@@ -47,6 +49,7 @@ public class RelacionamentoSerieResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         relacionamentoSerieService.remover(id);
         return Response.noContent().build();

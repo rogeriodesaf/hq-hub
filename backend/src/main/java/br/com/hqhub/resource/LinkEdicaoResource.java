@@ -8,6 +8,7 @@ import br.com.hqhub.dto.CadastroLinkEdicaoDTO;
 import br.com.hqhub.dto.LinkEdicaoRespostaDTO;
 import br.com.hqhub.service.LinkEdicaoService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -33,6 +34,7 @@ public class LinkEdicaoResource {
     }
 
     @POST
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrar(@Valid CadastroLinkEdicaoDTO dto) {
         LinkEdicaoRespostaDTO resposta = linkEdicaoService.cadastrar(dto);
         return Response.created(URI.create("/links-edicoes/" + resposta.id()))
@@ -55,12 +57,14 @@ public class LinkEdicaoResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response atualizar(@PathParam("id") Long id, @Valid AtualizacaoLinkEdicaoDTO dto) {
         return Response.ok(linkEdicaoService.atualizar(id, dto)).build();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         linkEdicaoService.remover(id);
         return Response.noContent().build();

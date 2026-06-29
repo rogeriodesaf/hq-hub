@@ -89,7 +89,7 @@ public class EdicaoResource {
 
     @POST
     @Path("/deduplicar")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response deduplicar() {
         return Response.ok(deduplicacaoEdicaoService.deduplicar()).build();
     }
@@ -112,9 +112,10 @@ public class EdicaoResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         edicaoService.remover(id);
         return Response.noContent().build();
     }
 }
+

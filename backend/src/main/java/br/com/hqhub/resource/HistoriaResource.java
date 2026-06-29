@@ -85,7 +85,7 @@ public class HistoriaResource {
 
     @DELETE
     @Path("/conteudos-edicoes/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response removerConteudo(@PathParam("id") Long id) {
         historiaService.removerConteudo(id);
         return Response.noContent().build();
@@ -133,7 +133,7 @@ public class HistoriaResource {
 
     @DELETE
     @Path("/publicacoes-historias/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response removerPublicacao(@PathParam("id") Long id) {
         historiaService.removerPublicacao(id);
         return Response.noContent().build();
@@ -147,3 +147,4 @@ public class HistoriaResource {
         return Response.ok(historiaService.cruzarEdicoes(edicaoOriginalId, edicaoComparadaId)).build();
     }
 }
+

@@ -276,7 +276,7 @@ import {
           <button class="botao compacto" type="button" (click)="exportarColecao('GOOGLE')" [disabled]="exportandoColecao()">
             Google Sheets
           </button>
-          @if (podeRevisarCatalogo()) {
+          @if (podeAdministrarCatalogo()) {
             <button class="botao compacto" type="button" (click)="deduplicarCatalogo()" [disabled]="deduplicandoCatalogo()">
               {{ deduplicandoCatalogo() ? 'Limpando...' : 'Limpar duplicidades' }}
             </button>
@@ -478,6 +478,7 @@ export class ColecaoPage implements OnInit {
   readonly carregandoEstante = signal(false);
   readonly exportandoColecao = signal(false);
   readonly podeRevisarCatalogo = this.autenticacao.podeRevisarCatalogo;
+  readonly podeAdministrarCatalogo = this.autenticacao.ehAdministrador;
   readonly configuracaoColecao = signal<ConfiguracaoColecao | null>(null);
   readonly salvandoConfiguracao = signal(false);
   readonly mensagem = signal('');
@@ -1035,6 +1036,10 @@ export class ColecaoPage implements OnInit {
   }
 
   deduplicarCatalogo() {
+    if (!this.podeAdministrarCatalogo()) {
+      return;
+    }
+
     if (!window.confirm('Limpar duplicidades do catalogo agora? A rotina mantem series e edicoes mais completas e move os vinculos antes de remover repetidas.')) {
       return;
     }

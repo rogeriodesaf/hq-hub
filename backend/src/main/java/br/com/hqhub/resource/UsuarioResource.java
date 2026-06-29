@@ -13,6 +13,7 @@ import br.com.hqhub.dto.UsuarioRespostaDTO;
 import br.com.hqhub.service.FeedMidiaService;
 import br.com.hqhub.service.UsuarioService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -41,6 +42,17 @@ public class UsuarioResource {
     @POST
     public Response cadastrar(@Valid CadastroUsuarioDTO dto) {
         UsuarioRespostaDTO usuario = usuarioService.cadastrar(dto);
+        return Response.created(URI.create("/usuarios/" + usuario.id()))
+                .entity(usuario)
+                .build();
+    }
+
+    @POST
+    @Path("/colaboradores")
+    @Authenticated
+    @RolesAllowed("ADMINISTRADOR")
+    public Response cadastrarColaborador(@Valid CadastroUsuarioDTO dto) {
+        UsuarioRespostaDTO usuario = usuarioService.cadastrarColaborador(dto);
         return Response.created(URI.create("/usuarios/" + usuario.id()))
                 .entity(usuario)
                 .build();

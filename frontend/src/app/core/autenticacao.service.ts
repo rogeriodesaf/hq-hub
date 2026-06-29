@@ -21,6 +21,7 @@ export class AutenticacaoService {
     const perfil = this.usuarioAtual()?.perfil;
     return perfil === 'COLABORADOR' || perfil === 'ADMINISTRADOR';
   });
+  readonly ehAdministrador = computed(() => this.usuarioAtual()?.perfil === 'ADMINISTRADOR');
 
   constructor() {
     console.warn('🔐 AutenticacaoService inicializado');

@@ -74,7 +74,7 @@ public class SerieResource {
 
     @POST
     @Path("/deduplicar")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response deduplicar() {
         return Response.ok(deduplicacaoSerieService.deduplicar()).build();
     }
@@ -89,9 +89,10 @@ public class SerieResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         serieService.remover(id);
         return Response.noContent().build();
     }
 }
+

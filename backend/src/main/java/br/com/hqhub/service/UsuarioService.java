@@ -6,6 +6,7 @@ import br.com.hqhub.dto.AtualizacaoPerfilUsuarioDTO;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.UsuarioRespostaDTO;
+import br.com.hqhub.entity.PerfilUsuario;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
@@ -41,6 +42,19 @@ public class UsuarioService {
 
         Usuario usuario = usuarioMapper.paraEntidade(dto);
         // TODO: implementar criptografia de senha posteriormente.
+        usuarioRepository.persist(usuario);
+
+        return usuarioMapper.paraResposta(usuario);
+    }
+
+    @Transactional
+    public UsuarioRespostaDTO cadastrarColaborador(CadastroUsuarioDTO dto) {
+        if (usuarioRepository.existePorEmail(dto.email())) {
+            throw new RegraNegocioException("Ja existe um usuario cadastrado com este e-mail.");
+        }
+
+        Usuario usuario = usuarioMapper.paraEntidade(dto);
+        usuario.setPerfil(PerfilUsuario.COLABORADOR);
         usuarioRepository.persist(usuario);
 
         return usuarioMapper.paraResposta(usuario);

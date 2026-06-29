@@ -7,6 +7,7 @@ import br.com.hqhub.dto.CadastroPublicacaoRelacionadaDTO;
 import br.com.hqhub.dto.PublicacaoRelacionadaRespostaDTO;
 import br.com.hqhub.service.PublicacaoRelacionadaService;
 import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -31,6 +32,7 @@ public class PublicacaoRelacionadaResource {
     }
 
     @POST
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response cadastrar(@Valid CadastroPublicacaoRelacionadaDTO dto) {
         PublicacaoRelacionadaRespostaDTO resposta = publicacaoRelacionadaService.cadastrar(dto);
         return Response.created(URI.create("/publicacoes-relacionadas/" + resposta.id()))
@@ -57,6 +59,7 @@ public class PublicacaoRelacionadaResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
         publicacaoRelacionadaService.remover(id);
         return Response.noContent().build();
