@@ -182,6 +182,10 @@ export class ApiService {
     return this.http.put<Usuario>('/api/usuarios/me/perfil', dto).pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
+  atualizarMinhaSenha(dto: { senhaAtual: string; novaSenha: string }) {
+    return this.http.put<void>('/api/usuarios/me/senha', dto);
+  }
+
   atualizarFotoPerfil(arquivo: File) {
     const dados = new FormData();
     dados.append('foto', arquivo);

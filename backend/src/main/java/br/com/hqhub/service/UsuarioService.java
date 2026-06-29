@@ -2,6 +2,7 @@ package br.com.hqhub.service;
 
 import java.util.List;
 
+import br.com.hqhub.dto.AtualizacaoSenhaDTO;
 import br.com.hqhub.dto.AtualizacaoPerfilUsuarioDTO;
 import br.com.hqhub.dto.CadastroColaboradorDTO;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
@@ -13,6 +14,7 @@ import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.UsuarioRepository;
+import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -42,7 +44,7 @@ public class UsuarioService {
         }
 
         Usuario usuario = usuarioMapper.paraEntidade(dto);
-        // TODO: implementar criptografia de senha posteriormente.
+        usuario.setSenha(criptografarSenha(dto.senha()));
         usuarioRepository.persist(usuario);
 
         return usuarioMapper.paraResposta(usuario);
@@ -66,9 +68,24 @@ public class UsuarioService {
 
         Usuario usuario = usuarioMapper.paraEntidade(new CadastroUsuarioDTO(dto.nome().trim(), email, dto.senha()));
         usuario.setPerfil(PerfilUsuario.COLABORADOR);
+        usuario.setSenha(criptografarSenha(dto.senha()));
         usuarioRepository.persist(usuario);
 
         return usuarioMapper.paraResposta(usuario);
+    }
+
+    @Transactional
+    public void atualizarMinhaSenha(AtualizacaoSenhaDTO dto) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        if (!senhaConfere(dto.senhaAtual(), usuario.getSenha())) {
+            throw new RegraNegocioException("Senha atual invalida.");
+        }
+
+        if (senhaConfere(dto.novaSenha(), usuario.getSenha())) {
+            throw new RegraNegocioException("A nova senha deve ser diferente da senha atual.");
+        }
+
+        usuario.setSenha(criptografarSenha(dto.novaSenha()));
     }
 
     public UsuarioRespostaDTO buscarPorId(Long id) {
@@ -116,5 +133,21 @@ public class UsuarioService {
             return null;
         }
         return valor.trim();
+    }
+
+    private String criptografarSenha(String senha) {
+        return BcryptUtil.bcryptHash(senha);
+    }
+
+    private boolean senhaConfere(String senhaInformada, String senhaSalva) {
+        if (senhaInformada == null || senhaSalva == null) {
+            return false;
+        }
+
+        if (senhaSalva.startsWith("$2")) {
+            return BcryptUtil.matches(senhaInformada, senhaSalva);
+        }
+
+        return senhaSalva.equals(senhaInformada);
     }
 }

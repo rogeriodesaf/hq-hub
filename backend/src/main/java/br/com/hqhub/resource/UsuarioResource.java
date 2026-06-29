@@ -7,6 +7,7 @@ import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import br.com.hqhub.dto.AtualizacaoPerfilUsuarioDTO;
+import br.com.hqhub.dto.AtualizacaoSenhaDTO;
 import br.com.hqhub.dto.CadastroColaboradorDTO;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
@@ -70,6 +71,14 @@ public class UsuarioResource {
     @Authenticated
     public Response atualizarMeuPerfil(@Valid AtualizacaoPerfilUsuarioDTO dto) {
         return Response.ok(usuarioService.atualizarMeuPerfil(dto)).build();
+    }
+
+    @PUT
+    @Path("/me/senha")
+    @Authenticated
+    public Response atualizarMinhaSenha(@Valid AtualizacaoSenhaDTO dto) {
+        usuarioService.atualizarMinhaSenha(dto);
+        return Response.noContent().build();
     }
 
     @POST
