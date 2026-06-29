@@ -50,7 +50,6 @@ public class UsuarioResource {
 
     @POST
     @Path("/colaboradores")
-    @Authenticated
     @RolesAllowed("ADMINISTRADOR")
     public Response cadastrarColaborador(@Valid CadastroColaboradorDTO dto) {
         UsuarioRespostaDTO usuario = usuarioService.cadastrarColaborador(dto);
