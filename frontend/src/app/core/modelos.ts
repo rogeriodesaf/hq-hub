@@ -516,6 +516,29 @@ export interface ComentarioFeed {
   dataCriacao: string;
 }
 
+export interface ComentarioColecao {
+  id: number;
+  usuario: Usuario;
+  texto: string;
+  dataCriacao: string;
+}
+
+export interface InteracaoSocialColecao {
+  totalCurtidas: number;
+  curtidaPeloUsuario: boolean;
+  comentarios: ComentarioColecao[];
+}
+
+export interface InteracaoItemColecao extends InteracaoSocialColecao {
+  itemColecaoId: number;
+}
+
+export interface InteracoesColecaoUsuario {
+  usuarioId: number;
+  colecao: InteracaoSocialColecao;
+  itens: InteracaoItemColecao[];
+}
+
 export interface ImagemFeed {
   urlImagem: string;
   urlThumbnail: string;

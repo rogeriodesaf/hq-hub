@@ -26,6 +26,9 @@ import {
   EstanteEditora,
   EstatisticasPublicasColecao,
   Historia,
+  InteracaoItemColecao,
+  InteracaoSocialColecao,
+  InteracoesColecaoUsuario,
   ItemColecao,
   LinkEdicao,
   MensagemDireta,
@@ -210,6 +213,52 @@ export class ApiService {
       .set('tamanho', tamanho);
     if (busca) params = params.set('busca', busca);
     return this.http.get<PaginaResposta<EstanteEditora>>(`/api/estante/usuarios/${usuarioId}/paginada`, { params });
+  }
+
+  obterInteracoesColecao(usuarioId: number, itemColecaoIds: number[] = []) {
+    let params = new HttpParams();
+    if (itemColecaoIds.length) {
+      params = params.set('itens', itemColecaoIds.join(','));
+    }
+    return this.http.get<InteracoesColecaoUsuario>(`/api/colecao/social/usuarios/${usuarioId}`, { params }).pipe(
+      map((interacoes) => this.normalizarInteracoesColecao(interacoes)),
+    );
+  }
+
+  alternarCurtidaColecao(usuarioId: number) {
+    return this.http
+      .post<InteracaoSocialColecao>(`/api/colecao/social/usuarios/${usuarioId}/curtidas`, {})
+      .pipe(map((interacao) => this.normalizarInteracaoSocial(interacao)));
+  }
+
+  comentarColecao(usuarioId: number, texto: string) {
+    return this.http
+      .post<InteracaoSocialColecao>(`/api/colecao/social/usuarios/${usuarioId}/comentarios`, { texto })
+      .pipe(map((interacao) => this.normalizarInteracaoSocial(interacao)));
+  }
+
+  removerComentarioColecao(usuarioId: number, comentarioId: number) {
+    return this.http
+      .delete<InteracaoSocialColecao>(`/api/colecao/social/usuarios/${usuarioId}/comentarios/${comentarioId}`)
+      .pipe(map((interacao) => this.normalizarInteracaoSocial(interacao)));
+  }
+
+  alternarCurtidaItemColecao(itemColecaoId: number) {
+    return this.http
+      .post<InteracaoItemColecao>(`/api/colecao/social/itens/${itemColecaoId}/curtidas`, {})
+      .pipe(map((interacao) => this.normalizarInteracaoItem(interacao)));
+  }
+
+  comentarItemColecao(itemColecaoId: number, texto: string) {
+    return this.http
+      .post<InteracaoItemColecao>(`/api/colecao/social/itens/${itemColecaoId}/comentarios`, { texto })
+      .pipe(map((interacao) => this.normalizarInteracaoItem(interacao)));
+  }
+
+  removerComentarioItemColecao(itemColecaoId: number, comentarioId: number) {
+    return this.http
+      .delete<InteracaoItemColecao>(`/api/colecao/social/itens/${itemColecaoId}/comentarios/${comentarioId}`)
+      .pipe(map((interacao) => this.normalizarInteracaoItem(interacao)));
   }
 
   obterEstatisticasPublicasColecao(usuarioId: number) {
@@ -730,6 +779,31 @@ export class ApiService {
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),
       })),
+    };
+  }
+
+  private normalizarInteracaoSocial(interacao: InteracaoSocialColecao): InteracaoSocialColecao {
+    return {
+      ...interacao,
+      comentarios: (interacao.comentarios || []).map((comentario) => ({
+        ...comentario,
+        usuario: this.normalizarUsuario(comentario.usuario),
+      })),
+    };
+  }
+
+  private normalizarInteracaoItem(interacao: InteracaoItemColecao): InteracaoItemColecao {
+    return {
+      ...this.normalizarInteracaoSocial(interacao),
+      itemColecaoId: interacao.itemColecaoId,
+    };
+  }
+
+  private normalizarInteracoesColecao(interacoes: InteracoesColecaoUsuario): InteracoesColecaoUsuario {
+    return {
+      ...interacoes,
+      colecao: this.normalizarInteracaoSocial(interacoes.colecao),
+      itens: (interacoes.itens || []).map((item) => this.normalizarInteracaoItem(item)),
     };
   }
 

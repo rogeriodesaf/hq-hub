@@ -6,7 +6,18 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaResposta, PostagemFeed, Usuario } from '../../core/modelos';
+import {
+  Amizade,
+  Anuncio,
+  EstanteEdicao,
+  EstanteEditora,
+  EstatisticasPublicasColecao,
+  InteracaoItemColecao,
+  InteracaoSocialColecao,
+  PaginaResposta,
+  PostagemFeed,
+  Usuario,
+} from '../../core/modelos';
 
 @Component({
   selector: 'app-perfil-publico-page',
@@ -264,6 +275,70 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
               }
             </div>
 
+            @if (interacaoColecao()) {
+              <div class="social-colecao">
+                <div class="barra-postagem">
+                  <button
+                    class="botao compacto"
+                    type="button"
+                    [class.primario]="interacaoColecao()!.curtidaPeloUsuario"
+                    (click)="curtirColecao()"
+                    [disabled]="interagindoColecao()"
+                  >
+                    {{ interacaoColecao()!.curtidaPeloUsuario ? 'Curtida' : 'Curtir colecao' }}
+                  </button>
+                  <span>{{ interacaoColecao()!.totalCurtidas }} curtidas</span>
+                  <span>{{ interacaoColecao()!.comentarios.length }} comentarios</span>
+                </div>
+
+                @if (interacaoColecao()!.comentarios.length) {
+                  <section class="comentarios-feed comentarios-colecao">
+                    @for (comentario of interacaoColecao()!.comentarios; track comentario.id) {
+                      <article>
+                        <div class="avatar-feed mini">
+                          <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-perfil">
+                            @if (comentario.usuario.fotoPerfilThumbnailUrl) {
+                              <img [src]="resolverUrlMidia(comentario.usuario.fotoPerfilThumbnailUrl)" alt="" />
+                            } @else {
+                              {{ iniciais(comentario.usuario.nome) }}
+                            }
+                          </a>
+                        </div>
+                        <div>
+                          <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-nome-amigo">
+                            <strong>{{ comentario.usuario.nome }}</strong>
+                          </a>
+                          <p>{{ comentario.texto }}</p>
+                          @if (comentario.usuario.id === usuarioAtual()?.id) {
+                            <button class="botao compacto" type="button" (click)="removerComentarioColecao(comentario.id)" [disabled]="interagindoColecao()">
+                              Excluir comentario
+                            </button>
+                          }
+                        </div>
+                      </article>
+                    }
+                  </section>
+                }
+
+                <div class="novo-comentario">
+                  <input
+                    [(ngModel)]="comentarioColecao"
+                    name="comentarioColecao"
+                    placeholder="Comentar colecao"
+                    (keyup.enter)="comentarColecao()"
+                  />
+                  <button
+                    class="botao compacto"
+                    type="button"
+                    (click)="comentarColecao()"
+                    [disabled]="interagindoColecao() || !comentarioColecao.trim()"
+                  >
+                    Comentar
+                  </button>
+                </div>
+              </div>
+            }
+
             @if (carregandoEstante()) {
               <p class="texto-suave">Carregando estante...</p>
             } @else if (estante().length) {
@@ -288,6 +363,23 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
                               />
                               <span>#{{ edicao.numero }}</span>
                               <small [class.lido]="edicao.statusLeitura === 'LIDO'">{{ labelStatusLeitura(edicao.statusLeitura) }}</small>
+                              @if (interacaoItem(edicao.itemColecaoId); as interacao) {
+                                <div class="interacao-edicao">
+                                  <button
+                                    class="botao compacto"
+                                    type="button"
+                                    [class.primario]="interacao.curtidaPeloUsuario"
+                                    (click)="curtirItem(edicao)"
+                                    [disabled]="interagindoItemId() === edicao.itemColecaoId"
+                                  >
+                                    {{ interacao.curtidaPeloUsuario ? 'Curtida' : 'Curtir' }}
+                                  </button>
+                                  <span>{{ interacao.totalCurtidas }}</span>
+                                </div>
+                                <button class="botao compacto botao-comentarios-edicao" type="button" (click)="selecionarEdicao(edicao)">
+                                  {{ interacao.comentarios.length }} coment.
+                                </button>
+                              }
                             </div>
                           }
                         </div>
@@ -298,6 +390,70 @@ import { Amizade, Anuncio, EstanteEditora, EstatisticasPublicasColecao, PaginaRe
               </div>
 
               <!-- Paginação -->
+              @if (edicaoSelecionada(); as edicao) {
+                @if (interacaoItem(edicao.itemColecaoId); as interacao) {
+                  <div class="social-edicao-selecionada">
+                    <div class="secao-titulo">
+                      <strong>{{ edicao.titulo || ('#' + edicao.numero) }}</strong>
+                      <button class="botao compacto" type="button" (click)="limparEdicaoSelecionada()">Fechar</button>
+                    </div>
+
+                    @if (interacao.comentarios.length) {
+                      <section class="comentarios-feed comentarios-colecao">
+                        @for (comentario of interacao.comentarios; track comentario.id) {
+                          <article>
+                            <div class="avatar-feed mini">
+                              <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-perfil">
+                                @if (comentario.usuario.fotoPerfilThumbnailUrl) {
+                                  <img [src]="resolverUrlMidia(comentario.usuario.fotoPerfilThumbnailUrl)" alt="" />
+                                } @else {
+                                  {{ iniciais(comentario.usuario.nome) }}
+                                }
+                              </a>
+                            </div>
+                            <div>
+                              <a [routerLink]="['/usuario', comentario.usuario.id]" class="link-nome-amigo">
+                                <strong>{{ comentario.usuario.nome }}</strong>
+                              </a>
+                              <p>{{ comentario.texto }}</p>
+                              @if (comentario.usuario.id === usuarioAtual()?.id) {
+                                <button
+                                  class="botao compacto"
+                                  type="button"
+                                  (click)="removerComentarioItem(edicao, comentario.id)"
+                                  [disabled]="interagindoItemId() === edicao.itemColecaoId"
+                                >
+                                  Excluir comentario
+                                </button>
+                              }
+                            </div>
+                          </article>
+                        }
+                      </section>
+                    } @else {
+                      <p class="texto-suave">Nenhum comentario nesta edicao.</p>
+                    }
+
+                    <div class="novo-comentario">
+                      <input
+                        [(ngModel)]="comentariosItens[edicao.itemColecaoId]"
+                        [name]="'comentarioItemSelecionado' + edicao.itemColecaoId"
+                        placeholder="Comentar edicao"
+                        (keyup.enter)="comentarItem(edicao)"
+                      />
+                      <button
+                        class="botao compacto"
+                        type="button"
+                        (click)="comentarItem(edicao)"
+                        [disabled]="interagindoItemId() === edicao.itemColecaoId || !comentariosItens[edicao.itemColecaoId]?.trim()"
+                      >
+                        Comentar
+                      </button>
+                    </div>
+                  </div>
+                }
+              }
+
               @if (estantePagina() && estantePagina()!.totalPaginas > 1) {
                 <div class="paginacao-estante">
                   <button
@@ -680,16 +836,23 @@ export class PerfilPublicoPage implements OnInit {
   readonly estante = signal<EstanteEditora[]>([]);
   readonly estantePagina = signal<PaginaResposta<EstanteEditora> | null>(null);
   readonly paginaEstante = signal(0);
+  readonly interacaoColecao = signal<InteracaoSocialColecao | null>(null);
+  readonly interacoesItens = signal<Record<number, InteracaoItemColecao>>({});
+  readonly edicaoSelecionada = signal<EstanteEdicao | null>(null);
   readonly stats = signal<EstatisticasPublicasColecao | null>(null);
   readonly mensagem = signal('');
   readonly processando = signal(false);
   readonly interagindoId = signal<number | null>(null);
+  readonly interagindoColecao = signal(false);
+  readonly interagindoItemId = signal<number | null>(null);
   readonly usuarioAtual = this.autenticacao.usuario;
 
   readonly capaReserva = 'assets/capa-reserva.svg';
 
   buscaEstante = '';
+  comentarioColecao = '';
   comentarios: Record<number, string> = {};
+  comentariosItens: Record<number, string> = {};
 
   ehMeuPerfil() {
     return this.usuario()?.id === this.usuarioAtual()?.id;
@@ -747,13 +910,41 @@ export class PerfilPublicoPage implements OnInit {
         this.estantePagina.set(resposta);
         this.estante.set(resposta.itens);
         this.paginaEstante.set(pagina);
+        this.edicaoSelecionada.set(null);
         this.carregandoEstante.set(false);
+        this.carregarInteracoesColecao(usuarioId, resposta.itens);
       },
       error: () => {
         this.estante.set([]);
+        this.interacaoColecao.set(null);
+        this.interacoesItens.set({});
+        this.edicaoSelecionada.set(null);
         this.carregandoEstante.set(false);
       },
     });
+  }
+
+  private carregarInteracoesColecao(usuarioId: number, estante: EstanteEditora[]) {
+    const itemIds = this.idsItensEstante(estante);
+    this.api.obterInteracoesColecao(usuarioId, itemIds).subscribe({
+      next: (interacoes) => {
+        this.interacaoColecao.set(interacoes.colecao);
+        this.interacoesItens.set(
+          interacoes.itens.reduce<Record<number, InteracaoItemColecao>>((acc, item) => {
+            acc[item.itemColecaoId] = item;
+            return acc;
+          }, {}),
+        );
+      },
+      error: () => {
+        this.interacaoColecao.set(null);
+        this.interacoesItens.set({});
+      },
+    });
+  }
+
+  private idsItensEstante(estante: EstanteEditora[]) {
+    return estante.flatMap((editora) => editora.series.flatMap((serie) => serie.edicoes.map((edicao) => edicao.itemColecaoId)));
   }
 
   irParaPagina(pagina: number) {
@@ -893,6 +1084,88 @@ export class PerfilPublicoPage implements OnInit {
       next: (atualizada) => this.postagens.update((lista) => lista.map((p) => (p.id === atualizada.id ? atualizada : p))),
       complete: () => this.interagindoId.set(null),
     });
+  }
+
+  curtirColecao() {
+    const usuarioId = this.usuario()?.id;
+    if (!usuarioId) return;
+    this.interagindoColecao.set(true);
+    this.api.alternarCurtidaColecao(usuarioId).subscribe({
+      next: (interacao) => this.interacaoColecao.set(interacao),
+      complete: () => this.interagindoColecao.set(false),
+    });
+  }
+
+  comentarColecao() {
+    const usuarioId = this.usuario()?.id;
+    const texto = this.comentarioColecao.trim();
+    if (!usuarioId || !texto) return;
+    this.interagindoColecao.set(true);
+    this.api.comentarColecao(usuarioId, texto).subscribe({
+      next: (interacao) => {
+        this.comentarioColecao = '';
+        this.interacaoColecao.set(interacao);
+      },
+      complete: () => this.interagindoColecao.set(false),
+    });
+  }
+
+  removerComentarioColecao(comentarioId: number) {
+    const usuarioId = this.usuario()?.id;
+    if (!usuarioId) return;
+    this.interagindoColecao.set(true);
+    this.api.removerComentarioColecao(usuarioId, comentarioId).subscribe({
+      next: (interacao) => this.interacaoColecao.set(interacao),
+      complete: () => this.interagindoColecao.set(false),
+    });
+  }
+
+  curtirItem(edicao: EstanteEdicao) {
+    this.interagindoItemId.set(edicao.itemColecaoId);
+    this.api.alternarCurtidaItemColecao(edicao.itemColecaoId).subscribe({
+      next: (interacao) => this.atualizarInteracaoItem(interacao),
+      complete: () => this.interagindoItemId.set(null),
+    });
+  }
+
+  comentarItem(edicao: EstanteEdicao) {
+    const texto = this.comentariosItens[edicao.itemColecaoId]?.trim();
+    if (!texto) return;
+    this.interagindoItemId.set(edicao.itemColecaoId);
+    this.api.comentarItemColecao(edicao.itemColecaoId, texto).subscribe({
+      next: (interacao) => {
+        this.comentariosItens[edicao.itemColecaoId] = '';
+        this.atualizarInteracaoItem(interacao);
+      },
+      complete: () => this.interagindoItemId.set(null),
+    });
+  }
+
+  removerComentarioItem(edicao: EstanteEdicao, comentarioId: number) {
+    this.interagindoItemId.set(edicao.itemColecaoId);
+    this.api.removerComentarioItemColecao(edicao.itemColecaoId, comentarioId).subscribe({
+      next: (interacao) => this.atualizarInteracaoItem(interacao),
+      complete: () => this.interagindoItemId.set(null),
+    });
+  }
+
+  interacaoItem(itemColecaoId: number) {
+    return this.interacoesItens()[itemColecaoId] ?? null;
+  }
+
+  selecionarEdicao(edicao: EstanteEdicao) {
+    this.edicaoSelecionada.set(edicao);
+  }
+
+  limparEdicaoSelecionada() {
+    this.edicaoSelecionada.set(null);
+  }
+
+  private atualizarInteracaoItem(interacao: InteracaoItemColecao) {
+    this.interacoesItens.update((mapa) => ({
+      ...mapa,
+      [interacao.itemColecaoId]: interacao,
+    }));
   }
 
 

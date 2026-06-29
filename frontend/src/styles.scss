@@ -2149,6 +2149,38 @@ body.tema-escuro .sugestoes-assistente {
   background: rgba(47, 143, 107, 0.12);
 }
 
+.social-colecao,
+.social-edicao-selecionada {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.interacao-edicao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 28px;
+  font-size: 0.78rem;
+}
+
+.interacao-edicao .botao,
+.botao-comentarios-edicao {
+  min-height: 28px;
+  padding: 4px 6px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.botao-comentarios-edicao {
+  width: 100%;
+  margin-top: 4px;
+}
+
 .detalhe-estante .detalhe-cabecalho {
   align-items: start;
 }
