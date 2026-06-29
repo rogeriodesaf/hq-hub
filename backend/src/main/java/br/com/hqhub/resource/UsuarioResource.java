@@ -7,6 +7,7 @@ import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import br.com.hqhub.dto.AtualizacaoPerfilUsuarioDTO;
+import br.com.hqhub.dto.CadastroColaboradorDTO;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.UsuarioRespostaDTO;
@@ -51,7 +52,7 @@ public class UsuarioResource {
     @Path("/colaboradores")
     @Authenticated
     @RolesAllowed("ADMINISTRADOR")
-    public Response cadastrarColaborador(@Valid CadastroUsuarioDTO dto) {
+    public Response cadastrarColaborador(@Valid CadastroColaboradorDTO dto) {
         UsuarioRespostaDTO usuario = usuarioService.cadastrarColaborador(dto);
         return Response.created(URI.create("/usuarios/" + usuario.id()))
                 .entity(usuario)

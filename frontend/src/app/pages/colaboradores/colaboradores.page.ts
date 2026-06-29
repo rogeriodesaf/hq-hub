@@ -22,7 +22,7 @@ import { Usuario } from '../../core/modelos';
         <div class="secao-titulo">
           <div>
             <h2>Cadastrar colaborador</h2>
-            <p class="texto-suave">Crie um acesso com permissao de edicao do catalogo, sem permissao de exclusao.</p>
+            <p class="texto-suave">Promova um usuario existente ou crie um novo acesso com permissao de edicao do catalogo.</p>
           </div>
         </div>
 
@@ -38,6 +38,7 @@ import { Usuario } from '../../core/modelos';
           <label>
             Senha provisoria
             <input [(ngModel)]="formulario.senha" name="colaboradorSenha" type="password" autocomplete="new-password" />
+            <small>Obrigatoria apenas se o e-mail ainda nao existir no sistema.</small>
           </label>
         </div>
 
@@ -104,6 +105,12 @@ import { Usuario } from '../../core/modelos';
       padding: 0 12px;
       background: var(--superficie);
       color: var(--texto);
+    }
+
+    .grade-formulario small {
+      color: var(--texto-suave);
+      font-size: 0.78rem;
+      font-weight: 600;
     }
 
     .acoes-formulario {
@@ -228,19 +235,19 @@ export class ColaboradoresPage {
     const email = this.formulario.email.trim();
     const senha = this.formulario.senha;
 
-    if (!nome || !email || senha.length < 6) {
-      this.mensagem.set('Informe nome, e-mail e uma senha com pelo menos 6 caracteres.');
+    if (!nome || !email) {
+      this.mensagem.set('Informe nome e e-mail.');
       return;
     }
 
     this.salvando.set(true);
     this.mensagem.set('');
-    this.api.cadastrarColaborador({ nome, email, senha }).subscribe({
+    this.api.cadastrarColaborador({ nome, email, senha: senha || null }).subscribe({
       next: (usuario) => {
         this.colaboradoresCadastrados.update((usuarios) => [...usuarios, usuario]);
         this.formulario = { nome: '', email: '', senha: '' };
         this.salvando.set(false);
-        this.mensagem.set('Colaborador cadastrado com acesso de edicao.');
+        this.mensagem.set('Colaborador salvo com acesso de edicao.');
       },
       error: (erro) => {
         this.salvando.set(false);

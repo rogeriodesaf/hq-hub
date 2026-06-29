@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed } from '../../core/modelos';
+import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
 @Component({
@@ -70,6 +70,34 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
         <div class="acoes-perfil-feed">
           <a class="botao compacto secundario" routerLink="/perfil">Editar perfil</a>
         </div>
+
+        @if (sugestaoAmigo()) {
+          <article class="bloco sugestao-amigo-card">
+            <div class="avatar-feed">
+              @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) {
+                <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" />
+              } @else {
+                {{ iniciais(sugestaoAmigo()!.nome) }}
+              }
+            </div>
+            <div>
+              <p class="rotulo">Sugestao de amigo</p>
+              <strong>{{ sugestaoAmigo()!.nome }}</strong>
+              <span>{{ sugestaoAmigo()!.email }}</span>
+              @if (mensagemSugestaoAmigo()) {
+                <small>{{ mensagemSugestaoAmigo() }}</small>
+              }
+            </div>
+            <button
+              class="botao compacto primario"
+              type="button"
+              (click)="adicionarSugestaoAmigo()"
+              [disabled]="enviandoSugestaoAmigo()"
+            >
+              {{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}
+            </button>
+          </article>
+        }
 
         <article class="bloco compositor-feed">
           <label>
@@ -310,6 +338,33 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
     .compositor-feed textarea {
       resize: vertical;
       min-height: 110px;
+    }
+
+    .sugestao-amigo-card {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      border-color: rgba(22, 78, 99, 0.24);
+      background: linear-gradient(135deg, rgba(22, 78, 99, 0.08), rgba(245, 158, 11, 0.08));
+    }
+
+    .sugestao-amigo-card div:nth-child(2) {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .sugestao-amigo-card strong,
+    .sugestao-amigo-card span,
+    .sugestao-amigo-card small {
+      overflow-wrap: anywhere;
+    }
+
+    .sugestao-amigo-card span,
+    .sugestao-amigo-card small {
+      color: var(--texto-suave);
+      font-size: 0.86rem;
     }
 
     .acoes-feed {
@@ -581,10 +636,21 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       .novo-comentario {
         grid-template-columns: 1fr;
       }
+
+      .sugestao-amigo-card {
+        grid-template-columns: 44px minmax(0, 1fr);
+      }
+
+      .sugestao-amigo-card button {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
     }
   `,
 })
 export class PainelPage implements OnInit {
+  private static readonly EMAIL_SUGESTAO_AMIGO = 'rogeriodesaf@gmail.com';
+
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
 
@@ -592,6 +658,9 @@ export class PainelPage implements OnInit {
   readonly resumo = signal<ColecaoResumo | null>(null);
   readonly feed = signal<PostagemFeed[]>([]);
   readonly anuncios = signal<Anuncio[]>([]);
+  readonly sugestaoAmigo = signal<Usuario | null>(null);
+  readonly enviandoSugestaoAmigo = signal(false);
+  readonly mensagemSugestaoAmigo = signal('');
   readonly publicando = signal(false);
   readonly interagindoId = signal<number | null>(null);
   readonly mensagem = signal('');
@@ -604,6 +673,7 @@ export class PainelPage implements OnInit {
     this.carregarResumo();
     this.carregarFeed();
     this.carregarAnuncios();
+    this.carregarSugestaoAmigo();
   }
 
   publicar() {
@@ -718,6 +788,27 @@ export class PainelPage implements OnInit {
     });
   }
 
+  adicionarSugestaoAmigo() {
+    const usuario = this.sugestaoAmigo();
+    if (!usuario) {
+      return;
+    }
+
+    this.enviandoSugestaoAmigo.set(true);
+    this.mensagemSugestaoAmigo.set('');
+    this.api.enviarSolicitacaoAmizade(usuario.id).subscribe({
+      next: () => {
+        this.mensagemSugestaoAmigo.set('Solicitacao enviada.');
+        this.sugestaoAmigo.set(null);
+        window.dispatchEvent(new Event('hqhub-amizades-atualizadas'));
+      },
+      error: (erro) => {
+        this.mensagemSugestaoAmigo.set(erro?.error?.mensagem || 'Nao foi possivel enviar a solicitacao.');
+      },
+      complete: () => this.enviandoSugestaoAmigo.set(false),
+    });
+  }
+
   resolverUrlMidia(url: string | null | undefined): string {
     return resolverUrlMidiaCore(url, '');
   }
@@ -762,6 +853,25 @@ export class PainelPage implements OnInit {
     this.api.listarFeed().subscribe({
       next: (feed) => this.feed.set(feed),
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel carregar o feed.'),
+    });
+  }
+
+  private carregarSugestaoAmigo() {
+    const usuarioAtual = this.usuario();
+    this.api.listarUsuarios(PainelPage.EMAIL_SUGESTAO_AMIGO).subscribe({
+      next: (usuarios) => {
+        const sugestao = usuarios.find((usuario) => usuario.email.toLowerCase() === PainelPage.EMAIL_SUGESTAO_AMIGO);
+        if (!sugestao || sugestao.id === usuarioAtual?.id) {
+          this.sugestaoAmigo.set(null);
+          return;
+        }
+
+        this.api.obterRelacionamentoAmizade(sugestao.id).subscribe({
+          next: (amizade) => this.sugestaoAmigo.set(amizade ? null : sugestao),
+          error: () => this.sugestaoAmigo.set(sugestao),
+        });
+      },
+      error: () => this.sugestaoAmigo.set(null),
     });
   }
 

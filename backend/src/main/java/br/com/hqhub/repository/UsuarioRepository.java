@@ -11,7 +11,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class UsuarioRepository implements PanacheRepository<Usuario> {
 
     public Optional<Usuario> buscarPorEmail(String email) {
-        return find("email", email).firstResultOptional();
+        if (email == null || email.isBlank()) {
+            return Optional.empty();
+        }
+        return find("lower(email) = ?1", email.trim().toLowerCase()).firstResultOptional();
     }
 
     public boolean existePorEmail(String email) {

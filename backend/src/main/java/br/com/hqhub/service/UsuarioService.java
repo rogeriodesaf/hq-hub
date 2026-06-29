@@ -3,6 +3,7 @@ package br.com.hqhub.service;
 import java.util.List;
 
 import br.com.hqhub.dto.AtualizacaoPerfilUsuarioDTO;
+import br.com.hqhub.dto.CadastroColaboradorDTO;
 import br.com.hqhub.dto.CadastroUsuarioDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.UsuarioRespostaDTO;
@@ -48,12 +49,22 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioRespostaDTO cadastrarColaborador(CadastroUsuarioDTO dto) {
-        if (usuarioRepository.existePorEmail(dto.email())) {
-            throw new RegraNegocioException("Ja existe um usuario cadastrado com este e-mail.");
+    public UsuarioRespostaDTO cadastrarColaborador(CadastroColaboradorDTO dto) {
+        String email = dto.email().trim().toLowerCase();
+        Usuario usuarioExistente = usuarioRepository.buscarPorEmail(email).orElse(null);
+        if (usuarioExistente != null) {
+            usuarioExistente.setNome(dto.nome().trim());
+            if (usuarioExistente.getPerfil() == PerfilUsuario.USUARIO) {
+                usuarioExistente.setPerfil(PerfilUsuario.COLABORADOR);
+            }
+            return usuarioMapper.paraResposta(usuarioExistente);
         }
 
-        Usuario usuario = usuarioMapper.paraEntidade(dto);
+        if (dto.senha() == null || dto.senha().length() < 6) {
+            throw new RegraNegocioException("Informe uma senha provisoria com pelo menos 6 caracteres para novo usuario.");
+        }
+
+        Usuario usuario = usuarioMapper.paraEntidade(new CadastroUsuarioDTO(dto.nome().trim(), email, dto.senha()));
         usuario.setPerfil(PerfilUsuario.COLABORADOR);
         usuarioRepository.persist(usuario);
 
