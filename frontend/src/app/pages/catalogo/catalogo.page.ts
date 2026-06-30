@@ -10,6 +10,7 @@ import {
   ConteudoEdicao,
   Edicao,
   EdicaoComicVine,
+  EditoraResumo,
   LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
@@ -433,6 +434,90 @@ import {
         </article>
       </section>
     }
+
+    @if (editandoSerie()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Editar série">
+        <div class="detalhe-fundo" (click)="fecharEdicaoSerie()"></div>
+        <article class="detalhe-painel">
+          <button class="fechar-detalhe" type="button" (click)="fecharEdicaoSerie()" aria-label="Fechar edição">×</button>
+          <div class="detalhe-cabecalho">
+            <div>
+              <p class="rotulo">Série do catálogo</p>
+              <h2>Editar série</h2>
+              <div class="chips">
+                <span>{{ serieEmEdicao()?.titulo || 'Série sem título' }}</span>
+                <span>{{ serieEmEdicao()?.editora?.nome || 'Sem editora' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <section class="painel-formulario editor-edicao-detalhe">
+            <h2>Dados da série</h2>
+            <div class="chips">
+              <span>ID {{ serieEmEdicao()?.id || '-' }}</span>
+              <span>Volume {{ serieEmEdicao()?.volume || '-' }}</span>
+              <span>Ordem {{ serieEmEdicao()?.ordemCronologica || '-' }}</span>
+              <span>{{ serieEmEdicao()?.editora?.nome || 'Sem editora' }}</span>
+            </div>
+            <div class="grade-formulario">
+              <label class="campo-largo">
+                Titulo
+                <input [(ngModel)]="formularioSerieEdicao.titulo" name="tituloSerieCatalogo" required />
+              </label>
+              <label>
+                Volume
+                <input [(ngModel)]="formularioSerieEdicao.volume" name="volumeSerieCatalogo" type="number" min="1" />
+              </label>
+              <label>
+                Ordem cronologica
+                <input [(ngModel)]="formularioSerieEdicao.ordemCronologica" name="ordemSerieCatalogo" type="number" min="1" />
+              </label>
+              <label class="campo-largo">
+                Editora
+                <select [(ngModel)]="formularioSerieEdicao.editoraId" name="editoraSerieCatalogo" required>
+                  <option [ngValue]="null" disabled>Selecione uma editora</option>
+                  @for (editora of editoras(); track editora.id) {
+                    <option [ngValue]="editora.id">{{ editora.nome }}</option>
+                  }
+                </select>
+              </label>
+              <label>
+                Ano inicio
+                <input [(ngModel)]="formularioSerieEdicao.anoInicio" name="anoInicioSerieCatalogo" type="number" min="0" />
+              </label>
+              <label>
+                Ano fim
+                <input [(ngModel)]="formularioSerieEdicao.anoFim" name="anoFimSerieCatalogo" type="number" min="0" />
+              </label>
+              <label class="campo-largo">
+                URL da fonte
+                <input [(ngModel)]="formularioSerieEdicao.urlOrigem" name="urlOrigemSerieCatalogo" />
+              </label>
+              <label class="campo-largo">
+                Fonte externa
+                <input [(ngModel)]="formularioSerieEdicao.fonteExterna" name="fonteExternaSerieCatalogo" />
+              </label>
+              <label class="campo-largo">
+                Id externo
+                <input [(ngModel)]="formularioSerieEdicao.idExterno" name="idExternoSerieCatalogo" />
+              </label>
+              <label class="campo-largo campo-descricao-edicao">
+                Descricao
+                <textarea [(ngModel)]="formularioSerieEdicao.descricao" name="descricaoSerieCatalogo" rows="5"></textarea>
+              </label>
+            </div>
+            <div class="acoes-formulario">
+              <button class="botao primario" type="button" (click)="salvarEdicaoSerie()" [disabled]="salvandoSerie() !== null">
+                {{ salvandoSerie() !== null ? 'Salvando...' : 'Salvar série' }}
+              </button>
+              <button class="botao secundario" type="button" (click)="fecharEdicaoSerie()" [disabled]="salvandoSerie() !== null">
+                Cancelar
+              </button>
+            </div>
+          </section>
+        </article>
+      </section>
+    }
   `,
 })
 export class CatalogoPage implements OnInit {
@@ -446,6 +531,7 @@ export class CatalogoPage implements OnInit {
   readonly letrasIndice = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly podeExcluirCatalogo = this.autenticacao.ehAdministrador;
+  readonly editoras = signal<EditoraResumo[]>([]);
   readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
     itens: [],
@@ -479,12 +565,16 @@ export class CatalogoPage implements OnInit {
   readonly inicialSeries = signal('');
   readonly tamanhoResultados = 20;
   readonly tamanhoSeries = 12;
+  readonly editandoSerie = signal(false);
+  readonly serieEmEdicao = signal<Serie | null>(null);
   busca = '';
   buscaSeries = '';
   formularioEdicao = this.formularioEdicaoVazio();
+  formularioSerieEdicao = this.formularioSerieEdicaoVazio();
 
   ngOnInit() {
     this.carregarSeriesInternas();
+    this.carregarEditoras();
   }
 
   carregar() {
@@ -503,61 +593,41 @@ export class CatalogoPage implements OnInit {
     if (!this.podeEditarCatalogo()) {
       return;
     }
-
-    const valorAtual = serie.volume?.toString() || '';
-    const valor = window.prompt('Volume da série. Deixe vazio para V-.', valorAtual);
-    if (valor === null) {
-      return;
-    }
-
-    const volume = valor.trim() ? Number(valor.trim()) : null;
-    if (volume !== null && (!Number.isInteger(volume) || volume < 1)) {
-      this.mensagem.set('Informe um volume inteiro maior que zero, ou deixe vazio para V-.');
-      return;
-    }
-
-    if (volume === serie.volume) {
-      return;
-    }
-
-    if (!serie.editora?.id) {
-      this.mensagem.set('Não foi possível identificar a editora desta série.');
-      return;
-    }
-
-    this.salvandoSerie.set(serie.id);
-    this.mensagem.set('');
-    this.api.atualizarSerie(serie.id, {
-      titulo: serie.titulo,
-      descricao: serie.descricao,
-      anoInicio: serie.anoInicio,
-      anoFim: serie.anoFim,
-      volume,
-      ordemCronologica: serie.ordemCronologica,
-      fonteExterna: serie.fonteExterna,
-      idExterno: serie.idExterno,
-      urlOrigem: serie.urlOrigem,
-      editoraId: serie.editora.id,
-    }).subscribe({
-      next: (serieAtualizada) => {
-        this.salvandoSerie.set(null);
-        this.series.update((pagina) => ({
-          ...pagina,
-          itens: pagina.itens.map((item) => item.id === serieAtualizada.id ? serieAtualizada : item),
-        }));
-        if (this.serieSelecionada()?.id === serieAtualizada.id) {
-          this.serieSelecionada.set(serieAtualizada);
-        }
-        this.mensagem.set('Série atualizada.');
-      },
-      error: () => {
-        this.salvandoSerie.set(null);
-        this.mensagem.set('Não foi possível atualizar a série. Verifique se já existe outra série com este volume.');
-      },
-    });
+    this.serieEmEdicao.set(serie);
+    this.formularioSerieEdicao = this.formularioAPartirDaSerie(serie);
+    this.editandoSerie.set(true);
   }
 
   removerSerie(serie: Serie) {
+    private formularioSerieEdicaoVazio() {
+      return {
+        titulo: '',
+        descricao: '',
+        anoInicio: null as number | null,
+        anoFim: null as number | null,
+        volume: null as number | null,
+        ordemCronologica: null as number | null,
+        fonteExterna: '',
+        idExterno: '',
+        urlOrigem: '',
+        editoraId: null as number | null,
+      };
+    }
+
+    private formularioAPartirDaSerie(serie: Serie) {
+      return {
+        titulo: serie.titulo || '',
+        descricao: serie.descricao || '',
+        anoInicio: serie.anoInicio,
+        anoFim: serie.anoFim,
+        volume: serie.volume,
+        ordemCronologica: serie.ordemCronologica,
+        fonteExterna: serie.fonteExterna || '',
+        idExterno: serie.idExterno || '',
+        urlOrigem: serie.urlOrigem || '',
+        editoraId: serie.editora?.id || null,
+      };
+    }
     if (!this.podeExcluirCatalogo()) {
       return;
     }
@@ -583,6 +653,65 @@ export class CatalogoPage implements OnInit {
       error: () => {
         this.removendoSerie.set(null);
         this.mensagem.set('Não foi possível excluir esta série. Remova as edições dela primeiro.');
+      },
+    });
+  }
+
+  fecharEdicaoSerie() {
+    this.editandoSerie.set(false);
+    this.serieEmEdicao.set(null);
+    this.formularioSerieEdicao = this.formularioSerieEdicaoVazio();
+  }
+
+  salvarEdicaoSerie() {
+    const serie = this.serieEmEdicao();
+    if (!serie) {
+      return;
+    }
+
+    const titulo = this.formularioSerieEdicao.titulo.trim();
+    const editoraId = this.formularioSerieEdicao.editoraId;
+    if (!titulo) {
+      this.mensagem.set('Informe o título da série antes de salvar.');
+      return;
+    }
+
+    if (!editoraId) {
+      this.mensagem.set('Selecione uma editora para a série.');
+      return;
+    }
+
+    this.salvandoSerie.set(serie.id);
+    this.mensagem.set('');
+    this.api.atualizarSerie(serie.id, {
+      titulo,
+      descricao: this.valorTextoOuNull(this.formularioSerieEdicao.descricao),
+      anoInicio: this.numeroOuNull(this.formularioSerieEdicao.anoInicio),
+      anoFim: this.numeroOuNull(this.formularioSerieEdicao.anoFim),
+      volume: this.numeroOuNull(this.formularioSerieEdicao.volume),
+      ordemCronologica: this.numeroOuNull(this.formularioSerieEdicao.ordemCronologica),
+      fonteExterna: this.valorTextoOuNull(this.formularioSerieEdicao.fonteExterna),
+      idExterno: this.valorTextoOuNull(this.formularioSerieEdicao.idExterno),
+      urlOrigem: this.valorTextoOuNull(this.formularioSerieEdicao.urlOrigem),
+      editoraId,
+    }).subscribe({
+      next: (serieAtualizada) => {
+        this.salvandoSerie.set(null);
+        this.series.update((pagina) => ({
+          ...pagina,
+          itens: pagina.itens.map((item) => item.id === serieAtualizada.id ? serieAtualizada : item),
+        }));
+        if (this.serieSelecionada()?.id === serieAtualizada.id) {
+          this.serieSelecionada.set(serieAtualizada);
+        }
+        this.formularioSerieEdicao = this.formularioAPartirDaSerie(serieAtualizada);
+        this.editandoSerie.set(false);
+        this.serieEmEdicao.set(null);
+        this.mensagem.set('Série atualizada.');
+      },
+      error: () => {
+        this.salvandoSerie.set(null);
+        this.mensagem.set('Não foi possível atualizar a série. Verifique se já existe outra série com este título e editora.');
       },
     });
   }
@@ -1158,6 +1287,17 @@ export class CatalogoPage implements OnInit {
     this.api.listarSeries(this.buscaSeries, pagina, this.tamanhoSeries, this.inicialSeries()).subscribe({
       next: (resposta) => this.series.set(resposta),
       error: () => this.mensagem.set('Não foi possível carregar as séries internas agora.'),
+    });
+  }
+
+  private carregarEditoras() {
+    if (this.editoras().length) {
+      return;
+    }
+
+    this.api.listarEditoras().subscribe({
+      next: (editoras) => this.editoras.set(editoras),
+      error: () => undefined,
     });
   }
 
