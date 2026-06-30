@@ -52,12 +52,40 @@ import {
         </div>
 
         @if (resultadosEncontrados().length) {
+          <div class="barra-selecao-edicoes">
+            <div>
+              <strong>{{ totalSelecionadas() }} selecionada(s)</strong>
+              <span>Selecione varias edicoes do catalogo interno para adicionar de uma vez.</span>
+            </div>
+            <div class="acoes-selecao-edicoes">
+              <button class="botao compacto" type="button" (click)="selecionarTodasInternas()" [disabled]="!totalInternasSelecionaveis() || salvandoItem()">
+                Selecionar internas
+              </button>
+              <button class="botao compacto" type="button" (click)="limparSelecaoEmMassa()" [disabled]="!totalSelecionadas() || salvandoItem()">
+                Limpar
+              </button>
+              <button class="botao primario compacto" type="button" (click)="adicionarSelecionadasNaEstante()" [disabled]="!totalSelecionadas() || salvandoItem()">
+                {{ salvandoItem() ? 'Adicionando...' : 'Adicionar selecionadas' }}
+              </button>
+            </div>
+          </div>
           <div class="lista-escolha">
             @for (resultado of resultadosEncontrados(); track chaveResultado(resultado)) {
-              <button type="button" [class.ativo]="resultadoSelecionado()?.idExterno === resultado.idExterno && resultadoSelecionado()?.id === resultado.id" (click)="selecionarResultado(resultado)">
-                <strong>{{ tituloResultado(resultado) }}</strong>
-                <span>{{ descricaoResultado(resultado) }}</span>
-              </button>
+              <div class="resultado-selecao" [class.ativo]="resultadoSelecionado()?.idExterno === resultado.idExterno && resultadoSelecionado()?.id === resultado.id">
+                <label class="checkbox-selecao" [class.desabilitado]="!resultadoSelecionavelEmMassa(resultado)">
+                  <input
+                    type="checkbox"
+                    [checked]="resultadoSelecionadoEmMassa(resultado)"
+                    [disabled]="!resultadoSelecionavelEmMassa(resultado) || salvandoItem()"
+                    (change)="alternarResultadoEmMassa(resultado, $any($event.target).checked)"
+                  />
+                  <span>Selecionar</span>
+                </label>
+                <button type="button" [class.ativo]="resultadoSelecionado()?.idExterno === resultado.idExterno && resultadoSelecionado()?.id === resultado.id" (click)="selecionarResultado(resultado)">
+                  <strong>{{ tituloResultado(resultado) }}</strong>
+                  <span>{{ descricaoResultado(resultado) }}</span>
+                </button>
+              </div>
             }
           </div>
         }
@@ -87,7 +115,7 @@ import {
 
           <label>
             Preço pago
-            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" placeholder="0,00" />
+            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" placeholder="Vazio usa preço de capa" />
           </label>
 
           <label>
@@ -236,7 +264,7 @@ import {
 
           <label>
             Preço pago
-            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" placeholder="0,00" />
+            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" placeholder="Vazio usa preço de capa" />
           </label>
 
           <label>
@@ -461,6 +489,7 @@ export class ColecaoPage implements OnInit {
   });
   readonly edicoesEncontradas = signal<Edicao[]>([]);
   readonly resultadosEncontrados = signal<ResultadoPesquisaCatalogo[]>([]);
+  readonly resultadosSelecionadosEmMassa = signal<string[]>([]);
   readonly edicaoSelecionada = signal<Edicao | null>(null);
   readonly resultadoSelecionado = signal<ResultadoPesquisaCatalogo | null>(null);
   readonly carregandoEdicoes = signal(false);
@@ -483,6 +512,8 @@ export class ColecaoPage implements OnInit {
   readonly salvandoConfiguracao = signal(false);
   readonly mensagem = signal('');
   readonly filtroLeitura = signal<'TODAS' | 'LIDO' | 'NAO_LIDO'>('TODAS');
+  readonly totalSelecionadas = computed(() => this.resultadosSelecionadosEmMassa().length);
+  readonly totalInternasSelecionaveis = computed(() => this.resultadosEncontrados().filter((resultado) => this.resultadoSelecionavelEmMassa(resultado)).length);
   readonly resumoEstante = computed(() => {
     const edicoes = this.estante().flatMap((editora) => editora.series.flatMap((serie) => serie.edicoes));
     const lidas = edicoes.filter((edicao) => edicao.statusLeitura === 'LIDO').length;
@@ -691,6 +722,7 @@ export class ColecaoPage implements OnInit {
     if (!this.buscaEdicao.trim()) {
       this.mensagem.set('Informe um termo para buscar a edição.');
       this.resultadosEncontrados.set([]);
+      this.resultadosSelecionadosEmMassa.set([]);
       return;
     }
 
@@ -698,6 +730,7 @@ export class ColecaoPage implements OnInit {
     this.carregandoEdicoes.set(true);
     this.edicaoSelecionada.set(null);
     this.resultadoSelecionado.set(null);
+    this.resultadosSelecionadosEmMassa.set([]);
     this.api.pesquisarCatalogo(this.buscaEdicao, 0, 12).subscribe({
       next: (resposta) => {
         this.resultadosEncontrados.set(resposta.itens);
@@ -708,6 +741,7 @@ export class ColecaoPage implements OnInit {
       },
       error: () => {
         this.resultadosEncontrados.set([]);
+        this.resultadosSelecionadosEmMassa.set([]);
         this.carregandoEdicoes.set(false);
         this.mensagem.set('Não foi possível buscar edições agora.');
       },
@@ -717,6 +751,7 @@ export class ColecaoPage implements OnInit {
   agendarBuscaEdicoes() {
     this.edicaoSelecionada.set(null);
     this.resultadoSelecionado.set(null);
+    this.resultadosSelecionadosEmMassa.set([]);
 
     if (this.temporizadorBuscaEdicao) {
       clearTimeout(this.temporizadorBuscaEdicao);
@@ -724,6 +759,7 @@ export class ColecaoPage implements OnInit {
 
     if (this.buscaEdicao.trim().length < 2) {
       this.resultadosEncontrados.set([]);
+      this.resultadosSelecionadosEmMassa.set([]);
       return;
     }
 
@@ -747,6 +783,89 @@ export class ColecaoPage implements OnInit {
         error: () => this.mensagem.set('Não foi possível carregar a edição interna selecionada.'),
       });
     }
+  }
+
+  resultadoSelecionavelEmMassa(resultado: ResultadoPesquisaCatalogo) {
+    return resultado.fonte === 'HQ_HUB' && !!resultado.id;
+  }
+
+  resultadoSelecionadoEmMassa(resultado: ResultadoPesquisaCatalogo) {
+    return this.resultadosSelecionadosEmMassa().includes(this.chaveResultado(resultado));
+  }
+
+  alternarResultadoEmMassa(resultado: ResultadoPesquisaCatalogo, selecionado: boolean) {
+    if (!this.resultadoSelecionavelEmMassa(resultado)) {
+      return;
+    }
+
+    const chave = this.chaveResultado(resultado);
+    this.resultadosSelecionadosEmMassa.update((selecionados) => {
+      if (selecionado) {
+        return selecionados.includes(chave) ? selecionados : [...selecionados, chave];
+      }
+
+      return selecionados.filter((item) => item !== chave);
+    });
+    this.mensagem.set('');
+  }
+
+  selecionarTodasInternas() {
+    const chaves = this.resultadosEncontrados()
+      .filter((resultado) => this.resultadoSelecionavelEmMassa(resultado))
+      .map((resultado) => this.chaveResultado(resultado));
+    this.resultadosSelecionadosEmMassa.set(chaves);
+    this.mensagem.set('');
+  }
+
+  limparSelecaoEmMassa() {
+    this.resultadosSelecionadosEmMassa.set([]);
+  }
+
+  async adicionarSelecionadasNaEstante() {
+    const selecionadas = this.resultadosEncontrados().filter((resultado) => this.resultadoSelecionadoEmMassa(resultado) && resultado.id);
+    if (!selecionadas.length) {
+      this.mensagem.set('Selecione pelo menos uma edição interna para adicionar.');
+      return;
+    }
+
+    this.salvandoItem.set(true);
+    this.mensagem.set('');
+
+    let adicionadas = 0;
+    let falhas = 0;
+
+    for (const resultado of selecionadas) {
+      try {
+        await firstValueFrom(
+          this.api.cadastrarItemColecao({
+            edicaoId: resultado.id!,
+            estadoConservacao: this.estadoConservacao,
+            dataAquisicao: this.dataAquisicao || null,
+            precoPago: this.precoPago,
+            statusLeitura: this.statusLeitura,
+            observacoes: this.observacoes || null,
+          }),
+        );
+        adicionadas += 1;
+      } catch {
+        falhas += 1;
+      }
+    }
+
+    this.salvandoItem.set(false);
+    this.resultadosSelecionadosEmMassa.set([]);
+    if (adicionadas) {
+      this.mensagem.set(
+        falhas
+          ? `${adicionadas} edição(ões) adicionada(s). ${falhas} já estavam na estante ou não puderam ser adicionadas.`
+          : `${adicionadas} edição(ões) adicionada(s) à sua estante.`,
+      );
+      this.limparFormulario();
+      this.carregarEstante();
+      return;
+    }
+
+    this.mensagem.set('Nenhuma edição foi adicionada. Verifique se elas já estão na sua estante.');
   }
 
   cadastrarNaColecao() {
@@ -1369,6 +1488,7 @@ export class ColecaoPage implements OnInit {
   private limparFormulario() {
     this.edicoesEncontradas.set([]);
     this.resultadosEncontrados.set([]);
+    this.resultadosSelecionadosEmMassa.set([]);
     this.edicaoSelecionada.set(null);
     this.resultadoSelecionado.set(null);
     this.buscaEdicao = '';

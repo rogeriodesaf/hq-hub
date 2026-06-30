@@ -24,7 +24,7 @@ public class ItemColecaoMapper {
         item.setEdicao(edicao);
         item.setEstadoConservacao(dto.estadoConservacao());
         item.setDataAquisicao(dto.dataAquisicao());
-        item.setPrecoPago(dto.precoPago());
+        item.setPrecoPago(dto.precoPago() == null ? edicao.getPrecoCapa() : dto.precoPago());
         item.setStatusLeitura(dto.statusLeitura() == null ? StatusLeitura.NAO_LIDO : dto.statusLeitura());
         item.setObservacoes(dto.observacoes());
         return item;
