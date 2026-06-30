@@ -836,6 +836,102 @@ textarea:focus {
   margin: 0;
 }
 
+.toast-sistema {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1200;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: min(460px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid;
+  box-shadow: 0 10px 28px rgba(16, 20, 40, 0.16);
+  animation: toast-entrada 0.22s ease-out;
+}
+
+.toast-sistema p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.toast-sistema.sucesso {
+  border-color: rgba(34, 150, 83, 0.32);
+  color: #1a6633;
+  background: #ecf9f0;
+}
+
+.toast-sistema.erro {
+  border-color: rgba(217, 65, 65, 0.32);
+  color: #8f2424;
+  background: #fdeeee;
+}
+
+.toast-sistema.info {
+  border-color: rgba(255, 122, 0, 0.28);
+  color: #6e4a1f;
+  background: #fff4e6;
+}
+
+.fechar-toast {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 2px;
+  opacity: 0.75;
+}
+
+.fechar-toast:hover {
+  opacity: 1;
+}
+
+@keyframes toast-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+body.tema-escuro .toast-sistema {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+body.tema-escuro .toast-sistema.sucesso {
+  background: rgba(17, 74, 39, 0.94);
+  border-color: rgba(92, 214, 139, 0.5);
+  color: #c3ffd9;
+}
+
+body.tema-escuro .toast-sistema.erro {
+  background: rgba(104, 27, 27, 0.95);
+  border-color: rgba(255, 128, 128, 0.5);
+  color: #ffd0d0;
+}
+
+body.tema-escuro .toast-sistema.info {
+  background: rgba(96, 63, 22, 0.95);
+  border-color: rgba(255, 190, 120, 0.52);
+  color: #ffe5c2;
+}
+
+@media (max-width: 700px) {
+  .toast-sistema {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    max-width: none;
+  }
+}
+
 .painel-formulario {
   margin-bottom: 18px;
   padding: 18px;

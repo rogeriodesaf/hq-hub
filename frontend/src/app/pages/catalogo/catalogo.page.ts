@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, inject, signal } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { firstValueFrom, forkJoin } from 'rxjs';
@@ -30,9 +30,10 @@ import {
     </section>
 
     @if (mensagem()) {
-      <section class="estado-pesquisa">
+      <aside class="toast-sistema" [class.sucesso]="tipoMensagem() === 'sucesso'" [class.erro]="tipoMensagem() === 'erro'" [class.info]="tipoMensagem() === 'info'" role="status" aria-live="polite">
         <p>{{ mensagem() }}</p>
-      </section>
+        <button type="button" class="fechar-toast" (click)="fecharMensagem()" aria-label="Fechar mensagem">×</button>
+      </aside>
     }
 
     <section class="catalogo-layout">
@@ -520,7 +521,7 @@ import {
     }
   `,
 })
-export class CatalogoPage implements OnInit {
+export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('resultadosCatalogoBloco') private resultadosCatalogoBloco?: ElementRef<HTMLElement>;
   @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
 
@@ -561,6 +562,7 @@ export class CatalogoPage implements OnInit {
   readonly salvandoCapaPublicacao = signal<number | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
+  readonly tipoMensagem = computed<'sucesso' | 'erro' | 'info'>(() => this.classificarMensagem(this.mensagem()));
   readonly paginaResultados = signal(0);
   readonly inicialSeries = signal('');
   readonly tamanhoResultados = 20;
@@ -571,10 +573,42 @@ export class CatalogoPage implements OnInit {
   buscaSeries = '';
   formularioEdicao = this.formularioEdicaoVazio();
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
+  private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect(() => {
+      const texto = this.mensagem();
+
+      if (this.temporizadorMensagem) {
+        clearTimeout(this.temporizadorMensagem);
+        this.temporizadorMensagem = null;
+      }
+
+      if (!texto) {
+        return;
+      }
+
+      const duracao = this.tipoMensagem() === 'erro' ? 7000 : 4500;
+      this.temporizadorMensagem = setTimeout(() => {
+        this.mensagem.set('');
+      }, duracao);
+    }, { allowSignalWrites: true });
+  }
 
   ngOnInit() {
     this.carregarSeriesInternas();
     this.carregarEditoras();
+  }
+
+  ngOnDestroy() {
+    if (this.temporizadorMensagem) {
+      clearTimeout(this.temporizadorMensagem);
+      this.temporizadorMensagem = null;
+    }
+  }
+
+  fecharMensagem() {
+    this.mensagem.set('');
   }
 
   carregar() {
@@ -1326,6 +1360,23 @@ export class CatalogoPage implements OnInit {
       next: (editoras) => this.editoras.set(editoras),
       error: () => undefined,
     });
+  }
+
+  private classificarMensagem(texto: string): 'sucesso' | 'erro' | 'info' {
+    const normalizado = texto
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+    if (normalizado.includes('nao foi possivel') || normalizado.includes('erro')) {
+      return 'erro';
+    }
+
+    if (normalizado.startsWith('pesquisando') || normalizado.startsWith('carregando') || normalizado.startsWith('digite') || normalizado.startsWith('nenhum')) {
+      return 'info';
+    }
+
+    return 'sucesso';
   }
 
   private buscarResultados(pagina: number, rolarAoResultadoMobile = false) {
