@@ -38,8 +38,8 @@ public class SerieService {
 
         Editora editora = buscarEditoraPorId(dto.editoraId());
 
-        if (serieRepository.existePorTituloEEditora(dto.titulo(), dto.editoraId())) {
-            throw new RegraNegocioException("Já existe uma série cadastrada com este título para esta editora.");
+        if (serieRepository.existePorTituloEEditoraEVolume(dto.titulo(), dto.editoraId(), dto.volume())) {
+            throw new RegraNegocioException("Já existe uma série cadastrada com este título, editora e volume.");
         }
 
         validarOrigemExterna(dto.fonteExterna(), dto.idExterno());
@@ -61,8 +61,8 @@ public class SerieService {
         Serie serie = buscarEntidadePorId(id);
         Editora editora = buscarEditoraPorId(dto.editoraId());
 
-        if (serieRepository.existePorTituloEEditoraEmOutraSerie(dto.titulo(), dto.editoraId(), id)) {
-            throw new RegraNegocioException("Já existe uma série cadastrada com este título para esta editora.");
+        if (serieRepository.existePorTituloEEditoraEVolumeEmOutraSerie(dto.titulo(), dto.editoraId(), dto.volume(), id)) {
+            throw new RegraNegocioException("Já existe uma série cadastrada com este título, editora e volume.");
         }
 
         validarOrigemExterna(dto.fonteExterna(), dto.idExterno());

@@ -32,14 +32,23 @@ public class SerieRepository implements PanacheRepository<Serie> {
         this.entityManager = entityManager;
     }
 
-    public boolean existePorTituloEEditora(String titulo, Long editoraId) {
-        return find("lower(titulo) = ?1 and editora.id = ?2", titulo.toLowerCase(), editoraId)
+    public boolean existePorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
+        int volumeNormalizado = volume == null ? 0 : volume;
+        return find("lower(titulo) = ?1 and editora.id = ?2 and coalesce(volume, 0) = ?3",
+                titulo.toLowerCase(),
+                editoraId,
+                volumeNormalizado)
                 .firstResultOptional()
                 .isPresent();
     }
 
-    public boolean existePorTituloEEditoraEmOutraSerie(String titulo, Long editoraId, Long id) {
-        return find("lower(titulo) = ?1 and editora.id = ?2 and id <> ?3", titulo.toLowerCase(), editoraId, id)
+    public boolean existePorTituloEEditoraEVolumeEmOutraSerie(String titulo, Long editoraId, Integer volume, Long id) {
+        int volumeNormalizado = volume == null ? 0 : volume;
+        return find("lower(titulo) = ?1 and editora.id = ?2 and coalesce(volume, 0) = ?3 and id <> ?4",
+                titulo.toLowerCase(),
+                editoraId,
+                volumeNormalizado,
+                id)
                 .firstResultOptional()
                 .isPresent();
     }

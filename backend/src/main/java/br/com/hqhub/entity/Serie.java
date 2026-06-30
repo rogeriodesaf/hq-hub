@@ -14,14 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "series", uniqueConstraints = {
-        @UniqueConstraint(name = "uk_series_titulo_editora", columnNames = { "titulo", "editora_id" })
-})
+@Table(name = "series")
 @Getter
 @Setter
 public class Serie {
