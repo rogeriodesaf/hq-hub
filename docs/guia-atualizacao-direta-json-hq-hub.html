@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Guia de atualizacao direta por JSON - HQ-HUB</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: #172033;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12.5px;
+      line-height: 1.42;
+    }
+
+    header {
+      padding-bottom: 12px;
+      border-bottom: 3px solid #ff871f;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: #111827;
+      font-size: 25px;
+    }
+
+    h2 {
+      break-after: avoid;
+      margin: 20px 0 8px;
+      color: #111827;
+      font-size: 17px;
+    }
+
+    h3 {
+      break-after: avoid;
+      margin: 14px 0 6px;
+      color: #1f2937;
+      font-size: 14px;
+    }
+
+    p {
+      margin: 0 0 8px;
+    }
+
+    ul,
+    ol {
+      margin: 7px 0 0 20px;
+      padding: 0;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 14px;
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    th,
+    td {
+      vertical-align: top;
+      border: 1px solid #d1d5db;
+      padding: 6px 7px;
+    }
+
+    th {
+      background: #111827;
+      color: #ffffff;
+      text-align: left;
+      font-size: 11px;
+    }
+
+    code {
+      color: #1d4ed8;
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+    }
+
+    pre {
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      margin: 8px 0 14px;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background: #f9fafb;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .subtitulo {
+      margin: 0;
+      color: #4b5563;
+      font-size: 13px;
+    }
+
+    .aviso {
+      margin: 12px 0;
+      padding: 10px;
+      border-left: 5px solid #dc2626;
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+
+    .dica {
+      margin: 12px 0;
+      padding: 10px;
+      border-left: 5px solid #ff871f;
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+
+    .bloco {
+      margin: 12px 0;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background: #f9fafb;
+    }
+
+    .rodape {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #d1d5db;
+      color: #6b7280;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guia de atualizacao direta por JSON no HQ-HUB</h1>
+    <p class="subtitulo">Como abrir um arquivo JSON, entender cada campo e importar a edicao atualizada para o catalogo.</p>
+  </header>
+
+  <section>
+    <h2>Antes de editar</h2>
+    <ol>
+      <li>Faca uma copia do arquivo original antes de alterar.</li>
+      <li>Edite em um programa que preserve texto puro, como VS Code, Notepad++ ou editor semelhante.</li>
+      <li>Salve em UTF-8 para evitar textos quebrados, como <code>1Âª SÃ©rie</code> no lugar de <code>1ª Série</code>.</li>
+      <li>Nao coloque comentarios dentro do arquivo. JSON valido nao aceita comentarios.</li>
+      <li>Mantenha aspas, virgulas, colchetes e chaves exatamente no formato correto.</li>
+    </ol>
+    <div class="aviso">
+      Se faltar uma virgula, sobrar uma virgula no final de uma lista ou uma aspa ficar aberta, o HQ-HUB nao consegue importar o JSON.
+    </div>
+  </section>
+
+  <section>
+    <h2>Como ler o JSON</h2>
+    <p>O JSON e organizado em blocos. Cada bloco guarda uma parte da edicao.</p>
+    <pre>{
+  "origem": { ... },
+  "serieBrasileira": { ... },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "12",
+      "historias": [
+        { "ordem": 1, "publicacaoOriginal": { ... } }
+      ]
+    }
+  ]
+}</pre>
+    <p>Quando o campo estiver entre aspas, e texto. Quando nao estiver entre aspas, pode ser numero, lista ou bloco.</p>
+  </section>
+
+  <section>
+    <h2>Bloco origem</h2>
+    <p>Guarda informacoes sobre de onde veio o arquivo ou quais fontes foram usadas.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"origem": {</code></td>
+          <td>Inicio do bloco de origem.</td>
+          <td>Nao altere a estrutura. Edite apenas os campos dentro dele.</td>
+        </tr>
+        <tr>
+          <td><code>"arquivoEntrada"</code></td>
+          <td>Nome do arquivo usado como entrada.</td>
+          <td>Opcional. Pode usar algo como <code>a-saga-dos-x-men-12.json</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"url"</code></td>
+          <td>Fonte principal consultada.</td>
+          <td>Use a URL da pagina da edicao, Amazon, Panini, Guia dos Quadrinhos ou outra fonte confiavel.</td>
+        </tr>
+        <tr>
+          <td><code>"urlsProcessadas"</code></td>
+          <td>Lista de URLs usadas para montar o arquivo.</td>
+          <td>Pode repetir a URL principal ou incluir outras fontes. Cada URL precisa ficar entre aspas.</td>
+        </tr>
+        <tr>
+          <td><code>"geradoEm"</code></td>
+          <td>Data em que o arquivo foi gerado.</td>
+          <td>Use o formato <code>AAAA-MM-DD</code>, por exemplo <code>2026-06-30</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"gerador"</code></td>
+          <td>Nome de quem ou do processo que gerou o JSON.</td>
+          <td>Pode ser <code>HQ-HUB</code>, <code>HQ-HUB robo Guia dos Quadrinhos</code> ou nome interno combinado.</td>
+        </tr>
+        <tr>
+          <td><code>}</code></td>
+          <td>Fim do bloco de origem.</td>
+          <td>Nao remova.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Bloco serieBrasileira</h2>
+    <p>Identifica a serie brasileira onde a edicao sera criada ou atualizada.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"serieBrasileira": {</code></td>
+          <td>Inicio dos dados da serie no Brasil.</td>
+          <td>Nao altere a estrutura.</td>
+        </tr>
+        <tr>
+          <td><code>"titulo"</code></td>
+          <td>Nome da serie brasileira.</td>
+          <td>Exemplo: <code>A Saga dos X-Men</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"fase"</code></td>
+          <td>Fase, linha editorial ou temporada.</td>
+          <td>Exemplo: <code>1ª Série</code>. Corrija textos com encoding quebrado antes de importar.</td>
+        </tr>
+        <tr>
+          <td><code>"editora"</code></td>
+          <td>Editora brasileira.</td>
+          <td>Exemplo: <code>Panini</code>, <code>Abril</code>, <code>Mythos</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"volume"</code></td>
+          <td>Volume ou temporada da serie.</td>
+          <td>Use numero sem aspas. Exemplo: <code>1</code>. Muito importante para separar V1, V2 e novas fases com o mesmo titulo.</td>
+        </tr>
+        <tr>
+          <td><code>}</code></td>
+          <td>Fim do bloco da serie brasileira.</td>
+          <td>Nao remova.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Totais e avisos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"totalEdicoes"</code></td>
+          <td>Quantidade de edicoes dentro do arquivo.</td>
+          <td>Se o arquivo tem uma edicao dentro de <code>edicoes</code>, use <code>1</code>. Se tiver duas, use <code>2</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"totalHistorias"</code></td>
+          <td>Quantidade total de historias somando todas as edicoes do arquivo.</td>
+          <td>Conte todos os itens dentro de <code>historias</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"avisos"</code></td>
+          <td>Lista de observacoes geradas no preparo do arquivo.</td>
+          <td>Normalmente pode ficar vazio: <code>[]</code>. Se houver aviso, use lista de textos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Bloco edicoes</h2>
+    <p><code>"edicoes": [</code> inicia a lista de edicoes que serao importadas. Cada edicao fica dentro de chaves <code>{ ... }</code>. Se houver mais de uma edicao, separe os blocos por virgula.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"numero"</code></td>
+          <td>Numero da edicao brasileira.</td>
+          <td>Use texto entre aspas para aceitar numeros especiais, como <code>"12"</code>, <code>"1A"</code> ou <code>"Especial"</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"tituloChamada"</code></td>
+          <td>Titulo de capa ou chamada da edicao.</td>
+          <td>Pode ficar vazio com <code>""</code> quando nao houver titulo de chamada.</td>
+        </tr>
+        <tr>
+          <td><code>"dataPublicacao"</code></td>
+          <td>Data numerica da publicacao.</td>
+          <td>Use <code>AAAA-MM-DD</code>. Se souber apenas mes e ano, escolha uma data padrao combinada e use <code>publicadoTexto</code> para o texto real.</td>
+        </tr>
+        <tr>
+          <td><code>"publicadoTexto"</code></td>
+          <td>Texto de publicacao mostrado para o usuario.</td>
+          <td>Exemplo: <code>maio de 2023</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"editora"</code></td>
+          <td>Editora da edicao.</td>
+          <td>Geralmente igual a editora da serie, por exemplo <code>Panini</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"licenciador"</code></td>
+          <td>Dono/licenciador original do material.</td>
+          <td>Exemplo: <code>Marvel Comics</code>, <code>DC</code>, <code>Image</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"categoria"</code></td>
+          <td>Tipo editorial da publicacao.</td>
+          <td>Exemplo: <code>Edição Especial</code>, <code>Minissérie</code>, <code>Revista</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"genero"</code></td>
+          <td>Genero principal.</td>
+          <td>Exemplo: <code>Super-heróis</code>, <code>Terror</code>, <code>Humor</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"status"</code></td>
+          <td>Status editorial da serie/edicao.</td>
+          <td>Exemplo: <code>Título encerrado</code> ou <code>Em circulação</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"numeroPaginas"</code></td>
+          <td>Total de paginas da edicao brasileira.</td>
+          <td>Use numero sem aspas, por exemplo <code>148</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"formato"</code></td>
+          <td>Formato fisico da publicacao.</td>
+          <td>Pode ter quebra de linha usando <code>\n</code>, como <code>Americano (17 x 26 cm)\nColorido/Lombada quadrada</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"precoCapa"</code></td>
+          <td>Preco de capa.</td>
+          <td>Use ponto para decimal: <code>39.9</code>. Nao use <code>39,90</code> dentro do JSON.</td>
+        </tr>
+        <tr>
+          <td><code>"urlCapa"</code></td>
+          <td>URL da imagem da capa brasileira.</td>
+          <td>Use imagem que carregue externamente, de preferencia Amazon, Panini ou fonte confiavel. Evite URL direta de imagem do Guia dos Quadrinhos.</td>
+        </tr>
+        <tr>
+          <td><code>"descricao"</code></td>
+          <td>Sinopse ou resumo da edicao brasileira.</td>
+          <td>Pode ser texto longo. Se tiver aspas dentro do texto, elas precisam ser escapadas ou removidas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Bloco historias</h2>
+    <p><code>"historias": [</code> inicia a lista de historias publicadas dentro daquela edicao. Cada historia tem seus proprios campos e um bloco de publicacao original.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"ordem"</code></td>
+          <td>Posicao da historia dentro da edicao.</td>
+          <td>Use numero sem aspas: <code>1</code>, <code>2</code>, <code>3</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"tituloPortugues"</code></td>
+          <td>Titulo publicado em portugues.</td>
+          <td>Campo importante para o sistema reconhecer a historia. Se nao houver titulo, use <code>sem titulo</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"tituloOriginal"</code></td>
+          <td>Titulo original da historia.</td>
+          <td>Pode ficar vazio se nao souber.</td>
+        </tr>
+        <tr>
+          <td><code>"quantidadePaginas"</code></td>
+          <td>Quantidade de paginas daquela historia.</td>
+          <td>Use numero sem aspas.</td>
+        </tr>
+        <tr>
+          <td><code>"resumo"</code></td>
+          <td>Resumo, creditos ou observacoes da historia.</td>
+          <td>Pode ser vazio. Para quebrar linha dentro do texto, use <code>\n</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Bloco publicacaoOriginal</h2>
+    <p>Fica dentro de cada historia e informa em qual revista original aquela historia saiu.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que significa</th>
+          <th>Como preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"publicacaoOriginal": {</code></td>
+          <td>Inicio dos dados da publicacao original.</td>
+          <td>Deixe dentro da historia correta.</td>
+        </tr>
+        <tr>
+          <td><code>"serieOriginal"</code></td>
+          <td>Serie original estrangeira.</td>
+          <td>Exemplo: <code>Uncanny X-Men, The (1963)</code>. Campo essencial para criar vinculo.</td>
+        </tr>
+        <tr>
+          <td><code>"numeroOriginal"</code></td>
+          <td>Numero original estrangeiro.</td>
+          <td>Use texto entre aspas, por exemplo <code>"200"</code>. Campo essencial para criar vinculo.</td>
+        </tr>
+        <tr>
+          <td><code>"anoOriginal"</code></td>
+          <td>Ano da publicacao original.</td>
+          <td>Use numero sem aspas, por exemplo <code>1985</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"texto"</code></td>
+          <td>Descricao pronta da publicacao original.</td>
+          <td>Exemplo: <code>Uncanny X-Men, The (1963) n° 200/1985 - Marvel Comics</code>.</td>
+        </tr>
+        <tr>
+          <td><code>"urlOrigem"</code></td>
+          <td>URL da pagina da publicacao original.</td>
+          <td>Pode ser Guia dos Quadrinhos, Marvel, DC Database ou outra fonte.</td>
+        </tr>
+        <tr>
+          <td><code>"urlCapa"</code></td>
+          <td>URL da capa da publicacao original.</td>
+          <td>Use uma imagem que carregue externamente. Pode ficar vazio se nao tiver fonte confiavel.</td>
+        </tr>
+        <tr>
+          <td><code>"urlCompraAmazon"</code></td>
+          <td>Link de compra, quando existir.</td>
+          <td>Opcional. Pode ficar vazio com <code>""</code>.</td>
+        </tr>
+        <tr>
+          <td><code>}</code></td>
+          <td>Fim do bloco da publicacao original.</td>
+          <td>Nao remova.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Linhas de abertura e fechamento</h2>
+    <p>As chaves e colchetes sao tao importantes quanto os campos.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Simbolo</th>
+          <th>Funcao</th>
+          <th>Cuidado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>{</code> e <code>}</code></td>
+          <td>Abrem e fecham um objeto, como uma edicao, historia ou origem.</td>
+          <td>Toda chave aberta precisa ser fechada.</td>
+        </tr>
+        <tr>
+          <td><code>[</code> e <code>]</code></td>
+          <td>Abrem e fecham uma lista, como <code>edicoes</code>, <code>historias</code> ou <code>urlsProcessadas</code>.</td>
+          <td>Itens dentro da lista ficam separados por virgula.</td>
+        </tr>
+        <tr>
+          <td><code>,</code></td>
+          <td>Separa campos ou itens de lista.</td>
+          <td>Nao coloque virgula depois do ultimo campo de um bloco.</td>
+        </tr>
+        <tr>
+          <td><code>""</code></td>
+          <td>Representa texto vazio.</td>
+          <td>Pode ser usado em campos opcionais.</td>
+        </tr>
+        <tr>
+          <td><code>[]</code></td>
+          <td>Representa lista vazia.</td>
+          <td>Bom para <code>avisos</code> quando nao houver avisos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Exemplo de uma historia completa</h2>
+    <pre>{
+  "ordem": 1,
+  "tituloPortugues": "O julgamento de Magneto!",
+  "tituloOriginal": "The Trial of Magneto!",
+  "quantidadePaginas": 40,
+  "resumo": "Texto do resumo ou creditos.",
+  "publicacaoOriginal": {
+    "serieOriginal": "Uncanny X-Men, The (1963)",
+    "numeroOriginal": "200",
+    "anoOriginal": 1985,
+    "texto": "Uncanny X-Men, The (1963) n° 200/1985 - Marvel Comics",
+    "urlOrigem": "http://www.guiadosquadrinhos.com/...",
+    "urlCapa": "https://cdn.marvel.com/...",
+    "urlCompraAmazon": ""
+  }
+}</pre>
+    <p>Para adicionar outra historia, copie esse bloco, cole depois dele, coloque uma virgula entre os blocos e atualize <code>ordem</code>, titulos, paginas e publicacao original.</p>
+  </section>
+
+  <section>
+    <h2>Checklist antes de importar</h2>
+    <ul>
+      <li>O texto esta sem caracteres quebrados, como <code>Ã§</code>, <code>Ã£</code> e <code>Âª</code> no lugar errado.</li>
+      <li><code>serieBrasileira.titulo</code>, <code>fase</code>, <code>editora</code> e <code>volume</code> identificam a serie correta.</li>
+      <li><code>numero</code> identifica a edicao correta.</li>
+      <li><code>urlCapa</code> carrega fora do site de origem.</li>
+      <li><code>totalEdicoes</code> bate com a quantidade de itens em <code>edicoes</code>.</li>
+      <li><code>totalHistorias</code> bate com a quantidade de itens em <code>historias</code>.</li>
+      <li>Cada historia tem <code>tituloPortugues</code>, <code>serieOriginal</code> e <code>numeroOriginal</code> sempre que possivel.</li>
+      <li>O JSON foi validado antes de importar.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Como importar depois de editar direto</h2>
+    <ol>
+      <li>Abra a tela de Importacao do HQ-HUB.</li>
+      <li>Cole o JSON editado no campo de texto do JSON.</li>
+      <li>Se quiser conferir no formulario, use a opcao de carregar o formulario pelo JSON.</li>
+      <li>Clique em <strong>Importar para o catalogo</strong>.</li>
+      <li>Confira a mensagem final com edicoes criadas, edicoes atualizadas, historias criadas e vinculos criados.</li>
+    </ol>
+    <div class="dica">
+      Quando a intencao for apenas corrigir uma edicao ja existente, mantenha o mesmo titulo, volume e numero. Assim o HQ-HUB entende que deve atualizar aquela edicao em vez de criar outra serie parecida.
+    </div>
+  </section>
+
+  <p class="rodape">HQ-HUB - Guia interno para colaboradores. Gerado em 30/06/2026.</p>
+</body>
+</html>
