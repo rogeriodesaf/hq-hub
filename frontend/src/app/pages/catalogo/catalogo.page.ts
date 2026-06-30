@@ -599,35 +599,6 @@ export class CatalogoPage implements OnInit {
   }
 
   removerSerie(serie: Serie) {
-    private formularioSerieEdicaoVazio() {
-      return {
-        titulo: '',
-        descricao: '',
-        anoInicio: null as number | null,
-        anoFim: null as number | null,
-        volume: null as number | null,
-        ordemCronologica: null as number | null,
-        fonteExterna: '',
-        idExterno: '',
-        urlOrigem: '',
-        editoraId: null as number | null,
-      };
-    }
-
-    private formularioAPartirDaSerie(serie: Serie) {
-      return {
-        titulo: serie.titulo || '',
-        descricao: serie.descricao || '',
-        anoInicio: serie.anoInicio,
-        anoFim: serie.anoFim,
-        volume: serie.volume,
-        ordemCronologica: serie.ordemCronologica,
-        fonteExterna: serie.fonteExterna || '',
-        idExterno: serie.idExterno || '',
-        urlOrigem: serie.urlOrigem || '',
-        editoraId: serie.editora?.id || null,
-      };
-    }
     if (!this.podeExcluirCatalogo()) {
       return;
     }
@@ -718,6 +689,36 @@ export class CatalogoPage implements OnInit {
 
   buscarSeriesInternas() {
     this.carregarSeriesInternas(0);
+  }
+
+  private formularioSerieEdicaoVazio() {
+    return {
+      titulo: '',
+      descricao: '',
+      anoInicio: null as number | null,
+      anoFim: null as number | null,
+      volume: null as number | null,
+      ordemCronologica: null as number | null,
+      fonteExterna: '',
+      idExterno: '',
+      urlOrigem: '',
+      editoraId: null as number | null,
+    };
+  }
+
+  private formularioAPartirDaSerie(serie: Serie) {
+    return {
+      titulo: serie.titulo || '',
+      descricao: serie.descricao || '',
+      anoInicio: serie.anoInicio,
+      anoFim: serie.anoFim,
+      volume: serie.volume,
+      ordemCronologica: serie.ordemCronologica,
+      fonteExterna: serie.fonteExterna || '',
+      idExterno: serie.idExterno || '',
+      urlOrigem: serie.urlOrigem || '',
+      editoraId: serie.editora?.id || null,
+    };
   }
 
   alterarInicialSeries(inicial: string) {
