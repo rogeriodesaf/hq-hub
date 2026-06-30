@@ -1,0 +1,39 @@
+{
+  "origem": {
+    "arquivoEntrada": "tmp-marvel-essenciais-2.txt",
+    "url": "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-amarelo/ma011290/189188",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-amarelo/ma011290/189188"
+    ],
+    "geradoEm": "2026-06-27T11:52:52",
+    "gerador": "robo_importador_texto.py + cabecalho sintetico para edicao unica"
+  },
+  "serieBrasileira": {
+    "titulo": "Marvel Essenciais: Demolidor - Amarelo",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 0,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Edição única",
+      "numeroPaginas": 172,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 91.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/610wkEEPCGL._AC_UL320_.jpg",
+      "descricao": "Marvel Essenciais: Demolidor - Amarelo n? 1\nPublicado em: maio de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Edição única\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 91,90\nCrédito da capa e editor\nsem título\nMatt Murdock perdeu sua visão em um acidente. Era um jovem brilhante e repleto de otimismo... até que o assassinato de seu pai despertou nele um desejo insaciável por justiça. Assim ele iniciou sua cruzada contra o mal: de dia, como um advogado, de noite, como o Demolidor. Então, Karen Page entrou em sua vida e tudo mudou.\n9,3\n4 votos no total\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nFaça sua avaliação:\nRelate algum problema encontrado nessa edição\nTítulo adicionado por\nClima\nem 05/05/2026 17:43:00\nEdição adicionada por\nClima\nem 05/05/2026 17:45:00\nEditado por\ncarnificina\nVer outras contribuições\nPlease enable JavaScript to view the comments powered by Disqus.\nHome\nTítulos\nTítulos estrangeiros\nEditoras\nEditoras estrangeiras\nArtistas\nPersonagens\nHistórias\nArco de histórias\nContato\nBlog\nSobre o Guia\nUsuários\nApoiadores\nFotos das coleções\nMonografias\nCapas\nÚltimas capas adicionadas\nÚltimas capas restauradas\nÚltimas capas estrangeiras\nTodas as capas disponíveis\nTítulos com capas completas\nLançamentos do mês\nBusca avançada\nGibis nas bancas quando você nasceu\nVer uma edição aleatória\nMais e maiores\nAs mais votadas\nAs mais colecionadas\nAs mais desejadas\nAs maiores coleções\nO Guia dos Quadrinhos é um grande banco de dados, cujo objetivo é o resgate, preservação e divulgação da memória de todos dos quadrinhos publicados no Brasil. Explore e conheça mais o universo dos quadrinhos!\nNas redes sociais\nTermos de Uso e a Política de Privacidade\n© 2007-2026 Guia dos Quadrinhos - Design e desenvolvimento: Edson Diogo\n.\n*\nhttp://www.guiadosquadrinhos.com/images/logo_only.png\nhttp://www.guiadosquadrinhos.com/images/mundos_jack_banner.jpg\nhttp://www.guiadosquadrinhos.com/images/banner_vertigo.jpg\nhttp://www.guiadosquadrinhos.com//images/nocover.jpg",
+      "historias": []
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-10/sa011203/188927",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-10/sa011203/188927"
+    ],
+    "geradoEm": "2026-06-27T01:42:23",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-04-01",
+      "publicadoTexto": "abril de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 160,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_qn5keqda4l1blej0cgn40e8k3b/-S265-FWEBP",
+      "descricao": "por Brandon Peterson (Autor) \n\nOs Acólitos capturam Moira pois Fabian quer aprender sua técnica de manipulação genética/lavagem cerebral. Os X-Men, com a ajuda do Noturno, partem para o resgate neste volume que traz a edição comemorativa número 300 da clássica série Uncanny X-Men!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "... Pelas crianças!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men tentam proteger várias crianças de uma escola do ataque dos Acólitos de Magneto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "298",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 298/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Legados",
+          "tituloOriginal": null,
+          "quantidadePaginas": 50,
+          "resumo": "Os X-Men partem para a França onde se escondem os Acólitos de Magneto e enfrentam o grupo para salvar Moira.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "300",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 300/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Epílogo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 7,
+          "resumo": "Cortez se gabava pela morte de Magneto, mas ele pode estar errado. Xavier e Moira descobrem um vírus altamente mortal para os mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "300",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 300/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Siga o mestre",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Uma aterrissagem forçada no meio de uma nevasca deixa o professor Xavier, Scott Summers e Ororo Munroe à mercê de Siena Blaze, uma mutante ambiciosa que quer matar os X-Men para ascender na hierarquia dos Upstarts.\n10\n3 votos no total\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Unlimited (1993)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Unlimited (1993) n° 1/1993 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

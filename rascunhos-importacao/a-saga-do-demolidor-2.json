@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-2/sa011130/163836",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-2/sa011130/163836"
+    ],
+    "geradoEm": "2026-06-26T23:32:06",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-04-01",
+      "publicadoTexto": "abril de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/51oU9wJRa6L.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 249\nPublicado em: abril de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Preto e branco/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Rick Leonardi Arte-Final: Al Williamson Editor: Dandara Palankof",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Não me toque",
+          "tituloOriginal": "Don't Touch Me",
+          "quantidadePaginas": 22,
+          "resumo": "Demolidor tenta reunir provas contra um traficante de drogas que usa vodu como um truque quando uma verdadeira criatura vodu intervém.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "243",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 243/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Me toque",
+          "tituloOriginal": "Touch Me",
+          "quantidadePaginas": 23,
+          "resumo": "Demolidor mais uma vez luta contra uma criatura de vodu e recupera o respeito de Karen no processo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "244",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 244/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Queime!",
+          "tituloOriginal": "Burn!",
+          "quantidadePaginas": 23,
+          "resumo": "Demolidor e o Pantera Negra discutem sobre como lidar com um ex-súdito de Wakanda que continuamente toma decisões erradas em sua vida em Nova York.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "245",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 245/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O homem invertido",
+          "tituloOriginal": "The Backwards Man",
+          "quantidadePaginas": 23,
+          "resumo": "O Demolidor ajuda a Viúva Negra a rastrear um super soldado perturbado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "247",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 247/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Uma gaiola em busca de um pássaro...",
+          "tituloOriginal": "A Cage in Search of a Bird...",
+          "quantidadePaginas": 22,
+          "resumo": "Karen convence Matt a abrir uma linha direta gratuita; Foggy está trabalhando para uma grande empresa administrada pelo Rei do Crime; Demolidor tenta investigar uma empresa cujo lixo tóxico cegou um garotinho; Wolverine está na trilha do matador de matadores mutante.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "248",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 248/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Beijar & matar!",
+          "tituloOriginal": "Kiss and Kill",
+          "quantidadePaginas": 23,
+          "resumo": "O Demolidor e Wolverine querem o Guerrilheiro, matador de mutantes, mas parece que não conseguem concordar sobre como fazê-lo. Suas diferenças ideológicas trarão alguma consequência para esta batalha?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "249",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 249/1987 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

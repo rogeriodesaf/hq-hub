@@ -1,0 +1,88 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-15/sa011201/185343",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-15/sa011201/185343"
+    ],
+    "geradoEm": "2026-06-26T22:51:11",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 3,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-06-01",
+      "publicadoTexto": "junho de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61X8CKZTA9L._SY385_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 15\nPublicado em: junho de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kelley Jones Arte-Final: John Beatty Editor: Pedro Catarino , Gabriel Faria , Arthur Marchetto\nO espírito do morcego",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O espírito do morcego",
+          "tituloOriginal": "KnightsEnd, Part 1: Spirit of the Bat",
+          "quantidadePaginas": 40,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "509",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 509/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Campo de testes",
+          "tituloOriginal": "Manimal: Proving Ground",
+          "quantidadePaginas": 40,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "29",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 29/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Turba de ninjas",
+          "tituloOriginal": "Too Many Ninjas",
+          "quantidadePaginas": 38,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "676",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 676/1994 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-5/sa011201/178744",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-5/sa011201/178744"
+    ],
+    "geradoEm": "2026-06-26T22:50:57",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": "Onde comprar essa edição:",
+      "dataPublicacao": "2024-08-01",
+      "publicadoTexto": "agosto de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71Xxlo9aUbL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 5\nPublicado em: agosto de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Kelley Jones Editor: Gabriel Faria\nSem descanso para os torpes",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sem descanso para os torpes",
+          "tituloOriginal": "Knightfall, Part 10: No Rest for the Wicked",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "663",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 663/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Morcego quebrado",
+          "tituloOriginal": "Knightfall, Part 11: The Broken Bat",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "497",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 497/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O dono da noite",
+          "tituloOriginal": "Knightfall, Part 12: Who Rules the Night",
+          "quantidadePaginas": 22,
+          "resumo": "No centro de Gotham, a população assiste aterrorizada Batman sendo massacrado nas mãos de Bane. O criminoso se declara o novo dono da cidade e deixa o Batman quebrado e sangrando muito em plena praça pública. Alfred consegue socorrer seu patrão e o leva para a Batcaverna. Bruce precisa de um remédio específico e Robin e Jean-Paul tentam consegui-lo, mas Alfred teme que o dano na coluna seja irreversível.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "664",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 664/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "2 caras: Jogo duplo",
+          "tituloOriginal": "2-Face [Part 1] Double Cross",
+          "quantidadePaginas": 19,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Showcase '93 (1993)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Showcase '93 (1993) n° 7/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "2 caras parte dois: Mau julgamento",
+          "tituloOriginal": "2-Face [Part 2] Bad Judgment",
+          "quantidadePaginas": 19,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Showcase '93 (1993)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Showcase '93 (1993) n° 8/1993 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

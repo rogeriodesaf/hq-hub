@@ -1,0 +1,168 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-5/sa011203/187270",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-5/sa011203/187270"
+    ],
+    "geradoEm": "2026-06-27T01:42:17",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 8,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_bcj5v2giut4536f2514f6eo277/-S265-FWEBP",
+      "descricao": "Saga dos X-Men, A 2ª Série - n° 5\nPublicado em: novembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Art Thibert Editor: Antonio Tadeu",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Nas entranhas da cidade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "291",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 291/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os Morlocks tomam Manhattan!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "292",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 292/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A última história dos Morlocks",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "293",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 293/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Espelhos quebrados",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 12/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Território perigoso",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 13/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Os dez maiores vilões dos X-Men",
+          "tituloOriginal": null,
+          "quantidadePaginas": 8,
+          "resumo": "Obs.: Essa história é apenas um epílogo que foi publicado originalmente ao final da edição original de X-Men Annual 1.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1992) n° 1/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Anjo da morte",
+          "tituloOriginal": null,
+          "quantidadePaginas": 9,
+          "resumo": "Obs.: Essa história é apenas um epílogo que foi publicado originalmente ao final da edição original de Uncanny X-Men Annual 16.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1970) n° 16/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Raízes do passado",
+          "tituloOriginal": null,
+          "quantidadePaginas": 7,
+          "resumo": "Obs.: Essa história também é apenas um epílogo que foi publicado originalmente ao final da edição original de Uncanny X-Men Annual 16.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1970) n° 16/1992 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

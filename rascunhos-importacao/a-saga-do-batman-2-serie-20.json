@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-20/sa011201/186926",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-20/sa011201/186926"
+    ],
+    "geradoEm": "2026-06-26T22:51:18",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "20",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 180,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 57.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71Dh6lK-iNL._SY385_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 20\nPublicado em: novembro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 180\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 57,90\nCrédito da capa e editor\nArte: Glenn Fabry Cores: Glenn Fabry Editor: Gabriel Faria , Arthur Marchetto\nO relógio do juízo final",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O relógio do juízo final",
+          "tituloOriginal": "The Doomsday Clock [Troika Part Three]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "682",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 682/1995 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "História: Chuck Dixon",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1993)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1993) n° 14/1995 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O golpe britânico",
+          "tituloOriginal": "The Britannia Coup",
+          "quantidadePaginas": 54,
+          "resumo": "O retorno de Alfred.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Nightwing: Alfred's Return (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Nightwing: Alfred's Return (1995) n° 1/1995 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A vingança de Bane II: A redenção",
+          "tituloOriginal": null,
+          "quantidadePaginas": 56,
+          "resumo": "O retorno de Bane.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Vengeance of Bane Special (1993)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Vengeance of Bane Special (1993) n° 2/1995 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

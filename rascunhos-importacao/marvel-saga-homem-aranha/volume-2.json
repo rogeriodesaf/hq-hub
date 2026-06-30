@@ -1,0 +1,170 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-2/ma011173/154812",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-2/ma011173/154812"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:56:54",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  8,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "2",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2020-08-01",
+                        "publicadoTexto":  "agosto de 2020",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  220,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  34.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.Lh2TK8dVHhN--PfnPwm92gAAAA?w=192\u0026h=292\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 2\nPublicado em: agosto de 2020\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 220\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Scott Hanna Cores: Dan Kemp Editor: Fernando Lopes - ‘Fl’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Levante a cabeça",
+                                              "tituloOriginal":  "Stand Tall",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Homem-Aranha participa dos eventos do dia 11 de setembro. É obrigado a lidar com as consequências da tragédia que ele e os outros heróis foram incapazes de evitar. Os Vingadores, o Quarteto Fantástico, os X-Men, todos estão lá, tentando ajudar as vítimas ou procurando corpos nos escombros.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "36",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 36/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Enquanto isso...",
+                                              "tituloOriginal":  "Meanwhile...",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Peter Parker conseguiu reconstruir sua vida. O relacionamento com sua tia May mudou radicalmente, agora que ela conhece sua dupla identidade como Homem-Aranha. No entanto, as feridas do rompimento com Mary Jane não se curaram. O que acontecerá quando eles se reencontrarem?\nEsta história faz parte do evento \"Nuff Said\", onde as revistas da Marvel contavam histórias sem texto, apenas através de imagens.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "39",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 39/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Questões delicadas",
+                                              "tituloOriginal":  "Sensitive Issues",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "E qual o papel do Doutor Octopus nessa história? Enquanto isso, um novo vilão espreita o Colégio Midtown, e, para derrotá-lo, o Aranha precisará da ajuda do Mestre das Artes Mística, o Doutor Estranho!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "40",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 40/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Olhando para trás",
+                                              "tituloOriginal":  "Looking Back",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Investigando o desaparecimento de viciados, o Homem-Aranha se depara com uma estranha conspiração mística.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "41",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 41/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Um rumo estranho para a vida",
+                                              "tituloOriginal":  "A Strange Turn of Events",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "42",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 42/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Braços frios",
+                                              "tituloOriginal":  "Cold Arms",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "43",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 43/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Homens \u0026 armas",
+                                              "tituloOriginal":  "Arms and The Men",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "44",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 44/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Até as estrelas esfriarem",
+                                              "tituloOriginal":  "Until the Stars Turn Cold",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "O Homem-Aranha enfrenta o Dr. Octopus e seu novo parceiro de campo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "45",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 45/2002 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

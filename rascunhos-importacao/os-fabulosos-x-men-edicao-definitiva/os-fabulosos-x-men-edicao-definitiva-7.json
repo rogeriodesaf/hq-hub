@@ -1,0 +1,300 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-7/fa011131/174670",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-7/fa011131/174670"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 20,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "7",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-11-01",
+      "publicadoTexto": "novembro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 440,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 190.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 7\nPublicado em: novembro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 440\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 190,90\nCrédito da capa e editor\nDesenho: John Byrne Arte-Final: Terry Austin Editor: Leandro Luigi Del Manto\nDeus poupe o filho...",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Deus poupe o filho...",
+          "tituloOriginal": "God Spare the Child...",
+          "quantidadePaginas": 17,
+          "resumo": "Com Proteus vencido, os X-Men se reorganizam: Banshee, sem poderes e apaixonado por Moira, decide ficar na Escócia e o Professor X retorna e percebe o quanto os X-Men mudaram em sua ausência. A detecção de dois novos mutantes chama a atenção e os põe em rota de colisão com os mutantes aristocratas do misterioso Clube do Inferno, que também está de olho nesses talentos. Jean Grey fica cada vez mais a mercê das ilusões de Jason Wyngarde, o Mestre Mental!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "129",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 129/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Cristal",
+          "tituloOriginal": "Dazzler",
+          "quantidadePaginas": 17,
+          "resumo": "Em Chicago, o Professor X, Tempestade, Colossus, Wolverine e a nova recruta, a jovem mutante intangível Kitty Pryde, tentam se libertar do julgo da Rainha Branca do Clube do Inferno, Emma Frost. E em Nova York, Ciclope, Jean Grey e Noturno vão contatar o outro mutante detectado pelo Cérebro: a manipuladora de luz Allison Blair, conhecida como a cantora disco Cristal. Mas o Rei Negro Sebastian Shaw e Jason Wyngarde, o Mestre Mental, estão decididos a corromper Fênix!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "130",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 130/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Fuja para sobreviver!",
+          "tituloOriginal": "Run for Your Life!",
+          "quantidadePaginas": 17,
+          "resumo": "Kitty Pryde consegue escapar do cativeiro nas Indústrias Frost e é encontrada bem a tempo por Fênix. Unindo-se a Ciclope, Noturno e Cristal, elas conseguem libertar os outros X-Men e comandam o revés contra a Rainha Branca e os soldados do Clube do Inferno.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "131",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 131/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O inferno não pode esperar!",
+          "tituloOriginal": "And Hellfire is Their Name!",
+          "quantidadePaginas": 17,
+          "resumo": "Preocupado com as intenções do Clube do Inferno, Ciclope contata o Anjo para saber mais sobre a associação aparentemente ilibada. Em meio a visita, Ciclope se surpreende num momento a sós com Jean, quando ela tira seus óculos e repele seus raios ópticos sem o menor esforço. Numa cena até hoje polêmica, os dois fazem amor no topo de um planalto, ao pôr do sol. Uma semana depois, com entradas dadas pelo Anjo, os X-Men penetram na sede do clube.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "132",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 132/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Wolverine: Sozinho!",
+          "tituloOriginal": "Wolverine: Alone!",
+          "quantidadePaginas": 17,
+          "resumo": "Descobertos e facilmente derrotados, Ciclope, Tempestade, Noturno e Colossus testemunham, chocados, o ápice do plano de Jason Wyngarde, o Mestre Mental: iludida pelo vilão, Jean Grey se torna a Rainha Negra do Clube do Inferno. Mas Wolverine, tido como derrotado e atirado aos alicerces da sede do clube por Harry Leland, lutará sozinho contra tudo e contra todos. E não pretende perder. História clássica que definiu Wolverine como o X-Man mais popular.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "133",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 133/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Tarde demais, heróis!",
+          "tituloOriginal": "Too Late, the Heroes!",
+          "quantidadePaginas": 17,
+          "resumo": "Com a volta de Wolverine, os X-Men orquestram seu contra-ataque sobre o Clube do Inferno. Shaw foge, Frost não é páreo para a telepatia da Fênix, Leland encontra seu destino nas garras de Wolverine, Pierce padece na ira de Colossus e Wyngarde se torna um vegetal na vingança de Jean. E quando tudo parecia se encaminhar para o final feliz, já era tarde demais: consumida por paixões mundanas, Jean Grey se transforma na impiedosa e invencível Fênix Negra!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "134",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 134/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Fênix Negra",
+          "tituloOriginal": "Dark Phoenix!",
+          "quantidadePaginas": 17,
+          "resumo": "Com Jean transformada na Fênix Negra, os X-Men tentam trazê-la de volta à razão mas não conseguem se aproximar. A poderosa vilã, sedenta de destruição e poder, segue para o espaço sideral, chamando a atenção dos X-Men, Homem-Aranha e até Dr. Estranho. Ao mesmo tempo, a fim de se vingar dos Filhos do Átomo, o Rei Negro Sebastian Shaw propõe ao Senador Robert Kelly a reativação do programa Sentinela. E no espaço, a Fênix Negra comete uma tragédia sem precedentes!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "135",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 135/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "A filha da luz e das trevas!",
+          "tituloOriginal": "Child of Light and Darkness!",
+          "quantidadePaginas": 17,
+          "resumo": "A Fênix Negra consumiu a estrela de um sistema solar habitado, matando bilhões de vidas diante de uma nave batedora Sh'iar. A Majestrix Lilandra convoca o Conselho Galáctico e este é unânime: a Fênix ameaça todo Universo e deve ser destruída. A Fênix Negra retorna à Terra e os X-Men decidem confrontá-la mais uma vez para trazer o equilíbrio a Jean, mas são facilmente derrotados. Cabe então ao Professor Xavier tentar deter, sua mais querida aluna.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "136",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 136/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "O destino da Fênix",
+          "tituloOriginal": "The Fate of the Phoenix!",
+          "quantidadePaginas": 35,
+          "resumo": "Xavier consegue controlar a Fênix Negra e Jean recobra a razão. Então os X-Men, incluindo Fera e Anjo, são levados ao Cruzador Imperial de Lilandra, onde sabem do crime de Fênix e seu destino pelo Conselho Galáctico: morte! Os heróis não aceitam a decisão e propõem um desafio contra a Guarda Imperial de Sh'iar por Jean. No lado escuro da lua, não conseguem vencer. Jean temendo por seus amigos, se suicida diante do desesperado Ciclope.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "137",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 137/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Elegia",
+          "tituloOriginal": "Elegy",
+          "quantidadePaginas": 18,
+          "resumo": "Com extremo pesar, os X-Men prestam suas últimas homenagens à sua amada Jean Grey. Na triste despedida de sua namorada, Ciclope, em seu íntimo, relembra todos os momentos vividos pelos mutantes, desde o primeiro confronto com Magneto até o trágico fim de Fênix. Ao fim da trama, o herói revela que precisa de um tempo para reavaliar sua vida e deixa a equipe. Ao mesmo tempo, a jovem Kitty Pryde oficialmente se une ao grupo. não é um fim, mas apenas o começo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "138",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 138/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "O inferno de Noturno",
+          "tituloOriginal": "Nightcrawler's Inferno",
+          "quantidadePaginas": 35,
+          "resumo": "No aniversário de Noturno, seu presente explode em seu rosto provocando sua morte. Atônitos, os amigos chamam o Doutor Estranho que revela que a alma do mutante foi levada. Eles embarcam numa aventura em uma realidade baseada no inferno de Dante. Lá alguém que que Noturno pague por matar um jovem. Os X-Men querem averiguar o que de fato ocorreu.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1980,
+            "texto": "X-Men Annual (1970) n° 4/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "O mal nos espreita!",
+          "tituloOriginal": "...Something Wicked This Way Comes!",
+          "quantidadePaginas": 22,
+          "resumo": "Sob a liderança de Tempestade e com o Anjo de volta, os X-Men treinam e mostram à jovem Kitty Pryde sua rotina da Sala de Perigo. Mesmo assustada, Kitty se mostra determinada e escolhe o codinome de Ninfa. Wolverine, acompanhado de Noturno, decide aproveitar o momento de calmaria para acertar contas com o governo canadense mas, ao chegar a Ottawa, terá de ajudar a Tropa Alfa contra um velho inimigo que está chacinando inocentes: Wendigo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "139",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 139/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Fúria!",
+          "tituloOriginal": "Rage!",
+          "quantidadePaginas": 22,
+          "resumo": "Em Nova York, o Anjo revela ao Professor Xavier sua discordância com a presença de Wolverine na equipe, por considerá-lo um psicopata perigoso. E Tempestade alerta Kitty Pryde sobre o uso de seus poderes em público. No Canadá, depois que Noturno ser quase morto por Wendigo, Wolverine e a Tropa Alfa se unem para acabar com a fera. Enquanto isso, um novo desafio se prenuncia aos X-Men: o surgimento da nova Irmandade de Mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "140",
+            "anoOriginal": 1980,
+            "texto": "Uncanny X-Men, The (1963) n° 140/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Dias de um futuro esquecido",
+          "tituloOriginal": "Days of Future Past",
+          "quantidadePaginas": 22,
+          "resumo": "Nova York, 2013. O mundo do século 21 é dominado pelos Sentinelas. Descontrolados, os enormes construtos oprimem os humanos e caçam os mutantes como animais. Nessa realidade, uma milícia de resistência, de alguns X-Men restantes e liderada por um Magneto aleijado, tem um audacioso plano: enviar a mente da Kitty Pryde do futuro para seu corpo em 1981 e ajudar os X-Men a evitar o evento que gerou aquele mundo desolado: o assassinato do Senador Robert Kelly!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "141",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 141/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Mente fora do tempo!",
+          "tituloOriginal": "Mind Out of Time",
+          "quantidadePaginas": 22,
+          "resumo": "Em 1981, em pleno Congresso americano, os X-Men enfrentam a nova Irmandade de Mutantes para evitar a morte do Senador Kelly. Enquanto em 2013 os heróis remanescentes embarcam numa missão suicida para destruir a base dos Sentinelas, na antiga sede do Quarteto Fantástico, e evitar que os humanos usem força nuclear contra os robôs. No fim, a destreza de Kitty Pryde evita por milímetros a morte de Kelly. Mas o esforço terá valido a pena?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "142",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 142/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Demo!",
+          "tituloOriginal": "Demon",
+          "quantidadePaginas": 22,
+          "resumo": "Na noite de natal, todos os outros X-Men saem para compromissos particulares e deixam Kitty Pryde sozinha na mansão. O que a Ninfa não imagina é que esta noite será seu teste de fogo, quando um dos demônios N'Garai, surgidos em X-Men #96 (1975), escapa de seu cativeiro e volta em busca de vingança. E na Flórida, Ciclope, em busca de trabalho que ocupe sua mente, conhece a bela capitã Lee Forrester.\nÚltima edição com John Byrne como argumentista e desenhista.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "143",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 143/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "O leão e o carcaju!",
+          "tituloOriginal": "At the Sign of the Lion",
+          "quantidadePaginas": 6,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Treasury Edition (1974)",
+            "numeroOriginal": "26",
+            "anoOriginal": 1980,
+            "texto": "Marvel Treasury Edition (1974) n° 26/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "O voo da vingança",
+          "tituloOriginal": "Joyride Into Jeopardy!",
+          "quantidadePaginas": 5,
+          "resumo": "Anjo vira alvo de um antigo rival de seu pai nos negócios que procura vingança por ter ido a falência.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Treasury Edition (1974)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1980,
+            "texto": "Marvel Treasury Edition (1974) n° 27/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "Um grito de vingança!",
+          "tituloOriginal": "Cry... Vengeance!",
+          "quantidadePaginas": 10,
+          "resumo": "Tempestade é abordada por assassinos e usa seus poderes para conseguir escapar da morte. Porém um nome lhe desperta memórias antigas: Andreas de Ruyter. Um homem que atacou o príncipe Tchalla na África, e Tempestade interveio para ajudar, conhecendo assim o Pantera Negra. Agora ela procura Tchalla para descobrir o paradeiro de Ruyter e saber se ele busca concretizar o serviço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1980,
+            "texto": "Marvel Team-Up (1972) n° 100/1980 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "O destino da Fênix",
+          "tituloOriginal": "The Fate of the Phoenix!",
+          "quantidadePaginas": 34,
+          "resumo": "Esta edição reimprime a história original Uncanny X-Men #137 juntamente com as páginas finais originais de Byrne, descrevendo um final que tinha sido elaborado onde Jean sobrevivia, mas foi alterado por exigência do então editor-chefe da Marvel, Jim Shooter. Também apresenta \"Os Arquivos da Fênix Negra\", uma mesa redonda sobre o fim da Fênix, entre John Byrne, Jim Shooter, Chris Claremont, Jim Salicrup, Louise Jones e Terry Austin.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Phoenix: The Untold Story (1984)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1984,
+            "texto": "Phoenix: The Untold Story (1984) n° 1/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

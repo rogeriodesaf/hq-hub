@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-7/sa011202/186452",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-7/sa011202/186452"
+    ],
+    "geradoEm": "2026-06-27T00:45:15",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "7",
+      "tituloChamada": "O fim da Saga do Uniforme Alienígena!",
+      "dataPublicacao": "2025-10-01",
+      "publicadoTexto": "outubro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_a933can70l7s741uu0d9gugp07/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 7\nPublicado em: outubro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Charles Vess Cores: Charles Vess Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Presente de grego",
+          "tituloOriginal": "Tis Better to Give!",
+          "quantidadePaginas": 38,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "150",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 150/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O espetacular Menino-Aranha!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "No hospital, enquanto Liz Allen entra em trabalho de parto, o Homem-Aranha precisa impedir o jovem fanático Ollie Osnick e a gangue Crânios Flamejantes de usar braços mecânicos inspirados em Doutor Octopus para usurpar seu manto e manchar sua reputação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "263",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 263/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Separação",
+          "tituloOriginal": null,
+          "quantidadePaginas": 39,
+          "resumo": "No alto do arranha-céu do Rei do Crime, o Homem-Aranha trava batalha contra o Mancha enquanto a Gata Negra invade o QG do Rei do Crime para descobrir a origem maléfica de seus poderes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 100/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Até que a morte nos separe!",
+          "tituloOriginal": "Til Death Do Us Part!",
+          "quantidadePaginas": 22,
+          "resumo": "Horrorizado ao descobrir que seu Uniforme Negro era, na verdade, um parasita alienígena, o Aranha descartou o sinistro uniforme simbionte, mas agora ele está de volta, mesclado a um novo hospedeiro e faminto por vingança. O Uniforme Negro volta a tomar o corpo de Peter Parker, que ainda tem de enfrentar os Abutres pelo caminho. Ao final, o simbionte finalmente deixa o Homem-Aranha.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 1/1985 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

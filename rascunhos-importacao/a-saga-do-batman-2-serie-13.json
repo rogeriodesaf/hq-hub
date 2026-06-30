@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-13/sa011201/184763",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-13/sa011201/184763"
+    ],
+    "geradoEm": "2026-06-26T22:51:08",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "13",
+      "tituloChamada": "Pintura: Brian Stelfreeze Editor: Gabriel Faria",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 128,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/51GgXSPzGVL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 13\nPublicado em: abril de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 128\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nPintura: Brian Stelfreeze Editor: Gabriel Faria\nA cruzada do morcego: A busca",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A cruzada do morcego: A busca",
+          "tituloOriginal": "Knightquest: The Search",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Justice League Task Force (1993)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Justice League Task Force (1993) n° 5/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A cruzada do morcego: A busca",
+          "tituloOriginal": "Knightquest: The Search (Part II)",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Justice League Task Force (1993)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Justice League Task Force (1993) n° 6/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Bruce Wayne, parte um: O capuz",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "21",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 21/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Bruce Wayne, parte dois: Um dia de morte em uma vila inglesa",
+          "tituloOriginal": "Bruce Wayne, Part Two: A Day in the Death of an English Village",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "22",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 22/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Bruce Wayne, parte três: A maldição do morcego",
+          "tituloOriginal": "Bruce Wayne Part Three: Curse of the Bat",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 23/1994 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

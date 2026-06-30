@@ -1,0 +1,362 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-6/es011117/161721",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-6/es011117/161721"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:32:48",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  20,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "6",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-12-01",
+                        "publicadoTexto":  "dezembro de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  460,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  159.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/614lcpB6yxL._SL1000_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 6\nPublicado em: dezembro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 460\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 159,90\nCrédito da capa e editor\nDesenho: Gil Kane Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Os tentáculos do Doutor Octopus!",
+                                              "tituloOriginal":  "“The Arms of Doctor Octopus!”",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Controlando mentalmente seus tentáculos à distância, Octopus consegue recuperá-los e escapar da prisão. Em seguida, sequestra um avião em Chicago com destino a Nova Iorque. Sabendo que um dos passageiros é o General Su, que está nos EUA para participar de uma conferência na ONU, decide torná-lo seu refém e pede 10 milhões de dólares de resgate. Mas, ao pousar no Aeroporto Kennedy, em NY, o Homem-Aranha entra em ação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "88",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 88/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Octopus vive!",
+                                              "tituloOriginal":  "“Doc Ock Lives!”",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Aproveitando que todos pensam que está morto, Octopus pretende atacar o fazedor de teias de surpresa... mas o aracnídeo não se deixará surpreender assim tão facilmente. Contudo, o final dessa luta parece imprevisível.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "89",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 89/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "E chega a morte!",
+                                              "tituloOriginal":  "“Spider-Man",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "O cabeça de teia e Octopus voltam a se enfrentar, mas a grande vítima dessa batalha parece ser o Capitão Stacy. E, para variar, o nosso escalador de paredes será culpado por aquilo que não cometeu.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "90",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 90/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Para esmagar o aranha!",
+                                              "tituloOriginal":  "To Smash the Spider!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Toda a sociedade nova-iorquina culpa o Homem-Aranha pela morte do Capitão Stacy. Sam Bullit, um ex-policial candidato ao cargo de promotor, aproveita-se da impopularidade do Aracnídeo e promete colocá-lo na cadeia - caso eleito. E ele ainda conta com o apoio de Gwen Stacy.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "91",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 91/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Quando o Homem de Gelo ataca",
+                                              "tituloOriginal":  "When Iceman Attacks!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "A campanha pública contra o Homem-Aranha continua, e agora, o Homem de Gelo resolveu participar dela! Um inescrupuloso candidato a Promotor Público procura utilizar a campanha contra o Homem-Aranha para viabilizar sua eleição. E se aproveita até mesmo do mutante Homem de Gelo em suas maquinações contra o herói aracnídeo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "92",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 92/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "A dama e o Gatuno!",
+                                              "tituloOriginal":  "The Lady... And the Prowler!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Hobie Brown, o Gatuno, suspeita que o Aranha o tenha usado como cúmplice na morte do Capitão Stacy pelo fato de, algum tempo atrás, o Aranha ter pedido para que ele o imitasse: revoltado com essa suposição, ele decide vestir novamente o uniforme do Gatuno para deter o Aracnídeo. Ao mesmo tempo, sentindo-se abandonada por Parker, Gwen Stacy resolve se mudar para Londres, para morar com seus tios e superar o recente falecimento de seu pai.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "93",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 93/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Nas asas da morte!",
+                                              "tituloOriginal":  "On Wings of Death!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "O Besouro está à solta e aterrorizando a vizinhança: mas, quando ele faz a tia May de refém, o Aranha não deixará barato!\nNessa edição, através de um flashback, é relatado como Peter Parker se transformou no Homem-Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "94",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 94/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Armadilha para um terrorista!",
+                                              "tituloOriginal":  "Trap For a Terrorist!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Peter Parker resolve ir a Londres visitar Gwen. Chegando em Londres, um delegado americano que participaria de uma conferência de paz é feito refém por um grupo terrorista: assim, o Aranha se vê obrigado a entrar em ação na terra da rainha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "95",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 95/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "E agora, o Duende!",
+                                              "tituloOriginal":  "...And now, the Goblin!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Um moleque sob efeito de drogas salta de um prédio. É o início de uma das melhores aventuras do Escalador de Paredes, onde ele terá que lidar, além do Duende, com a epidemia de drogas que destrói a juventude novaiorquina.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "96",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 96/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Nas garras do Duende!",
+                                              "tituloOriginal":  "In the grip of the Goblin!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Quando as coisas finalmente pareciam ter entrado nos eixos para nosso sofrido Peter Parker, com a Tia May saudável e ele agora tendo um emprego de meio período como químico nas indústrias do pai de Harry, Norman Osborn finalmente recupera a memória e volta a ser o maquiavélico Duende Verde! Agora, sim, as coisas vão sair dos eixos de vez! Já que, após levar um fora de Mary Jane, Harry passa a se afundar cada vez mais em seu vício por comprimidos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "97",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 97/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "A última investida do Duende!",
+                                              "tituloOriginal":  "The Goblin\u0027s last gasp!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Harry é hospitalizado por overdose de drogas. Numa jogada de mestre, o Aranha usa essa internação como arma psicológica para derrotar o pai do jovem enfermo: o Duende Verde.\nNessa edição, Gwen volta de Londres.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "98",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 98/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Um dia na vida do...",
+                                              "tituloOriginal":  "A day in the life of...",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Peter Parker é escalado pelo Clarim Diário para cobrir uma rebelião no presídio de Nova Iorque e, claro, o Aranha vai aproveitar e entrar em ação... Parker e Gwen falam em casamento pela primeira vez. E também é nesta história que o jovem fotógrafo é registrado como funcionário do Clarim Diário.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "99",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 99/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Um natal com o Homem-Areia!",
+                                              "tituloOriginal":  "Have Yourself a Sandman Little Christmas!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "É véspera de Natal! Mas, pra Peter Parker, o clima natalino não está nem um pouco caloroso! Encarregado de cobrir o “mergulho anual de fim de ano” do Clã dos Ursos Polares, ele acaba tendo que bater de frente com o Homem-Areia! Mas, como não enfrenta o arenoso há muito tempo, o Aranha convoca a ajuda do Tocha Humana, mesmo ainda cabreiro com a ausência de Cristalys, antes que o vilão \"ponha areia\" no feriado de todos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 1/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "E com o Aranha são quatro!",
+                                              "tituloOriginal":  "And Spidey Makes Four!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Ainda desfalcados desde que Medusa deixou a equipe, o Quarteto Terrível procura um novo membro e quem melhor pra integrar um bando de foras-da-lei do que o eterno foragido da polícia, o Homem-Aranha? O Tocha Humana está sozinho no Edifício Baxter e o único a quem ele permitiria a entrada no QG do Quarteto sem fazer perguntas é o aracnídeo! Só que as coisas vão ficar ainda mais complicadas quando uma ameaça mil vezes pior entrar em cena: O Aniquilador!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "2",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 2/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "A aranha ou o homem?",
+                                              "tituloOriginal":  "The spider or the man?",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Peter Parker mais uma vez entra em crise e quer deixar de ser super-herói para levar uma vida normal. Então ingere uma fórmula nunca testada que ele mesmo criou para tirar seus poderes. Mas os resultados não são os esperados...\nOs vilões desta história e o Capitão Stacy aparecem apenas no delírio de Parker.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "100",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 100/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Um monstro chamado... Morbius!",
+                                              "tituloOriginal":  "A Monster Called Morbius",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Assustado com o surgimento de mais quatro braços em seu corpo, Parker pede ajuda ao cientista Curt Connors. Assim, ele se muda para a casa de praia na Flórida do bom doutor, onde este mantém um laboratório completo. Pensando que estivesse isolado lá, nosso herói se surpreende com a chegada de um ser que julga ser vampiro. Como se não bastasse, o Lagarto entra em cena para ajudar.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "101",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 101/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Vampiro à solta!",
+                                              "tituloOriginal":  "Vampire at large!",
+                                              "quantidadePaginas":  35,
+                                              "resumo":  "Como se não bastasse sua bizarra mutação, que lhe conferiu seis braços, e a ameaça de Morbius, o vampiro-vivo, nosso herói ainda tem que enfrentar o Lagarto. Mas o sugador de sangue foge da batalha e, num porão abandonado, recupera suas forças, relembrando sua estranha origem. Sem ele para atrapalhar, o Homem-Aranha consegue fazer com que o Lagarto (agora como Dr. Connors) prepare o soro que cure seu problema anatômico.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "102",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 102/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "Caminhando na Terra Selvagem!",
+                                              "tituloOriginal":  "Walk the savage land!",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  "Com as vendas do Clarim Diário em queda, J. Jonah Jameson vê uma possibilidade de recuperação se cobrir a história de uma estranha criatura vista na terra selvagem de Kazar: e é para lá que ele embarca juntamente com Peter Parker e Gwen Stacy.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "103",
+                                                                         "anoOriginal":  1971,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 103/1971 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "A bela e o bruto",
+                                              "tituloOriginal":  "The beauty and the brute!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Gwen é capturada por Gog que, descobre-se, está a mando de Kraven, o Caçador. Assim, o Homem-Aranha e Ka-Zar unem forças para resgatar a moça e derrotar o Caçador.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "104",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 104/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "O Esmaga-Aranha!",
+                                              "tituloOriginal":  "The Spider Slaver!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Disposto a se vingar do herói aracnídeo, Jameson mais uma vez contrata o professor Smythe para que este construa outro Esmaga-Aranha. Mas Smythe parece ter ambições muito maiores... que Jameson desconhece.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "105",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 105/1972 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,394 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-7/es011117/163833",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-7/es011117/163833"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:59:04",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  22,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "7",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-05-01",
+                        "publicadoTexto":  "maio de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  484,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  199.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/51TF1XZWrfL.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 7\nPublicado em: maio de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 484\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 199,90\nCrédito da capa e editor\nArte: John Romita Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Como esmagar uma aranha!",
+                                              "tituloOriginal":  "Squash Goes the Spider!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Após roubar a unidade de controle mestra de todas as câmeras de vigilância de NY, o professor Smythe convoca o submundo do crime para um assalto a banco. Mas, antes, ele terá que eliminar um certo escalador de paredes.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "106",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 106/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Aranha esmaga aranha!",
+                                              "tituloOriginal":  "Spidey Smashes Thru!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Smythe, utilizando seu Esmaga-Aranha, continua tentando derrotar o herói aracnídeo. Mas o nosso Cabeça-de-Teia não se renderá assim tão facilmente.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "107",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 107/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "A vingança vem do Vietnã!",
+                                              "tituloOriginal":  "Vengeance from Vietnam!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Durante o período em que lutou no Vietnã, Flash Thompson foi injustamente acusado de ser responsável pela destruição de um templo sagrado. Agora, de volta a Nova York, ele é perseguido por fiéis vietnamitas que veneravam o templo. E o Homem-Aranha, assim, enfrenta mais um dos seus dilemas: ter que salvar a vida daquele que quer roubar sua namorada: Gwen Stacy.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "108",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 108/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Surge o Dr. Estranho!",
+                                              "tituloOriginal":  "Enter Dr. Strange!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "109",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 109/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "O poder da redenção!",
+                                              "tituloOriginal":  "The Power to Purge!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Morbius não morreu e agora está de volta! Quando sua ex-noiva procura Reed Richards em busca de ajuda para o homem que ainda ama, Johnny Storm sai à procura do único que enfrentou Morbius e saiu vivo pra contar a história: o Homem-Aranha! Mas, antes de encarar essa parada, eles precisam falar com o Prof. Hans Jorgenson, antigo amigo de Morbius, a fim de encontrar uma cura para o vilão, antes que ele cause mais vítimas em sua sede de sangue incontrolável!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "3",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 3/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "E então... Os X-Men!",
+                                              "tituloOriginal":  "And Then-- the X-Men!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Uma estranha e súbita enfermidade acometeu o Aranha e, se não for tratada em breve, acabará por decretar sua sentença de morte! Pra isso, ele precisará da ajuda do Dr. Hans Jorgenson e de uma equipe de heróis: os X-Men! Mas, antes os mutantes precisam localizar Morbius, capturá-lo e levá-lo à Mansão X a tempo! Ou será tarde demais pro aracnídeo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "4",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 4/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Nasce o Gibão!",
+                                              "tituloOriginal":  "The birth of... the Gibbon!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Peter se sente cada vez mais atormentado por achar que perdeu Gwen para Flash. Ao mesmo tempo, sem querer, Gwen acaba magoando a Tia May, ao criticá-la por sempre mimar seu querido sobrinho! E, como se tudo isso não bastasse, o nosso herói ainda terá que lidar com a aparição do Gibão, o Homem-Macaco! E, ao contrário do que o Aranha possa pensar, tudo o que ele quer é se tornar... “seu parceiro”!\nÚltima história escrita por Stan Lee.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "110",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 110/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Espreitando uma aranha!",
+                                              "tituloOriginal":  "To Stalk a Spider!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O nosso herói prova sua inocência no caso do desaparecimento de tia May. Enquanto isso, sentindo-se mal-amado e rejeitado, o ingênuo Gibão se deixa enrolar pela conversa de Kraven, que o leva para seu esconderijo e o convence a tomar sua poção de ervas selvagens alucinógenas, que o transformam num verdadeiro homem-gorila. Assim, manipulado pelo vilão, o novo Gibão percorre os prédios de Nova York buscando vingança contra o Cabeça de Teia.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "111",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 111/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Subterfúgio!",
+                                              "tituloOriginal":  "Spidey Cops Out!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Em sua busca pela desaparecida Tia May, nosso herói deixa de atender os pedidos de socorro que encontra pelo caminho, fazendo com que o jornal \"Clarim\" o acuse de covardia. E, ao final dessa busca, não é exatamente sua tia quem ele encontra.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "112",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 112/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Chamando o Doutor... Octopus!",
+                                              "tituloOriginal":  "They Call the Doctor... Octopus!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Mesmo debilitado, o Aranha consegue derrotar o Dr. Octopus. Mas o seu maior problema não parece ser exatamente o bom doutor, mas sim o Cabeça de Martelo.\nStarlin e Mortellaro são creditados como assistentes de arte. Segundo Starlin, ele fez os layouts para Romita.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "113",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 113/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Quem é esse tal de Cabeça de Martelo?",
+                                              "tituloOriginal":  "Gang War, Shmang War! What I Want to Know Is...Who the Heck Is Hammerhead?",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Com o Aranha como prisioneiro, Cabeça de Martelo lhe propõe uma união para derrotar o Dr. Octopus — caso contrário, matará nosso herói. Mas o Aranha não só recusa a proposta, como consegue escapar e ir atrás da pista do local onde sua tia pode estar. Mas é exatamente a tia May que se torna o maior problema do Aranha.\nStarlin e Mortellaro creditados como assistentes de arte.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "114",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 114/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "O último duelo!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Após conseguir desbaratar o esconderijo do Dr. Octopus e derrotar o vilão, o Aranha parece sofrer sua própria derrota: tia May aceita ficar tomando conta da casa de Octopus, enquanto o vilão vai preso.\nTitulo original: \"The Last Battle!\".",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "115",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 115/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Surge... O Golpeador!",
+                                              "tituloOriginal":  "Suddenly... the Smasher!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "NY está em plena campanha eleitoral para prefeito e o favorito parece ser um certo Richard Raleigh, mas, surge um gigante chamado Golpeador, que parece disposto a tudo para que Raleigh não vença a eleição. Mas, quem é ele? De onde surgiu?\nPublicada originalmente em The Spectacular Spider-Man (1968) #1, foi adaptada para a cronologia da época com alguns diálogos adicionais de Conway e alguns quadros redesenhados.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "116",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 116/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Os desígnios do Desintegrador!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Dessa vez, o Aranha terá que enfrentar não apenas o Golpeador, mas também o Desintegrador.\nPublicada originalmente em The Spectacular Spider-Man (1968) #1, foi adaptada para a cronologia da época com alguns diálogos adicionais de Conway e alguns quadros redesenhados.\nTitulo original: \"The Deadly Designs Of The Disruptor!\".",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "117",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 117/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "Contagem regressiva para o caos!",
+                                              "tituloOriginal":  "Countdown to Chaos!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Golpeador continua à caça de Richard Raleigh para assassiná-lo. O Aranha tenta conter o gigante assassino, mas acaba se confrontando com ele e o Desintegrador. Ao final, ao descobrir a identidade secreta do Desintegrador, o Aranha toma uma decisão, no mínimo, questionável.\nPublicada originalmente em The Spectacular Spider-Man (1968) #1, foi adaptada para a cronologia da época com alguns diálogos adicionais de Conway e alguns quadros redesenhados.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "118",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 118/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Uma paixão da mente!",
+                                              "tituloOriginal":  "A Passion of the Mind",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Mestre dos Bonecos controla o Monstroide, sem saber que o robô tem a mesma sintonia do androide Visão, o que interfere com o cibercérebro do herói. Com a ajuda do Aranha, Visão tenta saber a fonte de seu desconforto, antes que seja tarde.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "5",
+                                                                         "anoOriginal":  1972,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 5/1972 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Como aqueles que não verão!",
+                                              "tituloOriginal":  "...As Those Who Will Not See!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Ainda juntando as peças do quebra-cabeças de sua luta ao lado do Visão contra o robô alienígena controlado pelo Mestre dos Bonecos, o Homem-Aranha se une ao Coisa, a fim de tentar encontrar uma cura para a cegueira de sua namorada Alicia, que por sua vez, é enteada do vilão! E essa busca levará os dois super-heróis ao esconderijo secreto do cientista diabólico conhecido como Pensador Louco, onde terríveis armadilhas os esperam!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "6",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 6/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "Um nó no tempo!",
+                                              "tituloOriginal":  "A Hitch in Time!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Dessa vez, o Aranha está prestes a embarcar em uma jornada cósmica quando um exército de trolls liderados por Kryllk, vindos de Asgard, invade a Terra e, através do poder do Cristal Negro, uma gema mística arcana, consegue parar o fluxo do tempo, imobilizando todos os seres do universo! É claro que ele vai contar com a ajuda de Thor!\nEsta HQ dá a entender que Thor conhece a identidade secreta do Aranha, embora não saiba que seu nome é Peter Parker.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "7",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 7/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "A Matadora ataca à meia-noite!",
+                                              "tituloOriginal":  "The Man-Killer Moves at Midnight!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Homem-Aranha uniu à super-heroína Felina, a Mulher-Gato, a fim de impedir que um candidato a prefeito à reeleição, seja assassinado por uma famosa ex-esquiadora dos Jogos Olímpicos de Inverno, chamada Katrina Luisia Van Horn. Devido a um acidente de esqui que a deformou, causado por um concorrente machista, ela acabou tornando a terrível Matadora de Homens.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "8",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 8/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "A guerra do amanhã!",
+                                              "tituloOriginal":  "The Tomorrow War",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Um estranho fenômeno envolve a Mansão dos Vingadores num campo de força impenetrável, aprisionando-os em uma espécie de limbo, com exceção do Homem de Ferro. Mal o Aranha aparece pra dar uma mão, a dupla é surpreendida pela aparição de Zarkko, o Homem do Amanhã, vindo do Século 23, que pede ajuda a nossos heróis a fim de deter a conquista de seu próprio tempo por um misterioso invasor! Alguém que eles descobrirão quem é da pior maneira possível!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "9",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 9/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "Bomba do tempo!",
+                                              "tituloOriginal":  "Time Bomb!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Pegos de surpresa pela súbita aparição de Kang, o Conquistador, Homem de Ferro e o aracnídeo são postos fora de combate. Nesse ínterim, Zarkko revela suas verdadeiras intenções: disparar três cápsulas em direção ao século 20, cuja radiação retro-cronal regredirá nossa época à Idade da Pedra! Com a armadura do vingador danificada, o Aranha terá que escapar dali e conseguir voltar ao nosso tempo, em busca de ajuda! Alguém como, digamos... o Tocha Humana!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "10",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 10/1973 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "O gambito do fim do mundo!",
+                                              "tituloOriginal":  "The Doomsday Gambit!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Depois de rastrear e desativar todas as bombas temporais de Zarkko, Tocha e o Aranha puderam evitar que a Terra voltasse à Pré-História. Resta encontrar um jeito de retornar ao século 23, libertar os Vingadores e impedir que os vilões consigam os seus diabólicos planos de dominação! Mas, como? A única pista é um dos artefatos temporais que não foi destruído, que pode servir de elo de ligação entre as duas eras, e a parada é o Grande Refúgio dos Inumanos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "11",
+                                                                         "anoOriginal":  1973,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 11/1973 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

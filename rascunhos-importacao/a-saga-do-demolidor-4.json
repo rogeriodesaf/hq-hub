@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-4/sa011130/164807",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-4/sa011130/164807"
+    ],
+    "geradoEm": "2026-06-26T23:32:09",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-06-01",
+      "publicadoTexto": "junho de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/51uZ6xdq2JL.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 257\nPublicado em: junho de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Al Williamson Editor: Dandara Palankof",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Pontos cegos",
+          "tituloOriginal": "Blindspots",
+          "quantidadePaginas": 22,
+          "resumo": "Mary tenta ter o controle sobre Tyfoid, mas não consegue. Foggy fica sabendo que o Rei do Crime está por trás da Kelco. O Rei tenta subornar uma das testemunhas. O Demolidor enfrenta Tyfoid em um dificil embate na qual leva a pior. Karen percebe que Matt está distante dela e que o relacionamento está rumando para o fim. Foggy desiste de defender a Kelco. A testemunha resolve não aceitar o suborno, e o Rei perde a causa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "256",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 256/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O canalha",
+          "tituloOriginal": "The Creep",
+          "quantidadePaginas": 22,
+          "resumo": "Alguém esta usando cianureto para envenenar remédios e provocar a morte de inocentes. O Justiceiro investiga o caso para punir o culpado. Prestes a matar o homem o Demolidor intervém cobrando justiça, um julgamento no tribunal e uma posterior prisão, os dois vão discutir fisicamente para saber quem está correto ou não. A história mostra a perspectiva do Justiceiro dos fatos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Punisher, The (1987)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Punisher, The (1987) n° 10/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O valentão",
+          "tituloOriginal": "The Bully",
+          "quantidadePaginas": 22,
+          "resumo": "Alguém esta usando cianureto para envenenar remédios e provocar a morte de inocentes. O Demolidor investiga o caso para levar o culpado aos tribunais. Ele intervém impedindo o Justiceiro de matar o homem e cobrando justiça,, os dois vão discutir fisicamente para saber quem está correto ou não. Alheio a isso Tyfoid tem o rei nas mãos (ele está apaixonado pela mulher e morrendo de ciúmes de Murdock). A história mostra a perspectiva do Demolidor dos fatos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "257",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 257/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "As crianças estão de olho",
+          "tituloOriginal": "The Children Are Watching You",
+          "quantidadePaginas": 22,
+          "resumo": "Butch um adolescente que costuma andar nas ruas da cozinha do inferno, vê uma mãe vender a própria filha. Ele alerta Murdock que tem ajuda de Karen para chegar nos culpados e resgatar a criança. Tyfoid arma um plano para acabar de vez com o Demolidor, juntar os principais inimigos do herói de uma vez. Ela convoca Bullet, Guerrilheiro e Balaço. Butch vê Matt com Mary e fica atônito com a traição.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "259",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 259/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Sinais vitais",
+          "tituloOriginal": "Vital Signs",
+          "quantidadePaginas": 38,
+          "resumo": "Uma passeata contra armas nucleares está acontecendo, e o Demolidor é abordado por Bullet, Guerrilheiro e Balaço. Surrado e a beira da morte de tanto apanhar, Tyfoid é a última a aparecer lançado o herói de uma ponte para a morte certa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "260",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 260/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Derretimento!",
+          "tituloOriginal": "Meltdown",
+          "quantidadePaginas": 22,
+          "resumo": "O Tocha humana tenta ajudar nas buscas pelo Demolidor desaparecido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "261",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 261/1988 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-17/ma011173/165398",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-17/ma011173/165398"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:27",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  7,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "17",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-07-01",
+                        "publicadoTexto":  "julho de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  204,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/51ddBJnHA1L._SY342_.jpg",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 17\nPublicado em: julho de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 204\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Klaus Janson Cores: Dean White Editor: Fernando Lopes - ‘Fl’\nRetorno vingativo!",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Retorno vingativo!",
+                                              "tituloOriginal":  "New Ways to Die: Back with Vengeance - Part One",
+                                              "quantidadePaginas":  28,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "568",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 568/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Quinto estágio",
+                                              "tituloOriginal":  "Fifth Stage",
+                                              "quantidadePaginas":  10,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "568",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 568/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Supremacia Osborn",
+                                              "tituloOriginal":  "New Ways to Die: The Osborn Supremacy - Part Two",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "569",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 569/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "A cura assassina",
+                                              "tituloOriginal":  "New Ways to Die: The Killer Cure - Part Three",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "570",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 570/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Opostos se atacam",
+                                              "tituloOriginal":  "New Ways to Die: Opposites Attack - Part Four",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "571",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 571/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Alvos fáceis",
+                                              "tituloOriginal":  "New Ways to Die: Easy Targets - Part Five",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "572",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 572/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Armas de autodestruição",
+                                              "tituloOriginal":  "New Ways to Die: Weapons of Self Destruction - Part Six",
+                                              "quantidadePaginas":  28,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "573",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 573/2008 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

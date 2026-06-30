@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-12/sa011201/183517",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-12/sa011201/183517"
+    ],
+    "geradoEm": "2026-06-26T22:51:06",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-03-01",
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/615BvXY2XLL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 12\nPublicado em: março de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Kelley Jones Arte-Final: John Beatty Editor: Gabriel Faria\nCriaturas de barro: A criança de barro",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Criaturas de barro: A criança de barro",
+          "tituloOriginal": "Creatures of Clay Child's Clay [Part Two of Two]",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 27/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Rachaduras",
+          "tituloOriginal": "Cracks",
+          "quantidadePaginas": 18,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Showcase '94 (1994)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Showcase '94 (1994) n° 7/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Em desvantagem",
+          "tituloOriginal": "Out-Gunned [Knightquest: The Crusade]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "674",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 674/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Restos mortais",
+          "tituloOriginal": "Mortal Remains [Knightquest: The Crusade]",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "508",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 508/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Comissário Gordon: A longa e sombria noite",
+          "tituloOriginal": "Commissioner Gordon The Long Dark Night",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "28",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 28/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Duelo à meia-noite",
+          "tituloOriginal": "Midnight Duel [Knightquest: The Crusade]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "675",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 675/1994 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

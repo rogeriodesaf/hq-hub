@@ -1,0 +1,186 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-18/ma011173/165799",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-18/ma011173/165799"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:29",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  9,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "18",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-08-01",
+                        "publicadoTexto":  "agosto de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  220,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.S2Jg-DdCBAvDzENPMZEeCAAAAA?w=192\u0026h=294\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 18\nPublicado em: agosto de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 220\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nArte: Paolo Rivera Editor: Fernando Lopes - ‘Fl’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "A história da Loteria",
+                                              "tituloOriginal":  "A Tales of Two Jackpots",
+                                              "quantidadePaginas":  37,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Annual, The (1964)",
+                                                                         "numeroOriginal":  "35",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Annual, The (1964) n° 35/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Flashbacks",
+                                              "tituloOriginal":  "Flashbacks",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Uma dramática história de Flash Thompson, um dos amigos mais fiéis do Homem-Aranha, durante seu período negro na guerra do Iraque. Testemunhe o nascimento de um herói quando Flash Thompson enfrenta probabilidades intransponíveis no Iraque. Recordando os feitos valentes do Homem-Aranha em Nova York, Thompson decide salvar a vida de um camarada caído!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "574",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 574/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "A morte de um mafioso",
+                                              "tituloOriginal":  "Death of a Wise Guy",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man: Brand New Day - Extra, The (2008)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man: Brand New Day - Extra, The (2008) n° 1/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Laços de família - Parte um",
+                                              "tituloOriginal":  "Family Ties - Part One",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "O Homem-Aranha se surpreende ao encontrar um de seus mais antigos inimigos, o Cabeça de Martelo, muito mais poderoso e mortal do que jamais esteve. E agora a serviço do misterioso Sr. Negativo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "575",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 575/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Laços de família - Parte dois",
+                                              "tituloOriginal":  "Family Ties - Part Two",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "576",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 576/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Velhos colegas de caça - Parte 1",
+                                              "tituloOriginal":  "Old Huntin\u0027 Buddies - Part 1",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "577",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 577/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Velhos colegas de caça - Parte 2",
+                                              "tituloOriginal":  "Old Huntin\u0027 Buddies - Part 2",
+                                              "quantidadePaginas":  14,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "577",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 577/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "O aniversariante",
+                                              "tituloOriginal":  "Birthday Boy",
+                                              "quantidadePaginas":  8,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man: Extra!, The (2008)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man: Extra!, The (2008) n° 1/2008 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Então virá esse homem... esse candidato!",
+                                              "tituloOriginal":  "Lo There Shall Come, This Man... This Candidate!",
+                                              "quantidadePaginas":  8,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "573",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 573/2008 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-26.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-26/sa011129/179070",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-26/sa011129/179070"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "26",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-08-31",
+      "publicadoTexto": "agosto de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71i3MrreseL._SY445_SX342_ML2_.jpg",
+      "descricao": "A ORIGEM DE MADELYNE PRYOR É ENFIM REVELADA! Por que ela deseja se vingar de Ciclope? Quem orquestrou cada evento de sua vida? E mais, Jean Grey recebe um ultimato da própria Fênix! Enquanto isso, Fera e Longshot tentam salvar o máximo de pessoas possível enquanto uma batalha épica se desenrola no plano psíquico entre Sinistro e Jean! Por fim: apresentando JUBILEU! ",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Dueto",
+          "tituloOriginal": "Duet!",
+          "quantidadePaginas": 41,
+          "resumo": "Madelyne Pryor encontra-se no alto do Empire State, ao seu lado, Alex Summers, hipnotizado, e Jean Grey, capturada. Ameaçando seu filho, Nathan, a Rainha dos Duendes pretende trazer o limbo de volta à cidade. Abaixo, os X-Men acabam confrontando o X-Factor. Unidas, as duas equipes se voltam para a vilã, tentando resgatar sua companheira e o filho de Ciclope. Em um confronto mental, Madelyne e Jean têm sua última luta. \n\nTítulo original: \"Duet!\".\n41 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "38",
+            "anoOriginal": 1989,
+            "texto": "X-Factor (1986) n° 38/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-38/288/7113",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Cinzas",
+          "tituloOriginal": "Cinzas",
+          "quantidadePaginas": 24,
+          "resumo": "Os X-Men e o X-Factor partem em busca do Sr. Sinistro. As equipes partem para a Escola Xavier, onde se encontram os Carrascos. No confronto, é revelado todo o passado de Scott Summers, toda sua vida manipulado pelo vilão.\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "243",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 243/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-243/264/6282",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Das cinzas as cinzas!",
+          "tituloOriginal": "Das cinzas as cinzas!",
+          "quantidadePaginas": 24,
+          "resumo": "Os X-Men e o X-Factor partem em busca do Sr. Sinistro. As equipes partem para a Escola Xavier, onde se encontram os Carrascos. No confronto, é revelado todo o passado de Scott Summers, toda sua vida manipulado pelo vilão.\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "39",
+            "anoOriginal": 1989,
+            "texto": "X-Factor (1986) n° 39/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-39/288/7114",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A noite das mulheres",
+          "tituloOriginal": "Ladies' Night",
+          "quantidadePaginas": 22,
+          "resumo": "22 páginas.\nTítulo original: \"Ladies' Night\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "244",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 244/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-244/264/6283",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Homens!",
+          "tituloOriginal": "Men!",
+          "quantidadePaginas": 24,
+          "resumo": "24 páginas.\nTítulo original: \"Men!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "245",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 245/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-245/264/6284",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-9/sa011202/187306",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-9/sa011202/187306"
+    ],
+    "geradoEm": "2026-06-27T00:45:18",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-12-01",
+      "publicadoTexto": "dezembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_331j9u6opp5jn539tv3r9mo46u/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 9\nPublicado em: dezembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: John Byrne Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Compulsão!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 103/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Pulinhos de amor ou... engolindo sapos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Homem-Aranha intervém no último instante para salvar o vilão Groxo de uma tentativa de suicídio e desarma a confusão gerada pelos Desajustados — Groxo, Homem-Sapo e Garoto-Aranha — que tentam provar seu valor como ajudantes improvisados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "266",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 266/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Tentáculos à obra",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Homem-Aranha investiga um armazém onde ladrões roubam casacos de pele, enfrenta a quadrilha e escapa por pouco de ser atropelado por seu caminhão de fuga.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 4/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A útima corrida",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Aranha se depara com Rocket Racer nas ruas e tenta sua captura. Mas outra pessoa quer mais que isso o Caçador de Recompensas quer a morte de Rocket. Ao investigar a história o escalador de paredes descobre que Rocket tem 6 irmãos, e sua família se envolveu com agiotas para pagar a fiança. Porém eles elevaram os juros para ganhar mais dinheiro, como não receberam decidiram matar Rocket. O Homem-Aranha agora deve intervir a favor de Rocket.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "104",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 104/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O inimigo interno!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Ao interromper um assalto de Doutor Octopus a um cofre bancário, o herói salva uma refém ferida levando-a ao hospital e frustra a fuga dos capangas.\nA aranha suburbana!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 267 /1985 - Marvel Comics\nÉ uma das histórias mais hilárias do herói. O Aranha é enganado por um ladrão que usou uma arma de mentira e um manequim como refém. Mas o aracnídeo joga sobre ele um de seus rastreadores e o segue até os subúrbios. O problema é que lá não há prédios para ele se balançar. Após enfrentar a ira da vizinhança e o assédio de uma senhora, o Homem-Aranha é forçado até a pegar carona num caminhão de lixo para chegar na casa do bandido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 5/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A aranha suburbana!",
+          "tituloOriginal": "The Commuter Cometh!",
+          "quantidadePaginas": 22,
+          "resumo": "É uma das histórias mais hilárias do herói. O Aranha é enganado por um ladrão que usou uma arma de mentira e um manequim como refém. Mas o aracnídeo joga sobre ele um de seus rastreadores e o segue até os subúrbios. O problema é que lá não há prédios para ele se balançar. Após enfrentar a ira da vizinhança e o assédio de uma senhora, o Homem-Aranha é forçado até a pegar carona num caminhão de lixo para chegar na casa do bandido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "267",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 267/1985 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

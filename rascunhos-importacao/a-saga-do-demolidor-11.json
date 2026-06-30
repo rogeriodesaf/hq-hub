@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-11/sa011130/172269",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-11/sa011130/172269"
+    ],
+    "geradoEm": "2026-06-26T23:32:19",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-03-01",
+      "publicadoTexto": "março de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/51f-EKYimdL._SX342_SY445_ML2_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 300\nPublicado em: março de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Lee Weeks Editor: Yuri A. O. Primitz\nPaixão",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Paixão",
+          "tituloOriginal": "Last Rites: Passion - Part 1 of 4",
+          "quantidadePaginas": 22,
+          "resumo": "Matt tem uma pequena conversa com o Rei do Crime e planta as sementes de criar uma divisão entre o chefe da máfia e Mary Tyfoid. Está na hora do confronto decisivo entre Demolidor e a principal assassina de Wilson Fisk.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "297",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 297/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Virada",
+          "tituloOriginal": "Last Rites: Turnabout - Part 2 of 4",
+          "quantidadePaginas": 24,
+          "resumo": "Nick Fury atrai Matt Murdock e coloca-o com a informação que ele precisa para ligar o império da telecomunicação do Rei do Crime com a Hidra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "298",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 298/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Regicídio",
+          "tituloOriginal": "Last Rites: Regicide - Part 3 of 4",
+          "quantidadePaginas": 23,
+          "resumo": "O cerco aperta para Wilson Fisk enquanto Demolidor se oferece para entregar o Rei do Crime à polícia e quando a Hidra se infiltra nas operações financeiras de Fisk por dentro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "299",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 299/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Vida longa ao Rei",
+          "tituloOriginal": "Last Rites: Long Live the King - Part 4 of 4",
+          "quantidadePaginas": 39,
+          "resumo": "Com seu império esmigalhado e a lei se aproximando, Fisk tenta jogar sua última cartada contra o Demolidor e acaba sendo exposto pelo criminoso que é.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "300",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 300/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A dama sombria",
+          "tituloOriginal": "The Dark Lady",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 7/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Justiça maliciosa... Ou injustiça?",
+          "tituloOriginal": "Malicious Justice...Or Injustice?",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 7/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Armas não matam",
+          "tituloOriginal": "Guns Don't Kill...",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 7/1991 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

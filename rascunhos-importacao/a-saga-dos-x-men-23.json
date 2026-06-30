@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-23.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-23/sa011129/177546",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-23/sa011129/177546"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "23",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-04-30",
+      "publicadoTexto": "abril de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71yrFR5aVLL.jpg",
+      "descricao": "Quando uma infestação da Ninhada chega ao Colorado, os X-Men precisam entrar em ação para impedir um massacre. Paralelamente, Madelyne Pryor tem uma visão que pode ser o fim definitivo de tudo entre ela e Scott. Para além disso, a Equipe de Recrutamento de Genosha vai até a Austrália para resgatar uma enfermeira com um gene mutante recém desperto, mas quem pode acabar envolvido em seus estratagemas?",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Amanhecer sangrento",
+          "tituloOriginal": "Dawn of Blood",
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men rastrearam Harry Palmer, um homem infectado com um embrião da Rainha Ninhada, para Denver, Colorado, onde foram enganados a serem emboscados por todos aqueles que ele transformou. Em um beco sem saída, os X-Men são cercados por humanos parcialmente transformados que, para sua surpresa, acabam se transformando em mutantes, todos parte do plano da Ninhada para dominar o mundo. Palmer envia seus seguidores aos X-Men para capturá-los ou matá-los. \n\nTítulo original: \"Dawn of Blood\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "233",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 233/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-233/264/6272",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Dias de glória",
+          "tituloOriginal": "Glory Day",
+          "quantidadePaginas": 22,
+          "resumo": "Em Denver, os X-Men continuam tentando caçar mutantes infectados pela Ninhada e impedem que eles tentem dominar o mundo. Enquanto está de volta à sua sede secreta na Austrália, Madelyne Pryor ainda está nocauteada após ser atingida por uma explosão da tela de um monitor. Quando os X-Men retornam à sua base, Destrutor é elogiado por Wolverine. Enquanto isso, Madelyne Pryor está na piscina, mais morta do que viva, mudada pelos eventos que ocorreram em um sonho.\n\nTítulo original: \"Glory Day\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "234",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 234/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-234/264/6273",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ressurreição!",
+          "tituloOriginal": "Ressurreição!",
+          "quantidadePaginas": 36,
+          "resumo": "Os X-Men viajam à Terra Selvagem e encontram o local devastado por um criatura chamada Terminus e precisam da ajuda do Alto Evolucionário para detê-lo.\n36 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1988,
+            "texto": "X-Men Annual (1970) n° 12/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-12/265/6591",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Eu quero meus X-Men!",
+          "tituloOriginal": "I Want My X-Men!",
+          "quantidadePaginas": 14,
+          "resumo": "Diante da \"morte\" do X-men na batalha contra o Adversário, Mojo procura novas estrelas para substituir seu grande hit.\n\nTítulo original: \"I Want My X-Men!\".\n14 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1988,
+            "texto": "X-Men Annual (1970) n° 12/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-12/265/6591",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Bem-vindo a Genosha",
+          "tituloOriginal": "Welcome to Genosha",
+          "quantidadePaginas": 22,
+          "resumo": "Um mutante de Genosha consegue colocar seu filho em um voo clandestino, momentos antes de ser recapturado. Um Destacamento de Captura é enviado à Austrália para interceptar a enfermeira Ransome e leva Madelyne Pryor junto, o que coloca os X-Men em seu rastro. Os Genoshanos são encarregados de reaver a criança fugitiva e seguem para Sidney, onde enfrentam os novos heróis locais.\n\nTítulo original: \"Welcome to Genosha\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "235",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 235/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-235/264/6274",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Fuga da prisão!",
+          "tituloOriginal": "Busting Loose!",
+          "quantidadePaginas": 22,
+          "resumo": "Vampira e Wolverine foram teleportados para Genosha, onde dão bastante trabalho aos magistrados, antes de serem detidos e encarcerados. Enquanto isso, Philip Moreau, filho do Genengenheiro, ao saber da prisão de Jenny Ransome, começa a questionar o trabalho do pai. Em sua cela, Vampira é subjugada pela consciência de Carol Danvers, que ela absorveu ao roubar seus poderes, e empreende uma fuga, levando um alquebrado Logan junto.\n\nTítulo original: \"Busting Loose!\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "236",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 236/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-236/264/6275",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

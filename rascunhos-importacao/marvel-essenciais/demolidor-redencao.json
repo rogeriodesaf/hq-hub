@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "tmp-marvel-essenciais-5.txt",
+    "url": "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-redencao/de158710/183560",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-redencao/de158710/183560"
+    ],
+    "geradoEm": "2026-06-27T11:53:33",
+    "gerador": "robo_importador_texto.py + cabecalho sintetico para edicao unica"
+  },
+  "serieBrasileira": {
+    "titulo": "Marvel Essenciais: Demolidor - Redenção",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Edição única",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 86.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61m98JblccL._AC_UL320_.jpg",
+      "descricao": "Marvel Essenciais: Demolidor - Redenção n? 1\nPublicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Edição única\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 86,90\nCrédito da capa e editor\nArte: Bill Sienkiewicz Cores: Bill Sienkiewicz Editor: Fernando Lopes - ‘Fl’ , Manda Conti\nRedenção - Parte um\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Eduardo Tanaka , Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 1 /2005 - Marvel Comics\nNa pequena e temente a Deus cidade de Redenção o corpo de um menino é encontrado morto e mutilado. É um assassinato ritualístico? O bad boy local, Joel Flood, é preso e colocado na prisão. Um metaleiro vestido de preto e \"adorador do diabo\", ele deve ser culpado... ou é?\nTítulo original: \"Redemption - Part 1 of 6\".\n23 Páginas\nRedenção - Parte dois\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Eduardo Tanaka , Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 2 /2005 - Marvel Comics\nO advogado e super-herói Matt Murdock é contratado para salvar um adolescente problemático do que parece ser uma caça às bruxas levada a cabo por uma comunidade indignada e desesperada por justiça... e pela pena de morte. Este pode ser o caso mais importante da carreira de Matt. Uma perda significa justiça negada e morte certa para seu cliente!\nTítulo original: \"Redemption - Part 2 of 6\".\n22 Páginas\nRedenção - Parte três\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Eduardo Tanaka , Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 3 /2005 - Marvel Comics\nConvencido de que o seu cliente é inocente do assassinato brutal e ritualístico de um jovem local, o advogado Matt Murdock enfrenta agora a batalha legal da sua carreira. É uma batalha difícil, e uma comunidade indignada e ansiosa por ver a justiça ser feita pode ser o inimigo mais poderoso de Matt e do Demolidor até agora.\nTítulo original: \"Redemption - Part 3 of 6\".\n22 Páginas\nRedenção - Parte quatro\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Eduardo Tanaka , Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 4 /2005 - Marvel Comics\nAs patrulhas noturnas de Matt Murdock como Demolidor saem pela culatra espetacularmente na pequena e temente a Deus cidade de Redenção, quando a luta se torna suja e \"o diabo\" é acusado de um crime que não cometeu.\nTítulo original: \"Redemption - Part 4 of 6\".\n23 Páginas\nRedenção - Parte cinco\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Eduardo Tanaka , Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 5 /2005 - Marvel Comics\nExiste lugar para um super-herói em um tribunal? As habilidades de Matt Murdock como advogado são testadas ao máximo quando seu cliente vai a julgamento pelo assassinato ritualístico de um menino.\nTítulo original: \"Redemption - Part 5 of 6\".\n23 Páginas\nRedenção - Parte seis\nRoteiro: David Hine\nArte: Michael Gaydos\nCores: Lee Loughridge\nLetrista: Fernando Chakur\nTradutor: Fernando Lopes - ‘Fl’\nEditor original: Joe Quesada , Jennifer Lee\nAdaptação: Fernando Lopes - ‘Fl’\nPublicada pela primeira vez em Daredevil: Redemption (2005) n° 6 /2005 - Marvel Comics\nDoze anos se passaram desde que Joel Flood foi julgado por um assassinato que devastou uma comunidade inteira.\nTítulo original: \"Redemption - Part 6 of 6\".\n24 Páginas\n9,7\n21 votos no total\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nFaça sua avaliação:\nClique na capa para ampliar\nCapa enviada por Adriano Borges\nRelate algum problema encontrado nessa edição\nTítulo adicionado por\nAdriano Borges\nem 07/03/2025 20:56:00\nEdição adicionada por\nAdriano Borges\nem 07/03/2025 21:27:00\nEditado por\nEDER EMERSON ARAUJO\nVer outras contribuições\nPlease enable JavaScript to view the comments powered by Disqus.\nHome\nTítulos\nTítulos estrangeiros\nEditoras\nEditoras estrangeiras\nArtistas\nPersonagens\nHistórias\nArco de histórias\nContato\nBlog\nSobre o Guia\nUsuários\nApoiadores\nFotos das coleções\nMonografias\nCapas\nÚltimas capas adicionadas\nÚltimas capas restauradas\nÚltimas capas estrangeiras\nTodas as capas disponíveis\nTítulos com capas completas\nLançamentos do mês\nBusca avançada\nGibis nas bancas quando você nasceu\nVer uma edição aleatória\nMais e maiores\nAs mais votadas\nAs mais colecionadas\nAs mais desejadas\nAs maiores coleções\nO Guia dos Quadrinhos é um grande banco de dados, cujo objetivo é o resgate, preservação e divulgação da memória de todos dos quadrinhos publicados no Brasil. Explore e conheça mais o universo dos quadrinhos!\nNas redes sociais\nTermos de Uso e a Política de Privacidade\n© 2007-2026 Guia dos Quadrinhos - Design e desenvolvimento: Edson Diogo\n.\n*\nhttp://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=183560&path=de15871000_183560.jpg\nhttp://www.guiadosquadrinhos.com/images/mundos_jack_banner.jpg\nhttp://www.guiadosquadrinhos.com/images/banner_vertigo.jpg\nhttp://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=183560&path=de15871000_183560.jpg&w=400&h=622",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Redenção - Parte um",
+          "tituloOriginal": "Redemption - Part 1 of 6",
+          "quantidadePaginas": 23,
+          "resumo": "Na pequena e temente a Deus cidade de Redenção o corpo de um menino é encontrado morto e mutilado. É um assassinato ritualístico? O bad boy local, Joel Flood, é preso e colocado na prisão. Um metaleiro vestido de preto e \"adorador do diabo\", ele deve ser culpado... ou é?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "1",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 1/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Redenção - Parte dois",
+          "tituloOriginal": "Redemption - Part 2 of 6",
+          "quantidadePaginas": 22,
+          "resumo": "O advogado e super-herói Matt Murdock é contratado para salvar um adolescente problemático do que parece ser uma caça às bruxas levada a cabo por uma comunidade indignada e desesperada por justiça... e pela pena de morte. Este pode ser o caso mais importante da carreira de Matt. Uma perda significa justiça negada e morte certa para seu cliente!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "2",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 2/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Redenção - Parte três",
+          "tituloOriginal": "Redemption - Part 3 of 6",
+          "quantidadePaginas": 22,
+          "resumo": "Convencido de que o seu cliente é inocente do assassinato brutal e ritualístico de um jovem local, o advogado Matt Murdock enfrenta agora a batalha legal da sua carreira. É uma batalha difícil, e uma comunidade indignada e ansiosa por ver a justiça ser feita pode ser o inimigo mais poderoso de Matt e do Demolidor até agora.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "3",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 3/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Redenção - Parte quatro",
+          "tituloOriginal": "Redemption - Part 4 of 6",
+          "quantidadePaginas": 23,
+          "resumo": "As patrulhas noturnas de Matt Murdock como Demolidor saem pela culatra espetacularmente na pequena e temente a Deus cidade de Redenção, quando a luta se torna suja e \"o diabo\" é acusado de um crime que não cometeu.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "4",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 4/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Redenção - Parte cinco",
+          "tituloOriginal": "Redemption - Part 5 of 6",
+          "quantidadePaginas": 23,
+          "resumo": "Existe lugar para um super-herói em um tribunal? As habilidades de Matt Murdock como advogado são testadas ao máximo quando seu cliente vai a julgamento pelo assassinato ritualístico de um menino.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "5",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 5/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Redenção - Parte seis",
+          "tituloOriginal": "Redemption - Part 6 of 6",
+          "quantidadePaginas": 24,
+          "resumo": "Doze anos se passaram desde que Joel Flood foi julgado por um assassinato que devastou uma comunidade inteira.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Redemption (2005)",
+            "numeroOriginal": "6",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Redemption (2005) n° 6/2005 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

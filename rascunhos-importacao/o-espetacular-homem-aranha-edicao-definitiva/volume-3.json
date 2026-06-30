@@ -1,0 +1,378 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-3/es011117/151990",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-3/es011117/151990"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:13:29",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  21,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "3",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2020-02-01",
+                        "publicadoTexto":  "fevereiro de 2020",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  476,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  150.0,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/51n4yRon4JL._SY445_SX342_ML2_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 3\nPublicado em: fevereiro de 2020\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 476\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 150,00\nCrédito da capa e editor\nDesenho: John Romita Arte-Final: John Romita , Mike Esposito - ‘Joe Gaudioso/Mickey Demeo’ Cores: Stan Goldberg Editor: Leonardo Camargo - ‘Kitsune’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Como era verde o meu duende!",
+                                              "tituloOriginal":  "How Green Was My Goblin!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Duende Verde está decidido a conhecer a identidade secreta do Escalador de Paredes, afim de não apenas derrotá-lo, mas humilhá-lo.Esta história marca a estreia de John Romita como desenhista da série. E aqui finalmente é revelada a identidade secreta do Duende.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "39",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 39/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "O Aranha salva a pátria!",
+                                              "tituloOriginal":  "Spidey saves the day!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "É revelado que o Duende Verde é ninguém mais, ninguém menos do que Norman Osborn, o pai de Harry, seu colega na universidade Empire State! Pego de surpresa, Peter acaba sendo capturado pelo Duende e levado a seu esconderijo secreto, onde o destino inexorável dos dois maiores antagonistas da Marvel será definitivamente decidido... de uma vez por todas!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "40",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 40/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Os chifres do Rino!",
+                                              "tituloOriginal":  "The horns of the Rhino!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Após uma missão no espaço, o coronel John Jameson, filho de J. Jonah Jameson, passa a ser um potencial alvo de nações comunistas na corrida espacial, e o Aranha vai ter que protegê-lo do gigantesco brutamontes conhecido como Rino! Peter compra uma moto e termina definitivamente o namoro com Betty Brant. Também é a partir daqui que começa a pintar um “clima” entre ele e Gwen Stacy.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "41",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 41/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Homem-Aranha, um Vingador?",
+                                              "tituloOriginal":  "...To Become an Avenger!",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Os Vingadores decidem pedir ao Homem-Aranha para se juntar à equipe, mas primeiro ele tem que completar um teste para provar que é capaz: Capturar o Hulk e levá-lo ao QG dos Vingadores.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Annual, The (1964)",
+                                                                         "numeroOriginal":  "3",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Annual, The (1964) n° 3/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Nasce um super-herói!",
+                                              "tituloOriginal":  "“The birth of a super-hero!”",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Afetado por misteriosos esporos alienígenas em sua missão espacial, John Jameson adquire super-força e um incrível aumento de massa muscular, mas, como efeito colateral, sua mente fica descontrolada, o que o transforma numa ameaça ambulante! E após meses de espera e de subterfúgios, a primeira aparição de Mary Jane!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "42",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 42/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Rino em fúria!",
+                                              "tituloOriginal":  "Rhino on a rampage!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Rino, ao acordar do estado sedativo em que se encontrava, consegue fugir e parte em busca do Homem-Aranha para vingar a derrota sofrida por ele no primeiro confronto de ambos. Mas, com o auxílio do Dr. Connors, o cabeça de teia consegue criar uma teia especial, capaz de dissolver a armadura do Rino.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "43",
+                                                                         "anoOriginal":  1966,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 43/1966 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Nas garras do Lagarto!",
+                                              "tituloOriginal":  "Where crawls the Lizard",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Dr. Curtis descobre que poderá se transformar a qualquer momento no Lagarto. E o Cabeça de Teia é o único que pode ajudá-lo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "44",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 44/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Cobras e lagartos!",
+                                              "tituloOriginal":  "Spidey smashes out",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Nosso herói tem um plano para vencer o Lagarto sem machucá-lo. Mas, para botar em prática, terá que arriscar sua própria vida.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "45",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 45/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "O sinistro Shocker!",
+                                              "tituloOriginal":  "The sinister Shocker!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Escalador de Paredes enfrenta um novo inimigo, Shocker, capaz de, com sua roupa especial, emitir ondas de choque e absorver tranquilamente os socos de nosso herói.\nÉ nessa edição que Peter vai morar com Harry Osborn e tia May com Anna Watson.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "46",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 46/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Nas mãos do caçador!",
+                                              "tituloOriginal":  "In the hands of the Hunter!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "De olho na recompensa de 20 mil dólares oferecida pelo Duende Verde pela cabeça do Aranha, Kraven tenta eliminar o herói, mas é derrotado e preso. Ao sair da prisão, decide ir atrás de Norman Osborn (a identidade secreta do Duende) para conseguir o dinheiro.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "47",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 47/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "As asas do Abutre!",
+                                              "tituloOriginal":  "The wings of the Vulture!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "A ameaça alada está de volta. Mas, espere! Há algo errado com esse supervilão.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "48",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 48/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Das profundezas da derrota!",
+                                              "tituloOriginal":  "From the depths of defeat!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Abutre e Kraven se unem contra nosso Cabeça de Teia.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "49",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 49/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Homem-Aranha nunca mais!",
+                                              "tituloOriginal":  "Spider-Man no more!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Atormentado por inúmeros problemas pessoais, Peter toma a mais drástica decisão de sua carreira: “deixar de ser o Homem-Aranha de uma vez por todas”! Só que, aproveitando a ausência do herói, um novo e poderoso líder mafioso está reunindo todas as quadrilhas criminosas sob seu comando, o que pode fazer com que Peter pague um preço alto demais por sua decisão! HQ que influenciou a trama do filme “Homem-Aranha 2” (2004).",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "50",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 50/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Nas garras do Rei do Crime!",
+                                              "tituloOriginal":  "In the Clutches of... the Kingpin!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Para que Jameson não continue denunciando sua onda de crimes, o Rei do Crime decide silenciar o editor do Clarim Diário. O cabeça de teia, então, resolve intervir, mas o Rei parece levar a melhor...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "51",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 51/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "A morte de um herói!",
+                                              "tituloOriginal":  "To Die a Hero!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Após escapar de morrer afogado (ironicamente, junto ao seu maior desafeto, J. Jonah Jameson), o Cabeça de Teia enfrenta o Rei do Crime. No entanto, a força física e destreza no combate corporal, fazem do criminoso um páreo duro para o herói. O vilão escapa então para uma próxima investida, mostrando que ele não é apenas um adversário qualquer, mas um personagem digno de entrar para a galeria de grandes vilões Marvel.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "52",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 52/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "A teia e a chama!",
+                                              "tituloOriginal":  "The Web and the Flame!",
+                                              "quantidadePaginas":  41,
+                                              "resumo":  "O Homem-Aranha é convidado para estrelar um filme em Hollywood. Ele e o Tocha Homana entram no set, mas apenas antes de saber da verdadeira trama e dos vilões por trás dela.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Annual, The (1964)",
+                                                                         "numeroOriginal":  "4",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Annual, The (1964) n° 4/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Entra em cena... Dr. Octopus",
+                                              "tituloOriginal":  "Enter: Dr. Octopus",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Escalador de Paredes precisa vencer o Dr. Octopus. Mas como fazê-lo se, por uma ironia do destino, a ingênua tia do herói alugou um quarto para o velhaco em sua própria casa? Como nosso herói vai derrotá-lo sem pôr em risco a vida de Tia May?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "53",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 53/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "Os tentáculos e a armadilha!",
+                                              "tituloOriginal":  "The tentacles and the trap!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Homem-Aranha enfrenta o Doutor Octopus na casa dos Parker! Com a tia May no fogo cruzado, o velho Cabeça de Teia terá que pensar rápido se quiser salvá-la!\nPrimeira aparição de Robbie Robertson.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "54",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 54/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "A vitória de Octopus!",
+                                              "tituloOriginal":  "Doc Ock wins!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Aranha está enfurecido e busca o escalpo do Dr. Octopus, que quase matou a tia do nosso herói. Mas quando tudo parecia perdido para o vilão, surge um incrível golpe de sorte...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "55",
+                                                                         "anoOriginal":  1967,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 55/1967 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Desastre!",
+                                              "tituloOriginal":  "Disaster!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Um incrível acidente durante combate com Dr. Octopus tira a memória do Escalador de Paredes e, aproveitando-se disso, o velhaco o convence de que ele é seu capanga. Primeira aparição do Capitão Stacy, pai de Gwen.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "56",
+                                                                         "anoOriginal":  1968,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 56/1968 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "A chegada de Kazar!",
+                                              "tituloOriginal":  "The coming of Ka-Zar!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Um Homem-Aranha ainda com perca de memória deve enfrentar a polícia, os militares e o pior de tudo: Ka-Zar e Zabu!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "57",
+                                                                         "anoOriginal":  1968,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 57/1968 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,314 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-1/de011116/113928",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-1/de011116/113928"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:46:12",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Demolidor Por Frank Miller \u0026 Klaus Janson",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  17,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "1",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2014-12-01",
+                        "publicadoTexto":  "dezembro de 2014",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Série completa",
+                        "numeroPaginas":  340,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  92.0,
+                        "urlCapa":  "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_3n1nbmqg797tb2rfthm0p58r2q/-S265-FWEBP",
+                        "descricao":  "Demolidor Por Frank Miller \u0026 Klaus Janson n° 1\nPublicado em: dezembro de 2014\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Série completa\nNúmero de páginas: 340\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 92,00\nCrédito da capa e editor\nArte: Frank Miller Editor: Rodrigo Guerrino",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Um cego guiando o outro",
+                                              "tituloOriginal":  "The Blind Leading the Blind",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Inserindo a ogiva nuclear roubada por seus capangas no corpo do Tri-Homem, o Saqueador Mascarado pretende assumir o controle de Nova York, ou irá disparar o robô em forma de foguete e reduzir a cidade a um inferno atômico! Mesmo ainda sem conseguir enxergar, o aracnídeo tem que localizar seu esconderijo, captando o sinal do rastreador-aranha que jogou em sua capa! Poderão ele e o Demolidor chegar a tempo de detê-lo, antes que seja tarde demais?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "27",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 27/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Das cinzas às cinzas!",
+                                              "tituloOriginal":  "Ashes to Ashes!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Enquanto o Aranha estava cego e enfrentando o Saqueador Mascarado, uma nova ameaça estava prestes a vir à tona! Em sua ausência, o tenebroso Carniça invadiu seu apartamento e detonou o local, ainda deixando uma mensagem sinistra escrita na parede, em que o chamava de “Parker”! Afinal, quem é esse bizarro vilão que mais parece um cadáver ambulante, cujo toque pode reduzir a pó qualquer matéria viva? E como ele conhece a identidade secreta de nosso herói?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "28",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 28/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Erro lapidar",
+                                              "tituloOriginal":  "A Grave Mistake!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Matt Murdock é capturado pelos Homens-Animais e levado ao Arauto da Morte. Nem a parceira do herói, a Viúva Negra, consegue deter o bando. No cemitério, o Arauto quer se vingar do Demolidor.\nHá uma continuação dessa história em Demolidor \u0026 Capitão América - Dupla Morte da Editora Panini.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "158",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 158/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Marcado para morrer!",
+                                              "tituloOriginal":  "Marked for Murder!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Slaugther, um dos chefões do crime organizado, quer a cabeça do Demolidor. As gangues dispostas a ganhar a recompensa surgem aos montes, e o herói se vira como pode. Enquanto sobrevive, seus movimentos são estudados pelo Mercenário.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "159",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 159/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Nas mãos do Mercenário",
+                                              "tituloOriginal":  "In the Hands of Bullseye",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Maxwell Glenn está morto. O namoro de Matt Murdock e Heather Glenn fica abalado quando ele se recusa a deixar de ser o Demolidor para ficar com ela. Deprimido e precisando desabafar, o herói decide fazer uma visita à sua velha parceira, e outrora amante, Viúva Negra, recém-chegada à Nova York. Mas, ao chegar no apartamento da moça, o herói descobre que ela foi raptada como parte de um desafio de seu nêmesis, o Mercenário...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "160",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 160/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Como demolir o Demônio",
+                                              "tituloOriginal":  "To Dare the Devil",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Atraído para o parque de diversões Coney Island, o Demolidor precisa encarar o Mercenário e os capangas de seu aliado, o gangster Eric Slaughter, para salvar a Viúva Negra. Enquanto isso, o jornalista Ben Urich fica cada vez mais perto de descobrir o mistério que envolve o advogado cego Matt Murdock e o vigilante da Cozinha do Inferno.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "161",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 161/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Beco sem saída",
+                                              "tituloOriginal":  "Blind Alley",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Os nova-iorquinos estão em alerta: o Hulk está na cidade. Compadecido de Bruce Banner, o alter-ego do Golias Verde e seu ex-cliente, Matt Murdock consegue rastrear o Hulk e acalmá-lo ao ponto de Banner reassumir sua forma original. Matt lhe dá assistência e dinheiro para que vá para um local onde não possa ferir mais ninguém. Porém, nem deixa a cidade, o Hulk volta à toda. A fim de proteger seu amigo e os inocentes, o Demolidor encara sozinho toda ira da fera!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "163",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 163/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Revelado",
+                                              "tituloOriginal":  "Expose",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Massacrado pelo Hulk, o Demolidor vai em estado grave para o hospital. Após receber o apoio da Viúva Negra, com quem parece se envolver de novo, dos Vingadores e da opinião pública, ele recebe a visita inesperada do jornalista Ben Urich, que não enrola: sabe que Matt Murdock e Demolidor são a mesma pessoa. Acuado, o herói revela a Urich toda a sua origem. Será que Urich revelará a verdade ao mundo ou deixará o Homem Sem Medo seguir seu caminho?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "164",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 164/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Tentáculos de Octopus",
+                                              "tituloOriginal":  "Arms of the Octopus",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Heather descobre que sua empresa está fazendo negócios com o Doutor Octopus. O Demolidor tenta salvá-la mas é capturada. A Viúva Negra percebe que seu relacionamento com Matt não vai dar certo e sai de Nova York.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "165",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 165/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Até que a morte nos separe!",
+                                              "tituloOriginal":  "Till Death Do Us Part!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Foggy Nelson está prestes a se casar (e perdeu as alianças). Numa visita a um museu dedicado a vilões, a assistente social Betsy Beatty não esperava que iria se deparar com um em carne e osso: o Gladiador. Acreditando que a moça o ama, ele pretende enfrentar um desafio para merecer seu amor. Mas quem aceitará esse desafio?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "166",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 166/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Bélico!",
+                                              "tituloOriginal":  "...The Mauler!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Demolidor tenta descobrir por que o Bélico está atrás de seu antigo chefe.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "167",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 167/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Segredos obscuros",
+                                              "tituloOriginal":  "Dark Secrets",
+                                              "quantidadePaginas":  5,
+                                              "resumo":  "Demonstração de como os poderes e os acessórios do Demolidor funcionam.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "167",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 167/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Elektra",
+                                              "tituloOriginal":  "Elektra",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Demolidor está à caça de uma testemunha de assassinato que tem a cabeça a prêmio. Mas não sabe que isso o colocará frente a frente com uma caçadora de aluguel, Elektra. Recordações vêm a tona: o período no campus da faculdade, o desenrolar da paixão, o atentado que envolveu Matt Murdock e culminou com a morte do pai da moça, a dolorosa despedida. Porém, a realidade agora é outra, e o amor tem de ser deixado de lado para que haja justiça.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "168",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 168/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Demônios",
+                                              "tituloOriginal":  "Devils",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "No tempo que passou preso o Mercenário teve acompanhamento médico suficiente para comprovar que ele sofre de alucinações (vê a todos como a personificação do Demolidor) causadas por um temor no cérebro. A cirurgia é obrigatória, porém ele conseguiu escapar. O Demolidor agora tem de intervir para levar o vilão à mesa de cirurgia. Elektra após encontrar o homem sem medo, vai ao apartamento de Matt e descobre que ele tem uma mulher (Heather).",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "169",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 169/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "O Rei deve morrer",
+                                              "tituloOriginal":  "The Kingpin Must Die!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Rei do Crime abdicou a carreira criminosa por seu amor a Vanessa, tornando-se outro homem. Para limpar sua ficha ele busca a ajuda de Foggy e Murdock. Os novos chefões do crime se unem para matar o Rei que está voltando a cidade, o prêmio: Cinco milhões de Dólares. O meio de conseguir esse objetivo: Mercenário! Ele está solto após cirurgia para retirada do tumor, inocentado por acreditarem que seus problemas eram psicológicos. Vanessa é sequestrada.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "170",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 170/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Nas garras do Rei",
+                                              "tituloOriginal":  "In The Kingpin\u0027s Clutches",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Rei do Crime preparou uma série de documentos que incriminam os atuais chefões da cidade. Eles querem esses documentos no lugar de Vanessa, e um local para a troca é marcado. O Demolidor se passa por um criminoso e infiltra na quadrilha do Rei, mas este o descobre tentando roubar os documentos do cofre. O Demolidor é derrotado. No local da troca, Vanessa é soterrada por toneladas de destroços, dando fim ao último lampejo de humanidade do vilão.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "171",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 171/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Guerra de gangues",
+                                              "tituloOriginal":  "Gangwar!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Rei do Crime vai minando as atividades dos concorrentes de maneira a levá-los ao desespero. Demolidor rouba os documentos falsos que serviriam para botar vários chefões na cadeia. O Mercenário, outrora contratado para matar o Rei, muda de lado e passa a servi-lo. Sua missão é matar o Demolidor, que vence a luta, e o Rei aceita entregar os documentos, já que a justiça vai livrá-lo de grande parte de seus concorrentes. Mais do que nunca seu império se fortifica.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "172",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 172/1981 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

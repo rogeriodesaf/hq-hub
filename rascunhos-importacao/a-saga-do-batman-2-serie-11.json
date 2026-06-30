@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-11/sa011201/183160",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-11/sa011201/183160"
+    ],
+    "geradoEm": "2026-06-26T22:51:05",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-02-01",
+      "publicadoTexto": "fevereiro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/618Rn2cSLbL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 11\nPublicado em: fevereiro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Kelley Jones Editor: Gabriel Faria\nLaços de sangue",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Laços de sangue",
+          "tituloOriginal": "Blood Kin [Knightquest: The Crusade]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "505",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 505/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Joe Público: O nascimento de um herói",
+          "tituloOriginal": "Joe Public The Birth of a Hero",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "25",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 25/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Machanáticos malévoos",
+          "tituloOriginal": "Malevolent Maniaxe [Knightquest: The Crusade]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "506",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 506/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Balístico",
+          "tituloOriginal": "Ballistic [Knightquest: The Crusade]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "507",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 507/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Criaturas de barro: Diário de uma amante",
+          "tituloOriginal": "Creatures of Clay Diary of a Lover [Part One of Two]",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Shadow of The Bat (1992)",
+            "numeroOriginal": "26",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Shadow of The Bat (1992) n° 26/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Joias imperfeitas",
+          "tituloOriginal": "Flawed Gems",
+          "quantidadePaginas": 18,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Secret Origins (1986)",
+            "numeroOriginal": "20",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Secret Origins (1986) n° 20/1987 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

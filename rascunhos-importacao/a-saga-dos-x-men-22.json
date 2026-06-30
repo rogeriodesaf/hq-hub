@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-22.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-22/sa011129/177217",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-22/sa011129/177217"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "22",
+      "tituloChamada": "",
+      "dataPublicacao": null,
+      "publicadoTexto": "março de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71d6mFk+lvL._SY385_.jpg",
+      "descricao": "Os X-Men precisam lutar em meio a uma distorção demoníaca da Guerra do Vietnã para chegar a seu enfrentamento final contra o Adversário! Para além disso, os Carniceiros são responsáveis por um assalto armado e assassino, e os X-Men precisam detê-los! Longshot é assombrado por fantasmas sob a base australiana dos X-Men! Colossus é assombrado por terríveis visões de sua irmãzinha em perigo! Por fim, os mutantes precisam enfrentar a ameaça da Ninhada!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "The Belly of the Beast",
+          "quantidadePaginas": 23,
+          "resumo": "Os esforços conjuntos dos heróis e vilões na Terra somados às ações de Forge e Tempestade na dimensão do Adversário são o bastante para derrotar a criatura. Assim, eles resgatam Roma, que auxilia os X-Men no seu novo começo em retribuição.\nTítulo original: \"The Belly of the Beast\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "227",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 227/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-227/264/6266",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Jogos mortais!",
+          "tituloOriginal": "Deadly Games!",
+          "quantidadePaginas": 24,
+          "resumo": "Título original: \"Deadly Games!\".\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "228",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 228/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-228/264/6267",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Novos rumos",
+          "tituloOriginal": "Down Under",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Down Under\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "229",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 229/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-229/264/6268",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Noite feliz...",
+          "tituloOriginal": "T'was the Night...",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"T'was the Night...\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "230",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 230/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-230/264/6269",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Vestida para jantar!",
+          "tituloOriginal": "Dressed for Dinner!",
+          "quantidadePaginas": 22,
+          "resumo": "Colossus é atormentado com pesadelos sobre sua irmã Illyana estar vestida para um evento real antes de ser empurrado para um forno enorme para ser cozido vivo, deixando-o a se perguntar se sua irmã está em apuros. No Limbo, Illyana está tentando lançar um feitiço necromântico para convocar seus irmãos supostamente mortos para ajudá-la com sua atual crise.\n\nTítulo original: \"Dressed for Dinner!\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "231",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 231/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-231/264/6270",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Invasores de corpos",
+          "tituloOriginal": "Earthfall",
+          "quantidadePaginas": 22,
+          "resumo": "A Ninhada está de volta, fazendo suas vítimas. Madelyne Prior fica chocada ao ver seu marido Ciclope e Jean Grey sendo entrevistados pela repórter Trish Tilby. Os X-Men tem uma luta desesperadora contra um homem infectado pelo embrião da Ninhada.\n\nTítulo original: \"Earthfall\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "232",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 232/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-232/264/6271",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

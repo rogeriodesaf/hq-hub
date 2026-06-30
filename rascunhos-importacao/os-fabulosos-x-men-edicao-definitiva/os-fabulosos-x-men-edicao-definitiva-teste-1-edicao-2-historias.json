@@ -1,0 +1,86 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-1/fa011131/160439",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-1/fa011131/160439",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-2/fa011131/162122",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-3/fa011131/166124",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-4/fa011131/169475",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-5/fa011131/172267",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-6/fa011131/173712",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-7/fa011131/174670",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-8/fa011131/175679",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-9/fa011131/176773",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-10/fa011131/180328",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-11/fa011131/185337",
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-12/fa011131/188422"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_teste_reduzido"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 2,
+  "avisos": [
+    "Arquivo de teste reduzido: 1 edicao e 2 historias para diagnosticar importacao.",
+    "Capas deixadas em branco a pedido do usuario; preencher edicoes[].urlCapa antes da importacao final."
+  ],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-08-01",
+      "publicadoTexto": "agosto de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 528,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 189.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 1\nPublicado em: agosto de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 528\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 189,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ , Sol Brodsky Cores: Stan Goldberg Editor: Leandro Luigi Del Manto\nPrimeira aparição de personagens nesta edição:\nTad Carter , Tobias Messenger",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O homem no céu!",
+          "tituloOriginal": "The Man in the Sky!",
+          "quantidadePaginas": 5,
+          "resumo": "A exposição precoce de um menino à radiação faz com que ele desenvolva poderes. Ele é atacado quando outros descobrem seus poderes e, de repente, é erguido ao céu por outro mutante a distância, que faz contato telepático com o rapaz e explica que ele deve viver escondido até que o mundo esteja pronto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adult Fantasy (1961)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1962,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Adult Fantasy (1961) n° 14/1962 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "X-Men",
+          "tituloOriginal": "X-Men",
+          "quantidadePaginas": 23,
+          "resumo": "Em sua mansão-escola, o Professor X reúne seus quatro X-Men e os apresenta à nova aluna: a Garota Marvel, que, como eles, também é uma mutante com poderes especiais. Ao mesmo tempo, um mutante terrorista chamado Magneto põe em risco a segurança nacional. Cabe aos jovens heróis tentar detê-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 1/1963 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

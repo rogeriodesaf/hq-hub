@@ -1,0 +1,287 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-8/fa011131/175679",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-8/fa011131/175679"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 19,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-01-01",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 440,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 205.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 8\nPublicado em: janeiro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 440\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 205,90\nCrédito da capa e editor\nDesenho: Dave Cockrum Arte-Final: Josef \"Joe\" Rubinstein Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "Even in Death...",
+          "quantidadePaginas": 22,
+          "resumo": "Na Flórida, Ciclope está cada vez mais próximo de Lee Forrester e a acompanha numa visita a seu pai. Mas ao chegar à região onde reside, descobre que ele cometeu suicídio após descobrir que o câncer o matava. Mas um ato tão extremo não foi feito por vontade própria, mas induzido pela própria encarnação do mal conhecida como Desespero. Para vencê-lo, Ciclope recebe a ajuda do Homem-Coisa! Em Nova York, os X-Men limpam os estragos da luta de Ninfa e o N'Garai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "144",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 144/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sequestrados!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A noite de balé de Tempestade, a nova líder dos X-Men, acaba com a aparição da Srta. Locke, assecla do Arcade. Ela exige que os heróis resgatem seu chefe, capturado pelo ex-líder da Latvéria, o Dr. Destino, ou deixará Amanda Sefton, o casal Grey, Illyana e Moira morrerem no Mundo do Crime de Arcade. Acuado, o supergrupo parte para o resgate. Mas descobre que pior do que confiar no vilão, é confiar no capanga.\nEdição que marca o retorno do desenhista Dave Cockrum à série.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "145",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 145/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O mundo do crime!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A armadilha do Arcade dá certo e Dr. Destino derrota e encarcera todos os X-Men, que se tornam seus novos objetos de estudo. Mas o déspota descobrirá que não se pode conter uma Tempestade. No Mundo do Crime, Destrutor, Polaris, Homem de Gelo e Banshee encaram as artimanhas da Srta. Locke para libertar os entes queridos dos heróis mutantes. Enquanto isso, náufragos por causa de uma “forte tormenta”, Ciclope e Lee Forrester se veem numa ilha deserta e o mutante é forçado a revelar seus poderes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "146",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 146/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Tempestade descontrolada!",
+          "tituloOriginal": "Rogue Storm!",
+          "quantidadePaginas": 22,
+          "resumo": "Noturno consegue escapar e lidera a ofensiva contra Destino. Mas a situação foge do controle quando Tempestade, devido a sua claustrofobia e irada pelos atos do vilão, revela a extensão de seus poderes, tornando-se uma verdadeira deusa. Agora Destino precisará se unir aos X-Men para trazer a líder de volta à razão, se ainda quiser governar um país.\nA participação do Doutor Destino foi posteriormente atribuída a um dos seus Destinobôs.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "147",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 147/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Sob o domínio do medo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A antipatia do Anjo por Wolverine atinge o clímax e depois que o Professor X e Tempestade não concordam com a saída do mutante canadense, o próprio Anjo deixa o time. Dias depois, Tempestade, Mulher-Aranha, Stevie Hunter e Kitty Pryde comparecem a um show de Cristal, mas a noite de sábado acaba interrompida com o sequestro de Kitty pelo misterioso Caliban, um mutante que não é tão mau quanto aparenta. E Ciclope e Lee encontram o dono da ilha onde estão: Magneto!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "148",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 148/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "...E o morto enterrará os vivos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "O Professor X está obcecado em descobrir o que Magneto está aprontando, pois sabe que ele em breve atacará de novo. Kitty Pryde atrapalha sua busca ao tentar mostrar seu novo -e ridículo- uniforme feito por ela e leva uma bronca. Para provar seu valor, ela se esconde no jato dos X-Men quando a equipe vai à Antártida buscar pistas do vilão em sua antiga base, mas os heróis encontram Garok, o deus-sol sedento de vingança! E no Caribe, Magneto acua Ciclope!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "149",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 149/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Eu, Magneto...",
+          "tituloOriginal": "I, Magneto...",
+          "quantidadePaginas": 39,
+          "resumo": "Ciclope e Lee são prisioneiros na ilha de Magneto. Os X-Men chegam ao local, mas ficam sem poderes. O Mestre do Magnetismo manda uma mensagem às autoridades mundiais pedindo o desarmamento e o uso do dinheiro para combater a pobreza. Caso contrário, ele considerará guerra. Os heróis tentam combater o velhaco, mas suas convicções só mudam quando ele fere Kitty e, assim, lembra como perdeu a esposa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "150",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 150/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Um a menos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "Os X-Men ficam abalados quando descobrem que os pais de Kitty Pryde decidiram tirá-la do Instituto Xavier e colocá-la na Academia Massachussets, sob direção de Emma Frost, a Rainha Branca do Clube do Inferno. O que parecia apenas uma decisão controversa de uma família se revela um pavoroso plano quando Frost consegue trocar de corpo com Tempestade e prepara a destruição dos X-Men junto com o Rei Negro Sebastian Shaw, o mais novo comandante dos Sentinelas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "151",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 151/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Astúcia dos infernos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "Tempestade teve seu corpo trocado com o de Emma Frost, a Rainha Branca, e luta para convencer Kitty Pryde de que, apesar das aparências, ela ainda é sua querida amiga Ororo. Kitty se convence da mudança e junto com Tempestade, arquiteta a libertação dos outros X-Men e a retomada da Mansão X das garras dos integrantes do Clube do Inferno!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "152",
+            "anoOriginal": 1981,
+            "texto": "Uncanny X-Men, The (1963) n° 152/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Conto de fadas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Para fazer a pequena Illyana dormir, Kitty Pryde inventa um conto de fadas envolvendo a si mesma e seus amigos X-Men, no qual num reino das Mil e Uma Noites, um casal de piratas (Kitty e Colossus), uma deusa (Tempestade), um mago (Xavier), um príncipe (Ciclope), um demônio (Wolverine), um elfo (Noturno) e um poderoso dragão (Lockheed) se unem para deter uma princesa corrompida por um grande poder (Jean Grey/Fênix Negra) e que se tornou uma grande ameaça.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "153",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 153/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "A invasão Badoon!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 39,
+          "resumo": "Uma estrangeira surge para alertar a Terra da prisão de Arkon. E o Quarteto Fantástico é capturado, escapando apenas a Mulher-Invisível. Ela contata os X-Men após ouvir acidantalmente que os mutantes estão relacionados ao ataque. Os heróis mutantes ficam sabendo de uma guerra em outro planeta e se teleportam para salvar o Quarteto e estabelecer a paz local.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1981,
+            "texto": "X-Men Annual (1970) n° 5/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Traída por amigos!",
+          "tituloOriginal": "By Friends--Betrayed!",
+          "quantidadePaginas": 38,
+          "resumo": "Mística e Vampira absorvem poderes de Thor, Capitão América e Homem de Ferro e atacam a prisão da Ilha Ryker e libertam a Irmandade, mas os Vingadores contra-atacam. Carol Danvers, com a mente apagada, é jogada da ponte Golden Gate e resgatada pela Mulher-Aranha. O Professor X a ajuda, os Vingadores vão visitar Danvers e eles são confrontados por ficarem alegres por ouvir que ela foi abusada por Marcus em Avengers 200.\nEstréia de Vampira nos quadrinhos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers Annual (1967)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1981,
+            "texto": "Avengers Annual (1967) n° 10/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Me mostra o caminho de casa...",
+          "tituloOriginal": "Show Me the Way to Go Home...",
+          "quantidadePaginas": 18,
+          "resumo": "História em preto e branco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Bizarre Adventures (1981)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1981,
+            "texto": "Bizarre Adventures (1981) n° 27/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Fênix",
+          "tituloOriginal": "Compiled from the Files of Professor X/X-Men Data Log - Phoenix",
+          "quantidadePaginas": 18,
+          "resumo": "História em preto e branco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Bizarre Adventures (1981)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1981,
+            "texto": "Bizarre Adventures (1981) n° 27/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Carnaval de inverno",
+          "tituloOriginal": "Winter Carnival",
+          "quantidadePaginas": 18,
+          "resumo": "História em preto e branco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Bizarre Adventures (1981)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1981,
+            "texto": "Bizarre Adventures (1981) n° 27/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Descida ao inferno",
+          "tituloOriginal": null,
+          "quantidadePaginas": 17,
+          "resumo": "Tanya Anderssen procura Anjo para acompanhá-la à Terra Selvagem. Ela está procurando um velho amigo Karl Lykos. Relutantemente, Ango concorda em ir. No clarim diário, J. Jonah Jameson descobre a expedição e obriga Peter Parker a também fazer a viagem. Chegando à Terra Selvagem, seu helicóptero é destruído por um pterassauro no ar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1982,
+            "texto": "Marvel Fanfare (1982) n° 1/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "sem título\nPublicada pela primeira vez em Marvel Fanfare (1982) n° 3 /1982 - Marvel Comics\nsem título",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1982,
+            "texto": "Marvel Fanfare (1982) n° 2/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "sem título\nPublicada pela primeira vez em Marvel Fanfare (1982) n° 4 /1982 - Marvel Comics\n8,9\n23 votos no total\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1982,
+            "texto": "Marvel Fanfare (1982) n° 3/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "8,9\n23 votos no total\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nFaça sua avaliação:",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1982,
+            "texto": "Marvel Fanfare (1982) n° 4/1982 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

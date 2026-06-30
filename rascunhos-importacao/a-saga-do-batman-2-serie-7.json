@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-7/sa011201/180450",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-7/sa011201/180450"
+    ],
+    "geradoEm": "2026-06-26T22:51:00",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "7",
+      "tituloChamada": "Onde comprar essa edição:",
+      "dataPublicacao": "2024-10-01",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61Jqh2QevyL._SY385_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 7\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Kelley Jones Cores: Bob Lerose Editor: Gabriel Faria\nA conexão veneno",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A conexão veneno",
+          "tituloOriginal": "Knightfall, Part 17: The Venom Connection",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "499",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 499/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Demônios conhecidos",
+          "tituloOriginal": "Knightfall, Part 18: The Devil You Know",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "666",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 666/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Anjo das trevas I: A queda",
+          "tituloOriginal": "Dark Angel I: The Fall [Knightfall 19]",
+          "quantidadePaginas": 28,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "500",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 500/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Anjo das trevas II: O declínio",
+          "tituloOriginal": "Dark Angel II: The Descent [Knightfall 19]",
+          "quantidadePaginas": 28,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "500",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 500/1993 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-13/ma011173/159924",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-13/ma011173/159924"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:15",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  4,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "13",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-07-01",
+                        "publicadoTexto":  "julho de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  156,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61uwn4Xr+WL._SY342_.jpg",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 13\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nArte: Joe Quesada Editor: Fernando Lopes - ‘Fl’\nUm dia a mais - Parte 1",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Um dia a mais - Parte 1",
+                                              "tituloOriginal":  "Spider-Man: One More Day - Part 1",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  "A Tia May continua em um leito de hospital, e o médico diz que ela vai ser levada pra área de caridade caso não paguem o hospital. Peter vai atrás de Tony Stark, pede ajuda e ele não dá. Depois, arrependido, ele manda Jarvis para pagar o que se necessita no hospital.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "544",
+                                                                         "anoOriginal":  2007,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 544/2007 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Um dia a mais: O outro lado das trevas - Parte 2",
+                                              "tituloOriginal":  "Spider-Man: One More Day - The Other Side of Darkness - Part 2",
+                                              "quantidadePaginas":  25,
+                                              "resumo":  "O médico diz a Peter que a vida da sua tia não tem mais jeito, e ele vai atrás das artes místicas do Doutor Estranho. Stephen também lhe diz que não tem jeito. Quando Peter, entristecido, está voltando pro hospital, uma garotinha diz que sabe como salvar sua tia.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Friendly Neighborhood Spider-Man (2005)",
+                                                                         "numeroOriginal":  "24",
+                                                                         "anoOriginal":  2007,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Friendly Neighborhood Spider-Man (2005) n° 24/2007 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Um dia a mais - Parte 3",
+                                              "tituloOriginal":  "Spider-Man: One More Day - Part 3",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Sensational Spider-Man, The (2006)",
+                                                                         "numeroOriginal":  "41",
+                                                                         "anoOriginal":  2007,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Sensational Spider-Man, The (2006) n° 41/2007 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Um dia a mais - Parte 4",
+                                              "tituloOriginal":  "Spider-Man: One More Day - Part 4",
+                                              "quantidadePaginas":  31,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "545",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 545/2008 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

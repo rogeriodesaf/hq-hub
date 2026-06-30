@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-1/sa011130/163381",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-1/sa011130/163381"
+    ],
+    "geradoEm": "2026-06-26T23:32:04",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-03-01",
+      "publicadoTexto": "março de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61CXcvWGiYL._SY342_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 241\nPublicado em: março de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Mike Zeck Arte-Final: Klaus Janson Editor: Dandara Palankof",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sonhador americano",
+          "tituloOriginal": "American Dreamer",
+          "quantidadePaginas": 23,
+          "resumo": "Após os eventos envolvendo Bazuca (um homem modificado pelo soro do supersoldado mostrado na Queda de Murdock). A Viúva Negra se alia ao Demolidor para encontrar outro remanescente do projeto, alguém capaz de parar batidas cardíacas com o pensamento, e extramemente conturbado psicologicamente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "236",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 236/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Acompanha as garras",
+          "tituloOriginal": "It Comes with the Claws",
+          "quantidadePaginas": 23,
+          "resumo": "Dentes-de-Sabre caça o Demolidor para provar que é melhor que o guardião da Cozinha do Inferno, mas os instintos primitivos do vilão irão confundi-lo quanto à necessidade de seus atos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "238",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 238/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Encanamento defeituoso",
+          "tituloOriginal": "Bad Plumbing",
+          "quantidadePaginas": 23,
+          "resumo": "Um psicopata ataca pessoas na Cozinha do Inferno por julgar que poderão causar mal ao planeta, ou a ele mesmo. O Demolidor investiga o caso, mas não consegue capturá-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "239",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 239/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O rosto que você merece",
+          "tituloOriginal": "The Face You Deserve",
+          "quantidadePaginas": 23,
+          "resumo": "Atraído para um conjunto residencial por um apito dado a uma de suas amigas, o Demolidor confronta o psicopata e, com a ajuda de uma gangue mirim que o segue, ele prende o vilão e evita uma tragédia maior para os moradores do local.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "240",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 240/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Natal sombrio",
+          "tituloOriginal": "Black Christmas",
+          "quantidadePaginas": 23,
+          "resumo": "Durante o feriado de Natal, o Gaiato vai a Nova York determinado a desvendar o que motiva o Demolidor a ser um herói.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "241",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 241/1987 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O assassino do caviar",
+          "tituloOriginal": "Caviar Killer",
+          "quantidadePaginas": 22,
+          "resumo": "Um bom homem assassina seu chefe por acidente e acabar virando um mártir entre os trabalhadores na luta pela igualdade de renda. Agora, o Demolidor terá que não só resolver esse caso, como também lidar com a mídia sensacionalista que mancha sua imagem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "242",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 242/1987 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

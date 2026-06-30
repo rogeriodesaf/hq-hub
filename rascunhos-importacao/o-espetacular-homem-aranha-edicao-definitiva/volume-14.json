@@ -1,0 +1,458 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-14/es011117/178758",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-14/es011117/178758"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:08:51",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  26,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "14",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2024-10-01",
+                        "publicadoTexto":  "outubro de 2024",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  484,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  205.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/613LVxpkfpL.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 14\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 484\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 205,90\nCrédito da capa e editor\nDesenho: Keith Pollard Arte-Final: Bob McLeod Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Ainda louco... Mesmo depois de tanto tempo!",
+                                              "tituloOriginal":  "Still Crazy After All These Years",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Depois de sua última batalha contra Miss Marvel, Mac Gargan, o Escorpião, esteve vagando pelos túneis de esgoto de Nova York, alimentando seu ódio por J. J. Jameson, a quem culpa por todos os seus infortúnios! Agora, ele finalmente reencontrou o laboratório secreto do Dr. Farley Stillwell, seu criador! Novamente submetendo-se ao mesmo processo, ele ressurge com uma nova força! E, mais do que nunca, a sua busca por vingança!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "21",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 21/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Sob a luz prateada do Cavaleiro da Lua!",
+                                              "tituloOriginal":  "By the Light of the Silvery Moon Knight!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O que parecia ser um simples assalto a uma lanchonete, ou pelo menos era o que o Aranha pensava, acaba levando o Lançador de Teias a se meter em uma operação do cartel do crime organizado conhecido como Maggia! Mas, o que o nosso pobre aracnídeo também não sabia é que um outro combatente do crime mascarado também está atrás dos mafiosos: o Cavaleiro da Lua!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "22",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 22/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Quem está enterrado no túmulo de Grant?",
+                                              "tituloOriginal":  "Guess Who\u0027s Buried in Grant\u0027s Tomb!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Após se “estranharem” a princípio, o Aranha e o Cavaleiro da Lua decidem unir forças contra a Maggia, que parece ter obtido pistas sobre a identidade secreta do guerreiro prateado! Mas, pra chegarem ao fundo do caso, a dupla de heróis vai ter de passar pelo vilão Ciclone! E ter que descobrir quem é o misterioso “Chefão” do cartel do crime!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "23",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 23/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O jardim da morte",
+                                              "tituloOriginal":  "Deathgarden",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O Capitão América foi misteriosamente envenenado por uma estranha flor, criada pelo terrível Homem-Planta! Apenas o antídoto do veneno pode salvar a vida do Sentinela da Liberdade e, pra encontrá-lo, o Falcão terá que correr contra o tempo, pois o herói morrerá em poucas horas! Mas, é claro que ele terá a ajuda do espetacular Homem-Aranha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "71",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 71/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "O estalar do chicote!",
+                                              "tituloOriginal":  "Crack of the Whip!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Para deter um antigo desafeto, a Capitã Jean DeWolff pede ajuda ao Homem de Ferro e ao Homem-Aranha. O rastro do Chicote Negro leva a uma propriedade em Nova Jersey, onde uma batalha titânica se desenrolará. Conseguirá Jean encarar o próprio irmão e levá-lo à justiça?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "72",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 72/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Caos... É o Camaleão!",
+                                              "tituloOriginal":  "Chaos Is--The Chameleon!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Depois de tantos anos taxado como ameaça e perseguido pela polícia, o Amigão da Vizinhança finalmente tem todas as acusações contra ele (das mortes de Norman Osborn e do Capitão George Stacy) retiradas e é aclamado publicamente como herói. Mas o Camaleão não aceita tal coisa e vai tentar incriminá-lo mais uma vez, durante uma entrevista coletiva, como parte de um misterioso plano cujo mentor observa oculto nas sombras.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "186",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 186/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "O poder do Electro!",
+                                              "tituloOriginal":  "The Power of Electro!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Um cerco da SHIELD a uma área residencial nas imediações de uma usina elétrica deixa a imprensa em polvorosa e J. J. Jameson curioso pra saber o que está havendo! Para conseguir umas fotos pro Clarim, o Aranha resolve invadir o local e acaba se chocando com o Capitão América! Só que eles terão que unir forças para salvar a vida de um garotinho doente que foi raptado pelo famigerado Electro, antes que uma tragédia aconteça!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "187",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 187/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "A rodada do Retalho!",
+                                              "tituloOriginal":  "The Jigsaw Is Up!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Peter e Betty começam a se envolver cada vez mais (mesmo o Peter não querendo), já que ela se separou de Ned e MJ não está mais na jogada. Ao fazerem um passeio marítimo, junto com Harry, Liz, Flash e Sha-Shan, seu navio é abordado por assaltantes liderados pelo Retalho, que acaba raptando Liz e Harry! Homem-Aranha, tem que correr contra o tempo e salvá-los, antes que a traumática experiência possa afetar Harry e despertar sua identidade de Duende Verde!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "188",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 188/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Os embalos aracnídeos de sábado à noite",
+                                              "tituloOriginal":  "Spider-Man Night Fever",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Uma inesperada noite na balada numa boate com Harry, Liz, Flash e Sha-Shan acaba se tornando mais um trabalho para o Aranha, quando Peter é mais uma vez obrigado a impedir um assalto a todos os presentes no local. Enquanto isso, as tropas da Maggia continuam a agir.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "24",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 24/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "A carne putrefata de meu filho!",
+                                              "tituloOriginal":  "Carrion, My Wayward Son!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Descobrimos a identidade do Grande M, o líder supremo da Maggia: o maquiavélico Saqueador Mascarado, um velho desafeto do Demolidor! Com a ajuda de seu Tri-Androide, o vilão planeja roubar o cofre do Citicorp e só o Homem-Aranha poderá detê-lo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "25",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 25/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Meus olhos viram a glória",
+                                              "tituloOriginal":  "Mine Eyes Have Seen the Glory",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Cego pelo disparo do Saqueador Mascarado que o atingiu diretamente nos olhos, o aracnídeo agora se encontra em uma enrascada: Indefeso diante de seus inimigos, mais uma vez caçado pela polícia, acusado de assalto ao banco, mesmo após ter sido anistiado publicamente e, ainda por cima, incapaz de saber pra onde vai ou mesmo em que direção atirar sua teia, o Aranha só pode contar com a ajuda do Demolidor.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "26",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 26/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Um cego guiando outro",
+                                              "tituloOriginal":  "The Blind Leading the Blind",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Inserindo a ogiva nuclear roubada por seus capangas no corpo do Tri-Homem, o Saqueador Mascarado pretende assumir o controle de Nova York, ou irá disparar o robô em forma de foguete e reduzir a cidade a um inferno atômico! Mesmo ainda sem conseguir enxergar, o aracnídeo tem que localizar seu esconderijo, captando o sinal do rastreador-aranha que jogou em sua capa! Poderão ele e o Demolidor chegar a tempo de detê-lo, antes que seja tarde demais?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "27",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 27/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Das cinzas às cinzas!",
+                                              "tituloOriginal":  "Ashes to Ashes!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto o Aranha estava cego e enfrentando o Saqueador Mascarado, uma nova ameaça estava prestes a vir à tona! Em sua ausência, o tenebroso Carniça invadiu seu apartamento e detonou o local, ainda deixando uma mensagem sinistra escrita na parede, em que o chamava de “Parker”! Afinal, quem é esse bizarro vilão que mais parece um cadáver ambulante, cujo toque pode reduzir a pó qualquer matéria viva? E como ele conhece a identidade secreta de nosso herói?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "28",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 28/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Do pó ao pó!",
+                                              "tituloOriginal":  "Dust to Dust!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto o Aranha estava cego e enfrentando o Saqueador Mascarado, uma nova ameaça estava prestes a vir à tona! Em sua ausência, o tenebroso Carniça invadiu seu apartamento e detonou o local, ainda deixando uma mensagem sinistra escrita na parede, em que o chamava de “Parker”! Afinal, quem é esse bizarro vilão que mais parece um cadáver ambulante, cujo toque pode reduzir a pó qualquer matéria viva? E como ele conhece a identidade secreta de nosso herói?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "29",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 29/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "Secreto como um túmulo!",
+                                              "tituloOriginal":  "Secret as the Grave!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto o Tigre Branco é distraído por Dardo, o capanga do Carniça, o Lançador de Teias tem que se virar contra o fantasmagórico vilão, que nem sequer pode ser tocado sem que os dedos do aracnídeo se queimem como se tocassem ácido! Assim, o herói acaba sendo encurralado e capturado pelo mortal inimigo, quando então, ele finalmente lhe revela o motivo de seu ódio contra Peter Parker: vingar as mortes de Gwen Stacy e do Prof. Miles Warren.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "30",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 30/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Até que a morte nos separe!",
+                                              "tituloOriginal":  "Till Death Do Us Part!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Imobilizado na mesa de laboratório do mesmo local que serviu de esconderijo secreto para o Chacal, nosso herói se encontra totalmente à mercê do Carniça, seu doentio inimigo que não passa de um clone putrefato do Prof. Warren, o que explica suas memórias. Agora, a única esperança do Aranha de escapar da vingança do vilão é contar com sua extrema arrogância.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "31",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 31/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Uma aventura zoológica",
+                                              "tituloOriginal":  "A Zoo Story",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Uma nova era se inicia para Peter Parker, que se matricula na pós-graduação na Universidade Empire State e também trabalha como assistente de ensino no departamento de ciências. A primeira tarefa de Peter é assistir à palestra do Dr. Curt Connors no Zoológico do Bronx. O Dr. Connors tem se comportado de forma bastante estranha nos últimos dias, isso significa que o Lagarto fará uma aparição?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "32",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 32/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "A noite do Iguana!",
+                                              "tituloOriginal":  "Night of the Iguana!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Homem-Aranha está atolado em répteis no Zoológico do Bronx! Um novo vilão, o Iguana, lidera a revolta reptiliana e planeja sequestrar a esposa e o filho de Curt Connors! Será que o lançador de teias conseguirá frustrar os planos do Iguana? E quando o Lagarto vai aparecer?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "33",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 33/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Lagartos em teto de zinco quente!",
+                                              "tituloOriginal":  "Lizards on a Hot Tin Roof!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "É uma batalha a três entre o Lagarto, o Iguana e o escalador de paredes! Dr. Connors é a chave para a vitória! Enquanto isso, o Dr. Sloan esconde um esqueleto misterioso em seu laboratório.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "34",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 34/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Um esvoaçar de asas torpes!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Coruja volta a dar as caras, após o Demolidor acreditar que ele estava morto. E agora, ele está armando sua tão desejada vingança contra o Homem-Sem-Medo! Mas, enquanto procurava por um advogado, Peter Parker acabará se envolvendo nessa batalha pessoal entre o herói cego e seu velho inimigo.\nTitulo original: \"A Fluttering of Wings Most Foul!\".",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "73",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 73/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "Ao vivo de nova York, é sábado à noite!",
+                                              "tituloOriginal":  "Live from New York, It\u0027s Saturday Night!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Mary Jane Watson e Peter Parker têm ingressos para o Saturday Night Live! Mas antes do show começar, John Belushi recebe um pacote que contém um anel místico. O anel parece inofensivo, então John o coloca em seu dedo. No entanto, alguém deseja muito aquele anel... o Samurai de Prata! Quando Peter vê um membro da produção do Saturday Night Live sendo atacado, o Espetacular Homem-Aranha entra em ação!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "74",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 74/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "A fumaça naquele grande incêndio!",
+                                              "tituloOriginal":  "The smoke of that great burning!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Peter sai pra uma balada com MJ quando o local se torna cenário de um assalto à mão armada! Mas, isso é fichinha comparado ao que vai ter que encarar quando sair na cola dos marginais, que também cobram proteção dos comerciantes do Bronx e incendeiam os prédios pra chantageá-los! Ou seja, o Aranha vai sair da frigideira pra cair no fogo...“literalmente”! Pelo menos, ele pode contar com a ajuda de seu velho chapa Luke Cage, o Herói de Aluguel!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "75",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 75/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "Destruição sob o luar!",
+                                              "tituloOriginal":  "Mayhem by Moonlight!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto Tia May é enviada a uma clínica de repouso, nosso herói tem coisas mais importantes com que se preocupar! Tanto o ataque do Camaleão como o apagão causado por Electro podem estar de alguma forma conectados. E, quando o filho de Jameson, ainda em coma, é raptado por um misterioso cientista que quer se vingar do editor do Clarim e do Aranha, aí o bicho vai pegar!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "189",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 189/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  24,
+                                              "tituloPortugues":  "A trilha do Homem-Lobo!",
+                                              "tituloOriginal":  "In Search of the Man-Wolf!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Homem-Aranha continua sua perseguição ao Homem-Lobo por Manhattan, com a tarefa ingrata de salvar J. Jonah Jameson das garras do monstrengo. No fim, quando o Homem-Lobo se transforma de volta em John Jameson, tudo parece resolvido, mas a tradicional sorte do nosso cabeça de teia e o ódio irracional de Jameson contra o Aranha provam uma vez mais ser uma terrível combinação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "190",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 190/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  25,
+                                              "tituloPortugues":  "Procurado por assassinato: Homem-Aranha!",
+                                              "tituloOriginal":  "Wanted for Murder: Spider-Man!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O editor do Clarim Diário está furioso após a suposta morte do filho na história anteiror, e J. Jonah Jameson coloca toda a culpa no Aranha! Determinado a tomar medidas agressivas contra o lançador de teias, Jonah visita o Professor Spencer Smythe e pede que ele crie outro Esmaga-Aranhas! Ironicamente, o Professor Smythe já tem um à disposição, pronto para ser usado, mas agora é uma armadilha para Jonah... e para o Homem-Aranha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "191",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 191/1979 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  26,
+                                              "tituloPortugues":  "24 horas para o juízo-final!",
+                                              "tituloOriginal":  "24 Hours Till Doomsday!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Jonah Jameson e o Homem-Aranha algemados a uma bomba que está prestes a explodir em 24 horas! Esse é plano do moribundo Spencer Smythe! Com o tempo se esgotando, o lançador de teias e Jonah visitam o Dr. Curt Connors, no entanto, nem o bom doutor nem o esquadrão antibombas da polícia de Nova York conseguem desarmar o explosivo! E para piorar a situação, o Mosca ataca a dupla durante sua jornada pela cidade.\nÚltima aparição do professor Spencer Smythe.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "192",
+                                                                         "anoOriginal":  1979,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 192/1979 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

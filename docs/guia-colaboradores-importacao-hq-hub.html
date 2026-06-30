@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Guia rapido para colaboradores - HQ-HUB</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: #172033;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    header {
+      padding-bottom: 16px;
+      border-bottom: 3px solid #ff871f;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      color: #111827;
+    }
+
+    .subtitulo {
+      margin: 0;
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    h2 {
+      margin: 22px 0 8px;
+      color: #111827;
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    ol,
+    ul {
+      margin: 8px 0 0 22px;
+      padding: 0;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .aviso {
+      margin: 14px 0;
+      padding: 12px;
+      border-left: 5px solid #dc2626;
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+
+    .dica {
+      margin: 14px 0;
+      padding: 12px;
+      border-left: 5px solid #ff871f;
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+
+    .bloco {
+      margin: 14px 0;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+
+    .campo {
+      font-family: Consolas, "Courier New", monospace;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
+    .rodape {
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px solid #d1d5db;
+      color: #6b7280;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guia rapido para colaboradores do HQ-HUB</h1>
+    <p class="subtitulo">Como editar edicoes, preencher o cadastro visual do JSON e importar historias para o catalogo.</p>
+  </header>
+
+  <section>
+    <h2>1. Encontrar a edicao no catalogo</h2>
+    <ol>
+      <li>Abra o catalogo interno do HQ-HUB.</li>
+      <li>No campo de busca, pesquise o titulo que deseja editar.</li>
+      <li>Clique na serie interna correspondente.</li>
+      <li>Ao lado, confira as edicoes daquele titulo.</li>
+      <li>Clique em <strong>Ver detalhes</strong> na edicao que deseja editar.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>2. Editar campos basicos e capa</h2>
+    <p>Na tela de detalhes da edicao, revise e edite os campos basicos: numero, titulo, data, formato, paginas, preco, descricao e URL da capa.</p>
+    <div class="aviso">
+      <strong>Importante:</strong> nunca use URL direta da imagem do Guia dos Quadrinhos no campo de capa. O Guia costuma bloquear acesso externo a imagens. Prefira URLs de capa da Panini, Amazon ou outro site confiavel que permita carregamento fora da pagina original.
+    </div>
+    <p>Depois de editar, clique em atualizar/salvar. Se a edicao nao tiver historias ou publicacoes originais para cadastrar, isso ja resolve a manutencao basica.</p>
+  </section>
+
+  <section>
+    <h2>3. Quando usar Importacao</h2>
+    <p>Use a area <strong>Importacao</strong> quando uma edicao tiver historias internas, creditos, publicacoes originais ou varias historias que precisam ser vinculadas ao catalogo.</p>
+    <p>O formulario visual gera um JSON no formato que o HQ-HUB entende. JSON significa <em>JavaScript Object Notation</em>.</p>
+  </section>
+
+  <section>
+    <h2>4. Preencher dados da serie</h2>
+    <div class="bloco">
+      <p><span class="campo">origem.url</span>: URL da fonte consultada. Pode ser Amazon, Panini, Guia dos Quadrinhos ou outra fonte. Pode ficar em branco quando nao houver fonte.</p>
+      <p><span class="campo">serieBrasileira.titulo</span>: nome da serie no Brasil.</p>
+      <p><span class="campo">serieBrasileira.fase</span>: fase editorial, se existir.</p>
+      <p><span class="campo">serieBrasileira.editora</span>: editora brasileira, por exemplo Panini.</p>
+      <p><span class="campo">serieBrasileira.volume</span>: volume ou temporada da serie.</p>
+    </div>
+    <div class="dica">
+      O campo volume e muito importante quando existe mais de uma fase com o mesmo titulo. Exemplo: uma saga pode ter V1 e V2. Isso evita misturar edicoes de temporadas diferentes.
+    </div>
+    <p><span class="campo">totalEdicoes</span> e <span class="campo">totalHistorias</span> sao calculados automaticamente pelo formulario visual.</p>
+  </section>
+
+  <section>
+    <h2>5. Preencher a edicao</h2>
+    <p>Para cada edicao, preencha os campos disponiveis:</p>
+    <ul>
+      <li>numero da edicao;</li>
+      <li>data de publicacao e texto publicado;</li>
+      <li>editora e licenciador;</li>
+      <li>categoria, genero e status;</li>
+      <li>numero de paginas, formato e preco de capa;</li>
+      <li>URL da capa;</li>
+      <li>descricao ou sinopse.</li>
+    </ul>
+    <p>Se for cadastrar mais de uma edicao da mesma serie de uma vez, use <strong>+ Edicao</strong>.</p>
+  </section>
+
+  <section>
+    <h2>6. Preencher historias</h2>
+    <p>Se a edicao tiver mais de uma historia, preencha a primeira e clique em <strong>+ Historia</strong> para adicionar as demais.</p>
+    <p>Para cada historia, informe sempre que possivel:</p>
+    <ul>
+      <li>ordem;</li>
+      <li>titulo em portugues;</li>
+      <li>titulo original, se existir;</li>
+      <li>quantidade de paginas;</li>
+      <li>resumo, creditos e observacoes;</li>
+      <li>serie original;</li>
+      <li>numero original;</li>
+      <li>ano original;</li>
+      <li>texto da publicacao original.</li>
+    </ul>
+    <p>Para o sistema criar o vinculo de historia, os campos essenciais sao titulo em portugues, serie original e numero original.</p>
+  </section>
+
+  <section>
+    <h2>7. Gerar e importar o JSON</h2>
+    <ol>
+      <li>Clique em <strong>Atualizar JSON pelo formulario</strong>.</li>
+      <li>Revise o JSON gerado no campo de texto.</li>
+      <li>Clique em <strong>Importar para o catalogo</strong>.</li>
+      <li>Aguarde o processamento.</li>
+      <li>Confira o resumo de edicoes criadas, edicoes atualizadas, historias criadas e vinculos criados.</li>
+    </ol>
+    <p>Quando o processamento termina sem erro, a edicao fica incluida ou atualizada no catalogo do HQ-HUB.</p>
+  </section>
+
+  <section>
+    <h2>Checklist rapido</h2>
+    <ul>
+      <li>Pesquise antes para evitar duplicidade.</li>
+      <li>Confira se a serie correta e o volume correto foram usados.</li>
+      <li>Use capa de Panini, Amazon ou fonte que permita carregamento externo.</li>
+      <li>Evite imagem direta do Guia dos Quadrinhos para capa.</li>
+      <li>Use Importacao quando houver historias/publicacoes originais.</li>
+      <li>Atualize o JSON pelo formulario antes de importar.</li>
+    </ul>
+  </section>
+
+  <p class="rodape">HQ-HUB - Guia interno para colaboradores. Gerado em 30/06/2026.</p>
+</body>
+</html>

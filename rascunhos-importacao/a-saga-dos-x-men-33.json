@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-33.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-33/sa011129/183519",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-33/sa011129/183519"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "33",
+      "tituloChamada": "",
+      "dataPublicacao": null,
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61IkepOWzxL._SY385_.jpg",
+      "descricao": "Programa de extermínio!\nCapa original: Uncanny X-Men, The (1963) n° 271\n\nContinua a saga Programa de Extermínio! Tempestade cai em uma perigosa armadilha enquanto Wolverine, Psylocke e Jubileu correm contra o tempo para resgatar seus amigos capturados. E começa o julgamento do século: Genosha coloca os X-Men no tribunal!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Irmandade",
+          "tituloOriginal": "X-Tinction Agenda, Part 3: Brotherhood",
+          "quantidadePaginas": 24,
+          "resumo": "Título original: \"\"X-Tinction Agenda, Part 3: Brotherhood\"\".\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1990,
+            "texto": "X-Factor (1986) n° 60/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-60/288/7133",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Traição!",
+          "tituloOriginal": "X-Tinction Agenda (Part 6)",
+          "quantidadePaginas": 22,
+          "resumo": "+ 1 página de recapitulação e nome da história\n\nTítulo original: \"X-Tinction Agenda (Part 6)\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1990,
+            "texto": "X-Factor (1986) n° 61/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-61/288/7134",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ponto de conflito",
+          "tituloOriginal": "X-Tinction Agenda (part 4): Flashpoint",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"X-Tinction Agenda (part 4): Flashpoint\".\n\nWolverine, Psylocke e Jubileu partem para o resgate em Genosha. Mesmo salvando Rictor e Dinamite, Logan e Betsy são capturados pelos Magistrados.\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "271",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 271/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-271/264/6310",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Crimes capitais",
+          "tituloOriginal": "X-Tinction Agenda (part 7): Capital Crimes",
+          "quantidadePaginas": 23,
+          "resumo": "Título original: \"X-Tinction Agenda (part 7): Capital Crimes\".\n\nCom todos os grupos mutantes a sua mercê,Hodge começa sua vingança, destruindo o braço biônico de Cable e colocando Arcanjo contra Wolverine. Com a astúcia de Gambit, os heróis escapam e preparam o contra ataque.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "272",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 272/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-272/264/6311",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Unidos venceremos",
+          "tituloOriginal": "United We Stand (X-Tinction Agenda, Pt. 5)",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"United We Stand (X-Tinction Agenda, Pt. 5)\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1990,
+            "texto": "New Mutants, The (1983) n° 96/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-96/191/4845",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A vingança de Briggs",
+          "tituloOriginal": "A vingança de Briggs",
+          "quantidadePaginas": 12,
+          "resumo": "Primeiro trabalho de Jim Lee, à frente dos X-Men.\n\n12 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Classic X-Men (1986)",
+            "numeroOriginal": "39",
+            "anoOriginal": 1989,
+            "texto": "Classic X-Men (1986) n° 39/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/classic-x-men-(1986)-n-39/56/2397",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

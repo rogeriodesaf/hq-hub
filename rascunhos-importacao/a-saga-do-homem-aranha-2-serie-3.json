@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-3/sa011202/185102",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-3/sa011202/185102"
+    ],
+    "geradoEm": "2026-06-27T00:45:09",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-06-01",
+      "publicadoTexto": "junho de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_7at3fpr76l1lh2lle360e6sd1s/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 3\nPublicado em: junho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Josef \"Joe\" Rubinstein Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Noite quente no necrotério!",
+          "tituloOriginal": "A Hot Time In the Old Morgue Tonight",
+          "quantidadePaginas": 22,
+          "resumo": "O astuto Resposta pressiona o Homem-Aranha ao extremo, forçando-o a escolher entre salvar a Gata Negra ou desarmar uma bomba mortal plantada pelo Rei do Crime.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "93",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 93/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Adeus às armas",
+          "tituloOriginal": "My Sword I Lay Down!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "144",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 144/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Como vai segurá-los no necrotério depois de conhecerem Nova York?",
+          "tituloOriginal": "How Ya Gonna Keep 'Em Down at the Morgue After They've Seen NYC?",
+          "quantidadePaginas": 22,
+          "resumo": "O Rei do Crime reativa o imortal Cabelo de Prata para atrapalhar a aliança entre Homem-Aranha e Gata Negra, obrigando-os a enfrentar esse adversário invencível.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "94",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 94/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A Adaga no fim do túnel!",
+          "tituloOriginal": "The Dagger At the End of the Tunnel!",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de ser brutalmente derrotado por Cabelo de Prata, o Homem-Aranha e a Gatar Negra juntam-se a Manto e Adaga para impedir que o vilão capture Adaga e acabe com sua luz.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "95",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 95/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Garoto da cidade",
+          "tituloOriginal": "Hometown Boy",
+          "quantidadePaginas": 22,
+          "resumo": "0 Homem-Aranha e o Homem de Ferro se unem contra a ameaça de...Magma!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "145",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 145/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Apresentando... o Puma!",
+          "tituloOriginal": "Introducing... Puma!",
+          "quantidadePaginas": 22,
+          "resumo": "Depois que o Homem-Aranha ataca um de seus armazéns, o Rosa contrata o Puma para matar o herói.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "256",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 256/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

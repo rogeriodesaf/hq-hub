@@ -1,0 +1,88 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-15.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-15/sa011129/174367",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-15/sa011129/174367"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 3,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "15",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-08-31",
+      "publicadoTexto": "agosto de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.Dly5pjK8nRrIt01ZD0SPdgAAAA?w=192&h=288&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Apresentando o novíssimo X-Men Longsthot!\nCapa original: X-Men Annual (1970) n° 10",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O bote da serpente",
+          "tituloOriginal": "O bote da serpente",
+          "quantidadePaginas": 41,
+          "resumo": "Longshot encontra Rita Ricochete em estado catatônico, e o Doutor Estranho promete ajudá-la. Ciente da existência de Mojo, ele decide enfrentá-lo ao lado de Quark (um escravo a exemplo dele). Mojo levantou uma espécie de catedral para ser adorado pelos humanos. Agora Longshot luta contra Mojo e Espiral e mantém a fé na recuperação de Rita.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1986,
+            "texto": "Longshot (1985) n° 6/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-6/154/4474",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Porque nós fazemos as coisas que fazemos?",
+          "tituloOriginal": "Porque nós fazemos as coisas que fazemos?",
+          "quantidadePaginas": 48,
+          "resumo": "Psylocke é capturada por Mojo e forçada a ajuda num plano de transformar os Novos Mutantes numa equipe adulta a seu dispor.\n\nOBS: Primeira aparição de Psylocke na Marvel dos EUA. Ela apareceu anteriormente na Marvel UK.",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants Annual, The (1984)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1986,
+            "texto": "New Mutants Annual, The (1984) n° 2/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-annual-the-(1984)-n-2/192/4850",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Performance",
+          "tituloOriginal": "Performance",
+          "quantidadePaginas": 42,
+          "resumo": "Mojo usa Longshot para transformar os X-Men em crianças e aliciá-los para trabalhar para ele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1986,
+            "texto": "X-Men Annual (1970) n° 10/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-10/265/6590",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

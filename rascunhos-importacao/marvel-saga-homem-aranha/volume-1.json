@@ -1,0 +1,170 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-1/ma011173/153439",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-1/ma011173/153439"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:56:53",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  8,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "1",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2020-07-01",
+                        "publicadoTexto":  "julho de 2020",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  212,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  19.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.nPzTIbtlHG9R2hR_v3IcdgAAAA?w=192\u0026h=290\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 1\nPublicado em: julho de 2020\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 212\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 19,90\nCrédito da capa e editor\nDesenho: J. Scott Campbell - ‘Jeffery Scott’ Arte-Final: Tim Townsend Cores: Justin Ponsor Editor: Fernando Lopes - ‘Fl’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Transformações (literais ou não)",
+                                              "tituloOriginal":  "Transformations, Literal \u0026 Otherwise",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Uma misteriosa figura aparece em Nova York, exibindo poderes similares aos do Homem-Aranha. Quem será esse homem e quem está por trás dele? Como se não bastasse, um mal ancestral chegou aos Estados Unidos em busca de Peter Parker.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "30",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 30/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Volta ao lar",
+                                              "tituloOriginal":  "Coming Home",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Peter vira o professor de Ciências em Midtown School.\nPrêmios: Eisner - Melhor história serializada - Estados Unidos 2002.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "31",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 31/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "A enorme e sombria pizza da alma",
+                                              "tituloOriginal":  "The Long, Dark Pizza of the Soul",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Origem de Ezekiel.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "32",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 32/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Perseguidor implacável",
+                                              "tituloOriginal":  "All Fall Down",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batalha do Homem-Aranha contra um inimigo milenar: Morlun.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "33",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 33/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Na mira do assassino",
+                                              "tituloOriginal":  "Meltdown",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Após pedir auxílio a Ezekiel, o Homem-Aranha continua sua luta com Morlun.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "34",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 34/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Revelações",
+                                              "tituloOriginal":  "Coming Out",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Tia May descobre que Peter é o Homem-Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "35",
+                                                                         "anoOriginal":  2001,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 35/2001 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Interlúdio",
+                                              "tituloOriginal":  "Interlude",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Durante anos, Peter Parker manteve a vida dupla como Homem-Aranha oculta de sua tia May. Quando esse segredo é finalmente revelado, Peter descobre que May é bem mais forte do que ele jamais poderia imaginar. Além disso, os esforços do herói para recuperar a confiança da esposa, Mary Jane, atingem um obstáculo inesperado devido à interferência de seu antigo oponente, o Doutor Octopus.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "37",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 37/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "A conversa",
+                                              "tituloOriginal":  "The Conversation",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "38",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 38/2002 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

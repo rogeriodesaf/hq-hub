@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-1/ho011206/187622",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-1/ho011206/187622"
+    ],
+    "geradoEm": "2026-06-26T23:58:19",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Homem-Aranha: A Saga do Clone - Ben Reilly",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Um novo ciclo!",
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "março de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 140,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 29.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_dkl71795cp26r6j94k3iet0h1i/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone - Ben Reilly n° 1\nPublicado em: março de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 140\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 29,90\nCrédito da capa e editor\nArte: Steven Butler Cores: Bongotone Editor: Yuri A. O. Primitz\nMortalidade virtual - Parte 1: Há uma nova aranha na cidade",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Mortalidade virtual - Parte 1: Há uma nova aranha na cidade",
+          "tituloOriginal": "By My Hand, Mary Jane Must Die",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Scarlet Spider (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Scarlet Spider (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Mortalidade virtual - Parte 2: Violado pelo virtual",
+          "tituloOriginal": "Violated by the Virtual",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Scarlet Spider, The (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Scarlet Spider, The (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Mortalidade virtual - Parte 3: O homem da máfia",
+          "tituloOriginal": "To Thine Own Self...",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Scarlet Spider (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Scarlet Spider (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Mortalidade virtual - Parte 4: Entre a cruz e o disco rígido",
+          "tituloOriginal": "Between A Rock and a Hard-Drive!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spectacular Scarlet Spider (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Spectacular Scarlet Spider (1995) n° 1/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Você diz que quer uma evolução",
+          "tituloOriginal": "You Say You Want An Evolution",
+          "quantidadePaginas": 54,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Scarlet Spider Unlimited (1995)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Scarlet Spider Unlimited (1995) n° 1/1995 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

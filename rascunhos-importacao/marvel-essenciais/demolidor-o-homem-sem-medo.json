@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "tmp-marvel-essenciais-3.txt",
+    "url": "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-o-homem-sem-medo/ma011185/159174",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-o-homem-sem-medo/ma011185/159174"
+    ],
+    "geradoEm": "2026-06-27T11:52:52",
+    "gerador": "robo_importador_texto.py + cabecalho sintetico para edicao unica"
+  },
+  "serieBrasileira": {
+    "titulo": "Marvel Essenciais: Demolidor - O Homem Sem Medo",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-05-01",
+      "publicadoTexto": "maio de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Edição única",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 62.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.ghd9EBFWXbHDIYnX1NcPfQHaLQ?w=192&h=292&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Marvel Essenciais: Demolidor - O Homem Sem Medo n? 1\nPublicado em: maio de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Edição única\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 62,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Al Williamson Cores: Christie \"Max\" Scheele Editor: Pedro Catarino\nO homem sem medo - Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O homem sem medo - Parte um",
+          "tituloOriginal": null,
+          "quantidadePaginas": 27,
+          "resumo": "Matt Murdock é um filho dedicado que espera orgulhar seu pai, mas seu comportamento o leva a ser vítima de valentões da escola e ele espera revidar, mas graças aos conselhos do pai, ele se compromete ainda mais com os estudos até que um ato de heroísmo o leva à cegueira e traz superpoderes aos sentidos que restaram.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: The Man Without Fear (1993)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: The Man Without Fear (1993) n° 1/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O homem sem medo - Parte dois",
+          "tituloOriginal": null,
+          "quantidadePaginas": 32,
+          "resumo": "Após o acidente, Matt passa a treinar com Stick, que também é cego e se prepara para um grande confronto, no qual precisará de toda a ajuda possível. No entanto, Matt tem o pai assassinado e ele decide vingar sua morte, desapontando Stick. Já na faculdade, Matt faz amizade com Foggy e encontra a misteriosa Elektra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: The Man Without Fear (1993)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: The Man Without Fear (1993) n° 2/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O homem sem medo - Parte três",
+          "tituloOriginal": null,
+          "quantidadePaginas": 32,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: The Man Without Fear (1993)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: The Man Without Fear (1993) n° 3/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O homem sem medo - Parte quatro",
+          "tituloOriginal": null,
+          "quantidadePaginas": 27,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: The Man Without Fear (1993)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: The Man Without Fear (1993) n° 4/1994 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O homem sem medo - Parte cinco",
+          "tituloOriginal": null,
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: The Man Without Fear (1993)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: The Man Without Fear (1993) n° 5/1994 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

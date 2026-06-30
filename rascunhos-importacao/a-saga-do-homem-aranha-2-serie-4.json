@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-4/sa011202/185341",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-4/sa011202/185341"
+    ],
+    "geradoEm": "2026-06-27T00:45:10",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-07-01",
+      "publicadoTexto": "julho de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_a8a9f5gqs50rp4jvearpprqp78/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 4\nPublicado em: julho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Josef \"Joe\" Rubinstein Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Nas garras do... Puma!",
+          "tituloOriginal": "Beware the Claws of Puma!",
+          "quantidadePaginas": 22,
+          "resumo": "Peter volta ao seu apartamento, ferido. Lá, ele é surpreendido por Mary Jane e esta acaba presenciando um novo ataque do vilão. Ao final, ela revela que sempre soube a identidade secreta de Peter.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "257",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 257/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O segredo sinistro do novo traje do Homem-Aranha!",
+          "tituloOriginal": "The Sinister Secret of Spider-Man's New Costume!",
+          "quantidadePaginas": 23,
+          "resumo": "O Homem-Aranha finalmente leva seu novo uniforme para ser analisado por Reed Richards, e acaba descobrindo se tratar de um simbionte alienígena. E Mary Jane retorna para discutir sua descoberta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "258",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 258/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ídolo heroico!",
+          "tituloOriginal": "Hero Worship!",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Aranha e o Nômade estão perseguindo um garoto ladrão que está morrendo de vontade de se juntar a uma gangue quando encontram o Treinador recrutando capangas para o misterioso Abade Negro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "146",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 146/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Recordar é viver!",
+          "tituloOriginal": "Memory Lane!",
+          "quantidadePaginas": 29,
+          "resumo": "Apresentando uma retrospectiva da juventude da Tia May, enquanto ela é assombrada hoje por um antigo amor e um segredo do seu passado! Como seu sobrinho lançador de teias a salvará dos perigos externos e internos?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 4/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Gata e rato",
+          "tituloOriginal": null,
+          "quantidadePaginas": 12,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man Annual (1979)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man Annual (1979) n° 4/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Relembrando todos os meus passados!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": "Após revelar que sempre soube que Peter é o Homem-Aranha, Mary Jane conta um pouco de sua história de vida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "259",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 259/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

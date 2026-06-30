@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-13/sa011202/189304",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-13/sa011202/189304"
+    ],
+    "geradoEm": "2026-06-27T00:45:24",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-04-01",
+      "publicadoTexto": "abril de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 136,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_rmeq7s41sl6tj9r2u4h6taj67e/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 13\nPublicado em: abril de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 136\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Rich Buckler Editor: Erick Garcia\nPecado original",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Pecado original",
+          "tituloOriginal": "Original Sin",
+          "quantidadePaginas": 22,
+          "resumo": "Ele é o Devorador de Pecados, o homem que toma os pecados do mundo para si matando todo ímpio que vê - mas o assassino abraça mais do que pode quando tira a vida da capitã de polícia Jean DeWolff, uma amiga do Homem-Aranha. Como o herói pode perseguir um vilão que tem todos como alvo para onde quer que vá?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "107",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 107/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O pecado do orgulho",
+          "tituloOriginal": "Sin of Pride",
+          "quantidadePaginas": 22,
+          "resumo": "Paul Kersey (da série de filmes Desejo de Matar) aparece na página 32.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "108",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 108/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Aquele que não tiver pecado",
+          "tituloOriginal": "He Who Is Without Sin",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "109",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 109/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lembrando todos meus pecados",
+          "tituloOriginal": "All May Sins Remembered",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 110/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Ponto de vista",
+          "tituloOriginal": "Point of View",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 13/1986 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

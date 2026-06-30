@@ -1,0 +1,42 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/biblioteca-mauricio-de-sousa-monica-n-4/mo011138/175261",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/biblioteca-mauricio-de-sousa-monica-n-4/mo011138/175261"
+    ],
+    "geradoEm": "2026-06-29T00:00:00",
+    "gerador": "codex_importacao_manual"
+  },
+  "serieBrasileira": {
+    "titulo": "Biblioteca Mauricio de Sousa: Monica",
+    "fase": "1973",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 0,
+  "avisos": [
+    "Capa informada manualmente pelo usuario.",
+    "Historias internas nao foram detalhadas neste rascunho."
+  ],
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-11-01",
+      "publicadoTexto": "novembro de 2023 - 1973",
+      "editora": "Panini",
+      "licenciador": "Mauricio de Sousa",
+      "categoria": "Album de Luxo",
+      "genero": "Infantil",
+      "status": "Em circulacao",
+      "numeroPaginas": 768,
+      "formato": "Album de Luxo (19 x 28 cm)",
+      "precoCapa": 249.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.MsBCC8fIEB3MTtrv80NCjQAAAA?w=192&h=277&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Publicado em: novembro de 2023 - 1973\nEditora: Panini\nLicenciador: Mauricio de Sousa\nCategoria: Album de Luxo\nGenero: Infantil\nStatus: Em circulacao\nNumero de paginas: 768\nFormato: (19 x 28 cm)\nColorido/Capa dura\nPreco de capa: R$ 249,90\nFonte: Guia dos Quadrinhos",
+      "historias": []
+    }
+  ]
+}

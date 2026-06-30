@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-15/sa011202/189460",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-15/sa011202/189460"
+    ],
+    "geradoEm": "2026-06-27T00:45:42",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-06-01",
+      "publicadoTexto": "junho de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_f2er869igl33l1robc37f3c45l/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 15\nPublicado em: junho de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Tom Morgan Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Desmascarado",
+          "tituloOriginal": "Unmasked!",
+          "quantidadePaginas": 22,
+          "resumo": "O Duende Macabro é desmascarado durante a batalha contra o Aranha, mas escapa. Ao visitar Sha Shan no hospital, Flash Thompson dá uma entrevista atacando o Duende. Por fim herói e vilão voltam a se confrontar e, após uma aparente vitória, Peter encontra Flash vestindo o uniforme do inimigo (mas tudo não passa de uma armação do verdadeiro Duende).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "276",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 276/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Reféns",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "INÉDITA no Brasil! Publicada aqui pela primeira vez!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "113",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 113/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "As regras do jogo",
+          "tituloOriginal": "Rules of the game!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "277",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 277/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Nem tudo que reluz...",
+          "tituloOriginal": "All That Glitters",
+          "quantidadePaginas": 22,
+          "resumo": "Peter Parker enfrenta um dilema moral: vender ou não o bloco de notas de ouro de Beyonder, que pode resolver diversos aspectos de sua vida? Enquanto isso, a tentativa do Raposa Negra de roubar o Olho da Carnélia é frustrada pelo Homem-Aranha, que, ao seguir o ladrão, encontra o corpo de seu parceiro morto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 14/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Caça ao Raposa!",
+          "tituloOriginal": "Fox Hunt",
+          "quantidadePaginas": 22,
+          "resumo": "Durante a perseguição ao Raposa Negra, o Homem-Aranha se depara com o Chance, que se revela o verdadeiro assassino do receptador de jóias. Após a fuga do vilão, os dois se enfrentam novamente e o aracnídeo leva a melhor. Peter decide vender o bloco de notas de ouro e usa dinheiro para pagar a conta do hospital de Nathan e descobre que Mary Jane mandou arrumar seu apartamento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 15/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A chave",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "INÉDITA no Brasil! Publicada aqui pela primeira vez!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "114",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 114/1986 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

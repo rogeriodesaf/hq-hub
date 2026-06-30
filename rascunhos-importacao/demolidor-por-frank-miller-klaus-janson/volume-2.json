@@ -1,0 +1,202 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-2/de011116/120966",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-2/de011116/120966"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:46:13",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Demolidor Por Frank Miller \u0026 Klaus Janson",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  10,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "2",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2015-12-01",
+                        "publicadoTexto":  "dezembro de 2015",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Série completa",
+                        "numeroPaginas":  276,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  75.0,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.UuTi2xBwmri6gs_KQBKNRQHaLa?w=192\u0026h=296\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Demolidor Por Frank Miller \u0026 Klaus Janson n° 2\nPublicado em: dezembro de 2015\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Série completa\nNúmero de páginas: 276\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 75,00\nCrédito da capa e editor\nArte: Frank Miller Editor: Paulo França - ‘Pf’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "O terror das mulheres",
+                                              "tituloOriginal":  "Lady Killer",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Após um incidente, o Gladiador está em processo de julgamento e Matt Murdock é seu advogado. Porém, um sósia do vilão vem aterrorizando mulheres das redondezas com sua máscara de couro, e testemunhas apontam Melvin como responsável. Uma delas acabou ficando paraplégica, mas se negou a testemunhar o fato. Agora, o Demolidor tem a chance de pegar o maníaco, mas vai precisar de testemunhos para mandá-lo à cadeia e impedir que o Gladiador acabe por lá.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "173",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 173/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "O assassinato de Matt Murdock",
+                                              "tituloOriginal":  "The Assassination of Matt Murdock",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Tentáculo a mando do Rei do Crime tem um novo alvo, Matt Murdock! Elektra fica sabendo dos planos do grupo e vai a Nova York prestar apoio. Matt está mal no caso do Gladiador, Foggy abandonou a sociedade por problemas financeiros. Atacado em casa, Murdock consegue sobreviver e recebe ajuda de desconhecido. O Gladiador é transferido para proteção, mas o Tentáculo o encontra, Demolidor e Elektra fazem o mesmo, e se unem contra os ninjas.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "174",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 174/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Desafio",
+                                              "tituloOriginal":  "Gantlet",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "O novo alvo do Tentáculo é Elektra! O Demolidor foi vítima de uma bomba e perdeu seu radar, agora o herói está vulnerável. Mesmo assim ele protege Foggy e vai atrás de Elektra para apoiá-la contra o Tentáculo. Elektra se degladia com Kirigi, um ninja que dizem ser imortal, o Demolidor tem dificuldades contra os ninjas. Foggy tem de desdobrar no tribunal no caso do Gladiador. A luta com Kirigi e o Tentáculo foi direcionada por pistas plantadas pelo Rei do Crime.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "175",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 175/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Caçadores",
+                                              "tituloOriginal":  "Hunters",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Sem seu radar o Demolidor só vê uma saída encontrar Stick! Heather decide faze-lo por conta própria, assim como Elektra que segue o Demônio e Tucão! Tucão percebeu que o Demolidor está diferente, lento e vulnerável e conseguiu um traje para enfrentá-lo. Kirigi conseguiu sobreviver a Elektra, mesmo sendo transpassado por uma espada. Agora, ele está no encalço da ninja para se vingar. Em uma viela eles decidiram quem vive e quem morre.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "176",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 176/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Onde os anjos temem caminhar",
+                                              "tituloOriginal":  "Where Angels Fear to Tread",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "Stick revela ao Demolidor que ele não é o único com um radar de morcego. E agora, o velho mestre ajudará o herói cego a recuperar esse sentido, num jogo de vida ou morte... O Rei do Crime está financiando e tentando plantar um homem como Prefeito de Nova York afim de lhe dar respaldo. Jameson quer Foggy e Murdock como seu advogado. O Rei fica sabendo dos feitos de Elektra e quer contratá-la.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "177",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 177/1981 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Trilha de papel",
+                                              "tituloOriginal":  "Paper Chase",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  "O candidato do Rei a presidência Cherryh teve uma série de matérias de oposição no Clarim, Jameson foi processado por danos morais e contratou Foggy e Murdock. Uma testemunha que diz ter cheques que ligam o Rei a Cherryh aparece no caso. Temendo pela segurança de Murdock, Foggy contrata Luke Cage e Punho de Ferro como guarda-costas. A testemunha está em perigo, e na verdade ele não tem cheque algum é apenas uma maneira de levantar dinheiro para ajudar sua irmã.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "178",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 178/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Adagas!",
+                                              "tituloOriginal":  "Spiked!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Ben Urich, renomado repórter, tem a matéria dos sonhos: a identidade do Demolidor. Agora ele está no caso do Rei e o envolvimento deste com Cherryh. Porém, um de seus informantes é assassinado do seu lado, na cadeira do cinema, ponto de encontro para troca de informações. O Demolidor sabe que a assassina é Elektra, que agora trabalha para o Rei. Atraído pela moça, nosso herói a combate e cai. Urich, que presencia tudo, é acertado mortalmente por uma adaga.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "179",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 179/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Condenados",
+                                              "tituloOriginal":  "The Damned",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Urich conseguiu uma foto de uma mendiga que o deixou pensativo, realmente é uma mulher importante: Vanessa Fisk. Ela vive nos subterrâneos com os mendigos servindo alguém que chamam de Rei. Jameson retira as acusações contra Cherryh, o gângster que está prestes a se tornar prefeito de Nova York financiado pelo Rei. Demolidor vai até os subterrâneos resgatar Vanessa. Ele intimida o Rei, diz estar com sua esposa, pede a desistência de Cherryh da candidatura.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "180",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 180/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Última cartada",
+                                              "tituloOriginal":  "Last Hand",
+                                              "quantidadePaginas":  38,
+                                              "resumo":  "Mercenário foge da prisão e vai ao encalço de Elektra, para eliminá-la e se tornar novamente o assassino pessoal do Rei do Crime. Ao encontrá-la, eles travam uma feroz batalha, que resulta na morte da ninja. O assassino também resolve ir atrás do Demolidor para se vingar, mas não tem a mesma sorte: durante a luta, ele acaba caindo de cima de um fio elétrico e fica tetraplégico.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "181",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 181/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Ela está viva",
+                                              "tituloOriginal":  "She\u0027s Alive",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Matt Murdock, movido por um misto de esperança e desespero se lança no submundo do crime à procura de alguma pista que o leve a crer que Elektra ainda está viva. Atitudes inesperadas fazem os seus amigos acreditarem que ele está enlouquecendo, pensamento também compartilhado pelo Rei do Crime.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "182",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 182/1982 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

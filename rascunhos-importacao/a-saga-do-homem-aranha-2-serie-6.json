@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-6/sa011202/185971",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-6/sa011202/185971"
+    ],
+    "geradoEm": "2026-06-27T00:45:14",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-09-01",
+      "publicadoTexto": "setembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_mmhetp1t5d2v19vqjegf7fiq60/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 6\nPublicado em: setembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Charles Vess Cores: Charles Vess Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O desafio do Duende Macabro",
+          "tituloOriginal": "The Challenge of Hobgoblin!",
+          "quantidadePaginas": 22,
+          "resumo": "Trajando novamente o seu tradicional uniforme azul e vermelho, o espetacular Aracnídeo sai à caça do Duende Macabro, que quer derrubar o Rei do Crime e dominar o submundo. Para desespero do Aranha, Macabro ainda tem uma vingança pessoal contra o filho do \"falecido\" Duende Verde: Harry Osborn!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "260",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 260/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os pecados do meu pai",
+          "tituloOriginal": "The Sins of my Father!",
+          "quantidadePaginas": 22,
+          "resumo": "A comando do Rosa o Duende Macabro sequestra Liz Allen e Mary Jane.\nO simbionte consegue escapar do edifício do Quarteto Fantástico.\nO espetacular Aracnídeo sai à caça do Duende Macabro, e acaba salvando Liz Allen e Mary Jane Watson.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "261",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 261/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Epílogo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 2,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "274",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 274/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A Hora da Verdade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Homem-Aranha enfrenta o vilão Mancha enquanto o Rei do Crime manipula a Gata Negra para semear desconfiança entre eles.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "98",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 98/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Homem Incandescente",
+          "tituloOriginal": "Trade Secret",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "149",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 149/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Segredo profissional",
+          "tituloOriginal": "Trade Secret",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "262",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 262/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Aranha na caçapa do canto!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Homem-Aranha enfrenta o vilão Mancha — o cientista Jonathan Ohnn transformado em portais dimensionais — em um combate que desafia seus sentidos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "99",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 99/1985 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

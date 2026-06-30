@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": "tmp-marvel-essenciais-1.txt",
+    "url": "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-a-queda-de-murdock/de011153/162996",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-a-queda-de-murdock/de011153/162996"
+    ],
+    "geradoEm": "2026-06-27T11:52:52",
+    "gerador": "robo_importador_texto.py + cabecalho sintetico para edicao unica"
+  },
+  "serieBrasileira": {
+    "titulo": "Marvel Essenciais: Demolidor - A Queda de Murdock",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-02-01",
+      "publicadoTexto": "fevereiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Edição única",
+      "numeroPaginas": 196,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 89.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.JUqx6Hg9VvXCps-uaGGvQwHaHa?w=192&h=192&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Marvel Essenciais: Demolidor - A Queda de Murdock n? 1\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Edição única\nNúmero de páginas: 196\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 89,90\nCrédito da capa e editor\nArte: David Mazzucchelli Cores: Richmond Lewis Editor: Paulo França - ‘Pf’\nApocalipse",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Apocalipse",
+          "tituloOriginal": "Apocalypse",
+          "quantidadePaginas": 24,
+          "resumo": "Karen Page, a namorada de nosso herói, é viciada em heroína. Em troca de uma dose, ela vende a identidade secreta do Demolidor. A informação logo chega ao Rei do Crime, que então dedica todos os seus esforços para derrubar Murdock moral e fisicamente, ao ponto mais baixo que um ser humano pode chegar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "227",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 227/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Purgatório",
+          "tituloOriginal": "Purgatory",
+          "quantidadePaginas": 22,
+          "resumo": "Murdock perdeu a casa (queimada pelo Rei), teve a licença de direito caçada, e está vivendo com dificuldades. Fora de si, ele ameaça Nelson (que está com Glorianna), fala sozinho e culpa o Rei por tudo. Debilitado, ele vai a mansão do Rei, e literalmente é surrado. Depois, jogado para morrer afogado, enquanto o Demolidor é incriminado. O repórter Urich quer fazer uma matéria para limpar o nome de Murdock. Karen Page tenta encontrar nosso herói para protege-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "228",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 228/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Pária!",
+          "tituloOriginal": "Pariah",
+          "quantidadePaginas": 22,
+          "resumo": "Matt conseguiu sobreviver a armadilha do Rei e está morando nas ruas. Ele acaba esfaqueado por Tucão. Véspera de Natal e Karen Page encontra um homem disposto a leva-la pra os EUA. Foggy se envolve com Glorianna. Urich encontra o policial que incrimInou Matt e caçaram a licença dele. O homem se vendeu ao Rei para tentar salvar o filho que sofria do coração e acabou morrendo, mas a enfermeira matou o policial e intimou Urich: Se falar algo sobre Murdock ele morre.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "229",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 229/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Renascido",
+          "tituloOriginal": "Born Again",
+          "quantidadePaginas": 22,
+          "resumo": "Acolhido em uma igreja por sua mãe, Matt Murdock tem febres e está fraco. Enquanto isso, Karen volta à Cozinha do Inferno e consegue contato com Foggy. Ele a convence a ficar para encontrar Murdock, desaparecido há 11 dias. O Rei, por sua vez, contrata o militar Bazuca. No Clarim, como se não bastasse ser chamado de covarde pelo editor Jameson, o repórter Urich é ameaçado pelos capangas do Rei.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "230",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 230/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Salvo",
+          "tituloOriginal": "Saved",
+          "quantidadePaginas": 23,
+          "resumo": "Matt volta a treinar e está mais confiante. Urich fez uma reportagem expondo o Rei e é caçado, em seu apartamento sua esposa quase morre enforcada, não fosse a intervenção de Matt. Melvin Potter fabrica um uniforme do Demolidor para o Rei, o vilão quer incriminá-lo, mas Matt impede. Ele reencontra Karen Page fugindo de um homem violento que quer dominá-la a força.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "231",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 231/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Por Deus e pela Pátria",
+          "tituloOriginal": "God and Coutry",
+          "quantidadePaginas": 22,
+          "resumo": "Usando sua influência o Rei trás para a Cozinha do Inferno, Bazuca, um homem perturbado mentalmente com questões de patriotismo é outra cobaia do soro do supersoldado. Motivado pelo Rei ele quer matar todos por acreditar não serem patriotas. Urich tem uma entrevista com a enfermeira que tentou matar sua esposa, e quase morre nas mãos de um falso policial. Matt recuperado veste novamente o traje do Demolidor, renascido, o homem está mais frio e calculista.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "232",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 232/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Armagedom!",
+          "tituloOriginal": "Armageddon",
+          "quantidadePaginas": 30,
+          "resumo": "O Demolidor resolve bater de frente com Bazuca um louco que está destruindo a Cozinha do Inferno com Napalm. Ele é agente do governo e isso leva os Vingadores a impedir qualquer ato brusco do Homem sem Medo. O Capitão América acessa os dados do computador do governo para descobrir que o homem participou do projeto do Supersoldado. A ligação do Rei com Bazuca é descoberta e aos poucos ele vai perdendo a credibilidade sendo considerado pela sociedade um criminoso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "233",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 233/1986 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

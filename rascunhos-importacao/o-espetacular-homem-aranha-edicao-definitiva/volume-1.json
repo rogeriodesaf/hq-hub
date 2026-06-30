@@ -1,0 +1,404 @@
+{
+  "origem": {
+    "arquivoEntrada": "docs\\importacao\\rascunhos\\espetacular-edicao-definitiva-robo.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-1/es011117/143932",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-1/es011117/143932"
+    ],
+    "geradoEm": "2026-06-27",
+    "gerador": "robo_importador_texto.py + recorte de rascunho existente"
+  },
+  "serieBrasileira": {
+    "titulo": "O Espetacular Homem-Aranha - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 28,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2019-02-01",
+      "publicadoTexto": "fevereiro de 2019",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 564,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 163.0,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_vbbksaaqkt7bf3d3t4glo2au4a/-S265-FWEBP",
+      "descricao": "Espetacular Homem-Aranha, O - Edição Definitiva n° 1\nReimpressão em maio/2021 - R$ 199,90\nReimpressão em janeiro/2025 - R$ 240,90\nPublicado em: fevereiro de 2019\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulaçãoNúmero de páginas: 564\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 163,00\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Steve Ditko Cores: Stan Goldberg Editor: Levi Trindade, Roberto Guedes\nHomem-Aranha!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Homem-Aranha!",
+          "tituloOriginal": "Spider-Man!",
+          "quantidadePaginas": 11,
+          "resumo": "Durante exposição científica escolar, o pacato estudante Peter Parker é acidentalmente picado por uma aranha que teve sua estrutura genética modificada pela radiação. Como resultado, o garoto ganha habilidades proporcionais as do aracnídeo. Parker resolve manter seus poderes em segredo e, confeccionando um disfarce, utilizá-los no \"show buzz\" como o “Homem-Aranha”. Mas uma tragédia mudará sua vida para sempre.\nHomem-Aranha aberração! Ameaça pública!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Fantasy (1962)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1962,
+            "texto": "Amazing Fantasy (1962) n° 15/1962 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Homem-Aranha aberração! Ameaça pública!",
+          "tituloOriginal": "Spider-Man, freak! Public Menace!",
+          "quantidadePaginas": 14,
+          "resumo": "O editor do \"Clarim Diário\", J. Jonah Jameson, inicia uma campanha contra o Homem-Aranha, acusando-o de inimigo público. Quando o filho de Jameson, astronauta, corre perigo de vida, durante a aterrisagem de sua cápsula desgovernada, nosso Cabeça de Teia decide salvá-lo e provar, assim, perante as autoridades, que é um herói.\nHomem-Aranha versus o Camaleão!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Homem-Aranha versus o Camaleão!",
+          "tituloOriginal": "Spider-Man Vs",
+          "quantidadePaginas": 10,
+          "resumo": "O Aranha invade o ainda não nomeado edifício Baxter para provar suas qualidades ao Quarteto Fantástico, com o intuito de ser contratado por um bom salário... mas desiste ao saber que o grupo não tem fins lucrativos. Em seguida, o Camaleão, o terrível sabotador comunista e mestre dos disfarces, se passa como nosso relutante herói e o incrimina.\nDuelo mortal com o Abutre!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Duelo mortal com o Abutre!",
+          "tituloOriginal": "Duel the Death with the Vulture!",
+          "quantidadePaginas": 14,
+          "resumo": "O Cabeça de Teia luta contra um criminoso voador, o Abutre, que vem aterrorizando Nova York. J. Jonah Jameson quer fotos para um artigo que ele está publicando na revista “Agora”. Peter Parker decide tirar fotos do vilão para vende-las a JJJ e ajudar sua tia May.\nA grande ameaça do terrível Consertador!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 2/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A grande ameaça do terrível Consertador!",
+          "tituloOriginal": "The Uncanny Threat of the Terrible Tinkerer!",
+          "quantidadePaginas": 10,
+          "resumo": "O Escalador de Paredes enfrenta o gênio científico do Consertador e seus capagas extraterrestres. Anos mais tarde, foi revelado que um dos \"aliens\" desta história é, na verdade, o humano Quentin Beck, o vilão Mystério. Esta história marca a primeira aparição do Consertador. Também pela primeira vez é mostrado um diagrama que explica o funcionamento do disparador de teias do Homem-Aranha.\nHomem-Aranha contra Doutor Octopus",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 2/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Homem-Aranha contra Doutor Octopus",
+          "tituloOriginal": "Spider-Man versus Doctor Octopus",
+          "quantidadePaginas": 21,
+          "resumo": "Nosso herói fica entediado por não ter um inimigo à altura. O que ele não sabe é que um estranho cientista, que utiliza poderosos tentáculos hidráulicos em experiências, se voltou para o mal e vai usar seus braços como arma contra ele. História adaptada para o filme Homem-Aranha 2.\nNada pode deter o Homem-Areia!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 3/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Nada pode deter o Homem-Areia!",
+          "tituloOriginal": "Nothing Can Stop",
+          "quantidadePaginas": 21,
+          "resumo": "No seu primeiro confronto com o Homem-Areia, o Aranha tem sua máscara danificada, botando em risco sua identidade secreta. Fugindo do vilão, o desmascarado herói lambe suas feridas, conserta sua máscara e finalmente vai à forra. Na faculdade Empire State, em frente a colegas de classe, o aracnídeo usa um aspirador de pó industrial para sugar o corpo arenoso do inimigo.\nTocha Humana no rastro do Espetacular Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 4/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Tocha Humana no rastro do Espetacular Homem-Aranha!",
+          "tituloOriginal": "On the Trail of The Amazing Spider-Man",
+          "quantidadePaginas": 18,
+          "resumo": "O fabuloso Quarteto Fantástico encontra o Homem-Aranha!\nPublicada pela primeira vez em Fantastic Four Annual (1963) n° 1/1963 - Marvel Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Strange Tales Annual (1962)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1963,
+            "texto": "Strange Tales Annual (1962) n° 2/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "O fabuloso Quarteto Fantástico encontra o Homem-Aranha!",
+          "tituloOriginal": "The Fabulous Fantastic Four Meet Spider-Man",
+          "quantidadePaginas": 8,
+          "resumo": "Apresentando uma versão mais detalhada do encontro do Aranha com o Quarteto em The Amazing Spider-Man (1963) n° 1.\nMarcado para a destruição pelo Dr. Destino!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Annual (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "texto": "Fantastic Four Annual (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Marcado para a destruição pelo Dr. Destino!",
+          "tituloOriginal": "Marked for destruction by Dr",
+          "quantidadePaginas": 21,
+          "resumo": "Flash Thompson decide pregar uma \"pegadinha\" em Peter Parker, se fazendo passar pelo Homem-Aranha. Mas o Doutor Destino, que está por perto, confunde Flash com o verdadeiro Escalador de Paredes e o captura.\nCara a cara com o... Lagarto!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 5/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Cara a cara com o... Lagarto!",
+          "tituloOriginal": "Face-to-Face with",
+          "quantidadePaginas": 21,
+          "resumo": "Uma estranha criatura, metade homem, metade réptil, tem sido avistada nos pântanos da Flórida. Peter Parker e Jameson viajam ao local para fazer a reportagem, mas nosso herói descobre que a coisa é mais do que um simples monstro.\nO retorno do Abutre",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 6/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "O retorno do Abutre",
+          "tituloOriginal": "The return of the Vulture",
+          "quantidadePaginas": 21,
+          "resumo": "O Escalador de Paredes enfrenta novamente a ameaça alada. No último confronto, nosso herói venceu, usando um \"inversor antimagnético\" que inutilizava as asas do velhaco. Mas, desta vez, o vilão se preveniu, instalando em seu traje voador um \"conversor de polaridade instantâneo\" que anula os efeitos da engenhoca do Cabeça de Teia...\nEste é o primeiro retorno de um vilão do Aranha.\nA terrível ameaça do Cérebro Vivo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1963,
+            "texto": "Amazing Spider-Man, The (1963) n° 7/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "A terrível ameaça do Cérebro Vivo!",
+          "tituloOriginal": "The terrible threat of the Living Brain",
+          "quantidadePaginas": 17,
+          "resumo": "Um curioso computador, que supostamente sabe de tudo, é exibido no colégio de Peter Parker. Este fica numa saia justa quando sua turma pergunta à engenhoca quem é o Homem-Aranha. Parker terá que usar toda sua astúcia e pensamento rápido para não ser desmascarado. Como se não bastasse, o pacato colegial também terá que enfrentar seu rival Flash numa luta de boxe no ginásio.\nFoi nesta HQ que Peter Parker deixou de usar óculos.\nHomem-Aranha enfrenta o Tocha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 8/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Homem-Aranha enfrenta o Tocha!",
+          "tituloOriginal": "Spider-Man tackles the Torch!",
+          "quantidadePaginas": 6,
+          "resumo": "Durante sua ronda, nosso adolescente mascarado observa uma festa de jovens ricaços cuja estrela é seu rival, o Tocha Humana. Enciumado com a boa vida do colega, o Escalador de Paredes decide dar uma de penetra e roubar as atenções locais.\nO homem chamado Electro!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 8/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "O homem chamado Electro!",
+          "tituloOriginal": "The Man Called Electro!",
+          "quantidadePaginas": 22,
+          "resumo": "Tia May está muito doente e Peter Parker tem que se virar para pagar os médicos. Tenta capturar o Electro para obter o dinheiro da recompensa, mas acaba falhando. Para conseguir o dinheiro às pressas, forja fotos do seu alter-ego como Electro. Obtém o dinheiro e salva a tia, mas acaba encrencando a si mesmo. Agora, ele tem que limpar a barra.\nOs Executores!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 9/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Os Executores!",
+          "tituloOriginal": "The Enforcers!",
+          "quantidadePaginas": 22,
+          "resumo": "Surge uma misteriosa figura no mundo do crime, seu nome é o Maioral e logo ele se torna o novo cabeça do sindicato do crime tendo como fator determinante o grupo de vilões chamado Executores. Jameson acredita que o Maioral é o Homem Aranha e o Homem Aranha acredita que o Maioral é o Jameson, mas o vilão é desmascarado e se trata de Foswell repórter do Clarim que estava escrevendo uma reportagem que incriminaria o Homem Aranha para Jameson.\nMomento de decisão",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 10/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Momento de decisão",
+          "tituloOriginal": "Turning point",
+          "quantidadePaginas": 21,
+          "resumo": "Ao saber que Octopus será solto, nosso herói cria um dispositivo rastreador-aranha para seguir o velhaco. Mas, para sua surpresa, ele vê “Ock” sair da prisão dentro de um carro... com Betty. A namorada de Peter Parker pede a Octopus que a ajude a salvar seu irmão, o endividado Bennett, que está sendo chantageado por um bandido chamado Blackie. Nosso Escalador de Paredes tenta ajudá-la, mas nem tudo sai como o planejado.\nDesmascarado pelo Dr. Octopus!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 11/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "Desmascarado pelo Dr. Octopus!",
+          "tituloOriginal": "Unmasked by Dr",
+          "quantidadePaginas": 22,
+          "resumo": "Mesmo terrivelmente doente, nosso herói decide enfrentar seu grande inimigo. Diante de Betty e Jameson, Octopus facilmente domina o Homem-Aranha, desmascarando-o. Ninguém acredita que o humilde fotógrafo é realmente a verdadeira identidade do herói, nem Octopus. Para chamar a atenção do “verdadeiro” Aranha, o velhaco liberta os animais selvagens do zoológico na cidade, com resultados catastróficos.\nA ameaça de... Mystério!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 12/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "A ameaça de... Mystério!",
+          "tituloOriginal": "The Menace of",
+          "quantidadePaginas": 18,
+          "resumo": "A autoria de uma série de crimes cai sobre o Escalador de Paredes. E, pior, diante dos fatos ele desconfia ter dupla personalidade. Somente Flash acredita na inocência do seu ídolo. Após ser desafiado pelo “Clarim Diário” e com o desenrolar dos fatos, o relutante herói descobre que tudo não passa de um truque do mestre dos efeitos especiais, Mystério, e obtém uma confissão do vilão para livrá-lo.\nA grotesca aventura do Duende Verde\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 14/1964 - Marvel Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 13/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "A grotesca aventura do Duende Verde",
+          "tituloOriginal": "The grotesque adventure of the Green Goblin",
+          "quantidadePaginas": 22,
+          "resumo": "Disfarçado de ator, o Duende Verde, um criminoso aliado dos Executores, convence nosso herói a participar de um filme de aventuras na costa Oeste. Mas tudo não passa de uma armadilha para eliminar o Cabeça de Teia durante uma locação no deserto...\nEsta história marca o primeiro encontro do Aranha com Hulk.\nKraven, o caçador!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 14/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "Kraven, o caçador!",
+          "tituloOriginal": "Kraven, the Hunter!",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto prende uma quadrilha de ladrões de banco, o Trepador de Paredes não percebe que um dos criminosos escapa por uma janela lateral: o Camaleão. Vendo que o herói ainda é uma ameaça às suas operações, o velhaco pede ajuda a um velho amigo, Kraven, o Caçador, para aniquilar o seu inimigo. Peter Parker descobre que sua tia May organizou um encontro às escondidas com a sobrinha da vizinha Anna Watson.\nO Sexteto Sinistro!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1981,
+            "texto": "Amazing Spider-Man, The (1963) n° 15/1981 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 22,
+          "tituloPortugues": "O Sexteto Sinistro!",
+          "tituloOriginal": "The Sinister Six!",
+          "quantidadePaginas": 41,
+          "resumo": "Os maiores vilões do Homem-Aranha se juntam para derrotar o herói. E logo agora, quando mais precisa de seus poderes, ele parece tê-los perdido misteriosamente. E, para piorar, os bandidos sequestraram as duas pessoas que ele mais ama: Betty e Tia May. Mais do que nunca o aracnídeo precisa achar um meio de derrotar o invencível Sexteto Sinistro.\nOs segredos do Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 23,
+          "tituloPortugues": "Os segredos do Homem-Aranha!",
+          "tituloOriginal": "The Secrets of Spider-Man!",
+          "quantidadePaginas": 9,
+          "resumo": "Tudo que você sempre quis saber sobre o aracnídeo está nessa história. É examinado cuidadosamente os poderes que Peter possui como Homem-Aranha.\nComo Stan Lee e Steve Ditko criam o Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 24,
+          "tituloPortugues": "Como Stan Lee e Steve Ditko criam o Homem-Aranha!",
+          "tituloOriginal": "How Stan Lee and Steve Ditko Create Spider-Man!",
+          "quantidadePaginas": 3,
+          "resumo": "Uma pequena apresentação dos autores e criadores do Homem-Aranha e de como os bastidores das HQs funcionam.\nDuelo com o Demolidor",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 25,
+          "tituloPortugues": "Duelo com o Demolidor",
+          "tituloOriginal": "Duel With Daredevil",
+          "quantidadePaginas": 22,
+          "resumo": "Nosso Escalador de Paredes salva um certo Sr. Murdock de um assalto. Mas a “indefesa” vítima é também o Demolidor, que descobre, mais tarde, que o Mestre do Picadeiro hipnotizou o aracnídeo para que este seja estrela principal de seu novo show. Cabe agora ao Demolidor dar uma retribuição ao herói para tirá-lo dessa situação.\nA volta do Duende Verde!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 16/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 26,
+          "tituloPortugues": "A volta do Duende Verde!",
+          "tituloOriginal": "The return of the Green Goblin!",
+          "quantidadePaginas": 22,
+          "resumo": "Flash Thompson coloca um anúncio no jornal anunciando seu clube do Homem-Aranha. Todos comparecem, incluindo seu inimigo Duende Verde, que quer melar a festa derrotando o herói diante de todos. Mas a súbita notícia da doença de sua tia faz com que nosso Cabeça de Teia deixe às pressas o local e o combate contra o Duende para socorrer a doce velhinha. O público pensa que o aracnídeo fugiu da raia, tornando-se um covarde.\nO fim do Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 17/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 27,
+          "tituloPortugues": "O fim do Homem-Aranha!",
+          "tituloOriginal": "The end of Spider-Man",
+          "quantidadePaginas": 22,
+          "resumo": "A súbita notícia da doença de sua tia faz com que nosso Cabeça de Teia deixe de combater a bandidagem para se dedicar exclusivamente à doce velhinha. O público, no entanto, pensa que nosso herói fugiu da raia, tornando-se um covarde. Mas Tia May provará que não é tão frágil assim, ensinando uma grande lição de vida ao seu preocupado sobrinho...\nO Aranha contra-ataca!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 18/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 28,
+          "tituloPortugues": "O Aranha contra-ataca!",
+          "tituloOriginal": "Spidey strikes back!",
+          "quantidadePaginas": 22,
+          "resumo": "O Aranha retorna com força máxima, decidido a reverter as más notícias. Com o apoio do Tocha Humana, ele luta contra o Homem-Areia e os Executores. As manchetes falam de seu retorno e Jameson acaba desacreditado. No fim da história, um estranho segue Peter Parker.\nhttps://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_vbbksaaqkt7bf3d3t4glo2au4a/-S265-FWEBP",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1964,
+            "texto": "Amazing Spider-Man, The (1963) n° 19/1964 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

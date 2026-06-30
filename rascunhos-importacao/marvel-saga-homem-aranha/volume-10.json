@@ -1,0 +1,154 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-10/ma011173/158748",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-10/ma011173/158748"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:11",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  7,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "10",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-04-01",
+                        "publicadoTexto":  "abril de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  188,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61wlPN8P8gL._SY342_.jpg",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 10\nPublicado em: abril de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 188\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nArte: Deodato Borges Filho - ‘Mike Deodato Jr.’ Cores: Rain Beredo Editor: Fernando Lopes - ‘Fl’\nEvolução",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Evolução",
+                                              "tituloOriginal":  "The Other: Evolve or Die - Part 9 of 12: Evolution",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "527",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 527/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Ataque pirata!",
+                                              "tituloOriginal":  "The Other: Evolve or Die - Part 10 of 12: Pirate Booty",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Friendly Neighborhood Spider-Man (2005)",
+                                                                         "numeroOriginal":  "4",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Friendly Neighborhood Spider-Man (2005) n° 4/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Filho do destino",
+                                              "tituloOriginal":  "The Other: Evolve or Die - Part 11 of 12: Destiny\u0027s Child",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Knights: Spider-Man (2004)",
+                                                                         "numeroOriginal":  "22",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Knights: Spider-Man (2004) n° 22/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Post mortem",
+                                              "tituloOriginal":  "The Other: Evolve or Die - Part 12 of 12: Post Mortem",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "528",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 528/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "O Sr. Parker vai a Washington - Parte um de três",
+                                              "tituloOriginal":  "Mr. Parker Goes to Washington - Part One of Three",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "529",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 529/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "O Sr. Parker vai a Washington - Parte dois de três",
+                                              "tituloOriginal":  "Mr. Parker Goes to Washington - Part Two of Three",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "530",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 530/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "O Sr. Parker vai a Washington - Parte três de três",
+                                              "tituloOriginal":  "Mr. Parker Goes to Washington - Part Three of Three",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "531",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 531/2006 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

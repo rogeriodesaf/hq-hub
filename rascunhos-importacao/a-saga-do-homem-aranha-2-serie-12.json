@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-12/sa011202/188360",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-12/sa011202/188360"
+    ],
+    "geradoEm": "2026-06-27T00:45:22",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "março de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_khig25qt0t4nh6v280n4d54v3j/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 12\nPublicado em: março de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Mark Beachum Editor: Erick Garcia\nsem título",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Brincadeiras mortais",
+          "tituloOriginal": null,
+          "quantidadePaginas": 39,
+          "resumo": "O Esmaga-Aranhas acredite que Mary Jane é o Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 19/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Me dá uma mãozinha, Max do futuro!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 37,
+          "resumo": "O Homem-Aranha às voltas com um garoto capaz de criar incríveis máquinas!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man Annual (1985)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man Annual (1985) n° 1/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Você já viu... aquele vigilante?",
+          "tituloOriginal": "Have You Seen... That Vigilante Man!",
+          "quantidadePaginas": 23,
+          "resumo": "Para salvar uma moça de ser violentada na lavanderia, Peter Parker age sem a roupa de Homem-Aranha e bota uma gangue de jovens para correr. Logo a notícia ganha os jornais e ele vira um herói, com isso o bairro decide inventar a patrulha \"Peter Parker\" onde todos se unem para fazer vigia aos pontos mais importantes do local. Parker começa a ser intimidado, até ter seu apartamento queimado por delinquentes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 11/1986 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lei e ordem",
+          "tituloOriginal": "Law and Order",
+          "quantidadePaginas": null,
+          "resumo": "O líder dos garotos que incendiaram o apartamento de Parker consegue ajuda com seu irmão, um assassino para matar Peter e impedi-lo de testemunhar contra a gangue. Parker vira capa da Times e do Clarim considerado um herói. Mary Jane vai para o apartamento onde o assassino espera Parker. Os garotos se arrependem e procuram o Homem-Aranha para impedir que mortes aconteçam. Após salvar Mary Jane, Peter decide a queixa e é visto como egoísta pelos outros moradores.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Spider-Man (1985)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Spider-Man (1985) n° 12/1986 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

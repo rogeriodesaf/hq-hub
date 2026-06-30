@@ -1,0 +1,426 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-10/es011117/172788",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-10/es011117/172788"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:59:10",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  24,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "10",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2023-04-01",
+                        "publicadoTexto":  "abril de 2023",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  484,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  205.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61oT3cGjbYL._SL1000_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 10\nPublicado em: abril de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 484\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 205,90\nCrédito da capa e editor\nDesenho: Gil Kane Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Alguém aqui conhece um sujeito chamado Homem-Meteoro?",
+                                              "tituloOriginal":  "Anybody Here Know a Guy Named Meteor Man?",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Enquanto balançava pela cidade, o Aranha dá de cara com o Falcão Noturno, enquanto este, por sua vez, perseguia o Homem-Meteoro, o que deveria ser a parceria perfeita para capturar o vilão, mas, com Peter atormentado pela “volta de Gwen Stacy”, as coisas não vão sair exatamente como eles planejaram...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "33",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 33/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Vivendo uma cruzada da morte!",
+                                              "tituloOriginal":  "Beware the Death Crusade!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Perturbado com seus problemas envolvendo o retorno de Gwen, o Aranha ainda tem que dar um jeito de recapturar o Homem-Meteoro que conseguiu escapar! E já que a parceria com o Falcão Noturno não deu muito certo, talvez outra integrante dos Defensores possa resolver a parada: a magnífica Valquíria! Enquanto isso se desenrola, uma sinistra seita chamada Inocentes de Deus liderada pelo misterioso Jeremias, têm planos ainda mais sinistros para o Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "34",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 34/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Cuidado com a trilha do monstro!",
+                                              "tituloOriginal":  "Beware the Path of the Monster!",
+                                              "quantidadePaginas":  30,
+                                              "resumo":  "Homem-Coisa encontra um dos inimigos mais ferozes o Homem-Aranha… o Lagarto de espírito reptiliano! Prepare-se para um mergulho nos pântanos, é o Homem-Aranha e o Homem-Coisa contra um exército de crocodilos!\nHistória em duas partes:\nCuidado com a trilha do monstro! - Capítulo 1\nEmboscada no pântano! - Capítulo 2\nTragam o Homem-Coisa até mim! - Capítulo 3",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Giant-Size Spider-Man (1974)",
+                                                                         "numeroOriginal":  "5",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Giant-Size Spider-Man (1974) n° 5/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O Tarântula é um fera muito mortal!",
+                                              "tituloOriginal":  "The Tarantula is a very deadly beast!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O Tarântula escapa da prisão, onde cumpria pena após ter sido derrotado pelo Aranha e o Justiceiro, com a ajuda do maquiavélico Chacal e, juntos, armam a cilada definitiva para o aracnídeo! Ao mesmo tempo, nosso herói descobre, através de uma investigação de Ned Leeds, um terrível segredo sobre o mistério da recém-ressuscitada Gwen Stacy! Algo que ele jamais imaginaria!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "147",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 147/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Chacal, Chacal... Quem está com o Chacal?",
+                                              "tituloOriginal":  "Jackal, Jackal... who\u0027s got the Jackal?",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Tentando descobrir o verdadeiro responsável pela clonagem de Gwen Stacy, o Aranha acaba se deparando, novamente, com o Tarântula e, finalmente, descobre a identidade secreta do Chacal.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "148",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 148/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Mesmo se eu viver... Eu morro!",
+                                              "tituloOriginal":  "Even if I live, I die!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Para salvar a vida de Ned Leeds, que está sob o poder do Chacal, nosso herói precisa derrotar seu próprio clone... Mas, quem sairá vitorioso dessa batalha: o verdadeiro Aranha ou seu clone?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "149",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 149/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Homem-Aranha ou Clone-Aranha?",
+                                              "tituloOriginal":  "Spider-Man... or Spider-Clone?",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Angustiado com a incerteza de ser o verdadeiro Homem-Aranha ou o seu clone, o escalador de paredes resolve procurar a ajuda do Dr. Curt Connors; mas o Professor Smythe e o seu Esmaga-Aranha também aparecem.\nO Abutre, o Homem-Areia e o Rei do Crime aparecem apenas na forma de robôs humanóides para confundir e cansar o Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "150",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 150/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Era uma vez, num castelo...",
+                                              "tituloOriginal":  "Once Upon a Time, in a Castle...",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Com o Homem-Aranha, tudo pode acontecer! Numa hora, ele está nas ruas de NY prendendo assaltantes de banco. Na outra, está preso na masmorra de um castelo, num cenário de filme de terror, junto ao \"Monstro de Frankenstein\"! Eles se tornam cobaias do Barão Ludwig Von Shtupf, que pretende usá-los pra criar um exército de monstros, a fim de dominar o mundo! Mas isso é fichinha, comparado a quem eles terão que encarar pra escapar dessa enrascada!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "36",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 36/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Morte na neve!",
+                                              "tituloOriginal":  "Snow Death!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "As coisas ficam rapidamente fora de controle, quando o Aranha e o Monstro de Frankenstein são surpreendidos pela súbita aparição do selvagem Homem-Lobo! No entanto, essa criatura, que também é o ex-astronauta John Jameson, não está tão interessada neles, mas, sim na agente Judith Klemmer, encarregada pela SHIELD de investigar o caso... e nada o impedirá de tê-la pra si!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "37",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 37/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "A noite do Grifo",
+                                              "tituloOriginal":  "Night of the Griffin",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Em um de seus “balanços” pela cidade, nosso amigão da vizinhança resgata um cientista que havia sido atirado das alturas pela aberração conhecida como O Grifo, um agente do Império Secreto, criado para destruir o Fera. Após ter sido derrotado pelo ex-X-Man e o Anjo, o monstro voltou ainda mais sedento de vingança contra o mutante azulado, agora membro dos Vingadores! Uma pendência que o Fera, com a ajuda do Aranha, é claro, precisa resolver!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "38",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 38/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Conflito sob as ruas",
+                                              "tituloOriginal":  "Skirmish beneath the streets!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O Shocker começa a provocar uma série de blecautes consecutivos em Manhattan e o amigão da vizinhança decide averiguar; mas Shocker parece deixar o nosso herói com um problemão até o pescoço.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "151",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 151/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Despedaçado pelo Shocker!",
+                                              "tituloOriginal":  "Shattered by the Shocker!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Shocker exige 1 milhão de dólares da prefeitura de Nova York, caso contrário, irá destruir todos os geradores de energia da cidade. Mas o Homem-Aranha, claro, irá entrar em ação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "152",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 152/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Qualquer um pode matar!",
+                                              "tituloOriginal":  "Any Number Can Slay! - Chapter One",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Após sobreviver a um atentado à bala no topo de um prédio, o Aranha é atraído a um velho armazém, local de uma reunião dos maiores chefões do crime de NY, cortesia do Maioral, atual líder dos Executores, que pretende leiloar... o \"Tocha Humana”? Mas, o Maioral foi assassinado! Então, quem é este? Isso é o que menos importará quando surgir o verdadeiro cérebro por trás de tudo: o Mestre do Crime! Mas, ele também está morto!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "39",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 39/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Matar é melhor na segunda vez!",
+                                              "tituloOriginal":  "Murder\u0027s Better the Second Time Around!",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "A emboscada armada pelo Maioral e os Executores acaba mostrando-se mortal para nossos heróis, principalmente quando entra em cena o Mestre do Crime e seu terrível aliado: o Homem-Areia! Para escapar dessa fria, nossos heróis vão precisar de toda ajuda possível! Mas, para sorte deles, o local da batalha fica justamente vizinho à academia de Kung Fu de Bob Diamond, Abe Brown, Lin Sun e Lótus Shinchuko... Os Filhos do Tigre!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "40",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 40/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "Uma feiticeira no tempo!",
+                                              "tituloOriginal":  "A Witch in Time!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Um misterioso chamado mental leva a Feiticeira Escarlate à Latvéria, a um castelo abandonado do Dr. Destino, onde um terrível destino a aguarda! Ela acaba sendo subjugada e capturada por Cotton Mather, o caçador de bruxas da cidade de Salem, que a transporta para o ano de 1692, através da máquina do tempo de Destino, a fim de queimá-la viva nas fogueiras da Inquisição! Mas, não antes que Wanda tenha a chance de pedir ajuda a um certo aracnídeo de plantão...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "41",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 41/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Visões do ódio!",
+                                              "tituloOriginal":  "Visions of Hate!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Encurralados pela multidão enfurecida de fanáticos, o Homem-Aranha e a Feiticeira Escarlate encontram-se em um tremendo beco sem saída! Mas, a cavalaria irá chegar com a entrada em cena de seu marido: o Visão! Só que, talvez nem mesmo as forças combinadas do trio sejam suficientes pra dar conta do insano Cotton Mather e seu sinistro e misterioso “mestre”! A não ser que a maré mude, quando também entrar em cena um certo convidado especial de última hora!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "42",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 42/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Um passado enlouquecido!",
+                                              "tituloOriginal":  "A Past Gone Mad!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "A situação está indo de mal a pior pros nossos heróis e parece que nem mesmo a inesperada aparição do Doutor Destino em pessoa fez pender a balança de poder a favor dos mocinhos! Agora, a única esperança do Aranha, do Visão e da Feiticeira Escarlate contra o mestre de Mather, o tenebroso Cavaleiro Negro, é... um verdadeiro milagre!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "43",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 43/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "Morte muito antes de anteontem!",
+                                              "tituloOriginal":  "Death in the Year Before Yesterday!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Derrotados e mantidos inconscientes pelo assombroso poder do Cavaleiro Negro, o Aranha, Dr. Destino e o casal de Vingadores estão totalmente indefesos, prestes a serem usados como sacrifício num ritual, que deixará o vilão invencível! A menos que a Serpente da Lua possa impedi-lo! Mas, ela poderá conseguir sozinha o que os quatro juntos não conseguiram?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "44",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 44/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Choque do futuro!",
+                                              "tituloOriginal":  "Future-Shock!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Homem-Aranha retorna da sua viagem no tempo de 1692, mas ultrapassa seu período de tempo e para no ano de 2019! Ele deve lutar contra os marcianos com a ajuda de Killraven.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "45",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 45/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "...Eu sou agora ou já fui um dia?",
+                                              "tituloOriginal":  "...Am I Now Or Have I Ever Been?",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Homem-Aranha continua viajando pelo tempo para chegar na sua década, mas acaba parando em 1990, no mundo aonde vive o Deathlok.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "46",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 46/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "Cidade... em chamas!",
+                                              "tituloOriginal":  "“This City",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Homem-Aranha mal se recuperou dos efeitos de sua viagem pelo tempo e já vai se meter em uma situação ainda mais escabrosa! Terríveis abalos assolam Nova Iorque e, sem hesitar, ele parte para o local de origem dos distúrbios: “um vulcão em erupção em pleno Rio Hudson”! Mas, a coisa é ainda mais complicada, pois envolve... o Coisa - vindo de sua batalha na Terra Selvagem, onde enfrentou o Basilisko, e foi sumariamente derrotado!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Two-In-One (1974)",
+                                                                         "numeroOriginal":  "17",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Two-In-One (1974) n° 17/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "Eu tenho que enfrentar o Basilisko!",
+                                              "tituloOriginal":  "I Have to Fight the Basilisk!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Cabeça-de-Teia e Ben Grimm lançam-se em um ataque final para tentar impedir o Basilisko de destruir Nova Iorque. Mas, se nem mesmo a força colossal do Coisa foi o suficiente para deter o fanático vilão, será que as míseras teias do aracnídeo farão alguma diferença?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "47",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 47/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "Cem jardas para a morte!",
+                                              "tituloOriginal":  "The longest hundred yards!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Enquanto tenta fazer as pazes com MJ, por tê-la abandonado na festa de noivado de Betty e Ned, nosso herói “se mete” no sequestro da filhinha do Dr. Bradley Bolton, um renomado cientista, perito em computação e ex-jogador de futebol da UES, raptada por uma quadrilha de bandidos... \"uniformizados\"?\nÚnica aparição de Bradley Bolton, Mindy Bolton, Ellen Bolton e Paine.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "153",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 153/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  24,
+                                              "tituloPortugues":  "O Homem-Areia sempre ataca duas vezes!",
+                                              "tituloOriginal":  "The Sandman always strikes twice",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Um misterioso figurão, líder da mesma quadrilha responsável pela morte do Dr. Bolton, ajuda o Homem-Areia a escapar da prisão e pede, em troca, que ele roube um raio de conversão criogênica de um laboratório. O Homem-Areia aceita, mas decide aproveitar a liberdade para se vingar do Aranha de uma vez por todas!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "154",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 154/1976 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,134 @@
+{
+  "origem": {
+    "arquivoEntrada": "cadastro-manual-a-saga-dos-x-men-4.json",
+    "url": "",
+    "urlsProcessadas": [],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": "",
+      "dataPublicacao": "2022-10-28",
+      "publicadoTexto": "outubro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 36.90,
+      "urlCapa": "https://m.media-amazon.com/images/I/61gi7IcXG6L._AC_UY218_.jpg",
+      "descricao": "Crédito da capa e editor\nArte: Barry Windsor-Smith\nEditor: Yuri A. O. Primitz\n\nEsta edição traz uma história em especial, uma minissérie originalmente publicada em 1984, protagonizada por Kitty Pride e Wolverine. Kitty viaja para o Japão a fim de ajudar seu pai e acaba ficando cara a cara com o avô de todos os ninjas, Ogun! O homem da máscara medonha está determinado a transformar a adolescente mutante favorita de Chicago em uma assassina intangível! Mas os planos de Ogun para o futuro de Kitty empalidecem diante do papel que ele desempenhou no passado de Wolverine, e o canadense das garras de adamantium promete derrubar seu ex-professor, mesmo que isso signifique sua morte... ou a de Kitty!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Mentiras",
+          "tituloOriginal": "Lies",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty viaja até o Japão para resgatar seu pai, mas descobre que ele está em alguns negócios obscuros com bandidos japoneses.",
+          "publicacaoOriginal": {
+            "serieOriginal": " Kitty Pryde And Wolverine (1984) n° 1/1985",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) nº 1/1985",
+            "urlOrigem": "",
+            "urlCapa": "https://m.media-amazon.com/images/I/81TaKG2SLvL._AC_UY218_.jpg",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 1,
+          "tituloPortugues": "Terror",
+          "tituloOriginal": "Terror",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty Pryde é capturada por criminosos japoneses e Wolverine parte para o Japão para ajudá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": " Kitty Pryde And Wolverine (1984) n° 2/1984",
+            "numeroOriginal": "2",
+            "anoOriginal": 1984,
+            "texto": "Kitty Pryde And Wolverine (1984) nº 2/1984",
+            "urlOrigem": "",
+            "urlCapa": "https://m.media-amazon.com/images/I/91apq0QCKpL._AC_UY218_.jpg",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Morte",
+          "tituloOriginal": "Death",
+          "quantidadePaginas": 23,
+          "resumo": "Sob a influência de Ogun, Kitty Pryde ataca Wolverine. Enquanto isso, Yukio vai atrás de informações sobre o paradeiro da jovem",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984) nº 3/1985",
+            "numeroOriginal": "3",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) nº 3/1985",
+            "urlOrigem": "",
+            "urlCapa": "https://static.wikia.nocookie.net/marveldatabase/images/e/e0/Kitty_Pryde_and_Wolverine_Vol_1_3.jpg/revision/latest/scale-to-width-down/329?cb=20190527064639",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Renascimento",
+          "tituloOriginal": "Rebirth",
+          "quantidadePaginas": 22,
+          "resumo": "Wolverine tenta curar Kitty. Ele também descobre que James Hudson está \"morto\" e que Tempestade perdeu seus poderes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1985) nº 4/1985",
+            "numeroOriginal": "4",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1985) nº 4/1985",
+            "urlOrigem": "",
+            "urlCapa": "https://m.media-amazon.com/images/I/51KPzHFyoXL._AC_UY218_.jpg",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Coragem",
+          "tituloOriginal": "Courage",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty enfrenta Ogun e assume o nome de Lince Negra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1985)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) nº 5/1985",
+            "urlOrigem": "",
+            "urlCapa": "https://m.media-amazon.com/images/I/61aGuraRetL._AC_UY218_.jpg",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Honra",
+          "tituloOriginal": "Honor",
+          "quantidadePaginas": 24,
+          "resumo": "Wolverine e Kitty enfrentam Ogun e Kitty tem que decidir se vai matá-lo ou não.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984) nº 6/1985",
+            "numeroOriginal": "6",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) nº 6/1985",
+            "urlOrigem": "",
+            "urlCapa": "https://m.media-amazon.com/images/I/61KZswixGlL._AC_UY218_.jpg",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

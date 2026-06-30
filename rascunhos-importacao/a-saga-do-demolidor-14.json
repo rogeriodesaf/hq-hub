@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-14/sa011130/174638",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-14/sa011130/174638"
+    ],
+    "geradoEm": "2026-06-26T23:32:23",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-09-01",
+      "publicadoTexto": "setembro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/610QUTNEhXL._SX342_SY445_ML2_.jpg",
+      "descricao": "Capa original: Daredevil (1964) n° 309\nPublicado em: setembro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Scott McDaniel Arte-Final: Bud Larosa Editor: Yuri A. O. Primitz\nCartas na mesa",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Cartas na mesa",
+          "tituloOriginal": "Dead Man's Hand: Cards On the Table - Part Seven",
+          "quantidadePaginas": 23,
+          "resumo": "Os chefes da máfia continuam a lutar pelo império do Rei do Crime com o Demolidor preso no fogo cruzado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "309",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 309/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Partindo desta para a melhor",
+          "tituloOriginal": "Dead Man's Hand: The Mortal Coil Shuffle - Part Eight",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Nomad (1992)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Nomad (1992) n° 6/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Diga adeus a Las Vegas",
+          "tituloOriginal": "Dead Man's Hand: Say Goodbye to Vegas - Part Nine",
+          "quantidadePaginas": 21,
+          "resumo": "Nômade, Justiceiro e Demolidor desbaratam definitivamente a reunião de vilões para divisão do império de Wilson Fisk e perseguem todos os fugitivos, com uma ajuda de uma questionável Víbora.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Punisher War Journal, The (1988)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Punisher War Journal, The (1988) n° 47/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Demônio Ge Rouge",
+          "tituloOriginal": "Devil Ge Rouge",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto o Demolidor tenta salvar um refugiado haitiano do Indomável, Calypso luta e derrota o duplo do Demolidor enviado por Magus.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "310",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 310/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Em busca da alma",
+          "tituloOriginal": "Soul Search",
+          "quantidadePaginas": 22,
+          "resumo": "Calypso transforma Demolidor num autêntico zombie e ele tem que lutar para fugir ao controlo dela. Dominado por Calypso, o Demolidor passa a perseguir refugiado em Nova York e terá que contar com a ajuda do Irmão Vodu para se ver livre da bruxa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "311",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 311/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Neve",
+          "tituloOriginal": null,
+          "quantidadePaginas": 10,
+          "resumo": "O que um homem vestido de Papai Noel tem a ver com um famoso traficante da Cozinha do Inferno? Uma comovente história de natal pra arrancar lágrimas de seu coração. Imagine só que o Demolidor, pra salvar o Papai Noel que todos os anos distribuia alegria em uma escola de crianças deficientes, é obrigado a ser corajoso.\nTitulo original: \"Snow\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1982,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Fanfare (1982) n° 1/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Abençoai os animais e as crianças...",
+          "tituloOriginal": "Bless the Beasts and Children...",
+          "quantidadePaginas": 10,
+          "resumo": "Uma comovente história do Homem Sem Medo. Demolidor salva um garoto de ser atropelado, o cachorro do garoto foge. Demolidor descobre que o garoto é cego e o cão é seu guia, ele promete trazer o cão de volta. Um dia de busca o leva a um canil onde cachorros sem donos são sacrificados. Infelizmente o herói terá de explicar seu fracasso, por não ter chegado a tempo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1982,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Fanfare (1982) n° 7/1982 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-20.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-20/sa011129/176384",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-20/sa011129/176384"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "20",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-01-31",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 44.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.eA0Sl0Su8uKmJX8lzKGOngAAAA?w=192&h=288&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "O embate entre X-Men e Vingadores! Os Vingadores enfrentam os supersoldados soviéticos na tentativa de não permitir que Magneto seja levado, mas os X-Men  tentam salvá-lo para que o mutante não seja capturado pelo grupo. Mas algo no Asteroide M trará uma ameaça para todos. E a contagem de corpos aumenta de forma assustadora na continuação do Massacre dos Mutantes. Os X-Men e seus aliados encaram uma guerra que se espalha por toda parte e as consequências se estendem para os mais diversos personagens. E, após os Carrascos assassinarem os Morlocks, eles saem à caça dos próprios X-Men…",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Aliança intranquila",
+          "tituloOriginal": "Aliança intranquila",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Vs. The Avengers (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1987,
+            "texto": "X-Men Vs. The Avengers (1987) n° 2/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-vs-the-avengers-(1987)-n-2/3260/29671",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os soviéticos contra-atacam",
+          "tituloOriginal": "Os soviéticos contra-atacam",
+          "quantidadePaginas": 24,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Vs. The Avengers (1987)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1987,
+            "texto": "X-Men Vs. The Avengers (1987) n° 3/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-vs-the-avengers-(1987)-n-3/3260/29672",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dia do julgamento!",
+          "tituloOriginal": "Dia do julgamento!",
+          "quantidadePaginas": 28,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Vs. The Avengers (1987)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1987,
+            "texto": "X-Men Vs. The Avengers (1987) n° 4/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-vs-the-avengers-(1987)-n-4/3260/29673",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Assuntos inacabados",
+          "tituloOriginal": "Unfinished Business",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "220",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 220/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-220/264/6259",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Morte por afogamento!",
+          "tituloOriginal": "Death by Drowning!",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "221",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 221/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-221/264/6260",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Partir o coração!",
+          "tituloOriginal": "Heartbreak!",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "222",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 222/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-222/264/6261",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

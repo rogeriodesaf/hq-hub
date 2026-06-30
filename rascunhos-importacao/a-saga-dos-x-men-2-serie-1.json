@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-1/sa011203/185348",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-1/sa011203/185348"
+    ],
+    "geradoEm": "2026-06-27T01:42:10",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Acompanha um pôster quádruplo com a arte de Jim Lee.",
+      "dataPublicacao": "2025-07-01",
+      "publicadoTexto": "julho de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_vp791mjo9t5b94esrvfgn33v1m/-S265-FWEBP",
+      "descricao": "Saga dos X-Men, A 2ª Série - n° 1\nPublicado em: julho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Jim Lee Arte-Final: Scott Williams Editor: Rodrigo Oliveira - ‘Roska’ , Antonio Tadeu",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sem volta",
+          "tituloOriginal": "Rubicon",
+          "quantidadePaginas": 37,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 1/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Tempestade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 2/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Repercussões!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 3/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Um novo começo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "281",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 281/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Revanche",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "282",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 282/1991 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

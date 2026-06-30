@@ -1,0 +1,143 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-9/sa011130/169285",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-9/sa011130/169285"
+    ],
+    "geradoEm": "2026-06-26T23:32:16",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-11-01",
+      "publicadoTexto": "novembro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61j+LnlzJNL._SY385_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 290\nPublicado em: novembro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kieron Dwyer Arte-Final: Fred Fredericks Editor: Yuri A. O. Primitz",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O ladrão",
+          "tituloOriginal": "The Thief",
+          "quantidadePaginas": 22,
+          "resumo": "Mercenário torna-se um Homem Sem Medo, ladrão e inútil! Matt começa uma nova carreira ... no ringue de boxe.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "286",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 286/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O lutador",
+          "tituloOriginal": "The Fighter",
+          "quantidadePaginas": 22,
+          "resumo": "Matt Murdock continua a lutar sob a alcunha de seu pai, enquanto o “Demolidor” assalta bancos e dá o dinheiro ao povo. Enquanto isso, Ben Urich tenta desvendar o desaparecimento do protetor da Cozinha do Inferno.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "287",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 287/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O aluno",
+          "tituloOriginal": "The Student",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "288",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 288/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O herói",
+          "tituloOriginal": "The Hero",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "289",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 289/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mercenário",
+          "tituloOriginal": "Bullseye!",
+          "quantidadePaginas": 22,
+          "resumo": "Troca de fantasias! Matt Murdock sai em busca do Mercenário, que agora está vestindo o traje do Demolidor. É hora do acerto de contas!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "290",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 290/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Todas as notícias importantes",
+          "tituloOriginal": "All The News That Fits",
+          "quantidadePaginas": 22,
+          "resumo": "Foggy e Matt estão juntos novamente e é tão bom! O Demolidor tenta retomar sua vida “normal” .",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "291",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 291/1991 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O cordeiro arrebatado",
+          "tituloOriginal": "The Rapt Lamb",
+          "quantidadePaginas": 8,
+          "resumo": "Título Original: \"The Rapt Lamb\""
+        }
+      ]
+    }
+  ]
+}

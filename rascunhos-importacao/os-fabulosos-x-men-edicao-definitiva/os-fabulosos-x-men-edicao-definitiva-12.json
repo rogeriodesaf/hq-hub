@@ -1,0 +1,196 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-12/fa011131/188422",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-12/fa011131/188422"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 12,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "março de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 408,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 208.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 12\nPublicado em: março de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 408\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 208,90\nCrédito da capa e editor\nEditor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A guerra dos Espectros!",
+          "tituloOriginal": "Wraithkill!",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "187",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 187/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O legado da derrota",
+          "tituloOriginal": "Legacy of the Lost",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "188",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 188/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Duas garotas em busca de diversão!",
+          "tituloOriginal": "Two Girls Out to Have Fun",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "189",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 189/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Presente de grego",
+          "tituloOriginal": "Tis Better to Give!",
+          "quantidadePaginas": 38,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "150",
+            "anoOriginal": 1985,
+            "texto": "Marvel Team-Up (1972) n° 150/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Uma era jamais sonhada",
+          "tituloOriginal": "An Age Undreamed Of",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "190",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 190/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Os caçadores do templo perdido!",
+          "tituloOriginal": "Raiders of the Lost Temple!",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "191",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 191/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Pátrio poder",
+          "tituloOriginal": "Fun 'n' Games",
+          "quantidadePaginas": 25,
+          "resumo": "Os X-Men têm um encontro nada amigável com o maligno alienígena tecnorgânico Magus, que, por sinal, é pai do divertido Warlock, integrante dos Novos Mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "192",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 192/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Pacto com o demônio!",
+          "tituloOriginal": "Deal With the Devil!",
+          "quantidadePaginas": 15,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "40",
+            "anoOriginal": 1988,
+            "texto": "Marvel Fanfare (1982) n° 40/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "As aventuras de Lockheed, o dragão espacial, e sua mascote Kitty!",
+          "tituloOriginal": "The Adventures of Lockheed the Space Dragon and His Pet Girl Kitty",
+          "quantidadePaginas": 40,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1984,
+            "texto": "X-Men Annual (1970) n° 8/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "A dádiva - Parte I",
+          "tituloOriginal": null,
+          "quantidadePaginas": 48,
+          "resumo": "Após um estranho incidente aéreo, Scott, Madelyne e uma tripulação de cientistas vão parar em um misterioso palácio, onde ganham poderes misteriosos. E cabe aos X-Men e à Tropa Alfa conferir o que está acontecendo.\nítulo original: \"The Gift - Part 1\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men/Alpha Flight (1985)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "texto": "X-Men/Alpha Flight (1985) n° 1/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "A dádiva - Parte II",
+          "tituloOriginal": "The Gift - Part 2",
+          "quantidadePaginas": 48,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men/Alpha Flight (1985)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1985,
+            "texto": "X-Men/Alpha Flight (1985) n° 2/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "A vingança do trovão",
+          "tituloOriginal": "Warhunt 2",
+          "quantidadePaginas": 38,
+          "resumo": "O Pássaro Trovejante II, convicto de que os X-Men foram responsáveis pela morte de seu irmão, de quem herdou o nome, combate a equipe de Charles Xavier com um único objetivo em mente: destruir o Professor X e seus pupilos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "193",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 193/1985 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

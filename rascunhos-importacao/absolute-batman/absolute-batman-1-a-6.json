@@ -1,0 +1,282 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-1/ab011101/187196",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-1/ab011101/187196",
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-2/ab011101/186784",
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-3/ab011101/187606",
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-4/ab011101/188401",
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-5/ab011101/189111",
+      "http://www.guiadosquadrinhos.com/edicao/absolute-batman-n-6/ab011101/190142"
+    ],
+    "geradoEm": "2026-06-29T00:00:00",
+    "gerador": "codex_importacao_manual"
+  },
+  "serieBrasileira": {
+    "titulo": "Absolute Batman",
+    "fase": "DC Sem Limites",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 6,
+  "totalHistorias": 10,
+  "avisos": [
+    "Rascunho gerado em arquivo unico para testar importacao de varias edicoes da mesma serie.",
+    "As capas foram preenchidas com as URLs enviadas pelo usuario.",
+    "O Guia dos Quadrinhos exibia capa indisponivel para as edicoes 5 e 6; foram usadas as URLs de capa enviadas pelo usuario.",
+    "Historias internas preenchidas conforme listagem do Guia dos Quadrinhos para as edicoes 1 a 5.",
+    "A pagina da edicao 6 foi consultada, mas nao exibia historias internas no momento da geracao deste rascunho.",
+    "A edicao 1 informada corresponde a capa variante exclusiva da CCXP 2025 no Guia dos Quadrinhos.",
+    "O numero de paginas da edicao 6 nao foi identificado na pagina consultada."
+  ],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Capa variante exclusiva da CCXP 2025",
+      "dataPublicacao": "2025-12-01",
+      "publicadoTexto": "dezembro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": 42,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 19.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.u7XH8g6wfPQRRWzvnuuUAAAAAA?w=192&h=291&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Publicado em: dezembro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: 42\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 19,90\nObservacao: Capa variante exclusiva da CCXP 2025\nFonte: Guia dos Quadrinhos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O zoológico - Parte um",
+          "tituloOriginal": "The Zoo, Part One of Five",
+          "quantidadePaginas": 42,
+          "resumo": "Alfred Pennyworth retorna a Gotham City apos uma ausencia de varios anos, enviado para avaliar organizacoes criminosas e eliminar alvo. Enquanto investiga os Animais Festeiros, uma gangue violenta que causa o caos e mata inocentes, ele observa o discurso do prefeito James Gordon ate que o local e atacado. O atentado e interrompido pelo Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "1",
+            "anoOriginal": 2024,
+            "texto": "Absolute Batman (2024) n° 1 /2024 - DC Comics",
+            "titulo": "The Zoo, Part One of Five"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O zoológico - Parte dois",
+          "tituloOriginal": "The Zoo, Part Two of Five",
+          "quantidadePaginas": 24,
+          "resumo": "Batman nasceu da violencia, uma tragedia horrivel que moldou a trajetoria de seu futuro. Quando um agente do MI6 comeca a rastrear a vida solitaria de Bruce Wayne, ele descobre conexoes entre a fachada do heroi e as muitas camadas da gangue Animais Festeiros.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "2",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 2 /2025 - DC Comics",
+            "titulo": "The Zoo, Part Two of Five"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": 25,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 24.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.oyvhhX8W-u_FJ5XqSV6y8AHaLY?w=192&h=295&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Publicado em: novembro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: 25\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 24,90\nFonte: Guia dos Quadrinhos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O zoológico - Parte três",
+          "tituloOriginal": "The Zoo, Part Three of Five",
+          "quantidadePaginas": 25,
+          "resumo": "Batman e Alfred tentam formar uma alianca, mas o Mascara Negra tambem encontrou novos amigos, ansiosos para chegar em Gotham City e trazer destruicao completa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "3",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 3 /2025 - DC Comics",
+            "titulo": "The Zoo, Part Three of Five"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O zoológico - Parte quatro",
+          "tituloOriginal": "The Zoo, Part Four of Five",
+          "quantidadePaginas": 25,
+          "resumo": "Um segredo sombrio de Bruce vem a tona e abala suas estruturas, fazendo-o questionar tudo que fez ate agora.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "4",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 4 /2025 - DC Comics",
+            "titulo": "The Zoo, Part Four of Five"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-01-01",
+      "publicadoTexto": "janeiro de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": 20,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 24.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.2_SIHlHRNB6Y82JZw1DvTwHaLZ?w=192&h=295&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Publicado em: janeiro de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: 20\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 24,90\nFonte: Guia dos Quadrinhos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O zoológico - Parte cinco",
+          "tituloOriginal": "The Zoo, Part Five of Five",
+          "quantidadePaginas": 20,
+          "resumo": "A decisao de Batman sobre o acordo com o Mascara Negra gera consequencias que abrangerao toda Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "5",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 5 /2025 - DC Comics",
+            "titulo": "The Zoo, Part Five of Five"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O zoológico - Parte seis",
+          "tituloOriginal": "The Zoo, Part Six",
+          "quantidadePaginas": 22,
+          "resumo": "Apos sofrer uma derrota nas maos do Mascara Negra, Batman lanca mao dos recursos de seus amigos e parte para a ofensiva direta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "6",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 6 /2025 - DC Comics",
+            "titulo": "The Zoo, Part Six"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "marco de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": 22,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 24.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.PDYsWA-QOp023VUJGR-ZwgAAAA?w=192&h=296&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Publicado em: marco de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: 22\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 24,90\nFonte: Guia dos Quadrinhos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Zero absoluto - parte um",
+          "tituloOriginal": "Absolute Zero",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "7",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 7 /2025 - DC Comics",
+            "titulo": "Absolute Zero"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Zero absoluto - parte dois",
+          "tituloOriginal": "Absolute Zero",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "8",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 8 /2025 - DC Comics",
+            "titulo": "Absolute Zero"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": 22,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 24.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_5tiltp9uh10ct2cc2i4n2g8i2t/-S265-FWEBP",
+      "descricao": "Publicado em: maio de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: 22\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 24,90\nFonte: Guia dos Quadrinhos",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Abominação - Parte um",
+          "tituloOriginal": "Abomination, Part One",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "9",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 9 /2025 - DC Comics",
+            "titulo": "Abomination, Part One"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Abominação - Parte dois",
+          "tituloOriginal": "Abomination, Part Two",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Absolute Batman (2024)",
+            "numeroOriginal": "10",
+            "anoOriginal": 2025,
+            "texto": "Absolute Batman (2024) n° 10 /2025 - DC Comics",
+            "titulo": "Abomination, Part Two"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-06-01",
+      "publicadoTexto": "junho de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Revista Periodica",
+      "genero": "Super-herois",
+      "status": "Em circulacao",
+      "numeroPaginas": null,
+      "formato": "Americano (17 x 26 cm) - Colorido/Lombada com grampos",
+      "precoCapa": 24.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_lab5aucvgl465bg85uqgld0g7p/-S265-FWEBP",
+      "descricao": "Publicado em: junho de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Revista Periodica\nGenero: Super-herois\nStatus: Em circulacao\nNumero de paginas: nao identificado\nFormato: Americano (17 x 26 cm)\nColorido/Lombada com grampos\nPreco de capa: R$ 24,90\nFonte: Guia dos Quadrinhos",
+      "historias": []
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-24.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-24/sa011129/178373",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-24/sa011129/178373"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "24",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-05-31",
+      "publicadoTexto": "maio de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71719bLmQNL._SY385_.jpg",
+      "descricao": "Vampira e Logan perdem seus poderes – será que sobreviverão o suficiente para que os X-Men alcancem Genosha? Madelyne Pryor é imbuída com o poder da Força Fênix! JEAN GREY ESTÁ VIVA! E um dos X-Men já sabia disso algum tempo, o que não deixa Tempestade muito feliz! Finalmente chega o momento do embate entre X-Men e Carrascos! Os Novos Mutantes fazem uma viagem ao Limbo! ",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Quem é humano?",
+          "tituloOriginal": "Who's Human",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Who's Human?\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "237",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 237/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-237/264/6276",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Mutantes em revolução",
+          "tituloOriginal": "Gonna Be a Revolution",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Gonna Be a Revolution\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "238",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 238/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-238/264/6277",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Vaidades",
+          "tituloOriginal": "Vanities",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Vanities\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "239",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 239/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-239/264/6278",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Acendendo o fósforo",
+          "tituloOriginal": "Fan the Flames",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Fan the Flames\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "240",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 240/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-240/264/6279",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Limbo",
+          "tituloOriginal": "Limbo",
+          "quantidadePaginas": 23,
+          "resumo": "Os Novos Mutantes combatem os demônios no Limbo. S'ym captura Illyana e pega sua espada da alma, mas ela é capaz de se teletransportar para a sala do trono de Belasco. Ela descreve sua vida inicial no Limbo, como ela matou suas versões dos X-Men para sobreviver. Com ajuda de Nastirth, Illyana recupera sua espada da alma e abre um portal para a terra, através do qual os novos demônios do Limbo começam a invadir a Times Square, com um feitiço de Nastirth para mantê-lo aberto.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "71",
+            "anoOriginal": 1989,
+            "texto": "New Mutants, The (1983) n° 71/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-71/191/4822",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Transformações!",
+          "tituloOriginal": "Transformações!",
+          "quantidadePaginas": 23,
+          "resumo": "23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "36",
+            "anoOriginal": 1988,
+            "texto": "X-Factor (1986) n° 36/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-36/288/7111",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

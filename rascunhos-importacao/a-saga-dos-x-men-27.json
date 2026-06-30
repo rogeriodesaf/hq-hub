@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-27.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-27/sa011129/180521",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-27/sa011129/180521"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "27",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-10-31",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/710SF0VMBkL._SY385_.jpg",
+      "descricao": "Com sua base ainda na Austrália, os X-Men tiram uma espécie de licença do trabalho para amarrar algumas pontas soltas – de uma espiada no futuro para Cristal a um encontro com velhos amigos e inimigos para Wolverine. Para além disso, os Sentinelas vão se revelar um problema para os X-Men, e uma batalha épica pode ameaçar a estabilidade da equipe! Em seguida, um pedido de socorro da ex-X-Man Polaris leva os heróis direto para um confronto com os mutoides da Terra Selvagem!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O dia das luzes",
+          "tituloOriginal": "The Day of Other Lights",
+          "quantidadePaginas": 22,
+          "resumo": "Cristal olha para Seige Perilous e se vê morrendo enquanto Wolverine decide sair para cuidar de alguns negócios. Carol Danvers (no controle do corpo da Vampira) visita o túmulo de seu irmão e o senador Kelly diz não ao financiamento para novos projetos sentinela. Nimrod é transformado em Molde-Mestre e então atacado por Carol. No meio da batalha, a esposa do senador Kelly, Sharon, é baleada pelas explosões oculares de Nimrod.\nTítulo original: \"The Day of Other Lights\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "246",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 246/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-246/264/6285",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A luz que falhou",
+          "tituloOriginal": "The Light That Failed",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"The Light That Failed\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "247",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 247/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-247/264/6286",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A mão que derruba o berço!",
+          "tituloOriginal": "The Cradle Will Fall!",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"The Cradle Will Fall!\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "248",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 248/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-248/264/6287",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A maldição de Lorna Dane",
+          "tituloOriginal": "The Dane Curse",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"The Dane Curse\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "249",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 249/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-249/264/6288",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Serpente no jardim",
+          "tituloOriginal": "Serpente no jardim",
+          "quantidadePaginas": 6,
+          "resumo": "Titulo original \"Saga of the Serpent Crown, Chapter 3: Serpent in the Garden.\"\nA história a seguir foi narrada por Uatu, o Vigia. Ele testemunhou a origem dos seres na fronteira evolutiva entre macacos e humanos... até que o lendário rei Kull da Atlântida pré-cataclísmica acabaria matando a maioria dos últimos homens-serpente na Terra... mas não todos!\n6 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1989,
+            "texto": "X-Men Annual (1970) n° 13/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-13/265/6592",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

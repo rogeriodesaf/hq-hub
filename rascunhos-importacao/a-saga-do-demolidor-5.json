@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-5/sa011130/165418",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-5/sa011130/165418"
+    ],
+    "geradoEm": "2026-06-26T23:32:11",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-07-01",
+      "publicadoTexto": "julho de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/517AZlNuzhL._SY445_SX342_ML2_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 266\nPublicado em: julho de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Al Williamson Editor: Yuri A. O. Primitz\nMe encontrei numa floresta sombria, perdido...",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Me encontrei numa floresta sombria, perdido...",
+          "tituloOriginal": "I Found Me in a Gloomy Wood Astray",
+          "quantidadePaginas": 22,
+          "resumo": "Karen e a Viúva Negra ainda estão procurando pelo Demolidor desaparecido quando a cidade de Nova York começa a ganhar vida e atacar seus cidadãos; Demolidor, ainda gravemente ferido de sua surra por Typhoid, é treinado de volta à saúde em sua psique por seu antigo mentor Stick; Mary encontra o Demolidor primeiro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "262",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 262/1989 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Na amargura não muito longe da morte...",
+          "tituloOriginal": "In Bitterness Not Far from Death...",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto Matt está se recuperando no hospital, ele é visitado por Karen e Mary ao mesmo tempo e Karen descobre que ele a está traindo; Quando o Demolidor desperta, ele encontra a cidade atormentada por uma horda de demônios loucos e faz uma pequena viagem ao Inferno no metrô.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "263",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 263/1989 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Um estouro de bebê!",
+          "tituloOriginal": "Baby Boom!",
+          "quantidadePaginas": 22,
+          "resumo": "O Vilão Coruja é ridicularizado pelos novos criminosos; então, ele resolve desafiar o Demolidor novamente, para mostrar seu valor. Um homem que cria um bebê (veja A Saga do Demolidor 3) perde a criança quando uma quadrilha o leva por engano.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "264",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 264/1989 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Novamente contemplamos as estrelas",
+          "tituloOriginal": "We Again Beheld the Stars",
+          "quantidadePaginas": 22,
+          "resumo": "O Demolidor luta em uma cidade enlouquecida enquanto Nova York se curva sob o ataque demoníaco do Inferno.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "265",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 265/1989 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Uma cerveja com o diabo",
+          "tituloOriginal": "A Beer with the Devil",
+          "quantidadePaginas": 22,
+          "resumo": "Demolidor passa o Natal bebendo cerveja em um bar com Mephisto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "266",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 266/1989 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Cremação",
+          "tituloOriginal": "Cremains",
+          "quantidadePaginas": 22,
+          "resumo": "Demolidor salva Lance de alguns valentões e, em seguida, enfrenta seu pai, Bullet. Perdido após as recentes lutas com Mary Tyfoid e Mefisto e se culpando por ter traído Karen, Matt queima todos os seus pertences e deixa a cidade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "267",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 267/1989 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

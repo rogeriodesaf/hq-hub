@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-3/ho011206/188741",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-3/ho011206/188741"
+    ],
+    "geradoEm": "2026-06-26T23:58:25",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Homem-Aranha: A Saga do Clone - Ben Reilly",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "3",
+      "tituloChamada": "A estreia do novo Homem-Aranha!",
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_k19o54lq8p5g5bakqnfgaj0l6f/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone - Ben Reilly n° 3\nPublicado em: maio de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Dan Jurgens Editor: Yuri A. O. Primitz\nCompromisso máximo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Compromisso máximo",
+          "tituloOriginal": "Ultimate Commitment",
+          "quantidadePaginas": 49,
+          "resumo": "Ben Reilly considera a possibilidade de voltar a ser o Homem-Aranha e uma visita à faculdade de moda da Universidade Centenária oferece a chance para um novo uniforme. Agora, o Novo Homem-Aranha também ajudará a salvar um importante dispositivo das mãos do Armada, a mando do Mystério.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Sensational Spider-Man, The (1996)",
+            "numeroOriginal": "0",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Sensational Spider-Man, The (1996) n° 0/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Fantasmas do passado",
+          "tituloOriginal": "Blasts From The Past!",
+          "quantidadePaginas": 22,
+          "resumo": "Ben Reilly assume a identidade de Homem-Aranha e desperta a curiosidade do povo de Nova Iorque sobre quem é o novo herói, inclusive do Tocha Humana e os mercenários da Silver Sable.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "407",
+            "anoOriginal": 1996,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 407/1996 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O jogo da vida",
+          "tituloOriginal": "The Game Of Life",
+          "quantidadePaginas": 23,
+          "resumo": "O Homem-Aranha ajuda no salvamento durante um incêndio e conhece Letal, uma supervigilante. Agora o herói a ajudará a recuperar seu filho das mãos do vilão Touro Negro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Spider-Man (1990)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1996,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Spider-Man (1990) n° 64/1996 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Pesadelo em Escarlate - Parte 1: Brusco Despertar",
+          "tituloOriginal": "Rude Awakenings!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Scarlet Spider (1995)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1996,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Scarlet Spider (1995) n° 3/1996 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Pesadelo em Escarlate - Parte 2: O mal entre nós",
+          "tituloOriginal": "Evil Among Us",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "New Warriors (1990)",
+            "numeroOriginal": "67",
+            "anoOriginal": 1996,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "New Warriors (1990) n° 67/1996 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

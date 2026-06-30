@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-2/sa011201/177903",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-2/sa011201/177903"
+    ],
+    "geradoEm": "2026-06-26T22:50:53",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-05-01",
+      "publicadoTexto": "maio de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 172,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 49.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/715Hg6BCALL._SY445_SX342_ML2_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 2\nPublicado em: maio de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 49,90\nCrédito da capa e editor\nArte: Kelley Jones Cores: Bob Lerose Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sitiado",
+          "tituloOriginal": "Besieged",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "656",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 656/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Fantasias",
+          "tituloOriginal": "Costumes",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "488",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 488/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Vazio e sem efeito",
+          "tituloOriginal": "Null and Void",
+          "quantidadePaginas": 22,
+          "resumo": "Bruce Wayne se informa sobre o projeto Eco. Azrael e Robin investigam um caso de roubo. Decifrador força dois CEOs a se matarem. Assim como Lucius Fox, eles estavam envolvidos com o projeto Eco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "657",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 657/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Decifrado",
+          "tituloOriginal": "Deciphered",
+          "quantidadePaginas": 22,
+          "resumo": "Lucius Fox está sob controle do Decifrador. Batman, Robin (e Azrael) investigam a cifra oculta na música que Lucius ouviu em seu escritório.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "658",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 658/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Fúria assassina",
+          "tituloOriginal": "Killer's Bane",
+          "quantidadePaginas": 22,
+          "resumo": "Primeira aparição não oficial de Jean-Paul com o uniforme de Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "489",
+            "anoOriginal": 1983,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 489/1983 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Quem enganou o Charada?",
+          "tituloOriginal": "Who Riddled the Riddler?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "490",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 490/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Livre pela loucura!",
+          "tituloOriginal": "The Freedom of Madness!",
+          "quantidadePaginas": 22,
+          "resumo": "Prelúdio para Batman: A Queda do Morcego.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "491",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 491/1993 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

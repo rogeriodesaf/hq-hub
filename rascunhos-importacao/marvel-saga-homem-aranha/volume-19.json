@@ -1,0 +1,186 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-19/ma011173/166375",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-19/ma011173/166375"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:30",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  9,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "19",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-09-01",
+                        "publicadoTexto":  "setembro de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  212,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.TYUlBGqfab3cN1ZU9nR-YwHaHa?w=192\u0026h=192\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 19\nPublicado em: setembro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 212\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nArte: Barry Kitson Editor: Fernando Lopes - ‘Fl’ , Rogério Saladino\nParada não programada - Parte 1\nRoteiro: Mark Waid\nArte: Marcos Martin\nCores: Javier Rodríguez\nLetrista: Gisele Emann Tavares\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Stephen \"Steve\" Wacker\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 578 /2009 - Marvel Comics\nTítulo original: \"Unscheduled Stop - Part 1\".\n22 Páginas\nParada não programada - Parte 2\nRoteiro: Mark Waid\nArte: Marcos Martin\nCores: Javier Rodríguez\nLetrista: Gisele Emann Tavares\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Stephen \"Steve\" Wacker\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 579 /2009 - Marvel Comics\nTítulo original: \"Unscheduled Stop - Part 2\".\n22 Páginas",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Parada não programada - Parte 1",
+                                              "tituloOriginal":  "Unscheduled Stop - Part 1",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "578",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 578/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Parada não programada - Parte 2",
+                                              "tituloOriginal":  "Unscheduled Stop - Part 2",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "579",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 579/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Deu branco",
+                                              "tituloOriginal":  "Fill in the Blank",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Perseguido mais do que nunca pela polícia de Nova York, o Homem-Aranha vê mais uma vez um de seus parentes ter a vida ameaçada pelo crime. É hora do Aracnídeo encarar o Lacuna!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "580",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 580/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O problema de Harry",
+                                              "tituloOriginal":  "Mind on Fire: The Trouble With Harry - Part One",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Acompanhando seu amigo Harry Osborn, Peter ainda tem que fazer uma visita nada amistosa a sua sumida amiga Liz Allen, o pequeno Normie Osborn e… o Magma! Sim, pode apostar todas as suas fichas em um quebra-pau.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "581",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 581/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Rodada de fogo",
+                                              "tituloOriginal":  "Mind on Fire: Burning Questions - Part Two",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "582",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 582/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Platônico",
+                                              "tituloOriginal":  "Platonic",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "A vida secreta de Betty Brand!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "583",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 583/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "O Aranha conhece o presidente!",
+                                              "tituloOriginal":  "Spidey Meets the President!",
+                                              "quantidadePaginas":  9,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "583",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 583/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Branco \u0026 preto",
+                                              "tituloOriginal":  "Black \u0026 White",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man: Extra!, The (2008)",
+                                                                         "numeroOriginal":  "2",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man: Extra!, The (2008) n° 2/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "O aniversariante",
+                                              "tituloOriginal":  "Birthday Boy",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man: Brand New Day - Extra, The (2008)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  2008,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man: Brand New Day - Extra, The (2008) n° 1/2008 - Marvel Comics,"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

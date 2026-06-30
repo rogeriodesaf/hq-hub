@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-5/sa011202/185655",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-5/sa011202/185655"
+    ],
+    "geradoEm": "2026-06-27T00:45:12",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-08-01",
+      "publicadoTexto": "agosto de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_s8esbgdvmt0q17t4sq0shu8m34/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 5\nPublicado em: agosto de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Allen \"Al\" Milgrom Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A resposta final",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Em meio à devastação de uma nevasca em Nova York, Adaga desaparece. O Homem-Aranha e a Gata Negra unem forças para encontrar a super-heroína, mas será que a busca será em vão? O Homem-Aranha precisa ajudar Manto a conter Cabelo de Prata antes que o senhor do crime retome sua perseguição a Adaga.\nMary Jane reflete sobre seu lugar na vida do Homem-Aranha, enquanto o Rei do Crime planeja seu próximo movimento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 96/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O ermitão",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Aranha enfrenta um misterioso eremita que só quer ser deixado em paz, levando a um confronto inesperado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "97",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 97/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dívida paga",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Tocha Humana contra a ameaça do Abade Negro e dos Apóstolos Negros! O que eles podem fazer ao seu corpo e alma é indescritível!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "147",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 147/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "E uma criança os guiará",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Homem-Aranha e Thor unem forças contra o Abade Negro e seus selvagens Apóstolos Negros no ápice da trilogia do Abade Negro! O Abade Negro quer roubar o maior prêmio de todos: os poderes do poderoso Thor! Além disso, mais novidades sobre o uniforme do Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "148",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 148/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "E o Escorpião leva a noiva!",
+          "tituloOriginal": "The Scorpion Takes a Bride! (But Not the Way You Think!)",
+          "quantidadePaginas": 39,
+          "resumo": "É o dia do casamento de J. Jonah Jameson, mas o Escorpião, em busca de vingança, captura o filho de Jameson e Marla Madison, a noiva. Sobra para o Homem-Aranha salvar o dia e o casamento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 18/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-11/ma011173/159116",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-11/ma011173/159116"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:13",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  8,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "11",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-05-01",
+                        "publicadoTexto":  "maio de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  196,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61OusGr2qZL._SY342_.jpg",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 11\nPublicado em: maio de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 196\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nArte: Ron Garney Editor: Fernando Lopes - ‘Fl’\nGuerra em casa - Parte um de sete",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Guerra em casa - Parte um de sete",
+                                              "tituloOriginal":  "The War at Home - Part One of Seven",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "532",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 532/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Guerra civil - Parte dois",
+                                              "tituloOriginal":  "Civil War",
+                                              "quantidadePaginas":  3,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Civil War (2006)",
+                                                                         "numeroOriginal":  "2",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Civil War (2006) n° 2/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Guerra em casa: A noite em que a guerra vem para casa - Parte dois de sete",
+                                              "tituloOriginal":  "The Night the War Came Home - Parte Two of Seven",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "533",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 533/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Guerra em casa - Parte três de sete",
+                                              "tituloOriginal":  "The War at Home - Part Three of Seven",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "534",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 534/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Guerra em casa - Parte quatro de sete",
+                                              "tituloOriginal":  "The War at Home - Part Four of Seven",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "535",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 535/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Guerra em casa - Parte cinco de sete",
+                                              "tituloOriginal":  "The War at Home - Part Five of Seven",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "536",
+                                                                         "anoOriginal":  2006,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 536/2006 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Guerra em casa - Parte seis de sete",
+                                              "tituloOriginal":  "The War at Home - Part Six of Seven",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "537",
+                                                                         "anoOriginal":  2007,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 537/2007 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Guerra em casa - Parte sete de sete",
+                                              "tituloOriginal":  "The War at Home - Part Seven of Seven",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "História que narra o que acontece na sequência da luta final de GC, onde o CA decide se entregar após perceber que estava mais prejudicando o povo que o ajudando. Nessa história, enquanto as ações finais se desenrolam, um sniper aguarda pacientemente o retorno de Peter ao seu esconderijo. Quando o heroi chega, um disparo é feito e o HA consegue salvar Mary Jane de ser atingida. Mas não a tia May",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "538",
+                                                                         "anoOriginal":  2007,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 538/2007 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

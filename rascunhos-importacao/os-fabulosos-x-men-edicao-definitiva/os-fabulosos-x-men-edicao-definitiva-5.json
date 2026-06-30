@@ -1,0 +1,352 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-5/fa011131/172267",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-5/fa011131/172267"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 24,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-03-01",
+      "publicadoTexto": "março de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 516,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 220,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 5\nPublicado em: março de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 516\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 220,00\nCrédito da capa e editor\nArte: Gil Kane , Dave Cockrum Editor: Fernando Lopes - ‘Fl’ , Leandro Luigi Del Manto , Paulo França - ‘Pf’ , Júlio Oliveira",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Segunda gênese!",
+          "tituloOriginal": "Deadly Genesis!",
+          "quantidadePaginas": 36,
+          "resumo": "Os X-Men originais desapareceram numa missão de rotina na misteriosa ilha de Krakoa. Agora, seu líder Charles Xavier, o telepata mais poderoso do mundo, precisa recrutar uma equipe de substitutos, para salvar os heróis mutantes. Testemunhe a origem de uma nova geração de ícones do Universo Marvel, como Wolverine, Tempestade, Noturno, Colossus e Pássaro Trovejante, que entra na luta em resposta à conclamação de Xavier, dando início à segunda gênese dos X-Men!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Giant-Size X-Men (1975)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1975,
+            "texto": "Giant-Size X-Men (1975) n° 1/1975 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O cenário apocalíptico!",
+          "tituloOriginal": "The Doomsmith Scenario!",
+          "quantidadePaginas": 18,
+          "resumo": "Os X-Men originais foram embora e apenas Ciclope permaneceu ao lado do Professor X para liderar os novos integrantes. Em meio aos árduos desafios da Sala de Perigo, o Pássaro Trovejante se vê derrotado por sua arrogância e, deprimido, passa a ficar perigosamente obcecado em provar que é um verdadeiro guerreiro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "94",
+            "anoOriginal": 1975,
+            "texto": "Uncanny X-Men, The (1963) n° 94/1975 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A caçada!",
+          "tituloOriginal": "Warhunt!",
+          "quantidadePaginas": 18,
+          "resumo": "Já dentro da Montanha Valhalla, os X-Men enfrentam os Homens-Animais do Conde Nefária. Pássaro Trovejante não aceita as ordens de Ciclope e se considera inútil para o grupo. Tentando provar seu valor, ele se joga no jato de Nefária, a fim de impedi-lo quando este tenta fugir, ignorando os avisos do Professor Xavier e Banshee. O herói permanece na aeronave, até que ela acaba explodindo em pleno ar, levando-o à morte.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "95",
+            "anoOriginal": 1975,
+            "texto": "Uncanny X-Men, The (1963) n° 95/1975 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A noite do demônio!",
+          "tituloOriginal": "Night of the Demon!",
+          "quantidadePaginas": 18,
+          "resumo": "A Dra. Moira MacTaggert, velha amiga e ex-interesse romântico do Professor Xavier, é convocada para ser a governanta da Mansão X. Enquanto isso, Ciclope continua chocado e inconformado com a morte do Pássaro Trovejante e seus sentimentos negativos acabam libertando uma apavorante criatura: o demônio N'Garai. Com isso, os X-Men têm de deter a ameaça ou as criaturas da dimensão demoníaca invadirão a Terra!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1975,
+            "texto": "Uncanny X-Men, The (1963) n° 96/1975 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Meu irmão, meu inimigo!",
+          "tituloOriginal": "My Brother, My Enemy!",
+          "quantidadePaginas": 18,
+          "resumo": "Atormentado por um pesadelo recorrente, onde é assolado por visões de uma batalha intergaláctica, o Professor Xavier decide tirar férias, a fim de espairecer. No entanto, mal o seu avião decola do aeroporto JFK, e os X-Men são subitamente atacados por Destrutor e Polaris! Mas, o verdadeiro mentor do ataque é Erik Escarlate! Levando em conta que Eric foi uma identidade adotada pelo \"próprio Ciclope\", então, quem diabos é esse misterioso vilão?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "97",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 97/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Feliz natal, X-Men!",
+          "tituloOriginal": "Merry Christmas, X-Men - The Sentinels Have Returned!",
+          "quantidadePaginas": 17,
+          "resumo": "Nova York respira o Natal e os X-Men dão uma pausa nas aventuras para curtir também essa época de amor e paz... Duas coisas que eles acabam não tendo quando se tornam os alvos prioritários no acachapante retorno dos Sentinelas, os robôs gigantes caçadores de mutantes. Demolidor e Superman aparecem brevemente, em suas identidades civis de Matt Murdock e Clark Kent.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "98",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 98/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Estrela da morte em ascensão!",
+          "tituloOriginal": "Deathstar, Rising!",
+          "quantidadePaginas": 17,
+          "resumo": "A tentativa de fuga de Banshee, Jean Grey e Wolverine fracassa e eles voltam a ser prisioneiros na estação espacial do Projeto Armagedom, liderado pelo insano terrorista antimutante Stephen Lang e guarnecido pelos novos Sentinelas. Enquanto isso, na Terra, Ciclope, Noturno, Tempestade e Colossus, com a ajuda do Dr. Peter Corbeau, embarcam num ônibus espacial a fim de resgatar seus amigos das garras de Lang.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "99",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 99/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Perdidos no espaço",
+          "tituloOriginal": "Greater Love Hath No X-Man...",
+          "quantidadePaginas": 17,
+          "resumo": "Na 100ª edição da revista “Uncanny X-Men”, um confronto aguardado pelos fãs: comandados por um Xavier que milagrosamente recuperou o movimento das pernas, Ciclope, Jean Grey, Fera, Anjo e Homem de Gelo enfrentam Tempestade, Noturno, Banshee, Colossus e Wolverine na estação espacial do insano Stephen Lang. Mas nem tudo é o que parece.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 100/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Como uma Fênix renascida das cinzas!",
+          "tituloOriginal": "Like a Phoenix, from the Ashes",
+          "quantidadePaginas": 17,
+          "resumo": "Depois de derrotar Stephen Lang e destruir a estação do Projeto Armagedom, os X-Men tentam voltar para a Terra. Apesar dos protestos de seus colegas, em especial Ciclope, seu namorado, e Wolverine, já apaixonado por ela, Jean Grey decide se sacrificar para proteger o ônibus espacial da radiação solar na reentrada no planeta. Mas uma entidade cósmica se compadece dela e une sua essência à de Jean. Chegam à Terra e Jean ressurge como a Fênix.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 101/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Quem vai deter o Fanático?",
+          "tituloOriginal": "Who Will Stop the Juggernaut?",
+          "quantidadePaginas": 17,
+          "resumo": "Banshee vai até a Irlanda para receber sua parte numa herança, em especial, o Castelo Cassidy e Tempestade, Noturno, Colossus e Wolverine o acompanham. Mas chegando lá, o mutante sônico terá de encarar seu primo, Black Tom Cassidy, que não quer abrir mão do castelo e tem ao seu lado o irrefreável Fanático! Com os esforços de Noturno, Colossus e Wolverine sem efeito e Tempestade, impotente por causa de sua claustrofobia, quem deterá o Fanático?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "102",
+            "anoOriginal": 1976,
+            "texto": "Uncanny X-Men, The (1963) n° 102/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "A queda da torre",
+          "tituloOriginal": "The Fall of the Tower",
+          "quantidadePaginas": 17,
+          "resumo": "Levado à inconsciência pelo confronto contra Black Tom Cassidy e o Fanático, Noturno acaba sendo acolhido pelos leprechauns do Castelo Cassidy, criaturas que até então se acreditavam míticas. Conquistando o apoio dos seres mágicos que defendem a família Cassidy há gerações, Noturno lidera a ofensiva para derrotar os adversários e salvar Banshee, Colossus, Tempestade e Wolverine, que foram encarcerados e seus poderes neutralizados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 103/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "O nome do cavalheiro é Magneto",
+          "tituloOriginal": "The Gentieman's Name is Magneto",
+          "quantidadePaginas": 17,
+          "resumo": "Atendendo um pedido de Moira MacTaggert, os X-Men seguem para a Ilha Muir, na Escócia, para investigar porque o ajudante da doutora, Jamie Madrox (o Homem-Múltiplo), não tem dado notícias. Chegando lá, os heróis veem o centro de pesquisas revirado e tem a chocante surpresa do retorno de Magneto, enfim de volta à idade adulta depois de ter sido reduzido a um bebê. Cada vez mais ressentido, o vilão tem seu primeiro embate com os novos X-Men.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "104",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 104/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "A Fênix se liberta!",
+          "tituloOriginal": "Phoenix Unleashed!",
+          "quantidadePaginas": 17,
+          "resumo": "Os X-Men voltam aos Estados Unidos, com Eric Escarlate sob sua custódia. Ao pousarem, são atacados pelo Senhor do Fogo, temido ex-arauto de Galactus. Ludibriado por Eric e seus dominados Destrutor e Polaris, o Senhor do Fogo considera os heróis uma ameaça e encara Fênix, a última a se manter de pé no campo de batalha. Enquanto isso, a Majestrix Lilandra enfim se revela ao Professor Xavier e lhe implora ajuda para salvar o universo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "105",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 105/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Sombras do passado!",
+          "tituloOriginal": "Dark Shroud of the Past!",
+          "quantidadePaginas": 17,
+          "resumo": "Depois de esclarecer o mal-entendido com o Senhor do Fogo, o Professor Xavier tem um novo lapso mental. Isso o faz recordar da razão de ter chamado Moira MacTaggert para ajudá-lo com os novos X-Men. Enquanto isso, nossos heróis enfrentaram contrapartes malignas dos X-Men originais. O culpado? O lado negro de Xavier.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 106/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Onde nenhum X-Man jamais esteve!",
+          "tituloOriginal": "Where No X-Man Has Gone Before!",
+          "quantidadePaginas": 18,
+          "resumo": "Através de um portal criado pela Fênix, os X-Men perseguem Eric Escarlate, que raptou Lilandra. Acabam indo parar no planeta Sh'iar, onde descobrem o mal que tem atormentado o Professor Xavier: D'Ken, irmão de Lilandra, usurpou o trono e tomou posse do poderoso cristal M'Krann. Louco de poder, D'Ken ameaça o equilíbrio do universo e nossos heróis precisarão enfrentar a Guarda Imperial de Sh'iar. Mas receberão um reforço: os Piratas Siderais.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "107",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 107/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Armagedom!",
+          "tituloOriginal": "Armageddon Now",
+          "quantidadePaginas": 17,
+          "resumo": "O universo está condenado! Uma gigantesca onda de energia atingiu o Cristal M’Krann, o que irá liberar o poder da galáxia de neutrôns, desintegrando toda matéria e decretando “o fim de tudo o que existe”! Os X-Men e os Piratas Siderais tentam deter os guardiões do cristal, a ameaça está prestes a ser deflagrada, sentenciando todo o Cosmo à destruição! E a única que pode impedi-la é... “a Fênix”!\nEstreia da dupla Chris Claremont e John Byrne nos X-Men.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "108",
+            "anoOriginal": 1977,
+            "texto": "Uncanny X-Men, The (1963) n° 108/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Chamas na neve",
+          "tituloOriginal": "“Snowfire”",
+          "quantidadePaginas": 17,
+          "resumo": "Em Nova York, Punho de Ferro é ameaçado por um estranho com trajes de Kun-Lun, a cidade oriental onde nosso herói foi treinado. Em seguida, ele parte para Calgary, no Canadá, afim de ajudar sua amiga Colleen a proteger um figurão. Mas, a dupla falha e os três são capturados por um pirata moderno: Dentes-de-Sabre! Primeira aparição de Dentes-de-Sabre, criado para ser um inimigo de Punho de Ferro, mas que acabou popular como o nêmesis de Wolverine.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Iron Fist (1975)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1977,
+            "texto": "Iron Fist (1975) n° 14/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "A chegada dos X-Men",
+          "tituloOriginal": "Enter, the X-Men",
+          "quantidadePaginas": 17,
+          "resumo": "Um simples mal-entendido coloca o Punho de Ferro em luta contra os Fabulosos X-Men.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Iron Fist (1975)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1977,
+            "texto": "Iron Fist (1975) n° 15/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "Os heróis estão em casa!",
+          "tituloOriginal": "Home are the Heroes!",
+          "quantidadePaginas": 17,
+          "resumo": "Ao retornarem de uma missão no espaço, os X-Men tiram o merecido descanso. Tempestade, Colossus, Banshee e Moira aproveitam um piquenique à beira do lago, Wolverine treina seu sentidos praticando caça. A diversão termina quando um poderoso ser, o Arma Alfa, trajando as cores da bandeira canadense, aparece para levar Wolverine de volta ao Canadá, para acertar contas com o serviço secreto do país. Mas nossos heróis não deixarão sem luta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "109",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 109/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "Os senhores da luz e das trevas!",
+          "tituloOriginal": "The Lords of Light and Darkness!",
+          "quantidadePaginas": 35,
+          "resumo": "Uma experiência científica que termina em tragédia em uma instalação de pesquisas secreta do governo, localizada no deserto de Nevada, desencadeia uma série de eventos de proporções cósmicas, que pode acarretar a destruição de todo o planeta! Por ironia do destino, sobrevoando o local, um Boeing 747, onde se realiza uma conferência internacional sobre mutação tem entre seus participantes o Espetacular Homem-Aranha e os Fabulosos X-Men!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up Annual (1976)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1976,
+            "texto": "Marvel Team-Up Annual (1976) n° 1/1976 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "Pesadelo no Novo México!",
+          "tituloOriginal": "Nightmare in New Mexico!",
+          "quantidadePaginas": 17,
+          "resumo": "A pequena cidade do interior chamada Liberdade torna-se palco de uma carnificina, quando um cilindro de gás dos nervos é rompido, deixando escapar seu conteúdo mortal e exterminando todas as formas de vida nas proximidades! Com exceção de uma: o misterioso ser, semelhante ao mitológico Pan, conhecido como Deus da Mata! E é justamente pra essa cidade que o Homem-Aranha e o Hulk estão se dirigindo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1977,
+            "texto": "Marvel Team-Up (1972) n° 53/1977 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 22,
+          "tituloPortugues": "Inimigo oculto!",
+          "tituloOriginal": "The",
+          "quantidadePaginas": 17,
+          "resumo": "Era pra ser um dia tranquilo, com os heróis jogando uma partida de baseball, acaba virando um inferno, quando a Mansão X é invadida pelo \"Guerreiro Gavião, o Último dos Soldados\"! Reprogramando a Sala de Perigo, ele a transforma num labirinto de armadilhas para os X-Men, que terão de usar todo seu trabalho em equipe pra sobreviver! Afinal, quem é o mestre do vilão e por que nem mesmo o poder cósmico da Fênix e a telepatia do Prof. X são capazes de detê-lo?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 110/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 23,
+          "tituloPortugues": "A noite do deus vivo!",
+          "tituloOriginal": "Night of the Living God!",
+          "quantidadePaginas": 17,
+          "resumo": "Tudo o que Alex Summers, o Destrutor, e Polaris mais queriam era nada além de paz e tranquilidade. No entanto, as coisas não saíram bem do jeito que eles imaginaram, pois, são atacados pelos asseclas do Faraó Vivo, o mesmo mutante que Alex enfrentou quando descobriu seus poderes!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "69",
+            "anoOriginal": 1978,
+            "texto": "Marvel Team-Up (1972) n° 69/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 24,
+          "tituloPortugues": "A quem os deuses destroem!",
+          "tituloOriginal": "Whom Gods Destroy!",
+          "quantidadePaginas": 17,
+          "resumo": "“Como enfrentar o poder de um deus”? Quando o Prof. Abdol, o Faraó Vivo, absorveu todo o poder cósmico que é absorvido pelo corpo de Alex Summers, o Destrutor, se transformou no gigantesco e poderoso Monolito Vivo! Nesse caso, para fazer frente ao poder de um deus, a única opção é contar com a ajuda de outro: Thor, o Deus do Trovão!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "70",
+            "anoOriginal": 1978,
+            "texto": "Marvel Team-Up (1972) n° 70/1978 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

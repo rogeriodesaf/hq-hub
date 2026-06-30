@@ -1,0 +1,442 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-11/es011117/174060",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-11/es011117/174060"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:08:46",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  25,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "11",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2023-09-01",
+                        "publicadoTexto":  "setembro de 2023",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  496,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  215.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61NPNAGChQL._SL1000_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 11\nPublicado em: setembro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 496\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 215,90\nCrédito da capa e editor\nArte: Sal Buscema , John Romita Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Quem é o culpado?",
+                                              "tituloOriginal":  "Whodunit!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Dr. Armstrong Smith, criador de um supercomputador anticrime, junto com o falecido Dr. Bradley Bolton, é misteriosamente assassinado dentro de uma sala trancada por dentro. À procura do culpado, o Aranha precisa descobrir qual dos três suspeitos cometeu o crime. Ou será que poderia ter sido...“o quarto”?\nÚnica aparição de Jack Fuinha, Jason Sledge, Leroy Tallon e Conrad Fox.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "155",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 155/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Em um dia claro, você pode ver... O Miragem!",
+                                              "tituloOriginal":  "On a clear day you can see the Mirage!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Ned Leeds e Betty Brant finalmente se casam, com Peter como padrinho e Mary Jane como dama de honra. Mas, como o azar de nosso herói sempre o persegue, a cerimônia é interrompida por um “bicão”: o vilão Miragem, a fim de fazer “uma limpa” nos convidados! Só que nada disso se compara com a tremenda surpresa que o aguarda quando ele acabar descobrindo... \"quem está de volta\"!\nPrimeira aparição do Miragem.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "156",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 156/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "O fantasma que assombrava o Octopus!",
+                                              "tituloOriginal":  "The ghost that haunted Octopus!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Doutor Octopus retornou dos mortos! Tendo se disfarçado de mendigo, após escapar da explosão atômica da ilha e fugindo dos “fantasmas de seu passado”, o vilão procura a ajuda da Tia May, o que deixa Peter bastante desconfortável. Enquanto isso, o Aranhamóvel desaparece do fundo do rio...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "157",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 157/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Cabeça de Martelo à solta!",
+                                              "tituloOriginal":  "Hammerhead is ojt!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Dr. Octopus, com a tia May sob o seu poder, continua fugindo do fantasma do Cabeça de Martelo. Para tentar eliminá-lo de vez, Octopus se refugia num laboratório de energia atômica e improvisa um acelerador de partículas, atraindo-o para o local. Mas o resultado não sai conforme o esperado.\nÚnica aparição da Srta. Pringle.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "158",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 158/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "De braços dados com o Doutor Octopus",
+                                              "tituloOriginal":  "Arm-in-arm-in-arm with Doctor Octopus!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Revertido à sua forma material pelo acelerador de partículas improvisado do Dr. Octopus, o Cabeça-de-Martelo está de volta ao mundo dos vivos! E, na batalha que se segue, o vilão consegue escapar, não sem antes raptar a tia May (de novo!). Assim, Octopus e Aranha se unem para salvá-la! Em outro lugar, descobrimos o paradeiro do Aranhamóvel. Mas, o Aranha é que não vai gostar quando “ele descobrir”!\nÚnica aparição da Srta. Plumm.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "159",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 159/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "\"Entre em minha sala...\"",
+                                              "tituloOriginal":  "Step Into My Parker... Said the Spider to the Fly!",
+                                              "quantidadePaginas":  null,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Annual, The (1964)",
+                                                                         "numeroOriginal":  "10",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Annual, The (1964) n° 10/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Meu assassino, o carro!",
+                                              "tituloOriginal":  "My killer, the car!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Consertador está de volta e disposto a eliminar o Aranha com a ajuda do... Aranha-Móvel?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "160",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 160/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Uma boa noite para morrer!",
+                                              "tituloOriginal":  "A Fine Night for Dying!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Misteriosos atentados à bomba estão assolando toda a cidade e justamente um dos alvos é um silo de combustíveis das Indústrias Stark! O Aranha decide investigar a fundo o mistério, mas, pra descobrir e deter o responsável, ele mais uma vez vai unir forças ao Homem de Ferro e à policial mais durona do pedaço!\nSal Buscema desenhou as figuras centrais, enquanto que Hunt fez os cenários e Esposito o restante.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "48",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 48/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "A loucura está na sua mente!",
+                                              "tituloOriginal":  "Madness Is All in the Mind!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Eis que surge... o Aparição! Com seus aviõezinhos por controle remoto armados de bombas e seus assombrosos poderes mentais, capazes de alterar a percepção da realidade, ele se mostra um adversário à altura para o Aranha e o Homem de Ferro! Mas, afinal, qual a sua ligação com o passado da própria Capitã DeWolff?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "49",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 49/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "O mistério da Aparição!",
+                                              "tituloOriginal":  "The Mystery of the Wraith!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Os mistérios se aprofundam ainda mais quando as suspeitas sobre quem é o vilão conhecido como Aparição recaem sobre Brian, o irmão mais velho da Capitã Jean DeWolff, que, aparentemente, morreu há dois anos em uma emboscada da máfia, mas cujo corpo jamais foi encontrado! Mas, se ele está realmente morto, então o Aranha e o Homem de Ferro vão precisar de uma ajuda do Doutor Estranho pra poder enfrentar um fantasma!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "50",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 50/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "O julgamento da Aparição!",
+                                              "tituloOriginal":  "The Trial of the Wraith!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Conseguindo romper o elo mental entre o ex-comissário de polícia Philip DeWolff e seu filho dado como morto Brian, nossos heróis finalmente derrotam o Aparição! E o julgamento do vilão está prestes a decidir quem foi o culpado dos crimes: o pai ou o filho? Mas, quando o Aparição recobrar seu poder em plena sessão do tribunal, todos os presentes serão seus reféns! Incluindo o Aranha, Dr. Estranho e Homem de Ferro!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "51",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 51/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "...E o Noturno estava nas sombras",
+                                              "tituloOriginal":  "...and the Nightcrawler came prowling, prowling",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Assassinatos misteriosos vêm ocorrendo seguidamente, quando pessoas sem qualquer ligação umas com as outras, são atingidas aleatoriamente por um franco-atirador! Após ler a notícia sobre uma das vítimas, um velho amigo seu, Noturno decide investigar, mas ele acaba cruzando com o Aranha e o Justiceiro! Enquanto isso, fotos chocantes \"enviadas anonimamente\" do Aranha se livrando de seu clone vão parar nas mãos de J.J.Jameson!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "161",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 161/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "A vingança é um justiceiro selvagem!",
+                                              "tituloOriginal":  "Let The Punisher Fit The Crime.",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Com a ajuda de Noturno e do Justiceiro, o Aranha parte pra cima do misterioso atirador, um velho desafeto de Frank Castle, cujo plano era incriminar o Justiceiro, a fim de se vingar. O problema é que ele fez um bairro inteiro de refém! Ao mesmo tempo, convencido de que o herói é um assassino devido às fotos anônimas, J.J.J. contrata uma cientista da UES num novo plano para destruí-lo! Primeiras aparições de Retalho e da Drª Marla Madison.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "162",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 162/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "A dupla ferroada do Tarântula!",
+                                              "tituloOriginal":  "Twice stings the Tarantula!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O que parecia ser apenas uma palestra do Vice-Reitor Lansky em frente ao Centro da Administração do Campus da Universidade Empire State, acaba virando um pandemônio quando o famigerado Tarântula surge pra raptar o Vice-Reitor! Mas, isso será fichinha quando o vilão sul-americano, contratado por um misterioso figurão, partir pra um esquema ainda mais ousado... “assassinar o prefeito de Nova York\"!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 1/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "Todos os homens do Rei!",
+                                              "tituloOriginal":  "All the Kingpin\u0027s men",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O incrível roubo em pleno ar de um caminhão transportando equipamentos eletrônicos por um helicóptero, leva o Escalador de Paredes a um reencontro com a mesma quadrilha de capangas uniformizados responsável pela morte do Dr. Bolton e pela fuga do Homem-Areia! E, quando o aracnídeo enfim descobrir quem é o cabeça por trás desses bandidos, ele vai estar se metendo em uma das maiores enrascadas de toda a sua carreira!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "163",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 163/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Prazo final!",
+                                              "tituloOriginal":  "Deadline!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "A fim de ressuscitar seu filho, o Rei do Crime submete o Aranha a uma experiência em que sua força vital é transferida para o corpo de Richard Fisk. Mas, com o auxílio do Dr. Curt Connors, o Aranha consegue reaver sua energia de volta - não sem ter travado uma luta que pode ter selado o fim do Rei do Crime...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "164",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 164/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "Kraven é o caçador!",
+                                              "tituloOriginal":  "Kraven Is the Hunter!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Uma vez que o “assassinato disfarçado de rapto” do prefeito de NY foi frustrado pela intervenção do Homem-Aranha, o misterioso manda-chuva do Tarântula contrata um reforço de peso a fim de auxiliar o vilão latino-americano: Kraven, O Caçador! E, dessa vez, seu alvo é o Reitor da Universidade Empire State! Ainda debilitado devido ao seu confronto com o Rei do Crime, só o que resta ao aracnídeo é enfrentar mais essa barra e esperar sair com vida dela!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "2",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 2/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "...Eis que surge o Mestre da Luz!",
+                                              "tituloOriginal":  "...And There Was Lightmaster!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Surge um novo inimigo: o poderosíssimo Mestre da Luz, capaz de disparar feixes de laser sólido e moldá-los nas mais variadas formas de ataque, cujos planos também envolvem os raptos anteriores do reitor e vice-reitor da UES, bem como o mal-fadado assassinato do prefeito! Dessa vez, o vilão sequestra o secretário de finanças da Prefeitura e consegue até mesmo deixar o aracnídeo a ver navios!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "3",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 3/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Perigo: Demônio à solta!",
+                                              "tituloOriginal":  "Danger: Demon on a Rampage!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Continuidade dos eventos de Captain America (1968) n° 203.\nUm portal dimensional se abre em plena rua e uma criatura bestial emerge de seu interior, espalhando pânico e destruição! Mas do mesmo portal, saem o Capitão América e Falcão, vindos da Dimensão Negra onde estavam aprisionados! Em meio ao pandemônio, o Aranha tem que ajudar o Capitão depois que Batroc resolve se aproveitar da situação e usar a fera pra se vingar!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "52",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 52/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Os senhores da luz e das trevas!",
+                                              "tituloOriginal":  "The Lords of Light and Darkness!",
+                                              "quantidadePaginas":  35,
+                                              "resumo":  "Uma experiência científica que termina em tragédia em uma instalação de pesquisas secreta do governo, localizada no deserto de Nevada, desencadeia uma série de eventos de proporções cósmicas, que pode acarretar a destruição de todo o planeta! Por ironia do destino, sobrevoando o local, um Boeing 747, onde se realiza uma conferência internacional sobre mutação tem entre seus participantes o Espetacular Homem-Aranha e os Fabulosos X-Men!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up Annual (1976)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  1976,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up Annual (1976) n° 1/1976 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "Pesadelo no Novo México!",
+                                              "tituloOriginal":  "Nightmare in New Mexico!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "A pequena cidade do interior chamada Liberdade torna-se palco de uma carnificina, quando um cilindro de gás dos nervos é rompido, deixando escapar seu conteúdo mortal e exterminando todas as formas de vida nas proximidades! Com exceção de uma: o misterioso ser, semelhante ao mitológico Pan, conhecido como Deus da Mata! E é justamente pra essa cidade que o Homem-Aranha e o Hulk estão se dirigindo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "53",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 53/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "Fogo cruzado!",
+                                              "tituloOriginal":  "Spider in the Middle!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Cercados por uma unidade de comandos especiais do exército, liderada pelo major Tremens, o Aranhaq eo Hulk se veem em meio ao fogo cruzado entre os soldados e o Deus da Mata, já que o major quer saber por que o homem-bode foi o único a sobreviver ao vazamento de gás fatal. Porém, as consequências desse embate se mostrarão igualmente fatídicas pra essa improvável dupla de heróis, principalmente pro Aranha, quando for lançado ao espaço em um foguete!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "54",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 54/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "Aranha, aranha na lua!",
+                                              "tituloOriginal":  "Spider, Spider on the Moon!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enviado à órbita da Terra em um foguete descontrolado, o Homem-Aranha vai parar em um lugar perdido e obscuro, a Área Azul da Lua, o mesmo cenário onde o Quarteto Fantástico enfrentou pela 1ª vez o Fantasma Vermelho e seus supermacacos! Mas, ele não está sozinho, pois estará envolvido em um conflito de proporções cósmicas entre Adam Warlock e o semideus espacial \"O Estranho\", pela posse de não apenas uma, mas duas das Joias do Infinito!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "55",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 55/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  24,
+                                              "tituloPortugues":  "Stregon ronda as ruas!",
+                                              "tituloOriginal":  "Stegron stalks the city!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Tentando montar um exército de dinossauros para comandar, Stegron começa a reanimar uma série de fósseis dessas criaturas pré-históricas no Museu de História Natural de NY. Além disso, exige que o Dr. Connors lhe preste um serviço e, para tanto, sequestra seu filho, Billy. Assim, sentindo-se pressionado e tenso, Connors acaba se transformando no Lagarto novamente.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "165",
+                                                                         "anoOriginal":  1985,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 165/1985 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  25,
+                                              "tituloPortugues":  "A guerra dos Homens-Répteis!",
+                                              "tituloOriginal":  "War of the Reptile-Men!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Sentindo-se tenso e pressionado, Connors se transforma no Lagarto novamente e vai atrás de Stegron para resgatar seu filho, Billy. No meio disso tudo, o Aranha terá que defender não apenas o Billy, filho de Connors, como também toda a cidade de NY do ataque do exército de dinossauros formado por Stegron.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "166",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 166/1977 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

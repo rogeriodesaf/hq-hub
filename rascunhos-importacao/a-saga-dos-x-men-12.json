@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-12/sa011129/173281",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-12/sa011129/173281"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "12",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-05-31",
+      "publicadoTexto": "maio de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "",
+      "descricao": "Capa original: Uncanny X-Men, The (1963) n° 200",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O julgamento de Magneto!",
+          "tituloOriginal": "The Trial of Magneto!",
+          "quantidadePaginas": 40,
+          "resumo": "Na França, Magneto é julgado por seus crimes, enquanto nossos heróis voltam à Terra após aventura em Asgard. Mas os Irmãos Fenris planejam uma vingança contra o réu e o professor Xavier, aproveitando para manchar a reputação dos X-Men no processo, realizando vários atentados no país. Por fim, eles atacam a Corte de Justiça. Após a luta, Xavier sofre um ataque cardíaco e é levado por Lilandra, deixando para Magneto o desafio de dirigir sua Escola.\n\nTí",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "200",
+            "anoOriginal": 1985,
+            "texto": "Uncanny X-Men, The (1963) n° 200/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-200/264/6239",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Nas sombras da alma!",
+          "tituloOriginal": "Shadows on the Soul!",
+          "quantidadePaginas": 24,
+          "resumo": "Curtindo um dia de descanso numa misteriosa ilha que já foi uma base de operações de seu outrora inimigo Magneto, Os X-Men se deparam com o ataque de terríveis estátuas da própria ilha.\nUm ser chamado de Examinador Chefe surge com seu portal para copiar poderes de super-humanos mas algo domina sua programação original para algo maligno.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Fanfare (1982)",
+            "numeroOriginal": "33",
+            "anoOriginal": 1987,
+            "texto": "Marvel Fanfare (1982) n° 33/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/marvel-fanfare-(1982)-n-33/161/123124",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Duelo",
+          "tituloOriginal": "Duel",
+          "quantidadePaginas": 22,
+          "resumo": "Ciclope enfrenta Tempestade para ver quem merece continuar como líder dos X-Men. Após o duelo, Ciclope deixa a equipe para se dedicar ? esposa e ao filho recém-nascido.\n\nTí",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "201",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 201/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-201/264/6240",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "X-Men, eu fui matar... o Beyonder!",
+          "tituloOriginal": "X-Men... I've Gone to Kill-- --the Beyonder!",
+          "quantidadePaginas": 25,
+          "resumo": "Rachel tenta matar Beyonder. Como resultado, ele transporta os X-Men para São Francisco e os faz enfrentar um grupo de Sentinelas, cabendo a Rachel a escolha entre prosseguir em seu objetivo ou salvar os amigos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "202",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 202/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-202/264/6241",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Encruzilhadas",
+          "tituloOriginal": "Crossroads",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "203",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 203/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-203/264/6242",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

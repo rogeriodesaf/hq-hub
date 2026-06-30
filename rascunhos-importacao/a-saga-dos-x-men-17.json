@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-17.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-17/sa011129/174993",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-17/sa011129/174993"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "17",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-10-31",
+      "publicadoTexto": "outubro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.RBGHZiGF2vBwFhmc0mkc1QHaLH?w=192&h=288&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "O Senhor Sinistro e seus assassinos, os Carrascos, saíram em ataque aos Morlocks com o objetivo de executar até o último deles, o que levou os heróis dos X-Men, do Quarteto Futuro e o próprio Deus do Trovão a juntarem forças para proteger as vítimas. O embate, entretanto, parece longe de acabar e está cobrando preços cada vez mais altos – as consequências desse evento vão mudar tudo para sempre, e, vencendo ou sendo derrotados, os heróis vão ser de qualquer maneira forçados a lidar com perdas, destruições e mudanças que vão continuar impactando o mundo mutante por muito tempo. O que pode acontecer? A conclusão imperdível do arco do Massacre dos Mutantes. ",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "De quem é o poder...?",
+          "tituloOriginal": "Whose Power--?",
+          "quantidadePaginas": 23,
+          "resumo": "O Quarteto do Futuro enfrenta os Carrascos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Power Pack (1984)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1986,
+            "texto": "Power Pack (1984) n° 27/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/power-pack-(1984)-n-27/1076/10314",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A última rodada",
+          "tituloOriginal": "The Last Run",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "212",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 212/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-212/264/6251",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Chamas da noite!",
+          "tituloOriginal": "Fires of the Night!",
+          "quantidadePaginas": 22,
+          "resumo": "Hela conseguiu fazer com que nosso herói imortal tenha fragilidade humana. O deus do trovão salva o mutante Anjo, mas enfrenta os Carrascos e tem o braço quebrado por um deles. Logo ele deixa o mutante nas mãos de Ciclope e Jean Grey. Balder atende um chamado de Munnin (o corvo) e vai ter com as Parcas uma conversa. Ele consegue reviver um dos corvos mortos (Huggin). Enquanto isso, Thor vela os mortos nos túneis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "374",
+            "anoOriginal": 1987,
+            "texto": "Thor (1966) n° 374/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/thor-(1966)-n-374/261/6023",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Redenção!",
+          "tituloOriginal": "Redemption!",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1986,
+            "texto": "X-Factor (1986) n° 11/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-11/288/7088",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Psylocke",
+          "tituloOriginal": "Psylocke",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "213",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 213/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-213/264/6252",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Uma noite maligna!",
+          "tituloOriginal": "With Malice Toward All!",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "214",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 214/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-214/264/6253",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

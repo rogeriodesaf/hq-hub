@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-3/sa011130/164289",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-3/sa011130/164289"
+    ],
+    "geradoEm": "2026-06-26T23:32:08",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-05-01",
+      "publicadoTexto": "maio de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/610hhpbyP+L._SL1000_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 255\nPublicado em: maio de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Al Williamson Editor: Dandara Palankof",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Buum",
+          "tituloOriginal": "Boom",
+          "quantidadePaginas": 23,
+          "resumo": "Na escola um professor amedronta o pequeno Lance com os horrores das bombas nucleares. O menino vive sozinho, seu pai é um mercenário pago para matar. Matt recebe ajuda de Karen para fazer seus atendimentos, mas é ameaçado a parar devido a cassação de sua licença. O destino coloca o Demolidor a frente de Bullet (o pai de Lance) para uma luta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "250",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 250/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Salve o Planeta!",
+          "tituloOriginal": "Save the Planet!",
+          "quantidadePaginas": 22,
+          "resumo": "A história mostra a desilusão de Matt com a justiça. Ele descobre que Bullet o pai de Lance (um garoto neurótico com assuntos relativos a bomba atômica), é o assassino de um homem. Demolidor encurrala o vilão que é preso e confessa, mas as faltas de prova o mantém nas ruas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "251",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 251/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ponto Zero",
+          "tituloOriginal": "Ground Zero",
+          "quantidadePaginas": 40,
+          "resumo": "Estranhos trovões colocam a cidade de Nova York em um blecaute. Temendo uma onda de violência, o caos se instala nas ruas com pessoas desesperadas. Influenciadas por um ex-combatente do Vietnã chamado de Balaço, uma gangue de saqueadores começa a agir. O Demolidor monta um acampamento para atender as pessoas, e se une a Viúva Negra para controlar o caos nas ruas. Para isso ele tem de enfrentar Balaço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "252",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 252/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Feliz natal, Rei do Crime!",
+          "tituloOriginal": "Merry Crhistmas, Kingpin!",
+          "quantidadePaginas": 22,
+          "resumo": "É natal e bola oito, um jovem menino do bairro, se ilude com a falsa sensação de poder dos criminosos (eles podem ter tudo roubando!). O Rei está disposto a acabar com o Demolidor nos tribunais no processo da Kelco. Bola oito tem um belo Skate cobiçado por Darla, uma de suas amigas (eles nutrem um amor ingênuo). A menina insiste no Skate, e o garoto faz uma surpresa dando a ela como presente de natal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "253",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 253/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Tifoide!",
+          "tituloOriginal": "Typhoid",
+          "quantidadePaginas": 23,
+          "resumo": "Uma misteriosa mulher capaz de manipular o sentimento dos homens, está eliminando bandidos na cozinha do inferno. Tyrone o menino que ficou cego por nadar em um local poluído pela Kelco recebe ajuda de Matt para se adaptar. O Rei contrata a mulher misteriosa (Tyfoid), para seduzir Murdock e depois acabá-lo usando seus sentimentos. Glorianna tem fotos que incriminam a Kelco mas não as evidência para proteger Foggy que é o advogado de defesa da empresa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "254",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 254/1988 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Tentação!",
+          "tituloOriginal": "Temptation!",
+          "quantidadePaginas": 23,
+          "resumo": "Murdock recebe uma amiga na ajuda a Tyrone, uma mulher chamada Mary, doce e encantadora. Matta se envolve com a moça. Nas ruas ele enfrenta Tyfoid (a segunda personalidade de Mary), totalmente aversa a Mary, por isso o Demolidor não consegue descobrir pelo cheiro quem ela é. Matt arma o discurso para ser usado contra a Kelco (ele não pode advogar). Foggy percebe que Matt está por trás de tudo, o Rei fica furioso por que ele é o manda-chuva da Kelco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "255",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 255/1988 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

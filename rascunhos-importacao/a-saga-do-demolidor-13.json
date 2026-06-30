@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-13/sa011130/174056",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-13/sa011130/174056"
+    ],
+    "geradoEm": "2026-06-26T23:32:22",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-07-01",
+      "publicadoTexto": "julho de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/716PMjci4TL._SY342_.jpg",
+      "descricao": "Capa original: Daredevil (1964) n° 307\nPublicado em: julho de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Scott McDaniel Arte-Final: Christopher Ivy Editor: Yuri A. O. Primitz\nAbrindo as persianas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Abrindo as persianas",
+          "tituloOriginal": "Dead Man's Hand: Blind Openers - Part One",
+          "quantidadePaginas": 24,
+          "resumo": "O Demolidor e o Nômade enfrentam o Lápide em Las Vegas durante uma reunião de vilões na partilha da herança do Rei do Crime.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "307",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 307/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Cavaleiros de neon",
+          "tituloOriginal": "Dead Man's Hand: Neon Knights - Part Two",
+          "quantidadePaginas": 22,
+          "resumo": "O Nômade enfrenta o Guerrilheiro e Deadpool na tentativa de obter informações sobre a reunião de vilões em Las Vegas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Nomad (1992)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Nomad (1992) n° 4/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A ideia de Vegas",
+          "tituloOriginal": "Dead Man's Hand: The Vegas Idea - Part Three",
+          "quantidadePaginas": 22,
+          "resumo": "O Justiceiro e Nômade disputam a guarda da garotinha Bucky, enquanto massacram os bandidos que lutam pelos espólios do Rei do Crime numa convenção do crime em Las Vegas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Punisher War Journal, The (1988)",
+            "numeroOriginal": "45",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Punisher War Journal, The (1988) n° 45/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Reis suicidas",
+          "tituloOriginal": "Dead Man's Hand: Suicide Kings - Part Four",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Nomad (1992)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Nomad (1992) n° 5/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Distribuindo as cartas de baixo",
+          "tituloOriginal": "Dead Man's Hand: Dealing from the Bottom - Part Five",
+          "quantidadePaginas": 23,
+          "resumo": "Os chefes da máfia continuam a lutar pelo império do Rei do Crime com o Demolidor preso no fogo cruzado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "308",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 308/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Metal quente e sangue-frio!",
+          "tituloOriginal": "Dead Man's Hand: Hot Chrome and Cold Blood - Part Six",
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Punisher War Journal, The (1988)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Punisher War Journal, The (1988) n° 46/1992 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

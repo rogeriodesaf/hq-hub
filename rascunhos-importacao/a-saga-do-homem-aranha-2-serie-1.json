@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-1/sa011202/184412",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-homem-aranha-a-2-serie-n-1/sa011202/184412"
+    ],
+    "geradoEm": "2026-06-27T00:45:06",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Homem-Aranha, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": "Apresentando... o novo Homem-Aranha!",
+      "dataPublicacao": "2025-04-01",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_445ohpsa557j1cdb33evo7la2f/-S265-FWEBP",
+      "descricao": "Saga do Homem-Aranha, A 2ª Série - n° 1\nPublicado em: abril de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Ron Frenz Arte-Final: Klaus Janson Editor: Erick Garcia , Maria Svab Valerio",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "De volta ao lar!",
+          "tituloOriginal": "Homecoming!",
+          "quantidadePaginas": 22,
+          "resumo": "O Espetacular Homem-Aranha retornou vitorioso das Guerras Secretas...e com um novo visual completamente diferente! Mas há mais por trás do novo uniforme negro? Assim que volta às ruas da cidade de Nova York, o Aranha está prestes a descobrir exatamente o que este fantástico traje pode fazer...mas logo percebe que, na verdade, a estranha vestimenta é muito mais perigosa do que ele jamais imaginou.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "252",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 252/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Justiça cega!",
+          "tituloOriginal": "Blind Justice!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "141",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Marvel Team-Up (1972) n° 141/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Onde foi parar meu Homem-Aranha?",
+          "tituloOriginal": "Where, Oh Where Has My Spider-Man Gone?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "90",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 90/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Traído por mim!",
+          "tituloOriginal": "By Myself Betrayed!",
+          "quantidadePaginas": 22,
+          "resumo": "Peter acompanha Wendy Thornton numa partida esportiva do jornal, mas acaba se envolvendo com o novo vilão O Rosa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "253",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 253/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Se não fosse pelo azar...",
+          "tituloOriginal": "If It Wasn't For Bad Luck...",
+          "quantidadePaginas": 22,
+          "resumo": "Peter e Gata-Negra tentam consertar seu relacionamento enquanto enfrentam o Blob.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Peter Parker, The Spectacular Spider-Man (1976)",
+            "numeroOriginal": "91",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Peter Parker, The Spectacular Spider-Man (1976) n° 91/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Com grandes poderes...",
+          "tituloOriginal": "With Great Power...",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "254",
+            "anoOriginal": 1984,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 254/1984 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

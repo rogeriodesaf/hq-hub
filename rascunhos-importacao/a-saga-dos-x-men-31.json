@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-31.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-31/sa011129/182125",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-31/sa011129/182125"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "31",
+      "tituloChamada": "",
+      "dataPublicacao": "2025-01-31",
+      "publicadoTexto": "janeiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/614NdNCcYeL._SY385_.jpg",
+      "descricao": "Uma Tempestade pré-adolescente e Gambit se tornam parceiros assaltando as ruas de Nova Orleans, mas, antes de qualquer coisa, precisam enfrentar a Babá e o Fazedor de Órfãos que os estão perseguindo! Vampira batalha a força vital de Carol Danvers depois de perder algumas de suas habilidades como Ms. Marvel! O Four Freedoms Plaza, sede do Quarteto Fantástico, assume a aparência do Edifício Baxter numa saga que vai atravessar o tempo! Franklin Richards está crescido, e provocando o caos!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Babá em chamas",
+          "tituloOriginal": "Nanny: Into the Fire",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Nanny: Into the Fire\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "267",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 267/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-267/264/6306",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Noites de Madripoor",
+          "tituloOriginal": "Madripoor Knights",
+          "quantidadePaginas": 23,
+          "resumo": "Título original: \"Madripoor Knights\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "268",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 268/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-268/264/6307",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Duas vezes Vampira",
+          "tituloOriginal": "Rogue Redux",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Rogue Redux\".\n\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "269",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 269/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-269/264/6308",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "De volta para o passado",
+          "tituloOriginal": "Days of Future Present: When Franklin Comes Marchin' Home - Part 1",
+          "quantidadePaginas": 25,
+          "resumo": "Título original: \"Days of Future Present: When Franklin Comes Marchin' Home - Part 1\".\n25 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Annual (1963)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1990,
+            "texto": "Fantastic Four Annual (1963) n° 23/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/fantastic-four-annual-(1963)-n-23/101/3825",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O antigo e futuro mutante",
+          "tituloOriginal": "Days of Future Present: The Once and Future Mutant - Part 2",
+          "quantidadePaginas": 40,
+          "resumo": "Título original: \"Days of Future Present: The Once and Future Mutant - Part 2\".\n40 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants Annual, The (1984)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1990,
+            "texto": "New Mutants Annual, The (1984) n° 6/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-annual-the-(1984)-n-6/192/4853",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

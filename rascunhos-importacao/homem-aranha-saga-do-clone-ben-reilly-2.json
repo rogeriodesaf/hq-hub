@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-2/ho011206/188109",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/homem-aranha-a-saga-do-clone-ben-reilly-n-2/ho011206/188109"
+    ],
+    "geradoEm": "2026-06-26T23:58:23",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Homem-Aranha: A Saga do Clone - Ben Reilly",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "2",
+      "tituloChamada": "Guerra cibernética",
+      "dataPublicacao": "2026-04-01",
+      "publicadoTexto": "abril de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 140,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_q825opkcf94a18bki6iub2qn43/-S265-FWEBP",
+      "descricao": "Homem-Aranha: A Saga do Clone - Ben Reilly n° 2\nPublicado em: abril de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 140\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Tom Morgan Editor: Yuri A. O. Primitz\nGuerra cibernética - Parte 1: Farsas perfeitas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Guerra cibernética - Parte 1: Farsas perfeitas",
+          "tituloOriginal": "True Deceptions",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Web of Scarlet Spider (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Web of Scarlet Spider (1995) n° 2/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Guerra cibernética - Parte 2: Uma aranha no tabuleiro",
+          "tituloOriginal": "Caught in the Game!",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Scarlet Spider, The (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Scarlet Spider, The (1995) n° 2/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Guerra cibernética - Interlúdio: Joystick na cabeça",
+          "tituloOriginal": "Joystick on my Mind",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Green Goblin (1995)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Green Goblin (1995) n° 3/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Guerra cibernética - Parte 3: Em palpos de aranha virtual",
+          "tituloOriginal": "Along Came a Virtual Spider",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Scarlet Spider (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Scarlet Spider (1995) n° 2/1995 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Guerra cibernética - Parte 4: Arachnis Ex Machina - A aranha na máquina",
+          "tituloOriginal": "Arachnis Ex Machina: Spider in the Machine",
+          "quantidadePaginas": null,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Spectacular Scarlet Spider (1995)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1995,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Spectacular Scarlet Spider (1995) n° 2/1995 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

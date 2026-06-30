@@ -1,0 +1,362 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-5/es011117/159549",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-5/es011117/159549"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:29:22",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  20,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "5",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-06-01",
+                        "publicadoTexto":  "junho de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  436,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  154.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61oiebH79ES._SL1000_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 5\nPublicado em: junho de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 436\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 154,90\nCrédito da capa e editor\nArte: John Romita Cores: Marie Severin Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Crise no campus!",
+                                              "tituloOriginal":  "Crisis on campus!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Uma famosa plaqueta de argila, que conteria um valioso segredo, está em exposição no campus da Universidade Empire State. O Rei do Crime, conhecedor do valor dessa plaqueta, deseja roubá-la. Mas o Aranha intervém.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "68",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 68/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Missão: Derrubar o Rei do Crime!",
+                                              "tituloOriginal":  "Mission: crush the Kingpin!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Continuação da história anterior: o Aranha persegue o Rei até seu esconderijo para recuperar a plaqueta de argila. Mas, mesmo derrotado pelo Cabeça-de-Teia, o criminoso consegue convencer os policiais de que o Aranha foi seu cúmplice no roubo da plaqueta.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "69",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 69/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Homem-Aranha: Procurado!",
+                                              "tituloOriginal":  "Spider-Man wanted",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Rei do Crime foge da prisão e sai em busca do Aranha para recuperar a plaqueta de argila. Jameson, em busca de um furo de notícia, aparece subitamente na cena do confronto entre o herói e o criminoso, mas um inesperado imprevisto com o editor do Clarim deixa o amigão da vizinhança abalado.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "70",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 70/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O velocista e a Aranha!",
+                                              "tituloOriginal":  "The speedster and the Spider!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "71",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 71/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Abalado pelo... Shocker!",
+                                              "tituloOriginal":  "Rocked by the Shocker",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Shocker rouba a plaqueta de argila da casa do Capitão Stacy, mas o Aranha fará de tudo para recuperá-la mais uma vez.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "72",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 72/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "A teia se fecha!",
+                                              "tituloOriginal":  "The web closes",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "A mando da Maggia, Marko, o Homem-Montanha, vai à casa da namorada do Shocker para pegar a plaqueta de argila. O nosso Cabeça-de-Teia, seguindo dica do Capitão Stacy, também vai ao local para recuperar o objeto e, assim, limpar seu nome. Chegando lá, ele encontra o Homem-Montanha. Adivinhe o que acontece?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "73",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 73/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "A confusão está armada!",
+                                              "tituloOriginal":  "If This be Bedlam!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Cabelo de Prata força o Dr. Connors a decifrar o segredo da plaqueta de argila: o resultado é surpreendente e com consequências inesperadas.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "74",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 74/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Morte sem aviso!",
+                                              "tituloOriginal":  "Death Without Warning!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Cabelo de Prata, após beber o soro revelado pelo hieróglifos da plaqueta de argila, inicia um processo de rejuvenescimento irreversível. Enquanto isso, o Dr. Connors parece dar lugar, mais uma vez, ao Lagarto.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "75",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 75/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "O Lagarto está vivo!",
+                                              "tituloOriginal":  "The Lizard Lives",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Dr. Curt Connors, mais uma vez, se transforma no Lagarto, e deseja eliminar o Aranha. O Cabeça-de-Teia, por sua vez, precisa detê-lo sem machucá-lo, mas o Tocha Humana parece pensar diferente.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "76",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 76/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "No calor da batalha!",
+                                              "tituloOriginal":  "In the Blaze of Battle!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Homem-Aranha e o Tocha Humana enfrentam o Lagarto: mas o Cabeça-de-Teia e o palito de fósforo parecem não se entender muito bem quanto ao método mais adequado para derrotá-lo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "77",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 77/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "A noite do Gatuno!",
+                                              "tituloOriginal":  "The night of the Prowler",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Apresentando a origem do Gatuno: Hobie Brown, desiludido e cansado da falta de oportunidades na vida, decide usar suas invenções para se tornar conhecido. Mas o seu caminho cruzará com o do Homem-Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "78",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 78/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Gatuno nunca mais!",
+                                              "tituloOriginal":  "To Prowl No More!",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Convencido de que, caso consiga derrotar o Homem-Aranha e entregá-lo à polícia será, enfim, reconhecido publicamente, o Gatuno inicia uma série de saques em Nova Iorque para chamar a atenção do Aracnídeo. Mas a experiência do Homem-Aranha falará mais alto, e uma segunda chance talvez seja dada a Hobie Brown.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "79",
+                                                                         "anoOriginal":  1969,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 79/1969 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "O julgamento do Camaleão!",
+                                              "tituloOriginal":  "On the trail of... The Chameleon",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Capitão Stacy é incriminado por um delito que não cometeu. Nosso Escalador de Paredes corre para inocentá-lo, acreditando que seu velho inimigo mestre dos disfarces, o Camaleão, é o verdadeiro culpado.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "80",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 80/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "A chegada do Canguru!",
+                                              "tituloOriginal":  "The Comig of the Kangaroo",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Canguru, usando suas habilidades, consegue evitar a sua deportação.\nEm busca de dinheiro, rouba uma maleta que julga ser valiosa, mas o seu conteúdo não era o esperado...\nA origem do Canguru é contada em flashback nessa história.\nO verdadeiro nome do Canguru, Frank Oliver, seria apenas revelado na sua próxima aparição - em \"Amazing Spider-Man\" 126.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "81",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 81/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "A volta do Electro",
+                                              "tituloOriginal":  "And Then Came Electro",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "Peter Parker, sem grana para ir a uma festa com Gwen Stacy, resolve se oferecer como Homem-Aranha para se apresentar em um canal de televisão.\nO que ele não esperava é que nesse estúdio estivesse trabalhando Max Dillon - o Electro!\nNessa edição, Mary Jane volta a usar cabelos longos.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "82",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 82/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Planejador!",
+                                              "tituloOriginal":  "“The coming of",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "O Planejador pretende tomar o territórios do Rei do Crime. Mas o Aranha entrará nessa história...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "83",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 83/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "O Rei do Crime contra-ataca!",
+                                              "tituloOriginal":  "“The Kingpin strikes back”",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Uma recompensa de 5 mil dólares é oferecida para quem souber do paradeiro do Planejador, e o nosso Cabeça de Teia quer pôr as mãos nessa grana de qualquer maneira. Mas as coisas dificilmente saem como o planejado na vida do Aranha...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "84",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 84/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "O segredo do Planejador!",
+                                              "tituloOriginal":  "“The Schemer\u0027s secret”",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Revelado o segredo do Planejador.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "85",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 85/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Cuidado com... A Viúva Negra!",
+                                              "tituloOriginal":  "Beware the Black Widow",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Em Nova York, a bela Viúva Negra decide sair do marasmo da aposentadoria e voltar à ação. Para isso, ela confecciona um novo uniforme e decide testar suas mortíferas habilidades contra o outro aracnídeo da cidade.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "86",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 86/1970 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Enfim desmascarado!",
+                                              "tituloOriginal":  "Unmasked At Last",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Peter Parker se sente enfraquecido e julga estar perdendo seus poderes, dessa forma, decide revelar seu segredo para os seus amigos mais próximos. Mas as coisas não parecem ser exatamente o que são.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "87",
+                                                                         "anoOriginal":  1970,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 87/1970 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

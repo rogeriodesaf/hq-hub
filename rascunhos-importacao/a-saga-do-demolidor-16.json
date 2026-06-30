@@ -1,0 +1,152 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-16/sa011130/176322",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-16/sa011130/176322"
+    ],
+    "geradoEm": "2026-06-26T23:32:26",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 7,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "16",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-01-01",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71qxwt5RQzL._SY445_SX342_ML2_.jpg",
+      "descricao": "Capa original: Daredevil (1964) n° 318\nPublicado em: janeiro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Scott McDaniel Arte-Final: Bud Larosa Editor: Yuri A. O. Primitz",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Terapia de choque",
+          "tituloOriginal": "Shock Therapy",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "315",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 315/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Jogo limpo",
+          "tituloOriginal": "Fare Play",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "316",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 316/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Olha o óleo",
+          "tituloOriginal": "Grease is the Word",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "317",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 317/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Bandidos sebosos",
+          "tituloOriginal": "Grease Monkeys",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "318",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 318/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Loucura devoradora!",
+          "tituloOriginal": "Devouring Madness",
+          "quantidadePaginas": 30,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 9/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "De serviço",
+          "tituloOriginal": "On The Clock",
+          "quantidadePaginas": 6,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 9/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Ressureições",
+          "tituloOriginal": "Resurrection",
+          "quantidadePaginas": 19,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil Annual (1967)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil Annual (1967) n° 9/1993 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

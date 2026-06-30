@@ -1,0 +1,104 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-6/sa011203/187417",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-6/sa011203/187417"
+    ],
+    "geradoEm": "2026-06-27T01:42:18",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 4,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-12-01",
+      "publicadoTexto": "dezembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 152,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_0rrfcqquat5ub3ejtec0h1mh12/-S265-FWEBP",
+      "descricao": "Saga dos X-Men, A 2ª Série - n° 6\nPublicado em: dezembro de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 152\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Jim Lee Editor: Antonio Tadeu\nOs escravos do destino",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Os escravos do destino",
+          "tituloOriginal": null,
+          "quantidadePaginas": 37,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1992) n° 1/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os mestres da inevitabilidade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 36,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1970) n° 16/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Os historiadores dos contos que virão",
+          "tituloOriginal": "The Historians of Tales to Come (Shattershot, Part 3)",
+          "quantidadePaginas": 36,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor Annual (1986)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Factor Annual (1986) n° 7/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Os mentirosos do espelho",
+          "tituloOriginal": null,
+          "quantidadePaginas": 36,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Force Annual (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Force Annual (1992) n° 1/1992 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,442 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-16/es011117/187620",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-16/es011117/187620"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:08:55",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  25,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "16",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2026-01-01",
+                        "publicadoTexto":  "janeiro de 2026",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  464,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  221.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/71TVMzamtNL._SL1321_.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 16\nPublicado em: janeiro de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 464\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 221,90\nCrédito da capa e editor\nDesenho: John Romita Arte-Final: Bob McLeod Editor: Diogo Prado , Maria Svab Valerio",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "A maldição do vampiro vivo!",
+                                              "tituloOriginal":  "Curse of the Living Vampire!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Nosso herói começa a ter transtornos de personalidade. Em meio a isso, Morbius, o vampiro-vivo, começa a fazer vítimas por onde passa. O escalador de paredes tenta impedi-lo... mas acaba sendo mordido.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "38",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 38/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Tiroteio sobre o picadeiro",
+                                              "tituloOriginal":  "Shoot Out Over Center Ring!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "89",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 89/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "A morte está no ar",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O parque das almas!\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 91 /1980 - Marvel Comics\nMedo!\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 92 /1980 - Marvel Comics",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "90",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 90/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O parque das almas!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "Medo!\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 92 /1980 - Marvel Comics\nO flagelo do Esquizoide!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 39 /1980 - Marvel Comics",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "91",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 91/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Medo!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O flagelo do Esquizoide!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 39 /1980 - Marvel Comics\nO Dr. Connors explica ao cabeça de teia que sua exposição à radiotividade na luta contra o Iguana pode aflorar no contato com Morbius. E, como se não bastasse, nosso herói continua com seus transtornos de violência.\nA terrível transformação!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 40 /1980 - Marvel Comics",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "92",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 92/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "O flagelo do Esquizoide!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O Dr. Connors explica ao cabeça de teia que sua exposição à radiotividade na luta contra o Iguana pode aflorar no contato com Morbius. E, como se não bastasse, nosso herói continua com seus transtornos de violência.\nA terrível transformação!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 40 /1980 - Marvel Comics\nO pior acontece o Aranha se transforma em um monstro semelhante ao Lagarto. Agora ele espalha caos e terros pela cidade. O Dr. Connors, porém, está disposto a tudo para impedi-lo.\nCaçada humana!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "39",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 39/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "A terrível transformação!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O pior acontece o Aranha se transforma em um monstro semelhante ao Lagarto. Agora ele espalha caos e terros pela cidade. O Dr. Connors, porém, está disposto a tudo para impedi-lo.\nCaçada humana!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 201 /1980 - Marvel Comics\nA caçada continua!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "40",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 40/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Caçada humana!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "A caçada continua!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 202 /1980 - Marvel Comics\nLoucura meteórica!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 41 /1980 - Marvel Comics\nO Saqueador (aqui ainda usando o nome \"Meteoro\") pretende evoluir seu corpo para se tornar invencível. Porém, em seu caminho ele topa com o cabeça de teia e o Golias Negro.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "201",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 201/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "A caçada continua!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "Loucura meteórica!\nPublicada pela primeira vez em Peter Parker, The Spectacular Spider-Man (1976) n° 41 /1980 - Marvel Comics\nO Saqueador (aqui ainda usando o nome \"Meteoro\") pretende evoluir seu corpo para se tornar invencível. Porém, em seu caminho ele topa com o cabeça de teia e o Golias Negro.\nCercado, chateado e... Cristalizado!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 203 /1980 - Marvel Comics",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "202",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 202/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Loucura meteórica!",
+                                              "tituloOriginal":  "Bewitched, Bothered and Be-Dazzled!",
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O Saqueador (aqui ainda usando o nome \"Meteoro\") pretende evoluir seu corpo para se tornar invencível. Porém, em seu caminho ele topa com o cabeça de teia e o Golias Negro.\nCercado, chateado e... Cristalizado!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 203 /1980 - Marvel Comics\nO Aranha enfrenta o Mestre da Luz, que tenta se apossar do corpo de Cristal.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "41",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 41/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Cercado, chateado e... Cristalizado!",
+                                              "tituloOriginal":  "Bewitched, Bothered and Be-Dazzled!",
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O Aranha enfrenta o Mestre da Luz, que tenta se apossar do corpo de Cristal.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "203",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 203/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Liberdade ou morte!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Alguns dos principais inimigos do herói aracnídeo usam o famoso sinal de fogo vindo da Estátua da Liberdade, ponto de encontro entre o Tocha Humana e o Aranha, para surpreendê-lo numa armadilha.\nQuando um Homem-Aranha vem visitar!\nPublicada pela primeira vez em Fantastic Four (1961) n° 218 /1980 - Marvel Comics\nNosso fazedor de teias é capturado numa cilada armada na Estátua da Liberdade. Agora, o Quarteto Terrível pretende invadir o QG do Quarteto Fantástico se passando pelo aracnídeo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "42",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 42/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Quando um Homem-Aranha vem visitar!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Nosso fazedor de teias é capturado numa cilada armada na Estátua da Liberdade. Agora, o Quarteto Terrível pretende invadir o QG do Quarteto Fantástico se passando pelo aracnídeo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Fantastic Four (1961)",
+                                                                         "numeroOriginal":  "218",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Fantastic Four (1961) n° 218/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Entre trapos e farrapos!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "A sombra e a escuridão\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 94 /1980 - Marvel Comics\nPássaros feridos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "93",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 93/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "A sombra e a escuridão",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "Pássaros feridos!\nPublicada pela primeira vez em Marvel Team-Up (1972) n° 95 /1980 - Marvel Comics\nA Gata Negra sempre cai em pé!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "94",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 94/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Pássaros feridos!",
+                                              "tituloOriginal":  "The Black Cat Always Lands On Her Feet!",
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "A Gata Negra sempre cai em pé!\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 204 /1980 - Marvel Comics\nO Aranha enfrenta uma criminosa e, ao mesmo tempo, admiradora, com violência e fúria de uma inimiga e o amor e a candura de uma amante.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "95",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 95/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "A Gata Negra sempre cai em pé!",
+                                              "tituloOriginal":  "The Black Cat Always Lands On Her Feet!",
+                                              "quantidadePaginas":  null,
+                                              "resumo":  "O Aranha enfrenta uma criminosa e, ao mesmo tempo, admiradora, com violência e fúria de uma inimiga e o amor e a candura de uma amante.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "204",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 204/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "No amor e na guerra!",
+                                              "tituloOriginal":  "...In Love and War!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O encontro entre o Homem-Aranha e Gata Negra continua, agora o herói descobre que a \"vilã\" esta roubando objetos ligados a histórias de amor para lhe presentear.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "205",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 205/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Muito veneno!",
+                                              "tituloOriginal":  "Pretty Poison",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Assaltantes roubam o laboratório do campus onde Peter Parker trabalha atrás de uma toxina. No encalço dos ladrões, o herói vai conhecer o estilista Roderick Kingsley e irá se deparar com Madame Beladona, uma misteriosa mulher sedenta de vingança.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "43",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 43/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Há método nessa loucura!",
+                                              "tituloOriginal":  "A Method in His Madness!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Acreditava-se que J. J. Jameson havia enlouquecido por culpa do Homem-Aranha (histórias de edições anteriores), porém tudo que lhe aconteceu foi por conta de um vilão que agora lhe mantém preso. Resta ao disparador de teias tentar resgatar Jameson e sua sanidade.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "206",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 206/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "O jogo da vingança",
+                                              "tituloOriginal":  "The Vengeance Gambit!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O Homem-Aranha enfrenta uma gangue de criminosos que descobre serem chefiados pelo Abutre.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "44",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 44/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "Asas de fogo, asas de medo",
+                                              "tituloOriginal":  "Wings of Fire, Wings of Fear",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "45",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 45/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "A vingança de Mesmero!",
+                                              "tituloOriginal":  "Mesmero\u0027s Revenge!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Mesmero está ganhando a vida como ator de teatro. Descontente com as críticas, decide incrementá-lo com a participação do Homem-Aranha, que é convidado a integrar o show de hipnotismo. Porém, o vilão tem uma vingança a concretizar e planeja que aquela seja a primeiro e a última peça do herói.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "207",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 207/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  24,
+                                              "tituloPortugues":  "O mortífero Cobra!",
+                                              "tituloOriginal":  "Deadly Is the Cobra!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Cobra consegue fugir da prisão conhecida como Ilha. Sabendo disso, os editores do Globo convocam Peter Parker para bater fotos do vilão, uma boa oportunidade para o Aranha também entrar em ação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "46",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 46/1980 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  25,
+                                              "tituloPortugues":  "Fusão!",
+                                              "tituloOriginal":  "Fusion!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Dois irmãos acabam se unindo na forma de uma criatura após acidente. Porém, ambos tem aspirações diferentes: enquanto um quer o poder o outro não pensa em ferir. E é tendo isso a favor que o soltador de teias tentará deter a criatura.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "208",
+                                                                         "anoOriginal":  1980,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 208/1980 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

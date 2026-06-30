@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-28.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-28/sa011129/181279",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-28/sa011129/181279"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "28",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-10-31",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61ANbwBFgUL._SY445_SX342_ML2_.jpg",
+      "descricao": "Zeladane continua deixando um rastro de destruição sobre a Terra Selvagem e, dessa vez, ela trouxe alguns X-Men capturados com ela! Depois de drogar o Destrutor e submeter Polaris a uma lavagem cerebral, a vilã volta os membros da equipe uns contra os outros! Para além disso, Wolverine é capturado por extremistas anti-mutantes e é torturado! Mas será que a jovem Jubileu é capaz de salvá-lo? Por fim, Magneto faz um anúncio que vai mudar o futuro da equipe para sempre!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A estrela despedaçada",
+          "tituloOriginal": "The Shattered Star",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"The Shattered Star\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "250",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 250/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-250/264/6289",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sonho febril",
+          "tituloOriginal": "Fever Dream",
+          "quantidadePaginas": 22,
+          "resumo": "22 páginas.\nTítulo original: \"Fever Dream\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "251",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 251/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-251/264/6290",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Onde está Wolverine?!?",
+          "tituloOriginal": "Where's Wolverine?!",
+          "quantidadePaginas": 22,
+          "resumo": "22 páginas.\nTítulo original: \"Where's Wolverine?!?\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "252",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 252/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-252/264/6291",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Alertas de Tempestade",
+          "tituloOriginal": "Storm Warnings!",
+          "quantidadePaginas": 21,
+          "resumo": "21 páginas (das 22 originais).\nTítulo original: \"Storm Warnings!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "253",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 253/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-253/264/6292",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Novíssimos, diferentes... lá vamos nós de novo!",
+          "tituloOriginal": "All New, All Different -- Here We Go Again!",
+          "quantidadePaginas": 23,
+          "resumo": "23 páginas.\nTítulo original: \"All New, All Different -- Here We Go Again!\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "254",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 254/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-254/264/6293",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dia de júbilo",
+          "tituloOriginal": "Dia de júbilo",
+          "quantidadePaginas": 15,
+          "resumo": "15 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1989,
+            "texto": "X-Men Annual (1970) n° 13/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-13/265/6592",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

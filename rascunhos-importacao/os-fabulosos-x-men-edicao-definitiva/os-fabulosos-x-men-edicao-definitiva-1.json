@@ -1,0 +1,352 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-1/fa011131/160439",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-1/fa011131/160439"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 24,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-08-01",
+      "publicadoTexto": "agosto de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 528,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 189.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 1\nPublicado em: agosto de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 528\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 189,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ , Sol Brodsky Cores: Stan Goldberg Editor: Leandro Luigi Del Manto\nPrimeira aparição de personagens nesta edição:\nTad Carter , Tobias Messenger",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O homem no céu!",
+          "tituloOriginal": "The Man in the Sky!",
+          "quantidadePaginas": 5,
+          "resumo": "A exposição precoce de um menino à radiação faz com que ele desenvolva poderes. Ele é atacado quando outros descobrem seus poderes e, de repente, é erguido ao céu por outro mutante a distância, que faz contato telepático com o rapaz e explica que ele deve viver escondido até que o mundo esteja pronto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adult Fantasy (1961)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1962,
+            "texto": "Amazing Adult Fantasy (1961) n° 14/1962 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "X-Men",
+          "tituloOriginal": "X-Men",
+          "quantidadePaginas": 23,
+          "resumo": "Em sua mansão-escola, o Professor X reúne seus quatro X-Men e os apresenta à nova aluna: a Garota Marvel, que, como eles, também é uma mutante com poderes especiais. Ao mesmo tempo, um mutante terrorista chamado Magneto põe em risco a segurança nacional. Cabe aos jovens heróis tentar detê-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "texto": "Uncanny X-Men, The (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ninguém pode deter o Vanisher!",
+          "tituloOriginal": "No One Can Stop the Vanisher",
+          "quantidadePaginas": 22,
+          "resumo": "Surge um novo mutante maligno chamado Vanisher que tem a habilidade de se teletransportar. Ele usa seus poderes para assaltar um banco e é confrontado pelos X-Men quando tenta roubar os planos de defesa do Pentágono. Vanisher e seus comparsas mafiosos são derrotados pelo Professor X e os X-Men em frente a Casa Branca, quando Xavier apaga a memória de Vanisher.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1963,
+            "texto": "Uncanny X-Men, The (1963) n° 2/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Cuidado com o Blob!",
+          "tituloOriginal": "Beware of the Blob!",
+          "quantidadePaginas": 24,
+          "resumo": "O Professor X detecta a presença de um novo mutante e envia os X-Men para tentar recrutá-lo. Esse mutante é Blob, um artista de circo extremamente forte e resistente. Porém, Blob é maligno e não aceita entrar para os X-Men, ele foge da Mansão X antes de Xavier apagar sua memória. Blob retorna com uma gangue do circo para tentar tomar a Escola Xavier, mas é derrotado pelo Professor X e seus alunos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 3/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A Irmandade de Mutantes!",
+          "tituloOriginal": "The Brotherhood of Evil Mutants!",
+          "quantidadePaginas": 23,
+          "resumo": "Uma gangue de criminosos liderada pelo Magneto com o único propósito de subjugar e dominar a raça humana.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 4/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Armadilha para um X-Man!",
+          "tituloOriginal": "Trapped: One X-Man!",
+          "quantidadePaginas": 24,
+          "resumo": "A Irmandade de Mutantes sequestra o Anjo e os X-Men precisam ir à base inimiga para resgatá-lo.\nPrimeira aparição do Asteróide M.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 5/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Namor entra para a Irmandade de Mutantes!",
+          "tituloOriginal": "Sub-Mariner! Joins the Evil Mutants!",
+          "quantidadePaginas": 22,
+          "resumo": "O Professor X e Magneto desejam recrutar o mutante Namor, mas Magneto chega primeiro. Porém, Namor é muito arrogante e não se dá bem com Magneto e sua Irmandade. Por fim, Namor fica no fogo cruzado na batalha entre X-Men e Irmandade de Mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 6/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "O retorno de Blob",
+          "tituloOriginal": "“The Return of the Blob”",
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men enfrentam Blob e a Irmandade de Mutantes.\nPrimeira aparição do Cérebro (detector de mutantes).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 7/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "A incrível ameaça de... Unus, o Intocável!",
+          "tituloOriginal": "“Unus, the Untouchable!”",
+          "quantidadePaginas": 20,
+          "resumo": "Ao ser obrigado a revelar seus poderes mutantes em público para salvar uma criança, o Fera quase é linchado por uma multidão e, por esse motivo, decide abandonar os X-Men! E justo quando eles vão precisar de toda a ajuda possível para encarar Unus, o Intocável, um adversário que realmente faz jus à sua alcunha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1964,
+            "texto": "Uncanny X-Men, The (1963) n° 8/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Surgem os Vingadores!",
+          "tituloOriginal": "“Enter, the Avengers!”",
+          "quantidadePaginas": 20,
+          "resumo": "Mais um terrível desafio para os heróis mutantes! Finalmente é revelado o paradeiro do Professor Xavier, quando descobrimos que ele esteve à caça do diabólico vilão conhecido como Lúcifer, aquele que foi o responsável por sua paralisia. Mas, para derrotá-lo e salvar seu mentor, os fabulosos adolescentes terão que passar por uma tremenda prova de fogo... Os Poderosos Vingadores!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 9/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "A chegada de Kazar!",
+          "tituloOriginal": "“The Coming of",
+          "quantidadePaginas": 20,
+          "resumo": "Uma aventura nada menos que histórica dos heróis mutantes, que reintroduz, para toda uma nova geração de leitores: KA-ZAR, o Rei das Selvas, bem como seu fiel e inseparável companheiro: Zabu, o Tigre Dentes-de-Sabre!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 10/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "O triunfo de Magneto!",
+          "tituloOriginal": "“The Triumph of Magneto”",
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men se veem diante da maior ameaça que já encontraram em sua carreira: o ser conhecido como o Estranho. Uma entidade tão poderosa que nem mesmo Magneto e a Irmandade de Mutantes são capazes de enfrentar. Foi nesta história que Mercúrio e Feiticeira Escarlate decidiram abandonar a Irmandade de Mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 11/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "A origem do Professor X!",
+          "tituloOriginal": "The Origin of Professor X!",
+          "quantidadePaginas": 22,
+          "resumo": "Uma ameaça do passado de Charles Xavier está de volta, disposta a destruí-lo. O professor conta então a seus poderosos alunos que o Fanático que o está perseguindo é seu rebelde irmão de criação que, anos atrás, descobriu acidentalmente um templo perdido na Coréia. Ao segurar o rubi maldito do local, Cain Marko se transformou no Fanático, a força destruidora que agora invade a mansão X.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 12/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Por onde passa o Fanático!",
+          "tituloOriginal": "Where Walks the Juggernaut!",
+          "quantidadePaginas": 20,
+          "resumo": "Ao encontrar o misterioso e poderosíssimo Rubi de Cyttorak numa caverna, Cain Marko, ao tocá-lo, se tornou a encarnação da força sobrenatural da pedra mística, o objeto irremovível, também conhecido como Jaganata! Até agora, absolutamente nada que os X-Men tentaram contra ele foi capaz de detê-lo! Só o Prof. X conseguirá evitar o fim dos X-Men!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 13/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Entre nós espreitam... os Sentinelas!",
+          "tituloOriginal": "Among Us Stalk... the Sentinels!",
+          "quantidadePaginas": 20,
+          "resumo": "Ainda se recuperando do combate contra o Fanático, os X-Men finalmente têm a permissão do Professor Xavier para tirar uns dias de férias. Dr. Bolivar Trask, um renomado antropólogo que quer “proteger” a humanidade da ascensão dos mutantes e que, para isso, criou um exército de robôs caçadores, os Sentinelas. A partir de agora, ninguém que tenha nascido com habilidades especiais estará seguro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 14/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Prisioneiros do misterioso Molde Mestre!",
+          "tituloOriginal": "Prisoners of the Mysterious Master Mold!",
+          "quantidadePaginas": 20,
+          "resumo": "O Molde Mestre, o Sentinela criado por Trask para criar outros Sentinelas, captura o Fera e Homem de Gelo. O primeiro é hipnotizado pelos gigantescos androides e obrigado a revelar sua origem. Cabe aos X-Men resgatar seus amigos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1965,
+            "texto": "Uncanny X-Men, The (1963) n° 15/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "O sacrifício supremo!",
+          "tituloOriginal": "The Supreme Sacrifice!",
+          "quantidadePaginas": 20,
+          "resumo": "Tentando invadir a fortaleza subterrânea dos Sentinelas, os X-Men acabam capturados e o Fera submetido a uma sondagem psíquica, a fim de que revele a identidade de seu mentor e a localização de sua base secreta. O Molde-Mestre, a fonte central de controle dos Sentinelas, ameaça desintegrar toda uma cidade, caso o Dr. Trask não coopere e crie um exército de androides. A esperança é que o Prof. X descubra o ponto fraco dos robôs, antes que seja tarde!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 16/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "E ninguém sobreviverá!",
+          "tituloOriginal": "...And None Shall Survive!",
+          "quantidadePaginas": 20,
+          "resumo": "Após a batalha contra os Sentinelas, o Homem de Gelo é gravemente ferido e precisa ser hospitalizado. Enquanto tenta passar instruções aos demais X-Men sem levantar suspeitas de que é o líder da equipe, o Prof. X pressente um perigo avassalador à espreita na mansão, sede da equipe! Mas, o pior ainda está por vir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 17/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "Se o Homem de Gelo falhar...!",
+          "tituloOriginal": "“If Iceman Should Fail",
+          "quantidadePaginas": 20,
+          "resumo": "Magneto está de volta! Tendo escapado do planeta do Estranho, o vilão consegue invadir a mansão dos X-Men e acaba capturando o Prof. Xavier e quase todos os heróis, com exceção do Homem de Gelo. E a escola está prestes a receber a visita dos pais de Warren, que nem sequer imaginam que ele é o mutante conhecido como Anjo! Resta ao mais jovem integrante dos X-Men tentar deter o maior inimigo da equipe... sozinho!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 18/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "Eis que surge... o Mímico!",
+          "tituloOriginal": "Lo! Now Shall Appear...The Mimic!",
+          "quantidadePaginas": 20,
+          "resumo": "Em um raro momento de descontração, os X-Men saem para relaxar e passear, mas, para Hank e Bobby, o que poderia ser uma simples tarde de folga acaba se tornando algo bem mais sério quando se deparam com um valentão chamado Calvin Rankin que pode imitar todos os seus poderes!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 19/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "Eu, Lúcifer!",
+          "tituloOriginal": "I, Lucifer...",
+          "quantidadePaginas": 20,
+          "resumo": "Na volta do vilão Lúcifer, nos é contado como o Professor Xavier perdeu o movimento de suas pernas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "20",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 20/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 22,
+          "tituloPortugues": "De onde vem... Dominus?",
+          "tituloOriginal": "From Whence Comes... Dominus?",
+          "quantidadePaginas": 20,
+          "resumo": "Os X-Men são todos capturados, inclusive o Professor X. Agora eles terão que trabalhar mais unidos do que nunca para evitar a conquista da Terra por Dominus.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "21",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 21/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 23,
+          "tituloPortugues": "Divididos... perderemos!",
+          "tituloOriginal": "Divided... We Fall!",
+          "quantidadePaginas": 20,
+          "resumo": "O Conde Nefária deseja recrutar os X-Men para fortalecer o cartel criminoso conhecido como Maggia. Para isso, Nefária contrata cinco supervilões de terceira categoria para capturar, um a um, os heróis mutantes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "22",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 22/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 24,
+          "tituloPortugues": "Para salvar uma cidade!",
+          "tituloOriginal": "To Save a City",
+          "quantidadePaginas": 20,
+          "resumo": "O Conde Nefária lança sobre a capital dos EUA uma redoma, prendendo toda população. O vilão então cria hologramas dos X-Men para pedir resgate pela cidade sequestrada, incriminando assim os heróis. Para piorar, os supervilões contratados por Nefária desejam tomar o comando da organização Maggia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1966,
+            "texto": "Uncanny X-Men, The (1963) n° 23/1966 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

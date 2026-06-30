@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-13.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-13/sa011129/173701",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-13/sa011129/173701"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "13",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-06-30",
+      "publicadoTexto": "junho de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "",
+      "descricao": "Capa original: Uncanny X-Men, The (1963) n° 208",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O que aconteceu com Noturno?",
+          "tituloOriginal": "O que aconteceu com Noturno?",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "204",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 204/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-204/264/6243",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Animal ferido",
+          "tituloOriginal": "Wounded Wolf",
+          "quantidadePaginas": 22,
+          "resumo": "Lady Yuriko, agora mais letal que nunca graças à Loja de Corpos de Espiral, enfrenta Wolverine para recuperar sua honra. O mutante canadense recebe uma ajudinha especial de Chispinha, do Quarteto Futuro.\nTí",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "205",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 205/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-205/264/6244",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Liberdade ainda que tardia",
+          "tituloOriginal": "Freedom Is a Four-Letter Word",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "206",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 206/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-206/264/6245",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Fantasmas",
+          "tituloOriginal": "Ghosts",
+          "quantidadePaginas": 24,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "207",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 207/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-207/264/6246",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Retribuição",
+          "tituloOriginal": "Retribution",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "208",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 208/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-208/264/6247",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Salvação",
+          "tituloOriginal": "Salvation",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "209",
+            "anoOriginal": 1986,
+            "texto": "Uncanny X-Men, The (1963) n° 209/1986 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-209/264/6248",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-25.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-25/sa011129/178495",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-25/sa011129/178495"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "25",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-07-31",
+      "publicadoTexto": "julho de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 44.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61kjg9kSzHL._SY445_SX342_ML2_.jpg",
+      "descricao": "Os X-Men começam a passar por transformações demoníacas em meio à saga épica de Inferno! Em seguida, as equipes dos X-Men e dos X-Factor juntam forças para defender Maddie – exceto que estão na verdade defendendo uma Rainha dos Duendes disfarçada! Será que descobrirão seu truque a tempo? Os Novos Mutantes também já estiveram melhor, forçados agora a enfrentar sozinhos uma horda de demônios quando Magia se transforma definitivamente na sua versão demoníaca!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Espalhando as chamas",
+          "tituloOriginal": "Espalhando as chamas",
+          "quantidadePaginas": 23,
+          "resumo": "Sinistro prova a Madelyne que ela é clone de Jean Grey, ao mesmo tempo que ela descobre que ela detém parte da força Fênix desde seu suicídio na lua. Ela foge com Nathan e Nastirth. Os X-Men se tornam cruéis pela influência de Nastirth e matam os Carrascos, exceto Maligna. Colossus, protegido da influência do Inferno pelo corpo blindado, descobre que Illyana foi destronada do limbo e parte para ajudá-la, acreditando ser a melhor forma de acabar com Inferno em Nova York.\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "241",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 241/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-241/264/6280",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Reino dos demônios",
+          "tituloOriginal": "Reino dos demônios",
+          "quantidadePaginas": 23,
+          "resumo": "N'astirh e S'ym lutam por Magia, agora completamente transformada. O resto dos Novos Mutantes só pode ver como sua amiga é atormentado pelos dois poderosos demônios. N'astirh consegue se teletransportar com Magia, deixando os Novos Mutantes para se defenderem contra alguns demônios menores. Antes que eles notem, há outros mutantes adolescentes no céu, voando em alguns planos tentando atrapalhar o pentagrama e resgatar os bebês.\n\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "72",
+            "anoOriginal": 1989,
+            "texto": "New Mutants, The (1983) n° 72/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-72/191/4823",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O presente",
+          "tituloOriginal": "O presente",
+          "quantidadePaginas": 40,
+          "resumo": "lllyana fica constrangida de Colossus vê-la como Filha Das Tevas, e teleporta para o limbo, levando os Novos Mutantes. Illyana diz que sua ausência criou vácuo de poder no limbo, e deve governar para manter a ordem. Ela aceita ser governante, e Rahne se joga em discos de teleporte, procurando Illyana de seis anos. Ao encontrar, Illyana abre um disco de teleporte que suga os demônios de NY. Illyana salvou sua versão jovem dentro da armadura, fazendo com que nunca envelhecesse e se apagasse.\n40 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "73",
+            "anoOriginal": 1989,
+            "texto": "New Mutants, The (1983) n° 73/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-73/191/4824",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Questão de honra",
+          "tituloOriginal": "Questão de honra",
+          "quantidadePaginas": 23,
+          "resumo": "Madelyne vem ao encontro de Nastirth, que a entrega Nathan, e choca o X-Factor por estar viva. Scott não quer ferí-la por pensar estar possuída. Ela o culpa por abandoná-los, que ele fez dela Rainha Dos Duendes. Diz que ele nunca a quis de verdade, sempre procurou Jean nela, e culpa Jean por tomar tudo que ela tinha. Madelyne destrui Nastirth e manda os pais demônios de Jean a atacar. Ela ataca o X-Factor, mas de repente reverte para sua roupa comum, quando os X-Men chegam.\n\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "37",
+            "anoOriginal": 1989,
+            "texto": "X-Factor (1986) n° 37/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-37/288/7112",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Queimem!",
+          "tituloOriginal": "Burn!",
+          "quantidadePaginas": 40,
+          "resumo": "Um altar é construído para um sacrifício e Madelyne Prior, além de mais poderosa e cruel do que nunca como a Rainha dos Duendes, se empenha para destruir sua eterna rival: Jean Grey! Veja o fim da disputa entre os X-Men e o X-Factor e as consequências que essa batalha terá para o Senhor Sinistro! Manhattan não é mais a mesma desde a chegada dos demônios à superfície, e enquanto Crotus caminha pelas ruas nova-iorquinas, o destino de Rachel Summers está condenado!\n\nTítulo original: \"Burn!\"\n40 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "242",
+            "anoOriginal": 1989,
+            "texto": "Uncanny X-Men, The (1963) n° 242/1989 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-242/264/6281",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

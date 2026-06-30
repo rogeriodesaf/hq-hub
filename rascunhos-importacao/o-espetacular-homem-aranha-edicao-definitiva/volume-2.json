@@ -1,0 +1,360 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-2/es011117/149660",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-2/es011117/149660"
+    ],
+    "geradoEm": "2026-06-27T03:00:40",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "O Espetacular Homem-Aranha - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 20,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2019-11-01",
+      "publicadoTexto": "novembro de 2019",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 444,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 140.0,
+      "urlCapa": "https://m.media-amazon.com/images/I/51mJDWGuNfL.jpg",
+      "descricao": "Espetacular Homem-Aranha, O - Edição Definitiva n° 2\nPublicado em: novembro de 2019\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 444\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 140,00\nCrédito da capa e editor\nArte: Steve Ditko Cores: Stan Goldberg Editor: Fernando Lopes - ‘Fl’ , Levi Trindade",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Surge o Escorpião! ou: A teia contra o ferrão!",
+          "tituloOriginal": "The coming of Scorpion!",
+          "quantidadePaginas": 20,
+          "resumo": "Para combater nosso Soltador de Teias, J. Jonah Jameson submete seu ambicioso guarda-costas a uma nova e revolucionária experiência médica, que o transforma num super-homem, metade humano e metade escorpião.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "20",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 20/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Onde voa o Besouro",
+          "tituloOriginal": "The Flies the Beetle...!",
+          "quantidadePaginas": 21,
+          "resumo": "O Besouro está solto e decide dar continuidade à sua vingança contra o Tocha Humana. Enquanto isso, Peter conhece Doris Evans, a namorada do Tocha, que fica interessada por ele. Cansada de sempre ser relegada a segundo plano devido à vida heroica do Tocha, pretende ensinar-lhe uma lição, exigindo que ele fique 24 horas sem se “inflamar”. Mas, e se Johnny tiver que enfrentar o Besouro? A não ser que um certo aracnídeo apareça pra dar uma mãozinha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "21",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 21/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O palhaço e seus Mestres do Mal!",
+          "tituloOriginal": "The Clown, and his Masters of Menace!",
+          "quantidadePaginas": 20,
+          "resumo": "Cansados dos consecutivos fracassos, os integrantes do Circo do Crime expulsam o Mestre do Picadeiro e elegem um novo líder: o Palhaço. Assumindo um novo nome, Mestres do Mal, os bandidos iniciam uma nova onda de crimes, começando por atacar a exposição de arte patrocinada por J.J. Jameson.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "22",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 22/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O Duende e os gângsteres",
+          "tituloOriginal": "The Goblin and the Gangsters",
+          "quantidadePaginas": 20,
+          "resumo": "Terceira aparição do Duende Verde. O vilão tenta, pela primeira vez, tornar-se líder do submundo do crime de Nova York, ao “ajudar” o Aranha a derrotar a quadrilha do chefão Lucky Lobo, o que não passava de um plano para assumir seu lugar no comando da organização.\nNessa aventura, testemunhamos a volta de Frederick Foswell que, após cumprir sua pena, é readmitido por Jameson, como repórter policial do Clarim Diário.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 23/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "“Spider-Man goes mad”",
+          "quantidadePaginas": 20,
+          "resumo": "O que fazer quando não dá mais pra confiar nos seus sentidos? Ou o Aranha descobre a resposta... ou enlouquece!\nPrimeira história creditada com Steve Ditko no argumento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "24",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 24/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "“Captured by J",
+          "quantidadePaginas": 20,
+          "resumo": "O Aranha enfrenta a versão original do robô Esmaga-Aranha do Prof. Spencer Smythe, contratado por J.J.Jameson.\nPrimeira aparição de Mary Jane, mas, sem que seja visto seu rosto, e de Norman Osborn, sem ter seu nome citado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "25",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 25/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The man in the Crime-Master's mask",
+          "quantidadePaginas": 20,
+          "resumo": "O Duende Verde, mais uma vez, tenta controlar o crime organizado de Nova York, mas, um rival enigmático, o Mestre do Crime, não facilitará as coisas para ele. Já o Aranha não facilitará as coisas para nenhum dos dois!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "26",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 26/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "Bring Back My Goblin to Me!",
+          "quantidadePaginas": 20,
+          "resumo": "O cerco se fecha cada vez mais para o Mestre do Crime, em sua acirrada disputa com o Duende Verde pela liderança do submundo de Nova York, enquanto o Aranha é pego no fogo cruzado entre a polícia e os chefes das quadrilhas.\nPrimeira aparição do Caolho e de Barney Bushkin, editor do Globo Diário.\nEssa é a última aparição do Duende Verde desenhada por Steve Ditko.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 27/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "“The menace of the Molten Man!”",
+          "quantidadePaginas": 20,
+          "resumo": "Peter Parker precisa de seu traje antigo, então ele vai para o laboratório do inventor Smythe, que criou o robô que J. Jonah Jameson usou para tentar derrotar o Homem-Aranha. Enquanto estava lá, ele testemunhou uma discussão entre Smythe e um homem chamado Raxton, que resultou em um acidente transformando Raxton em Magma.\nE é nesta edição que Peter se forma no ensino médio.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "28",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 28/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The Wondrous World of Dr. Strange!",
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 2/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "Never Step on a Scorpion!",
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "29",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 29/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The Claws of the Cat!",
+          "quantidadePaginas": 20,
+          "resumo": "O Aranha se vê às voltas com um ladrão conhecido como O Gato, por cuja captura J. J. Jameson oferece uma recompensa de mil dólares, uma grana que ele vai fazer de tudo para pôr as mãos!\nNed Leeds pede Betty em casamento, fato que marca o fim do relacionamento entre ela e Peter Parker.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "30",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 30/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "If This Be My Destiny...!",
+          "quantidadePaginas": 20,
+          "resumo": "Nosso escalador de paredes enfrenta uma organização que quer roubar material para construir arma nuclear. Enquanto isso, seu alter-ego, Peter Parker, finalmente passa para a faculdade. Após ter a boa notícia, nosso herói vê sua amada tia subitamente adoecer. Nos dias seguintes, abalado, o jovem se dispersa no campus, fazendo com que seus novos colegas, entre eles Gwen Stacy e Harry Osborn, pensem que ele é um arrogante.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "31",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 31/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "Man on a Rampage!",
+          "quantidadePaginas": 20,
+          "resumo": "Após descobrir que sua tia foi vítima de envenenamento radioativo, devido à transfusão de sangue que ele teve que fazer para salvar sua vida, o Aranha decide pedir ajuda ao Dr. Curt Connors. Mas, o Iso-36, a única coisa capaz de salvá-la, foi roubado pelos capangas do Planejador Mestre, mais conhecido como \"Dr. Octopus\"! A partir de agora, a sorte está lançada!\nMais um capítulo da fase que mostra Peter Parker ingressando na faculdade.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "32",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 32/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The Final Chapter!",
+          "quantidadePaginas": 20,
+          "resumo": "Esquecido e preso sob uma pilha de escombros numa base submarina que está inundando rapidamente, nosso herói tem que usar toda sua força e determinação para se livrar dos pesados entulhos, pois a vida de sua Tia May depende unicamente dele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "33",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 33/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The Thrill of the Hunt!",
+          "quantidadePaginas": 20,
+          "resumo": "Kraven, o Caçador está de volta! E, dessa vez, disposto a tudo para conseguir derrotar o Escalador de Paredes mais querido do submundo do crime de uma vez por todas! Disfarçado de Homem-Aranha, o vilão passa a perseguir J. Jonah Jameson, até sujar a reputação do nosso herói ao ponto em que ele não tem outra escolha a não ser descobrir quem o está incriminando e, dessa forma, ser atraído a uma armadilha da qual não conseguirá escapar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "34",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 34/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "The Molten Man Regrets...!",
+          "quantidadePaginas": 20,
+          "resumo": "Após sair da prisão, Magma volta a praticar crimes, agora usando uma máscara para não ser descoberto. Mas o Homem-Aranha decide intervir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "35",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 35/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "When Falls the Meteor!",
+          "quantidadePaginas": 20,
+          "resumo": "Norton G. Fester, cientista amador frustrado, é atingido pelo gás de um meteoro que analisava: com isso, ganha super-poderes e passa, sob a identidade do Saqueador, a praticar crimes para angariar fundos para suas pesquisas.\nCarl Hubbell redesenhou o Saqueador, transformando-o no Homem-Aranha (página 13, quadro 5) a pedido de Stan Lee.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "36",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 36/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "Once Upon A Time, There Was A Robot...!",
+          "quantidadePaginas": 20,
+          "resumo": "Após cumprir pena de 10 anos, profesor Stromm sai em liberdade e coloca em prática seu plano de vingança contra Norman Osborn, que o incriminou injustamente.\nÉ nessa edição que Norman Osborn aparece, pela primeira vez, sem a identidade do Duende Verde.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "37",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 37/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": "Just A Guy Named Joe!",
+          "quantidadePaginas": 20,
+          "resumo": "Ator fracassado repentinamente ganha superpoderes devido a um bizarro acidente. Enquanto isso, o Duende Verde (aqui em sua identidade de Norman Osborn) oferece um prêmio pela cabeça do nosso escalador de paredes.\nÚltima história desenhada por Steve Ditko.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "38",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 38/1966 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

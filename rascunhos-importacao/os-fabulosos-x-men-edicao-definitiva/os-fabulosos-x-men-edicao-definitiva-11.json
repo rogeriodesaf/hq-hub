@@ -1,0 +1,261 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-11/fa011131/185337",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-11/fa011131/185337"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 17,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-07-01",
+      "publicadoTexto": "julho de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 452,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 221.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 11\nPublicado em: julho de 2025\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 452\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 221,90\nCrédito da capa e editor\nArte: John Romita Jr. Editor: Diogo Prado , Yuri A. O. Primitz",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Decisões",
+          "tituloOriginal": "Decisions",
+          "quantidadePaginas": 22,
+          "resumo": "Ciclope e Madelyne curtem a lua de mel. Wolverine se despede de Mariko Yashida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "176",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 176/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sanções",
+          "tituloOriginal": "Sanction",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "177",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 177/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Inferno em fúria",
+          "tituloOriginal": "Hell Hath No Fury...",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "178",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 178/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O que aconteceu com Kitty Pryde?",
+          "tituloOriginal": "What Happened to Kitty?",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "179",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 179/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "De quem é a vida, afinal?",
+          "tituloOriginal": "Whose Life Is Iit, Anyway?",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "180",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 180/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Um conto em Tóquio",
+          "tituloOriginal": "A Tokyo Story",
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men retornam de Guerras Secretas, mas no Japão, enfrentam um dragão teleportado juntamente com eles do planeta criado por Beyonder.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "181",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 181/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Loucura",
+          "tituloOriginal": "Madness",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "182",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 182/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Ele nunca me fará chorar",
+          "tituloOriginal": "He'll Never Make Me Cry",
+          "quantidadePaginas": 22,
+          "resumo": "Colossus acaba seu incipiente relacionamento com Kitty, por ter se envolvido com uma habitante do mundo de Guerras Secretas e pelo ciúme que nutria da amizade entre Kitty e Doug e acaba enfrentando o Fanático em um bar, enquanto Wolverine e Noturno observam. Kitty vai para o Japão onde deixa de ser Ninfa para torna-se Lince Negra, mas isso acontece na minissérie Kitty Pride e Wolverine, em que a mutante acaba se tornando uma ninja.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "183",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 183/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "O passado... dos dias futuros",
+          "tituloOriginal": "The Past of Future Days",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "184",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 184/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Inimiga pública!",
+          "tituloOriginal": "Public Enemy",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "185",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 185/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Morte em vida",
+          "tituloOriginal": "Lifedeath",
+          "quantidadePaginas": 40,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "186",
+            "anoOriginal": 1984,
+            "texto": "Uncanny X-Men, The (1963) n° 186/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Mentiras",
+          "tituloOriginal": "Lies",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty viaja até o Japão para resgatar seu pai, mas descobre que ele está em alguns negócios obscuros com bandidos japoneses.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1984,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 1/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Terror",
+          "tituloOriginal": "Terror",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty Pryde é capturada por criminosos japoneses e Wolverine parte para o Japão para ajudá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1984,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 2/1984 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Morte",
+          "tituloOriginal": "Death",
+          "quantidadePaginas": 23,
+          "resumo": "Sob a influência de Ogun, Kitty Pryde ataca Wolverine. Enquanto isso, Yukio vai atrás de informações sobre o paradeiro da jovem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 3/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Renascimento",
+          "tituloOriginal": "Rebirth",
+          "quantidadePaginas": 23,
+          "resumo": "Wolverine tenta curar Kitty. Ele também descobre que James Hudson está \"morto\" e que Tempestade perdeu seus poderes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 4/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Coragem",
+          "tituloOriginal": "Courage",
+          "quantidadePaginas": 23,
+          "resumo": "Kitty enfrenta Ogun e assume o nome de Lince Negra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 5/1985 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Honra",
+          "tituloOriginal": "Honor",
+          "quantidadePaginas": 24,
+          "resumo": "Wolverine e Kitty enfrentam Ogun e Kitty tem que decidir se vai matá-lo ou não.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Kitty Pryde And Wolverine (1984)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1985,
+            "texto": "Kitty Pryde And Wolverine (1984) n° 6/1985 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-4/fa011131/169475",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-4/fa011131/169475"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 25,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-12-01",
+      "publicadoTexto": "dezembro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 516,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 214.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 4\nPublicado em: dezembro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 516\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 214,90\nCrédito da capa e editor\nDesenho: Jim Starlin Arte-Final: Frank Giacoia - ‘Frankie Ray; Phil Zupa’ Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Quando o Homem de Gelo ataca",
+          "tituloOriginal": "When Iceman Attacks!",
+          "quantidadePaginas": 19,
+          "resumo": "A campanha pública contra o Homem-Aranha continua, e agora, o Homem de Gelo resolveu participar dela! Um inescrupuloso candidato a Promotor Público procura utilizar a campanha contra o Homem-Aranha para viabilizar sua eleição. E se aproveita até mesmo do mutante Homem de Gelo em suas maquinações contra o herói aracnídeo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "92",
+            "anoOriginal": 1971,
+            "texto": "Amazing Spider-Man, The (1963) n° 92/1971 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Grite Hulk! Grite Destrutor!",
+          "tituloOriginal": "Cry Hulk, Cry Havok!",
+          "quantidadePaginas": 21,
+          "resumo": "Ainda sofrendo pela perda de sua amada Jarella, o Golias Esmeralda, fugindo de mais uma perseguição empreendida pelo exército, acaba dando de cara com uma misteriosa garota de cabelos verdes, dotada de estranhos poderes, e que ele pensa ser... a \"própria Jarella\"! Mas, o namorado da moça não vai gostar nem um pouco disso! Tal como seus igualmente fantásticos poderes cósmicos vão demonstrar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "150",
+            "anoOriginal": 1972,
+            "texto": "Incredible Hulk, The (1968) n° 150/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O Fera!",
+          "tituloOriginal": "The Beast!",
+          "quantidadePaginas": 21,
+          "resumo": "Hank McCoy decide sair dos X-Men. Ele agora trilha um novo caminho, trabalhando em projetos, pesquisas e experiências de seu interesse financiado pela Corporação Brand. Acreditando estar tudo tranquilo, incluindo a vida sentimental, Hank se vê em meio à uma conspiração dentro do seu trabalho. Justo agora que havia concluído a sintetização do Gene X, que pode transformar temporariamente humanos em mutantes, além de ampliar os dons de quem já os possui.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1972,
+            "texto": "Amazing Adventures (1970) n° 11/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Homem de Ferro: Morto ao chegar",
+          "tituloOriginal": "Iron Man: D.O.A.",
+          "quantidadePaginas": 21,
+          "resumo": "Essa história foi republicada em Avengers (1963) #136, para apresentar o Fera, antes de sua entrada para a equipe dos Vingadores. As páginas 2, 3 e 21 não foram inseridas na reimpressão de Avengers #136.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1972,
+            "texto": "Amazing Adventures (1970) n° 12/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O mal está na sua mente!",
+          "tituloOriginal": "Evil Is All in Your Mind!",
+          "quantidadePaginas": null,
+          "resumo": "O Mestre Mental manipula a mente do Fera para que ele se una a Nova Irmandade dos Mutantes ao lado de Blob, Unus e o próprio Mestre Mental. Após colocar a cabeça no lugar, Fera derrota sozinho os vilões e os entrega para as autoridades.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1972,
+            "texto": "Amazing Adventures (1970) n° 13/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "E então... Os X-Men!",
+          "tituloOriginal": "And Then... the X-Men!",
+          "quantidadePaginas": 20,
+          "resumo": "Uma estranha e súbita enfermidade acometeu o Aranha e, se não for tratada em breve, acabará por decretar sua sentença de morte! Pra isso, ele precisará da ajuda do Dr. Hans Jorgenson e de uma equipe de heróis: os X-Men! Mas, antes os mutantes precisam localizar Morbius, capturá-lo e levá-lo à Mansão X a tempo! Ou será tarde demais pro aracnídeo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1972,
+            "texto": "Marvel Team-Up (1972) n° 4/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A máquina vampira",
+          "tituloOriginal": "The Vampire Machine",
+          "quantidadePaginas": 20,
+          "resumo": "O vilão Quasimodo tenta usar sua tecnologia para absorver a energia vital do Fera para se tornar mais humano. Isso retira o poder de fator de cura do Fera e altera a cor de sua pelagem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1972,
+            "texto": "Amazing Adventures (1970) n° 14/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Assassinato em pleno ar!",
+          "tituloOriginal": "Murder in Mid-Air!",
+          "quantidadePaginas": 20,
+          "resumo": "Aqui é revelado que os espiões que atuavam nas Industrias Brand trabalhavam para o Império Secreto. Essa organização envia o supervilão chamado Grifo para eliminar o Fera, mas nosso herói recebe ajuda do seu antigo colega de equipe, Anjo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1972,
+            "texto": "Amazing Adventures (1970) n° 15/1972 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Se não tomar cuidado, o Fanático vai te pegar!",
+          "tituloOriginal": "...And the Juggernaut Will Get You... If You Don't Watch Out!",
+          "quantidadePaginas": 20,
+          "resumo": "O Fanático retorna mais uma vez da dimensão de Cyttorak em uma noite de Halloween e enfrenta seu velho inimigo, Fera.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1973,
+            "texto": "Amazing Adventures (1970) n° 16/1973 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Surge o Fera!",
+          "tituloOriginal": "Birth of the Beast!",
+          "quantidadePaginas": 2,
+          "resumo": "Amazing Adventures #17 apresentou uma reimpressão condensada das histórias complementares da origem do Fera publicadas originalmente em X-Men 49-53. Aqui, só é mostrada as duas páginas inéditas. Última aparição do Fera em Amazing Adventures.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Adventures (1970)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1973,
+            "texto": "Amazing Adventures (1970) n° 17/1973 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Além da fronteira espreita a morte!",
+          "tituloOriginal": "Beyond the Border Lurks Death!",
+          "quantidadePaginas": 20,
+          "resumo": "Hulk encontra em uma cabine remota no Canadá, onde o cientista Hank McCoy está tentando curar o mutante Mimico de uma doença que está fazendo seus poderes sairem do controle. Os dois heróis lutam, e Mimico temporariamente absorve a radiação gama do Monstro Verde, fazendo este voltar a seu alter-ego, o dr. Banner.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "161",
+            "anoOriginal": 1973,
+            "texto": "Incredible Hulk, The (1968) n° 161/1973 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "...Surge Magneto!",
+          "tituloOriginal": "... And Now Magneto!",
+          "quantidadePaginas": 20,
+          "resumo": "Mal recebem a mensagem de Pietro dizendo que está a salvo no Grande Refúgio dos Inumanos, os Vingadores interceptam uma estranha transmissão da Mansão Para Jovens Superdotados do Prof. Xavier. Mas, o que parecia ser só um pedido de socorro, revela-se uma cilada, pois, ao chegarem lá, encontram os X-Men desacordados em meio a um cenário de devastação! A resposta pra esse enigma vai pegar os Maiores Heróis da Terra completamente desprevenidos! E indefesos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1973,
+            "texto": "Avengers, The (1963) n° 110/1973 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Sempre juntos!",
+          "tituloOriginal": "With Two Beside Them!",
+          "quantidadePaginas": 20,
+          "resumo": "Magneto está de volta e, dessa vez, ele desenvolveu poderes de controle mental, manipulando o ferro da corrente sanguínea que abastece o cérebro e, assim, conseguiu dominar a mente dos X-Men e de vários Vingadores, com exceção de Thor, Pantera Negra e Visão. O objetivo do vilão é se apossar do arsenal atômico dos EUA, a fim de criar um exército de mutantes a seu serviço! Para enfrentá-lo, o trio vai precisar de uma mãozinha: Demolidor e Viúva-Negra!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "111",
+            "anoOriginal": 1973,
+            "texto": "Avengers, The (1963) n° 111/1973 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Ninguém segura... O Fanático!",
+          "tituloOriginal": "And Canst Thou Slay... the Juggernaut?",
+          "quantidadePaginas": 20,
+          "resumo": "Capturado à traição pelo Coronel Armbruster, Hulk é aprisionado em uma cela especial onde será submetido a uma máquina criada pelo Dr. Peter Corbeau que irá enviá-lo a outra dimensão até que uma cura para sua maldição seja encontrada! Mas para surpresa de todos, o raio acaba libertando o Fanático da dimensão em que se encontrava aprisionado pelo Doutor Estranho! E só o Hulk poderá detê-lo... a não ser que ele não queira!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "172",
+            "anoOriginal": 1974,
+            "texto": "Incredible Hulk, The (1968) n° 172/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Acredite ou não: É o Banshee!",
+          "tituloOriginal": "“Believe it or not: The Banshee!”",
+          "quantidadePaginas": 19,
+          "resumo": "Seguindo uma pista em Nashville, o Capitão e o Falcão encontram por acaso Banshee, que por sua vez pensa que a dupla foi enviada para capturá-lo. Tem início assim uma batalha no centro daquela cidade...",
+          "publicacaoOriginal": {
+            "serieOriginal": "Captain America (1968)",
+            "numeroOriginal": "172",
+            "anoOriginal": 1974,
+            "texto": "Captain America (1968) n° 172/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Os pecados do Império Secreto!",
+          "tituloOriginal": "The Sins of the Secret Empire!",
+          "quantidadePaginas": 19,
+          "resumo": "Disfarçados de desempregados, Capitão e Falcão se infiltram no Império Secreto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Captain America (1968)",
+            "numeroOriginal": "173",
+            "anoOriginal": 1974,
+            "texto": "Captain America (1968) n° 173/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "É sempre mais escuro...",
+          "tituloOriginal": "It's Always Darkest...!",
+          "quantidadePaginas": 18,
+          "resumo": "Capitão América e Falcão enfrentam a organização criminosa Império Secreto e Rocha Lunar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Captain America (1968)",
+            "numeroOriginal": "174",
+            "anoOriginal": 1974,
+            "texto": "Captain America (1968) n° 174/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "...Antes do amanhecer!",
+          "tituloOriginal": "...Before the Dawn!",
+          "quantidadePaginas": 18,
+          "resumo": "O Capitão, juntamente com Falcão, Ciclope, Garota Marvel e o agente da Shield Gabe Jones, derrotam o Império Secreto e frustram sua tentativa de dominar a América. E, para espanto de nosso herói, ele descobre que o Número 1 é, na verdade, um alto figurão do governo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Captain America (1968)",
+            "numeroOriginal": "175",
+            "anoOriginal": 1974,
+            "texto": "Captain America (1968) n° 175/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "A noite do inferno gelado",
+          "tituloOriginal": "The Night of the Frozen Inferno",
+          "quantidadePaginas": 18,
+          "resumo": "O Tocha Humana investiga um roubo numa joalheria, causado por um misterioso bandido que deixou uma “poça de gelo no chão”, o que acaba levando-o a bater de frente com o Homem de Gelo! Só que, o criminoso não apenas cria gelo, mas também fogo com as próprias mãos! O que é uma dica pra eles unirem suas forças... se quiserem sobreviver!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1974,
+            "texto": "Marvel Team-Up (1972) n° 23/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "Pânico no centro da Terra!",
+          "tituloOriginal": "Panic Beneath the Earth!",
+          "quantidadePaginas": 18,
+          "resumo": "Magneto escapa de sua prisão após ter sido capturado pelos Vingadores e encontra uma caverna subterrânea com um grande laboratório de tecnologia alienígena. O Mestre do Magnetismo reúne uma nova versão da Irmandade dos Mutantes e decide usar sua nova tecnologia para criar um Mutante Supremo. O Professor X se reúne aos Defensores para impedir os planos de Magneto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Defenders, The (1972)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1974,
+            "texto": "Defenders, The (1972) n° 15/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "Alfa, o Mutante Supremo!",
+          "tituloOriginal": "Alpha, the Ultimate Mutant!",
+          "quantidadePaginas": 18,
+          "resumo": "Magneto cria um novo mutante sintético, Alfa, o Mutante Supremo. Esse ser possui poderes quase ilimitados e está em constante evolução biológica. Alfa percebe que os Defensores eram heróis justos e que os planos de Magneto eram malignos. Alfa transforma a Irmandade de Mutantes em bebês e decide abandonar o planeta para explorar o espaço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Defenders, The (1972)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1974,
+            "texto": "Defenders, The (1972) n° 16/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 22,
+          "tituloPortugues": "E os ventos uivam... Wendigo!",
+          "tituloOriginal": "And the Wind Howls... Wendigo!",
+          "quantidadePaginas": 18,
+          "resumo": "O Hulk volta às florestas canadenses, mas, dessa vez, algo o atraiu até lá. Ou “alguém”! Marie Cartier, a mesma garota que ele salvou da criatura chamada Wendigo, planeja um ritual para transferir a maldição indígena do monstro branco para o Gigante Verde e, assim, curar seu irmão! Mas, o governo canadense também detectou a presença do Hulk na área e envia seu melhor agente para caçá-lo! Um certo baixinho invocado...",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "180",
+            "anoOriginal": 1974,
+            "texto": "Incredible Hulk, The (1968) n° 180/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 23,
+          "tituloPortugues": "Surge... O Wolverine!",
+          "tituloOriginal": "And Now... the Wolverine!",
+          "quantidadePaginas": 18,
+          "resumo": "Enquanto o combate brutal entre Hulk, Wendigo e Wolverine se desenrola, mal sabem eles que seus destinos podem estar sendo selados por forças alheias às suas vontades! Mais obcecada do que nunca em livrar seu irmão da maldição que o transformou em um monstro selvagem, Marie Cartier está prestes a realizar o ritual arcano de transferência que livrará Paul de tal pesadelo e condenará outro em seu lugar à mesma sina! Mas... quem?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "181",
+            "anoOriginal": 1974,
+            "texto": "Incredible Hulk, The (1968) n° 181/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 24,
+          "tituloPortugues": "Entre o martelo e a bigorna!",
+          "tituloOriginal": "Between Hammer and Anvil!",
+          "quantidadePaginas": 2,
+          "resumo": "Aqui só é mostrado as páginas que o Wolvernie aparece. Ele volta a aparecer em Giant-Size X-Men #1.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "182",
+            "anoOriginal": 1974,
+            "texto": "Incredible Hulk, The (1968) n° 182/1974 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 25,
+          "tituloPortugues": "Madrox, o Homem Múltiplo!",
+          "tituloOriginal": "“Madrox the Multiple Man!”",
+          "quantidadePaginas": 21,
+          "resumo": "Em busca de uma correção para seu traje com defeito, o Homem-Múltiplo retorna à cidade de Nova York e luta contra o Quarteto Fantástico.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Giant-Size Fantastic Four (1974)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1975,
+            "texto": "Giant-Size Fantastic Four (1974) n° 4/1975 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

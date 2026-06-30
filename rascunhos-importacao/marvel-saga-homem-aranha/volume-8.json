@@ -1,0 +1,138 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-8/ma011173/157430",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-8/ma011173/157430"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:07",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  6,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "8",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2021-02-01",
+                        "publicadoTexto":  "fevereiro de 2021",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  168,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.Tk9wg3nYw9gnZKLl-uDbOQHaLR?w=192\u0026h=292\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 8\nPublicado em: fevereiro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nArte: Deodato Borges Filho - ‘Mike Deodato Jr.’ Editor: Rodrigo Oliveira - ‘Roska’\nSeguindo em frente\nRoteiro: J. Michael Straczynski\nDesenho: Deodato Borges Filho - ‘Mike Deodato Jr.’\nArte-Final: José \"Joe\" Pimentel\nCores: Matt Milla\nLetrista: Wesley Souza\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 519 /2005 - Marvel Comics\nTítulo original: \"Moving Up\".\n22 Páginas\nAtos de agressão\nRoteiro: J. Michael Straczynski\nDesenho: Deodato Borges Filho - ‘Mike Deodato Jr.’\nArte-Final: José \"Joe\" Pimentel\nCores: Matt Milla\nLetrista: Wesley Souza\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 520 /2005 - Marvel Comics\nTítulo original: \"Acts of Aggression\".\n22 Páginas",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Seguindo em frente",
+                                              "tituloOriginal":  "Moving Up",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "519",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 519/2005 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Atos de agressão",
+                                              "tituloOriginal":  "Acts of Aggression",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "520",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 520/2005 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Consequências inesperadas",
+                                              "tituloOriginal":  "Unintended Consequences",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "521",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 521/2005 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Alvos móveis",
+                                              "tituloOriginal":  "Moving Targets",
+                                              "quantidadePaginas":  21,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "522",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 522/2005 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Medidas extremas",
+                                              "tituloOriginal":  "Extreme Measures",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "523",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 523/2005 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Tudo vem abaixo",
+                                              "tituloOriginal":  "All Fall Down",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "524",
+                                                                         "anoOriginal":  2005,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 524/2005 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

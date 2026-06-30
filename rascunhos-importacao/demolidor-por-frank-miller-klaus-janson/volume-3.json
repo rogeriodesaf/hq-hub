@@ -1,0 +1,202 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-3/de011116/126016",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/demolidor-por-frank-miller-e-klaus-janson-n-3/de011116/126016"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:46:15",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Demolidor Por Frank Miller \u0026 Klaus Janson",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  10,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "3",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2016-09-01",
+                        "publicadoTexto":  "setembro de 2016",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Série completa",
+                        "numeroPaginas":  292,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  79.0,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP._f1oA2sKQZQs8bouYOlMVAHaLO?w=192\u0026h=291\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Demolidor Por Frank Miller \u0026 Klaus Janson n° 3\nPublicado em: setembro de 2016\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Série completa\nNúmero de páginas: 292\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 79,00\nCrédito da capa e editor\nArte: Frank Miller Editor: Paulo França - ‘Pf’",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Brincadeira de criança",
+                                              "tituloOriginal":  "Child\u0027s Play",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "PCP, pó de anjos, cristal, combustível de foguetes, ela tem vários nomes ..., amnésia, psicose, convulsão, alucinações. Esta droga levou mais uma criança. O irmão da vítima Bily decidiu vingar do traficante. O Justiceiro consegue sair da cadeia e o Demolidor quer impedir uma carnificina de crianças que traficam. Bily é acusado de matar um traficante, o Demolidor caça o verdadeiro culpado. Matt defende o garoto nos tribunais. Mais tarde pede Heather em casamento.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "183",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 183/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Os mocinhos vestem vermelho!",
+                                              "tituloOriginal":  "Good Guys Wear Red!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Murdock briga nos tribunais para defender \u0027Porcão\u0027, enganado pelo marcapasso que o bandido usa ele acredita estar defendendo um inocente. Na verdade Porcão usou o treinador de Bily para passar drogas aos garotos, e matou o traficante que vendeu drogas a irmã de Bily. Bily ouve da boca de Porcão o que ele fez, e resolve fazer justiça com as próprias mãos. O Demolidor tem de impedir, para piorar o Justiceiro está atrás de Porcão o que os coloca em colisão.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "184",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 184/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Garra",
+                                              "tituloOriginal":  "Guts",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Heather foi induzida a assinar alguns papéis para as empresas Glenn de seu falecido pai, e descobre que estão fabricando explosivos. Foggy é seu representante legal, e tenta descobrir onde o armamento será usado. Se metendo assim em todos os bares e com todos os tipo barra pesada da Cozinha do Inferno, adotando o nome de \u0027Garra\u0027 Nelson, recebendo a ajuda do Demolidor e apadrinhado por Tucão, ele chega até a sala do Rei do Crime e intimida o homem.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "185",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 185/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Pernas",
+                                              "tituloOriginal":  "Stilts",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Murdock/Demolidor, junta uma série de provas que incriminam as empresas Glenn, e se prepara para a defesa de Heather (uma das envolvidas já que assinou papéis que a comprometem). Tucão rouba a roupa do Metalóide para convencer o Rei de contratá-lo como mercenário. O Demolidor vai atrás do desajeitado bandido para recuperar o traje.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "186",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 186/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Força desmedida",
+                                              "tituloOriginal":  "Overkill",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Os sentidos aguçados do Demolidor enlouqueceram e ele está procurando Stick o único Homem que pode orientá-lo. a Viúva Negra tenta interceptar ninjas do Tentáculo e acaba sendo envenenada, os médicos da Shield alegam que é similar a um câncer e que lhe restam poucas semanas de vida. O Tentáculo rouba o corpo de Kirigi, e através de um ritual o ressuscitam.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "187",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 187/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "O ferrão da Viúva Negra",
+                                              "tituloOriginal":  "The Widow\u0027s Bite",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "A Viúva Negra busca ajuda do Demolidor, não o encontra e vai até o Rei do Crime para conseguir informações. Matt é posto em um tanque de água e Stick diz que seus sentidos não aconteceram pela radiação, eles existem em todos, mas não são usados. O acidente apenas os trouxe a tona. Kirigi vai atrás de Stick que tem apoio de outros dois ninjas. Viúva Negra encontra o Demolidor no apartamento de Stick, a moça esta prestes a morrer.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "188",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 188/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Cerco",
+                                              "tituloOriginal":  "Siege",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Kirigi e a Viúva Negra estão mortos, o ninja Rocha consegue ressuscitar a moça, cedendo esperanças a Matt para a ressurreição de Elektra. Cercados no apto de Stick, eles unem contra o Tentáculo, aparentemente Stick dá a vida para eliminar uma quantidade maior de ninjas através de magia.A Viúva Negra procura Foggy e descobre tudo sobre a pressão que Matt fez para se casar e falsifica um bilhete de Matt a Heather terminando o casamento.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "189",
+                                                                         "anoOriginal":  1982,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 189/1982 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Ressurreição",
+                                              "tituloOriginal":  "Resurrection",
+                                              "quantidadePaginas":  38,
+                                              "resumo":  "Frank Miller revolve as cinzas de uma das mortes mais trágicas que já assolaram a Marvel para trazer de volta ela, a guerreira apaixonante, o maior amor da vida do Demolidor... ELEKTRA! Será que a ninja morta pelas mãos de um terrível criminoso poderia realmente voltar à vida?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "190",
+                                                                         "anoOriginal":  1983,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 190/1983 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Roleta-russa",
+                                              "tituloOriginal":  "Roulette",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Demolidor faz uma \"visita\" surpresa ao hospital onde o cruel Mercenário, em coma e totalmente imobilizado, se recupera da ultima luta que teve com nosso herói. O Homem Sem Medo, então, resolve fazer um joguinho de roleta-russa com ele...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Daredevil (1964)",
+                                                                         "numeroOriginal":  "191",
+                                                                         "anoOriginal":  1983,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Daredevil (1964) n° 191/1983 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "Matt Murdock, agente da S.H.I.E.L.D.",
+                                              "tituloOriginal":  "Matt Murdock, Agent of... S.H.I.E.L.D.",
+                                              "quantidadePaginas":  12,
+                                              "resumo":  "Em um mundo semelhante ao nosso, mas em outra dimensão, como um espelho, os acontecimentos seguiram um rumo diferente. Por exemplo, nesse fascinante planeta o jovem Matt Murdock não virou o Demolidor. Ao invés disso, o rapaz cego foi recrutado pela S.H.I.E.L.D., onde utiliza seus extraordinários poderes sensoriais a serviço daquela organização de contraespionagem.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "What If? (1977)",
+                                                                         "numeroOriginal":  "28",
+                                                                         "anoOriginal":  1981,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "What If? (1977) n° 28/1981 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

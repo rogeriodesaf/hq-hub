@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-18.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-18/sa011129/175257",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-18/sa011129/175257"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "18",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-11-30",
+      "publicadoTexto": "novembro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 44.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71DO1JL6osL._SY342_.jpg",
+      "descricao": "Tempestade está sendo caçada pelos antigos heróis da Segunda Guerra Mundial, Muralha, Supersabre e o Comando Escarlate. Em combate aberto, ela não tem nenhuma chance contra eles, o que significa que vai precisar ser mais esperta! Em seguida, Cristal enfrenta a força exorbitante do Fanático enquanto os X-Men passam por uma desafiadora sessão de treinamento com Callisto! Por fim, Alex Summers manteve a cabeça abaixada por um longo tempo, e, agora que voltou, vai descobrir que perdeu muita coisa – especialmente no que diz respeito ao Clube do Inferno e os Morlocks! ",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Velhos soldados",
+          "tituloOriginal": "Old Soldiers",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "215",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 215/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-215/264/6254",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Provação",
+          "tituloOriginal": "Crucible",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "216",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 216/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-216/264/6255",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ousado desafio",
+          "tituloOriginal": "Folly's Gambit",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "217",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 217/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-217/264/6256",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A carga da brigada ligeira",
+          "tituloOriginal": "Charge of the Light Brigade",
+          "quantidadePaginas": 22,
+          "resumo": "Lorna Dane e Alex Summers, também conhecidos como Polaris e Destrutor, voltam das compras no seu lar no Novo México, quando uma perua desgovernada os tira da estrada causando um acidente. Enquanto isso os novos X-Men, Vampira, Psylocke, Cristal e Longshot, entrentam o Fanático nas ruas de Edimburgo, Escócia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "218",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 218/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-218/264/6257",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Uma questão de dever",
+          "tituloOriginal": "Where Duty Lies",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "219",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 219/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-219/264/6258",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Os aventureiros do templo perdido",
+          "tituloOriginal": "Lost in the Fun House",
+          "quantidadePaginas": 40,
+          "resumo": "Um senhor da guerra alienígena sequestra os X-Men e seus aliados Capitão Britânia e Meggan para usá-los como seus lacaios na busca do Cristal da Visão Total, do qual ele usa um fragmento na testa, localizado na misteriosa Cidadela das Luzes e Sombras",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "texto": "X-Men Annual (1970) n° 11/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-11/265/271099",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

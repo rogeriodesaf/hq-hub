@@ -1,0 +1,154 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-21/ma011173/169201",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-21/ma011173/169201"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:48",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  7,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "21",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-11-01",
+                        "publicadoTexto":  "novembro de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  172,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.wrwIciY3ieUezVAyPhMdfgHaLH?w=192\u0026h=288\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 21\nPublicado em: novembro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nArte: Barry Kitson Editor: Fernando Lopes - ‘Fl’ , Rogério Saladino",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Marcado para morrer",
+                                              "tituloOriginal":  "Marked",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "A volta de um antigo inimigo do Amigão da Vizinhança: o Mancha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "589",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 589/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Passeio conturbado",
+                                              "tituloOriginal":  "Walking the Talk",
+                                              "quantidadePaginas":  11,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Family, The (2008)",
+                                                                         "numeroOriginal":  "8",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Family, The (2008) n° 8/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Juntos novamente... pela primeira vez!",
+                                              "tituloOriginal":  "Face Front: Together Again... For the First Time - Part 1",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Homem-Aranha e Quarteto Fantástico voltam ao Macroverso e encontram tudo muito diferente do que haviam deixado em sua última passagem, alguns anos antes.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "590",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 590/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Não precisa dizer mais nada!",
+                                              "tituloOriginal":  "Face Front: Nuff Said! - Part 2",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Enquanto luta no Macroverso ao lado da superfamília para desfazer uma guerra causada pela interferência dos heróis na outra vez em que estiveram lá, o Homem-Aranha é questionado pelo Tocha Humana sobre o fato de ninguém ali conseguir se lembrar de sua identidade secreta.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "591",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 591/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "24/7 - Parte um",
+                                              "tituloOriginal":  "24/7 - Part One",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Os dois meses que se passaram na Terra enquanto o Homem-Aranha estava no Macroverso foram suficientes para acontecer muita coisa importante em Nova York e na vida de Peter Parker.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "592",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 592/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "24/7 - Parte dois",
+                                              "tituloOriginal":  "24/7 - Part Two",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "593",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 593/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "24/7 - Parte três",
+                                              "tituloOriginal":  "24/7 - Finale",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "594",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 594/2009 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

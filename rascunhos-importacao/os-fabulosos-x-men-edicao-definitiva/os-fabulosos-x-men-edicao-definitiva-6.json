@@ -1,0 +1,313 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-6/fa011131/173712",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-6/fa011131/173712"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 21,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-07-01",
+      "publicadoTexto": "julho de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 440,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 190.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 6\nPublicado em: julho de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 440\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 190,90\nCrédito da capa e editor\nDesenho: John Byrne Arte-Final: Terry Austin Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O mal que assola...",
+          "tituloOriginal": "The Evil That Is Cast...",
+          "quantidadePaginas": 35,
+          "resumo": "Aproveitando alguns dias de descanso em sua casa de veraneio, nas Montanhas Rochosas do Novo México, o Anjo e o Homem de Gelo são atacados pelo novo e gigantesco Molde Mestre, o líder dos androides Sentinelas! Uma ameaça que eles dois não têm como encarar sozinhos! Mas, pra sua “sorte”, a mansão de Warren se localiza a poucos quilômetros da Base Gama, onde os heróis vão encontrar uma ajuda de peso contra o gigante: “outro gigante”! O Incrível Hulk!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk Annual, The (1968)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1978,
+            "texto": "Incredible Hulk Annual, The (1968) n° 7/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Jogos mentais",
+          "tituloOriginal": "Mindgames!",
+          "quantidadePaginas": 17,
+          "resumo": "Com Destrutor em perigo, Fera decide recorrer aos X-Men, mas não consegue encontrá-los na mansão. Consultando o computador Cérebro, o herói localiza seus companheiros em Dallas, onde, horrorizado, descobre-os desmemoriados e servindo de atrações num circo de horrores. Logo, Fera toma consciência que seus amigos caíram sob os sortilégios de um velho inimigo, o insidioso telepata Mesmero. Agora, fará de tudo para libertá-los.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "111",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 111/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Magneto triunfa!",
+          "tituloOriginal": "Magneto Triumphant!",
+          "quantidadePaginas": 17,
+          "resumo": "Os X-Men saem da frigideira e caem no fogo. Depois de manipulados por Mesmero, reencontram seu mais ardiloso adversário, Magneto. Furioso, o mestre do magnetismo sequestra os Filhos do Átomo para sua base na Antártida e, após subjugá-los com extrema facilidade, condena-os à mesma humilhação vivida por ele: serem reduzidos a crianças, dependentes e sem poderes nas mãos da cruel androide Nanny.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "112",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 112/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Confronto",
+          "tituloOriginal": "Showdown!",
+          "quantidadePaginas": 17,
+          "resumo": "Enquanto Magneto toca literalmente o terror ao redor do mundo, os X-Men tentam a todo custo escapar dos insuportáveis carinhos da Babá. Quando os computadores de sua base na Antártida chamam a atenção de Magneto, já é tarde demais, e ele receberá dos heróis a paga por tão destacado tratamento.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "113",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 113/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Desolação",
+          "tituloOriginal": "Desolation",
+          "quantidadePaginas": 17,
+          "resumo": "O confronto contra Magneto termina de forma trágica, pois os X-Men se veem separados em dois grupos, cada um acreditando na morte do outro. Desolados, Fera e Fênix conseguem ser resgatados e retornam aos Estados Unidos, enquanto Ciclope, Wolverine e os outros penetram no continente e vão parar na lendária Terra Selvagem. Chegando lá, o cenário paradisíaco traz tranquilidade aos heróis, mas o mal se espreita onde menos se espera.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "114",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 114/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Visões da morte",
+          "tituloOriginal": "Visions of Death!",
+          "quantidadePaginas": 17,
+          "resumo": "Drenando as forças de Tempestade, Karl Lykos se transforma no pterodáctilo mutante Sauron, velho inimigo dos X-Men. Controlando Wolverine, o maléfico doutor executa sua vingança particular e coloca os X-Men em maus lençóis, mas em se tratando de Terra Selvagem, se há confusão, sua maior autoridade marca presença: é a chegada de Ka-Zar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "115",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 115/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O resgate da Terra Selvagem",
+          "tituloOriginal": "To Save the Savage Land",
+          "quantidadePaginas": 17,
+          "resumo": "Ao descobrirem que a Terra Selvagem está ameaçada pela Cidadela de Garokk, que suga energia geotérmica do centro do planeta, que faz o gelo da Antártida avançar cada vez mais, os X-Men não têm alternativa a não ser ajudar Ka-Zar a enfrentar o Homem-Petrificado! Noturno, Tempestade e Wolverine têm de se infiltrar na gigantesca fortaleza para resgatar Ciclope, Colossus, Banshee e Ka-Zar, que foram capturados e deter o vilão antes que seja tarde demais!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "116",
+            "anoOriginal": 1978,
+            "texto": "Uncanny X-Men, The (1963) n° 116/1978 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Guerra psíquica!",
+          "tituloOriginal": "Psi War!",
+          "quantidadePaginas": 17,
+          "resumo": "Em uma conversa com Lilandra, o Professor X relembra momentos de sua vida, inclusive sua excursão à África. Lá, o sábio cientista foi roubado por uma menina mutante (Tempestade), que ele descobrira ser fortemente influenciada por um também mutante com poderes psiquicos. Finalmente, em um bar, Xavier e o vilão se enfrentam, num duelo final de mentes.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "117",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 117/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "O afundamento do Japão!",
+          "tituloOriginal": "The Submergence of Japan",
+          "quantidadePaginas": 17,
+          "resumo": "Ao chegar em Agarashima, no Japão, os X-Men assistem a cidade arder devido a um terremoto fora do normal. O canadense Wolverine conhece, a bela Mariko Yashida e revela, para surpresa geral, sua fluência em japonês, informando aos colegas que o desastre foi causado por uma série de ataques sísmicos. Os heróis então contatam o mutante japonês Solaris para tentar ajudar. No decorrer dos acontecimentos, encaram o responsável pelos ataques: Moses Magnum.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "118",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 118/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "A véspera de Natal...",
+          "tituloOriginal": "Twas the Night Before Christmas",
+          "quantidadePaginas": 17,
+          "resumo": "Diante da revelação de que o terremoto que destruiu o porto de Agarashima foi causado pelo vilão Moses Magnum, os X-Men são forçados a invadir a fortaleza do facínora, antes que ele leve a cabo seu ultimato caso o Primeiro Ministro japonês não declará-lo governante de todo país! Mas, pra conseguir isso, talvez um dos heróis mutantes tenha que fazer um grande sacrifício! Caso contrário, o Japão inteiro irá afundar dentro de menos de 24 horas!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "119",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 119/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Procurado: Wolverine! Vivo ou morto!",
+          "tituloOriginal": "Wanted: Wolverine! Dead or Alive!",
+          "quantidadePaginas": 17,
+          "resumo": "No Japão, os X-Men se despedem de Solaris e Mariko Yashida e partem de avião para os Estados Unidos. O voo, no entanto, é interrompido por uma anormal tormenta que nem Tempestade é capaz de controlar. Aterrissando em Calgary, Canadá, os heróis tem uma péssima recepção: o antigo Arma Alfa, agora conhecido como Víndix, está de volta e quer que Wolverine se entregue ao governo canadense. Só que agora ele está acompanhado da Tropa Alfa!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "120",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 120/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Tiroteio no rodeio!",
+          "tituloOriginal": "Shoot-Out at the Stampede!",
+          "quantidadePaginas": 17,
+          "resumo": "Em Calgary, Canadá, Wolverine e Noturno acabam sendo capturados pela Tropa Alfa. Os X-Men partem para resgatá-los. Mas, o feiticeiro Shaman, da Tropa, provoca uma forte nevasca a fim de deter o avião dos nossos heróis. Enquanto as equipes medem forças, a nevasca perde o controle. Resta a Tempestade se esforçar ao máximo para contê-la. Para encerrar a luta, Wolverine aparentemente se rende à Tropa. Mas, é claro que o baixinho tem um ás na manga!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "121",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 121/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Chore pelas crianças",
+          "tituloOriginal": "Cry for the Children!",
+          "quantidadePaginas": 17,
+          "resumo": "Findo seu périplo mundial, os X-Men continuam divididos, acreditando que alguns de seus amigos estão mortos. No planeta Shiar, Xavier testemunha a coroação de sua amada Lilandra como Majestrix. Na Escócia, Jean Grey conhece o sedutor Jason Wyngarde e, em Nova York, Wolverine ajuda Colossus a recuperar sua autoconfiança. Tempestade volta ao seu bairro no Harlem e encontra Luke Cage e Misty Knight. Ciclope decide seguir com seu namoro com Colleen Wing.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "122",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 122/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Escuta, me diga pra parar se já ouviu... mas essa é de matar!",
+          "tituloOriginal": "Listen... Stop Me if You've Heart it... But This One Will Kill You!",
+          "quantidadePaginas": 17,
+          "resumo": "O Homem-Aranha está se balançando pelos prédios de Nova York quando reconhece Ciclope e Colleen Wing e os cumprimenta. Mal o Escalador de Paredes se despede, seus amigos são capturados. Aos poucos, um a um dos X-Men caem cativos. Quando retomam a consciência depois de serem dopados, se veem dentro do Mundo do Crime do Arcade. Agora, precisarão escapar das ardilosas armadilhas elaboradas do insano vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "123",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 123/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Só dou risada quando dói!",
+          "tituloOriginal": "He Only Laughs When I Hurt!",
+          "quantidadePaginas": 17,
+          "resumo": "Tendo sofrido lavagem cerebral numa das artimanhas do Arcade, Colossus acredita agora que é um legalista soviético chamado Proletário e parte para o confronto contra os outros X-Men. Horrorizada ao lado de Amanda Sefton e Betsy Wilford no covil de Arcade, Colleen Wing provoca o vilão, que, divertindo-se a valer, esclarece que foi contratado pelo Fanático e Black Tom Cassidy para dar cabo dos X-Men e enfim revela sua origem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "124",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 124/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": null,
+          "quantidadePaginas": 35,
+          "resumo": "Arkon, soberano de um planeta ameaçado de viver nas trevas eternamente, vem à Terra à procura do único com poderes capazes de ajudar seu povo: o poderoso Thor. Mas com a ausência do Deus do Trovão, ele parte para o plano B: raptar a heroína Tempestade, dos X-Men. A princípio todos o veem como inimigo.\nTitulo original: \"A Fire in the Sky!\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1979,
+            "texto": "X-Men Annual (1970) n° 3/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Há algo horrível na ilha Muir!",
+          "tituloOriginal": "There's Something Awful on Muir Island!",
+          "quantidadePaginas": 15,
+          "resumo": "Acreditando que Ciclope e os outros morreram, Jean Grey se deixa examinar por Moira MacTaggert na Escócia, que surpreende com a extensão dos poderes de Fênix e roga pela volta de Xavier, ele está no planeta Shiar, com Lilandra, sem imaginar que um mal íntimo e pior ainda eclodirá na Ilha Muir. Enquanto isso, nos Estados Unidos, o Fera decide investigar os sinais de atividade na Mansão Xavier e descobre que os outros X-Men estão vivos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "125",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 125/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "Mais afiado que um dente de serpente...!",
+          "tituloOriginal": "How Sharper Than a Serpent's Tooth..!",
+          "quantidadePaginas": 17,
+          "resumo": "Atendendo ao apelo desesperado de Polaris, os X-Men viajam até a Escócia e tem um reencontro com Fênix. Mas o momento não dura muito, pois eles precisam capturar um poderoso mutante capaz de alterar a realidade e sem nenhum valor pela vida humana que se libertou de sua cela na Ilha Muir: Proteus, o filho renegado da Dra. Moira MacTaggert!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "126",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 126/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "A qualidade do ódio",
+          "tituloOriginal": "The Quality of Hatred!",
+          "quantidadePaginas": 17,
+          "resumo": "Os X-Men são derrotados por Proteus e Wolverine fica contrariado pela vitória do Mutante X. A caçada a Proteus deixa uma horrível trilha de corpos que leva os heróis até Edimburgo, onde mora Joe MacTaggert, o pai do vilão. Vingativo, ele está decidido a acabar com o próprio genitor. Em meio à perseguição, Moira entra em choque com Ciclope e mesmo sendo mãe de Proteus, o alerta, para que não se engane, pois a única forma de deter Proteus é matá-lo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "127",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 127/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "A ação do Tigre!",
+          "tituloOriginal": "The Action of the Tiger!",
+          "quantidadePaginas": 17,
+          "resumo": "Possuindo o corpo do próprio pai, Proteus leva o terror a Edimburgo e desafia os X-Men para um duelo final pelo destino da Humanidade. Ciente de que nada além da morte deterá seu próprio filho, Moira MacTaggert roga para que os X-Men estejam à altura do desafio e, no momento mais crítico, a decisão final caberá a quem menos se espera.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "128",
+            "anoOriginal": 1979,
+            "texto": "Uncanny X-Men, The (1963) n° 128/1979 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "Gritos no picadeiro central!",
+          "tituloOriginal": "Shoot Out Over Center Ring!",
+          "quantidadePaginas": 17,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Team-Up (1972)",
+            "numeroOriginal": "89",
+            "anoOriginal": 1980,
+            "texto": "Marvel Team-Up (1972) n° 89/1980 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

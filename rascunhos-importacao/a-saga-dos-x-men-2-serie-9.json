@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-9/sa011203/188926",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-9/sa011203/188926"
+    ],
+    "geradoEm": "2026-06-27T01:42:22",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "março de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 160,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 54.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_v5hpi41np17gtcgetq6oh1547c/-S265-FWEBP",
+      "descricao": "Saga dos X-Men, A 2ª Série - n° 9\nPublicado em: março de 2026\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 160\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 54,90\nCrédito da capa e editor\nEditor: Antonio Tadeu",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Mão aberta, punho fechado",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A X-Force decide deixar a mansão X e seguir sem tutela dos X-Men, mesmo sem o aval do Professor-X.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Force (1991)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Force (1991) n° 19/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "À espera da colheita",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Illyana, irmã de Colossus, está na mira da agência militar russa que pretende usá-la como um tipo de arma, mas os X-Men estão rumando para o leste europeu e irão intervir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 17/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A colheita amadurece",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Ômega Vermelho está sendo controlado e parte para cima dos X-Men, que são derrotados. Agora as esperanças residem em Colossus e sua irmã. Pode ser a volta da Magia, ou a sua destruição.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 18/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Colheita dos inocentes",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O governo russo tenta usar Illyanna contra o Escalpelador de Almas, mas Colossus usará toda sua força para impedir que machuquem sua irmã e derrotar o vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 19/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Sobre reis, rainhas e promessas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men Annual (1970) n° 17/1993 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

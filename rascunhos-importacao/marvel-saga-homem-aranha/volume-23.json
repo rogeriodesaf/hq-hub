@@ -1,0 +1,218 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-23/ma011173/169948",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-23/ma011173/169948"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:52",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  11,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "23",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2023-01-01",
+                        "publicadoTexto":  "janeiro de 2023",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  188,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.PGsMIGkedTDTL74f5sByVAAAAA?w=192\u0026h=192\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 23\nPublicado em: janeiro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 188\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nPintura: Alex Ross Editor: Fernando Lopes - ‘Fl’ , Rogério Saladino",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Último fôlego",
+                                              "tituloOriginal":  "Last Legs",
+                                              "quantidadePaginas":  62,
+                                              "resumo":  "O vingança do Dr. Octopus, o casamento da Tia May e a volta de uma personagem muito querida pelos fãs.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Crise de identidade",
+                                              "tituloOriginal":  "Identity Crisis",
+                                              "quantidadePaginas":  12,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "O filho do meu irmão",
+                                              "tituloOriginal":  "My Brother\u0027s Son",
+                                              "quantidadePaginas":  5,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Se eu fosse o Homem-Aranha...",
+                                              "tituloOriginal":  "If I Was Spider-Man...",
+                                              "quantidadePaginas":  5,
+                                              "resumo":  "Dois garotos dicutem como seria ser Homem-Aranha e Peter Parker fica escutando.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "A permissão",
+                                              "tituloOriginal":  "The Blessing",
+                                              "quantidadePaginas":  5,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Briga no museu",
+                                              "tituloOriginal":  "Fight at the Museum",
+                                              "quantidadePaginas":  5,
+                                              "resumo":  "Revelações do Aranha-Movel.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Visões violentas",
+                                              "tituloOriginal":  "Violent Visions",
+                                              "quantidadePaginas":  4,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 600/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "A melhor versão de mim mesma",
+                                              "tituloOriginal":  "The Best Version of Myself!",
+                                              "quantidadePaginas":  6,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "601",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 601/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "A ruiva desconhecida: Não há lugar como o lar",
+                                              "tituloOriginal":  "Red-Headed Stranger: No Place Like Home",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Depois da festa de casamento da Tia May e da volta de Mary Jane, Peter Parker acorda, de ressaca, na cama com sua colega de quarto, Michelle Gonzáles. Os dois brigam e Peter tem de procurar um novo lugar para ficar. Para completar, ele recorda que marcou um encontro com a ruiva, mas não consegue lembrar a hora e o local.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "601",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 601/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "A nossa música",
+                                              "tituloOriginal":  "Just an Old Sweet Song",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Family, The (2008)",
+                                                                         "numeroOriginal":  "7",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Family, The (2008) n° 7/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Reflexo sombrio",
+                                              "tituloOriginal":  "Dark Reflection",
+                                              "quantidadePaginas":  10,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Family, The (2008)",
+                                                                         "numeroOriginal":  "8",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Family, The (2008) n° 8/2009 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-14/sa011201/185029",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-2-serie-n-14/sa011201/185029"
+    ],
+    "geradoEm": "2026-06-26T22:51:10",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Batman, A",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-05-01",
+      "publicadoTexto": "maio de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 124,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61CcEzxUR8L._SY385_.jpg",
+      "descricao": "Saga do Batman, A 2ª Série - n° 14\nPublicado em: maio de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 124\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Pedro Catarino , Gabriel Faria , Arthur Marchetto\nA presa: Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "História: Denny O' Neil - ‘Sergius O' Shaugnessy’",
+          "tituloOriginal": "Quarry Part One",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Legends of The Dark Knight (1989)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Legends of The Dark Knight (1989) n° 59/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "História: Denny O' Neil - ‘Sergius O' Shaugnessy’",
+          "tituloOriginal": "Quarry Part Two",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Legends of The Dark Knight (1989)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Legends of The Dark Knight (1989) n° 60/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "História: Denny O' Neil - ‘Sergius O' Shaugnessy’",
+          "tituloOriginal": "Quarry Part Three",
+          "quantidadePaginas": 24,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman: Legends of The Dark Knight (1989)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman: Legends of The Dark Knight (1989) n° 61/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Ponto de virada",
+          "tituloOriginal": "Turning Point",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1993)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1994,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1993) n° 7/1994 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "E nas profundezas",
+          "tituloOriginal": "And in the Depths",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Christmas With The Super-Heroes (1988)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Christmas With The Super-Heroes (1988) n° 2/1989 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

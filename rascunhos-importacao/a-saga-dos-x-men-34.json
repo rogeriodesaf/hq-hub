@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-34.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-34/sa011129/184093",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-34/sa011129/184093"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "34",
+      "tituloChamada": "",
+      "dataPublicacao": null,
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71rNXkRy8LL._SL1000_.jpg",
+      "descricao": "Programa de extermínio!\nCapa original: Uncanny X-Men, The (1963) n° 275",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Guerra",
+          "tituloOriginal": "War (X-Tinction Agenda, Pt. 8)",
+          "quantidadePaginas": 23,
+          "resumo": "Título original: \"War (X-Tinction Agenda, Pt. 8)\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "97",
+            "anoOriginal": 1991,
+            "texto": "New Mutants, The (1983) n° 97/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-97/191/4846",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Pena capital",
+          "tituloOriginal": "X-Tinction Agenda (Part 9)",
+          "quantidadePaginas": 24,
+          "resumo": "Título original: \"X-Tinction Agenda (Part 9)\".\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1991,
+            "texto": "X-Factor (1986) n° 62/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-62/288/7135",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Mutantes demais!",
+          "tituloOriginal": "Too Many Mutants! or: Whose House Is This, Anyway",
+          "quantidadePaginas": 24,
+          "resumo": "Título original: \"Too Many Mutants! or: Whose House Is This, Anyway?\".\n\nDesenhos por: Portacio (pp. 1-3); Janson (pp. 4-6); Byrne (pp. 7-9); Leonardi (pp. 10-12); Silvestri (pp. 13-15); Golden (pp. 16-18); Lee (pp. 19-22); Stroman (pp. 23-24).\n24 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "273",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 273/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-273/264/6312",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Encruzilhadas",
+          "tituloOriginal": "Crossroads",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Crossroads\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "274",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 274/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-274/264/6313",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Escolhas difíceis!",
+          "tituloOriginal": "The Path Not Taken!",
+          "quantidadePaginas": 40,
+          "resumo": "Título original: \"The Path Not Taken!\".\n40 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "275",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 275/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-275/264/6314",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

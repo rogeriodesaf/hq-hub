@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "tmp-marvel-essenciais-4.txt",
+    "url": "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-pai/ma011257/180543",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/marvel-essenciais-demolidor-pai/ma011257/180543"
+    ],
+    "geradoEm": "2026-06-27T11:52:52",
+    "gerador": "robo_importador_texto.py + cabecalho sintetico para edicao unica"
+  },
+  "serieBrasileira": {
+    "titulo": "Marvel Essenciais: Demolidor - Pai",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-10-01",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Edição única",
+      "numeroPaginas": 204,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 89.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.jPRSoewc6IEeVG78Ltal6wAAAA?w=192&h=298&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Marvel Essenciais: Demolidor - Pai n? 1\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Edição única\nNúmero de páginas: 204\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 89,90\nCrédito da capa e editor\nDesenho: Joe Quesada Arte-Final: Danny Miki Cores: Richard Isanove Editor: Levi Trindade\nDia dos pais",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Dia dos pais",
+          "tituloOriginal": "Father's Day - Chapter One",
+          "quantidadePaginas": 26,
+          "resumo": "O Demolidor atingiu o seu objetivo de livrar a Cozinha do Inferno do crime e quer manter as suas ruas seguras. Porém, o mesmo não pode ser dito de uma Nova York assolada por uma onda de calor e às voltas com um brutal assassino em série e o longo rastro de sangue e morte que ele está deixando às suas costas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "1",
+            "anoOriginal": 2004,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 1/2004 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Onda de calor",
+          "tituloOriginal": "Heat Wave - Chapter Two",
+          "quantidadePaginas": 30,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "2",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 2/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Orixás",
+          "tituloOriginal": "Orisha - Chapter Three",
+          "quantidadePaginas": 31,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "3",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 3/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Anjos da rua",
+          "tituloOriginal": "Street Angels - Chapter Four",
+          "quantidadePaginas": 28,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "4",
+            "anoOriginal": 2005,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 4/2005 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "E com vocêêêês, Johnny!",
+          "tituloOriginal": "Heeeeeere's Johnny! - Chapter Five",
+          "quantidadePaginas": 25,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "5",
+            "anoOriginal": 2006,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 5/2006 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Encontro",
+          "tituloOriginal": "Reunion - Chapter Six",
+          "quantidadePaginas": 28,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil: Father (2004)",
+            "numeroOriginal": "6",
+            "anoOriginal": 2007,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil: Father (2004) n° 6/2007 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-22/ma011173/169473",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-22/ma011173/169473"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:50",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  6,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "22",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-12-01",
+                        "publicadoTexto":  "dezembro de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  172,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  74.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.nIOgKfzL9EyF8R2-ALgRnQHaLH?w=192\u0026h=288\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 22\nPublicado em: dezembro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 74,90\nCrédito da capa e editor\nArte: Phil Jimenez Editor: Fernando Lopes - ‘Fl’ , Rogério Saladino\nFilho da pátria - Parte 1",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Filho da pátria - Parte 1",
+                                              "tituloOriginal":  "American Son - Part 1",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "595",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 595/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Filho da pátria - Parte 2",
+                                              "tituloOriginal":  "American Son - Part 2",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Harry Osborn teve que aceitar a proposta de seu pai e começa os preparativos para se juntar aos sombrios Vingadores do governo. Mas o Homem-Aranha resolve se meter no meio dessa história e investigar as verdadeiras intenções de Norman Osborn.\n+ 1 página de recapitulação",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "596",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 596/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Filho da pátria - Parte 3",
+                                              "tituloOriginal":  "American Son - Part 3",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "597",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 597/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Filho da pátria - Parte 4",
+                                              "tituloOriginal":  "American Son - Part 4",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "598",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 598/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Filho da pátria - Parte 5",
+                                              "tituloOriginal":  "American Son - Conclusion",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Depois de tanto tempo, Norman Osborn finalmente tem a vida do Homem-Aranha em suas mãos. Mas ele não imaginava que, para matar o seu maior inimigo, teria que enfrentar o próprio filho.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "599",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 599/2009 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Peter Parker deve morrer",
+                                              "tituloOriginal":  "Peter Parker Must Die!",
+                                              "quantidadePaginas":  37,
+                                              "resumo":  "Peter Parker está em Boston no jantar de noivado de sua tia, quando é atacado por um vilão que se autodenomina Raptor (ou \"Velociraptor\"). O Homem-Aranha entra em cena e descobre que o sujeito tem contas a acertar com seu alter ego, só que ele o conhece como... Ben Reilly.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man Annual, The (1964)",
+                                                                         "numeroOriginal":  "36",
+                                                                         "anoOriginal":  2009,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man Annual, The (1964) n° 36/2009 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

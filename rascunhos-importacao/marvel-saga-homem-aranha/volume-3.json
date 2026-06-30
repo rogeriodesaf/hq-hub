@@ -1,0 +1,186 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-3/ma011173/155321",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-3/ma011173/155321"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:56:56",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  9,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "3",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2020-09-01",
+                        "publicadoTexto":  "setembro de 2020",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  236,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.jd2PkiyJHAcmRpUHouSYEQHaK_?w=192\u0026h=285\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 3\nPublicado em: setembro de 2020\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 236\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nDesenho: J. Scott Campbell - ‘Jeffery Scott’ Arte-Final: Tim Townsend Cores: Dan Kemp Editor: Fernando Lopes - ‘Fl’\nInimigos sobrenaturais\nRoteiro: J. Michael Straczynski\nDesenho: John Romita Jr.\nArte-Final: Scott Hanna\nCores: Brian Haberlin\nLetrista: Denise Araújo\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1999) n° 46 /2002 - Marvel Comics\nTítulo original: \"Unnatural Enemies\".\n22 Páginas\nA vida e morte das aranhas\nRoteiro: J. Michael Straczynski\nDesenho: John Romita Jr.\nArte-Final: Scott Hanna\nCores: Dan Kemp\nLetrista: Denise Araújo\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1999) n° 47 /2003 - Marvel Comics\nTítulo original: \"The Life And Death Of Spiders\".\n22 Páginas",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Inimigos sobrenaturais",
+                                              "tituloOriginal":  "Unnatural Enemies",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "46",
+                                                                         "anoOriginal":  2002,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 46/2002 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "A vida e morte das aranhas",
+                                              "tituloOriginal":  "The Life And Death Of Spiders",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "47",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 47/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "O conto da aranha",
+                                              "tituloOriginal":  "A Spider\u0027s Tale",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "48",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 48/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Problemas de conexão",
+                                              "tituloOriginal":  "Bad Connections",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "49",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 49/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Vítimas do destino",
+                                              "tituloOriginal":  "Doomed Affairs",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "Peter e Mary Jane finalmente se reencontram em um aeroporto, mas a ocasião é perturbada pelo Doutor Destino.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "50",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 50/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Escavador",
+                                              "tituloOriginal":  "Digger",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Peter está nas nuvens após retornar seu casamento com Mary Jane. Um mal dos tempos passados, entretanto, surge para tumultuar a vida do heróis aracníndeo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "51",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 51/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Tutti buona gente",
+                                              "tituloOriginal":  "Dig This",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "52",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 52/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Partes e peças",
+                                              "tituloOriginal":  "Parts and Pieces",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "53",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 53/2003 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "Balancete das contas cármicas",
+                                              "tituloOriginal":  "The Balancing Of Karmic Accounts",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1999)",
+                                                                         "numeroOriginal":  "54",
+                                                                         "anoOriginal":  2003,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1999) n° 54/2003 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-21.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-21/sa011129/176702",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-21/sa011129/176702"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "21",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-02-29",
+      "publicadoTexto": "fevereiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://www.bing.com/th/id/OIP.HL5Jc-dKtxVkRmtEhjAtFAHaLS?w=192&h=293&c=8&rs=1&qlt=70&o=6&pid=3.1&rm=2",
+      "descricao": "Sina pressente um destino terrível se aproximando para os X-Men e o mundo inteiro! Paralelamente, Tempestade é forçada a enfrentar perigosos animais sobrenaturais, mas pode estar prestes a descobrir que nem tudo é o que parece quando um reencontro desperta antigos ressentimentos e paixões… Em seguida, os X-Men sofrem um implacável ataque da Força Federal em Dallas, mas o confronto pode precisar esperar quando o caos provocado pelo Adversário começa a despedaçar a cidade! Por fim, uma batalha eletrizante entre Wolverine e ninguém mais ninguém menos que o Incrível Hulk!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Profecias & maravilhas",
+          "tituloOriginal": "Omens & Portents",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "223",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 223/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-223/264/6262",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A escuridão antes do amanhecer",
+          "tituloOriginal": "The Dark Before the Dawn",
+          "quantidadePaginas": 22,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "224",
+            "anoOriginal": 1987,
+            "texto": "Uncanny X-Men, The (1963) n° 224/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-224/264/6263",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Círculo vicioso",
+          "tituloOriginal": "Vicious Circle",
+          "quantidadePaginas": 23,
+          "resumo": "O tempo está péssimo em Dallas, com muito nevoeiro. Entediado, o Hulk se afasta de Quartermain e Jones com seus supersaltos e quase acerta o Pássaro Negro dos X-Men passando por ali. Porém, o Golias Cinza não tem sorte com um avião comercial, que é salvo pelos mutantes. O então líder Wolverine, intrigado, investiga e acaba reeditando seus tradicionais embates com o Hulk, numa luta onde Humanidade e Animalidade também se enfrentam dentro deles!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Incredible Hulk, The (1968)",
+            "numeroOriginal": "340",
+            "anoOriginal": 1988,
+            "texto": "Incredible Hulk, The (1968) n° 340/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/incredible-hulk-the-(1968)-n-340/2146/23023",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Falso amanhecer",
+          "tituloOriginal": "The Dark Before the Dawn",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "225",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 225/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-225/264/6264",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Conte aos espartanos",
+          "tituloOriginal": "Go Tell the Spartans",
+          "quantidadePaginas": 40,
+          "resumo": "A Força Federal percebe que não há outra alternativa senão se unir aos X-Men para tentar derrotar o Adversário.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "226",
+            "anoOriginal": 1988,
+            "texto": "Uncanny X-Men, The (1963) n° 226/1988 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-226/264/6265",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

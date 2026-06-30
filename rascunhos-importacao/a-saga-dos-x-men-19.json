@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-19.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-19/sa011129/175507",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-19/sa011129/175507"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "19",
+      "tituloChamada": "",
+      "dataPublicacao": "2024-01-31",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71H25gfgOML._SY445_SX342_ML2_.jpg",
+      "descricao": "Na esteira do horror do Massacre Mutante, os X-Men recorrem ao Quarteto Fantástico para salvar a jovem mutante Kitty Pryde, que está com a vida ameaçada por sua habilidade de atravessar matéria sólida. Entretanto, como os mutantes vão reagir quando Reed Richards se recusar a ajudar a Lince Negra? E, em seu desespero, a quem eles estarão dispostos a se aliar? Para além disso, o Quarteto não será a única equipe que os X-Men vão enfrentar quando os Vingadores tentarem prender Magneto e submetê-lo a um julgamento por crimes contra a humanidade!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Tem certeza?!",
+          "tituloOriginal": "Tem certeza?!",
+          "quantidadePaginas": 24,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Vs. X-Men (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "texto": "Fantastic Four Vs. X-Men (1987) n° 1/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/fantastic-four-vs-x-men-(1987)-n-1/102/3828",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O jogo da verdade",
+          "tituloOriginal": "O jogo da verdade",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Vs. X-Men (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1987,
+            "texto": "Fantastic Four Vs. X-Men (1987) n° 2/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/fantastic-four-vs-x-men-(1987)-n-2/102/3829",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "À luz mais negra da alma",
+          "tituloOriginal": "À luz mais negra da alma",
+          "quantidadePaginas": 23,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Vs. X-Men (1987)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1987,
+            "texto": "Fantastic Four Vs. X-Men (1987) n° 3/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/fantastic-four-vs-x-men-(1987)-n-3/102/3830",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Questão de fé",
+          "tituloOriginal": "Questão de fé",
+          "quantidadePaginas": 32,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Vs. X-Men (1987)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1987,
+            "texto": "Fantastic Four Vs. X-Men (1987) n° 4/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/fantastic-four-vs-x-men-(1987)-n-4/102/3831",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Justiça para todos!",
+          "tituloOriginal": "Justiça para todos!",
+          "quantidadePaginas": 24,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Vs. The Avengers (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "texto": "X-Men Vs. The Avengers (1987) n° 1/1987 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-vs-the-avengers-(1987)-n-1/3260/29670",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

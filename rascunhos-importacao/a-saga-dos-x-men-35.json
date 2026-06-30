@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-35.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-35/sa011129/184425",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-35/sa011129/184425"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "35",
+      "tituloChamada": "",
+      "dataPublicacao": "2025-04-30",
+      "publicadoTexto": "abril de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71pyXA20nvL._SY385_.jpg",
+      "descricao": "Capa original: Uncanny X-Men, The (1963) n° 277\n\nOs X-Men reencontram o Professor Xavier, e o inimaginável acontece: Charles Xavier assassinado... pelo Wolverine?! Os heróis são peões em um jogo muito maior, mas o que realmente está acontecendo? E ainda:os X-Factor enfrentam o Apocalipse, e Nathan Summers é sequestrado por uma misteriosa mulher!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Morte em dobro",
+          "tituloOriginal": "Morte em dobro",
+          "quantidadePaginas": 23,
+          "resumo": "23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "276",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 276/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-276/264/6315",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A batalha final",
+          "tituloOriginal": "A batalha final",
+          "quantidadePaginas": 23,
+          "resumo": "23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "277",
+            "anoOriginal": 1991,
+            "texto": "Uncanny X-Men, The (1963) n° 277/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-277/264/6316",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Influências malignas",
+          "tituloOriginal": "Influências malignas",
+          "quantidadePaginas": 23,
+          "resumo": "23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1991,
+            "texto": "X-Factor (1986) n° 65/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-65/288/7138",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Esforço heróico",
+          "tituloOriginal": "Esforço heróico",
+          "quantidadePaginas": 22,
+          "resumo": "22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1991,
+            "texto": "X-Factor (1986) n° 66/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-66/288/7139",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Oposição lunar",
+          "tituloOriginal": "Oposição lunar",
+          "quantidadePaginas": 22,
+          "resumo": "22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "67",
+            "anoOriginal": 1991,
+            "texto": "X-Factor (1986) n° 67/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-67/288/7140",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Finale",
+          "tituloOriginal": "Finale",
+          "quantidadePaginas": 22,
+          "resumo": "22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "68",
+            "anoOriginal": 1991,
+            "texto": "X-Factor (1986) n° 68/1991 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-(1986)-n-68/288/7141",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

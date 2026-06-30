@@ -1,0 +1,248 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-9/fa011131/176773",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-9/fa011131/176773"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 16,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-03-01",
+      "publicadoTexto": "março de 2024",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 424,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 185.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 9\nPublicado em: março de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 424\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 185,90\nCrédito da capa e editor\nEditor: Leandro Luigi Del Manto\nReunião",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Reunião",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Ciclope e Tempestade cuidam da Mansão X enquanto os outros integrantes do grupo limpam e organizam a base antártica de Magneto para uso próprio. Em meio a um jogo de handebol, O casal de heróis discute a liderança da equipe quando é surpreendido pela chegada de Corsário, dos Piratas Siderais. Perseguido pelos aliens Sidri, o pirata revela que Lilandra sumiu e os Shiar pretendem destruir a Terra. Como se não bastasse, ele também revela ser pai de Ciclope.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "154",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 154/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A primeira vítima",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Ciclope fica inconformado ao saber que Corsário é seu pai e que Tempestade sabia disso. Mas há problemas maiores: os X-Men são levados ao Cruzador Imperial de Lilandra e descobrem que a Majestrix foi raptada para a Terra. Para evitar a invasão do planeta, Xavier promete que os X-Men encontrarão Lilandra. Mas para isso, os heróis terão de enfrentar a diabólica Rapina, irmã de Lilandra e sua raptora, e seus soldados, membros da raça mais mortífera do Universo, a Ninhada. Na luta, Colossus tomba.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "155",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 155/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Perseguição",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Acuados pela polícia, nossos heróis são resgatados no último minuto pelos Piratas Siderais. Colossus, mortalmente ferido por Rapina, é rapidamente curado por Sikorsky, enquanto na nave de guerra Shiar, Kitty Pryde e Noturno descobrem a traição do almirante Samedar. Quando os X-Men e os Piratas se preparam para sair à cata de Rapina, sua nave é engolida pela Acanti, a nave-viva da Ninhada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "156",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 156/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Esconde-esconde",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men e os Piratas Siderais se unem numa derradeira investida para acabar com a farsa do Almirante Samedar, que se prepara para bombardear a Terra. O Professor X tenta estabelecer contato mental para provar que Lilandra está bem, mas é subitamente colocado em coma por algo maligno dentro dele. E, para evitar que a Ninhada cobre os prejuízos sofridos por seu malfadado plano, Rapina faz uma sinistra barganha.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "157",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 157/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A vida que tenho levado...",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Carol Danvers,a Miss Marvel, perdeu seus poderes, mas prova em treino contra os Piratas Siderais que ainda é boa de briga. O Senador Robert Kelly faz duras críticas aos X-Men e assegura que o governo americano vai caçá-los. Cientes de que, com o trabalho de Xavier junto ao FBI anos atrás, o governo pode ter dados de vários heróis mutantes, Tempestade, Wolverine e Danvers decidem invadir o Pentágono para destruir os arquivos. Mas terão de encarar Mística e a ladra dos poderes de Carol: Vampira.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "158",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 158/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Gritos da noite",
+          "tituloOriginal": "Night Screams!",
+          "quantidadePaginas": 23,
+          "resumo": "Os X-Men descobrem que Tempestade foi parar no hospital, ao sofrer um estranho assalto depois de acompanhar Kitty Pryde ao apto de Misty Knight. Não demora muito, Ororo começa a reagir contra a luz do sol e símbolos religiosos. É Drácula que a tomou como noiva e a sequestra para seu covil na cidade. Os X-Men partem para salvar sua líder.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "159",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 159/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A encruzilhada do tempo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A rotina de treinos dos X-Men na ilha que lhes serve de base se transforma numa jornada de terror quando Kitty Pryde e a pequena Illyana, irmã de Colossus, são raptadas para o Limbo, uma dimensão horripilante dominada pelo demoníaco Belasco. Os X-Men conseguem atravessar o portal para o Limbo, a fim de resgatá-las, onde precisarão de toda a força de vontade e coragem para enfrentar as satânicas torturas de Belasco. E a vida da pequena Illyana nunca mais será a mesma!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "160",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 160/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Corrida do ouro!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "O Professor X continua em coma, piorando a cada dia. Em sua mente, ele revive eventos de 20 anos antes, quando foi à Israel, a pedido de um amigo, atender sobreviventes traumatizados da Segunda Guerra. Entre eles, a bela Gabrielle Haller. Revive também seu primeiro encontro com Magneto, ainda apenas Magnus, mas já descrente da coexistência entre humanos e mutantes. Por saber do paradeiro de um tesouro nazista, Gabrielle vira alvo da Hidra , cabendo a Xavier e Magnus salvá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "161",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 161/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Além da estrela mais distante!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "No fim da HQ anterior, os heróis mutantes participavam de um banquete de despedida no Cruzador Imperial de Lilandra quando, junto aos outros convidados, caíram sob o retorno de Rapina e os soldados da Ninhada. No planeta-natal da Ninhada, Wolverine consegue escapar de seu cativeiro, mas começa a sofrer com convulsões, tremores e delírios. Não demora e descobre a barganha de Rapina com a Ninhada: tanto ele como os demais X-Men são hospedeiros dos ovos da terrível raça alienígena.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "162",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 162/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Missão: Resgate",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "A experiência da Ninhada com Carol Danvers (a única diferente dos outros mutantes) é interrompida por Wolverine, que invadiu o lar dos alienígenas. Carol está diferente e o ele percebe. Aos poucos, os X-Men vencem o transe e conseguem armar um plano para escapar. Na Terra, Corsário planeja ir ao espaço ajudar. Os nossos heróis fogem do lar da Ninhada em uma nave, mas são seguidos.\nEstrela binária!\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 164 /1982 - Marvel Comics\nÚltima história dos X-Men com desenhos de Dave Cockrum. Fugindo da Ninhada, os heróis mutantes começam a perceber estranhas diferenças em seus corpos. Tempestade percebe uma vida dentro de si e a dificuldade em controlar seus dons. Carol se transforma em um ser de pura energia e adota o nome Binária. Ela energiza a nave atacada pela Ninhada, conseguindo mante-la ativa. Wolverine explica aos demais sobre o ovo que estão em seus corpos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "163",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 163/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Estrela binária!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Última história dos X-Men com desenhos de Dave Cockrum. Fugindo da Ninhada, os heróis mutantes começam a perceber estranhas diferenças em seus corpos. Tempestade percebe uma vida dentro de si e a dificuldade em controlar seus dons. Carol se transforma em um ser de pura energia e adota o nome Binária. Ela energiza a nave atacada pela Ninhada, conseguindo mante-la ativa. Wolverine explica aos demais sobre o ovo que estão em seus corpos.\nTransfigurações!\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 165 /1983 - Marvel Comics\nTempestade quase se transforma em um ser da Ninhada, mas sua força de vontade a mantém humana. Em uma tentativa, ela se leva a exaustão no espaço para morrer junto com a criatura. Alheio a tudo, os X-Men estão no espaço, e Kitty é a que mais sofre com os acontecimentos, tendo uma série de pesadelos, Colossus a consola e diz que a ama verdadeiramente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "164",
+            "anoOriginal": 1982,
+            "texto": "Uncanny X-Men, The (1963) n° 164/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Transfigurações!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Tempestade quase se transforma em um ser da Ninhada, mas sua força de vontade a mantém humana. Em uma tentativa, ela se leva a exaustão no espaço para morrer junto com a criatura. Alheio a tudo, os X-Men estão no espaço, e Kitty é a que mais sofre com os acontecimentos, tendo uma série de pesadelos, Colossus a consola e diz que a ama verdadeiramente.\nViver livres ou morrer lutando!\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 166 /1983 - Marvel Comics\nTempestade, agora assumindo forma astral, está regenerando seu corpo humano, o que lhe dá informações preciosas sobres os Acantis. Os X-Men retornam ao lar da Ninhada para enfrentar a Rainha. Kitty acaba encontrando um dragão que a ajuda. Por fim, Ciclope acaba traindo a equipe, pois seu processo de transformação está quase no fim. E Binária é decisiva para a eliminação dos embriões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "165",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 165/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Viver livres ou morrer lutando!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Tempestade, agora assumindo forma astral, está regenerando seu corpo humano, o que lhe dá informações preciosas sobres os Acantis. Os X-Men retornam ao lar da Ninhada para enfrentar a Rainha. Kitty acaba encontrando um dragão que a ajuda. Por fim, Ciclope acaba traindo a equipe, pois seu processo de transformação está quase no fim. E Binária é decisiva para a eliminação dos embriões.\nO inimigo entre nós (ou: \"Quem tem dormido na minha cabeça?\")\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 167 /1983 - Marvel Comics\nA rainha alertou o grupo dos X-Men que um embrião ainda está a solta, após os mutantes a derrotarem. Eles logo percebem que se trata de Xavier. De volta a terra na mansão eles são confundidos com invasores pelos Novos Mutantes e um pequeno embate acontece, apenas esquentando o ambiente para a derradeira batalha contra Xavier já transfigurado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "166",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 166/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "O inimigo entre nós (ou: \"Quem tem dormido na minha cabeça?\")",
+          "tituloOriginal": "The Goldilocks Syndrome (or: Who's Been Sleeping in My Head?",
+          "quantidadePaginas": 23,
+          "resumo": "A rainha alertou o grupo dos X-Men que um embrião ainda está a solta, após os mutantes a derrotarem. Eles logo percebem que se trata de Xavier. De volta a terra na mansão eles são confundidos com invasores pelos Novos Mutantes e um pequeno embate acontece, apenas esquentando o ambiente para a derradeira batalha contra Xavier já transfigurado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "167",
+            "anoOriginal": 1983,
+            "texto": "Uncanny X-Men, The (1963) n° 167/1983 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "Conflito de família",
+          "tituloOriginal": null,
+          "quantidadePaginas": 12,
+          "resumo": "Tempestade, sob a posse do Drácula! Veja o que acontece quando a mutante perde o controle do corpo e da mente. Será que a jovem Lince Negra conseguirá salvar a sua mentora? Testemunhe Kitty Pryde em seu melhor momento enquanto ela desperta os X-Men para salvar Tempestade das garras de Drácula!\nUm dia como qualquer outro\nPublicada pela primeira vez em Special Edition X-Men (1983) n° 1 /1983 - Marvel Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1982,
+            "texto": "X-Men Annual (1970) n° 6/1982 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Um dia como qualquer outro",
+          "tituloOriginal": null,
+          "quantidadePaginas": 12,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Special Edition X-Men (1983)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1983,
+            "texto": "Special Edition X-Men (1983) n° 1/1983 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-8/sa011203/188526",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-2-serie-n-8/sa011203/188526"
+    ],
+    "geradoEm": "2026-06-27T01:42:21",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "2ª Série",
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-02-01",
+      "publicadoTexto": "fevereiro de 2026",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_sehccgn4l96qn634bl191hgf0o/-S265-FWEBP",
+      "descricao": "A Canção do Carrasco continua! Ciclope e Jean Grey continuam sendo atormentados por Conflyto. Pior ainda, seus poderes foram enfraquecidos. Cable, Wolverine e Bishop podem ser a única esperança!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Dormindo com o inimigo",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Crescendo\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 296 /1993 - Marvel Comics\nQualquer dia desses...",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Force (1991)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Force (1991) n° 17/1992 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Crescendo",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Qualquer dia desses...\nPublicada pela primeira vez em X-Factor (1986) n° 86 /1993 - Marvel Comics\nCatexias conflitantes",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "296",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 296/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Qualquer dia desses...",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Catexias conflitantes\nPublicada pela primeira vez em X-Men (1991) n° 16 /1993 - Marvel Comics\nArte-final: Pennington (pg. 1-19) e Kubert (pg. 20-23).",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor (1986)",
+            "numeroOriginal": "86",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Factor (1986) n° 86/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Catexias conflitantes",
+          "tituloOriginal": null,
+          "quantidadePaginas": 23,
+          "resumo": "Arte-final: Pennington (pg. 1-19) e Kubert (pg. 20-23).",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men (1991)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Men (1991) n° 16/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Conflyto!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "De volta à ativa\nPublicada pela primeira vez em Uncanny X-Men, The (1963) n° 297 /1993 - Marvel Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Force (1991)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "X-Force (1991) n° 18/1993 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "De volta à ativa",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "297",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 297/1993 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

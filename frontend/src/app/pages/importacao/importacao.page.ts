@@ -47,6 +47,17 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
 
         <details class="editor-visual-importacao" open>
           <summary>Cadastro visual do JSON</summary>
+          <aside class="dica-importacao-colaborador">
+            <strong>Guia rapido para colaboradores</strong>
+            <p>
+              Use este formulario quando a edicao tiver historias ou publicacoes originais. Preencha serie, editora e volume com cuidado:
+              o volume diferencia fases com o mesmo titulo, como V1 e V2.
+            </p>
+            <p>
+              Para capa, nao use URL direta de imagem do Guia dos Quadrinhos, pois o site costuma bloquear acesso externo.
+              Prefira URLs de capa da Panini, Amazon ou outra fonte que carregue fora do site.
+            </p>
+          </aside>
           <div class="grade-importacao-visual">
             <label>
               Arquivo de origem
@@ -454,6 +465,22 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
     .editor-visual-importacao summary {
       cursor: pointer;
       font-weight: 850;
+    }
+
+    .dica-importacao-colaborador {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid rgba(255, 135, 31, 0.34);
+      border-radius: 8px;
+      background: rgba(255, 135, 31, 0.1);
+      color: var(--texto);
+    }
+
+    .dica-importacao-colaborador p {
+      margin: 0;
+      color: var(--texto-suave);
+      line-height: 1.45;
     }
 
     .grade-importacao-visual {

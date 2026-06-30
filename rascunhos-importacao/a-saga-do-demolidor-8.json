@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-8/sa011130/166713",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-demolidor-a-n-8/sa011130/166713"
+    ],
+    "geradoEm": "2026-06-26T23:32:15",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Saga do Demolidor, A",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-10-01",
+      "publicadoTexto": "outubro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61Z+gvD45ZL._SX342_SY445_ML2_.jpg",
+      "descricao": "Capa original: Daredevil (1964) nº 281\nPublicado em: outubro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Al Williamson Editor: Yuri A. O. Primitz",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Crepúsculo dos ídolos",
+          "tituloOriginal": "Twilight of the Idols",
+          "quantidadePaginas": 22,
+          "resumo": "Preso no inferno! Mephisto enredou o Demolidor e seus amigos, onde cada um deles deve enfrentar seus maiores desafios interiores!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "280",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 280/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Paraíso é saber quem você é",
+          "tituloOriginal": "Heaven Is Knowing Who You Are",
+          "quantidadePaginas": 22,
+          "resumo": "O Demolidor continua seu esforço para escapar do Inferno, e toda esperança parece perdida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "281",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 281/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Auréolas amassadas",
+          "tituloOriginal": "Crooked Halos",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "282",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 282/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O pesadelo americano",
+          "tituloOriginal": "The American Nightmare",
+          "quantidadePaginas": 22,
+          "resumo": "O Demolidor e o Capitão América tentam ajudar um inventor de uma pequena cidade que sonha com suas criações incríveis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "283",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 283/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O forasteiro",
+          "tituloOriginal": "The Outsider",
+          "quantidadePaginas": 22,
+          "resumo": "O Demolidor retorna do Inferno com suas memórias embaralhadas. Sem saber quem ele realmente é, ele assume a identidade de Jack Murdock. Mercenário descobre a confusão e decide tirar vantagem da situação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "284",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 284/1990 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O homem das sombras",
+          "tituloOriginal": "The Shadowman",
+          "quantidadePaginas": 22,
+          "resumo": "O Demolidor retorna à cidade de Nova York - mas em vez de reconstruir sua vida, a decisão pode destruí-la!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "285",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 285/1990 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

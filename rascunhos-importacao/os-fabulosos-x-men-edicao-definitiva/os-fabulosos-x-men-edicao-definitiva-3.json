@@ -1,0 +1,508 @@
+{
+  "origem": {
+    "arquivoEntrada": "os-fabulosos-x-men-edicao-definitiva-1-a-12.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-3/fa011131/166124",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/fabulosos-x-men-os-edicao-definitiva-n-3/fa011131/166124"
+    ],
+    "geradoEm": "2026-06-29T10:11:32",
+    "gerador": "codex_importacao_por_edicao"
+  },
+  "serieBrasileira": {
+    "titulo": "Os Fabulosos X-Men - Edição Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 36,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-08-01",
+      "publicadoTexto": "agosto de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Álbum de Luxo",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 512,
+      "formato": "(18,5 x 27,5 cm)",
+      "precoCapa": 214.9,
+      "urlCapa": null,
+      "descricao": "Fabulosos X-Men, Os - Edição Definitiva n° 3\nPublicado em: agosto de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 512\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 214,90\nCrédito da capa e editor\nArte: Jim Steranko Cores: Jim Steranko Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O fim dos X-Men!",
+          "tituloOriginal": "The End of the X-Men!",
+          "quantidadePaginas": 15,
+          "resumo": "Após o advogado Foggy Nelson ler o testamento de Charles Xavier, o agente Fred Duncan diz aos ex-alunos do Professor X que os X-Men devem se separar por meio de uma determinação do FBI. Ao mesmo tempo, a escola é atacada novamente pelo Fanático que conseguiu voltar da dimensão escarlate.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 46/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "...E então restaram dois!",
+          "tituloOriginal": "...And Then There Were Two",
+          "quantidadePaginas": 5,
+          "resumo": "Após escapar de um linchamento, Bobby Drake aceita se unir a Ciclope e Xavier nos X-Men.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 46/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O bruxo de três faces!",
+          "tituloOriginal": "The Warlock Wears Three Faces!",
+          "quantidadePaginas": 15,
+          "resumo": "Bobby Drake e Hank McCoy vão a uma apresentação de um suposto mágico ilusionista chamado Maha Yogi. Durante o espetáculo, eles percebem que o tal mágico era, na verdade, o mutante bruxo Warlock. Os dois heróis enfrentam o vilão para impedir que ele crie um exército de escravos hipnotizados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 47/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Eu, o Homem de Gelo",
+          "tituloOriginal": "I, the Iceman",
+          "quantidadePaginas": 5,
+          "resumo": "Aqui são apresentadas todas as habilidades do Homem de Gelo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 47/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Cuidado com Computo, o comandante da colmeia de robôs",
+          "tituloOriginal": "Beware Computo Commander of the Robot Hive!",
+          "quantidadePaginas": 15,
+          "resumo": "O vilão Quasímodo assume o controle de uma colmeia de super-robôs para praticar crimes, mas ele tem seus planos frustrados pela Garota Marvel e Ciclope.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "48",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 48/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O Fera",
+          "tituloOriginal": "Yours Truly the Beast",
+          "quantidadePaginas": 5,
+          "resumo": "Aqui são apresentadas todas as habilidades mutantes do Fera, bem como sua inteligência peculiar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "48",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 48/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Quem ousa desafiar... Os semi-homens?",
+          "tituloOriginal": "Who Dares Defy... the Demi-Men?",
+          "quantidadePaginas": 15,
+          "resumo": "Um novo mutante maligno chamado Mesmero surge como um seguidor de Magneto. Mesmero pretende criar um exército de mutantes latentes controlados pelo seu poder hipnótico. Entre os mutantes hipnotizados por Mesmero, há uma jovem chamada Lorna Dane que parece ser o maior interesse do vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 49/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Nasce uma Fera!",
+          "tituloOriginal": "A Beast Is Born",
+          "quantidadePaginas": 5,
+          "resumo": "Aqui é explicado que o pai de Hank McCoy trabalhava em uma usina de energia nuclear, onde recebeu uma grande dose de radiação. Essa radiação fez com que Hank nascesse um mutante.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 49/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Cidade de mutantes",
+          "tituloOriginal": "City of Mutants",
+          "quantidadePaginas": 15,
+          "resumo": "Mesmero leva Lorna Dane para uma base escondida em uma região deserta. No local, o vilão ativa os poderes latentes de Lorna e ela adquire habilidades de magnetismo. Mesmero revela que Lorna seria filha de Magneto e o próprio Mestre do Magnetismo surge no local confirmando o fato.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 50/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Este garoto é uma... Granada",
+          "tituloOriginal": "This Boy--This Bombshell!",
+          "quantidadePaginas": 5,
+          "resumo": "Na adolescência, Hank McCoy, além de ser o aluno mais inteligente, ele se tornou o grande astro do time de futebol americano da escola.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 50/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "O diabo tinha uma filha!",
+          "tituloOriginal": "The Devil Had a Daughter!",
+          "quantidadePaginas": 15,
+          "resumo": "Encurralados dentro da fortaleza de Mesmero, os X-Men são obrigados a fugir e reagrupar. Lorna Dane fica para trás ao lado de seu suposto pai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 51/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Caçando o Fera!",
+          "tituloOriginal": "The Lure of the Beast-Nappers!",
+          "quantidadePaginas": 5,
+          "resumo": "O Professor X rastreia Hank McCoy para tentar recrutá-lo para os X-Men, mas o garoto é sequestrado por um vilão chamado El Conquistador.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1968,
+            "texto": "Uncanny X-Men, The (1963) n° 51/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Crepúsculo dos mutantes!",
+          "tituloOriginal": "Twilight of the Mutants!",
+          "quantidadePaginas": 15,
+          "resumo": "Ciclope se disfarça de Eric Escarlate para invadir a base de Mesmero e conquistar a confiança dos vilões. Enquanto isso, o Homem de Gelo diz que encontrou provas de que Lorna Dane não seria filha de Magneto. Ao lado dos X-Men, Lorna ajuda a derrotar os vilões e destruir a base deles.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "52",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 52/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "Os crimes do Conquistador!",
+          "tituloOriginal": "The Crimes of the Conquistador!",
+          "quantidadePaginas": 5,
+          "resumo": "El Conquistador é um vilão que domina armas eletrônicas e ele tenta obrigar Hank McCoy a roubar um gerador de energia em miniatura. O Professor X envia Ciclope, Homem de Gelo e Anjo para ajudar Hank.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "52",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 52/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "A fúria de Blastaar!",
+          "tituloOriginal": "The Rage of Blastaar!",
+          "quantidadePaginas": 15,
+          "resumo": "Enquanto Jean Grey operava as máquinas deixadas pelo Professor X, sem querer, ela acaba interferindo em uma radiação cósmica que traz o vilão Blastaar da Zona Negativa para a Escola Xavier. Os X-Men então devem enfrentar este vilão cósmico.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 53/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 16,
+          "tituloPortugues": "Bem vindo ao clube, Fera!",
+          "tituloOriginal": "Welcome to the Club, Beast!",
+          "quantidadePaginas": 5,
+          "resumo": "Após derrotarem El Conquistador, Hank McCoy aceita o convite para os X-Men e se une aos alunos de Xavier sob o codinome Fera.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 53/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 17,
+          "tituloPortugues": "Do céu vem... A fúria alada!",
+          "tituloOriginal": "From the Sky... Winged Wrath!",
+          "quantidadePaginas": 11,
+          "resumo": "Um vilão chamado Ofuscante manda assassinar Warren Worthington Jr., pai do X-Man Anjo e o herói jura vingança.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Ka-Zar (1970)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1970,
+            "texto": "Ka-Zar (1970) n° 2/1970 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 18,
+          "tituloPortugues": "No covil do Ofuscante!",
+          "tituloOriginal": "...In the Den of the Dazzler!",
+          "quantidadePaginas": 11,
+          "resumo": "Ofuscante sequestra Warren Worthington III e descobre que o jovem é o Anjo dos X-Men. Sobretudo, é revelado que Ofuscante era tio do Anjo e agora ele quer chantagear e controlar seu sobrinho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Ka-Zar (1970)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1971,
+            "texto": "Ka-Zar (1970) n° 3/1971 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 19,
+          "tituloPortugues": "Um anjo enjaulado",
+          "tituloOriginal": "To Cage an Angel!",
+          "quantidadePaginas": 11,
+          "resumo": "O Ofuscante possuía uma arma alimentada por diamantes e o Anjo derrota o vilão ao fornecer-lhe um diamante falso que faz com que a arma se destrua.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Marvel Tales (1964)",
+            "numeroOriginal": "30",
+            "anoOriginal": 1971,
+            "texto": "Marvel Tales (1964) n° 30/1971 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 20,
+          "tituloPortugues": "Ciclope! Procurado: Vivo ou morto!",
+          "tituloOriginal": "Wanted: Dead or Alive -- Cyclops!",
+          "quantidadePaginas": 15,
+          "resumo": "É revelado que o X-Man Ciclope tinha um irmão mais novo chamado Alex Summers. Alex também era um mutante, mas que ainda não tinha despertado seus poderes. Ao mesmo tempo, surge um novo vilão chamado Faraó Vivo que quer sacrificar Alex para que o jovem não seja um empecilho em sua busca por dominar o mundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 54/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 21,
+          "tituloPortugues": "O anjo de um milhão de dólares",
+          "tituloOriginal": "The Million Dollar Angel",
+          "quantidadePaginas": 5,
+          "resumo": "Warren Worthington III nasceu em uma família rica e logo foi enviado para uma escola internato, onde ele despertou seus poderes mutantes com suas incríveis asas de anjo. Warren inclusive chegou a salvar os demais alunos durante um incêndio.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 54/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 22,
+          "tituloPortugues": "O Faraó Vivo!",
+          "tituloOriginal": "The Living Pharaoh!",
+          "quantidadePaginas": 15,
+          "resumo": "O Faraó Vivo leva os irmãos Alex e Scott Summers para o Egito para sacrificá-los, mas os jovens conseguem escapar e lutar contra o Faraó e seus lacaios. O restante dos X-Men chegam para ajudar na batalha e, nesse momento, Alex desperta seus poderes de rajadas energéticas e ajuda a derrotar o Faraó.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 55/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 23,
+          "tituloPortugues": "Onde anjos ousam pisar!",
+          "tituloOriginal": "Where Angels Dare To Tread!",
+          "quantidadePaginas": 5,
+          "resumo": "Warren começa a atuar como um herói vigilante na cidade, o Anjo Vingador. O Professor X envia Ciclope e Homem de Gelo para tentar recrutar Warren.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 55/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 24,
+          "tituloPortugues": "O que é... O poder?",
+          "tituloOriginal": "What is... the power?",
+          "quantidadePaginas": 15,
+          "resumo": "No deserto egípcio, os X-Men enfrentam o Faraó Vivo, agora transformado no Monolito Vivo ao roubar as habilidades mutantes de Alex. Mas o jovem herói vira o jogo recuperando seus poderes e detendo o velhaco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 56/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 25,
+          "tituloPortugues": "Uma bomba atômica voadora!",
+          "tituloOriginal": "The Flying A-Bomb!",
+          "quantidadePaginas": 5,
+          "resumo": "Após um breve embate contra Ciclope e Homem de Gelo, Anjo aceita se unir aos X-Men.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 56/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 26,
+          "tituloPortugues": "Os Sentinelas vivem!",
+          "tituloOriginal": "“The Sentinels live!”",
+          "quantidadePaginas": 15,
+          "resumo": "Lorna e Alex são atacados por Sentinelas, robôs que deveriam estar desativados há meses. Ao saberem do ataque, Homem de Gelo e Fera vão vão ao auxílio do casal. As coisas se complicam ainda mais quando Larry Trask anuncia pela imprensa que reativou os Sentinelas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 57/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 27,
+          "tituloPortugues": "A fêmea da espécie!",
+          "tituloOriginal": "The Female of the Species!",
+          "quantidadePaginas": 5,
+          "resumo": "Aqui são apresentadas as habilidades mutantes de Jean Grey, a Garota Marvel.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 57/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 28,
+          "tituloPortugues": "Missão: Assassinato!",
+          "tituloOriginal": "“Mission: murder!”",
+          "quantidadePaginas": 20,
+          "resumo": "Os Sentinelas atacam Fera e Bob. Embora o primeiro consiga escapar, Bob é levado é levado pelos robôs para a base de Trask. Lá, o jovem herói encontra seus amigos, Lorna e Alex — agora chamado Destrutor e usando um traje de contenção confeccionado por Trask.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "58",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 58/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 29,
+          "tituloPortugues": "É vai ou racha, cara!",
+          "tituloOriginal": "“Do or die, baby!”",
+          "quantidadePaginas": 20,
+          "resumo": "Ao constatarem que seu mestre, Larry Trask, também é mutante, os Sentinelas recusam-se a obedecê-lo. Scott, Jean e Fera bolam um plano para resgatar seus colegas, prisioneiros daqueles robôs. O plano dá certo, mas um deles, Destrutor, é ferido na ação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 59/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 30,
+          "tituloPortugues": "Sob o domínio de... Sauron!",
+          "tituloOriginal": "In the Shadow of... Sauron!",
+          "quantidadePaginas": 20,
+          "resumo": "Os X-Men levam o ferido Destrutor para ser tratado por um velho amigo do professsor Xavier: o Dr. Lykos. Mas não sabem que estre é um sugador de energia, que logo drena a força vitar do seu novo paciente, transformando-se no ameaçador Sauron. As coisas se complicam ainda mais quando o Anjo investiga as atividades do vilão e é hipnotizado por ele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 60/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 31,
+          "tituloPortugues": "Os monstros também choram!",
+          "tituloOriginal": "Monsters Also Weep!",
+          "quantidadePaginas": 20,
+          "resumo": "Nossos heróis enfrentam os poderes hipnóticos de Sauron, sem saber da conexão do monstro com o Dr. Lykos. Ao visitar o bom doutor, os X-Men encontram Alex já recuperado, e Tanya, a namorada do médico. Após os jovens deixarem o local, Lykos drena energia de Lorna e se transforma Sauron de novo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 61/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 32,
+          "tituloPortugues": "Forasteiros numa Terra Selvagem",
+          "tituloOriginal": "Strangers...In a Savage Land!",
+          "quantidadePaginas": 20,
+          "resumo": "À procura do terrível Sauron, o Anjo vai parar na Terra Selvagem,onde é atacado por dinossauros voadores. Salvo por Magneto, o herói alado não reconhece seu inimigo, que se apresenta como protetor e benfeitor daquele mundo primitivo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 62/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 33,
+          "tituloPortugues": "Guerra no mundo inferior",
+          "tituloOriginal": "War in the World Below!",
+          "quantidadePaginas": 20,
+          "resumo": "Os X-Men e Ka-Zar enfrentam Magneto e seus mutantes na esquecida Terra Selvagem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1969,
+            "texto": "Uncanny X-Men, The (1963) n° 63/1969 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 34,
+          "tituloPortugues": "A chegada de Solaris!",
+          "tituloOriginal": "The Coming of Sunfire!",
+          "quantidadePaginas": 20,
+          "resumo": "Os X-Men originais enfrentam o poderoso mutante Solaris (Shiro Yashida), que tem o poder de ionizar a matéria gerando muito calor, podendo disparar labaredas imensas, fazer calor, produzir luz, etc.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1970,
+            "texto": "Uncanny X-Men, The (1963) n° 64/1970 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 35,
+          "tituloPortugues": "Antes que eu seja um escravo...",
+          "tituloOriginal": "Before I'd Be Slave...",
+          "quantidadePaginas": 20,
+          "resumo": "Nossos heróis descobrem que Morfo assumiu a forma do Professor X e morreu em seu lugar, e que o velho mestre está vivo e bem. Sem tempo para festejos, ele imediatamente reune seus X-Men para enfrentar uma nova ameaça: a Terra está prestes a ser atacada pelos Z'Nox.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1970,
+            "texto": "Uncanny X-Men, The (1963) n° 65/1970 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 36,
+          "tituloPortugues": "Os mutantes e o monstro",
+          "tituloOriginal": "The mutants and the monster",
+          "quantidadePaginas": 20,
+          "resumo": "O Prof. Xavier não morreu! Mas será que ele \"voltou dos mortos\" para morrer de verdade, uma vez que o tremendo esforço mental para derrotar os Z'Nox o deixou em estado de coma? Tudo indica que sua única chance de salvação é o Dr. Bruce Banner, também conhecido como... \"o Hulk\"!\nNa época em que foi publicada, esta HQ marcou a despedida dos X-Men originais: os números posteriores foram só de reprises, até a estréia dos Novos X-Men, em 1975.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1970,
+            "texto": "Uncanny X-Men, The (1963) n° 66/1970 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

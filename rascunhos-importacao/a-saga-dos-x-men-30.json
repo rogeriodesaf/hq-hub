@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-30.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-30/sa011129/181970",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-30/sa011129/181970"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "30",
+      "tituloChamada": "",
+      "dataPublicacao": "2025-01-31",
+      "publicadoTexto": "janeiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71dQh1Qea+L._SY445_SX342_ML2_.jpg",
+      "descricao": "Capa original: Uncanny X-Men, The (1963) n° 266\nApresentando o mutante chamado Gambit!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A caçada dos Tormentos",
+          "tituloOriginal": "Harriers Hunt",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Harriers Hunt\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "261",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 261/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-261/264/6300",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Guerra ao terror",
+          "tituloOriginal": "Scary Monsters",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Scary Monsters\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "262",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 262/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-262/264/6301",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Nas profundezas",
+          "tituloOriginal": "The Lower Depths",
+          "quantidadePaginas": 23,
+          "resumo": "Título original: \"The Lower Depths\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "263",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 263/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-263/264/6302",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Perseguição",
+          "tituloOriginal": "The Lower Depths",
+          "quantidadePaginas": 23,
+          "resumo": "Título original: \"The Lower Depths\".\n23 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "264",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 264/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-264/264/6303",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Tempestade",
+          "tituloOriginal": "Storm",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Storm\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "265",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 265/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-265/264/6304",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Gambit",
+          "tituloOriginal": "Gambit",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Gambit\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "266",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 266/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-266/264/6305",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

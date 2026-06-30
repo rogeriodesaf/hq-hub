@@ -1,0 +1,136 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-14.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-14/sa011129/174069",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-14/sa011129/174069"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "14",
+      "tituloChamada": "",
+      "dataPublicacao": "2023-07-31",
+      "publicadoTexto": "julho de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 39.9,
+      "urlCapa": "",
+      "descricao": "Capa original: Longshot (1985) n° 1",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Um homem sem passado",
+          "tituloOriginal": "Um homem sem passado",
+          "quantidadePaginas": 24,
+          "resumo": "Um estranho perseguido que vai parar na Terra, um planeta a qual ele desconhece completamente. Ele não lembra de nada do seu passado, acaba fazendo amizade com um estranho animal falante. Momentos depois consegue 'farejar' os acontecimentos ligados a um brinquedo abandonado por uma menina. A mãe esta aflita e ele parte para o resgate. ? a estréia de seu nome Longshot, a Estrela da Sorte, um milagre.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1985,
+            "texto": "Longshot (1985) n° 1/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-1/154/4469",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sombras de Hollywood",
+          "tituloOriginal": "Sombras de Hollywood",
+          "quantidadePaginas": 23,
+          "resumo": "Longshot invade as filmagens de umfilme (sem saber), e acaba conhecendo uma linda mulher chamada Rita Ricochete. Ele é chamado para trabalhar de dublê, e aceita o desafio por acreditar que dinheiro é uma coisa boa (ele nem sabe o que é). Aos poucos ele vai tendo lapsos de memória do seu passado. Em uma tomada aérea Longshot tem uma visão do passado e entra em transe, ele cai e fica mortalmente ferido. O diretor acredita que ele está morto e agora vai se livrar do corpo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1985,
+            "texto": "Longshot (1985) n° 2/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-2/154/4470",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Eu só quero morrer",
+          "tituloOriginal": "Eu só quero morrer",
+          "quantidadePaginas": 22,
+          "resumo": "Um pai de família entediado com a vida resolve se suicidar. Ele se atira em um lago e encontra um corpo, ele salva o homem que na verdade é o mutante Longshot. Os dois conversam sobre o roubo das empresas fornecedoras de energia elétrica, sem saber do que se trata Longshot vai até uma empresa do ramo e deixa a cidade inteira sem energia. No local também enfrenta alguns monstros vindo de sua dimensão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1985,
+            "texto": "Longshot (1985) n° 3/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-3/154/4471",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Caçada humana",
+          "tituloOriginal": "Caçada humana",
+          "quantidadePaginas": 25,
+          "resumo": "Longshot tem seu rosto noticiado em todas os programas de TV (ele foi filmado dentro da empresa de energia elétrica), culpado pelo blecaute e pelo roubo de diamantes. A Mulher-Hulk o encontra nas ruas e luta contra ele. O mutante escapa ! Mojo decide vir a terra para descobrir mais sobre o planeta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1985,
+            "texto": "Longshot (1985) n° 4/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-4/154/4472",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mentiras fatais",
+          "tituloOriginal": "Mentiras fatais",
+          "quantidadePaginas": 24,
+          "resumo": "Rita Ricochete é capturada por Mojo que quer informações de Longshot. Enquanto o herói mutante faz amizade com uma turma de meninos viciados em gibis. Tampinha seu antigo amigo agora é Magog um ser que só quer vingança contra Longshot.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Longshot (1985)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1985,
+            "texto": "Longshot (1985) n° 5/1985 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/longshot-(1985)-n-5/154/4473",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Um dia como qualquer outro",
+          "tituloOriginal": "Um dia como qualquer outro",
+          "quantidadePaginas": 12,
+          "resumo": "",
+          "publicacaoOriginal": {
+            "serieOriginal": "Special Edition X-Men (1983)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1983,
+            "texto": "Special Edition X-Men (1983) n° 1/1983 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/special-edition-x-men-(1983)-n-1/23646/269613",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

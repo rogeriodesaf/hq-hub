@@ -1,0 +1,120 @@
+{
+  "origem": {
+    "arquivoEntrada": "a-saga-dos-x-men-32.json",
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-32/sa011129/182126",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-dos-x-men-a-1-serie-n-32/sa011129/182126"
+    ],
+    "geradoEm": "2026-06-26",
+    "gerador": "HQ-HUB robo Guia dos Quadrinhos"
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga dos X-Men",
+    "fase": "1ª Série",
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 5,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "32",
+      "tituloChamada": "",
+      "dataPublicacao": "2025-02-28",
+      "publicadoTexto": "fevereiro de 2025",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)\nColorido/Lombada quadrada",
+      "precoCapa": 45.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71PGlGJxjOL._SY445_SX342_ML2_.jpg",
+      "descricao": "Programa de extermínio!\nCapa original: Uncanny X-Men, The (1963) n° 270\n\nEnquanto o X-Factor se distrai com jogos e discussões, um Franklin adulto voa sobre a cidade de Nova York e causa problemas ao Quarteto Fantástico, que pede ajuda ao X-Factor. Ahab inesperadamente surge e os heróis o enfrentam em uma batalha gloriosa, ao maior estilo de Nova York. Depois disso, Franklin tem que fazer uma escolha difícil entre criar seu mundo ideal e derrotar o vilão que lutou contra seus amigos!Tempestade, ainda presa em sua forma infantil, recebe de Forge o diagnóstico de que sua condição pode ser permanente, enquanto a escola é ataca por tropas de Genosha! Dinamite, Tempestade, Warlock, Lupina e Rictor são teleportados para Genosha e lá passam por poucas e boas! De volta a Nova York, X-Factor, os Novos Mutantes e os X-Men restantes descobrem o paradeiro de seus amigos através do noticiário da TV. O que terá acontecido em Genosha?",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Ato de fé",
+          "tituloOriginal": "Days of Future Present: Act of Faith - Part 3",
+          "quantidadePaginas": 41,
+          "resumo": "Título original: \"Days of Future Present: Act of Faith - Part 3\".\n41 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Factor Annual (1986)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1990,
+            "texto": "X-Factor Annual (1986) n° 5/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-factor-annual-(1986)-n-5/289/7246",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Lembranças de um futuro esquecido",
+          "tituloOriginal": "Days of Future Present: You Must Remember This - Part 4",
+          "quantidadePaginas": 40,
+          "resumo": "Título original: \"Days of Future Present: You Must Remember This - Part 4\".\n40 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1990,
+            "texto": "X-Men Annual (1970) n° 14/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-14/265/6593",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "As coisas fundamentais",
+          "tituloOriginal": "As coisas fundamentais",
+          "quantidadePaginas": 12,
+          "resumo": "12 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "X-Men Annual (1970)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1990,
+            "texto": "X-Men Annual (1970) n° 14/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/x-men-annual-(1970)-n-14/265/6593",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Programa de extermínio: Primeiro assalto",
+          "tituloOriginal": "First Strike",
+          "quantidadePaginas": 22,
+          "resumo": "Cameron Hodge, apoiado pelo governo de Genosha, começa o ataque contra os heróis mutantes. Pegos de surpresa, Tempestade, Warlock, Dinamite e Rictor são capturados e levados a Genosha. Destrutor agora é um magistrado com a memória apagada e trabalhando ao serviço do governo da ilha.\n\nTítulo original: \"First Strike\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "270",
+            "anoOriginal": 1990,
+            "texto": "Uncanny X-Men, The (1963) n° 270/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/uncanny-x-men-the-(1963)-n-270/264/6309",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Aposta",
+          "tituloOriginal": "Shell Game (X-Tinction Agenda Pt. 2)",
+          "quantidadePaginas": 22,
+          "resumo": "Título original: \"Shell Game (X-Tinction Agenda Pt. 2)\".\n22 Páginas",
+          "publicacaoOriginal": {
+            "serieOriginal": "New Mutants, The (1983)",
+            "numeroOriginal": "95",
+            "anoOriginal": 1990,
+            "texto": "New Mutants, The (1983) n° 95/1990 - Marvel Comics",
+            "urlOrigem": "http://www.guiadosquadrinhos.com/edicao-estrangeira/new-mutants-the-(1983)-n-95/191/4844",
+            "urlCapa": "",
+            "urlCompraAmazon": ""
+          }
+        }
+      ]
+    }
+  ]
+}

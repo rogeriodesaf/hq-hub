@@ -1,0 +1,138 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-5/ma011173/156193",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/marvel-saga-o-espetacular-homem-aranha-n-5/ma011173/156193"
+                                       ],
+                   "geradoEm":  "2026-06-27T10:57:00",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "Marvel Saga Homem-Aranha",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  6,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "5",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2020-11-01",
+                        "publicadoTexto":  "novembro de 2020",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Título encerrado",
+                        "numeroPaginas":  164,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  59.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.VOahm4nNRF6oXY10fnp1mgHaHa?w=192\u0026h=192\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Marvel Saga - O Espetacular Homem-Aranha n° 5\nPublicado em: novembro de 2020\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Capa dura\nPreço de capa: R$ 59,90\nCrédito da capa e editor\nDesenho: John Romita Jr. Arte-Final: Scott Hanna Editor: Fernando Lopes - ‘Fl’\nPerseguindo sombras\nArgumento: J. Michael Straczynski , Fiona Kai Avery\nRoteiro: Fiona Kai Avery\nDesenho: John Romita Jr.\nArte-Final: Scott Hanna\nCores: Matt Milla\nLetrista: Denise Araújo\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 503 /2004 - Marvel Comics\nTítulo original: \"Chasing a Dark Shadow\".\n22 Páginas\nCaos na Terra\nArgumento: J. Michael Straczynski , Fiona Kai Avery\nRoteiro: Fiona Kai Avery\nDesenho: John Romita Jr.\nArte-Final: Scott Hanna\nCores: Matt Milla\nLetrista: Denise Araújo\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 504 /2004 - Marvel Comics\nTítulo original: \"Coming of Chaos\".\n22 Páginas\nVibrações\nArgumento: J. Michael Straczynski , Fiona Kai Avery\nRoteiro: Fiona Kai Avery\nDesenho: John Romita Jr.\nArte-Final: Scott Hanna\nCores: Matt Milla\nLetrista: Denise Araújo\nTradutor: Mario Luiz C. Barroso\nEditor original: Joe Quesada , Axel Alonso\nPublicada pela primeira vez em Amazing Spider-Man, The (1963) n° 505 /2004 - Marvel Comics\nTítulo original: \"Vibes\".\n22 Páginas\nO livro de Ezekiel - Capítulo um",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Perseguindo sombras",
+                                              "tituloOriginal":  "Chasing a Dark Shadow",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "503",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 503/2004 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Caos na Terra",
+                                              "tituloOriginal":  "Coming of Chaos",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "504",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 504/2004 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Vibrações",
+                                              "tituloOriginal":  "Vibes",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "505",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 505/2004 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O livro de Ezekiel - Capítulo um",
+                                              "tituloOriginal":  "The Book of Ezekiel - Chapter One",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Ezekiel retorna para alertar Peter Parker de que sua jornada pelos caminhos da magia está chegando ao fim. O que, ao contrário do que se poderia pensar, só significa mais problemas.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "506",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 506/2004 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "O livro de Ezekiel - Capítulo dois",
+                                              "tituloOriginal":  "The Book of Ezekiel - Chapter Two",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "507",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 507/2004 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "O livro de Ezekiel - Capítulo três",
+                                              "tituloOriginal":  "The Book of Ezekiel - Chapter Three",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "508",
+                                                                         "anoOriginal":  2004,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 508/2004 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

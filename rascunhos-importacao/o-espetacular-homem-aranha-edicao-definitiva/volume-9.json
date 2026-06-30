@@ -1,0 +1,410 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-9/es011117/169912",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-9/es011117/169912"
+                                       ],
+                   "geradoEm":  "2026-06-27T03:59:08",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  23,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "9",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2023-02-01",
+                        "publicadoTexto":  "fevereiro de 2023",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  484,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  205.9,
+                        "urlCapa":  "https://www.bing.com/th/id/OIP.7IFMD7Qbsg3rvWBjDSxcaQAAAA?w=192\u0026h=283\u0026c=8\u0026rs=1\u0026qlt=70\u0026o=6\u0026pid=3.1\u0026rm=2",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 9\nPublicado em: fevereiro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 484\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 205,90\nCrédito da capa e editor\nArte: John Romita Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Homem-Lobo à meia-noite!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  24,
+                                              "resumo":  "Enquanto janta com sua noiva Kristine, John Jameson avista o Homem-Aranha. A visão traz lembranças da época em que o Aranha ajudou a curá-lo da maldição do Homem-Lobo. Depois do jantar, John sente uma dor de cabeça como quando estava ligado à pedra da lua e teme pelo pior.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Giant-Size Super-Heroes (1974)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Giant-Size Super-Heroes (1974) n° 1/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "A máquina messias!",
+                                              "tituloOriginal":  "The Messiah Machine!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Dessa vez, o Homem-Aranha vai cair de cabeça numa enrascada daquelas quando se une ao Gavião Arqueiro para enfrentar uma horda de misteriosos robôs liderados pelo insano e megalomaníaco computador humanoide conhecido como Quasimodo (que não morreu na batalha contra o Fera, em Amazing Adventures 14) e que, pretende controlar todos os computadores da Terra!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "22",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 22/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Nau de demônios!",
+                                              "tituloOriginal":  "Ship of Fiends!",
+                                              "quantidadePaginas":  30,
+                                              "resumo":  "Tia May está com uma doença mortal e a única pessoa que pode curá-la está num navio no meio do Atlântico. O Homem-Aranha ruma para a embarcação, mas, sem que nosso herói saiba, o conde Drácula também vai até o barco para alcançar a mesma pessoa... só que para matá-la!\nHistória em duas partes:\nNau de demônios! - Parte 1\nA máscara negra da morte! - Parte 2",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Giant-Size Spider-Man (1974)",
+                                                                         "numeroOriginal":  "1",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Giant-Size Spider-Man (1974) n° 1/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "O perigo se chama... Tarântula",
+                                              "tituloOriginal":  "Danger Is a Man Named...Tarantula",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Agora não há mais dúvida! Harry finalmente descobriu que Peter é o Homem-Aranha! E nosso pobre aracnídeo não perde por esperar! Mas, no momento, ele tem problemas muito mais imediatos com que se preocupar. Tipo salvar um barco de passageiros que foi sequestrado por um criminoso chamado Tarântula! E, como se isso não bastasse, ainda terá que lidar com a volta de alguém que ele não esperava rever tão cedo!\nPrimeira aparição Tarântula.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "134",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 134/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Tiroteio no Central Park!",
+                                              "tituloOriginal":  "“Shoot-Out in Central Park!”",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Mais uma vez, entra em cena o Justiceiro! Se enfrentar o Tarântula já não estava complicado o bastante, pois o vilão fez com que os reféns pensassem que o Aranha estava mancomunado com ele e seu bando, agora então é que a coisa vai desandar de vez! Mas, tudo isso é fichinha se comparado ao que Harry Osborn planeja, agora que tem certeza que Peter é o Homem-Aranha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "135",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 135/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Moondog é outro nome para assassinato!",
+                                              "tituloOriginal":  "Moondog Is Another Name for Murder!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O que era só uma noite tranquila de patrulha, mais uma vez se transforma numa baita enrascada, quando nosso querido Amigão da Vizinhança cai de cabeça em um caso envolvendo magia negra africana! Mas, pra enfrentar o sinistro feiticeiro Moondog, o Cabeça-de-Teia vai precisar da ajuda de um especialista no assunto: o Irmão Vodu!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "24",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 24/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Três para dois não vale!",
+                                              "tituloOriginal":  "Three Into Two Won\u0027t Go!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O Aranha e o Homem-Sem-Medo se unem (mas, não antes de trocarem alguns sopapos) pra encarar Os Três Profanos, a equipe de vilões formada pelo Homem-Gato, Homem-Pássaro e Homem-Gorila (que, na verdade, eram originalmente quatro, junto com o Homem-Sapo, ausente nessa HQ), a fim de salvar a filha de um importante industrial que os bandidos haviam sequestrado!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "25",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 25/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "O Duende Verde vive outra vez!",
+                                              "tituloOriginal":  "The Green Goblin Lives Again!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Harry Osborn descobre que Peter Parker, seu colega de apartamento, é o Homem-Aranha. Convencido de que este matou seu pai, Harry assume a identidade secreta do Duende Verde e busca vingança: e essa batalha promete ser épica.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "136",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 136/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "O Duende Verde ataca!",
+                                              "tituloOriginal":  "The Green Goblin Strikes!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Mais uma vez, o Duende Verde está à solta! Roubando o detonador de uma mini-bomba atômica, Harry está disposto a ir às últimas consequências em seu insano plano de vingança contra o Escalador de Paredes! Raptando Flash Thompson, Mary Jane e até mesmo a tia May, ele prepara uma terrível cilada para o aracnídeo! Uma situação impossível, na qual nosso herói terá que escolher apenas um de seus entes queridos... pois só terá tempo para salvar um deles!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "137",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 137/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "A loucura do Verme Mental",
+                                              "tituloOriginal":  "Madness Means... The Mindworm",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Após ser despejado do apartamento que dividia com Harry, Peter vai morar, durante um tempo, com Flash Thompson. Porém, fatos estranhos ocorrem na vizinhança, e o amigão da vizinhança terá que entrar em ação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "138",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 138/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Um amigo em apuros!",
+                                              "tituloOriginal":  "A Friend in Need!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "A fim de libertar um amigo da cadeia, o famigerado Camaleão mais uma vez se disfarça de Homem-Aranha, mas, não consegue seu intento. Numa baita virada do destino, o facínora consegue enganar o Hulk, convencendo-o a ajudá-lo em seu esquema! É claro que só podia sobrar pro verdadeiro Aranha tentar detê-los...",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "27",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 27/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Os ladrões de cidade!",
+                                              "tituloOriginal":  "The City Stealers!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Estranhos terremotos passam a assolar a ilha de Manhattan, cuja origem parece ser um completo enigma! Investigando a causa dos misteriosos tremores, o Homem-Aranha dá de cara com uma horda de poderosos robôs gigantes, que estão escavando as fundações da cidade, pondo em risco a vida de toda a população! Para dar conta dessa \"tarefa hercúlea\", nada mais apropriado do que apelar pra uma mãozinha (ou as duas) do próprio Hércules, o semideus do Olimpo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "28",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 28/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "O dia do urso!",
+                                              "tituloOriginal":  "Day of the Grizzly",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Uma estranha figura invade a redação do Clarim com a intenção de eliminar Jameson. O Aranha intervém, joga um rastreador no grandalhão e o segue até uma mansão em Washington Square. Lá chegando, assume a identidade de Peter Parker, mas descobre, tarde demais, que caiu numa armadilha preparada pelo Chacal.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "139",
+                                                                         "anoOriginal":  1974,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 139/1974 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "...Até que um caia!",
+                                              "tituloOriginal":  "...And One Will Fall",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Devido às fotos que Peter Parker sempre tira do Homem-Aranha, o Chacal implanta um aparelho rastreador no braço de Peter, no intuito de descobrir a identidade secreta do herói aracnídeo. Qualquer tentativa de removê-lo, Peter corre o risco de perder o braço! E ele ainda precisa dar um jeito no gigantesco Urso!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "140",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 140/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "Nem tudo que brilha é ouro!",
+                                              "tituloOriginal":  "All That Glitters Is Not Gold!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Nosso escalador de paredes favorito se une ao Falcão pra enfrentar um misterioso vilão dourado conhecido como Midas, que está espalhando uma estranha droga entre os jovens do Harlem, capaz de fazer com que eles obedeçam todas as suas ordens!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "30",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 30/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "O nome do sujeito parece ser... Mystério!",
+                                              "tituloOriginal":  "The Man\u0027s Name Appears to Be... Mysterio!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Mary Jane finalmente recupera-se dos ferimentos causados na explosão do apartamento de Peter e sai do hospital. Quanto ao próprio Peter, as coisas não andam tão bem assim. Enquanto escapava de uma perseguição policial, o Lançador de Teias acaba afundando com o Aranhamóvel no rio Hudson. Tudo leva a crer que ele foi enganado por uma ilusão de Mysterio! Mas, nosso herói descobre que o vilão morreu na prisão! Então... quem o atacou?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "141",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 141/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "O blefe do morto!",
+                                              "tituloOriginal":  "Dead Man\u0027s Bluff!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "As espantosas ilusões do “suposto Mystério” continuam a atormentar Peter cada vez mais, a ponto dele pensar ter visto Gwen caminhando pelas ruas... \"viva\"! Mas, se o verdadeiro Mystério está morto, então, ou o fantasma dele voltou pra assombrar o Aranha, ou o próprio Peter está ficando louco! Mas, talvez, haja uma terceira resposta... E Betty e Ned anunciam o noivado.\nO clone de Gwen Stacy faz uma rápida aparição pela primeira vez nessa edição.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "142",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 142/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "Por uns punhos a mais!",
+                                              "tituloOriginal":  "For a Few Fists More!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Quando se é o Espetacular Homem-Aranha, é difícil encontrar um único momento de descanso, nem que seja uma pausa pra fazer uma boquinha numa lanchonete! Até mesmo quando está em sua identidade civil! Pois nessa hora que o herói dá de cara com um assaltante que teve o azar de se meter com a pessoa errada: o Punho de Ferro! Mas, pra também azar dos dois heróis mascarados, tudo não passa de um esquema sórdido do vilão conhecido como Drom, O Homem-Reverso!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "31",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 31/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "Plantando as sementes da morte!",
+                                              "tituloOriginal":  "To Sow the Seeds of Death\u0027s Day!",
+                                              "quantidadePaginas":  27,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Giant-Size Spider-Man (1974)",
+                                                                         "numeroOriginal":  "4",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Giant-Size Spider-Man (1974) n° 4/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "... E o vento uiva... Ciclone!",
+                                              "tituloOriginal":  "...and the wind cries: Cyclone!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Joe Robertson recebe um telegrama da Europa, supostamente de J. Jonah Jameson, pedindo para que leve 1 milhão de dólares em títulos negociáveis para ele em Paris. Suspeitando que seu patrão foi sequestrado, Robertson convida Peter Parker para ir com ele até a Cidade Luz. E, claro, chegando lá, nosso herói entrará em ação.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "143",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 143/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "A conspiração da ilusão",
+                                              "tituloOriginal":  "The delusion conspiracy",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "É hora do 2º round entre o Aranha e o supervilão francês Ciclone e, dessa vez, não há melhor de três, se o nosso herói quiser libertar Robbie e J.J.J. , mantidos como reféns na Catedral de Notredame! Mas, apesar de todos os problemas, Peter não consegue parar de pensar em Mary Jane. No entanto, ao voltar a NY, o destino terá lhe reservado a maior e mais estarrecedora surpresa de toda a sua vida!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "144",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 144/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "Gwen Stacy está viva...e, bem?!",
+                                              "tituloOriginal":  "Gwen Stacy is alive... and, well...?!",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "Com sua tia May mais uma vez hospitalizada, e terrivelmente abalado pela “volta de Gwen”, a mulher que amava e cuja morte ele testemunhou, Peter está à beira de um colapso nervoso! A princípio, nosso herói acredita que aquela garota só pode ser uma impostora, mas, ao investigar seu reaparecimento, Ned Leeds lhe garante que ela \"é mesmo Gwen Stacy\"!!! Pra complicar ainda mais, o Aranha ainda precisa encarar o retorno do Escorpião!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "145",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 145/1975 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "Escorpião...onde está seu ferrão?",
+                                              "tituloOriginal":  "Scorpion......Where Is Thy Sting?",
+                                              "quantidadePaginas":  18,
+                                              "resumo":  "O que deveria ser a pura felicidade para Peter (o fato de ter sua amada Gwen de volta) ainda parece bom demais pra ser verdade. Sem falar que, com Mary Jane ocupando cada vez mais espaço em seu coração, Peter não tem mais certeza do que sente por Gwen. Enquanto isso, o Escorpião se une ao maquiavélico Chacal, que o envia ao hospital onde a tia May está internada, a fim de obrigá-la a lhe revelar o “paradeiro do Aranha”!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "146",
+                                                                         "anoOriginal":  1975,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 146/1975 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}

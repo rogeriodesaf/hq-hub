@@ -1,0 +1,490 @@
+{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-13/es011117/176744",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/espetacular-homem-aranha-o-edicao-definitiva-n-13/es011117/176744"
+                                       ],
+                   "geradoEm":  "2026-06-27T04:08:49",
+                   "gerador":  "robo_importador_texto.py"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "O Espetacular Homem-Aranha - Edição Definitiva",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "totalEdicoes":  1,
+    "totalHistorias":  28,
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "13",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2024-03-01",
+                        "publicadoTexto":  "março de 2024",
+                        "editora":  "Panini",
+                        "licenciador":  "Marvel Comics",
+                        "categoria":  "Álbum de Luxo",
+                        "genero":  "Super-heróis",
+                        "status":  "Em circulação",
+                        "numeroPaginas":  500,
+                        "formato":  "(18,5 x 27,5 cm)",
+                        "precoCapa":  215.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/614Os0KtKlL.jpg",
+                        "descricao":  "Espetacular Homem-Aranha, O - Edição Definitiva n° 13\nPublicado em: março de 2024\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Álbum de Luxo\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 500\nFormato: (18,5 x 27,5 cm)\nColorido/Capa dura\nPreço de capa: R$ 215,90\nCrédito da capa e editor\nDesenho: Ross Andru Arte-Final: Joe Sinnott Editor: Leandro Luigi Del Manto",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Apresentando o Capitão Britânia",
+                                              "tituloOriginal":  "Introducing, Captain Britain",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Quando pensava que estava prestes a perder sua bolsa na UES devido às suas constantes faltas, Peter descobre que terá que dar hospedagem em seu apartamento a Brian Braddock, um aluno de intercâmbio vindo da Inglaterra! Brian dá de cara com o Homem-Aranha saindo de fininho pela janela, porém Braddock é o Capitão Britânia!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "65",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 65/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Mundo do crime",
+                                              "tituloOriginal":  "Murder World",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Capturados por um estranho caminhão de lixo, o Aranha e o Capitão Britânia se vêem em um local mais estranho ainda, um gigantesco e ultra-avançado parque de diversões, lotado de armadilhas mortais: O Mundo do Crime! Cortesia de Arcade, o senhor das brincadeiras fatais, contratado pela Maggia para eliminar todos os suspeitos de serem o herói britânico, e acabou pegando o próprio Capitão em pessoa!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "66",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 66/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Tigresa Tigresa viva chama!",
+                                              "tituloOriginal":  "Tigra Tigra, Burning Bright!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Kraven, o Caçador agora tem uma ás na manga: o controle total sobre a mente de Tigresa, a Mulher-Tigre! Com a ex-heroína de Chicago sob o domínio do vilão, atacando o Escalador de Paredes com toda sua fúria e selvageria, a única alternativa que resta ao Aranha é revidar à altura, se quiser sobreviver! Mas, como ele vai conseguir isso sem acabar tendo que machucá-la?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "67",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 67/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "A avaliação de um homem!",
+                                              "tituloOriginal":  "The Measure of a Man!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Aranha decide ajudar o Homem-Coisa a voltar ao lugar de onde veio, depois de ter sido capturado por um inescrupuloso dono de circo. Mas, nem de longe ele estará preparado para o que vai encontrar, pois o habitat natural do ser grotesco é um nexo dimensional e, nesse local, ergue-se a torre maligna de Desespero, que intenta absorver todo o poder avassalador do lugar.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "68",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 68/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Irmão Poder, Irmã Sol!",
+                                              "tituloOriginal":  "Brother Power, Sister Sun!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Desde que descobriu que Sha Shan voltou casada do Vietnam, Flash não se conforma com o fato de tê-la perdido. Sua frustração vai se agravar ainda mais quando ele descobrir que ela está envolvida com uma seita religiosa chamada A Legião da Luz! Mas, ao tentar passar a limpo essa situação, ele acaba incorrendo na ira do Irmão Poder e Irmã Sol, os dois sacerdotes da seita, que podem manifestar uma energia devastadora quando se dão as mãos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "12",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 12/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "A chegada do Javali!",
+                                              "tituloOriginal":  "...The Coming of Razorback!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O aracnídeo se meteu numa bela enrascada! Como ele vai enfrentar a extraordinária rajada energética do Irmão Poder e da Irmã Sol se esta última é... a própria Sha Shan, a amada de Flash? E, como se isso não bastasse, o Aranha vai descobrir quem é o misterioso mentor que deu os poderes à dupla de vilões vietnamitas! Mas, nem tudo está perdido, pois nosso herói vai receber o reforço do único super-herói caminhoneiro de que se tem notícia: o Javali!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "13",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 13/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Matando-me gentilmente... ...Com seu ódio!",
+                                              "tituloOriginal":  "Killing Me Softly... ...With His Hate!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Capturados pelas forças do Monge do Ódio, que se revelou como o misterioso mentor do Irmão Poder e Irmã Sol, além do verdadeiro líder da Legião da Luz, o Aranha, Javali e Flash estão a ponto de virarem pó quando a bomba que o Monge deixou junto com eles no calabouço onde foram presos explodir! E, em poucas horas, quando seu discurso hipnótico for transmitido a todas as TVs espalhadas pelo país, nada mais poderá deter os vilões!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "14",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 14/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "A fúria final!",
+                                              "tituloOriginal":  "The Final Rage!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Aquele que todos pensavam ser o Monge do Ódio era, na verdade, o Homem-Fera disfarçado de arqui-inimigo do Adam Warlock, que fora involuído à sua forma animal, mas, que voltou à forma humanoide e escapou da Contraterra, vindo ao nosso mundo! Mas, que chance o Aranha, o Javali e Flash podem ter contra um monstro alienígena capaz de controlar mentes e incitar o ódio e a violência no coração de um estádio lotado de seguidores fanáticos de sua seita?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "15",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 15/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  9,
+                                              "tituloPortugues":  "O besouro e o escudo",
+                                              "tituloOriginal":  "The Beetle and the Badge!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Ao tentar deter o carro em fuga de um bando de contrabandistas de drogas, o Aranha é ajudado pelo policial Joe Macone que, mesmo sem um uniforme colante ou super-poderes, não pensa duas vezes antes de arriscar a vida no combate ao crime! E o Escalador de Paredes vai acabar precisando mais uma vez da ajuda do \"herói sem poderes\" pra impedir uma invasão ao Departamento de Polícia de NY, cortesia do famigerado Besouro!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "16",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 16/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  10,
+                                              "tituloPortugues":  "O Matador está de volta!",
+                                              "tituloOriginal":  "The Hitman\u0027s back in town!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Matador é contratado pela Frente de Libertação Popular para que elimine Jonah Jameson que, com seus editoriais no Clarim, estaria desnudando os reais interesses da organização. Dessa forma, o Aranha e o Justiceiro acabam se unindo para que isso não aconteça: mas nem sempre tudo sai como o previsto.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "174",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 174/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  11,
+                                              "tituloPortugues":  "Campo de batalha na grande maçã!",
+                                              "tituloOriginal":  "Big Apple Battleground!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Capturado pelo Matador, J.J.J. é levado ao topo da Estátua da Liberdade, onde os terroristas da FLP planejam detonar uma bomba que vai destruir o monumento com Jameson junto! Em meio à batalha, o Justiceiro vai precisar escolher entre sua amizade com o Aranha e a lealdade ao homem que um dia salvou sua vida no Vietnam! Enquanto isso, após Liz tê-lo deixado, Harry perde o controle mais uma vez!\nÚltima aparição do Matador.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "175",
+                                                                         "anoOriginal":  1977,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 175/1977 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  12,
+                                              "tituloPortugues":  "Quem ri por último...!",
+                                              "tituloOriginal":  "He who laughs last ...!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto participava de uma manifestação, Tia May acaba sofrendo um violento ataque cardíaco e é internada, em estado grave. Como se isso não bastasse, o consultório psiquiátrico do Dr. Hamilton, o terapeuta de Harry, é encontrado totalmente destruído e o médico, desaparecido. Ao investigar o paradeiro de seu amigo no apartamento que ele divide com Flash, o Aranha volta a se ver diante daquele que é o seu pior pesadelo... o Duende Verde!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "176",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 176/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  13,
+                                              "tituloPortugues":  "Duende no meio",
+                                              "tituloOriginal":  "Goblin in the middle",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Duende Verde retoma seu antigo projeto de se tornar o chefão do crime de Nova York e seu primeiro passo nesse sentido é invadir uma reunião do submundo do crime liderada pelo Cabelo de Prata, num restaurante no topo de uma das torres do World Trade Center.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "177",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 177/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  14,
+                                              "tituloPortugues":  "Duende cada vez mais verde!",
+                                              "tituloOriginal":  "Green grows the Goblin!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "O Duende Verde assume um compromisso com o Cabelo de Prata: caso consiga eliminar o Aranha, o Cabelo de Prata permitirá que ele se torne o chefão do submundo de Nova York. Decidido a fazer isso, o Duende Verde sai em busca do Aranha e o encontra: o problema é que Peter precisa chegar com urgência ao hospital onde tia May está internada, para que assine os papéis autorizando sua cirurgia cardíaca, antes que ela morra.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "178",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 178/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  15,
+                                              "tituloPortugues":  "O duende sempre mais verde!",
+                                              "tituloOriginal":  "The Goblin\u0027s Always Greener...!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Capturado pelo Duende justamente quando ia ao hospital dar a autorização necessária à cirurgia de sua tia, o Aranha vai precisar de uma “ajudinha” se quiser sair vivo... Mesmo que essa ajuda também queira matá-lo! Enquanto o Cabelo-de-Prata no auditório do Radio City Music Hall por tê-lo impedido de se tornar o chefão do submundo, no esconderijo do Duende, finalmente descobrimos quem era seu misterioso prisioneiro mascarado!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "179",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 179/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  16,
+                                              "tituloPortugues":  "Quem era aquele duende que eu vi com você?",
+                                              "tituloOriginal":  "Who Was That Goblin I Saw You With?",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "A cilada ao Cabelo-de-Prata consegue pegar o chefão mafioso de surpresa e em meio ao pandemônio o Duende consegue, mais uma vez, capturar o aracnídeo levando-o para a central de incineração de lixo onde antes, nosso herói havia se livrado do corpo de seu próprio clone! Está montado o cenário para a batalha definitiva entre o Aranha e seu maior inimigo: Harry Osborn, seu melhor amigo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "180",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 180/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  17,
+                                              "tituloPortugues":  "A noite do deus vivo!",
+                                              "tituloOriginal":  "Night of the Living God!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Tudo o que Alex Summers, o Destrutor, e Lorna Dane, a Polaris, mais queriam era nada além de paz e tranquilidade. No entanto, as coisas não saíram bem do jeito que eles imaginaram, pois, são atacados pelos asseclas do Faraó Vivo, o mesmo mutante que Alex enfrentou quando descobriu seus poderes! Novamente, o intento do Faraó é capturar Destrutor e usá-lo para atingir o poder supremo, mas, para isso, o vilão vai ter que se livrar do Homem-Aranha!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "69",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 69/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  18,
+                                              "tituloPortugues":  "A quem os deuses destroem!",
+                                              "tituloOriginal":  "Whom Gods Destroy!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "“Como enfrentar o poder de um deus”? Quando o Prof. Abdol, o Faraó Vivo, absorveu todo o poder cósmico que é absorvido pelo corpo de Alex Summers, o Destrutor, se transformou no gigantesco e poderoso Monolito Vivo! Nesse caso, para fazer frente ao poder de um deus, a única opção é contar com a ajuda de outro: Thor, o Deus do Trovão!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Marvel Team-Up (1972)",
+                                                                         "numeroOriginal":  "70",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Marvel Team-Up (1972) n° 70/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  19,
+                                              "tituloPortugues":  "O que aconteceu com o Homem de Gelo?",
+                                              "tituloOriginal":  "Whatever Happened to the Iceman?",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enviado a Los Angeles pelo Clarim para fazer uma matéria fotográfica sobre o fim dos Campeões, Peter acaba se envolvendo em uma baita enrascada! Ao tentar ajudar o Anjo, o único membro da equipe que permaneceu no QG, o Aranha descobre que Warren estava sendo chantageado por Stuart Clarke, um antigo inimigo dos Campeões, que enfrentou os heróis como O Fúria! Mas, se ele está agora numa cadeira de rodas, então quem é “o novo Fúria”?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "17",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 17/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  20,
+                                              "tituloPortugues":  "Meu amigo, meu inimigo!",
+                                              "tituloOriginal":  "My Friend, My Foe!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Chocados ao descobrir que o vilão que eles pensaram ser o Fúria era, na verdade, o Homem de Gelo, controlado por um gás hipnótico usado por Stuart Clarke para dominar a mente de Bobby, o Aranha e o Anjo não podem fazer nada a não ser tentar escapar do ataque do herói hipnotizado! Mas, até quando eles vão poder fugir, sem que tenham que lutar a acabar ferindo um amigo ou, o que é pior, sem que acabem sendo mortos pela fúria do próprio companheiro?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "18",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 18/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  21,
+                                              "tituloPortugues":  "Mais uma vez, os Executores!",
+                                              "tituloOriginal":  "Again, the Enforcers!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Os Novos Executores estão no pedaço! Agora com um “novo Touro”, o trio pretende atrair o Homem-Aranha a uma armadilha, invadindo uma lanchonete e mantendo os seus ocupantes como reféns, o que inclui Flash, Sha Shan e um certo Hector Ayala, também conhecido como Tigre Branco! Mas, o que o Aranha não sabe é que os vilões estão sob as ordens de outro rancoroso inimigo do passado! A situação pode resultar em sérias consequências pra todos os envolvidos!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "19",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 19/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  22,
+                                              "tituloPortugues":  "Onde você estava quando as luzes se apagaram?",
+                                              "tituloOriginal":  "Where Were You When the Lights Went Out?",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Por ter ficado dentro do restaurante durante a luta entre o Homem-Aranha e os Executores e por ter sido o único visto saindo do local depois que o aracnídeo detonou os facínoras, Hector Ayala torna-se o principal alvo do maquiavélico Mestre da Luz que chegou à conclusão de que ele é o Aranha! Dessa vez, o verdadeiro Aranha vai ter que correr contra o tempo pra achar o esconderijo do vilão antes que o Tigre Branco acabe pagando o pato!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Peter Parker, The Spectacular Spider-Man (1976)",
+                                                                         "numeroOriginal":  "20",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Peter Parker, The Spectacular Spider-Man (1976) n° 20/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  23,
+                                              "tituloPortugues":  "Flashback!",
+                                              "tituloOriginal":  "Flashback!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "No aniversário da morte do Tio Ben, nosso herói vai fazer uma visita em seu túmulo e, em meio à angústia e culpa que sente, já que nunca pôde se perdoar por ter sido indiretamente responsável pela tragédia, ele relembra seu passado como Homem-Aranha, desde a origem, através de vários flashbacks.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "181",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 181/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  24,
+                                              "tituloPortugues":  "O Rocket Racer está de volta!",
+                                              "tituloOriginal":  "The Rocket Racer\u0027s Back In Town!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Enquanto sua tia May ainda se recupera da cirurgia cardíaca no hospital, o Aranha vai ter que encarar novamente o Rocket Racer, contratado pra roubar uns documentos comprometedores que podem incriminar um industrial corrupto. Ao mesmo tempo, é aqui que Peter pede Mary Jane em casamento pela 1ª vez!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "182",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 182/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  25,
+                                              "tituloPortugues":  "...E onde o Engrenagem vai parar, ninguém sabe!",
+                                              "tituloOriginal":  null,
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Aparecendo de repente no quarto de hospital de sua tia como o Aranha, pra enfrentar o Rocket Racer, Peter acaba piorando ainda mais o precário estado de saúde dela! Como se isso não bastasse, ele também tem que topar o insano Engrenagem! E, pra completar, adivinha qual a resposta de Mary Jane quanto ao seu pedido de casamento?\nTítulo original \"...And where the Big Wheel stops, nobody knows!\"",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "183",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 183/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  26,
+                                              "tituloPortugues":  "Dragão branco! Morte vermelha!",
+                                              "tituloOriginal":  "White Dragon! Red Death!",
+                                              "quantidadePaginas":  17,
+                                              "resumo":  "Nosso herói está prestes a se formar no curso de Ciências da Universidade Empire State! Mas, como a sorte raramente sorri pra ele, acaba se envolvendo numa briga de gangues orientais, que estão sendo reunidas sob o comando de um novo aspirante a chefão do submundo do crime de Chinatown: o cruel e sanguinário Dragão Branco! E Peter é surpreendido pelo inesperado retorno de um grande amor do passado.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "184",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 184/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  27,
+                                              "tituloPortugues":  "Aranha, da panela para o fogo!",
+                                              "tituloOriginal":  "Spider, Spider, Burning Bright!",
+                                              "quantidadePaginas":  12,
+                                              "resumo":  "Betty voltou da França e, tendo se separado de Ned, está disposta a retomar o relacionamento do passado, o que deixa Peter confuso, principalmente depois que MJ recusou seu pedido de casamento! Mas, antes de pensar numa resposta, ele tem coisas mais urgentes pra se preocupar, tal como sua formatura. E o fato de ser jogado dentro de um tanque de óleo fervente pelo terrível Dragão Branco pra ser queimado vivo!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "185",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 185/1978 - Marvel Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  28,
+                                              "tituloPortugues":  "A formatura de Peter Parker!",
+                                              "tituloOriginal":  "The Graduation of Peter Parker",
+                                              "quantidadePaginas":  6,
+                                              "resumo":  "Em um quarto de hospital, May Parker acorda e encontra Joe Robertson parado ao lado dela. Ele veio com uma televisão e tem algo importante para mostrar. Enquanto isso, o Aranha chega a Universidade de Empire State para poder participar de sua cerimônia de formatura. Porém, Peter fica incomodado ao descobrir que seu nome não está na lista.\nÚltima história de Ross Andru como desenhista regular do Aranha.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Amazing Spider-Man, The (1963)",
+                                                                         "numeroOriginal":  "185",
+                                                                         "anoOriginal":  1978,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Amazing Spider-Man, The (1963) n° 185/1978 - Marvel Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ]
+}
