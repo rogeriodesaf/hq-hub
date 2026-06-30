@@ -543,7 +543,7 @@ import {
     .perfil-publico-layout {
       display: grid;
       gap: 18px;
-      grid-template-columns: minmax(0, 1fr) 300px;
+      grid-template-columns: minmax(0, 1fr);
       align-items: start;
       margin-top: 18px;
     }
@@ -728,11 +728,6 @@ import {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 8px;
-    }
-
-    .perfil-publico-lateral {
-      display: grid;
-      gap: 18px;
     }
 
     .link-perfil {
