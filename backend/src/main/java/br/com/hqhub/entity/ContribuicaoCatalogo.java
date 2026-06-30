@@ -70,6 +70,10 @@ public class ContribuicaoCatalogo {
     @Column(name = "mensagem_revisao", length = 1000)
     private String mensagemRevisao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "revisor_id")
+    private Usuario revisor;
+
     @Column(name = "data_revisao")
     private LocalDateTime dataRevisao;
 

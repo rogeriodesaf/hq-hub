@@ -203,8 +203,10 @@ public class ContribuicaoCatalogoService {
     }
 
     private void revisar(ContribuicaoCatalogo contribuicao, StatusContribuicaoCatalogo status, String mensagem) {
+        Usuario revisor = usuarioAutenticadoService.obterUsuario();
         contribuicao.setStatus(status);
         contribuicao.setMensagemRevisao(mensagem);
+        contribuicao.setRevisor(revisor);
         contribuicao.setDataRevisao(LocalDateTime.now());
     }
 

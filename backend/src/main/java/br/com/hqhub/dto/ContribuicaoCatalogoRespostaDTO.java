@@ -20,6 +20,7 @@ public record ContribuicaoCatalogoRespostaDTO(
         String dadosSugeridosJson,
         String observacoes,
         String mensagemRevisao,
+        UsuarioRespostaDTO revisor,
         LocalDateTime dataRevisao,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao) {

@@ -481,6 +481,7 @@ export interface ContribuicaoCatalogo {
   dadosSugeridosJson: string | null;
   observacoes: string | null;
   mensagemRevisao: string | null;
+  revisor: Usuario | null;
   dataRevisao: string | null;
   dataCriacao: string;
   dataAtualizacao: string;

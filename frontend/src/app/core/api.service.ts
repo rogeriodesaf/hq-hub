@@ -501,9 +501,9 @@ export class ApiService {
       params = params.set('desde', desde);
     }
 
-    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/alteracoes-estante-amigos', {
-      params,
-    });
+    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/alteracoes-estante-amigos', { params }).pipe(
+      map((contribuicoes) => contribuicoes.map((contribuicao) => this.normalizarContribuicao(contribuicao))),
+    );
   }
 
   listarSolicitacoesEnviadas() {
@@ -730,11 +730,15 @@ export class ApiService {
     dadosSugeridosJson: string | null;
     observacoes: string | null;
   }) {
-    return this.http.post<ContribuicaoCatalogo>('/api/contribuicoes-catalogo', dto);
+    return this.http
+      .post<ContribuicaoCatalogo>('/api/contribuicoes-catalogo', dto)
+      .pipe(map((contribuicao) => this.normalizarContribuicao(contribuicao)));
   }
 
   listarContribuicoesPendentes() {
-    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/pendentes');
+    return this.http.get<ContribuicaoCatalogo[]>('/api/contribuicoes-catalogo/pendentes').pipe(
+      map((contribuicoes) => contribuicoes.map((contribuicao) => this.normalizarContribuicao(contribuicao))),
+    );
   }
 
   contarContribuicoesPendentes() {
@@ -742,11 +746,15 @@ export class ApiService {
   }
 
   aprovarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {
-    return this.http.post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/aprovar`, { mensagemRevisao });
+    return this.http
+      .post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/aprovar`, { mensagemRevisao })
+      .pipe(map((contribuicao) => this.normalizarContribuicao(contribuicao)));
   }
 
   recusarContribuicaoCatalogo(id: number, mensagemRevisao: string | null) {
-    return this.http.post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/recusar`, { mensagemRevisao });
+    return this.http
+      .post<ContribuicaoCatalogo>(`/api/contribuicoes-catalogo/${id}/recusar`, { mensagemRevisao })
+      .pipe(map((contribuicao) => this.normalizarContribuicao(contribuicao)));
   }
 
   private normalizarUrlMidia(url: string | null | undefined): string | null {
@@ -779,6 +787,14 @@ export class ApiService {
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),
       })),
+    };
+  }
+
+  private normalizarContribuicao(contribuicao: ContribuicaoCatalogo): ContribuicaoCatalogo {
+    return {
+      ...contribuicao,
+      usuario: this.normalizarUsuario(contribuicao.usuario),
+      revisor: contribuicao.revisor ? this.normalizarUsuario(contribuicao.revisor) : null,
     };
   }
 

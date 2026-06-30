@@ -79,13 +79,58 @@ interface PublicacaoOriginalFormulario {
       </article>
     </section>
 
+    @if (pendentes().length) {
+      <section class="bloco barra-lote-revisao">
+        <label class="seletor-lote">
+          <input type="checkbox" [checked]="todosSelecionados()" (change)="alternarTodos($event)" />
+          Selecionar todos
+        </label>
+        <span>{{ totalSelecionadas() }} selecionada(s)</span>
+        <input
+          [(ngModel)]="mensagemRevisaoLote"
+          name="mensagemRevisaoLote"
+          placeholder="Mensagem para as selecionadas"
+          [disabled]="processandoLote()"
+        />
+        <button
+          class="botao compacto"
+          type="button"
+          (click)="revisarSelecionadas('aprovar')"
+          [disabled]="processandoLote() || totalSelecionadas() === 0"
+        >
+          Marcar selecionadas
+        </button>
+        <button
+          class="botao perigo compacto"
+          type="button"
+          (click)="revisarSelecionadas('recusar')"
+          [disabled]="processandoLote() || totalSelecionadas() === 0"
+        >
+          Recusar selecionadas
+        </button>
+      </section>
+    }
+
     <section class="lista-revisao">
       @for (contribuicao of pendentes(); track contribuicao.id) {
         <article class="bloco revisao-card">
           <div class="secao-titulo">
-            <div>
-              <p class="rotulo">{{ rotuloTipo(contribuicao) }}</p>
-              <h2>{{ tituloEdicao(contribuicao) }}</h2>
+            <div class="titulo-revisao-card">
+              <label class="check-revisao">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="selecionadas[contribuicao.id]"
+                  [name]="'selecionada' + contribuicao.id"
+                  [disabled]="processandoLote() || revisandoId() === contribuicao.id"
+                />
+              </label>
+              <div>
+                <p class="rotulo">{{ rotuloTipo(contribuicao) }}</p>
+                <h2>{{ tituloEdicao(contribuicao) }}</h2>
+                @if (assinaturaRevisao(contribuicao)) {
+                  <p class="texto-suave">{{ assinaturaRevisao(contribuicao) }}</p>
+                }
+              </div>
             </div>
             <span>{{ contribuicao.usuario.nome }}</span>
           </div>
@@ -382,6 +427,29 @@ interface PublicacaoOriginalFormulario {
       gap: 14px;
     }
 
+    .barra-lote-revisao {
+      display: grid;
+      grid-template-columns: auto auto minmax(180px, 1fr) auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .seletor-lote,
+    .titulo-revisao-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .check-revisao {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+
     .grade-revisao,
     .editor-json-revisao {
       display: grid;
@@ -498,7 +566,8 @@ interface PublicacaoOriginalFormulario {
     @media (max-width: 900px) {
       .metricas-revisao,
       .grade-revisao,
-      .editor-json-revisao {
+      .editor-json-revisao,
+      .barra-lote-revisao {
         grid-template-columns: 1fr;
       }
 
@@ -514,11 +583,14 @@ export class RevisaoPage implements OnInit {
   readonly pendentes = signal<ContribuicaoCatalogo[]>([]);
   readonly carregando = signal(false);
   readonly revisandoId = signal<number | null>(null);
+  readonly processandoLote = signal(false);
   readonly mensagem = signal('');
   readonly pendentesCadastroManual = computed(() =>
     this.pendentes().filter((contribuicao) => contribuicao.fonteExterna === 'CADASTRO_USUARIO'),
   );
   mensagensRevisao: Record<number, string> = {};
+  mensagemRevisaoLote = '';
+  selecionadas: Record<number, boolean> = {};
   formularios: Record<number, FormularioImportacaoRevisao> = {};
 
   ngOnInit() {
@@ -534,6 +606,7 @@ export class RevisaoPage implements OnInit {
         for (const contribuicao of pendentes) {
           this.formularios[contribuicao.id] = this.criarFormulario(contribuicao);
         }
+        this.limparSelecoesInexistentes(pendentes);
         this.carregando.set(false);
       },
       error: (erro) => {
@@ -556,6 +629,60 @@ export class RevisaoPage implements OnInit {
 
   recusar(contribuicao: ContribuicaoCatalogo) {
     this.revisar(contribuicao, 'recusar');
+  }
+
+  totalSelecionadas() {
+    return this.pendentes().filter((contribuicao) => this.selecionadas[contribuicao.id]).length;
+  }
+
+  todosSelecionados() {
+    return this.pendentes().length > 0 && this.totalSelecionadas() === this.pendentes().length;
+  }
+
+  alternarTodos(evento: Event) {
+    const marcado = (evento.target as HTMLInputElement).checked;
+    for (const contribuicao of this.pendentes()) {
+      this.selecionadas[contribuicao.id] = marcado;
+    }
+  }
+
+  async revisarSelecionadas(acao: 'aprovar' | 'recusar') {
+    const selecionadas = this.pendentes().filter((contribuicao) => this.selecionadas[contribuicao.id]);
+    if (!selecionadas.length) {
+      return;
+    }
+
+    this.processandoLote.set(true);
+    this.mensagem.set('');
+    const mensagemRevisao = this.mensagemRevisaoLote.trim() || null;
+    let processadas = 0;
+
+    try {
+      for (const contribuicao of selecionadas) {
+        const requisicao =
+          acao === 'aprovar'
+            ? this.api.aprovarContribuicaoCatalogo(contribuicao.id, mensagemRevisao)
+            : this.api.recusarContribuicaoCatalogo(contribuicao.id, mensagemRevisao);
+        await firstValueFrom(requisicao);
+        processadas++;
+        delete this.selecionadas[contribuicao.id];
+        delete this.formularios[contribuicao.id];
+      }
+
+      const idsProcessados = new Set(selecionadas.map((contribuicao) => contribuicao.id));
+      this.pendentes.update((pendentes) => pendentes.filter((contribuicao) => !idsProcessados.has(contribuicao.id)));
+      this.mensagemRevisaoLote = '';
+      this.mensagem.set(
+        acao === 'aprovar'
+          ? `${processadas} pendencia(s) marcada(s) como checada(s).`
+          : `${processadas} pendencia(s) recusada(s).`,
+      );
+    } catch (erro) {
+      this.mensagem.set(this.mensagemErro(erro, `Nao foi possivel concluir a revisao em lote. ${processadas} pendencia(s) foram processada(s).`));
+      this.carregar();
+    } finally {
+      this.processandoLote.set(false);
+    }
   }
 
   async salvarDadosCatalogo(contribuicao: ContribuicaoCatalogo) {
@@ -648,6 +775,23 @@ export class RevisaoPage implements OnInit {
       OUTRA_INFORMACAO: 'Outra informacao',
     };
     return rotulos[contribuicao.tipo] || contribuicao.tipo;
+  }
+
+  assinaturaRevisao(contribuicao: ContribuicaoCatalogo) {
+    if (contribuicao.revisor) {
+      const acao = contribuicao.status === 'RECUSADA' ? 'Revisado por' : 'Incluido ou editado por';
+      return `${acao} ${contribuicao.revisor.nome}`;
+    }
+
+    if (contribuicao.fonteExterna === 'CADASTRO_USUARIO') {
+      return `Incluido por ${contribuicao.usuario.nome}`;
+    }
+
+    if (contribuicao.fonteExterna === 'ALTERACAO_ESTANTE') {
+      return `Editado por ${contribuicao.usuario.nome}`;
+    }
+
+    return `Enviado por ${contribuicao.usuario.nome}`;
   }
 
   formatarDados(valor: string) {
@@ -1010,6 +1154,7 @@ export class RevisaoPage implements OnInit {
       next: () => {
         this.revisandoId.set(null);
         this.pendentes.update((pendentes) => pendentes.filter((item) => item.id !== contribuicao.id));
+        delete this.selecionadas[contribuicao.id];
         delete this.formularios[contribuicao.id];
         this.mensagem.set(acao === 'aprovar' ? 'Pendencia marcada como checada.' : 'Pendencia recusada.');
       },
@@ -1041,5 +1186,14 @@ export class RevisaoPage implements OnInit {
 
   private normalizar(valor: string | null | undefined) {
     return (valor || '').trim().toLocaleLowerCase('pt-BR');
+  }
+
+  private limparSelecoesInexistentes(pendentes: ContribuicaoCatalogo[]) {
+    const ids = new Set(pendentes.map((contribuicao) => contribuicao.id));
+    for (const id of Object.keys(this.selecionadas)) {
+      if (!ids.has(Number(id))) {
+        delete this.selecionadas[Number(id)];
+      }
+    }
   }
 }

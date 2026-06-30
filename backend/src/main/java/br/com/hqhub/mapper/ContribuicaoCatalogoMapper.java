@@ -50,6 +50,7 @@ public class ContribuicaoCatalogoMapper {
                 contribuicao.getDadosSugeridosJson(),
                 contribuicao.getObservacoes(),
                 contribuicao.getMensagemRevisao(),
+                contribuicao.getRevisor() == null ? null : usuarioMapper.paraResposta(contribuicao.getRevisor()),
                 contribuicao.getDataRevisao(),
                 contribuicao.getDataCriacao(),
                 contribuicao.getDataAtualizacao());
