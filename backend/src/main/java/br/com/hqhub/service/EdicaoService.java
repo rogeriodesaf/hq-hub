@@ -168,6 +168,7 @@ public class EdicaoService {
         executarPorEdicao("delete from conteudos_edicoes where edicao_id = :edicaoId", id);
         executarPorEdicao("delete from links_edicoes where edicao_id = :edicaoId", id);
         executarPorEdicao("delete from creditos_edicoes where edicao_id = :edicaoId", id);
+        executarPorEdicao("delete from capas_edicao where edicao_id = :edicaoId", id);
     }
 
     private long contarPorEdicao(String sql, Long id) {

@@ -4,15 +4,19 @@ import java.net.URI;
 import br.com.hqhub.dto.AtualizacaoCapaEdicaoDTO;
 import br.com.hqhub.dto.AtualizacaoEdicaoDTO;
 import br.com.hqhub.dto.CadastroEdicaoDTO;
+import br.com.hqhub.dto.CapaUrlDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.entity.TipoAnuncio;
 import br.com.hqhub.service.AnuncioService;
+import br.com.hqhub.service.CapaEdicaoService;
 import br.com.hqhub.service.DeduplicacaoEdicaoService;
 import br.com.hqhub.service.EdicaoService;
 import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import org.jboss.resteasy.reactive.RestForm;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -35,14 +39,17 @@ public class EdicaoResource {
     private final EdicaoService edicaoService;
     private final AnuncioService anuncioService;
     private final DeduplicacaoEdicaoService deduplicacaoEdicaoService;
+    private final CapaEdicaoService capaEdicaoService;
 
     public EdicaoResource(
             EdicaoService edicaoService,
             AnuncioService anuncioService,
-            DeduplicacaoEdicaoService deduplicacaoEdicaoService) {
+            DeduplicacaoEdicaoService deduplicacaoEdicaoService,
+            CapaEdicaoService capaEdicaoService) {
         this.edicaoService = edicaoService;
         this.anuncioService = anuncioService;
         this.deduplicacaoEdicaoService = deduplicacaoEdicaoService;
+        this.capaEdicaoService = capaEdicaoService;
     }
 
     @POST
@@ -108,6 +115,28 @@ public class EdicaoResource {
     public Response atualizarCapa(@PathParam("id") Long id, @Valid AtualizacaoCapaEdicaoDTO dto) {
         EdicaoRespostaDTO edicao = edicaoService.atualizarCapa(id, dto);
         return Response.ok(edicao).build();
+    }
+
+    @GET
+    @Path("/{id}/capas")
+    @RolesAllowed({ "USUARIO", "COLABORADOR", "ADMINISTRADOR" })
+    public Response listarCapas(@PathParam("id") Long id) {
+        return Response.ok(capaEdicaoService.listarPorEdicao(id)).build();
+    }
+
+    @POST
+    @Path("/{id}/capas/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @RolesAllowed({ "USUARIO", "COLABORADOR", "ADMINISTRADOR" })
+    public Response enviarCapaUpload(@PathParam("id") Long id, @RestForm("arquivo") FileUpload arquivo) {
+        return Response.ok(capaEdicaoService.enviarUpload(id, arquivo)).build();
+    }
+
+    @POST
+    @Path("/{id}/capas/url")
+    @RolesAllowed({ "USUARIO", "COLABORADOR", "ADMINISTRADOR" })
+    public Response enviarCapaUrl(@PathParam("id") Long id, @Valid CapaUrlDTO dto) {
+        return Response.ok(capaEdicaoService.enviarUrl(id, dto.urlImagem())).build();
     }
 
     @DELETE

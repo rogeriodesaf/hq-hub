@@ -8,6 +8,7 @@ import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import {
   ConteudoEdicao,
+  CapaEdicao,
   Edicao,
   EdicaoComicVine,
   EditoraResumo,
@@ -246,6 +247,73 @@ import {
               }
             </div>
           </div>
+          }
+
+          @if (edicaoDetalhe()) {
+            <section class="detalhe-secao capa-gestao">
+              <div class="secao-titulo">
+                <div>
+                  <h3>Capas da ediÃ§Ã£o</h3>
+                  <p class="texto-suave">A capa oficial sÃ³ muda depois de aprovada.</p>
+                </div>
+              </div>
+
+              <div class="grade-formulario">
+                <label>
+                  Enviar arquivo
+                  <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarArquivoCapa($event)" />
+                </label>
+                <label class="campo-largo">
+                  Enviar URL de capa
+                  <input [(ngModel)]="urlCapaEnvio" name="urlCapaEnvioCatalogo" placeholder="https://..." />
+                </label>
+              </div>
+
+              @if (previewCapaSelecionada()) {
+                <div class="previa-capa">
+                  <img [src]="previewCapaSelecionada()" alt="PrÃ©via da capa selecionada" />
+                </div>
+              }
+
+              <div class="acoes-formulario">
+                <button class="botao primario" type="button" (click)="enviarCapaArquivo()" [disabled]="!arquivoCapaSelecionado || enviandoCapa()">
+                  {{ enviandoCapa() ? 'Enviando...' : 'Enviar arquivo' }}
+                </button>
+                <button class="botao secundario" type="button" (click)="enviarCapaUrl()" [disabled]="!urlCapaEnvio.trim() || enviandoCapa()">
+                  Enviar URL
+                </button>
+              </div>
+
+              @if (capasDetalhe().length) {
+                <div class="lista-capas-edicao">
+                  @for (capa of capasDetalhe(); track capa.id) {
+                    <article class="publicacao-card capa-edicao-card">
+                      <img class="capa-publicacao" [src]="capa.urlImagem" [alt]="'Capa ' + capa.id" loading="lazy" (error)="usarCapaReserva($event)" />
+                      <div>
+                        <p class="rotulo">{{ rotuloStatusCapa(capa.status) }} Â· {{ rotuloOrigemCapa(capa.origem) }}</p>
+                        <h4>{{ capa.enviadoPorNome || 'UsuÃ¡rio' }}</h4>
+                        <p>{{ capa.dataEnvio | date:'short' }}</p>
+                        @if (capa.observacao) {
+                          <p>{{ capa.observacao }}</p>
+                        }
+                        @if (podeEditarCatalogo() && capa.status === 'PENDENTE') {
+                          <div class="acoes-detalhe-edicao">
+                            <button class="botao compacto" type="button" (click)="aprovarCapa(capa)" [disabled]="revisandoCapa() === capa.id">
+                              {{ revisandoCapa() === capa.id ? 'Salvando...' : 'Aprovar' }}
+                            </button>
+                            <button class="botao compacto secundario" type="button" (click)="rejeitarCapa(capa)" [disabled]="revisandoCapa() === capa.id">
+                              Rejeitar
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    </article>
+                  }
+                </div>
+              } @else {
+                <p class="texto-suave">Nenhuma capa enviada para anÃ¡lise ainda.</p>
+              }
+            </section>
           }
 
           @if (editandoDetalhe()) {
@@ -548,6 +616,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
   readonly linksDetalhe = signal<LinkEdicao[]>([]);
+  readonly capasDetalhe = signal<CapaEdicao[]>([]);
   readonly historiaEmFoco = signal<number | null>(null);
   readonly detalheComicVineInterno = signal<EdicaoComicVine | null>(null);
   readonly capasComicVineOriginais = signal<Record<number, string>>({});
@@ -560,6 +629,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly enviandoCapa = signal(false);
+  readonly revisandoCapa = signal<number | null>(null);
+  readonly previewCapaSelecionada = signal<string | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
   readonly tipoMensagem = computed<'sucesso' | 'erro' | 'info'>(() => this.classificarMensagem(this.mensagem()));
@@ -571,6 +643,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly serieEmEdicao = signal<Serie | null>(null);
   busca = '';
   buscaSeries = '';
+  urlCapaEnvio = '';
+  arquivoCapaSelecionado: File | null = null;
   formularioEdicao = this.formularioEdicaoVazio();
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
@@ -837,8 +911,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
       publicacoes: this.api.listarPublicacoesPorEdicaoPublicada(edicaoId),
       publicacoesOriginais: this.api.listarPublicacoesPorEdicaoOriginal(edicaoId),
       links: this.api.listarLinksPorEdicao(edicaoId),
+      capas: this.api.listarCapasEdicao(edicaoId),
     }).subscribe({
-      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais, links }) => {
+      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais, links, capas }) => {
         const atual = this.edicaoDetalhe();
         if (atual && atual.id !== edicao.id) {
           this.historicoDetalhes.update((historico) => [...historico, atual]);
@@ -852,6 +927,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
         this.linksDetalhe.set(links);
+        this.capasDetalhe.set(capas);
         this.historiaEmFoco.set(historiaId);
         this.carregarCapasOriginaisComicVine(publicacoes);
         this.carregarComplementoComicVine(edicao);
@@ -882,6 +958,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.publicacoesComoOriginal.set([]);
     this.urlsCapasPublicacoes.set({});
     this.linksDetalhe.set([]);
+    this.capasDetalhe.set([]);
+    this.limparFormularioCapa();
     this.historiaEmFoco.set(null);
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
@@ -901,6 +979,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.capasComicVineOriginais.set({});
     this.linksDetalhe.set([]);
     this.urlsCapasPublicacoes.set({});
+    this.capasDetalhe.set([]);
+    this.limparFormularioCapa();
     this.abrirDetalhePorId(anterior.id);
   }
 
@@ -966,6 +1046,121 @@ export class CatalogoPage implements OnInit, OnDestroy {
       error: () => {
         this.salvandoCapaPublicacao.set(null);
         this.mensagem.set('Nao foi possivel salvar a capa da edicao original.');
+      },
+    });
+  }
+
+  selecionarArquivoCapa(evento: Event) {
+    const input = evento.target as HTMLInputElement;
+    const arquivo = input.files?.[0] || null;
+    this.arquivoCapaSelecionado = null;
+    this.previewCapaSelecionada.set(null);
+
+    if (!arquivo) {
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(arquivo.type)) {
+      this.mensagem.set('Use apenas imagens JPG, PNG ou WEBP.');
+      input.value = '';
+      return;
+    }
+
+    if (arquivo.size > 3 * 1024 * 1024) {
+      this.mensagem.set('A imagem deve ter no maximo 3 MB.');
+      input.value = '';
+      return;
+    }
+
+    this.arquivoCapaSelecionado = arquivo;
+    this.previewCapaSelecionada.set(URL.createObjectURL(arquivo));
+  }
+
+  enviarCapaArquivo() {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao || !this.arquivoCapaSelecionado) {
+      return;
+    }
+
+    this.enviandoCapa.set(true);
+    this.mensagem.set('');
+    this.api.enviarCapaEdicaoArquivo(edicao.id, this.arquivoCapaSelecionado).subscribe({
+      next: (capa) => {
+        this.capasDetalhe.update((capas) => [capa, ...capas]);
+        this.limparFormularioCapa();
+        this.enviandoCapa.set(false);
+        this.mensagem.set('Capa enviada para analise.');
+      },
+      error: () => {
+        this.enviandoCapa.set(false);
+        this.mensagem.set('Nao foi possivel enviar a capa.');
+      },
+    });
+  }
+
+  enviarCapaUrl() {
+    const edicao = this.edicaoDetalhe();
+    const urlImagem = this.urlCapaEnvio.trim();
+    if (!edicao || !urlImagem) {
+      return;
+    }
+
+    this.enviandoCapa.set(true);
+    this.mensagem.set('');
+    this.api.enviarCapaEdicaoUrl(edicao.id, urlImagem).subscribe({
+      next: (capa) => {
+        this.capasDetalhe.update((capas) => [capa, ...capas]);
+        this.urlCapaEnvio = '';
+        this.enviandoCapa.set(false);
+        this.mensagem.set('Capa enviada para analise.');
+      },
+      error: () => {
+        this.enviandoCapa.set(false);
+        this.mensagem.set('Nao foi possivel baixar e enviar esta capa.');
+      },
+    });
+  }
+
+  aprovarCapa(capa: CapaEdicao) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    this.revisandoCapa.set(capa.id);
+    this.api.aprovarCapaEdicao(capa.id).subscribe({
+      next: (atualizada) => {
+        this.capasDetalhe.update((capas) => capas.map((item) => {
+          if (item.id === atualizada.id) {
+            return atualizada;
+          }
+          return item.status === 'APROVADA' ? { ...item, status: 'REJEITADA' } : item;
+        }));
+        this.atualizarCapaOficial(atualizada.urlImagem);
+        this.revisandoCapa.set(null);
+        this.mensagem.set('Capa aprovada e definida como oficial.');
+      },
+      error: () => {
+        this.revisandoCapa.set(null);
+        this.mensagem.set('Nao foi possivel aprovar esta capa.');
+      },
+    });
+  }
+
+  rejeitarCapa(capa: CapaEdicao) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    this.revisandoCapa.set(capa.id);
+    this.api.rejeitarCapaEdicao(capa.id).subscribe({
+      next: (atualizada) => {
+        this.capasDetalhe.update((capas) => capas.map((item) => item.id === atualizada.id ? atualizada : item));
+        this.revisandoCapa.set(null);
+        this.mensagem.set('Capa rejeitada.');
+      },
+      error: () => {
+        this.revisandoCapa.set(null);
+        this.mensagem.set('Nao foi possivel rejeitar esta capa.');
       },
     });
   }
@@ -1177,6 +1372,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  rotuloStatusCapa(status: string) {
+    const rotulos: Record<string, string> = {
+      PENDENTE: 'Pendente',
+      APROVADA: 'Aprovada',
+      REJEITADA: 'Rejeitada',
+    };
+    return rotulos[status] || status;
+  }
+
+  rotuloOrigemCapa(origem: string) {
+    const rotulos: Record<string, string> = {
+      COMIC_VINE: 'Comic Vine',
+      UPLOAD_MANUAL: 'Upload manual',
+      URL_MANUAL: 'URL manual',
+      IMPORTACAO_JSON: 'Importacao JSON',
+    };
+    return rotulos[origem] || origem;
   }
 
   tituloEdicaoOriginal(publicacao: PublicacaoHistoria) {
@@ -1517,6 +1731,29 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
     this.mensagem.set(mensagem);
+  }
+
+  private atualizarCapaOficial(urlImagem: string) {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao) {
+      return;
+    }
+
+    const atualizada = { ...edicao, urlCapa: urlImagem };
+    this.edicaoDetalhe.set(atualizada);
+    this.formularioEdicao = this.formularioAPartirDaEdicao(atualizada);
+    this.resultadosCatalogo.update((pagina) => ({
+      ...pagina,
+      itens: pagina.itens.map((resultado) => resultado.id === atualizada.id ? this.paraResultadoInterno(atualizada) : resultado),
+    }));
+  }
+
+  private limparFormularioCapa() {
+    this.arquivoCapaSelecionado = null;
+    this.previewCapaSelecionada.set(null);
+    this.urlCapaEnvio = '';
+    this.enviandoCapa.set(false);
+    this.revisandoCapa.set(null);
   }
 
   private montarUrlsCapasPublicacoes(publicacoes: PublicacaoHistoria[]) {

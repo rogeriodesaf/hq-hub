@@ -19,6 +19,7 @@ import {
   ConteudoEdicao,
   ConversaDireta,
   ContribuicaoCatalogo,
+  CapaEdicao,
   CruzamentoEdicao,
   Edicao,
   EditoraResumo,
@@ -42,6 +43,7 @@ import {
   ResultadoDeduplicacaoSeries,
   ResultadoPesquisaCatalogo,
   ResultadoImportacaoCatalogo,
+  ResultadoImportacaoCapas,
   RespostaAssistente,
   AssistenteFaqBase,
   Serie,
@@ -153,6 +155,32 @@ export class ApiService {
 
   atualizarCapaEdicao(id: number, urlCapa: string) {
     return this.http.patch<Edicao>(`/api/edicoes/${id}/capa`, { urlCapa });
+  }
+
+  listarCapasEdicao(edicaoId: number) {
+    return this.http.get<CapaEdicao[]>(`/api/edicoes/${edicaoId}/capas`);
+  }
+
+  enviarCapaEdicaoArquivo(edicaoId: number, arquivo: File) {
+    const dados = new FormData();
+    dados.append('arquivo', arquivo);
+    return this.http.post<CapaEdicao>(`/api/edicoes/${edicaoId}/capas/upload`, dados);
+  }
+
+  enviarCapaEdicaoUrl(edicaoId: number, urlImagem: string) {
+    return this.http.post<CapaEdicao>(`/api/edicoes/${edicaoId}/capas/url`, { urlImagem });
+  }
+
+  importarCapasJson(itens: Array<{ idEdicao: number; urlImagem: string }>) {
+    return this.http.post<ResultadoImportacaoCapas>('/api/capas/importar-json', itens);
+  }
+
+  aprovarCapaEdicao(capaId: number) {
+    return this.http.patch<CapaEdicao>(`/api/capas/${capaId}/aprovar`, {});
+  }
+
+  rejeitarCapaEdicao(capaId: number) {
+    return this.http.patch<CapaEdicao>(`/api/capas/${capaId}/rejeitar`, {});
   }
 
   pesquisarCatalogo(termo: string, pagina = 0, tamanho = 20) {

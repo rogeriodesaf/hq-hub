@@ -105,6 +105,38 @@ export interface Edicao {
   serie: SerieResumo | null;
 }
 
+export type StatusCapaEdicao = 'PENDENTE' | 'APROVADA' | 'REJEITADA';
+export type OrigemCapaEdicao = 'COMIC_VINE' | 'UPLOAD_MANUAL' | 'URL_MANUAL' | 'IMPORTACAO_JSON';
+
+export interface CapaEdicao {
+  id: number;
+  edicaoId: number;
+  urlImagem: string;
+  publicIdCloudinary: string | null;
+  enviadoPorUsuarioId: number | null;
+  enviadoPorNome: string | null;
+  status: StatusCapaEdicao;
+  origem: OrigemCapaEdicao;
+  observacao: string | null;
+  dataEnvio: string;
+  dataAprovacao: string | null;
+  aprovadoPorUsuarioId: number | null;
+  aprovadoPorNome: string | null;
+}
+
+export interface ResultadoImportacaoCapas {
+  total: number;
+  sucessos: number;
+  erros: number;
+  itens: Array<{
+    idEdicao: number | null;
+    urlImagem: string | null;
+    sucesso: boolean;
+    mensagem: string;
+    capa: CapaEdicao | null;
+  }>;
+}
+
 export interface LinkEdicao {
   id: number;
   edicaoId: number;
