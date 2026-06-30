@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { forkJoin } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -474,12 +474,12 @@ import {
               </label>
               <label class="campo-largo">
                 Editora
-                <select [(ngModel)]="formularioSerieEdicao.editoraId" name="editoraSerieCatalogo" required>
-                  <option [ngValue]="null" disabled>Selecione uma editora</option>
+                <input [(ngModel)]="formularioSerieEdicao.editoraNome" name="editoraSerieCatalogo" list="listaEditorasCatalogo" required />
+                <datalist id="listaEditorasCatalogo">
                   @for (editora of editoras(); track editora.id) {
-                    <option [ngValue]="editora.id">{{ editora.nome }}</option>
+                    <option [value]="editora.nome"></option>
                   }
-                </select>
+                </datalist>
               </label>
               <label>
                 Ano inicio
@@ -641,50 +641,20 @@ export class CatalogoPage implements OnInit {
     }
 
     const titulo = this.formularioSerieEdicao.titulo.trim();
-    const editoraId = this.formularioSerieEdicao.editoraId;
+    const nomeEditora = this.formularioSerieEdicao.editoraNome.trim();
     if (!titulo) {
       this.mensagem.set('Informe o título da série antes de salvar.');
       return;
     }
 
-    if (!editoraId) {
-      this.mensagem.set('Selecione uma editora para a série.');
+    if (!nomeEditora) {
+      this.mensagem.set('Informe o nome da editora da série.');
       return;
     }
 
     this.salvandoSerie.set(serie.id);
     this.mensagem.set('');
-    this.api.atualizarSerie(serie.id, {
-      titulo,
-      descricao: this.valorTextoOuNull(this.formularioSerieEdicao.descricao),
-      anoInicio: this.numeroOuNull(this.formularioSerieEdicao.anoInicio),
-      anoFim: this.numeroOuNull(this.formularioSerieEdicao.anoFim),
-      volume: this.numeroOuNull(this.formularioSerieEdicao.volume),
-      ordemCronologica: this.numeroOuNull(this.formularioSerieEdicao.ordemCronologica),
-      fonteExterna: this.valorTextoOuNull(this.formularioSerieEdicao.fonteExterna),
-      idExterno: this.valorTextoOuNull(this.formularioSerieEdicao.idExterno),
-      urlOrigem: this.valorTextoOuNull(this.formularioSerieEdicao.urlOrigem),
-      editoraId,
-    }).subscribe({
-      next: (serieAtualizada) => {
-        this.salvandoSerie.set(null);
-        this.series.update((pagina) => ({
-          ...pagina,
-          itens: pagina.itens.map((item) => item.id === serieAtualizada.id ? serieAtualizada : item),
-        }));
-        if (this.serieSelecionada()?.id === serieAtualizada.id) {
-          this.serieSelecionada.set(serieAtualizada);
-        }
-        this.formularioSerieEdicao = this.formularioAPartirDaSerie(serieAtualizada);
-        this.editandoSerie.set(false);
-        this.serieEmEdicao.set(null);
-        this.mensagem.set('Série atualizada.');
-      },
-      error: () => {
-        this.salvandoSerie.set(null);
-        this.mensagem.set('Não foi possível atualizar a série. Verifique se já existe outra série com este título e editora.');
-      },
-    });
+    this.atualizarSerieComEditora(serie.id, titulo, nomeEditora);
   }
 
   buscarSeriesInternas() {
@@ -702,7 +672,7 @@ export class CatalogoPage implements OnInit {
       fonteExterna: '',
       idExterno: '',
       urlOrigem: '',
-      editoraId: null as number | null,
+      editoraNome: '',
     };
   }
 
@@ -717,8 +687,64 @@ export class CatalogoPage implements OnInit {
       fonteExterna: serie.fonteExterna || '',
       idExterno: serie.idExterno || '',
       urlOrigem: serie.urlOrigem || '',
-      editoraId: serie.editora?.id || null,
+      editoraNome: serie.editora?.nome || '',
     };
+  }
+
+  private async atualizarSerieComEditora(serieId: number, titulo: string, nomeEditora: string) {
+    try {
+      const editoraId = await this.obterOuCriarEditoraId(nomeEditora);
+      const serieAtualizada = await firstValueFrom(this.api.atualizarSerie(serieId, {
+        titulo,
+        descricao: this.valorTextoOuNull(this.formularioSerieEdicao.descricao),
+        anoInicio: this.numeroOuNull(this.formularioSerieEdicao.anoInicio),
+        anoFim: this.numeroOuNull(this.formularioSerieEdicao.anoFim),
+        volume: this.numeroOuNull(this.formularioSerieEdicao.volume),
+        ordemCronologica: this.numeroOuNull(this.formularioSerieEdicao.ordemCronologica),
+        fonteExterna: this.valorTextoOuNull(this.formularioSerieEdicao.fonteExterna),
+        idExterno: this.valorTextoOuNull(this.formularioSerieEdicao.idExterno),
+        urlOrigem: this.valorTextoOuNull(this.formularioSerieEdicao.urlOrigem),
+        editoraId,
+      }));
+
+      this.series.update((pagina) => ({
+        ...pagina,
+        itens: pagina.itens.map((item) => item.id === serieAtualizada.id ? serieAtualizada : item),
+      }));
+      if (this.serieSelecionada()?.id === serieAtualizada.id) {
+        this.serieSelecionada.set(serieAtualizada);
+      }
+      this.formularioSerieEdicao = this.formularioAPartirDaSerie(serieAtualizada);
+      this.editandoSerie.set(false);
+      this.serieEmEdicao.set(null);
+      this.mensagem.set('Série atualizada.');
+    } catch {
+      this.mensagem.set('Não foi possível atualizar a série. Verifique se já existe outra série com este título e editora.');
+    } finally {
+      this.salvandoSerie.set(null);
+    }
+  }
+
+  private async obterOuCriarEditoraId(nomeEditora: string) {
+    const nome = nomeEditora.trim();
+    const editoras = await firstValueFrom(this.api.listarEditoras());
+    const existente = editoras.find((editora) => this.normalizarComparacao(editora.nome) === this.normalizarComparacao(nome));
+    if (existente) {
+      this.editoras.set(editoras);
+      return existente.id;
+    }
+
+    const novaEditora = await firstValueFrom(this.api.cadastrarEditora({
+      nome,
+      descricao: null,
+      paisOrigem: null,
+      fonteExterna: null,
+      idExterno: null,
+      urlOrigem: null,
+    }));
+
+    this.editoras.set([...editoras, novaEditora]);
+    return novaEditora.id;
   }
 
   alterarInicialSeries(inicial: string) {
