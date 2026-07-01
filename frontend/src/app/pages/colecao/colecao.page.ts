@@ -414,7 +414,7 @@ import {
           @for (serie of editora.series; track serie.serieId) {
             <div class="serie-estante">
               <div class="secao-titulo">
-                <h3>{{ serie.titulo }}@if (serie.volume && serie.volume > 1) { <small>V{{ serie.volume }}</small>}</h3>
+                <h3>{{ serie.titulo }}@if (serie.volume) { <small>V{{ serie.volume }}</small>}</h3>
                 <span>{{ serie.edicoes.length }} edições</span>
               </div>
               <div class="linha-capas">
@@ -1251,32 +1251,45 @@ export class ColecaoPage implements OnInit {
   }
 
   private unificarSeriesDaEditora(series: EstanteSerie[]) {
-    const resultado: EstanteSerie[] = [];
+    const grupos = new Map<string, EstanteSerie>();
 
     for (const serie of series) {
-      const tituloNormalizado = this.normalizarTituloEstante(serie.titulo);
-      const destino = resultado.find((existente) =>
-        this.normalizarTituloEstante(existente.titulo) === tituloNormalizado
-        && !this.temNumerosSobrepostos(existente, serie));
+      const chave = this.chaveSerieEstante(serie);
+      const destino = grupos.get(chave);
 
       if (!destino) {
-        resultado.push({ ...serie, edicoes: [...serie.edicoes] });
+        grupos.set(chave, {
+          ...serie,
+          volume: this.volumeEstante(serie),
+          edicoes: [...serie.edicoes],
+        });
         continue;
       }
 
-      destino.volume = destino.volume ?? serie.volume;
-      destino.edicoes = this.ordenarEdicoesEstante([...destino.edicoes, ...serie.edicoes]);
+      destino.edicoes = this.ordenarEdicoesEstante(this.unificarEdicoesEstante([...destino.edicoes, ...serie.edicoes]));
     }
 
-    return resultado.map((serie) => ({
-      ...serie,
-      edicoes: this.ordenarEdicoesEstante(serie.edicoes),
-    }));
+    return [...grupos.values()]
+      .map((serie) => ({
+        ...serie,
+        edicoes: this.ordenarEdicoesEstante(serie.edicoes),
+      }))
+      .sort((a, b) => {
+        const titulo = this.normalizarTituloEstante(a.titulo).localeCompare(this.normalizarTituloEstante(b.titulo));
+        return titulo || this.volumeEstante(a) - this.volumeEstante(b);
+      });
   }
 
-  private temNumerosSobrepostos(primeira: EstanteSerie, segunda: EstanteSerie) {
-    const numeros = new Set(primeira.edicoes.map((edicao) => this.normalizarNumeroEstante(edicao.numero)));
-    return segunda.edicoes.some((edicao) => numeros.has(this.normalizarNumeroEstante(edicao.numero)));
+  private chaveSerieEstante(serie: EstanteSerie) {
+    return `${this.normalizarTituloEstante(serie.titulo)}|${this.volumeEstante(serie)}`;
+  }
+
+  private volumeEstante(serie: EstanteSerie) {
+    return serie.volume || 1;
+  }
+
+  private unificarEdicoesEstante(edicoes: EstanteEdicao[]) {
+    return [...new Map(edicoes.map((edicao) => [edicao.itemColecaoId, edicao])).values()];
   }
 
   private ordenarEdicoesEstante(edicoes: EstanteEdicao[]) {
