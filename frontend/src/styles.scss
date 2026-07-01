@@ -543,10 +543,15 @@ img {
   color: var(--texto-suave);
 }
 
-.painel-grade,
-.catalogo-layout {
+.painel-grade {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 18px;
+}
+
+.catalogo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
 }
 
@@ -2149,6 +2154,20 @@ body.tema-escuro .sugestoes-assistente {
 .resultado-catalogo.externo {
   border-color: rgba(255, 122, 0, 0.32);
   background: rgba(255, 122, 0, 0.08);
+}
+
+.resultado-catalogo-acoes {
+  display: grid;
+  gap: 6px;
+}
+
+.resultado-catalogo-acoes .botao {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  justify-content: center;
+  line-height: 1.15;
+  white-space: normal;
 }
 
 .mini-capa strong,

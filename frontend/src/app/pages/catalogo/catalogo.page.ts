@@ -144,9 +144,19 @@ import {
               <small>{{ resultado.nomeVolume || 'Volume não informado' }}</small>
               <em>{{ rotuloFonte(resultado) }}</em>
               @if (resultado.jaCadastrada && resultado.id) {
-                <button class="botao compacto" type="button" (click)="abrirInterna(resultado)">
-                  Ver detalhes
-                </button>
+                <div class="resultado-catalogo-acoes">
+                  <button class="botao compacto" type="button" (click)="abrirInterna(resultado)">
+                    Ver detalhes
+                  </button>
+                  <button
+                    class="botao primario compacto"
+                    type="button"
+                    (click)="adicionarResultadoNaEstante(resultado)"
+                    [disabled]="salvandoItemColecao() === resultado.id"
+                  >
+                    {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : 'Adicionar à minha estante' }}
+                  </button>
+                </div>
               } @else if (resultado.urlOrigem) {
                 <a class="botao compacto" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">
                   Abrir Comic Vine
@@ -693,6 +703,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly resultadosOriginaisVinculo = signal<ResultadoPesquisaCatalogo[]>([]);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
+  readonly salvandoItemColecao = signal<number | null>(null);
   readonly previewCapaSelecionada = signal<string | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
@@ -962,6 +973,33 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     this.historicoDetalhes.set([]);
     this.abrirDetalhePorId(resultado.id);
+  }
+
+  adicionarResultadoNaEstante(resultado: ResultadoPesquisaCatalogo) {
+    if (!resultado.id || resultado.fonte !== 'HQ_HUB') {
+      this.mensagem.set('Selecione uma edição interna para adicionar à estante.');
+      return;
+    }
+
+    this.salvandoItemColecao.set(resultado.id);
+    this.mensagem.set('');
+    this.api.cadastrarItemColecao({
+      edicaoId: resultado.id,
+      estadoConservacao: 'BOM',
+      dataAquisicao: null,
+      precoPago: null,
+      statusLeitura: 'NAO_LIDO',
+      observacoes: null,
+    }).subscribe({
+      next: () => {
+        this.salvandoItemColecao.set(null);
+        this.mensagem.set('Edição adicionada à sua estante.');
+      },
+      error: (erro) => {
+        this.salvandoItemColecao.set(null);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível adicionar a edição. Verifique se ela já está na sua estante.'));
+      },
+    });
   }
 
   abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
@@ -1996,6 +2034,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     const numero = Number(valor);
     return Number.isFinite(numero) ? numero : null;
+  }
+
+  private extrairMensagemErro(erro: unknown, mensagemPadrao: string) {
+    const resposta = erro as { error?: { mensagem?: string } };
+    return resposta.error?.mensagem ?? mensagemPadrao;
   }
 
   private filtrarPublicacoesComoOriginal(publicacoes: PublicacaoHistoria[], historiaId: number | null) {
