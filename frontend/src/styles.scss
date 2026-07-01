@@ -1575,6 +1575,35 @@ body.tema-escuro .sugestoes-assistente {
   margin: 0;
 }
 
+.resultados-vinculo-original {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.resultados-vinculo-original button {
+  display: grid;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  text-align: left;
+  cursor: pointer;
+}
+
+.resultados-vinculo-original button.ativo {
+  border-color: var(--primaria);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.14);
+}
+
+.resultados-vinculo-original span {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
 .link-edicao-original {
   border: 0;
   padding: 0;

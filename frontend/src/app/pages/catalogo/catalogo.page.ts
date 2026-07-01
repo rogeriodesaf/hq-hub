@@ -386,6 +386,65 @@ import {
           @if (!carregandoDetalhe() && (publicacoesDetalhe().length || !publicacoesComoOriginal().length)) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
+              @if (podeEditarCatalogo()) {
+                <section class="painel-formulario vinculo-original-form">
+                  <h2>Vincular HQ original</h2>
+                  <div class="grade-formulario">
+                    <label class="campo-largo">
+                      Buscar no catálogo
+                      <input [(ngModel)]="formularioVinculoOriginal.buscaOriginal" name="buscaOriginalVinculo" placeholder="Amazing Spider-Man 300" (keyup.enter)="buscarOriginaisParaVinculo()" />
+                    </label>
+                    <label>
+                      ID da edição original
+                      <input [(ngModel)]="formularioVinculoOriginal.edicaoOriginalId" name="edicaoOriginalIdVinculo" type="number" min="1" />
+                    </label>
+                    <label class="campo-largo">
+                      História ou conteúdo
+                      <input [(ngModel)]="formularioVinculoOriginal.tituloHistoria" name="tituloHistoriaVinculo" placeholder="Titulo da historia" />
+                    </label>
+                    <label class="campo-largo">
+                      Título usado nesta edição
+                      <input [(ngModel)]="formularioVinculoOriginal.tituloUsado" name="tituloUsadoVinculo" />
+                    </label>
+                    <label>
+                      Páginas publicadas
+                      <input [(ngModel)]="formularioVinculoOriginal.paginasPublicadas" name="paginasPublicadasVinculo" type="number" min="1" />
+                    </label>
+                    <label>
+                      Status
+                      <select [(ngModel)]="formularioVinculoOriginal.status" name="statusVinculoOriginal">
+                        <option value="COMPLETA">Completa</option>
+                        <option value="PARCIAL">Parcial</option>
+                        <option value="CORTADA">Cortada</option>
+                        <option value="ADAPTADA">Adaptada</option>
+                        <option value="DESCONHECIDA">Desconhecida</option>
+                      </select>
+                    </label>
+                    <label class="campo-largo">
+                      Observações
+                      <input [(ngModel)]="formularioVinculoOriginal.observacoes" name="observacoesVinculoOriginal" />
+                    </label>
+                  </div>
+                  <div class="acoes-formulario">
+                    <button class="botao secundario" type="button" (click)="buscarOriginaisParaVinculo()" [disabled]="buscandoOriginaisVinculo() || !formularioVinculoOriginal.buscaOriginal.trim()">
+                      {{ buscandoOriginaisVinculo() ? 'Buscando...' : 'Buscar original' }}
+                    </button>
+                    <button class="botao primario" type="button" (click)="salvarVinculoOriginal()" [disabled]="salvandoVinculoOriginal()">
+                      {{ salvandoVinculoOriginal() ? 'Salvando...' : 'Salvar vínculo' }}
+                    </button>
+                  </div>
+                  @if (resultadosOriginaisVinculo().length) {
+                    <div class="series-capa resultados-vinculo-original">
+                      @for (resultado of resultadosOriginaisVinculo(); track chaveResultado(resultado)) {
+                        <button type="button" (click)="selecionarOriginalParaVinculo(resultado)" [class.ativo]="formularioVinculoOriginal.edicaoOriginalId === resultado.id">
+                          <strong>{{ resultado.nomeVolume || resultado.titulo || 'Edição original' }} #{{ resultado.numero || '-' }}</strong>
+                          <span>ID {{ resultado.id }}</span>
+                        </button>
+                      }
+                    </div>
+                  }
+                </section>
+              }
               @for (publicacao of publicacoesDetalhe(); track publicacao.id) {
                 <article class="publicacao-card">
                   <img
@@ -629,6 +688,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly salvandoVinculoOriginal = signal(false);
+  readonly buscandoOriginaisVinculo = signal(false);
+  readonly resultadosOriginaisVinculo = signal<ResultadoPesquisaCatalogo[]>([]);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
   readonly previewCapaSelecionada = signal<string | null>(null);
@@ -647,6 +709,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   arquivoCapaSelecionado: File | null = null;
   formularioEdicao = this.formularioEdicaoVazio();
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
+  formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
@@ -960,6 +1023,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.linksDetalhe.set([]);
     this.capasDetalhe.set([]);
     this.limparFormularioCapa();
+    this.limparFormularioVinculoOriginal();
     this.historiaEmFoco.set(null);
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
@@ -981,6 +1045,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.urlsCapasPublicacoes.set({});
     this.capasDetalhe.set([]);
     this.limparFormularioCapa();
+    this.limparFormularioVinculoOriginal();
     this.abrirDetalhePorId(anterior.id);
   }
 
@@ -1163,6 +1228,115 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.mensagem.set('Nao foi possivel rejeitar esta capa.');
       },
     });
+  }
+
+  buscarOriginaisParaVinculo() {
+    const termo = this.formularioVinculoOriginal.buscaOriginal.trim();
+    if (!termo) {
+      this.mensagem.set('Digite um termo para buscar a HQ original.');
+      return;
+    }
+
+    this.buscandoOriginaisVinculo.set(true);
+    this.api.pesquisarCatalogo(termo, 0, 8).subscribe({
+      next: (resposta) => {
+        this.resultadosOriginaisVinculo.set(resposta.itens.filter((resultado) => resultado.fonte === 'HQ_HUB' && !!resultado.id));
+        this.buscandoOriginaisVinculo.set(false);
+        if (!this.resultadosOriginaisVinculo().length) {
+          this.mensagem.set('Nenhuma edicao interna encontrada para vincular.');
+        }
+      },
+      error: () => {
+        this.buscandoOriginaisVinculo.set(false);
+        this.mensagem.set('Nao foi possivel buscar HQs originais agora.');
+      },
+    });
+  }
+
+  selecionarOriginalParaVinculo(resultado: ResultadoPesquisaCatalogo) {
+    if (!resultado.id) {
+      return;
+    }
+
+    this.formularioVinculoOriginal.edicaoOriginalId = resultado.id;
+    this.formularioVinculoOriginal.buscaOriginal = `${resultado.nomeVolume || resultado.titulo || 'Edicao'} #${resultado.numero || ''}`.trim();
+  }
+
+  async salvarVinculoOriginal() {
+    const edicao = this.edicaoDetalhe();
+    const edicaoOriginalId = this.numeroOuNull(this.formularioVinculoOriginal.edicaoOriginalId);
+    const tituloHistoria = this.formularioVinculoOriginal.tituloHistoria.trim();
+
+    if (!edicao) {
+      return;
+    }
+
+    if (!edicaoOriginalId) {
+      this.mensagem.set('Selecione ou informe a edicao original.');
+      return;
+    }
+
+    if (edicaoOriginalId === edicao.id) {
+      this.mensagem.set('A HQ original precisa ser diferente da edicao brasileira.');
+      return;
+    }
+
+    if (!tituloHistoria) {
+      this.mensagem.set('Informe a historia ou conteudo que veio da HQ original.');
+      return;
+    }
+
+    if (this.vinculoOriginalJaExiste(edicaoOriginalId, tituloHistoria)) {
+      this.mensagem.set('Esta historia ja esta vinculada a esta edicao original.');
+      return;
+    }
+
+    this.salvandoVinculoOriginal.set(true);
+    this.mensagem.set('');
+
+    try {
+      const historia = await firstValueFrom(this.api.cadastrarHistoria({
+        titulo: tituloHistoria,
+        tituloOriginal: null,
+        descricao: null,
+        quantidadePaginas: this.numeroOuNull(this.formularioVinculoOriginal.paginasPublicadas),
+        tipo: 'HISTORIA',
+        fonteExterna: null,
+        idExterno: null,
+        urlOrigem: null,
+      }));
+
+      const publicacao = await firstValueFrom(this.api.cadastrarPublicacaoHistoria({
+        historiaId: historia.id,
+        edicaoOriginalId,
+        edicaoPublicadaId: edicao.id,
+        status: this.formularioVinculoOriginal.status,
+        tipoPublicacaoHistoria: 'PUBLICACAO_BRASILEIRA',
+        fonteInformacao: 'Cadastro manual no catalogo',
+        urlFonteInformacao: null,
+        tituloUsado: this.valorTextoOuNull(this.formularioVinculoOriginal.tituloUsado),
+        paginasPublicadas: this.numeroOuNull(this.formularioVinculoOriginal.paginasPublicadas),
+        paginasCortadas: null,
+        fonteExterna: null,
+        urlOrigem: null,
+        observacoes: this.valorTextoOuNull(this.formularioVinculoOriginal.observacoes),
+      }));
+
+      this.publicacoesDetalhe.update((publicacoes) => [...publicacoes, publicacao]);
+      this.urlsCapasPublicacoes.update((urls) => ({
+        ...urls,
+        [publicacao.id]: publicacao.edicaoOriginal.urlCapa || '',
+      }));
+      if (!publicacao.edicaoOriginal.urlCapa) {
+        this.carregarCapaComicVineOriginal(publicacao.edicaoOriginal);
+      }
+      this.limparFormularioVinculoOriginal();
+      this.mensagem.set('HQ original vinculada a esta edicao.');
+    } catch {
+      this.mensagem.set('Nao foi possivel vincular a HQ original.');
+    } finally {
+      this.salvandoVinculoOriginal.set(false);
+    }
   }
 
   removerPublicacaoDetalhe(publicacao: PublicacaoHistoria) {
@@ -1699,6 +1873,26 @@ export class CatalogoPage implements OnInit, OnDestroy {
     };
   }
 
+  private formularioVinculoOriginalVazio(): {
+    buscaOriginal: string;
+    edicaoOriginalId: number | string | null;
+    tituloHistoria: string;
+    tituloUsado: string;
+    paginasPublicadas: number | string | null;
+    status: 'COMPLETA' | 'PARCIAL' | 'CORTADA' | 'ADAPTADA' | 'DESCONHECIDA';
+    observacoes: string;
+  } {
+    return {
+      buscaOriginal: '',
+      edicaoOriginalId: null,
+      tituloHistoria: '',
+      tituloUsado: '',
+      paginasPublicadas: null,
+      status: 'COMPLETA',
+      observacoes: '',
+    };
+  }
+
   private formularioAPartirDaEdicao(edicao: Edicao) {
     return {
       numero: edicao.numero || '',
@@ -1754,6 +1948,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.urlCapaEnvio = '';
     this.enviandoCapa.set(false);
     this.revisandoCapa.set(null);
+  }
+
+  private limparFormularioVinculoOriginal() {
+    this.formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
+    this.resultadosOriginaisVinculo.set([]);
+    this.buscandoOriginaisVinculo.set(false);
+    this.salvandoVinculoOriginal.set(false);
   }
 
   private montarUrlsCapasPublicacoes(publicacoes: PublicacaoHistoria[]) {
@@ -1820,6 +2021,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private normalizarComparacao(valor: string | null | undefined) {
     return (valor || '').trim().toLocaleLowerCase('pt-BR');
+  }
+
+  private vinculoOriginalJaExiste(edicaoOriginalId: number, tituloHistoria: string) {
+    const titulo = this.normalizarBusca(tituloHistoria);
+    return this.publicacoesDetalhe().some((publicacao) =>
+      publicacao.edicaoOriginal.id === edicaoOriginalId
+      && this.normalizarBusca(publicacao.historia.tituloExibicao || publicacao.historia.titulo) === titulo
+    );
   }
 
   private paraResultadoInterno(edicao: Edicao): ResultadoPesquisaCatalogo {
