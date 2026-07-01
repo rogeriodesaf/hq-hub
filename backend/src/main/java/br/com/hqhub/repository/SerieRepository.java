@@ -49,10 +49,10 @@ public class SerieRepository implements PanacheRepository<Serie> {
         }
 
         int volumeNormalizado = volume == null ? 0 : volume;
-        String tituloNormalizado = normalizarCompacto(titulo);
+        String tituloNormalizado = normalizarTituloIdentidade(titulo);
         return find("editora.id = ?1 and coalesce(volume, 0) = ?2", editoraId, volumeNormalizado)
                 .stream()
-                .filter(serie -> normalizarCompacto(serie.getTitulo()).equals(tituloNormalizado))
+                .filter(serie -> normalizarTituloIdentidade(serie.getTitulo()).equals(tituloNormalizado))
                 .findFirst();
     }
 
@@ -176,6 +176,31 @@ public class SerieRepository implements PanacheRepository<Serie> {
         return Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-z0-9]+", "");
+    }
+
+    private String normalizarTituloIdentidade(String valor) {
+        String[] bruto = Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .split("[^a-z0-9]+");
+        List<String> termos = new ArrayList<>();
+        for (String termo : bruto) {
+            if (!termo.isBlank()) {
+                termos.add(termo);
+            }
+        }
+
+        while (!termos.isEmpty() && ehArtigo(termos.get(0))) {
+            termos.remove(0);
+        }
+        while (!termos.isEmpty() && ehArtigo(termos.get(termos.size() - 1))) {
+            termos.remove(termos.size() - 1);
+        }
+
+        return String.join("", termos);
+    }
+
+    private boolean ehArtigo(String valor) {
+        return "a".equals(valor) || "as".equals(valor) || "o".equals(valor) || "os".equals(valor);
     }
 
     private ConsultaBusca montarConsultaBusca(String busca) {
