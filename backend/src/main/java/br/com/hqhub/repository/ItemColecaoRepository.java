@@ -74,6 +74,24 @@ public class ItemColecaoRepository implements PanacheRepository<ItemColecao> {
         return consulta.getResultList();
     }
 
+    public List<ItemColecao> buscarPorUsuarioComFiltros(Long usuarioId, String busca, StatusLeitura statusLeitura) {
+        StringBuilder jpql = new StringBuilder("""
+                select item
+                  from ItemColecao item
+                  join fetch item.edicao edicao
+                  join fetch edicao.serie serie
+                  join fetch serie.editora editora
+                 where item.usuario.id = :usuarioId
+                """);
+        adicionarFiltros(jpql, busca, statusLeitura);
+        jpql.append(" order by lower(editora.nome), lower(serie.titulo), lower(edicao.numero), item.id");
+
+        var consulta = entityManager.createQuery(jpql.toString(), ItemColecao.class)
+                .setParameter("usuarioId", usuarioId);
+        aplicarParametros(consulta, busca, statusLeitura);
+        return consulta.getResultList();
+    }
+
     public List<ItemColecao> buscarPorUsuarioParaExportacao(Long usuarioId) {
         return entityManager.createQuery("""
                 select item

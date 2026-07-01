@@ -54,44 +54,32 @@ public class EstanteService {
 
     @Transactional
     public PaginaRespostaDTO<EstanteEditoraDTO> montarEstantePublicaPaginada(Long usuarioId, String busca, StatusLeitura statusLeitura, int pagina, int tamanho) {
-        int paginaTratada = Math.max(pagina, 0);
-        int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
-        long totalItens = itemColecaoRepository.contarPorUsuarioComFiltros(usuarioId, busca, statusLeitura);
-        int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
-        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioPaginado(
+        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioComFiltros(
                 usuarioId,
                 busca,
-                statusLeitura,
-                paginaTratada,
-                tamanhoTratado);
+                statusLeitura);
         return new PaginaRespostaDTO<>(
                 montarEstantePorItens(itens),
-                paginaTratada,
-                tamanhoTratado,
-                totalItens,
-                totalPaginas);
+                0,
+                itens.size(),
+                itens.size(),
+                itens.isEmpty() ? 0 : 1);
     }
 
     @Transactional
     public PaginaRespostaDTO<EstanteEditoraDTO> montarEstantePaginada(String busca, StatusLeitura statusLeitura, int pagina, int tamanho) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        int paginaTratada = Math.max(pagina, 0);
-        int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
-        long totalItens = itemColecaoRepository.contarPorUsuarioComFiltros(usuario.getId(), busca, statusLeitura);
-        int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
-        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioPaginado(
+        List<ItemColecao> itens = itemColecaoRepository.buscarPorUsuarioComFiltros(
                 usuario.getId(),
                 busca,
-                statusLeitura,
-                paginaTratada,
-                tamanhoTratado);
+                statusLeitura);
 
         return new PaginaRespostaDTO<>(
                 montarEstantePorItens(itens),
-                paginaTratada,
-                tamanhoTratado,
-                totalItens,
-                totalPaginas);
+                0,
+                itens.size(),
+                itens.size(),
+                itens.isEmpty() ? 0 : 1);
     }
 
     private List<EstanteEditoraDTO> montarEstantePorItens(List<ItemColecao> itens) {
