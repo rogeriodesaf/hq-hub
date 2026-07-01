@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 import br.com.hqhub.entity.Serie;
@@ -33,24 +34,26 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public boolean existePorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
-        int volumeNormalizado = volume == null ? 0 : volume;
-        return find("lower(titulo) = ?1 and editora.id = ?2 and coalesce(volume, 0) = ?3",
-                titulo.toLowerCase(),
-                editoraId,
-                volumeNormalizado)
-                .firstResultOptional()
-                .isPresent();
+        return buscarPorTituloEEditoraEVolume(titulo, editoraId, volume).isPresent();
     }
 
     public boolean existePorTituloEEditoraEVolumeEmOutraSerie(String titulo, Long editoraId, Integer volume, Long id) {
-        int volumeNormalizado = volume == null ? 0 : volume;
-        return find("lower(titulo) = ?1 and editora.id = ?2 and coalesce(volume, 0) = ?3 and id <> ?4",
-                titulo.toLowerCase(),
-                editoraId,
-                volumeNormalizado,
-                id)
-                .firstResultOptional()
+        return buscarPorTituloEEditoraEVolume(titulo, editoraId, volume)
+                .filter(serie -> !serie.getId().equals(id))
                 .isPresent();
+    }
+
+    public Optional<Serie> buscarPorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
+        if (titulo == null || editoraId == null) {
+            return Optional.empty();
+        }
+
+        int volumeNormalizado = volume == null ? 0 : volume;
+        String tituloNormalizado = normalizarCompacto(titulo);
+        return find("editora.id = ?1 and coalesce(volume, 0) = ?2", editoraId, volumeNormalizado)
+                .stream()
+                .filter(serie -> normalizarCompacto(serie.getTitulo()).equals(tituloNormalizado))
+                .findFirst();
     }
 
     public boolean existePorOrigemExterna(String fonteExterna, String idExterno) {

@@ -180,10 +180,10 @@ public class ImportacaoCatalogoService {
             ImportacaoCatalogoDTO importacao,
             ContadoresImportacao contadores) {
         Editora editora = obterOuCriarEditora(dto.editora(), contadores);
-        Optional<Serie> existente = serieRepository
-                .find("lower(titulo) = ?1 and editora.id = ?2 and coalesce(volume, 0) = ?3",
-                        normalizarBusca(dto.titulo()), editora.getId(), dto.volume() == null ? 0 : dto.volume())
-                .firstResultOptional();
+        Optional<Serie> existente = serieRepository.buscarPorTituloEEditoraEVolume(
+                dto.titulo(),
+                editora.getId(),
+                dto.volume());
 
         if (existente.isPresent()) {
             contadores.itensReaproveitados++;
