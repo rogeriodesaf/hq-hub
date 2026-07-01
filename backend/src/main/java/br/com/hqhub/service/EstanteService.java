@@ -103,11 +103,21 @@ public class EstanteService {
         return agrupado.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(entrada -> entrada.getKey().nome()))
-                .map(entradaEditora -> new EstanteEditoraDTO(
-                        entradaEditora.getKey().id(),
-                        entradaEditora.getKey().nome(),
-                        montarSeries(entradaEditora.getValue())))
+                .map(this::montarEditora)
                 .toList();
+    }
+
+    private EstanteEditoraDTO montarEditora(Map.Entry<ChaveEditora, Map<ChaveSerie, List<ItemColecao>>> entradaEditora) {
+        Editora representante = entradaEditora.getValue().values().stream()
+                .flatMap(List::stream)
+                .map(item -> item.getEdicao().getSerie().getEditora())
+                .min(Comparator.comparing(Editora::getId))
+                .orElseThrow();
+
+        return new EstanteEditoraDTO(
+                representante.getId(),
+                entradaEditora.getKey().nome(),
+                montarSeries(entradaEditora.getValue()));
     }
 
     private List<EstanteSerieDTO> montarSeries(Map<ChaveSerie, List<ItemColecao>> series) {
@@ -175,7 +185,7 @@ public class EstanteService {
     }
 
     private ChaveEditora chaveEditora(Editora editora) {
-        return new ChaveEditora(editora.getId(), editora.getNome());
+        return new ChaveEditora(normalizarEditora(editora.getNome()), editora.getNome());
     }
 
     private ChaveSerie chaveSerie(ItemColecao item) {
@@ -221,6 +231,18 @@ public class EstanteService {
         return String.join(" ", palavras);
     }
 
+    private String normalizarEditora(String valor) {
+        List<String> palavras = new ArrayList<>(List.of(normalizar(valor).split("\\s+")));
+        palavras.removeIf(palavra -> palavra.isBlank()
+                || "editora".equals(palavra)
+                || "editoras".equals(palavra)
+                || "comic".equals(palavra)
+                || "comics".equals(palavra)
+                || "brasil".equals(palavra));
+
+        return String.join(" ", palavras);
+    }
+
     private String normalizar(String valor) {
         if (valor == null) {
             return "";
@@ -232,7 +254,7 @@ public class EstanteService {
                 .trim();
     }
 
-    private record ChaveEditora(Long id, String nome) {
+    private record ChaveEditora(String chave, String nome) {
     }
 
     private record ChaveSerie(String tituloOrdenacao, Integer volume) {

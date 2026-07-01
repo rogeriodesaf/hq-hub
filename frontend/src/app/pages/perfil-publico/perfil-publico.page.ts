@@ -344,10 +344,10 @@ import {
               <p class="texto-suave">Carregando estante...</p>
             } @else if (estante().length) {
               <div class="estante-publica">
-                @for (editora of estante(); track editora.editoraId) {
+                @for (editora of estante(); track chaveEditoraRender(editora)) {
                   <article class="prateleira">
                     <h3>{{ editora.nome }}</h3>
-                    @for (serie of editora.series; track serie.serieId) {
+                    @for (serie of editora.series; track chaveSerieRender(serie)) {
                       <div class="serie-estante">
                         <div class="secao-titulo">
                           <strong>{{ serie.titulo }}@if (serie.volume) { <small>V{{ serie.volume }}</small>}</strong>
@@ -964,6 +964,14 @@ export class PerfilPublicoPage implements OnInit {
         series: this.unificarSeriesDaEditora(editora.series),
       }))
       .sort((a, b) => a.nome.localeCompare(b.nome));
+  }
+
+  chaveEditoraRender(editora: EstanteEditora) {
+    return this.normalizarEditoraEstante(editora.nome);
+  }
+
+  chaveSerieRender(serie: EstanteSerie) {
+    return this.chaveSerieEstante(serie, new Map());
   }
 
   private unificarSeriesDaEditora(series: EstanteSerie[]) {

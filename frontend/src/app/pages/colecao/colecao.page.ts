@@ -408,10 +408,10 @@ import {
     }
 
     <section class="estante">
-      @for (editora of estanteFiltrada(); track editora.editoraId) {
+      @for (editora of estanteFiltrada(); track chaveEditoraRender(editora)) {
         <article class="prateleira">
           <h2>{{ editora.nome }}</h2>
-          @for (serie of editora.series; track serie.serieId) {
+          @for (serie of editora.series; track chaveSerieRender(serie)) {
             <div class="serie-estante">
               <div class="secao-titulo">
                 <h3>{{ serie.titulo }}@if (serie.volume) { <small>V{{ serie.volume }}</small>}</h3>
@@ -1267,6 +1267,14 @@ export class ColecaoPage implements OnInit {
         series: this.unificarSeriesDaEditora(editora.series),
       }))
       .sort((a, b) => a.nome.localeCompare(b.nome));
+  }
+
+  chaveEditoraRender(editora: EstanteEditora) {
+    return this.normalizarEditoraEstante(editora.nome);
+  }
+
+  chaveSerieRender(serie: EstanteSerie) {
+    return this.chaveSerieEstante(serie, new Map());
   }
 
   private unificarSeriesDaEditora(series: EstanteSerie[]) {
