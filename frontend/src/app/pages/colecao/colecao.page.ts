@@ -1244,10 +1244,29 @@ export class ColecaoPage implements OnInit {
   }
 
   private unificarSeriesFragmentadas(estante: EstanteEditora[]) {
-    return estante.map((editora) => ({
-      ...editora,
-      series: this.unificarSeriesDaEditora(editora.series),
-    }));
+    const editoras = new Map<string, EstanteEditora>();
+
+    for (const editora of estante) {
+      const chave = this.normalizarEditoraEstante(editora.nome);
+      const existente = editoras.get(chave);
+
+      if (!existente) {
+        editoras.set(chave, {
+          ...editora,
+          series: [...editora.series],
+        });
+        continue;
+      }
+
+      existente.series = [...existente.series, ...editora.series];
+    }
+
+    return [...editoras.values()]
+      .map((editora) => ({
+        ...editora,
+        series: this.unificarSeriesDaEditora(editora.series),
+      }))
+      .sort((a, b) => a.nome.localeCompare(b.nome));
   }
 
   private unificarSeriesDaEditora(series: EstanteSerie[]) {
@@ -1350,6 +1369,13 @@ export class ColecaoPage implements OnInit {
       palavras.pop();
     }
     return palavras.join(' ');
+  }
+
+  private normalizarEditoraEstante(valor: string) {
+    return this.normalizar(valor)
+      .split(/\s+/)
+      .filter((palavra) => !['editora', 'editoras', 'comics', 'comic', 'brasil'].includes(palavra))
+      .join(' ');
   }
 
   private async obterOuCriarEditora() {
