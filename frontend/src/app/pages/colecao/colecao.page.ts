@@ -287,7 +287,10 @@ import {
       }
 
       @if (mensagem()) {
-        <p class="mensagem-erro">{{ mensagem() }}</p>
+        <aside class="toast-sistema" [class.sucesso]="tipoMensagem() === 'sucesso'" [class.erro]="tipoMensagem() === 'erro'" [class.info]="tipoMensagem() === 'info'" role="status" aria-live="polite">
+          <p>{{ mensagem() }}</p>
+          <button type="button" class="fechar-toast" (click)="fecharMensagem()" aria-label="Fechar mensagem">×</button>
+        </aside>
       }
     </section>
 
@@ -511,6 +514,7 @@ export class ColecaoPage implements OnInit {
   readonly configuracaoColecao = signal<ConfiguracaoColecao | null>(null);
   readonly salvandoConfiguracao = signal(false);
   readonly mensagem = signal('');
+  readonly tipoMensagem = computed<'sucesso' | 'erro' | 'info'>(() => this.classificarMensagem(this.mensagem()));
   readonly filtroLeitura = signal<'TODAS' | 'LIDO' | 'NAO_LIDO'>('TODAS');
   readonly totalSelecionadas = computed(() => this.resultadosSelecionadosEmMassa().length);
   readonly totalInternasSelecionaveis = computed(() => this.resultadosEncontrados().filter((resultado) => this.resultadoSelecionavelEmMassa(resultado)).length);
@@ -574,6 +578,10 @@ export class ColecaoPage implements OnInit {
   ngOnInit() {
     this.carregarConfiguracaoColecao();
     this.carregarEstante();
+  }
+
+  fecharMensagem() {
+    this.mensagem.set('');
   }
 
   alterarConfiguracaoEstante(patch: Partial<Pick<ConfiguracaoColecao, 'visibilidadeColecao' | 'exibirValorColecao'>>) {
@@ -1469,6 +1477,29 @@ export class ColecaoPage implements OnInit {
 
   private normalizar(valor: string | null | undefined) {
     return (valor || '').trim().toLocaleLowerCase('pt-BR');
+  }
+
+  private classificarMensagem(texto: string): 'sucesso' | 'erro' | 'info' {
+    const normalizado = texto
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+    if (normalizado.includes('nao foi possivel') || normalizado.includes('verifique') || normalizado.includes('erro')) {
+      return 'erro';
+    }
+
+    if (
+      normalizado.includes('adicionad')
+      || normalizado.includes('atualizad')
+      || normalizado.includes('importad')
+      || normalizado.includes('criad')
+      || normalizado.includes('removid')
+    ) {
+      return 'sucesso';
+    }
+
+    return 'info';
   }
 
   private carregarConfiguracaoColecao() {
