@@ -253,8 +253,8 @@ import {
             <section class="detalhe-secao capa-gestao">
               <div class="secao-titulo">
                 <div>
-                  <h3>Capas da ediÃ§Ã£o</h3>
-                  <p class="texto-suave">A capa oficial sÃ³ muda depois de aprovada.</p>
+                  <h3>Capas da edição</h3>
+                  <p class="texto-suave">A capa oficial só muda depois de aprovada.</p>
                 </div>
               </div>
 
@@ -271,7 +271,7 @@ import {
 
               @if (previewCapaSelecionada()) {
                 <div class="previa-capa">
-                  <img [src]="previewCapaSelecionada()" alt="PrÃ©via da capa selecionada" />
+                  <img [src]="previewCapaSelecionada()" alt="Prévia da capa selecionada" />
                 </div>
               }
 
@@ -290,8 +290,8 @@ import {
                     <article class="publicacao-card capa-edicao-card">
                       <img class="capa-publicacao" [src]="capa.urlImagem" [alt]="'Capa ' + capa.id" loading="lazy" (error)="usarCapaReserva($event)" />
                       <div>
-                        <p class="rotulo">{{ rotuloStatusCapa(capa.status) }} Â· {{ rotuloOrigemCapa(capa.origem) }}</p>
-                        <h4>{{ capa.enviadoPorNome || 'UsuÃ¡rio' }}</h4>
+                        <p class="rotulo">{{ rotuloStatusCapa(capa.status) }} · {{ rotuloOrigemCapa(capa.origem) }}</p>
+                        <h4>{{ capa.enviadoPorNome || 'Usuário' }}</h4>
                         <p>{{ capa.dataEnvio | date:'short' }}</p>
                         @if (capa.observacao) {
                           <p>{{ capa.observacao }}</p>
@@ -311,7 +311,7 @@ import {
                   }
                 </div>
               } @else {
-                <p class="texto-suave">Nenhuma capa enviada para anÃ¡lise ainda.</p>
+                <p class="texto-suave">Nenhuma capa enviada para análise ainda.</p>
               }
             </section>
           }
