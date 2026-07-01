@@ -186,12 +186,16 @@ public class EstanteService {
 
     private Integer volumeParaAgrupamento(ItemColecao item) {
         Serie serie = item.getEdicao().getSerie();
+        Integer volumeDescricao = extrairVolumeSerie(item.getEdicao().getDescricao());
+        if (volumeDescricao != null) {
+            return volumeDescricao;
+        }
+
         if (serie.getVolume() != null) {
             return serie.getVolume();
         }
 
-        Integer volumeDescricao = extrairVolumeSerie(item.getEdicao().getDescricao());
-        return volumeDescricao == null ? 1 : volumeDescricao;
+        return 1;
     }
 
     private Integer extrairVolumeSerie(String descricao) {
