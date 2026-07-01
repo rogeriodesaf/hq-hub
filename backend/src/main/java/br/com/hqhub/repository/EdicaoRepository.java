@@ -34,15 +34,25 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
     }
 
     public boolean existePorNumeroESerie(String numero, Long serieId) {
-        return find("lower(numero) = ?1 and serie.id = ?2", numero.toLowerCase(), serieId)
-                .firstResultOptional()
-                .isPresent();
+        return buscarPorNumeroESerie(numero, serieId).isPresent();
     }
 
     public boolean existePorNumeroESerieEmOutraEdicao(String numero, Long serieId, Long id) {
-        return find("lower(numero) = ?1 and serie.id = ?2 and id <> ?3", numero.toLowerCase(), serieId, id)
-                .firstResultOptional()
+        return buscarPorNumeroESerie(numero, serieId)
+                .filter(edicao -> !edicao.getId().equals(id))
                 .isPresent();
+    }
+
+    public Optional<Edicao> buscarPorNumeroESerie(String numero, Long serieId) {
+        if (numero == null || serieId == null) {
+            return Optional.empty();
+        }
+
+        String numeroNormalizado = normalizarCompacto(numero);
+        return find("serie.id = ?1", serieId)
+                .stream()
+                .filter(edicao -> normalizarCompacto(edicao.getNumero()).equals(numeroNormalizado))
+                .findFirst();
     }
 
     public boolean existePorOrigemExterna(String fonteExterna, String idExterno) {

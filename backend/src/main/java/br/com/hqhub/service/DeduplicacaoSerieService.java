@@ -153,15 +153,10 @@ public class DeduplicacaoSerieService {
     }
 
     private Edicao buscarEdicaoPorNumero(Long serieId, String numero) {
-        return entityManager.createQuery("""
-                from Edicao
-                where serie.id = :serieId
-                  and lower(numero) = :numero
-                """, Edicao.class)
+        return entityManager.createQuery("from Edicao where serie.id = :serieId", Edicao.class)
                 .setParameter("serieId", serieId)
-                .setParameter("numero", numero == null ? "" : numero.toLowerCase(Locale.ROOT))
-                .setMaxResults(1)
                 .getResultStream()
+                .filter(edicao -> normalizarIdentidade(edicao.getNumero()).equals(normalizarIdentidade(numero)))
                 .findFirst()
                 .orElse(null);
     }
@@ -309,6 +304,10 @@ public class DeduplicacaoSerieService {
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-z0-9]+", " ")
                 .trim();
+    }
+
+    private String normalizarIdentidade(String valor) {
+        return normalizar(valor).replace(" ", "");
     }
 
     private boolean vazio(String valor) {

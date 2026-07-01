@@ -368,8 +368,8 @@ public class DeduplicacaoEdicaoService {
 
     private String chaveAmpla(Edicao edicao) {
         return normalizar(edicao.getSerie().getEditora().getNome()) + "|"
-                + normalizar(edicao.getSerie().getTitulo()) + "|"
-                + normalizar(edicao.getNumero());
+                + normalizarTituloSerie(edicao.getSerie().getTitulo()) + "|"
+                + normalizarIdentidade(edicao.getNumero());
     }
 
     private boolean mesmoValorOuAlgumVazio(String primeiro, String segundo) {
@@ -389,6 +389,28 @@ public class DeduplicacaoEdicaoService {
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-z0-9]+", " ")
                 .trim();
+    }
+
+    private String normalizarIdentidade(String valor) {
+        return normalizar(valor).replace(" ", "");
+    }
+
+    private String normalizarTituloSerie(String valor) {
+        List<String> palavras = new ArrayList<>(List.of(normalizar(valor).split("\\s+")));
+        palavras.removeIf(String::isBlank);
+
+        while (!palavras.isEmpty() && ehArtigo(palavras.get(0))) {
+            palavras.remove(0);
+        }
+        while (!palavras.isEmpty() && ehArtigo(palavras.get(palavras.size() - 1))) {
+            palavras.remove(palavras.size() - 1);
+        }
+
+        return String.join("", palavras);
+    }
+
+    private boolean ehArtigo(String valor) {
+        return "a".equals(valor) || "as".equals(valor) || "o".equals(valor) || "os".equals(valor);
     }
 
     private boolean vazio(String valor) {

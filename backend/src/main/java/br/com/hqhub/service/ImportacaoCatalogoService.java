@@ -213,9 +213,7 @@ public class ImportacaoCatalogoService {
                 idEdicaoBrasileira(serie, dto));
 
         if (existente.isEmpty()) {
-            existente = edicaoRepository
-                    .find("lower(numero) = ?1 and serie.id = ?2", normalizarBusca(dto.numero()), serie.getId())
-                    .firstResultOptional();
+            existente = edicaoRepository.buscarPorNumeroESerie(dto.numero(), serie.getId());
         }
 
         if (existente.isPresent()) {
@@ -306,9 +304,7 @@ public class ImportacaoCatalogoService {
 
         Optional<Edicao> existente = edicaoRepository.buscarPorOrigemExterna(FONTE_GUIA_DOS_QUADRINHOS, idExterno);
         if (existente.isEmpty()) {
-            existente = edicaoRepository
-                    .find("lower(numero) = ?1 and serie.id = ?2", normalizarBusca(dto.numeroOriginal()), serie.getId())
-                    .firstResultOptional();
+            existente = edicaoRepository.buscarPorNumeroESerie(dto.numeroOriginal(), serie.getId());
         }
 
         if (existente.isPresent()) {
