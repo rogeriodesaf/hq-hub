@@ -11,6 +11,7 @@ import {
   ConfiguracaoColecao,
   EstanteEdicao,
   EstanteEditora,
+  EstanteSerie,
   PaginaResposta,
   ResultadoPesquisaCatalogo,
   Serie,
@@ -1220,8 +1221,9 @@ export class ColecaoPage implements OnInit {
     this.carregandoEstante.set(true);
     this.api.obterEstantePaginada(this.buscaEstante, this.filtroLeitura(), pagina, this.paginaEstante().tamanho).subscribe({
       next: (resposta) => {
-        this.paginaEstante.set(resposta);
-        this.estante.set(resposta.itens);
+        const estante = this.unificarSeriesFragmentadas(resposta.itens);
+        this.paginaEstante.set({ ...resposta, itens: estante });
+        this.estante.set(estante);
         this.carregandoEstante.set(false);
       },
       error: () => {
@@ -1239,6 +1241,74 @@ export class ColecaoPage implements OnInit {
 
     const editoras = await firstValueFrom(this.api.listarEditoras());
     this.editorasCache.set(editoras);
+  }
+
+  private unificarSeriesFragmentadas(estante: EstanteEditora[]) {
+    return estante.map((editora) => ({
+      ...editora,
+      series: this.unificarSeriesDaEditora(editora.series),
+    }));
+  }
+
+  private unificarSeriesDaEditora(series: EstanteSerie[]) {
+    const resultado: EstanteSerie[] = [];
+
+    for (const serie of series) {
+      const tituloNormalizado = this.normalizarTituloEstante(serie.titulo);
+      const destino = resultado.find((existente) =>
+        this.normalizarTituloEstante(existente.titulo) === tituloNormalizado
+        && !this.temNumerosSobrepostos(existente, serie));
+
+      if (!destino) {
+        resultado.push({ ...serie, edicoes: [...serie.edicoes] });
+        continue;
+      }
+
+      destino.volume = destino.volume ?? serie.volume;
+      destino.edicoes = this.ordenarEdicoesEstante([...destino.edicoes, ...serie.edicoes]);
+    }
+
+    return resultado.map((serie) => ({
+      ...serie,
+      edicoes: this.ordenarEdicoesEstante(serie.edicoes),
+    }));
+  }
+
+  private temNumerosSobrepostos(primeira: EstanteSerie, segunda: EstanteSerie) {
+    const numeros = new Set(primeira.edicoes.map((edicao) => this.normalizarNumeroEstante(edicao.numero)));
+    return segunda.edicoes.some((edicao) => numeros.has(this.normalizarNumeroEstante(edicao.numero)));
+  }
+
+  private ordenarEdicoesEstante(edicoes: EstanteEdicao[]) {
+    return [...edicoes].sort((a, b) => {
+      const numeroA = this.primeiroNumeroEstante(a.numero);
+      const numeroB = this.primeiroNumeroEstante(b.numero);
+      if (numeroA !== numeroB) {
+        return numeroA - numeroB;
+      }
+
+      return this.normalizarNumeroEstante(a.numero).localeCompare(this.normalizarNumeroEstante(b.numero));
+    });
+  }
+
+  private primeiroNumeroEstante(valor: string | null) {
+    const encontrado = valor?.match(/\d+/);
+    return encontrado ? Number(encontrado[0]) : Number.MAX_SAFE_INTEGER;
+  }
+
+  private normalizarNumeroEstante(valor: string | null) {
+    return this.normalizar(valor || '').replace(/\s+/g, '');
+  }
+
+  private normalizarTituloEstante(valor: string) {
+    const palavras = this.normalizar(valor).split(/\s+/).filter(Boolean);
+    while (palavras.length && ['a', 'as', 'o', 'os'].includes(palavras[0])) {
+      palavras.shift();
+    }
+    while (palavras.length && ['a', 'as', 'o', 'os'].includes(palavras[palavras.length - 1])) {
+      palavras.pop();
+    }
+    return palavras.join(' ');
   }
 
   private async obterOuCriarEditora() {
@@ -1476,7 +1546,12 @@ export class ColecaoPage implements OnInit {
   }
 
   private normalizar(valor: string | null | undefined) {
-    return (valor || '').trim().toLocaleLowerCase('pt-BR');
+    return (valor || '')
+      .normalize('NFD')
+      .replace(/\p{M}/gu, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
   }
 
   private classificarMensagem(texto: string): 'sucesso' | 'erro' | 'info' {
@@ -1546,4 +1621,3 @@ export class ColecaoPage implements OnInit {
     this.serieSelecionadaManual.set(null);
   }
 }
-
