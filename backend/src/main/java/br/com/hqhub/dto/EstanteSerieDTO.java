@@ -5,5 +5,6 @@ import java.util.List;
 public record EstanteSerieDTO(
         Long serieId,
         String titulo,
+        Integer volume,
         List<EstanteEdicaoDTO> edicoes) {
 }

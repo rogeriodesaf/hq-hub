@@ -250,6 +250,7 @@ export interface EstanteEdicao {
 export interface EstanteSerie {
   serieId: number;
   titulo: string;
+  volume: number | null;
   edicoes: EstanteEdicao[];
 }
 

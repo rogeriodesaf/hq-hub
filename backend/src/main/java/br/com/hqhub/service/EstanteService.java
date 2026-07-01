@@ -108,10 +108,12 @@ public class EstanteService {
     private List<EstanteSerieDTO> montarSeries(Map<Serie, List<ItemColecao>> series) {
         return series.entrySet()
                 .stream()
-                .sorted(Comparator.comparing(entrada -> entrada.getKey().getTitulo()))
+                .sorted(Comparator.comparing((Map.Entry<Serie, List<ItemColecao>> entrada) -> entrada.getKey().getTitulo())
+                        .thenComparing(entrada -> entrada.getKey().getVolume() == null ? 0 : entrada.getKey().getVolume()))
                 .map(entradaSerie -> new EstanteSerieDTO(
                         entradaSerie.getKey().getId(),
                         entradaSerie.getKey().getTitulo(),
+                        entradaSerie.getKey().getVolume(),
                         montarEdicoes(entradaSerie.getValue())))
                 .toList();
     }

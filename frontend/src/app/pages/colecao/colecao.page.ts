@@ -413,7 +413,7 @@ import {
           @for (serie of editora.series; track serie.serieId) {
             <div class="serie-estante">
               <div class="secao-titulo">
-                <h3>{{ serie.titulo }}</h3>
+                <h3>{{ serie.titulo }}@if (serie.volume && serie.volume > 1) { <small>V{{ serie.volume }}</small>}</h3>
                 <span>{{ serie.edicoes.length }} edições</span>
               </div>
               <div class="linha-capas">
