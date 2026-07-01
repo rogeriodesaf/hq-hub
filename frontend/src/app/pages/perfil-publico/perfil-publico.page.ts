@@ -949,15 +949,17 @@ export class PerfilPublicoPage implements OnInit {
 
   private unificarSeriesDaEditora(series: EstanteSerie[]) {
     const grupos = new Map<string, EstanteSerie>();
+    const volumesPorTitulo = this.volumesExplicitosPorTitulo(series);
 
     for (const serie of series) {
-      const chave = this.chaveSerieEstante(serie);
+      const chave = this.chaveSerieEstante(serie, volumesPorTitulo);
       const destino = grupos.get(chave);
+      const volume = this.volumeEstante(serie, volumesPorTitulo.get(this.normalizarTituloEstante(serie.titulo)));
 
       if (!destino) {
         grupos.set(chave, {
           ...serie,
-          volume: this.volumeEstante(serie),
+          volume,
           edicoes: [...serie.edicoes],
         });
         continue;
@@ -977,12 +979,38 @@ export class PerfilPublicoPage implements OnInit {
       });
   }
 
-  private chaveSerieEstante(serie: EstanteSerie) {
-    return `${this.normalizarTituloEstante(serie.titulo)}|${this.volumeEstante(serie)}`;
+  private volumesExplicitosPorTitulo(series: EstanteSerie[]) {
+    const volumes = new Map<string, Set<number>>();
+
+    for (const serie of series) {
+      if (!serie.volume) {
+        continue;
+      }
+
+      const titulo = this.normalizarTituloEstante(serie.titulo);
+      const existentes = volumes.get(titulo) ?? new Set<number>();
+      existentes.add(serie.volume);
+      volumes.set(titulo, existentes);
+    }
+
+    return volumes;
   }
 
-  private volumeEstante(serie: EstanteSerie) {
-    return serie.volume || 1;
+  private chaveSerieEstante(serie: EstanteSerie, volumesPorTitulo: Map<string, Set<number>>) {
+    const titulo = this.normalizarTituloEstante(serie.titulo);
+    return `${titulo}|${this.volumeEstante(serie, volumesPorTitulo.get(titulo))}`;
+  }
+
+  private volumeEstante(serie: EstanteSerie, volumesExplicitos?: Set<number>) {
+    if (serie.volume) {
+      return serie.volume;
+    }
+
+    if (volumesExplicitos?.size === 1) {
+      return [...volumesExplicitos][0];
+    }
+
+    return 1;
   }
 
   private unificarEdicoesEstante(edicoes: EstanteEdicao[]) {
