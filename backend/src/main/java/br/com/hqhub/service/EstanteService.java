@@ -1,7 +1,10 @@
 package br.com.hqhub.service;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +27,8 @@ import jakarta.transaction.Transactional;
 public class EstanteService {
 
     private static final Pattern PRIMEIRO_NUMERO = Pattern.compile("\\d+");
+    private static final Pattern SERIE_DESCRICAO = Pattern.compile("(\\d+)\\D{0,10}s.{0,2}rie", Pattern.CASE_INSENSITIVE);
+    private static final List<String> ARTIGOS = List.of("a", "as", "o", "os");
 
     private final ItemColecaoRepository itemColecaoRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
@@ -90,32 +95,41 @@ public class EstanteService {
     }
 
     private List<EstanteEditoraDTO> montarEstantePorItens(List<ItemColecao> itens) {
-        Map<Editora, Map<Serie, List<ItemColecao>>> agrupado = itens.stream()
+        Map<ChaveEditora, Map<ChaveSerie, List<ItemColecao>>> agrupado = itens.stream()
                 .collect(Collectors.groupingBy(
-                        item -> item.getEdicao().getSerie().getEditora(),
-                        Collectors.groupingBy(item -> item.getEdicao().getSerie())));
+                        item -> chaveEditora(item.getEdicao().getSerie().getEditora()),
+                        Collectors.groupingBy(this::chaveSerie)));
 
         return agrupado.entrySet()
                 .stream()
-                .sorted(Comparator.comparing(entrada -> entrada.getKey().getNome()))
+                .sorted(Comparator.comparing(entrada -> entrada.getKey().nome()))
                 .map(entradaEditora -> new EstanteEditoraDTO(
-                        entradaEditora.getKey().getId(),
-                        entradaEditora.getKey().getNome(),
+                        entradaEditora.getKey().id(),
+                        entradaEditora.getKey().nome(),
                         montarSeries(entradaEditora.getValue())))
                 .toList();
     }
 
-    private List<EstanteSerieDTO> montarSeries(Map<Serie, List<ItemColecao>> series) {
+    private List<EstanteSerieDTO> montarSeries(Map<ChaveSerie, List<ItemColecao>> series) {
         return series.entrySet()
                 .stream()
-                .sorted(Comparator.comparing((Map.Entry<Serie, List<ItemColecao>> entrada) -> entrada.getKey().getTitulo())
-                        .thenComparing(entrada -> entrada.getKey().getVolume() == null ? 0 : entrada.getKey().getVolume()))
-                .map(entradaSerie -> new EstanteSerieDTO(
-                        entradaSerie.getKey().getId(),
-                        entradaSerie.getKey().getTitulo(),
-                        entradaSerie.getKey().getVolume(),
-                        montarEdicoes(entradaSerie.getValue())))
+                .sorted(Comparator.comparing((Map.Entry<ChaveSerie, List<ItemColecao>> entrada) -> entrada.getKey().tituloOrdenacao())
+                        .thenComparing(entrada -> entrada.getKey().volume() == null ? 0 : entrada.getKey().volume()))
+                .map(this::montarSerie)
                 .toList();
+    }
+
+    private EstanteSerieDTO montarSerie(Map.Entry<ChaveSerie, List<ItemColecao>> entradaSerie) {
+        Serie representante = entradaSerie.getValue().stream()
+                .map(item -> item.getEdicao().getSerie())
+                .min(Comparator.comparing(Serie::getId))
+                .orElseThrow();
+
+        return new EstanteSerieDTO(
+                representante.getId(),
+                representante.getTitulo(),
+                entradaSerie.getKey().volume(),
+                montarEdicoes(entradaSerie.getValue()));
     }
 
     private List<EstanteEdicaoDTO> montarEdicoes(List<ItemColecao> itens) {
@@ -158,5 +172,65 @@ public class EstanteService {
 
     private String normalizarNumero(String valor) {
         return valor == null ? "" : valor;
+    }
+
+    private ChaveEditora chaveEditora(Editora editora) {
+        return new ChaveEditora(editora.getId(), editora.getNome());
+    }
+
+    private ChaveSerie chaveSerie(ItemColecao item) {
+        Serie serie = item.getEdicao().getSerie();
+        Integer volume = volumeParaAgrupamento(item);
+        return new ChaveSerie(normalizarTitulo(serie.getTitulo()), volume);
+    }
+
+    private Integer volumeParaAgrupamento(ItemColecao item) {
+        Serie serie = item.getEdicao().getSerie();
+        if (serie.getVolume() != null) {
+            return serie.getVolume();
+        }
+
+        Integer volumeDescricao = extrairVolumeSerie(item.getEdicao().getDescricao());
+        return volumeDescricao == null ? 1 : volumeDescricao;
+    }
+
+    private Integer extrairVolumeSerie(String descricao) {
+        if (descricao == null || descricao.isBlank()) {
+            return null;
+        }
+
+        Matcher matcher = SERIE_DESCRICAO.matcher(descricao);
+        return matcher.find() ? Integer.parseInt(matcher.group(1)) : null;
+    }
+
+    private String normalizarTitulo(String valor) {
+        List<String> palavras = new ArrayList<>(List.of(normalizar(valor).split("\\s+")));
+        palavras.removeIf(String::isBlank);
+
+        while (!palavras.isEmpty() && ARTIGOS.contains(palavras.get(0))) {
+            palavras.remove(0);
+        }
+        while (!palavras.isEmpty() && ARTIGOS.contains(palavras.get(palavras.size() - 1))) {
+            palavras.remove(palavras.size() - 1);
+        }
+
+        return String.join(" ", palavras);
+    }
+
+    private String normalizar(String valor) {
+        if (valor == null) {
+            return "";
+        }
+
+        return Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("[^a-z0-9]+", " ")
+                .trim();
+    }
+
+    private record ChaveEditora(Long id, String nome) {
+    }
+
+    private record ChaveSerie(String tituloOrdenacao, Integer volume) {
     }
 }
