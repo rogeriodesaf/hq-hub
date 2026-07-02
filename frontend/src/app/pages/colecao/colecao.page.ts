@@ -195,6 +195,7 @@ import {
           <label>
             Volume/fase da série
             <input type="number" min="1" [(ngModel)]="novaSerieVolume" name="novaSerieVolume" placeholder="1 para V1, 2 para V2..." />
+            <span class="texto-suave">Use para separar fases diferentes da mesma série. Ex.: Batman V1 para a fase antiga e Batman V2 para uma nova fase/relançamento.</span>
           </label>
 
           <label>
@@ -210,7 +211,7 @@ import {
                 name="gerarEdicoesAutomaticamente"
                 (ngModelChange)="alternarGeracaoAutomaticaEdicoes()"
               />
-              Gerar ediÃ§Ãµes automaticamente
+              Gerar edições automaticamente
             </label>
           }
 
