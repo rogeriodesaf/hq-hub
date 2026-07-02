@@ -44,7 +44,9 @@ import {
             <h2>Séries internas</h2>
             <p class="texto-suave">Acervo já cadastrado no HQ-HUB.</p>
           </div>
-          <span>{{ series().totalItens }} itens</span>
+          @if (seriesConsultadas()) {
+            <span>{{ series().totalItens }} itens</span>
+          }
         </div>
 
         <div class="controles-series">
@@ -57,7 +59,7 @@ import {
             Buscar
           </button>
           <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
-            <button type="button" [class.ativo]="inicialSeries() === ''" (click)="alterarInicialSeries('')">Todas</button>
+            <button type="button" [class.ativo]="inicialSeries() === '' && seriesConsultadas()" (click)="alterarInicialSeries('')">Todas</button>
             @for (letra of letrasIndice; track letra) {
               <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)">
                 {{ letra }}
@@ -66,6 +68,7 @@ import {
           </div>
         </div>
 
+        @if (seriesConsultadas()) {
         <div class="lista-linhas">
           @for (serie of series().itens; track serie.id) {
             <div class="linha-serie">
@@ -102,8 +105,9 @@ import {
             </section>
           }
         </div>
+        }
 
-        @if (series().totalPaginas > 1) {
+        @if (seriesConsultadas() && series().totalPaginas > 1) {
           <div class="paginacao catalogo-paginacao">
             <button class="botao secundario compacto" type="button" (click)="paginaAnteriorSeries()" [disabled]="series().pagina === 0">
               Anterior
@@ -151,7 +155,7 @@ import {
                   <button
                     class="botao primario compacto"
                     type="button"
-                    (click)="adicionarResultadoNaEstante(resultado)"
+                    (click)="abrirModalAdicionarNaEstante(resultado)"
                     [disabled]="salvandoItemColecao() === resultado.id"
                   >
                     {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : 'Adicionar à minha estante' }}
@@ -193,6 +197,76 @@ import {
         }
       </article>
     </section>
+
+    @if (resultadoParaEstante()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Adicionar edição à estante">
+        <div class="detalhe-fundo" (click)="fecharModalAdicionarNaEstante()"></div>
+        <article class="detalhe-painel modal-estante-catalogo">
+          <button class="fechar-detalhe" type="button" (click)="fecharModalAdicionarNaEstante()" aria-label="Fechar adição à estante">×</button>
+          <div class="detalhe-cabecalho">
+            <img
+              [src]="resultadoParaEstante()?.urlCapa || capaReserva"
+              [alt]="tituloResultadoEstante()"
+              (error)="usarCapaReserva($event)"
+            />
+            <div>
+              <p class="rotulo">Adicionar à estante</p>
+              <h2>{{ tituloResultadoEstante() }}</h2>
+              <div class="chips">
+                <span>#{{ resultadoParaEstante()?.numero || '-' }}</span>
+                <span>{{ resultadoParaEstante()?.nomeVolume || 'Volume não informado' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <form class="painel-formulario grade-formulario modal-estante-formulario" (ngSubmit)="confirmarAdicionarNaEstante()">
+            <label>
+              Conservação
+              <select [(ngModel)]="formularioItemColecao.estadoConservacao" name="estadoConservacaoCatalogo">
+                <option value="NOVO">Novo</option>
+                <option value="EXCELENTE">Excelente</option>
+                <option value="MUITO_BOM">Muito bom</option>
+                <option value="BOM">Bom</option>
+                <option value="REGULAR">Regular</option>
+                <option value="RUIM">Ruim</option>
+              </select>
+            </label>
+
+            <label>
+              Data da compra
+              <input type="date" [(ngModel)]="formularioItemColecao.dataAquisicao" name="dataAquisicaoCatalogo" />
+            </label>
+
+            <label>
+              Preço pago
+              <input type="number" min="0" step="0.01" [(ngModel)]="formularioItemColecao.precoPago" name="precoPagoCatalogo" placeholder="Vazio usa preço de capa" />
+            </label>
+
+            <label>
+              Leitura
+              <select [(ngModel)]="formularioItemColecao.statusLeitura" name="statusLeituraCatalogo">
+                <option value="NAO_LIDO">Não lido</option>
+                <option value="LIDO">Lido</option>
+              </select>
+            </label>
+
+            <label class="campo-largo">
+              Observações
+              <input [(ngModel)]="formularioItemColecao.observacoes" name="observacoesCatalogo" placeholder="Ex.: comprado em promoção, capa variante..." />
+            </label>
+
+            <div class="acoes-formulario campo-largo">
+              <button class="botao primario" type="submit" [disabled]="!!salvandoItemColecao()">
+                {{ salvandoItemColecao() ? 'Adicionando...' : 'Adicionar à estante' }}
+              </button>
+              <button class="botao secundario" type="button" (click)="fecharModalAdicionarNaEstante()" [disabled]="!!salvandoItemColecao()">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </article>
+      </section>
+    }
 
     @if (exibirPainelDetalhe()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
@@ -704,6 +778,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
   readonly salvandoItemColecao = signal<number | null>(null);
+  readonly resultadoParaEstante = signal<ResultadoPesquisaCatalogo | null>(null);
+  readonly seriesConsultadas = signal(false);
   readonly previewCapaSelecionada = signal<string | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
@@ -721,6 +797,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioEdicao = this.formularioEdicaoVazio();
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
+  formularioItemColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
@@ -744,7 +821,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.carregarSeriesInternas();
     this.carregarEditoras();
   }
 
@@ -766,7 +842,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   selecionarSerie(serie: Serie) {
     this.serieSelecionada.set(serie);
-    this.busca = serie.titulo;
+    this.busca = '';
+    this.buscaSeries = '';
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
   }
@@ -840,6 +917,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   buscarSeriesInternas() {
+    this.serieSelecionada.set(null);
     this.carregarSeriesInternas(0);
   }
 
@@ -931,6 +1009,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   alterarInicialSeries(inicial: string) {
     this.inicialSeries.set(inicial);
+    this.buscaSeries = '';
+    this.serieSelecionada.set(null);
     this.carregarSeriesInternas(0);
   }
 
@@ -975,8 +1055,38 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.abrirDetalhePorId(resultado.id);
   }
 
-  adicionarResultadoNaEstante(resultado: ResultadoPesquisaCatalogo) {
+  abrirModalAdicionarNaEstante(resultado: ResultadoPesquisaCatalogo) {
     if (!resultado.id || resultado.fonte !== 'HQ_HUB') {
+      this.mensagem.set('Selecione uma edição interna para adicionar à estante.');
+      return;
+    }
+
+    this.resultadoParaEstante.set(resultado);
+    this.formularioItemColecao = this.formularioItemColecaoVazio();
+    this.mensagem.set('');
+  }
+
+  fecharModalAdicionarNaEstante() {
+    if (this.salvandoItemColecao()) {
+      return;
+    }
+
+    this.resultadoParaEstante.set(null);
+    this.formularioItemColecao = this.formularioItemColecaoVazio();
+  }
+
+  tituloResultadoEstante() {
+    const resultado = this.resultadoParaEstante();
+    if (!resultado) {
+      return 'Edição';
+    }
+
+    return resultado.titulo || resultado.nomeVolume || `Edição #${resultado.numero || '-'}`;
+  }
+
+  confirmarAdicionarNaEstante() {
+    const resultado = this.resultadoParaEstante();
+    if (!resultado?.id) {
       this.mensagem.set('Selecione uma edição interna para adicionar à estante.');
       return;
     }
@@ -985,14 +1095,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.mensagem.set('');
     this.api.cadastrarItemColecao({
       edicaoId: resultado.id,
-      estadoConservacao: 'BOM',
-      dataAquisicao: null,
-      precoPago: null,
-      statusLeitura: 'NAO_LIDO',
-      observacoes: null,
+      estadoConservacao: this.formularioItemColecao.estadoConservacao,
+      dataAquisicao: this.formularioItemColecao.dataAquisicao || null,
+      precoPago: this.formularioItemColecao.precoPago,
+      statusLeitura: this.formularioItemColecao.statusLeitura,
+      observacoes: this.formularioItemColecao.observacoes.trim() || null,
     }).subscribe({
       next: () => {
         this.salvandoItemColecao.set(null);
+        this.resultadoParaEstante.set(null);
+        this.formularioItemColecao = this.formularioItemColecaoVazio();
         this.mensagem.set('Edição adicionada à sua estante.');
       },
       error: (erro) => {
@@ -1772,8 +1884,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private carregarSeriesInternas(pagina = this.series().pagina) {
     this.api.listarSeries(this.buscaSeries, pagina, this.tamanhoSeries, this.inicialSeries()).subscribe({
-      next: (resposta) => this.series.set(resposta),
-      error: () => this.mensagem.set('Não foi possível carregar as séries internas agora.'),
+      next: (resposta) => {
+        this.series.set(resposta);
+        this.seriesConsultadas.set(true);
+      },
+      error: () => {
+        this.seriesConsultadas.set(true);
+        this.mensagem.set('Não foi possível carregar as séries internas agora.');
+      },
     });
   }
 
@@ -1908,6 +2026,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
       precoCapa: null as number | null,
       formato: '',
       urlOrigem: '',
+    };
+  }
+
+  private formularioItemColecaoVazio() {
+    return {
+      estadoConservacao: 'MUITO_BOM',
+      dataAquisicao: '',
+      precoPago: null as number | null,
+      statusLeitura: 'NAO_LIDO',
+      observacoes: '',
     };
   }
 

@@ -2170,6 +2170,21 @@ body.tema-escuro .sugestoes-assistente {
   white-space: normal;
 }
 
+.modal-estante-catalogo {
+  width: min(720px, calc(100vw - 24px));
+  height: auto;
+  max-height: calc(100vh - 24px);
+  align-self: center;
+}
+
+.modal-estante-formulario {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.modal-estante-formulario .campo-largo {
+  grid-column: 1 / -1;
+}
+
 .mini-capa strong,
 .mini-capa span,
 .mini-capa small {
