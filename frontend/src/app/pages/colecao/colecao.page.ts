@@ -203,6 +203,18 @@ import {
           </label>
 
           @if (!serieSelecionadaManual()) {
+            <label class="checkbox-formulario campo-largo">
+              <input
+                type="checkbox"
+                [(ngModel)]="gerarEdicoesAutomaticamente"
+                name="gerarEdicoesAutomaticamente"
+                (ngModelChange)="alternarGeracaoAutomaticaEdicoes()"
+              />
+              Gerar ediÃ§Ãµes automaticamente
+            </label>
+          }
+
+          @if (!serieSelecionadaManual() && gerarEdicoesAutomaticamente) {
             <section class="geracao-edicoes campo-largo">
               <div>
                 <h3>Geração automática de edições</h3>
@@ -224,7 +236,11 @@ import {
                 </label>
               </div>
 
-              @if (previewEdicoesAutomaticas().length) {
+              <button class="botao compacto" type="button" (click)="gerarPreviaEdicoesAutomaticas()">
+                Gerar PrÃ©via
+              </button>
+
+              @if (previewGeradoEdicoesAutomaticas && previewEdicoesAutomaticas().length) {
                 <div class="preview-edicoes-automaticas">
                   @for (edicao of previewEdicoesAutomaticas(); track edicao) {
                     <span>{{ edicao }}</span>
@@ -600,6 +616,8 @@ export class ColecaoPage implements OnInit {
   novaSerieTitulo = '';
   novaSerieVolume: number | null = 1;
   novaSerieAnoInicio: number | null = null;
+  gerarEdicoesAutomaticamente = false;
+  previewGeradoEdicoesAutomaticas = false;
   quantidadeEdicoesAutomaticas: number | null = null;
   numeroInicialEdicoesAutomaticas: number | null = 1;
   intervaloEdicoesAutomaticas: number | null = 1;
@@ -734,6 +752,7 @@ export class ColecaoPage implements OnInit {
 
   selecionarSerieManual(serie: Serie) {
     this.serieSelecionadaManual.set(serie);
+    this.limparGeracaoAutomaticaEdicoes();
     this.novaSerieTitulo = serie.titulo;
     this.novaSerieVolume = serie.volume;
     this.novaSerieAnoInicio = serie.anoInicio;
@@ -752,6 +771,26 @@ export class ColecaoPage implements OnInit {
     this.novaSerieVolume = 1;
     this.novaSerieAnoInicio = null;
     this.seriesSugeridas.set([]);
+  }
+
+  alternarGeracaoAutomaticaEdicoes() {
+    this.previewGeradoEdicoesAutomaticas = false;
+    if (!this.gerarEdicoesAutomaticamente) {
+      this.limparGeracaoAutomaticaEdicoes();
+      return;
+    }
+
+    this.numeroInicialEdicoesAutomaticas ??= 1;
+    this.intervaloEdicoesAutomaticas ??= 1;
+  }
+
+  gerarPreviaEdicoesAutomaticas() {
+    if (!this.validarGeracaoAutomaticaEdicoes()) {
+      this.previewGeradoEdicoesAutomaticas = false;
+      return;
+    }
+
+    this.previewGeradoEdicoesAutomaticas = true;
   }
 
   alternarEdicaoSemNumero() {
@@ -1696,15 +1735,20 @@ export class ColecaoPage implements OnInit {
     return resposta.error?.mensagem ?? mensagemPadrao;
   }
 
+  private limparGeracaoAutomaticaEdicoes() {
+    this.gerarEdicoesAutomaticamente = false;
+    this.previewGeradoEdicoesAutomaticas = false;
+    this.quantidadeEdicoesAutomaticas = null;
+    this.numeroInicialEdicoesAutomaticas = 1;
+    this.intervaloEdicoesAutomaticas = 1;
+  }
+
   private parametrosGeracaoAutomatica() {
-    if (this.serieSelecionadaManual()) {
+    if (!this.gerarEdicoesAutomaticamente || this.serieSelecionadaManual()) {
       return null;
     }
 
     const quantidade = this.quantidadeEdicoesAutomaticas;
-    if (quantidade === null || quantidade === undefined || quantidade === 0) {
-      return null;
-    }
 
     return {
       quantidade: Number(quantidade),
@@ -1714,6 +1758,10 @@ export class ColecaoPage implements OnInit {
   }
 
   private validarGeracaoAutomaticaEdicoes() {
+    if (!this.gerarEdicoesAutomaticamente) {
+      return true;
+    }
+
     const parametros = this.parametrosGeracaoAutomatica();
     if (!parametros) {
       return true;
@@ -1803,9 +1851,7 @@ export class ColecaoPage implements OnInit {
     this.novaSerieTitulo = '';
     this.novaSerieVolume = 1;
     this.novaSerieAnoInicio = null;
-    this.quantidadeEdicoesAutomaticas = null;
-    this.numeroInicialEdicoesAutomaticas = 1;
-    this.intervaloEdicoesAutomaticas = 1;
+    this.limparGeracaoAutomaticaEdicoes();
     this.novaEdicaoNumero = '';
     this.novaEdicaoSemNumero = false;
     this.novaEdicaoTitulo = '';
