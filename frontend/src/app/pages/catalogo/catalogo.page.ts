@@ -842,8 +842,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   selecionarSerie(serie: Serie) {
     this.serieSelecionada.set(serie);
-    this.busca = '';
-    this.buscaSeries = '';
+    this.limparPesquisaSeries();
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
   }
@@ -1893,6 +1892,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.mensagem.set('Não foi possível carregar as séries internas agora.');
       },
     });
+  }
+
+  private limparPesquisaSeries() {
+    this.busca = '';
+    this.buscaSeries = '';
+    this.inicialSeries.set('');
+    this.seriesConsultadas.set(false);
+    this.series.set({ itens: [], pagina: 0, tamanho: this.tamanhoSeries, totalItens: 0, totalPaginas: 0 });
   }
 
   private carregarEditoras() {
