@@ -202,6 +202,41 @@ import {
             <input type="number" min="1900" max="2100" [(ngModel)]="novaSerieAnoInicio" name="novaSerieAnoInicio" />
           </label>
 
+          @if (!serieSelecionadaManual()) {
+            <section class="geracao-edicoes campo-largo">
+              <div>
+                <h3>Geração automática de edições</h3>
+                <p class="texto-suave">As edições serão criadas automaticamente e poderão ser editadas posteriormente.</p>
+              </div>
+
+              <div class="grade-formulario geracao-edicoes-campos">
+                <label>
+                  Quantidade de edições
+                  <input type="number" min="1" max="500" step="1" [(ngModel)]="quantidadeEdicoesAutomaticas" name="quantidadeEdicoesAutomaticas" />
+                </label>
+                <label>
+                  Número inicial
+                  <input type="number" min="0" step="1" [(ngModel)]="numeroInicialEdicoesAutomaticas" name="numeroInicialEdicoesAutomaticas" />
+                </label>
+                <label>
+                  Intervalo da numeração
+                  <input type="number" min="1" step="1" [(ngModel)]="intervaloEdicoesAutomaticas" name="intervaloEdicoesAutomaticas" />
+                </label>
+              </div>
+
+              @if (previewEdicoesAutomaticas().length) {
+                <div class="preview-edicoes-automaticas">
+                  @for (edicao of previewEdicoesAutomaticas(); track edicao) {
+                    <span>{{ edicao }}</span>
+                  }
+                  @if (totalEdicoesAutomaticasRestantes() > 0) {
+                    <em>+{{ totalEdicoesAutomaticasRestantes() }} edições</em>
+                  }
+                </div>
+              }
+            </section>
+          }
+
           <label>
             Número da edição
             <input [(ngModel)]="novaEdicaoNumero" name="novaEdicaoNumero" [disabled]="novaEdicaoSemNumero" placeholder="1, 25, 300..." />
@@ -565,6 +600,9 @@ export class ColecaoPage implements OnInit {
   novaSerieTitulo = '';
   novaSerieVolume: number | null = 1;
   novaSerieAnoInicio: number | null = null;
+  quantidadeEdicoesAutomaticas: number | null = null;
+  numeroInicialEdicoesAutomaticas: number | null = 1;
+  intervaloEdicoesAutomaticas: number | null = 1;
   novaEdicaoNumero = '';
   novaEdicaoSemNumero = false;
   novaEdicaoTitulo = '';
@@ -964,6 +1002,10 @@ export class ColecaoPage implements OnInit {
       return;
     }
 
+    if (!this.validarGeracaoAutomaticaEdicoes()) {
+      return;
+    }
+
     this.salvandoItem.set(true);
     this.mensagem.set('');
 
@@ -1003,6 +1045,35 @@ export class ColecaoPage implements OnInit {
     } finally {
       this.salvandoItem.set(false);
     }
+  }
+
+  previewEdicoesAutomaticas() {
+    const parametros = this.parametrosGeracaoAutomatica();
+    if (!parametros || !this.novaSerieTitulo.trim()) {
+      return [];
+    }
+    if (
+      !Number.isInteger(parametros.quantidade) ||
+      parametros.quantidade < 1 ||
+      parametros.quantidade > 500 ||
+      !Number.isInteger(parametros.numeroInicial) ||
+      parametros.numeroInicial < 0 ||
+      !Number.isInteger(parametros.intervalo) ||
+      parametros.intervalo < 1
+    ) {
+      return [];
+    }
+
+    const limite = Math.min(parametros.quantidade, 20);
+    return Array.from({ length: limite }, (_, indice) => {
+      const numero = parametros.numeroInicial + indice * parametros.intervalo;
+      return `${this.novaSerieTitulo.trim()} #${numero}`;
+    });
+  }
+
+  totalEdicoesAutomaticasRestantes() {
+    const parametros = this.parametrosGeracaoAutomatica();
+    return parametros ? Math.max(parametros.quantidade - 20, 0) : 0;
   }
 
   tituloEdicao(edicao: Edicao) {
@@ -1449,20 +1520,30 @@ export class ColecaoPage implements OnInit {
       return serieExistente;
     }
 
-    return await firstValueFrom(
-      this.api.cadastrarSerie({
-        titulo: this.novaSerieTitulo.trim(),
-        descricao: null,
-        anoInicio: this.novaSerieAnoInicio,
-        anoFim: null,
-        volume: this.novaSerieVolume,
-        ordemCronologica: this.novaSerieVolume,
-        fonteExterna: null,
-        idExterno: null,
-        urlOrigem: null,
-        editoraId,
-      }),
-    );
+    const serie = {
+      titulo: this.novaSerieTitulo.trim(),
+      descricao: null,
+      anoInicio: this.novaSerieAnoInicio,
+      anoFim: null,
+      volume: this.novaSerieVolume,
+      ordemCronologica: this.novaSerieVolume,
+      fonteExterna: null,
+      idExterno: null,
+      urlOrigem: null,
+      editoraId,
+    };
+    const geracao = this.parametrosGeracaoAutomatica();
+
+    if (geracao) {
+      return await firstValueFrom(
+        this.api.cadastrarSerieComEdicoes({
+          serie,
+          geracaoAutomaticaEdicoes: geracao,
+        }),
+      );
+    }
+
+    return await firstValueFrom(this.api.cadastrarSerie(serie));
   }
 
   private async obterOuCriarSeriePorDados(dados: {
@@ -1503,8 +1584,7 @@ export class ColecaoPage implements OnInit {
     const edicaoExistente = resultado.itens.find(
       (edicao) =>
         edicao.serie?.id === serieId &&
-        this.normalizar(edicao.numero) === this.normalizar(numero) &&
-        this.normalizar(edicao.titulo || '') === this.normalizar(this.novaEdicaoTitulo || ''),
+        this.normalizar(edicao.numero) === this.normalizar(numero),
     );
 
     if (edicaoExistente) {
@@ -1616,6 +1696,47 @@ export class ColecaoPage implements OnInit {
     return resposta.error?.mensagem ?? mensagemPadrao;
   }
 
+  private parametrosGeracaoAutomatica() {
+    if (this.serieSelecionadaManual()) {
+      return null;
+    }
+
+    const quantidade = this.quantidadeEdicoesAutomaticas;
+    if (quantidade === null || quantidade === undefined || quantidade === 0) {
+      return null;
+    }
+
+    return {
+      quantidade: Number(quantidade),
+      numeroInicial: this.numeroInicialEdicoesAutomaticas ?? 1,
+      intervalo: this.intervaloEdicoesAutomaticas ?? 1,
+    };
+  }
+
+  private validarGeracaoAutomaticaEdicoes() {
+    const parametros = this.parametrosGeracaoAutomatica();
+    if (!parametros) {
+      return true;
+    }
+
+    if (!Number.isInteger(parametros.quantidade) || parametros.quantidade < 1 || parametros.quantidade > 500) {
+      this.mensagem.set('Quantidade de edições deve ser um número inteiro entre 1 e 500.');
+      return false;
+    }
+
+    if (!Number.isInteger(parametros.numeroInicial) || parametros.numeroInicial < 0) {
+      this.mensagem.set('Número inicial deve ser um número inteiro maior ou igual a zero.');
+      return false;
+    }
+
+    if (!Number.isInteger(parametros.intervalo) || parametros.intervalo < 1) {
+      this.mensagem.set('Intervalo da numeração deve ser um número inteiro maior que zero.');
+      return false;
+    }
+
+    return true;
+  }
+
   private numeroManualTratado() {
     return this.novaEdicaoSemNumero ? 'UNICA' : this.novaEdicaoNumero.trim();
   }
@@ -1682,6 +1803,9 @@ export class ColecaoPage implements OnInit {
     this.novaSerieTitulo = '';
     this.novaSerieVolume = 1;
     this.novaSerieAnoInicio = null;
+    this.quantidadeEdicoesAutomaticas = null;
+    this.numeroInicialEdicoesAutomaticas = 1;
+    this.intervaloEdicoesAutomaticas = 1;
     this.novaEdicaoNumero = '';
     this.novaEdicaoSemNumero = false;
     this.novaEdicaoTitulo = '';

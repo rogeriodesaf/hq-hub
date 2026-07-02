@@ -323,6 +323,28 @@ export class ApiService {
     return this.http.post<Serie>('/api/series', dto);
   }
 
+  cadastrarSerieComEdicoes(dto: {
+    serie: {
+      titulo: string;
+      descricao: string | null;
+      anoInicio: number | null;
+      anoFim: number | null;
+      volume: number | null;
+      ordemCronologica: number | null;
+      fonteExterna: string | null;
+      idExterno: string | null;
+      urlOrigem: string | null;
+      editoraId: number;
+    };
+    geracaoAutomaticaEdicoes: {
+      quantidade: number;
+      numeroInicial: number | null;
+      intervalo: number | null;
+    };
+  }) {
+    return this.http.post<Serie>('/api/series/com-edicoes', dto);
+  }
+
   atualizarSerie(id: number, dto: {
     titulo: string;
     descricao: string | null;

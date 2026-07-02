@@ -948,6 +948,7 @@ body.tema-escuro .toast-sistema.info {
 
 body.tema-escuro .painel-formulario,
 body.tema-escuro .abas-filtro,
+body.tema-escuro .geracao-edicoes,
 body.tema-escuro .filtro-criador,
 body.tema-escuro .pessoas-encontradas button,
 body.tema-escuro .fechar-detalhe,
@@ -980,7 +981,9 @@ body.tema-escuro .resultado-catalogo,
 body.tema-escuro .publicacao-card,
 body.tema-escuro .detalhe-secao,
 body.tema-escuro .prateleira,
-body.tema-escuro .painel-estante {
+body.tema-escuro .painel-estante,
+body.tema-escuro .preview-edicoes-automaticas span,
+body.tema-escuro .preview-edicoes-automaticas em {
   color: var(--texto);
 }
 
@@ -1070,6 +1073,40 @@ body.tema-escuro .sugestoes-assistente {
 
 .grade-formulario .campo-largo {
   grid-column: span 2;
+}
+
+.geracao-edicoes {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.geracao-edicoes h3 {
+  margin: 0;
+}
+
+.geracao-edicoes-campos {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.preview-edicoes-automaticas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preview-edicoes-automaticas span,
+.preview-edicoes-automaticas em {
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: var(--superficie-2);
+  color: var(--texto-suave);
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 750;
 }
 
 .abas-filtro {
@@ -3241,6 +3278,10 @@ body.tema-escuro .banner-apoio span {
   }
 
   .grade-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .geracao-edicoes-campos {
     grid-template-columns: 1fr;
   }
 

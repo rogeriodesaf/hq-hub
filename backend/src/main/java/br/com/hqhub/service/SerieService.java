@@ -1,11 +1,15 @@
 package br.com.hqhub.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hqhub.dto.AtualizacaoSerieDTO;
+import br.com.hqhub.dto.CadastroSerieComEdicoesDTO;
 import br.com.hqhub.dto.CadastroSerieDTO;
+import br.com.hqhub.dto.GeracaoAutomaticaEdicoesDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.dto.SerieRespostaDTO;
+import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
@@ -34,6 +38,18 @@ public class SerieService {
 
     @Transactional
     public SerieRespostaDTO cadastrar(CadastroSerieDTO dto) {
+        Serie serie = cadastrarEntidade(dto);
+        return serieMapper.paraResposta(serie);
+    }
+
+    @Transactional
+    public SerieRespostaDTO cadastrarComEdicoes(CadastroSerieComEdicoesDTO dto) {
+        Serie serie = cadastrarEntidade(dto.serie());
+        gerarEdicoesAutomaticas(serie, dto.geracaoAutomaticaEdicoes());
+        return serieMapper.paraResposta(serie);
+    }
+
+    private Serie cadastrarEntidade(CadastroSerieDTO dto) {
         validarPeriodo(dto.anoInicio(), dto.anoFim());
 
         Editora editora = buscarEditoraPorId(dto.editoraId());
@@ -51,7 +67,29 @@ public class SerieService {
         Serie serie = serieMapper.paraEntidade(dto, editora);
         serieRepository.persist(serie);
 
-        return serieMapper.paraResposta(serie);
+        return serie;
+    }
+
+    private void gerarEdicoesAutomaticas(Serie serie, GeracaoAutomaticaEdicoesDTO geracao) {
+        if (geracao == null || geracao.quantidade() == null) {
+            return;
+        }
+
+        int quantidade = geracao.quantidade();
+        int numeroInicial = geracao.numeroInicial() == null ? 1 : geracao.numeroInicial();
+        int intervalo = geracao.intervalo() == null ? 1 : geracao.intervalo();
+        List<Edicao> edicoes = new ArrayList<>(quantidade);
+
+        for (int indice = 0; indice < quantidade; indice++) {
+            long numero = (long) numeroInicial + (long) indice * intervalo;
+            Edicao edicao = new Edicao();
+            edicao.setSerie(serie);
+            edicao.setNumero(String.valueOf(numero));
+            edicao.setTitulo(serie.getTitulo() + " #" + numero);
+            edicoes.add(edicao);
+        }
+
+        edicaoRepository.persist(edicoes);
     }
 
     @Transactional

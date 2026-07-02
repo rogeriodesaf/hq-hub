@@ -2,6 +2,7 @@ package br.com.hqhub.resource;
 
 import java.net.URI;
 import br.com.hqhub.dto.AtualizacaoSerieDTO;
+import br.com.hqhub.dto.CadastroSerieComEdicoesDTO;
 import br.com.hqhub.dto.CadastroSerieDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.dto.SerieRespostaDTO;
@@ -39,6 +40,15 @@ public class SerieResource {
     @POST
     public Response cadastrar(@Valid CadastroSerieDTO dto) {
         SerieRespostaDTO serie = serieService.cadastrar(dto);
+        return Response.created(URI.create("/series/" + serie.id()))
+                .entity(serie)
+                .build();
+    }
+
+    @POST
+    @Path("/com-edicoes")
+    public Response cadastrarComEdicoes(@Valid CadastroSerieComEdicoesDTO dto) {
+        SerieRespostaDTO serie = serieService.cadastrarComEdicoes(dto);
         return Response.created(URI.create("/series/" + serie.id()))
                 .entity(serie)
                 .build();
