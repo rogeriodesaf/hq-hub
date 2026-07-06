@@ -61,7 +61,7 @@ interface EdicaoDescoberta {
     <section class="cabecalho-pagina">
       <div>
         <p class="rotulo">Descobrir</p>
-        <h1>Encontre títulos e carregue edições em ordem cronológica.</h1>
+        <h1>Pesquise edições estrangeiras e consulte publicações em ordem cronológica.</h1>
       </div>
     </section>
 
