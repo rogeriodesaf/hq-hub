@@ -45,6 +45,59 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
           </button>
         </div>
 
+        <section class="gerador-rascunho">
+          <div class="secao-titulo compacta">
+            <div>
+              <h3>Gerar rascunho pelo robo</h3>
+              <p class="texto-suave">Fluxo novo em teste. Ele preenche o JSON para revisao antes da importacao.</p>
+            </div>
+          </div>
+
+          <div class="grade-importacao-visual">
+            <label class="campo-largo">
+              URL do Guia
+              <small>Use a pagina /capas da serie quando houver varias edicoes.</small>
+              <input [(ngModel)]="rascunho.urlGuia" name="rascunhoUrlGuia" placeholder="https://www.guiadosquadrinhos.com/capas/..." />
+            </label>
+            <label class="campo-largo">
+              URL inicial da Panini
+              <small>Ex.: ...-01 ou ...-01-08.</small>
+              <input [(ngModel)]="rascunho.urlPaniniInicial" name="rascunhoUrlPanini" placeholder="https://panini.com.br/..." />
+            </label>
+            <label>
+              Quantidade
+              <small>Edicoes</small>
+              <input type="number" min="1" [(ngModel)]="rascunho.quantidade" name="rascunhoQuantidade" />
+            </label>
+            <label>
+              Titulo
+              <small>serieBrasileira.titulo</small>
+              <input [(ngModel)]="rascunho.tituloSerie" name="rascunhoTituloSerie" />
+            </label>
+            <label>
+              Fase
+              <small>serieBrasileira.fase</small>
+              <input [(ngModel)]="rascunho.fase" name="rascunhoFase" />
+            </label>
+            <label>
+              Editora
+              <small>serieBrasileira.editora</small>
+              <input [(ngModel)]="rascunho.editora" name="rascunhoEditora" />
+            </label>
+            <label>
+              Volume
+              <small>serieBrasileira.volume</small>
+              <input type="number" min="1" [(ngModel)]="rascunho.volume" name="rascunhoVolume" />
+            </label>
+          </div>
+
+          <div class="acoes-importacao">
+            <button class="botao primario compacto" type="button" (click)="gerarRascunhoPeloRobo()" [disabled]="gerandoRascunho()">
+              {{ gerandoRascunho() ? 'Gerando...' : 'Gerar JSON' }}
+            </button>
+          </div>
+        </section>
+
         <details class="editor-visual-importacao" open>
           <summary>Cadastro visual do JSON</summary>
           <aside class="dica-importacao-colaborador">
@@ -452,6 +505,7 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
     }
 
     .editor-visual-importacao,
+    .gerador-rascunho,
     .edicao-visual,
     .historia-visual {
       display: grid;
@@ -680,6 +734,7 @@ export class ImportacaoPage {
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
   readonly mensagem = signal('');
   readonly importando = signal(false);
+  readonly gerandoRascunho = signal(false);
   readonly nomeArquivo = signal('');
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -689,6 +744,15 @@ export class ImportacaoPage {
   numeroEdicaoCapa = '';
   urlCapaManual = '';
   jsonTexto = '';
+  rascunho = {
+    urlGuia: '',
+    urlPaniniInicial: '',
+    quantidade: 1,
+    tituloSerie: '',
+    fase: '',
+    editora: 'Panini',
+    volume: 1,
+  };
   visualImportacao: any = this.modeloImportacao();
 
   selecionarArquivo(evento: Event) {
@@ -763,6 +827,40 @@ export class ImportacaoPage {
     this.jsonTexto = JSON.stringify(corpo, null, 2);
     this.visualImportacao = this.completarVisualImportacao(corpo);
     this.mensagem.set('Historia adicionada ao JSON carregado.');
+  }
+
+  gerarRascunhoPeloRobo() {
+    this.mensagem.set('');
+    this.resultado.set(null);
+
+    const validacao = this.validarGeracaoRascunho();
+    if (validacao) {
+      this.mensagem.set(validacao);
+      return;
+    }
+
+    this.gerandoRascunho.set(true);
+    this.api.gerarRascunhoImportacao({
+      urlGuia: this.rascunho.urlGuia.trim(),
+      urlPaniniInicial: this.rascunho.urlPaniniInicial.trim() || null,
+      quantidade: Number(this.rascunho.quantidade),
+      tituloSerie: this.rascunho.tituloSerie.trim(),
+      fase: this.rascunho.fase.trim() || null,
+      editora: this.rascunho.editora.trim(),
+      volume: this.rascunho.volume ? Number(this.rascunho.volume) : null,
+    }).subscribe({
+      next: (rascunho) => {
+        this.jsonTexto = JSON.stringify(rascunho, null, 2);
+        this.nomeArquivo.set('rascunho-gerado-pelo-robo.json');
+        this.carregarVisualDoJson(false);
+        this.gerandoRascunho.set(false);
+        this.mensagem.set('JSON gerado pelo robo. Revise o conteudo antes de importar para o catalogo.');
+      },
+      error: (erro) => {
+        this.gerandoRascunho.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel gerar o rascunho pelo robo.');
+      },
+    });
   }
 
   importar() {
@@ -1090,6 +1188,22 @@ export class ImportacaoPage {
     const edicaoSemNumero = corpo.edicoes.findIndex((edicao: any) => !String(edicao?.numero || '').trim());
     if (edicaoSemNumero >= 0) {
       return `Preencha edicoes[${edicaoSemNumero}].numero antes de importar.`;
+    }
+    return '';
+  }
+
+  private validarGeracaoRascunho() {
+    if (!this.rascunho.urlGuia.trim()) {
+      return 'Informe a URL do Guia antes de gerar o JSON.';
+    }
+    if (!this.rascunho.tituloSerie.trim()) {
+      return 'Informe o titulo da serie antes de gerar o JSON.';
+    }
+    if (!this.rascunho.editora.trim()) {
+      return 'Informe a editora antes de gerar o JSON.';
+    }
+    if (!Number(this.rascunho.quantidade) || Number(this.rascunho.quantidade) < 1) {
+      return 'Informe uma quantidade de edicoes maior que zero.';
     }
     return '';
   }

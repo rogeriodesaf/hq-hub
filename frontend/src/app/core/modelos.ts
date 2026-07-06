@@ -534,6 +534,16 @@ export interface ResultadoImportacaoCatalogo {
   avisos: string[];
 }
 
+export interface GeracaoRascunhoImportacao {
+  urlGuia: string;
+  urlPaniniInicial: string | null;
+  quantidade: number;
+  tituloSerie: string;
+  fase: string | null;
+  editora: string;
+  volume: number | null;
+}
+
 export interface Amizade {
   id: number;
   solicitante: Usuario;

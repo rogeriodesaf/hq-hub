@@ -26,6 +26,7 @@ import {
   EdicaoComicVine,
   EstanteEditora,
   EstatisticasPublicasColecao,
+  GeracaoRascunhoImportacao,
   Historia,
   InteracaoItemColecao,
   InteracaoSocialColecao,
@@ -767,6 +768,10 @@ export class ApiService {
 
   importarCatalogo(jsonImportacao: unknown) {
     return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao);
+  }
+
+  gerarRascunhoImportacao(dto: GeracaoRascunhoImportacao) {
+    return this.http.post<unknown>('/api/importacoes/catalogo/gerar-rascunho', dto);
   }
 
   cadastrarContribuicaoCatalogo(dto: {

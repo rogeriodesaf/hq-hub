@@ -5,8 +5,10 @@ import java.sql.SQLTransientException;
 import java.util.List;
 import java.util.Set;
 
+import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
+import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.LockAcquisitionException;
@@ -39,10 +41,15 @@ public class ImportacaoCatalogoResource {
     );
 
     private final ImportacaoCatalogoService importacaoCatalogoService;
+    private final GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService;
     private final SecurityIdentity securityIdentity;
 
-    public ImportacaoCatalogoResource(ImportacaoCatalogoService importacaoCatalogoService, SecurityIdentity securityIdentity) {
+    public ImportacaoCatalogoResource(
+            ImportacaoCatalogoService importacaoCatalogoService,
+            GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService,
+            SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
+        this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
         this.securityIdentity = securityIdentity;
     }
 
@@ -72,6 +79,13 @@ public class ImportacaoCatalogoResource {
         }
 
         throw ultimaFalha == null ? new IllegalStateException("Falha inesperada na importacao.") : ultimaFalha;
+    }
+
+    @POST
+    @Path("/gerar-rascunho")
+    public Response gerarRascunho(@Valid GeracaoRascunhoImportacaoDTO dto) {
+        ImportacaoCatalogoDTO rascunho = geracaoRascunhoImportacaoService.gerar(dto);
+        return Response.ok(rascunho).build();
     }
 
     @POST
