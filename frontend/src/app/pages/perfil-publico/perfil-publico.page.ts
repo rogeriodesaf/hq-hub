@@ -512,7 +512,7 @@ import {
       width: 80px;
       height: 80px;
       place-items: center;
-      border-radius: 12px;
+      border-radius: 999px;
       overflow: hidden;
       background: var(--azul);
       color: #fff;
@@ -634,7 +634,7 @@ import {
       width: 44px;
       height: 44px;
       place-items: center;
-      border-radius: 8px;
+      border-radius: 999px;
       background: var(--azul);
       color: #fff;
       font-weight: 900;

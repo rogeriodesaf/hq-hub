@@ -18,13 +18,25 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
         <section class="perfil-hero">
           <div class="perfil-capa"></div>
           <div class="perfil-identidade">
-            <div class="avatar-perfil">
-              @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
-                <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
-              } @else {
-                {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
-              }
-            </div>
+            @if (modo() === 'edicao') {
+              <label class="avatar-perfil avatar-perfil-editavel" [class.carregando]="salvandoFoto()">
+                @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
+                  <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
+                } @else {
+                  {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
+                }
+                <span>{{ salvandoFoto() ? 'Enviando...' : 'Trocar foto' }}</span>
+                <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarFotoPerfil($event)" />
+              </label>
+            } @else {
+              <div class="avatar-perfil">
+                @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
+                  <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
+                } @else {
+                  {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
+                }
+              </div>
+            }
             <div>
               <p class="rotulo">Perfil</p>
               <h1>{{ usuarioVisualizacao()?.nome || perfilNome || 'Seu perfil' }}</h1>
@@ -48,12 +60,6 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
           </div>
 
           <div class="perfil-acoes">
-            @if (modo() === 'edicao') {
-              <label class="botao compacto secundario seletor-foto">
-                Trocar foto
-                <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarFotoPerfil($event)" />
-              </label>
-            }
             <a class="botao compacto" routerLink="/painel">Voltar ao feed</a>
           </div>
         </section>
@@ -208,6 +214,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
     }
 
     .avatar-perfil {
+      position: relative;
       display: grid;
       width: 116px;
       height: 116px;
@@ -220,6 +227,34 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       font-size: 2rem;
       font-weight: 900;
       box-shadow: 0 12px 32px rgba(21, 25, 31, 0.22);
+    }
+
+    .avatar-perfil-editavel {
+      cursor: pointer;
+    }
+
+    .avatar-perfil-editavel input {
+      display: none;
+    }
+
+    .avatar-perfil-editavel span {
+      position: absolute;
+      inset: auto 0 0;
+      display: grid;
+      min-height: 34px;
+      place-items: center;
+      padding: 0 8px;
+      background: rgba(21, 25, 31, 0.72);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .avatar-perfil-editavel.carregando {
+      pointer-events: none;
+      opacity: 0.78;
     }
 
     .avatar-perfil img {
@@ -465,6 +500,7 @@ export class PerfilPage implements OnInit {
   readonly usuarioVisualizacao = signal<(Usuario | UsuarioAutenticado) | null>(null);
   readonly modo = signal<'edicao' | 'visualizacao'>('edicao');
   readonly salvandoPerfil = signal(false);
+  readonly salvandoFoto = signal(false);
   readonly salvandoSenha = signal(false);
   readonly mensagem = signal('');
   readonly mensagemSenha = signal('');
@@ -524,16 +560,16 @@ export class PerfilPage implements OnInit {
       return;
     }
 
-    this.salvandoPerfil.set(true);
+    this.salvandoFoto.set(true);
     this.api.atualizarFotoPerfil(arquivo).subscribe({
       next: (usuario) => {
         this.autenticacao.atualizarPerfilLocal(usuario);
         this.usuarioVisualizacao.set(usuario);
-        this.salvandoPerfil.set(false);
+        this.salvandoFoto.set(false);
         this.mensagem.set('Foto de perfil atualizada.');
       },
       error: (erroResposta) => {
-        this.salvandoPerfil.set(false);
+        this.salvandoFoto.set(false);
         this.mensagem.set(erroResposta?.error?.mensagem || 'Nao foi possivel atualizar a foto.');
       },
     });

@@ -113,7 +113,7 @@ type PerfilResumo = Pick<Usuario, 'nome' | 'bio' | 'fotoPerfilThumbnailUrl'>;
       height: 92px;
       place-items: center;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 999px;
       background: var(--azul);
       color: #fff;
       font-size: 1.8rem;

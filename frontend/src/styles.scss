@@ -205,9 +205,28 @@ img {
 
 .avatar-shell {
   overflow: hidden;
+  border-radius: 999px;
 }
 
 .avatar-shell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-feed,
+.avatar-publico,
+.avatar-chat,
+.foto-perfil-feed {
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.avatar-feed img,
+.avatar-publico img,
+.avatar-chat img,
+.foto-perfil-feed img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2012,7 +2031,7 @@ body.tema-escuro .sugestoes-assistente {
   width: 42px;
   height: 42px;
   place-items: center;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--azul);
   color: #fff;
   font-weight: 900;

@@ -540,7 +540,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       width: 44px;
       height: 44px;
       place-items: center;
-      border-radius: 8px;
+      border-radius: 999px;
       background: var(--azul);
       color: #fff;
       font-weight: 900;
