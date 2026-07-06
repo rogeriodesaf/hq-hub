@@ -844,6 +844,12 @@ export class ApiService {
             urlCapa: this.normalizarUrlMidia(postagem.colecaoDestaque.urlCapa),
           }
         : null,
+      catalogoDestaque: postagem.catalogoDestaque
+        ? {
+            ...postagem.catalogoDestaque,
+            urlCapa: this.normalizarUrlMidia(postagem.catalogoDestaque.urlCapa),
+          }
+        : null,
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),

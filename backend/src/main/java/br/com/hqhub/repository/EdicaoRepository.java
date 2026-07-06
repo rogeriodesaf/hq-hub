@@ -37,6 +37,25 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         return buscarPorNumeroESerie(numero, serieId).isPresent();
     }
 
+    public long contarPorSerie(Long serieId) {
+        return count("serie.id", serieId);
+    }
+
+    public Optional<String> primeiraCapaPorSerie(Long serieId) {
+        return entityManager.createQuery("""
+                select edicao.urlCapa
+                  from Edicao edicao
+                 where edicao.serie.id = :serieId
+                   and edicao.urlCapa is not null
+                   and edicao.urlCapa <> ''
+                 order by edicao.id
+                """, String.class)
+                .setParameter("serieId", serieId)
+                .setMaxResults(1)
+                .getResultStream()
+                .findFirst();
+    }
+
     public boolean existePorNumeroESerieEmOutraEdicao(String numero, Long serieId, Long id) {
         return buscarPorNumeroESerie(numero, serieId)
                 .filter(edicao -> !edicao.getId().equals(id))

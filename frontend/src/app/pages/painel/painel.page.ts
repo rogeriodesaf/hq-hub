@@ -205,6 +205,25 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                 </article>
               }
 
+              @if (postagem.catalogoDestaque) {
+                <article class="cartao-colecao-feed cartao-catalogo-feed">
+                  <img
+                    [src]="postagem.catalogoDestaque.urlCapa || 'assets/capa-reserva.svg'"
+                    [alt]="postagem.catalogoDestaque.titulo"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p class="rotulo">Catalogo</p>
+                    <h3>{{ postagem.catalogoDestaque.titulo }}</h3>
+                    <span>{{ postagem.catalogoDestaque.quantidadeEdicoes }} edicoes - {{ postagem.catalogoDestaque.editora }}</span>
+                    <strong class="status-colecao">Atualizado no acervo</strong>
+                    <a class="botao compacto" routerLink="/catalogo" [queryParams]="{ serieId: postagem.catalogoDestaque.serieId }">
+                      Ver no catalogo
+                    </a>
+                  </div>
+                </article>
+              }
+
               @if (imagensPostagem(postagem).length) {
                 <div class="grade-imagens-feed imagens-postagem" [class.multipla]="imagensPostagem(postagem).length > 1">
                   @for (imagem of imagensPostagem(postagem); track imagem.urlImagem) {
@@ -922,6 +941,10 @@ export class PainelPage implements OnInit {
   }
 
   imagensPostagem(postagem: PostagemFeed): ImagemFeed[] {
+    if (postagem.colecaoDestaque || postagem.catalogoDestaque) {
+      return [];
+    }
+
     if (postagem.imagens?.length) {
       return postagem.imagens;
     }

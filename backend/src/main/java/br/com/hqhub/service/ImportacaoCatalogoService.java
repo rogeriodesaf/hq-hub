@@ -806,6 +806,7 @@ public class ImportacaoCatalogoService {
             postagem.setSistema(true);
             postagem.setConteudo(textoNovidadeFeed(usuario, serie, importacao.serieBrasileira(), contadores));
             postagem.setUrlImagem(primeiraCapaImportacao(importacao));
+            postagem.setSerieCatalogo(serie);
             postagemFeedRepository.persist(postagem);
         } catch (RuntimeException e) {
             avisos.add("Nao foi possivel publicar a novidade no feed: "

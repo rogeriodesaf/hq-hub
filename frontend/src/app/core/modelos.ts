@@ -604,6 +604,14 @@ export interface ColecaoFeed {
   concluida: boolean;
 }
 
+export interface CatalogoFeed {
+  serieId: number;
+  titulo: string;
+  editora: string;
+  quantidadeEdicoes: number;
+  urlCapa: string | null;
+}
+
 export interface PostagemFeed {
   id: number;
   usuario: Usuario;
@@ -611,6 +619,7 @@ export interface PostagemFeed {
   urlImagem: string | null;
   imagens: ImagemFeed[];
   colecaoDestaque: ColecaoFeed | null;
+  catalogoDestaque: CatalogoFeed | null;
   totalCurtidas: number;
   curtidaPeloUsuario: boolean;
   comentarios: ComentarioFeed[];

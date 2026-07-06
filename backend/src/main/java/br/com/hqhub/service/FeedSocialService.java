@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
+import br.com.hqhub.dto.CatalogoFeedDTO;
 import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
@@ -24,6 +25,7 @@ import br.com.hqhub.repository.AmizadeRepository;
 import br.com.hqhub.repository.ColecaoSerieRepository;
 import br.com.hqhub.repository.ComentarioFeedRepository;
 import br.com.hqhub.repository.CurtidaPostagemFeedRepository;
+import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
@@ -40,6 +42,7 @@ public class FeedSocialService {
     private final AmizadeRepository amizadeRepository;
     private final ItemColecaoRepository itemColecaoRepository;
     private final ColecaoSerieRepository colecaoSerieRepository;
+    private final EdicaoRepository edicaoRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final UsuarioMapper usuarioMapper;
     private final UrlPublicaService urlPublicaService;
@@ -52,6 +55,7 @@ public class FeedSocialService {
             AmizadeRepository amizadeRepository,
             ItemColecaoRepository itemColecaoRepository,
             ColecaoSerieRepository colecaoSerieRepository,
+            EdicaoRepository edicaoRepository,
             UsuarioAutenticadoService usuarioAutenticadoService,
             UsuarioMapper usuarioMapper,
             UrlPublicaService urlPublicaService) {
@@ -62,6 +66,7 @@ public class FeedSocialService {
         this.amizadeRepository = amizadeRepository;
         this.itemColecaoRepository = itemColecaoRepository;
         this.colecaoSerieRepository = colecaoSerieRepository;
+        this.edicaoRepository = edicaoRepository;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.usuarioMapper = usuarioMapper;
         this.urlPublicaService = urlPublicaService;
@@ -209,6 +214,7 @@ public class FeedSocialService {
                 primeiraImagem(postagem, imagens),
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
+                paraCatalogoFeed(postagem.getSerieCatalogo()),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 curtidaRepository.existePorPostagemEUsuario(postagem.getId(), usuarioId),
                 comentarios,
@@ -237,6 +243,24 @@ public class FeedSocialService {
                 Math.toIntExact(quantidadeEdicoes),
                 urlPublicaService.normalizarApiUrl(edicao.getUrlCapa()),
                 concluida);
+    }
+
+    private CatalogoFeedDTO paraCatalogoFeed(Serie serie) {
+        if (serie == null) {
+            return null;
+        }
+
+        long quantidadeEdicoes = edicaoRepository.contarPorSerie(serie.getId());
+        String urlCapa = edicaoRepository.primeiraCapaPorSerie(serie.getId())
+                .map(urlPublicaService::normalizarApiUrl)
+                .orElse(null);
+
+        return new CatalogoFeedDTO(
+                serie.getId(),
+                serie.getTitulo(),
+                serie.getEditora().getNome(),
+                Math.toIntExact(quantidadeEdicoes),
+                urlCapa);
     }
 
     private String textoOuNull(String valor) {
