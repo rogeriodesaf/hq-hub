@@ -1,0 +1,155 @@
+# CONTEXTO: ROBÔ IMPORTADOR DE QUADRINHOS - HQ-HUB
+
+## PROJETO
+HQ-Hub é um catálogo de histórias em quadrinhos em português. O objetivo é importar dados do site "Guia dos Quadrinhos" (www.guiadosquadrinhos.com) e armazená-los no banco de dados do aplicativo.
+
+## ROBÔ PRINCIPAL
+**Arquivo**: docs/importacao/ferramentas/robo_importador_texto.py
+**Função**: Scraper que extrai dados de séries, edições e histórias do Guia dos Quadrinhos e gera arquivos JSON para importação.
+
+## FUNCIONALIDADES E FLAGS
+
+### Flag: --url-inicial (obrigatório)
+Define a URL da primeira edição/série a processar.
+Exemplo: --url-inicial "http://www.guiadosquadrinhos.com/colecao/colecao-classica-marvel"
+
+### Flag: --quantidade (obrigatório)
+Quantidade de edições a processar a partir da URL inicial.
+Exemplo: --quantidade 5 (processa 5 edições começando da edição apontada pela URL)
+
+### Flag: --saida (obrigatório)
+Pasta onde o arquivo JSON será salvo.
+Exemplo: --saida "rascunhos-importacao"
+
+### Flag: --organizar-saida-por-serie (opcional)
+Ativa organização automática: cria subpasta com nome da série e nomeia arquivo como "serie-X-a-Y.json"
+Sem essa flag: salva tudo em um arquivo único.
+Com essa flag: cria estrutura de pastas e arquivos organizados por série.
+
+## COMPORTAMENTO IMPORTANTE
+
+### Limitação de Edições
+O robô agora limita edições corretamente a partir da URL inicial:
+- Se a URL aponta para edição 6, --quantidade 5 gera JSON com edições 6, 7, 8, 9, 10
+- Anteriormente geraria 1, 2, 3, 4, 5 (BUG CORRIGIDO)
+
+### Nomes de Arquivo com --organizar-saida-por-serie
+Padrão: "serie-nome-X-a-Y.json"
+Exemplo output structure:
+```
+rascunhos-importacao/
+  colecao-classica-marvel/
+    colecao-classica-marvel-1-a-5.json
+    colecao-classica-marvel-6-a-10.json
+    colecao-classica-marvel-21-a-40.json
+```
+
+### Evitar Sobrescrita
+Se arquivo já existe, o robô adiciona sufixo com timestamp (YYYYMMDD-HHMMSS).
+Exemplo: "colecao-classica-marvel-1-a-5_20260704-143022.json"
+
+## ESTRUTURA JSON GERADO
+```
+{
+  "origem": "www.guiadosquadrinhos.com",
+  "serieBrasileira": {
+    "nome": "Série Name",
+    "descricao": "..."
+  },
+  "totalEdicoes": 5,
+  "totalHistorias": 25,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": 21,
+      "titulo": "...",
+      "anoPublicacao": 2020,
+      "urlCapa": "http://www.guiadosquadrinhos.com/...",
+      "historias": [
+        {
+          "titulo": "Nome da história",
+          "autor": "Autor",
+          "ilustrador": "Ilustrador",
+          "originaria": "Origem"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## BACKEND - IMPORTAÇÃO
+**Arquivo**: backend/src/main/java/br/com/hqhub/resource/ImportacaoCatalogoResource.java
+**Endpoint**: POST /importacoes/catalogo
+**Headers**: Content-Type: application/json
+**Funcionalidade**: Recebe JSON e importa no banco de dados.
+
+### Retry Logic (RECENTE)
+- Tenta 3 vezes em caso de falha transitória (deadlock, lock timeout)
+- Aguarda 300ms → 600ms → 900ms entre tentativas
+- Detecta erros transientes por SQL state code (PostgreSQL)
+
+### Organização no Banco
+- Procura edição por: número + série
+- Se existe: atualiza
+- Se não existe: cria nova
+- Insere histórias relacionadas
+
+## WORKFLOW TÍPICO
+1. Rodar robô com URL inicial + quantidade + --organizar-saida-por-serie
+2. Gera JSON estruturado com série/edições/histórias
+3. Enviar JSON para backend via importação (POST /importacoes/catalogo)
+4. Backend salva dados no banco com retry automático se necessário
+
+## URLS DE CAPA
+Atualmente bloqueadas pelo Guia dos Quadrinhos por:
+- Anti-hotlink (Referer header checking)
+- User-Agent blocking
+- Rate limiting
+- Cloudflare/WAF
+
+**Solução futura**: Mapeamento de URLs customizado (OneDrive ou local) para sobrescrever URLs do Guia.
+
+## ESTRUTURA PROJETO
+```
+hq-hub/
+├── backend/          (Java/Quarkus)
+├── frontend/         (Angular)
+├── docs/importacao/
+│   ├── ferramentas/
+│   │   └── robo_importador_texto.py
+│   └── rascunhos/
+│       └── (JSON gerados aqui)
+├── rascunhos-importacao/  (saída alternativa)
+└── contexto IA/      (este arquivo)
+```
+
+## COMMAND LINES COMUNS
+
+### Importar 5 edições a partir de edição específica (organizado)
+```powershell
+python docs/importacao/ferramentas/robo_importador_texto.py --url-inicial "http://www.guiadosquadrinhos.com/edicao/..." --quantidade 5 --saida "rascunhos-importacao" --organizar-saida-por-serie
+```
+
+### Importar sem organizar
+```powershell
+python docs/importacao/ferramentas/robo_importador_texto.py --url-inicial "http://www.guiadosquadrinhos.com/colecao/..." --quantidade 10 --saida "rascunhos-importacao"
+```
+
+## TROUBLESHOOTING
+
+**Problema**: Robô para no meio da execução
+- Solução: Verificar conexão internet, rate limiting do Guia, ou estrutura mudou no site
+
+**Problema**: "Erro interno do servidor" na importação
+- Solução: Backend tem retry automático, tentar novamente em poucos segundos
+
+**Problema**: JSON gerado vazio ou incomplete
+- Solução: Verificar se URL inicial é válida no Guia dos Quadrinhos
+
+**Problema**: Arquivos sendo sobrescritos
+- Solução: Usar --organizar-saida-por-serie para criar nomes únicos + pastas
+
+---
+Use este contexto sempre que iniciar um novo chat sobre o robô Python ou importações HQ-Hub.
+Inclua detalhes específicos do que você quer fazer (ex: "quero importar 20 edições da série X a partir da edição Y").

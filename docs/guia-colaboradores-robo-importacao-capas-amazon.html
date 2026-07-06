@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Guia simples - Robos de importacao e capas (HQ-HUB)</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #172033;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    header {
+      padding-bottom: 14px;
+      border-bottom: 3px solid #ff871f;
+      margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 6px; font-size: 27px; color: #111827; }
+    .sub { margin: 0; color: #4b5563; }
+    h2 { margin: 20px 0 8px; font-size: 18px; color: #111827; }
+    h3 { margin: 14px 0 6px; font-size: 15px; color: #1f2937; }
+    p { margin: 0 0 10px; }
+    ol, ul { margin: 8px 0 10px 22px; padding: 0; }
+    li { margin: 6px 0; }
+    .bloco {
+      margin: 10px 0 14px;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      color: #0f172a;
+    }
+    .dica {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #ff871f;
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+    .alerta {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #dc2626;
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+    .ok {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #16a34a;
+      background: #f0fdf4;
+      color: #14532d;
+    }
+    .rodape {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #d1d5db;
+      color: #6b7280;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guia muito simples: Robos de importacao e capas</h1>
+    <p class="sub">HQ-HUB - Passo a passo para qualquer colaborador executar sem duvidas.</p>
+  </header>
+
+  <section>
+    <h2>Objetivo</h2>
+    <ol>
+      <li>Gerar um JSON de importacao a partir de uma URL.</li>
+      <li>Aplicar capas no campo <strong>urlCapa</strong> usando um arquivo TXT.</li>
+      <li>Ter um JSON final pronto para importar no sistema.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Antes de comecar</h2>
+    <ul>
+      <li>Abra o PowerShell.</li>
+      <li>Copie e cole um bloco de comando por vez.</li>
+      <li>Espere terminar antes de ir para o proximo bloco.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Passo 1: Entrar na pasta do projeto</h2>
+    <div class="bloco"><pre>Set-Location "C:\Desenvolvimento\hqhub\hq-hub"</pre></div>
+  </section>
+
+  <section>
+    <h2>Passo 2: Ativar o ambiente Python</h2>
+    <div class="bloco"><pre>.\.venv\Scripts\Activate.ps1</pre></div>
+    <div class="dica">
+      Se aparecer bloqueio de script, rode este comando e tente de novo:
+      <div class="bloco"><pre>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</pre></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Passo 3: Gerar JSON base a partir da URL</h2>
+    <p>Este comando pega a URL da colecao, segue as edicoes e gera um arquivo JSON base.</p>
+    <div class="bloco"><pre>c:/Desenvolvimento/hqhub/hq-hub/.venv/Scripts/python.exe \
+  docs/importacao/ferramentas/robo_importador_texto.py \
+  --url "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-1/sa011126/157954" \
+  --seguir-galeria \
+  --saida "docs/importacao/rascunhos/a-saga-do-batman/saga-base.json" \
+  --titulo-serie "A Saga do Batman" \
+  --editora "Panini" \
+  --volume 1</pre></div>
+  </section>
+
+  <section>
+    <h2>Passo 4: Aplicar capas no JSON (urlCapa)</h2>
+    <p>Este comando pega o TXT com uma capa por linha e preenche o campo urlCapa em ordem.</p>
+    <div class="bloco"><pre>c:/Desenvolvimento/hqhub/hq-hub/.venv/Scripts/python.exe \
+  docs/importacao/ferramentas/robo_aplicar_url_capa.py \
+  --entrada "docs/importacao/rascunhos/a-saga-do-batman/saga-base.json" \
+  --urls "docs/importacao/rascunhos/a-saga-do-batman/capas-amazon-1-a-36-playwright.txt" \
+  --saida "docs/importacao/rascunhos/a-saga-do-batman/saga-com-capas.json"</pre></div>
+  </section>
+
+  <section>
+    <h2>Passo 5: Conferir se deu certo</h2>
+    <div class="bloco"><pre>$j = Get-Content "docs/importacao/rascunhos/a-saga-do-batman/saga-com-capas.json" -Raw | ConvertFrom-Json
+"totalEdicoes: $($j.edicoes.Count)"
+"comCapa: $((@($j.edicoes | Where-Object { -not [string]::IsNullOrWhiteSpace($_.urlCapa) })).Count)"
+"semCapa: $((@($j.edicoes | Where-Object { [string]::IsNullOrWhiteSpace($_.urlCapa) })).Count)"</pre></div>
+  </section>
+
+  <section>
+    <h2>Opcional: modo estrito (para validar quantidade)</h2>
+    <p>Se quiser forcar erro quando a quantidade de URLs nao bater com a quantidade de edicoes, use <strong>--estrito</strong>:</p>
+    <div class="bloco"><pre>c:/Desenvolvimento/hqhub/hq-hub/.venv/Scripts/python.exe \
+  docs/importacao/ferramentas/robo_aplicar_url_capa.py \
+  --entrada "docs/importacao/rascunhos/a-saga-do-batman/saga-base.json" \
+  --urls "docs/importacao/rascunhos/a-saga-do-batman/capas-amazon-1-a-36-playwright.txt" \
+  --saida "docs/importacao/rascunhos/a-saga-do-batman/saga-com-capas.json" \
+  --estrito</pre></div>
+  </section>
+
+  <section>
+    <h2>Erros comuns e solucao rapida</h2>
+    <div class="alerta">
+      <strong>Erro:</strong> "Nao reconhece o comando"<br/>
+      <strong>Solucao:</strong> confirme se esta em C:\Desenvolvimento\hqhub\hq-hub e se a venv esta ativada.
+    </div>
+    <div class="alerta">
+      <strong>Erro:</strong> "Impossivel conectar-se ao servidor remoto"<br/>
+      <strong>Solucao:</strong> backend nao esta rodando. Suba o backend antes de importar pela API.
+    </div>
+    <div class="alerta">
+      <strong>Erro:</strong> falta ou sobra capa<br/>
+      <strong>Solucao:</strong> confira o TXT. Deve ter uma URL por linha, na ordem das edicoes.
+    </div>
+  </section>
+
+  <section>
+    <h2>Resumo em 3 blocos (cola e roda)</h2>
+    <h3>Bloco A</h3>
+    <div class="bloco"><pre>Set-Location "C:\Desenvolvimento\hqhub\hq-hub"
+.\.venv\Scripts\Activate.ps1</pre></div>
+
+    <h3>Bloco B</h3>
+    <div class="bloco"><pre>c:/Desenvolvimento/hqhub/hq-hub/.venv/Scripts/python.exe docs/importacao/ferramentas/robo_importador_texto.py --url "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-1/sa011126/157954" --seguir-galeria --saida "docs/importacao/rascunhos/a-saga-do-batman/saga-base.json" --titulo-serie "A Saga do Batman" --editora "Panini" --volume 1</pre></div>
+
+    <h3>Bloco C</h3>
+    <div class="bloco"><pre>c:/Desenvolvimento/hqhub/hq-hub/.venv/Scripts/python.exe docs/importacao/ferramentas/robo_aplicar_url_capa.py --entrada "docs/importacao/rascunhos/a-saga-do-batman/saga-base.json" --urls "docs/importacao/rascunhos/a-saga-do-batman/capas-amazon-1-a-36-playwright.txt" --saida "docs/importacao/rascunhos/a-saga-do-batman/saga-com-capas.json"</pre></div>
+  </section>
+
+  <div class="ok">
+    Pronto. O arquivo final para importacao sera: <strong>docs/importacao/rascunhos/a-saga-do-batman/saga-com-capas.json</strong>
+  </div>
+
+  <p class="rodape">Documento gerado para compartilhamento com colaboradores do HQ-HUB.</p>
+</body>
+</html>

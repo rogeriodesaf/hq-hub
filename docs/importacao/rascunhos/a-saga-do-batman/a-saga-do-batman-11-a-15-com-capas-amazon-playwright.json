@@ -1,0 +1,728 @@
+﻿{
+    "origem":  {
+                   "arquivoEntrada":  null,
+                   "url":  "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-1/sa011126/157954",
+                   "urlsProcessadas":  [
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-1/sa011126/157954",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-2/sa011126/159263",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-3/sa011126/159938",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-4/sa011126/160328",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-5/sa011126/160507",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-6/sa011126/161036",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-7/sa011126/161264",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-8/sa011126/161805",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-9/sa011126/162127",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-10/sa011126/162566",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-11/sa011126/162979",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-12/sa011126/163367",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-13/sa011126/163845",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-14/sa011126/164283",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-15/sa011126/164895",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-16/sa011126/165390",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-17/sa011126/165762",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-18/sa011126/166364",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-19/sa011126/166711",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-20/sa011126/169167",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-21/sa011126/169468",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-22/sa011126/169909",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-23/sa011126/170219",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-24/sa011126/172262",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-25/sa011126/172800",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-26/sa011126/173278",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-27/sa011126/173700",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-28/sa011126/174134",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-29/sa011126/174372",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-30/sa011126/174632",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-31/sa011126/174989",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-32/sa011126/175235",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-33/sa011126/175512",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-34/sa011126/176015",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-35/sa011126/176385",
+                                           "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-36/sa011126/176700"
+                                       ],
+                   "geradoEm":  "2026-07-05T04:46:25",
+                   "gerador":  "robo_importador_texto.py",
+                   "aplicacaoManualCapas":  {
+                                                "arquivoUrls":  "docs\\importacao\\rascunhos\\a-saga-do-batman\\capas-amazon-1-a-36-playwright.txt",
+                                                "aplicadoEm":  "2026-07-05T05:46:08",
+                                                "totalUrlsInformadas":  5,
+                                                "totalEdicoes":  5,
+                                                "totalCapasAplicadas":  5,
+                                                "modo":  "sequencial"
+                                            },
+                   "arquivosMesclados":  [
+                                             "a-saga-do-batman-1-a-5-com-capas-amazon-playwright.json",
+                                             "a-saga-do-batman-6-a-15-com-capas-amazon-playwright.json",
+                                             "a-saga-do-batman-16-a-25-com-capas-amazon-playwright.json",
+                                             "a-saga-do-batman-26-a-35-com-capas-amazon-playwright.json",
+                                             "a-saga-do-batman-36-com-capas-amazon-playwright.json"
+                                         ],
+                   "mescladoEm":  "2026-07-05T05:46:45"
+               },
+    "serieBrasileira":  {
+                            "titulo":  "A Saga do Batman",
+                            "fase":  null,
+                            "editora":  "Panini",
+                            "volume":  1
+                        },
+    "avisos":  [
+
+               ],
+    "edicoes":  [
+                    {
+                        "numero":  "11",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-02-01",
+                        "publicadoTexto":  "fevereiro de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "DC Comics",
+                        "categoria":  "EdiÃ§Ã£o Especial",
+                        "genero":  "Super-herÃ³is",
+                        "status":  "TÃ­tulo encerrado",
+                        "numeroPaginas":  184,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  39.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61kwcX1K0IL._SL1000_.jpg",
+                        "descricao":  "Saga do Batman, A 1Âª SÃ©rie - nÂ° 11\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: EdiÃ§Ã£o Especial\nGÃªnero: Super-herÃ³is\nStatus: TÃ­tulo encerrado\nNÃºmero de pÃ¡ginas: 184\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreÃ§o de capa: R$ 39,90\nCrÃ©dito da capa e editor\nArte: George PÃ©rez Cores: Anthony Tollin - â€˜Tony Tollinâ€™ Editor: Gabriel Faria\nSuspeitos",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Suspeitos",
+                                              "tituloOriginal":  "A Lonely Place of Dying, Chapter One: Suspects",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "ApÃ³s sua maior derrota, Jason Todd - o Robin - foi assassinado pelo Coringa e Batman tornou-se uma vez mais o solitÃ¡rio protetor de Gotham City.\nMas quais seriam as ramificaÃ§Ãµes de uma tragÃ©dia como essa? O Cavaleiro das Trevas passaria a ser um vigilante mais dedicado a sua luta por justiÃ§a ou perderia o rumo, incapaz de se recuperar de uma derrota dessas?",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "440",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 440/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "RaÃ­zes",
+                                              "tituloOriginal":  "A Lonely Place of Dying - Chapter Two: Roots",
+                                              "quantidadePaginas":  25,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "New Titans, The (1988)",
+                                                                         "numeroOriginal":  "60",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "New Titans, The (1988) nÂ° 60/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Paralelas",
+                                              "tituloOriginal":  "A Lonely Place of Dying - Chapter Three: Parallel Lines",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "441",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 441/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Voltando para casa",
+                                              "tituloOriginal":  "A Lonely Place of Dying: Part Four - Going Home!",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "New Titans, The (1988)",
+                                                                         "numeroOriginal":  "61",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "New Titans, The (1988) nÂ° 61/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Renascimento",
+                                              "tituloOriginal":  "A Lonely Place of Dying - Chapter Five: Rebirth",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "442",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 442/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "A chegada do Engenheiro do Crime",
+                                              "tituloOriginal":  "The Coming of Crimesmith",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Uma onda de crimes assola Gotham City, deixando a polÃ­cia completamente desorientada e colocando Ã  prova toda a astÃºcia do Homem-Morcego. Os furtos e arrombamentos sÃ£o comandados por um especialista, o Engenheiro do Crime. Participando nos bastidores desta aventura estÃ¡ Tim Drake, o rapaz que vem sendo treinado para se tornar o novo Robin.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "443",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 443/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Engenheiro do Crime e Castigo",
+                                              "tituloOriginal":  "Crimesmith and Punishment",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "444",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 444/1990 - DC Comics"
+                                                                     }
+                                          }
+                                      ]
+                    },
+                    {
+                        "numero":  "12",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-03-01",
+                        "publicadoTexto":  "marÃ§o de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "DC Comics",
+                        "categoria":  "EdiÃ§Ã£o Especial",
+                        "genero":  "Super-herÃ³is",
+                        "status":  "TÃ­tulo encerrado",
+                        "numeroPaginas":  176,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  39.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61kwcX1K0IL._SL1000_.jpg",
+                        "descricao":  "Saga do Batman, A 1Âª SÃ©rie - nÂ° 12\nPublicado em: marÃ§o de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: EdiÃ§Ã£o Especial\nGÃªnero: Super-herÃ³is\nStatus: TÃ­tulo encerrado\nNÃºmero de pÃ¡ginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreÃ§o de capa: R$ 39,90\nCrÃ©dito da capa e editor\nDesenho: Denys Cowan Arte-Final: Malcolm Jones III Editor: Gabriel Faria\nO sono da razÃ£o",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "O sono da razÃ£o",
+                                              "tituloOriginal":  "Chapter One: The Sleep of Reason [Blind Justice]",
+                                              "quantidadePaginas":  24,
+                                              "resumo":  "Uma garota chega a Gotham em busca de seu irmÃ£o desaparecido, mas parece que ele nunca existiu. Enquanto isso, o Batman tem que lidar com um novo inimigo que usa o som como arma.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "598",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 598/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "A gentileza de estranhos",
+                                              "tituloOriginal":  "Chapter Two: The Kindness of Strangers [Blind Justice]",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Com a ajuda de um detetive particular, a garota encontra Bruce Wayne, que descobre novas pistas do irmÃ£o perdido. Batman enfrenta novamente o vilÃ£o que usa frequÃªncias sonoras, mas sempre quando estÃ¡ perto de detÃª-lo, ele comete suicÃ­dio.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "598",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 598/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "O preÃ§o do conhecimento",
+                                              "tituloOriginal":  "Chapter Three: The Price of Knowledge [Blind Justice]",
+                                              "quantidadePaginas":  15,
+                                              "resumo":  "Mais uma vez, Batman confronta uma versÃ£o de seu novo algoz, mas no final ele tem notÃ­cias de uma apreensÃ£o policial de alguÃ©m que parecia enfrentar o Morcego enquanto ele lutava contra o vilÃ£o. Supreendentemente, trata-se do irmÃ£o de sua protegida.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "598",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 598/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "CidadÃ£o Wayne",
+                                              "tituloOriginal":  "Blind Justice, Chapter Four: Citizen Wayne",
+                                              "quantidadePaginas":  23,
+                                              "resumo":  "O Batman descobre um esquema terrorista dentro da Waynetec e Bruce acaba exposto como um possÃ­vel espiÃ£o comunista. Agora, ele tentarÃ¡ provar sua inocÃªncia e capitular os terroristas.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "599",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 599/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Planos ocultos",
+                                              "tituloOriginal":  "Blind Justice, Chapter Five: Hidden Agendas",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Bruce Wayne sofre um atentado e fica Ã  beira da morte. AlÃ©m disso, Henri Ducard estÃ¡ de volta Ã  Gotham, para complicar ainda mais a situaÃ§Ã£o do Batman.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 600/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "OperaÃ§Ãµes clandestinas",
+                                              "tituloOriginal":  "Chapter Six: Covert Operations [Blind Justice]",
+                                              "quantidadePaginas":  19,
+                                              "resumo":  "Bruce se recupera do coma, mas nÃ£o tem condiÃ§Ãµes de vestir o traje. Nisso, Roy tem uma ideia que pode habilitar o retorno do Batman.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 600/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "Segundas intenÃ§Ãµes",
+                                              "tituloOriginal":  "Chapter Seven: Ulterior Motives [Blind Justice]",
+                                              "quantidadePaginas":  20,
+                                              "resumo":  "A troca de mentes proporciona ao Batman encurralar os bandidos, mas uma tragÃ©dia poderÃ¡ abalar o Homem Morcego para sempre.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "600",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 600/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  8,
+                                              "tituloPortugues":  "Criador de monstros",
+                                              "tituloOriginal":  "Tulpa, Part One: Monster Maker",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "601",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 601/1989 - DC Comics"
+                                                                     }
+                                          }
+                                      ]
+                    },
+                    {
+                        "numero":  "13",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-04-01",
+                        "publicadoTexto":  "abril de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "DC Comics",
+                        "categoria":  "EdiÃ§Ã£o Especial",
+                        "genero":  "Super-herÃ³is",
+                        "status":  "TÃ­tulo encerrado",
+                        "numeroPaginas":  192,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  39.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61NwZzrnRkL._SL1000_.jpg",
+                        "descricao":  "Saga do Batman, A 1Âª SÃ©rie - nÂ° 13\nPublicado em: abril de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: EdiÃ§Ã£o Especial\nGÃªnero: Super-herÃ³is\nStatus: TÃ­tulo encerrado\nNÃºmero de pÃ¡ginas: 192\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreÃ§o de capa: R$ 39,90\nCrÃ©dito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nMovimentos noturnos",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Movimentos noturnos",
+                                              "tituloOriginal":  "Tulpa, Part Two: Night Moves",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batman localiza seu alvo e se depara com uma luta entre trÃªs criminosos e um terrÃ­vel monstro: o Tulpa. Derrotado, o Homem -Morcego recorrerÃ¡ Ã  magia de Jason Blood para ajudÃ¡-lo.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "602",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 602/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Quando demÃ´nios se chocam!",
+                                              "tituloOriginal":  "Tulpa, Part Three: When Demons Clash!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "603",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 603/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Segredos de sangue",
+                                              "tituloOriginal":  "Blood Secrets",
+                                              "quantidadePaginas":  44,
+                                              "resumo":  "No inÃ­cio de sua carreira, o Batman aprende com um dos melhores detetives do mundo ao investigar vÃ¡rios homicÃ­dios ocorridos numa cidadezinha do interior dos EUA.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics Annual (1988)",
+                                                                         "numeroOriginal":  "2",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics Annual (1988) nÂ° 2/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Homens de barro",
+                                              "tituloOriginal":  "The Mud Pack, Part One: Men of Clay",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "604",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 604/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "CoraÃ§Ã£o de aÃ§o, pÃ©s de barro?",
+                                              "tituloOriginal":  "The Mud Pack, Part Two: Heart of Steel; Feet of Clay?",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "605",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 605/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Barro assassino!",
+                                              "tituloOriginal":  "The Mud Pack, Part Three: Killer Clay!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "606",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 606/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "A sÃ­ndrome do barro da China",
+                                              "tituloOriginal":  "The Mud Pack, Part Four: The China Clay Syndrome",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "607",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 607/1989 - DC Comics"
+                                                                     }
+                                          }
+                                      ]
+                    },
+                    {
+                        "numero":  "14",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-05-01",
+                        "publicadoTexto":  "maio de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "DC Comics",
+                        "categoria":  "EdiÃ§Ã£o Especial",
+                        "genero":  "Super-herÃ³is",
+                        "status":  "TÃ­tulo encerrado",
+                        "numeroPaginas":  192,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  39.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/61mChqZiuZL._SL1000_.jpg",
+                        "descricao":  "Saga do Batman, A 1Âª SÃ©rie - nÂ° 14\nPublicado em: maio de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: EdiÃ§Ã£o Especial\nGÃªnero: Super-herÃ³is\nStatus: TÃ­tulo encerrado\nNÃºmero de pÃ¡ginas: 192\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreÃ§o de capa: R$ 39,90\nCrÃ©dito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nCartas ao editor",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "Cartas ao editor",
+                                              "tituloOriginal":  "Letters to the Editor",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batman enfrenta um vilÃ£o desconhecido, Anarquia, que Ã© contra a criminalidade, o sistema capitalista, onde ele vive, e usa os menos favorecidos com seu discurso de ser contra tudo e todos. Batman vai a seu encalÃ§o pra descobrir no final se tratar de delÃ­rios de um adolescente. Nada mais apropriado, ou quase um piada de mau gosto.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "608",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 608/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Fatos sobre morcegos",
+                                              "tituloOriginal":  "Facts About Bats",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Surge um personagem apelidado de \"perna\", que apareceria posteriormente durante a saga Terremoto, com a mesma equipe criativa, porÃ©m no tÃ­tulo \"Batman: Shadow of the Bat\".",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "609",
+                                                                         "anoOriginal":  1989,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 609/1989 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Ode a um pinguim",
+                                              "tituloOriginal":  "Snow and Ice, Part One: Ode to a Penguin",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Pinguim estÃ¡ morto, porÃ©m Batman desconfia do fim de seu inimigo. Enquanto isso, Kadaver acaba sendo libertado da prisÃ£o e um plano criminoso tem inÃ­cio.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "610",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 610/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "Ave de mau agouro",
+                                              "tituloOriginal":  "Snow and Ice, Part Two: Bird of Ill Omen",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Pinguim estÃ¡ de volta e aliado involuntariamente a Kadaver. Agora, somente o Batman poderÃ¡ deter essa dupla criminosa.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "611",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 611/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Gatos",
+                                              "tituloOriginal":  "Cats",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Durante sua vigÃ­lia habitual, Batman salva uma velhinha de uma dupla de arruaceiros quando encontra o corpo brutalizado de um homem no Parque Robinson. Enquanto a imprensa sensacionalista prefere por a culpa na Mulher-Gato, Batman acredita que foi um ataque de um animal e o encontra: Rasputin, um poderoso tigre siberiano, bichinho de estimaÃ§Ã£o de Thomas Blake, o Homem-Gato, que nÃ£o hesita em usar a fera para acabar com o Morcego!",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "612",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 612/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "Lixo",
+                                              "tituloOriginal":  "Trash",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Um garoto tenta elaborar um trabalho de conscientizaÃ§Ã£o para o perigo do lixo excessivo, mas acaba vÃ­tima de bandidos determinados a tomar para si o sistema de coleta de lixo de Gotham.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "613",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 613/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  7,
+                                              "tituloPortugues":  "DemÃ´nios das ruas",
+                                              "tituloOriginal":  "Street Demonz",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batman observa a aÃ§Ã£o de uma gangue de garotos que o leva aos Demonioz, mas o maior problema terÃ¡ que ser resolvido pela influÃªncia socioeconÃ´mica de Bruce Wayne, se o herÃ³i quiser evitar uma nova geraÃ§Ã£o de bandidos.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "614",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 614/1990 - DC Comics"
+                                                                     }
+                                          }
+                                      ]
+                    },
+                    {
+                        "numero":  "15",
+                        "tituloChamada":  null,
+                        "dataPublicacao":  "2022-06-01",
+                        "publicadoTexto":  "junho de 2022",
+                        "editora":  "Panini",
+                        "licenciador":  "DC Comics",
+                        "categoria":  "EdiÃ§Ã£o Especial",
+                        "genero":  "Super-herÃ³is",
+                        "status":  "TÃ­tulo encerrado",
+                        "numeroPaginas":  148,
+                        "formato":  "Americano (17 x 26 cm)",
+                        "precoCapa":  39.9,
+                        "urlCapa":  "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+                        "descricao":  "Saga do Batman, A 1Âª SÃ©rie - nÂ° 15\nPublicado em: junho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: EdiÃ§Ã£o Especial\nGÃªnero: Super-herÃ³is\nStatus: TÃ­tulo encerrado\nNÃºmero de pÃ¡ginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreÃ§o de capa: R$ 39,90\nCrÃ©dito da capa e editor\nArte: Norm Breyfogle Cores: Anthony Tollin - â€˜Tony Tollinâ€™ Editor: Gabriel Faria\nPraÃ§a vermelha! PraÃ§a sangrenta!",
+                        "historias":  [
+                                          {
+                                              "ordem":  1,
+                                              "tituloPortugues":  "PraÃ§a vermelha! PraÃ§a sangrenta!",
+                                              "tituloOriginal":  "When the Earth Dies! Chapter One: Red Square! Bloody Square!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batman se vÃª obrigado a viajar Ã  UniÃ£o SoviÃ©tica e auxiliar a polÃ­cia local a pÃ´r fim numa sÃ©rie de terrÃ­veis assassinatos cometidos por um ex-superagente. O objetivo final do criminoso? Liquidar o presidente Mikhail Gorbachev!\nSequÃªncia do arco \"As Dez Noites da Besta\".",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "445",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 445/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  2,
+                                              "tituloPortugues":  "Submundos",
+                                              "tituloOriginal":  "When the Earth Dies Chapter Two: Underworlds",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "446",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 446/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  3,
+                                              "tituloPortugues":  "Dia da Terra! Noite do demÃ´nio!",
+                                              "tituloOriginal":  "When the Earth Dies Chapter Three:",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  null,
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "447",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 447/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  4,
+                                              "tituloPortugues":  "PeÃµes",
+                                              "tituloOriginal":  "The Penguin Affair, I: Pawns",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Pinguim encontra Harold, um indivÃ­duo fisicamente deformado, mas com uma mente construtiva brilhante, e o usa para ter controle sobre vÃ¡rias aves e usÃ¡-las para cometer seus crimes.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "448",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 448/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  5,
+                                              "tituloPortugues":  "Ave de mau agouro!",
+                                              "tituloOriginal":  "The Penguin Affair, II: Bird of Ill Omen!",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "O Pinguim lanÃ§a um ataque maciÃ§o contra Batman, usando seu novo mecanismo que controla pÃ¡ssaros. Muito ferido, Batman recorre Ã  proteÃ§Ã£o da caverna.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Detective Comics (1937)",
+                                                                         "numeroOriginal":  "615",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Detective Comics (1937) nÂ° 615/1990 - DC Comics"
+                                                                     }
+                                          },
+                                          {
+                                              "ordem":  6,
+                                              "tituloPortugues":  "VinganÃ§a alada",
+                                              "tituloOriginal":  "The Penguin Affair, III: Winged Vengeance",
+                                              "quantidadePaginas":  22,
+                                              "resumo":  "Batman desvenda a intenÃ§Ã£o do Pinguim, que Ã© vender sua mÃ¡quina para criminosos e, com a ajuda substancial de Tim Drake, elabora um plano para rastrear e deter o vilÃ£o.",
+                                              "publicacaoOriginal":  {
+                                                                         "serieOriginal":  "Batman (1940)",
+                                                                         "numeroOriginal":  "449",
+                                                                         "anoOriginal":  1990,
+                                                                         "urlOrigem":  null,
+                                                                         "urlCapa":  null,
+                                                                         "urlCompraAmazon":  null,
+                                                                         "texto":  "Batman (1940) nÂ° 449/1990 - DC Comics"
+                                                                     }
+                                          }
+                                      ]
+                    }
+                ],
+    "totalEdicoes":  5,
+    "totalHistorias":  35,
+    "comCapa":  5,
+    "semCapa":  0
+}
+

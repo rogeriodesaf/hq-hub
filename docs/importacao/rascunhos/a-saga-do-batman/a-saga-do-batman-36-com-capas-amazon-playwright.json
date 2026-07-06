@@ -1,0 +1,144 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-36/sa011126/176700",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-36/sa011126/176700"
+    ],
+    "geradoEm": "2026-07-05T05:06:59",
+    "gerador": "robo_importador_texto.py",
+    "aplicacaoManualCapas": {
+      "arquivoUrls": "docs\\importacao\\rascunhos\\a-saga-do-batman\\capas-amazon-1-a-36-playwright.txt",
+      "aplicadoEm": "2026-07-05T05:46:08",
+      "totalUrlsInformadas": 1,
+      "totalEdicoes": 1,
+      "totalCapasAplicadas": 1,
+      "modo": "sequencial"
+    }
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga do Batman",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 6,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "36",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-03-01",
+      "publicadoTexto": "março de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 180,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 49.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 36\nPublicado em: março de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 180\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 49,90\nCrédito da capa e editor\nArte: Kelley Jones Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nDesastre , Fogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Desastre & Fogo: Uma história de amor",
+          "tituloOriginal": "Crash & Burn: A Love Story",
+          "quantidadePaginas": 22,
+          "resumo": "Uma inusitada dupla se une e começa a roubar bancos por vários estados. E seu objetivo é chegar em Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "483",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 483/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O dragão",
+          "tituloOriginal": "The Dragon",
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "650",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 650/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Uma bala para Bullock",
+          "tituloOriginal": "A Bullet for Bullock",
+          "quantidadePaginas": 22,
+          "resumo": "O detetive Bullock está recebendo ameaças de morte. Na medida em que seus suspeitos vão sendo descartados, mais nervoso o pançudo escudeiro do Comissário Gordon vai ficando, até o momento em que precisa recorrer ao seu então desafeto particular: Batman!\nEsta HQ deu origem ao episódio homônimo da série \"Batman: The Animated Series\" (1992-1999).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "651",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 651/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Acima da lei!",
+          "tituloOriginal": "Beyond the Law!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "652",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 652/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O poço das serpentes",
+          "tituloOriginal": "The Serpent Pit",
+          "quantidadePaginas": 23,
+          "resumo": "O desenhista Graham Nolan e sua família aparecem na hq.\nA manchete de jornal \"Nolan se foi\" é uma referência à saída temporária do desenhista. Ele retornaria em Detective Comics #661.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "653",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 653/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Atos de loucura!",
+          "tituloOriginal": "Acts of Madness!",
+          "quantidadePaginas": 54,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics Annual (1988) n° 5/1992 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1131 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-16/sa011126/165390",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-16/sa011126/165390",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-17/sa011126/165762",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-18/sa011126/166364",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-19/sa011126/166711",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-20/sa011126/169167",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-21/sa011126/169468",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-22/sa011126/169909",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-23/sa011126/170219",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-24/sa011126/172262",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-n-25/sa011126/172800"
+    ],
+    "geradoEm": "2026-07-05T04:57:26",
+    "gerador": "robo_importador_texto.py",
+    "aplicacaoManualCapas": {
+      "arquivoUrls": "docs\\importacao\\rascunhos\\a-saga-do-batman\\capas-amazon-1-a-36-playwright.txt",
+      "aplicadoEm": "2026-07-05T05:46:08",
+      "totalUrlsInformadas": 10,
+      "totalEdicoes": 10,
+      "totalCapasAplicadas": 10,
+      "modo": "sequencial"
+    }
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga do Batman",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 10,
+  "totalHistorias": 57,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "16",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-07-01",
+      "publicadoTexto": "julho de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 158,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 16\nPublicado em: julho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 158\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Anthony Tollin - ‘Tony Tollin’ Editor: Gabriel Faria , Isabel Ferreira",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Assassino de pedra",
+          "tituloOriginal": "Stone Killer",
+          "quantidadePaginas": 22,
+          "resumo": "Com Gotham City ainda se recuperando do último ataque do Pinguim, Batman sai na caçada a uma bizarra criatura que tem executado uma série de assassinatos rituais. Com a ajuda do arqueólogo Harv Lichas, o Cavaleiro das Trevas tenta impedir C'th, um demônio secular, que pretende corromper uma ancestral corrente energética que mantém o equilíbrio do mundo, tornando-a uma fonte de poder maligno!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "616",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 616/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um confronto de símbolos",
+          "tituloOriginal": "A Clash of Symbols",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está cada vez mais convencido que o Coringa não morreu durante seu último confronto com ele. Após evitar o assalto a uma cartomante, Batman se deixa levar pela angústia de capturar o lunático e pede que a mulher o ajude a encontrar seu inimigo. A consulta acaba levando o herói a lembrar de um de seus embates e a refletir sobre sua mítica rivalidade.\nO retorno do Coringa desde sua última aparição no arco \"Um Lugar Solitário Para Morrer\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "617",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 617/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Trunfo!",
+          "tituloOriginal": "Wildcard!",
+          "quantidadePaginas": 22,
+          "resumo": "A morte do juiz William Patricks confirma os temores de Batman e do Comissário Gordon: o Coringa está de volta. Os dois refletem sobre a dor que o psicopata lhes causou (a morte de Robin e o aleijamento de Bárbara Gordon em Piada Mortal) e questionam se resistirão ao desejo de matá-lo. O demente age durante uma palestra do financista Curtis Base e toca o terror, mas o método de agir do palhaço está muito diferente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "450",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 450/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Julgamentos!",
+          "tituloOriginal": "Judgements!",
+          "quantidadePaginas": 22,
+          "resumo": "Curtis Base continua sua onda de crimes se passando pelo Coringa, o que chama a atenção do verdadeiro Coringa.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "451",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 451/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O olho de quem vê",
+          "tituloOriginal": "The Eye of the Beholder",
+          "quantidadePaginas": 55,
+          "resumo": "A origem do Duas-Caras, um dos mais terríveis adversários do Cavaleiro das Trevas, recontada. Todos os fatos que levaram o promotor público Harvey Dent a se tornar um hediondo criminoso são relatados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman Annual (1961) n° 14/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-08-01",
+      "publicadoTexto": "agosto de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 17\nPublicado em: agosto de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Mike Mignola Arte-Final: George Pratt Editor: Gabriel Faria\nCavaleiro das trevas, cidade das trevas",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Cavaleiro das trevas, cidade das trevas",
+          "tituloOriginal": "Dark Knight, Dark City [Part I]",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta o Charada em situações mortais e sem um objetivo aparente até que o herói é atraído até o cemitério de Gotham.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "452",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 452/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Cavaleiro das trevas, cidade das trevas - Parte II",
+          "tituloOriginal": "Dark Knight, Dark City, Part 2",
+          "quantidadePaginas": 22,
+          "resumo": "Batman enfrenta zumbis cibernéticos no cemitério de Gotham, enquanto os métodos do Charada se tornam cada vez mais cruéis e mortais. Ao encontrar o vilão, Batman precisa salvar a vida de um bebê e deixa o Charada fugir.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "453",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 453/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Cavaleiro das trevas, cidade das trevas - Parte III",
+          "tituloOriginal": "Dark Knight, Dark City, Part 3",
+          "quantidadePaginas": 22,
+          "resumo": "Finalmente, as pistas do Charada levam a um desfecho onde o Batman servirá de sacrifício para a dominação total de um demônio ancestral, mas a ajuda providencial de Alfred evitará que o herói encontre um arremate mortal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "454",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 454/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sombra no sol",
+          "tituloOriginal": "Rite of Passage, Part One: Shadow on the Sun",
+          "quantidadePaginas": 22,
+          "resumo": "Tim Drake está se preparando para assumir o manto de Robin e se mostra de muito valor na ajuda a Batman com um caso de desvio monetário, porém sequestro de seus pais no Haiti deixa o garoto muito preocupado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "618",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 618/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Além da crença!",
+          "tituloOriginal": "Rite of Passage, Part Two: Beyond Belief!",
+          "quantidadePaginas": 22,
+          "resumo": "Os sequestradores dos pais de Tim Drake enviam uma fita cassete e Batman se prova novamente como o melhor detetive do mundo e descobre seu cativeiro. Agora, ele partirá para o resgate no Haiti e não poderá falhar!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "619",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 619/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Faça de mim um herói",
+          "tituloOriginal": "Rite of Passage, Part Three: Make Me a Hero",
+          "quantidadePaginas": 22,
+          "resumo": "Tim junta suas forças e se dedica à solução dos roubos da aranha financeira e encontra o responsável: o Anarquia! Enquanto isso, Batman segue as pistas para salvar os pais de seu protegido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "620",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 620/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "18",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-09-01",
+      "publicadoTexto": "setembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 18\nPublicado em: setembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria\nProva de fogo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Prova de fogo",
+          "tituloOriginal": "Rite of Passage, Part Four: Trial by Fire",
+          "quantidadePaginas": 22,
+          "resumo": "No Haiti, o Batman confronta o culto Vudu e tenta, desesperadamente, salvar as vidas dos pais de Tim, mas o desfecho é trágico e marcará o surgimento de um novo herói.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "621",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 621/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Dever",
+          "tituloOriginal": "Obligation",
+          "quantidadePaginas": 56,
+          "resumo": "O cavaleiro das trevas viaja para o Japão para honrar uma dívida de longa data que o força a um conflito mortal com o mestre que o treinou nas habilidades de combate que ele utiliza em sua guerra contra o mal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics Annual (1988)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics Annual (1988) n° 3/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Crise de identidade - Parte um",
+          "tituloOriginal": "Identity Crisis, Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Tim está de luto pela mãe e sente que está pronto para ser Robin, mas Batman discorda. Enquanto isso, algo está fazendo com que as pessoas comuns entrem repentinamente em ataques de fúria assassinos.\nKevin Breyfogle: Assistente de arte.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "455",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 455/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sem medo das consequências...",
+          "tituloOriginal": "Identity Crisis, Part Two: Without Fear of Consequence...",
+          "quantidadePaginas": 22,
+          "resumo": "Crimes de todos os níveis são cometidos em Gotham por pessoas aleatórias e Batman e Tim não conseguem estabelecer uma relação que leve ao responsável pela loucura durante o feriado do Natal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "456",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 456/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Mestre do medo",
+          "tituloOriginal": "Master of Fear",
+          "quantidadePaginas": 22,
+          "resumo": "Tim resolve o mistério do responsável por trás dos ataque a Gotham e precisa decidir se vai ou não ao encontro do Batman, porque sua carreira de Robin dependerá de seu sucesso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "457",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 457/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "19",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-10-01",
+      "publicadoTexto": "outubro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71veSENb-kL._SL1000_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 19\nPublicado em: outubro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Brian Bolland Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O grande mundo mal",
+          "tituloOriginal": "Big Bad World",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está pronto para oficializar o Tim Drake como o novo Robin, porém, Tim não está pronto e vai para Paris para aprender antigas técnicas tibetanas de luta e cura com Rahul Lama e Shen Chi. Enquanto está na cidade, ele conhece uma garota, Ling, que está envolvida com uma gangue local. Parece que ela pode estar com problemas, então Tim, disfarçado de Robin, vai ajudá-la.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1991) n° 1/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A pastora",
+          "tituloOriginal": "The Shepardess",
+          "quantidadePaginas": 22,
+          "resumo": "Clyde e Robin expulsam a gangue e voltam para um lugar seguro para se recuperar. Lady Shiva é vista nas sombras observando. Sir Edmund está insatisfeito com o trabalho da gangue e os envia de volta para encontrar Clyde e Robin. Um assassino, Ducard, é contratado para seguir Sir Edmund para fora do país e para longe dele. Enquanto isso, Lady Shiva aparece onde Clyde e Robin estão escondidos para avisá-los de que foram encontrados.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1991) n° 2/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O anjo destruidor",
+          "tituloOriginal": "The Destroying Angel",
+          "quantidadePaginas": 22,
+          "resumo": "Lady Shiva visita Robin e Clyde na antiga casa de fazenda para ajudar a rastrear Lynx e a gangue que Sir Edmund enviou para recuperar uma velha arma da Segunda Guerra Mundial para ele. Eles descobrem onde encontrar a gangue e vão interceptá-los para impedi-los de pegar uma arma biológica.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1991) n° 3/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Companhia estranha",
+          "tituloOriginal": "Strange Company",
+          "quantidadePaginas": 22,
+          "resumo": "Robin, Lady Shiva e Clyde rastreiam a gangue em Hong Kong e descobrem onde o avião que transportava a arma está pousando. Eles encontram o avião e seguem a arma biológica até a sede comercial de Sir Edmund, no centro da cidade. Robin, Lady Shiva e Clyde ficaram escondidos enquanto se preparavam para invadir a casa de Sir Edmund. Ao mesmo tempo, Lady Shiva continua o treinamento de Robin.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1991) n° 4/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O escuro",
+          "tituloOriginal": "The Dark",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin (1991)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin (1991) n° 5/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Monstros noturnos",
+          "tituloOriginal": "Night Monsters",
+          "quantidadePaginas": 22,
+          "resumo": "Batman investiga o desaparecimento de uma garotinha e acaba reencontrando o gênio de engenharia Harold. A volta da detetive Sarah Essen marca um novo e promissor capítulo na vida do comissário Gordon.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "458",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 458/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "20",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-11-01",
+      "publicadoTexto": "novembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 20\nPublicado em: novembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sábado à noite no cinema",
+          "tituloOriginal": "Saturday Night at the Movies",
+          "quantidadePaginas": 22,
+          "resumo": "O comissário Gordon vai ao cinema com sua namorada assistir à Marca do Zorro e Batman presencia uma situação semelhante à da sua criação, quando uma família sai do cinema e vira refém de um bandido. Mas agora, existe o Batman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "459",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 459/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O mundo é dos homens",
+          "tituloOriginal": "Sisters in Arms, Part One: It's a Man's World",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "460",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 460/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Noite das mulheres",
+          "tituloOriginal": "Sisters in Arms, Part Two: Ladies' Night",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "461",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 461/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Viver e morrer na Califórnia",
+          "tituloOriginal": "Spirit of the Beast, Part 1: To Live and Die in California",
+          "quantidadePaginas": 22,
+          "resumo": "Um latrocínio em Gotham leva o Batman à Califórnia para investigar misteriosos assassinatos relacionados com relíquias médicas de tribos indígenas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "462",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 462/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Fantasma",
+          "tituloOriginal": "Spirit of the Beast, Part 2: Ghost",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "463",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 463/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Sacrifício",
+          "tituloOriginal": "Spirit of the Beast, Part 3: Sacrifice",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "464",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 464/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "21",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-12-01",
+      "publicadoTexto": "dezembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 21\nPublicado em: dezembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Norm Breyfogle Cores: Adrienne Roy Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Estreia",
+          "tituloOriginal": "Debut",
+          "quantidadePaginas": 22,
+          "resumo": "Na primeira noite de patrulha de Tim como Robin, ele tenta ajudar uma donzela em perigo, mas seus esforços saem pela culatra. Bruce se esforça para ajudar dois jovens carentes. Mais tarde, um evento de caridade se torna cenário de um drama bizarro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "465",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 465/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A última história do Batman",
+          "tituloOriginal": "The Last Batman Story",
+          "quantidadePaginas": 56,
+          "resumo": "Tempus vê a vida de Batman 10 anos no futuro, onde o Homem-Morcego foi condenado à morte por matar acidentalmente o Pinguim.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman Annual (1961)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman Annual (1961) n° 15/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Gênese sombria!",
+          "tituloOriginal": "Dark Genesis!",
+          "quantidadePaginas": 22,
+          "resumo": "Um artista de quadrinhos está publicando histórias do Batman, com uma versão alternativa muito mais brutal e mortal. Nisso, casos de assassinatos são atribuídos ao protetor de Gotham e o Batman terá que resolver esse caso, o quanto antes.\nArte por: Henry (pp. 1,-9, 12, 22); McKone & Marzan (pp. 10-11, 13-21).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "622",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 622/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Morte da inocência",
+          "tituloOriginal": "Death of Innocence",
+          "quantidadePaginas": 22,
+          "resumo": "O assassino que usa o nome de Batman faz mais vítimas e põe a opinião pública e a polícia contra o guardião de Gotham, o que tornará seu trabalho mais difícil.\nArte por: McKone & Marzan (pp. 1-5, 15-17, 20-22); Henry (pp. 6-14, 18-19).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "623",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 623/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Vitória amarga",
+          "tituloOriginal": "Bitter Victory",
+          "quantidadePaginas": 22,
+          "resumo": "Usando seus dotes detetivescos, Batman encontra o assassino que aterrorizava Gotham e o artista de sua inusitada revista decide pôr um fim à publicação.\nArte por: Henry (pp. 1-3, 7-8, 10-13, 17, 19); Mckone & Marzan (4-6, 9, 14-16, 18, 20-22).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "624",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 624/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "22",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-01-01",
+      "publicadoTexto": "janeiro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 22\nPublicado em: janeiro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Michael Golden Editor: Gabriel Faria\nPrimeira aparição de personagens nesta edição:\nEletrocutor II , Pesticida",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Matadouro!",
+          "tituloOriginal": "Abattoir!",
+          "quantidadePaginas": 22,
+          "resumo": "Os médicos do Asilo Arkham tentam conter o serial killer conhecido como Matadouro, no entanto, um dos auxiliares é na verdade do um capanga do serial killer e ataca os guardas e o liberta! Juntos, os dois sequestram um caminhão e fogem do manicômio. O Matadouro decide atacar a campanha política do candidato a prefeito Henry Etchison e só o Batman pode pará-lo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "625",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 625/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O retorno do Eletrocutor",
+          "tituloOriginal": "Return to the Electrocutioner",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está no encalço do Eletrocutor que está matando criminosos em Gotham. Entretanto, a força policial começa a desmoronar com o Comissário Gordon no hospital e Haney planejando assumir o controle da polícia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "626",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 626/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O caso da sociedade química",
+          "tituloOriginal": "The Case of the Chemical Syndicate",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem-Morcego investiga uma série de assassinatos ligados a um sindicato químico.\nNova história reutilizando o enredo de \"O caso da sociedade química\" de Detective Comics #27. A história é dedicada a \"Bob Kane e Bill Finger e todos os outros que mantiveram a lenda viva\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "627",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 627/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O caso da sociedade química",
+          "tituloOriginal": "The Case of the Chemical Syndicate",
+          "quantidadePaginas": 22,
+          "resumo": "Nova história reutilizando o enredo de \"O caso da sociedade química\" de Detective Comics #27.\nA página dupla final desta história (páginas 96 e 97) mostra Batman balançando acima de imagens de seus amigos e inimigos da época com o número 600 sobreposto ao Bat-Sinal atrás dele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "627",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 627/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Corações",
+          "tituloOriginal": "Hearts",
+          "quantidadePaginas": 22,
+          "resumo": "No antigo esconderijo do Pinguim, um ornitólogo foi encarregado de catalogar os milhares de pássaros do local. Ele é interrompido pelo Matadouro, que mata o homem arrancando seu coração e matando todos os pássaros. O crime horrível chama a atenção do GCPD e do Batman, que vai ao Asilo Arkham para interrogar o Pinguim e obter qualquer informação que possa ajudá-los a resolver o caso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "628",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 628/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Acabaram os heróis",
+          "tituloOriginal": "No More Heroes",
+          "quantidadePaginas": 22,
+          "resumo": "Batman e Robin estão perseguindo Willy Panaca e sua gangue quando eles se escondem em um parque de diversões.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "466",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 466/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "23",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-02-01",
+      "publicadoTexto": "fevereiro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 23\nPublicado em: fevereiro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Michael Golden Editor: Gabriel Faria , Isabel Ferreira\nGuerra das sombras - Parte um",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Guerra das sombras - Parte um",
+          "tituloOriginal": "Shadow Box Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Uma série de assaltos a armazéns pela gangue dos Dragões Fantasmas leva Batman e Robin a se perguntarem se o antigo líder dos Dragões, Sir Edmund \"Rei Cobra\" Dorrance, ainda pode estar vivo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "467",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 467/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Guerra das sombras - Parte dois",
+          "tituloOriginal": "Shadow Box Part Two",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "468",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 468/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Guerra das sombras - Parte três",
+          "tituloOriginal": "Shadow Box Part Three",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "469",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 469/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sobre deuses e homens",
+          "tituloOriginal": "Of Gods and Men",
+          "quantidadePaginas": 22,
+          "resumo": "Tie in da saga \"Guerra dos Deuses\", publicada pela Eaglemoss em Coleção de Graphic Novels: Sagas Definitivas n° 20.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "470",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 470/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A grama faminta!",
+          "tituloOriginal": "The Hungry Grass!",
+          "quantidadePaginas": 22,
+          "resumo": "Batman se depara com casos estranhos em Gotham que remontam a crimes do passado e isso o levará a investigar as ações sobrenaturais de um cidadão que fora, possivelmente, preso de forma injusta.\nÉ a primeira vez que a prisão Blackgate é citada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "629",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 629/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "E o carrasco estava de salto alto",
+          "tituloOriginal": "And the Executioner Wore Stiletto Heels",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "630",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 630/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "24",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-03-01",
+      "publicadoTexto": "março de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 24\nPublicado em: março de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kevin Maguire Arte-Final: Dick Giordano Editor: Gabriel Faria",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Aconteceu a coisa mais engraçada",
+          "tituloOriginal": "The Funniest Thing Happened...",
+          "quantidadePaginas": 22,
+          "resumo": "Batman está fora da cidade e Robin patrulha as ruas sozinho. De repente, o batsinal brilha no céu de Gotham chamando o Cavaleiro Das Trevas. Mas quem atende o chamado é Robin. A noticia não poderia ser pior: o Coringa está solto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 1/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Amanhã, uma tragédia",
+          "tituloOriginal": "Tomorrow a Tragedy",
+          "quantidadePaginas": 22,
+          "resumo": "Robin tem que se revezar entre as patrulhas noturnas atrás do coringa e as aulas do colégio. Enquanto o Coringa com o auxilio forçado do Dr. Osgood Pellinger, um jovem gênio da informática começa a sabotar toda a rede de computadores da cidade para estabelecer um verdadeiro caos no cotidiano de Gotham City.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "...Uma noite de comédia",
+          "tituloOriginal": "...A Comedy Tonight!!",
+          "quantidadePaginas": 21,
+          "resumo": "O Coringa invadiu o sistema de informática de Gotham City, criando o caos nas folhas de pagamento dos policiais, bombeiros, sistema de luz e gás e rádio e trânsito, e está pedindo um bilhão de dólares para parar sua traquinagem e a prefeitura não sabe o que fazer e recorre a Jim Gordon para que ele tome uma solução. Enquanto Robin procura uma solução para o problema a situação piora, o Coringa invade o sistema do Batcomputador.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sensação térmica",
+          "tituloOriginal": "Chill Factor",
+          "quantidadePaginas": 24,
+          "resumo": "Robin e o comissário Gordon tem um plano para pegar o Coringa enquanto um caminhão com um boneco do Batman leva o dinheiro para o Coringa. O coringa explode o caminhão achando que matou o morcegão é ai que Robin entra em cena para capturar o coringa e a policia descobre o esconderijo dele e salva o Dr. Osgood Pellinger.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin Ii: The Joker's Wild! (1991)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin Ii: The Joker's Wild! (1991) n° 4/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Réquiem para um assassino",
+          "tituloOriginal": "Requiem for a Killer",
+          "quantidadePaginas": 22,
+          "resumo": "Batman, juntamente com Ace, explora os esgotos de Gotham, em busca de pistas para um caso. Ele descobre um abrigo nuclear onde residem os amigos de Crocodilo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Batman (1940)",
+            "numeroOriginal": "471",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Batman (1940) n° 471/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O Golem de Gotham - Parte um",
+          "tituloOriginal": "The Golem of Gotham Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Supremacistas brancos cometem vários atos de violência contra imigrantes no distrito de East Hamilton. Um velho judeu usa o Livro de Yetsirah para invocar um Golem, um ser maciço feito de argila que o protegeria e às minorias na região.\nO Golem é alimentado pelo ódio e fica furioso, matando criminosos e inocentes. Batman é atraído para East Hamilton como resultado dos ataques racistas, e logo se envolve na estranha destruição causada pelo Golem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Detective Comics (1937)",
+            "numeroOriginal": "631",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Detective Comics (1937) n° 631/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "25",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-04-01",
+      "publicadoTexto": "abril de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/719ykwAcZcL._SL1416_.jpg",
+      "descricao": "Saga do Batman, A 1ª Série - n° 25\nPublicado em: abril de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Mike Zeck Cores: Bob Lerose Editor: Gabriel Faria\nO martelo",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O martelo",
+          "tituloOriginal": "The Hammer",
+          "quantidadePaginas": 22,
+          "resumo": "Quando Robin quase é morto em uma luta, Batman pede que ele ficar abaixo do radar. Tim vai à festa de aniversário de seu amigo Ives em Pequena Odessa, um bairro russo de Gotham. Tim conhece uma jovem, Ariana Dzerchenko, cuja família está tendo problemas com a máfia russa. Ele tem que se esconder de Batman para ajudá-la. Tim mente para o pai e foge de casa. Em pouco tempo, Robin se vê cara a cara com o KGBesta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 1/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A besta",
+          "tituloOriginal": "The Beast",
+          "quantidadePaginas": 22,
+          "resumo": "São problemas atrás de problemas quando a ex-namorada de infância de Robin, Ariana, é sequestrada pela máfia russa durante um confronto com o KGBesta. Para piorar as coisas, os Dragões Fantasmas aparecem ansiosos por uma briga, e tudo isso com os problemas na escola para enfrentar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 2/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Dosvedanya, baby",
+          "tituloOriginal": "Dosvedanya, Baby",
+          "quantidadePaginas": 22,
+          "resumo": "Rei Cobra se muda para o território do KGBesta e Robin tem novos problemas com seu pai.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 3/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Caindo em desgraça",
+          "tituloOriginal": "Fall From Grace",
+          "quantidadePaginas": 22,
+          "resumo": "Robin descobre a identidade secreta da Caçadora, e eles unem forças para encontrar evidências sobre os agentes russos envolvidos na falsificação. Jack Drake decide mandar Tim para um internato em Metrópolis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 4/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Círculo de escuridão",
+          "tituloOriginal": "Circle of Darkness",
+          "quantidadePaginas": 21,
+          "resumo": "Robin e a Caçadora encontram o quartel-general do Comissário, mas ele leva a Caçadora cativa. Robin tenta resgatá-la, mas também é capturado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 5/1993 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Tinta assassina",
+          "tituloOriginal": "Murder Ink",
+          "quantidadePaginas": 23,
+          "resumo": "Robin e Caçadora enfrentam o KGBesta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Robin III : Cry of The Huntress (1992)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1993,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Robin III : Cry of The Huntress (1992) n° 6/1993 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

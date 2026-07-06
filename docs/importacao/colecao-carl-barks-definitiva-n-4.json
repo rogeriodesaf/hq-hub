@@ -1,0 +1,43 @@
+{
+  "origem": {
+    "arquivoEntrada": "colecao-carl-barks-definitiva-n-4-gdq-176345",
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-4/ti011113/176345",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-4/ti011113/176345",
+      "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=176345&path=ti01111304_176345.jpg"
+    ],
+    "geradoEm": "2026-07-02",
+    "gerador": "Cadastro manual (mapeado de URL Guia dos Quadrinhos)"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Carl Barks Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 4,
+  "totalHistorias": 0,
+  "avisos": [
+    "Dados extraidos da URL do Guia dos Quadrinhos informada pelo usuario.",
+    "A pagina nao expôs a listagem completa de historias no trecho retornado; o campo historias ficou vazio para preenchimento posterior se necessario."
+  ],
+  "edicoes": [
+    {
+      "numero": "4",
+      "tituloChamada": "Coleção Carl Barks Definitiva n° 4",
+      "dataPublicacao": "2024-01-01",
+      "publicadoTexto": "janeiro de 2024",
+      "editora": "Panini",
+      "licenciador": "Walt Disney",
+      "categoria": "Álbum de Luxo",
+      "genero": "Infantil",
+      "status": "Em circulação",
+      "numeroPaginas": 232,
+      "formato": "(16,5 x 24 cm) Colorido/Capa dura",
+      "precoCapa": 109.90,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=176345&path=ti01111304_176345.jpg",
+      "descricao": "Publicado em: janeiro de 2024\nEditora: Panini\nLicenciador: Walt Disney\nCategoria: Álbum de Luxo\nGênero: Infantil\nStatus: Em circulação\nNúmero de páginas: 232\nFormato: (16,5 x 24 cm)\nColorido/Capa dura\nPreço de capa: R$ 109,90\nCrédito da capa e editor\nArte: Carl Barks\nEditor: Marcel...",
+      "historias": []
+    }
+  ]
+}

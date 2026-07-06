@@ -1,0 +1,43 @@
+{
+  "origem": {
+    "arquivoEntrada": "colecao-carl-barks-definitiva-n-22-gdq-157586",
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-22/ti011113/157586",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-22/ti011113/157586",
+      "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=157586&path=ti01111322_157586.jpg"
+    ],
+    "geradoEm": "2026-07-02",
+    "gerador": "Cadastro manual (mapeado de URL Guia dos Quadrinhos)"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Carl Barks Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 22
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 0,
+  "avisos": [
+    "Dados extraidos da URL do Guia dos Quadrinhos informada pelo usuario.",
+    "A pagina nao expôs a listagem completa de historias no trecho retornado; o campo historias ficou vazio para preenchimento posterior se necessario."
+  ],
+  "edicoes": [
+    {
+      "numero": "22",
+      "tituloChamada": "Coleção Carl Barks Definitiva n° 22",
+      "dataPublicacao": "2021-03-01",
+      "publicadoTexto": "março de 2021",
+      "editora": "Panini",
+      "licenciador": "Walt Disney",
+      "categoria": "Álbum de Luxo",
+      "genero": "Infantil",
+      "status": "Em circulação",
+      "numeroPaginas": 216,
+      "formato": "(16,5 x 24 cm) Colorido/Capa dura",
+      "precoCapa": 89.90,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=157586&path=ti01111322_157586.jpg",
+      "descricao": "Publicado em: março de 2021\nEditora: Panini\nLicenciador: Walt Disney\nCategoria: Álbum de Luxo\nGênero: Infantil\nStatus: Em circulação\nNúmero de páginas: 216\nFormato: (16,5 x 24 cm)\nColorido/Capa dura\nPreço de capa: R$ 89,90\nCrédito da capa e editor\nArte: Carl Barks\nEditor: ...",
+      "historias": []
+    }
+  ]
+}

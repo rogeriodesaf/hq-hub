@@ -1,0 +1,689 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-61/co011170/174689",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-61/co011170/174689",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-62/co011170/174690",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-63/co011170/174953",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-64/co011170/174954"
+    ],
+    "geradoEm": "2026-07-04T06:47:38",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Clássica Marvel",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 4,
+  "totalHistorias": 37,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "61",
+      "tituloChamada": "Thor 10: Se Asgard cair...",
+      "dataPublicacao": "2023-10-01",
+      "publicadoTexto": "outubro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 44.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174689&path=co011170061_174689.jpg&w=400&h=603",
+      "descricao": "Coleção Clássica Marvel n° 61\nPublicado em: outubro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 44,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Vince Colletta Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Para se tornar imortal",
+          "tituloOriginal": "To Become an Immortal!",
+          "quantidadePaginas": 16,
+          "resumo": "Após resgatar Jane Foster do Alto Evolucionário, Thor a leva para Asgard. Lá, Odin transforma Jane em uma imortal e lhe dá poderes e um teste, no qual ela falha. Thor intervém e, com a ajuda de Sif, a salva. Odin faz Jane esquecer Thor e a devolve à Terra, onde ela encontra o Dr. Kincaid, seu futuro marido.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "136",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 136/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Um milagre está por vir!",
+          "tituloOriginal": "Tales of Asgard: There Shall Come a Miracle!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "136",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 136/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Se Asgard cair...",
+          "tituloOriginal": "If Asgard Falls...",
+          "quantidadePaginas": 30,
+          "resumo": "Loki se apossa do Destruidor e invade Asgard.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor Annual (1966)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor Annual (1966) n° 2/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O Deus do Trovão e o troll!",
+          "tituloOriginal": "The Thunder God and the Troll!",
+          "quantidadePaginas": 16,
+          "resumo": "Odin faz com que seu filho, Thor, esqueça a mortal Jane Foster juntando-o à bela deusa Sif. Mas nem tudo é amor na vida de nosso herói: ele terá que enfrentar os Trolls e o mais poderoso deles, Ulik.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "137",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 137/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A tragédia de Hogun!",
+          "tituloOriginal": "Tales of Asgard: The Tragedy of Hogun!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "137",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 137/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "As chamas da batalha!",
+          "tituloOriginal": "The Flames of Battle!",
+          "quantidadePaginas": 16,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "138",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 138/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "À procura da Montanha Mística!",
+          "tituloOriginal": "Tales of Asgard: The Quest for the Mystic Mountain!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "138",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 138/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Morrer como um deus!",
+          "tituloOriginal": "To Die Like a God!",
+          "quantidadePaginas": 16,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "139",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 139/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "O segredo da Montanha Mística!",
+          "tituloOriginal": "Tales of Asgard: The Secret of the Mystic Mountain!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "139",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 139/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Começa a batalha!",
+          "tituloOriginal": "Tales of Asgard: The Battle Begins!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "140",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 140/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Alibar e os quarenta demônios!",
+          "tituloOriginal": "Tales of Asgard: Alibar and the Forty Demons!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "141",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 141/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "Nós, que estamos prestes a morrer!",
+          "tituloOriginal": "Tales of Asgard: We, Who Are About to Die...!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "142",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 142/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 13,
+          "tituloPortugues": "Até a morte!",
+          "tituloOriginal": "Tales of Asgard: To the Death!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "143",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 143/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 14,
+          "tituloPortugues": "O começo do fim!",
+          "tituloOriginal": "Tales of Asgard: The Beginning of the End!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "144",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 144/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 15,
+          "tituloPortugues": "O fim!",
+          "tituloOriginal": "Tales of Asgard: The End!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Thor (1966)",
+            "numeroOriginal": "145",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Thor (1966) n° 145/1967 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "62",
+      "tituloChamada": "Vingadores 7: Tormento e Triunfo!",
+      "dataPublicacao": "2023-10-01",
+      "publicadoTexto": "outubro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174690&path=co011170062_174690.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 62\nPublicado em: outubro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Don Heck Arte-Final: George Roussos - ‘George Bell’ Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "História: Roy Thomas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "35",
+            "anoOriginal": 1966,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Avengers, The (1963) n° 35/1966 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "História: Roy Thomas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "36",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Avengers, The (1963) n° 36/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "História: Roy Thomas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "37",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Avengers, The (1963) n° 37/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "História: Roy Thomas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "38",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Avengers, The (1963) n° 38/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "História: Roy Thomas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Avengers, The (1963)",
+            "numeroOriginal": "39",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Avengers, The (1963) n° 39/1967 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "63",
+      "tituloChamada": "Capitão América 4: O ataque do Pantera Negra!",
+      "dataPublicacao": "2023-11-01",
+      "publicadoTexto": "novembro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174953&path=co011170063_174953.jpg&w=400&h=620",
+      "descricao": "Coleção Clássica Marvel n° 63\nPublicado em: novembro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Joe Sinnott Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": "Back From the Dead!",
+          "quantidadePaginas": 10,
+          "resumo": "O Defensor da Liberdade descobre que seu velho inimigo, o Caveira, está vivo e que planejou sua vingança na Ilha da Gaivota, uma esquecida base secreta nazista.\nO misterioso vilão que vem manipulando o Capitão América com uma suposta volta de Bucky é revelado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "89",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 89/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "E os homens o chamarão de traidor!",
+          "tituloOriginal": "...And Men Shall Call Him Traitor!",
+          "quantidadePaginas": 10,
+          "resumo": "Para salvar Manhattan da destruição, o Vingador se rende e promete servir ao Caveira.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "90",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 90/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A última derrota!",
+          "tituloOriginal": "The Last Defeat!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "91",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 91/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Nick Fury morreu diante de meus olhos!",
+          "tituloOriginal": "Before My Eyes, Nick Fury Died!",
+          "quantidadePaginas": 10,
+          "resumo": "De volta a Nova York, nosso herói vê por acaso seu amigo Fury ser assassinado por um matador mecânico. Mas será que o diretor da S.H.I.E.L.D. morreu mesmo?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "92",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 92/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Nas mandíbulas da I.M.A.!",
+          "tituloOriginal": "Into the Jaws of... A.I.M.!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "93",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 93/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Se este for Modoc...",
+          "tituloOriginal": "If This Be... Modok!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "94",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 94/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Um tempo pra morrer... um tempo para viver!",
+          "tituloOriginal": "A Time to Die... A TIme to Live!",
+          "quantidadePaginas": 10,
+          "resumo": "Cansado de lutas e do perigo constante, e sem tempo para sua vida civil como Steve Rogers, nosso herói toma uma decisão: anuncia ao mundo sua aposentadoria e revela sua identidade secreta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "95",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 95/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Tempo de renascer!",
+          "tituloOriginal": "To Be Reborn!",
+          "quantidadePaginas": 10,
+          "resumo": "Vários novaiorquinos amadores tentam substituir o Capitão América, pondo, sem saber, a própria vida em perigo, já que o submundo está atacando todos que vestem o famoso uniforme, na esperança de matarem o verdadeiro herói. Fury então convence Steve Rogers a voltar a ser o Capitão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "96",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 96/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "E então começa...!",
+          "tituloOriginal": "And So it Begins...!",
+          "quantidadePaginas": 11,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "97",
+            "anoOriginal": 1968,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 97/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 11,
+          "resumo": "\"The claws of the Panther!\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "98",
+            "anoOriginal": 1968,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 98/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "O homem que viveu duas vezes!",
+          "tituloOriginal": "The Man Who Lived Twice!",
+          "quantidadePaginas": 11,
+          "resumo": "Nosso herói americano e o herói africano são capturados por Zemo, que voltou dos mortos. Mas será que voltou mesmo? Enquanto isso, Sharon, disfarçada de aliada do criminoso nazista, está prestes a ser desmascarada quando o vilão a obriga a executar os dos heróis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "99",
+            "anoOriginal": 1968,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 99/1968 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": "Título original americano: “This monster unmasked!”. Nosso herói e o Pantera Negra descobrem a verdadeira identidade de “Zemo”. Impressionado com o vingador africano, o Capitão pede a ele que o substitua nos Vingadores.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Captain America (1968)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1968,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Captain America (1968) n° 100/1968 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "64",
+      "tituloChamada": "Homem-Aranha 11: O fim do Cabeça de Teia!",
+      "dataPublicacao": "2023-11-01",
+      "publicadoTexto": "novembro de 2023",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=174954&path=co011170064_174954.jpg&w=400&h=615",
+      "descricao": "Coleção Clássica Marvel n° 64\nPublicado em: novembro de 2023\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: John Romita Arte-Final: Mike Esposito - ‘Joe Gaudioso/Mickey Demeo’ Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O sinistro Shocker!",
+          "tituloOriginal": "The sinister Shocker!",
+          "quantidadePaginas": 20,
+          "resumo": "O Escalador de Paredes enfrenta um novo inimigo, Shocker (chamado aqui de Britador), capaz de, com sua roupa especial, emitir ondas de choque e absorver tranqüilamente os socos de nosso herói.\nÉ nessa edição que Peter vai morar com Harry Osborn e tia May com Anna Watson.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 46/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Nas mãos do Caçador!",
+          "tituloOriginal": "In the hands of the Hunter!",
+          "quantidadePaginas": 20,
+          "resumo": "De olho na recompensa de 20 mil dólares oferecida pelo Duende Verde pela cabeça do Aranha, Kraven tenta eliminar o herói, mas é derrotado e preso. Ao sair da prisão, decide ir atrás de Norman Osborn (a identidade secreta do Duende) para conseguir o dinheiro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 47/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "As asas do Abutre!",
+          "tituloOriginal": "The wings of the Vulture!",
+          "quantidadePaginas": 20,
+          "resumo": "A ameaça alada está de volta. Mas, espere! Há algo errado com esse supervilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "48",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 48/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Das profundezas da derrota!",
+          "tituloOriginal": "From the depths of defeat!",
+          "quantidadePaginas": 20,
+          "resumo": "O Abutre e Kraven se unem contra nosso Cabeça de Teia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 49/1967 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Homem-Aranha nunca mais!",
+          "tituloOriginal": "Spider-Man no more!",
+          "quantidadePaginas": 20,
+          "resumo": "Atormentado por inúmeros problemas pessoais, Peter toma a mais drástica decisão de sua carreira: “deixar de ser o Aranha de uma vez por todas”! Só que, aproveitando a ausência do herói, um novo e poderoso líder mafioso está reunindo todas as quadrilhas criminosas sob seu comando, o que pode fazer com que Peter pague um preço alto demais por sua decisão! HQ que influenciou a trama do filme Homem-Aranha 2 (2004).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1967,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 50/1967 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

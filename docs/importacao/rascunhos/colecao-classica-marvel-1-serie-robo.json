@@ -1,0 +1,1459 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-16/co011170/161267",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-16/co011170/161267",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-17/co011170/161725",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-18/co011170/161726",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-19/co011170/162124",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-20/co011170/162126",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-21/co011170/162541",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-22/co011170/162542",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-23/co011170/162985",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-24/co011170/162986",
+      "http://www.guiadosquadrinhos.com/edicao/colecao-classica-marvel-n-25/co011170/163363"
+    ],
+    "geradoEm": "2026-07-04T06:21:18",
+    "gerador": "robo_importador_texto.py"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Clássica Marvel",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 10,
+  "totalHistorias": 78,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "16",
+      "tituloChamada": "Hulk 2: Voltando da morte!",
+      "dataPublicacao": "2021-10-01",
+      "publicadoTexto": "outubro de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161267&path=co011170016_161267.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 16\nPublicado em: outubro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Mike Esposito - ‘Joe Gaudioso/Mickey Demeo’ Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Surge o Hulk",
+          "tituloOriginal": "Enter the Hulk",
+          "quantidadePaginas": 18,
+          "resumo": "Gigante e Vespa vão ao Novo México procurar o famoso gigante verde. Mas um supervilão, o Pião, também tem planos para o bruto, planos que pretendem dar fim aos três heróis. Repare que, aqui, o Golias Esverdeado ainda não fala em terceira pessoa. A história funciona também como um “cartão de visitas” do personagem: a partir do número seguinte, o Hulk passaria a ter suas próprias histórias na revista, dividindo-a com o Gigante.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 59/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O Incrível Hulk",
+          "tituloOriginal": "“The Incredible Hulk”",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 60/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Enfim capturado!",
+          "tituloOriginal": "“Captured at Last!”",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 61/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Surge... o Camaleão!",
+          "tituloOriginal": "“Enter",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 62/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Um Titã no trem!",
+          "tituloOriginal": "A Titan Rides the Train!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 63/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A horda de humanoides!",
+          "tituloOriginal": "The Horde of Humanoids!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 64/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Esmagando a Cortina de Ferro!",
+          "tituloOriginal": "On the Rampage against the Reds!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 65/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "O poder do Doutor Banner!",
+          "tituloOriginal": "The Power of Doctor Banner!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 66/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Onde caminha o Colosso!",
+          "tituloOriginal": "Where Strides the Behemoth",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "67",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 67/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Voltando dos mortos!",
+          "tituloOriginal": "Back from the Dead!",
+          "quantidadePaginas": 10,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales To Astonish (1959)",
+            "numeroOriginal": "68",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales To Astonish (1959) n° 68/1965 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": "Demolidor 2: A chegada do Metaloide!",
+      "dataPublicacao": "2021-11-01",
+      "publicadoTexto": "novembro de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161725&path=co011170017_161725.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 17\nPublicado em: novembro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Wally Wood Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Preso pela... Irmandade do Medo!",
+          "tituloOriginal": "Trapped by... the Fellowship of Fear!",
+          "quantidadePaginas": 20,
+          "resumo": "Entre em cena a Irmandade do Medo, formada pelo Touro, ex-integrante dos Executores, o Enguia, originalmente inimigo do Tocha Humana, e liderada pelo arrepiante Senhor Medo, capaz de aterrorizar qualquer ser vivo com seu terrível gás dos nervos! E eles vão dar muito trabalho para um certo herói cego: o Homem Sem Medo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 6/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Em combate mortal com o... Príncipe Submarino!",
+          "tituloOriginal": "In Mortal Combat With... Sub-Mariner!",
+          "quantidadePaginas": 20,
+          "resumo": "Incitado por Krang, o traiçoeiro general do exército atlante, Namor, resolve emitir um ultimato à humanidade: a rendição incondicional ou a completa destruição. Mas, antes de cumprir tal ameaça, vai até a superfície procurar um advogado para processar a humanidade pelos crimes que cometem contra seu habitat natural. Dessa vez, o herói cego precisará dar tudo de si nesse combate.\nO Demolidor estreia seu tradicional uniforme vermelho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 7/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A chegada do Metaloide!",
+          "tituloOriginal": "The Stiltman Cometh!",
+          "quantidadePaginas": 20,
+          "resumo": "Enquanto tenta defender um cliente em um caso de roubo de patentes em sua identidade de advogado, o Homem-Sem-Medo tem que encarar o Metaloide, um inimigo capaz de elevar o nível de vilania literalmente \"as alturas\"!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 8/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Que ele possa ver!",
+          "tituloOriginal": "That He May See!",
+          "quantidadePaginas": 20,
+          "resumo": "Klaus Kruger, um nome que remete ao passado de Matt Murdock, ex-colega do último ano da turma de Direito, ressurge, agora como o Duque de Lichtenbad, um pequeno principado europeu. Ao mesmo tempo, uma oportunidade única vê-se diante dos olhos de nosso herói: a chance de que eles possam \"voltar a enxergar\"!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 9/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Enquanto a cidade dorme!",
+          "tituloOriginal": "While the City Sleeps!",
+          "quantidadePaginas": 20,
+          "resumo": "Ao mesmo tempo em que Foggy é indicado a candidato a promotor pelo novo Partido Reformista, uma onda de crimes assola a cidade, por uma gangue de super-criminosos animais conhecida como \"A Organização\", encabeçada pelo sinistro Organizador, seu misterioso líder mascarado. Mais um trabalho para o Demolidor!\nRoteirizada por Wally Wood, sem a participação ativa de Stan Lee.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Daredevil (1964)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Daredevil (1964) n° 10/1965 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "18",
+      "tituloChamada": "Quarteto Fantástico 3: Ameaça na Lua!",
+      "dataPublicacao": "2021-11-01",
+      "publicadoTexto": "novembro de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=161726&path=co011170018_161726.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 18\nPublicado em: novembro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Steve Ditko Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Uma visita com o Quarteto Fantástico",
+          "tituloOriginal": "A Visit With the Fantastic Four",
+          "quantidadePaginas": 11,
+          "resumo": "Ao receber sua correspondência no Edifício Baxter, o Quarteto Fantástico relembra seu passado. Ao mesmo tempo, Richards, Grimm e Johnny preparam uma surpresa para a Mulher-Invisível.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 11/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O Homem Impossível",
+          "tituloOriginal": "The Impossible Man!",
+          "quantidadePaginas": 11,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 11/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O Incrível Hulk",
+          "tituloOriginal": "The Incredible Hulk",
+          "quantidadePaginas": 23,
+          "resumo": "O general Ross vai a Nova York pedir a ajuda do Quarteto para deter o Hulk, suspeito de ter sabotado instalações de mísseis militares no deserto.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 12/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O Quarteto Fantástico contra o Fantasma Vermelho e seus indescritíveis macacos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Esta história marca a primeira aparição (nos EUA) do Fantasma Vermelho (e seus Super-Macacos), Vigia e da dimensão alienígena do Limbo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 13/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O impiedoso Mestre dos Bonecos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Mestre dos Bonecos manipula Namor para que este destrua o Quarteto Fantástico.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 14/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 20,
+          "resumo": "O Pensador Louco, interessado em assumir a chefia do crime em Nova York, manipula os eventos para que o Quarteto Fantástico se separe e ele se apodere do arsenal de Reed Richards.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 15/1963 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "19",
+      "tituloChamada": "O Espetacular Homem-Aranha: O Sexteto Sinistro!",
+      "dataPublicacao": "2021-12-01",
+      "publicadoTexto": "dezembro de 2021",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162124&path=co011170019_162124.jpg&w=400&h=611",
+      "descricao": "Coleção Clássica Marvel n° 19\nPublicado em: dezembro de 2021\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Steve Ditko Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O Sexteto Sinistro",
+          "tituloOriginal": "The Sinister Six!",
+          "quantidadePaginas": 41,
+          "resumo": "Os maiores vilões do Homem-Aranha se juntam para derrotar o herói. E logo agora, quando mais precisa de seus poderes, ele parece tê-los perdido misteriosamente. E, para piorar, os bandidos sequestraram as duas pessoas que ele mais ama: Betty e Tia May. Mais do que nunca o aracnídeo precisa achar um meio de derrotar o invencível Sexteto Sinistro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os segredos do Homem-Aranha!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 4,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Texto: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 3,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Texto: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "1 Página\nO segredo da máscara do Homem-Aranha\nTexto: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nA favorita de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nOs colegas de classe de Peter Parker\nHistória: Stan Lee",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Texto: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "1 Página\nA favorita de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nOs colegas de classe de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nA casa de Peter Parker\nHistória: Stan Lee",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "1 Página\nOs colegas de classe de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nA casa de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nComo Stan Lee e Steve Ditko criaram o Homem-Aranha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 3,
+          "resumo": "1 Página\nA casa de Peter Parker\nHistória: Stan Lee\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\n1 Página\nComo Stan Lee e Steve Ditko criaram o Homem-Aranha!\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\nO titulo original \"How Stan Lee and Steve Ditko create Spider-Man!\" indica o foco em como as histórias mensais são criadas, enquanto aqui, dá a impressão de como eles originaram o Cabeça-de-Teia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 3,
+          "resumo": "1 Página\nComo Stan Lee e Steve Ditko criaram o Homem-Aranha!\nPublicada pela primeira vez em Amazing Spider-Man Annual, The (1964) n° 1 /1964 - Marvel Comics\nO titulo original \"How Stan Lee and Steve Ditko create Spider-Man!\" indica o foco em como as histórias mensais são criadas, enquanto aqui, dá a impressão de como eles originaram o Cabeça-de-Teia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Como Stan Lee e Steve Ditko criaram o Homem-Aranha!",
+          "tituloOriginal": "Duel With Daredevil",
+          "quantidadePaginas": 3,
+          "resumo": "O titulo original \"How Stan Lee and Steve Ditko create Spider-Man!\" indica o foco em como as histórias mensais são criadas, enquanto aqui, dá a impressão de como eles originaram o Cabeça-de-Teia.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man Annual, The (1964)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man Annual, The (1964) n° 1/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Duelo com o Demolidor",
+          "tituloOriginal": "Duel With Daredevil",
+          "quantidadePaginas": 22,
+          "resumo": "Nosso Escalador de Paredes salva um certo Sr. Murdock de um assalto. Mas a “indefesa” vítima é também o Demolidor, que descobre, mais tarde, que o Mestre do Picadeiro hipnotizou o aracnídeo para que este seja estrela principal de seu novo show. Cabe agora ao Demolidor dar uma retribuição ao herói para tirá-lo dessa situação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 16/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "A volta do Duende Verde",
+          "tituloOriginal": "The return of the Green Goblin!",
+          "quantidadePaginas": 22,
+          "resumo": "Flash Thompson coloca um anúncio no jornal anunciando seu clube do Homem-Aranha. Todos comparecem, incluindo seu inimigo Duende Verde, que quer melar a festa derrotando o herói diante de todos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 17/1964 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "20",
+      "tituloChamada": "Thor 3: Encantor e o Executor!",
+      "dataPublicacao": "2022-01-01",
+      "publicadoTexto": "janeiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162126&path=co011170020_162126.jpg&w=400&h=611",
+      "descricao": "Coleção Clássica Marvel n° 20\nPublicado em: janeiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Chic Stone Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Plano mestre de Mister Hyde!",
+          "tituloOriginal": "The Master Plan of Mr. Hyde",
+          "quantidadePaginas": 13,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 100/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os Gigantes da Tempestade",
+          "tituloOriginal": "Tales of Asgard: The Storm Giants",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "100",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 100/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O retorno de Zarrko, o homem do amanhã!",
+          "tituloOriginal": "The Return of Zarrko, the Tomorrow Man",
+          "quantidadePaginas": 13,
+          "resumo": "Para conter a fúria e petulância de Thor (depois que esse é proibido de se casar com a mortal Jane Foster), Odin diminuiu o poder do herói pela metade.\nAproveitando-se da situação, Loki convoca o vilão do futuro, Zarrko, para voltar ao passado levando um robô destruidor e derrotar o deus do trovão. Sem poder se defender e com seu poder reduzido, Thor aceita voltar ao futuro e ajudar o vilão a dominar o mundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 101/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A invasão de Asgard!",
+          "tituloOriginal": "“Tales of Asgard: The Invasion of Asgard”",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "101",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 101/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Escravo de Zarrko, o homem do amanhã!",
+          "tituloOriginal": "Slave of Zarkko, the Tomorrow Man",
+          "quantidadePaginas": 13,
+          "resumo": "Com seus poderes reduzidos pela metade por Odin, Thor se vê obrigado a ajudar Zarrko a conquistar o mundo do futuro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "102",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 102/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A morte procura Thor!",
+          "tituloOriginal": "Tales of Asgard: Death Comes to Thor",
+          "quantidadePaginas": 5,
+          "resumo": "A história de como o Deus do Trovão empunhou o martelo encantado pela primeira vez. Mas, para isso, terá que encarar Hela, a deusa da morte. Uma curiosidade: foi neste episódio que Balder apareceu pela primeira vez.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "102",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 102/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A ameaça de Encantor e do Executor!",
+          "tituloOriginal": "The Enchantress and the Executioner!",
+          "quantidadePaginas": 13,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 103/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "A missão de Thor nas terras de Mirmir!",
+          "tituloOriginal": "Tales of Asgard: Thor's Mission to Mirmir!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "103",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 103/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Gigantes caminham sobre a Terra!",
+          "tituloOriginal": "Giants Walk the Earth",
+          "quantidadePaginas": 13,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "104",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 104/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "Heimdall, Guardião da mística Ponte do Arco-Íris",
+          "tituloOriginal": "Tales of Asgard: Heimdall the Guardian of the Rainbow Bridge",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "104",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 104/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 11,
+          "tituloPortugues": "Cobra e Mr. Hyde!",
+          "tituloOriginal": "The Cobra and Mr. Hyde!",
+          "quantidadePaginas": 18,
+          "resumo": "A inusitada união entre dois vilões, Mr. Hyde e Cobra, faz com que a dupla descubra que Donald Blake e Thor tem alguma espécie de segredo em comum.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "105",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 105/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 12,
+          "tituloPortugues": "O dia em que Heimdall falhou!",
+          "tituloOriginal": "“Tales of Asgard: When Heimdall Failed!”",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "105",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 105/1964 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "21",
+      "tituloChamada": "Homem de Ferro 3: Confronto mortal!",
+      "dataPublicacao": "2022-01-01",
+      "publicadoTexto": "janeiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162541&path=co011170021_162541.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 21\nPublicado em: janeiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: Don Heck Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A vingança do Mandarim!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 13,
+          "resumo": "Título original americano: “The Mandarin's revenge”.\nHomem de Ferro volta a encarar o Mandarim. Mandarim sabota foguetes americanos fornecidos pela Stark Int. e Homem de Ferro vai solucionar a situação, encarando o vilão, mas acaba sendo feito prisioneiro.\nFoi esta história que deu origem a “A vingança do Mandarim” (“The Mandarin's revenge”), o 4° episódio do desenho animado da TV do nosso Cabeça de Concha (1966).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 54/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 13,
+          "resumo": "Título original americano: “No one escapes the Mandarin!”.\nContinuação da história anterior. Homem de Ferro escapa e consegue deter os planos do Mandarim.\nFoi esta história que deu origem a “Ninguém escapa do Mandarim” (“No one escapes the Mandarin”), o 3° capítulo do 4° episódio do desenho animado da TV do nosso herói (1966).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 55/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 5,
+          "resumo": "Respostas para as suas dúvidas sobre o Vingador de Ferro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 55/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": "Hawkeye, the marksman!",
+          "quantidadePaginas": 18,
+          "resumo": "Tony Stark desiste momentaneamente de ser o Homem de Ferro, mas tem que retomar suas atividades de herói quando surge uma nova ameaça, o Unicórnio, e os outros Vingadores estão ocupados com outros problemas. O Unicórnio, com seu chifre energético, pretende sabotar a produção militar dos EUA e sua armadura foi criada pelo Dínamo Escarlate I, quando este ainda estava do lado comunista. Homem de Ferro resolve a situação, mas o Unicórnio acaba fugindo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 56/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Gavião Arqueiro, o atirador!",
+          "tituloOriginal": "Hawkeye, the marksman!",
+          "quantidadePaginas": 18,
+          "resumo": "Um artista de circo (Gavião Arqueiro) com inveja da admiração do povo pelo Homem de Ferro cria um uniforme e tenta virar herói. No entanto, acaba se aliando à Viúva Negra, para que juntos tentem derrotar o Homem de Ferro e consigam as tecnologias da Stark. Ambos conseguem fugir no final. Foi esta história que deu origem a “Enter Hawkeye” (“O Falcão aparece”), o 6° episódio do desenho animado da TV do Homem de Ferro (1966).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 57/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Combate mortal com o Capitão América!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 18,
+          "resumo": "Título original americano: “In mortal combat with Captain America!”\nKraven e o Camaleão tentam invadir a fábrica de Stark. Kraven é capturado pelo Homem de Ferro, mas Camaleão não. Camaleão engana o Homem de Ferro se disfarçando de Capitão América, sendo que o Homem de Ferro acaba lutando com o verdadeiro Capitão. O plano é desmascarado e Camaleão preso.\nKirby desenhou apenas algumas das figuras nessa edição.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "58",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 58/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O Cavaleiro Negro!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 13,
+          "resumo": "O Cavaleiro Negro foge da prisão, onde foi colocado pelos Vingadores e quer vingança. Os outros Vingadores vão para um evento e sobra para o Homem de Ferro sozinho conter o vilão. Homem de Ferro detém o vilão, o qual acaba mais uma vez preso. Para que não desconfiem de sua identidade secreta, Tony, com o traje de Homem de Ferro, diz a Pepper e Happy que Tony ficará um tempo fora da cidade e ele ficará no comando.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 59/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Suspeito de assassinato!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 13,
+          "resumo": "Devido aos eventos da edição anterior, o Homem de Ferro é suspeito de ter assassinado o Tony Star, o qual está \"desaparecido\" para todos. Viúva Negra e Gavião Arqueiro tentam aproveitar a oportunidade, mas são mais uma vez detidos pelo herói. Gavião Arqueiro acaba fugindo e Viúva Negra é capturada e levada para a União Soviética devido às suas falhas em roubar a tecnologia da Stark Int.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Tales of Suspense (1959)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Tales of Suspense (1959) n° 60/1964 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "22",
+      "tituloChamada": "X-Men 2: A chegada dos Vingadores!",
+      "dataPublicacao": "2022-01-01",
+      "publicadoTexto": "janeiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162542&path=co011170022_162542.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 22\nPublicado em: janeiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Chic Stone Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Namor entra para a Irmandade de Mutantes!",
+          "tituloOriginal": "Sub-Mariner! Joins the Evil Mutants!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 6/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O retorno de Blob",
+          "tituloOriginal": "The Return of the Blob",
+          "quantidadePaginas": 22,
+          "resumo": "Os X-Men enfrentam Blob e a Irmandade de Mutantes.\nPrimeira aparição do Cérebro (detector de mutantes).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 7/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A incrível ameaça de... Unus, o Intocável!",
+          "tituloOriginal": "“Unus, the Untouchable!”",
+          "quantidadePaginas": 20,
+          "resumo": "Ao ser obrigado a revelar seus poderes mutantes em público para salvar uma criança, o Fera quase é linchado por uma multidão e, por esse motivo, decide abandonar os X-Men! E justo quando eles vão precisar de toda a ajuda possível para encarar Unus, o Intocável, um adversário que realmente faz jus à sua alcunha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 8/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Surgem os Vingadores!",
+          "tituloOriginal": "“Enter, the Avengers!”",
+          "quantidadePaginas": 20,
+          "resumo": "Mais um terrível desafio para os heróis mutantes! Finalmente é revelado o paradeiro do Professor Xavier, quando descobrimos que ele esteve à caça do diabólico vilão conhecido como Lúcifer, aquele que foi o responsável por sua paralisia. Mas, para derrotá-lo e salvar seu mentor, os fabulosos adolescentes terão que passar por uma tremenda prova de fogo... Os Poderosos Vingadores!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 9/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A chegada de Ka-Zar!",
+          "tituloOriginal": "“The Coming of",
+          "quantidadePaginas": 20,
+          "resumo": "Uma aventura nada menos que histórica dos heróis mutantes, que reintroduz, para toda uma nova geração de leitores: KA-ZAR, o Rei das Selvas, bem como seu fiel e inseparável companheiro: Zabu, o Tigre Dentes-de-Sabre!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Uncanny X-Men, The (1963)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Uncanny X-Men, The (1963) n° 10/1965 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "23",
+      "tituloChamada": "Quarteto Fantástico 4: Um Skrull entre nós!",
+      "dataPublicacao": "2022-02-01",
+      "publicadoTexto": "fevereiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162985&path=co011170023_162985.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 23\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Dick Ayers Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Diálogos: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 16/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Derrotados pelo Doutor Destino",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 17/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "História: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "Nossos heróis enfrentam o Super-Skrull , um inimigo que reúne todos os poderes do Quarteto, além de seus poderes naturais de skrull.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four (1961)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four (1961) n° 18/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Namor, o Príncipe Submarino versus a raça humana",
+          "tituloOriginal": null,
+          "quantidadePaginas": 37,
+          "resumo": "Namor lança um ataque com as tropas atlanteanas, para conquistar a Terra, começando por New York.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Annual (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four Annual (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Texto: Stan Lee",
+          "tituloOriginal": null,
+          "quantidadePaginas": 2,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Annual (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four Annual (1963) n° 1/1963 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O fabuloso Quarteto Fantástico encontra o Homem-Aranha!",
+          "tituloOriginal": "The Fabulous Fantastic Four Meet Spider-Man",
+          "quantidadePaginas": 6,
+          "resumo": "Apresentando uma versão mais detalhada do encontro do Aranha com o Quarteto em The Amazing Spider-Man (1963) n° 1.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Fantastic Four Annual (1963)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1963,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Fantastic Four Annual (1963) n° 1/1963 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "24",
+      "tituloChamada": "O Espetacular Homem-Aranha: O voo do Besouro!",
+      "dataPublicacao": "2022-02-01",
+      "publicadoTexto": "fevereiro de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=162986&path=co011170024_162986.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 24\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nArte: Steve Ditko Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O fim do Homem-Aranha!",
+          "tituloOriginal": "The end of Spider-Man",
+          "quantidadePaginas": 22,
+          "resumo": "A súbita notícia da doença de sua tia faz com que nosso Cabeça de Teia deixe de combater a bandidagem para se dedicar exclusivamente à doce velhinha. O público, no entanto, pensa que nosso herói fugiu da raia, tornando-se um covarde. Mas Tia May provará que não é tão frágil assim, ensinando uma grande lição de vida ao seu preocupado sobrinho...",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 18/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O Aranha contra-ataca!",
+          "tituloOriginal": "Spidey strikes back!",
+          "quantidadePaginas": 22,
+          "resumo": "O Aranha retorna com força máxima, decidido a reverter as más notícias. Com o apoio do Tocha Humana, ele luta contra o Homem-Areia e os Executores. As manchetes falam de seu retorno e Jameson acaba desacreditado. No fim da história, um estranho segue Peter Parker.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 19/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Surge o Escorpião! ou: A teia contra o ferrão!",
+          "tituloOriginal": "The coming of Scorpion!",
+          "quantidadePaginas": 20,
+          "resumo": "Para combater nosso Soltador de Teias, J. Jonah Jameson submete seu ambicioso guarda-costas a uma nova e revolucionária experiência médica, que o transforma num super-homem, metade humano e metade escorpião.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "20",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 20/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Onde voa o Besouro",
+          "tituloOriginal": "The Flies the Beetle...!",
+          "quantidadePaginas": 20,
+          "resumo": "O Besouro está solto e decide dar continuidade à sua vingança contra o Tocha Humana. Enquanto isso, Peter conhece Doris Evans, a namorada do Tocha, que fica interessada por ele. Cansada de sempre ser relegada a segundo plano devido à vida heroica do Tocha, pretende ensinar-lhe uma lição, exigindo que ele fique 24 horas sem se “inflamar”. Mas, e se Johnny tiver que enfrentar o Besouro? A não ser que um certo aracnídeo apareça pra dar uma mãozinha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "21",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 21/1965 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O Palhaço e seus Mestres do Mal!",
+          "tituloOriginal": "The Clown, and his Masters of Menace!",
+          "quantidadePaginas": 20,
+          "resumo": "Cansados dos consecutivos fracassos, os integrantes do Circo do Crime expulsam o Mestre do Picadeiro e elegem um novo líder: o Palhaço. Assumindo um novo nome, Mestres do Mal, os bandidos iniciam uma nova onda de crimes, começando por atacar a exposição de arte patrocinada por J.J. Jameson.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Amazing Spider-Man, The (1963)",
+            "numeroOriginal": "22",
+            "anoOriginal": 1965,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Amazing Spider-Man, The (1963) n° 22/1965 - Marvel Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "25",
+      "tituloChamada": "Thor 4: Um deus contra tudo!",
+      "dataPublicacao": "2022-03-01",
+      "publicadoTexto": "março de 2022",
+      "editora": "Panini",
+      "licenciador": "Marvel Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 36.9,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=163363&path=co011170025_163363.jpg&w=400&h=612",
+      "descricao": "Coleção Clássica Marvel n° 25\nPublicado em: março de 2022\nEditora: Panini\nLicenciador: Marvel Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 36,90\nCrédito da capa e editor\nDesenho: Jack Kirby Arte-Final: Chic Stone Editor: Leandro Luigi Del Manto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O Deus do Trovão ataca novamente!",
+          "tituloOriginal": "The Thunder God Strikes Back!",
+          "quantidadePaginas": 18,
+          "resumo": "Thor enfrenta sozinho Mr. Hyde e o Cobra, deixando sua identidade secreta (Donald Blake) correndo perigo de ser revelada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 106/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Balder, o bravo",
+          "tituloOriginal": "Tales o Asgard: Balder the Brave",
+          "quantidadePaginas": 5,
+          "resumo": "Um belíssimo conto asgardiano, onde é revelada a origem do grande guerreiro e fiel amigo do Poderoso Thor.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "106",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 106/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Quando o Gárgula Cinzento ataca!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 18,
+          "resumo": "Título original americano: “When the Grey Gargoyle Strikes!”.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "107",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 107/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Balder deve morrer!",
+          "tituloOriginal": "Tales of Asgard: Balder Mus Die",
+          "quantidadePaginas": 5,
+          "resumo": "Um belíssimo conto asgardiano, onde é revelado a origem do grande guerreiro e fiel amigo do Poderoso Thor.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "107",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 107/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "À mercê de Loki, príncipe do mal!",
+          "tituloOriginal": "At the Mercy of Loki, Prince of Evil!",
+          "quantidadePaginas": 18,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "108",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 108/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Aprisionado pelos Trolls!",
+          "tituloOriginal": "Tales of Asgard: Trapped by the Trolls",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "108",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 108/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Quando Magneto ataca!",
+          "tituloOriginal": "When Magneto Strikes!",
+          "quantidadePaginas": 18,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "109",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 109/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Banido de Asgard!",
+          "tituloOriginal": "Tales of Asgard: Banished from Asgard!",
+          "quantidadePaginas": 5,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "109",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 109/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Todos contra Thor!",
+          "tituloOriginal": "“Every Hand Against Him!”",
+          "quantidadePaginas": 16,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 110/1964 - Marvel Comics"
+          }
+        },
+        {
+          "ordem": 10,
+          "tituloPortugues": "A derrota de Odin!",
+          "tituloOriginal": "Tales of Asgard: The Defeat of Odin!",
+          "quantidadePaginas": 5,
+          "resumo": "Odin, Senhor de Asgard, monarca dos lendários deuses nórdicos, sofre sua primeira derrota. Mas, será mesmo uma derrota?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Journey Into Mystery (1952)",
+            "numeroOriginal": "110",
+            "anoOriginal": 1964,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Journey Into Mystery (1952) n° 110/1964 - Marvel Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

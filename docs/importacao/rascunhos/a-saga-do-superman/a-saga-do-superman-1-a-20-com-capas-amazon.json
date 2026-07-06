@@ -1,0 +1,2546 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-1-serie-n-1/sa011127/158058",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-1-serie-n-1/sa011127/158058",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-2/sa011127/159148",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-3/sa011127/159584",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-4/sa011127/159860",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-5/sa011127/160451",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-6/sa011127/160977",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-7/sa011127/161271",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-8/sa011127/161724",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-9/sa011127/162125",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-10/sa011127/162537",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-11/sa011127/162980",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-12/sa011127/163359",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-13/sa011127/163844",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-14/sa011127/164282",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-15/sa011127/164896",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-16/sa011127/165404",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-17/sa011127/165763",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-18/sa011127/166373",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-19/sa011127/166712",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-20/sa011127/169168"
+    ],
+    "geradoEm": "2026-07-04T18:53:26",
+    "gerador": "robo_importador_texto.py",
+    "aplicacaoManualCapas": {
+      "arquivoUrls": "docs\\importacao\\rascunhos\\a-saga-do-superman\\capas-amazon-volume1-1-a-24-20260704.txt",
+      "aplicadoEm": "2026-07-04T20:27:55",
+      "totalUrlsInformadas": 24,
+      "totalEdicoes": 20,
+      "totalCapasAplicadas": 20,
+      "modo": "sequencial"
+    }
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga do Superman",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 20,
+  "totalHistorias": 134,
+  "avisos": [
+    "Foram fornecidas 24 URLs, mas o JSON possui 20 edição(ões). As 4 URL(s) excedentes foram ignoradas."
+  ],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-03-01",
+      "publicadoTexto": "março de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 164,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71krRXZ+2sL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 1\nPublicado em: março de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 164\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Gustavo Vícola\nFugitivo da aurora esmeralda",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Fugitivo da aurora esmeralda",
+          "tituloOriginal": null,
+          "quantidadePaginas": 32,
+          "resumo": "A origem e primeiros anos do Superman, mostrando como o pacato Clark Kent se tornou o maior herói de todos os tempos.\nHistória dividida em:\nPrólogo: Fugitivo da aurora esmeralda - \"From Out the Green Dawn...\";\nParte 1: O segredo - \"The Secret\";\nParte 2: A revelação - \"The Exposure\";\nEpílogo: O super-herói - \"The Super-Hero\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 1/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A história do século!",
+          "tituloOriginal": "The Story of the Century!",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 2/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Uma noite em Gotham City...",
+          "tituloOriginal": "One Night in Gotham City...",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem de Aço e o Cruzado de Capa unem forças para capturar uma perigosa ladra que vem agindo em Gotham City.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 3/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Inimigo jurado",
+          "tituloOriginal": "Enemy Mine...",
+          "quantidadePaginas": 22,
+          "resumo": "Kent e Lois, convidados para uma festa beneficente no iate de Luthor, são feitos reféns por um grupo terrorista. Descobre-se então que o famoso milionário nada fez para impedir o assalto porque sabia que o Homem de Aço podia intervir e queria vê-lo em ação. O prefeito não fica nada contente com o fato de Luthor arriscar as vidas dos convidados e manda o Superman prendê-lo. Mas Luthor não vai deixar a humilhação passar em branco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 4/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Espelho partido",
+          "tituloOriginal": "The Mirror, Crack'd",
+          "quantidadePaginas": 23,
+          "resumo": "Em seu laboratório, Luthor descobre que seu grande inimigo é, na verdade, um alienígena. A cópia Frankenstein do Homem de Aço que ele e o dr. Teng criaram numa incubadora se deteriora rapidamente justamente por que o corpo da criatura rejeitou o DNA kryptoniano. O Superman Bizarro fica solto nas ruas da cidade, duplicando os feitos do original, inclusive salvando Lucy Lane do suicídio.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 5/1986 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Assombração",
+          "tituloOriginal": "The Haunting",
+          "quantidadePaginas": 22,
+          "resumo": "O Homem de Aço volta a Smallville, Kansas, para visitar seus pais adotivos. Lá, ele reencontra Lana Lang e descobre um holograma de Jor-El, que lhe revela sua origem alienígena.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Man of Steel, The (1986)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1986,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Man of Steel, The (1986) n° 6/1986 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-06-01",
+      "publicadoTexto": "junho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/717PUZaNpKL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 2\nPublicado em: junho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Gustavo Vícola",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Coração de pedra",
+          "tituloOriginal": "Heart of Stone",
+          "quantidadePaginas": 23,
+          "resumo": "À procura da nave que o trouxe para a Terra, Superman segue uma trilha que o leva até ao laboratório onde está um ciborgue irrefreável, alimentado com um coração de kryptonita. É a estreia da nova versão de Metallo, o vilão do coração mortal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 1/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Invasor!",
+          "tituloOriginal": "Squatter",
+          "quantidadePaginas": 22,
+          "resumo": "A cidade de Nova York segue num ritmo frenético até que o \"caos\" rotineiro é interrompido pela visão estarrecedora do Superman destruindo tudo ao seu redor. Atônita, a população não acredita no que vê e mesmo a Turma Titã reluta em aceitar o fato. Frustradas as tentativas de solucionar o impasse pela via pacífica, só resta partir para o confronto. Mas o que teria levado o Homem de Aço a agir dessa maneira?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "584",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 584/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O segredo revelado!",
+          "tituloOriginal": "The Secret Revealed!",
+          "quantidadePaginas": 22,
+          "resumo": "Lex Luthor, obcecado em destruir o Superman, mobiliza recursos para descobrir tudo o que pode sobre o herói. Enquanto Sydney Happersen lhe revela as propriedades da kryptonita, sua assecla, Amanda McCoy, descobre a presença de Lana Lang em várias ações do Homem de Aço. Após raptar, drogar e torturar Lana, McCoy revela as conclusões de sua pesquisa: Clark Kent é o Superman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 2/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Homem da guerra!",
+          "tituloOriginal": "Man O' War!",
+          "quantidadePaginas": 23,
+          "resumo": "Enquanto a colunista de fofocas Cat Grant chega em Metrópolis e se encanta com Clark Kent, o Superman precisa lidar com um grupo de terroristas do Qurac que desejam colocar as mãos num tanque de guerra de última geração.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "424",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 424/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Encarando o desafio",
+          "tituloOriginal": "Going the Gauntlet",
+          "quantidadePaginas": 23,
+          "resumo": "Narra a história anterior, mas pelo ponto de vista do Professor Hamilton. Depois de sofrer com as falcatruas de seu ex-patrão Lex Luthor, o Professor Hamilton tenta provar a eficácia de seu gerador de campo de força ao ajudar o Superman contra os terroristas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "425",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 425/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "E os túmulos cedem seus mortos...",
+          "tituloOriginal": "And the graves give up their dead...",
+          "quantidadePaginas": 22,
+          "resumo": "Superman é instigado pelo Vingador Fantasma a enfrentar uma horda de mortos-vivos, que se mesclaram ao solo de um cemitério e retomaram suas consciências depois que um rubi místico caiu no solo numa das recentes batalhas do Homem de Aço. Tomados por sentimentos destrutivos como ódio, fúria e vingança, essas almas insepultas farão de tudo para ter uma segunda chance na Terra!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "585",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 585/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Lendas da escuridão",
+          "tituloOriginal": "Legends From the Darkside",
+          "quantidadePaginas": 22,
+          "resumo": "Lois Lane consegue uma entrevista com G. Gordon Godfrey, mas ele é evasivo quanto a questões pessoais e continua pregando o banimento dos super-heróis. Obedecendo ao pedido presidencial, o Superman deixa de agir, mas acaba perseguido por um feixe de raios e ao ser atingido, se vê num mundo infernal e medonho: Apokolips, o reino do maligno Darkseid!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 3/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-07-01",
+      "publicadoTexto": "julho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 172,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/713QeFjXGUL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 3\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Gustavo Vícola\nDireto do lixo...",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Direto do lixo...",
+          "tituloOriginal": "From the Dregs",
+          "quantidadePaginas": 22,
+          "resumo": "Encontrado por um dos Cães Famintos em Apokolips, o Superman é trazido de volta à consciência, mas parte de sua memória se perdeu. Apontado como grande salvador por uma misteriosa mulher, o Homem de Aço é seguido pelos Cães Famintos, que acreditam que ele é a maior chance para destronar o maligno Darkseid!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "426",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 426/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O campeão!",
+          "tituloOriginal": "The Champion",
+          "quantidadePaginas": 22,
+          "resumo": "Em Apokolips, Órion e Magtron enfrentam o Superman que virou vítima de lavagem cerebral, acredita agora que é filho de Darkseid!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "586",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 586/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Sanguinário!",
+          "tituloOriginal": "Bloodsport!",
+          "quantidadePaginas": 22,
+          "resumo": "Superman precisa deter o Sanguinário, um insano ex-combatente do Vietnã que se tornou terrorista. Armado até os dentes com equipamento de alta tecnologia, incluindo balas de kryptonita, o criminoso é um desafio até para a Unidade de Crimes Especiais de Metrópolis. O Homem de Aço, naturalmente, desconfia que Lex Luthor esteja por trás do lunático. Mas talvez nem o arrogante empresário possa dar conta da mente doentia do Sanguinário.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 4/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Jogos mentais",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Ao estilo do Homem de Aço da Era de Ouro, o Super-Homem voa até o Qurac e vai tirar satisfações pessoalmente com o líder do país, o presidente Marlo, em função das ações terroristas de nativos do país em Metrópolis. Mas a pujança do herói dura pouco e ele começa a agonizar em convulsões, pois alguém invadiu sua mente e o está massacrando com diversas imagens de seu passado. Como o Último Filho de Krypton escapará dessa?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "427",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 427/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Marca pessoal",
+          "tituloOriginal": "Personal Best",
+          "quantidadePaginas": 22,
+          "resumo": "A vida de Jerry, filho de Perry White, está por um fio e a única maneira que o editor-chefe do Planeta Diário tem de salvá-la é quebrando seu voto mais sagrado: o de mostrar a verdade dos fatos nas manchetes de seu jornal. Mas o Superman entra em cena para desequilibrar os rumos desse dilema!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "428",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 428/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Passagem urbana!",
+          "tituloOriginal": "Cityscape!",
+          "quantidadePaginas": 22,
+          "resumo": "Em 1182, a mais temida feiticeira do planeta era Morgana Le Fay... E ainda é! Para frear os planos cada vez mais insidiosos da bruxa, o Superman luta no passado e no presente, recebendo uma ajuda de Etrigan, o Demônio!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "587",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 587/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "A múmia ataca",
+          "tituloOriginal": "The Mummy Strikes",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de um sonho quente com a Mulher-Maravilha, Superman, na pele de Clark Kent, atende ao pedido de Perry para que descubra o que houve com Lois, pois ela perdeu contato com o Planeta Diário na cobertura de uma escavação arqueológica na América do Sul. Mais do que descobrir uma civilização avançada no interior de uma pirâmide, Clark, Lois e os arqueólogos são surpreendidos por uma gigantesca e poderosa múmia, que só o Superman pode deter!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 5/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-07-01",
+      "publicadoTexto": "julho de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71VIjISR52L._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 4\nPublicado em: julho de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Os últimos quinhentos",
+          "tituloOriginal": "The Last Five Hundred",
+          "quantidadePaginas": 22,
+          "resumo": "Continuação de Superman #5.\nAxiar, líder da civilização H'v'ler'ni, revela a história trágica de seu povo ao Superman: Atingidos por uma praga quando habitavam a Terra há 100 mil anos, os H'v'ler'ni se debandaram ou morreram, sobrando no planeta apenas 500, que transferiram suas mentes para o robô-múmia. Agora eles querem encontrar corpos que possam ser hospedeiros de suas mentes. Lois e os arqueólogos já eram e agora Metrópolis inteira corre risco.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 6/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Todas as guerras devem terminar",
+          "tituloOriginal": "All Wars Must End Part Two",
+          "quantidadePaginas": 22,
+          "resumo": "Continuação de Hawkman #10.\nGavião Negro e Mulher-Gavião pedem a ajuda do Homem de Aço para deter a frota invasora thanagariana.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "588",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 588/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Verde no verde",
+          "tituloOriginal": "Green on Green",
+          "quantidadePaginas": 22,
+          "resumo": "Arremessado 400 mil anos-luz distante da Terra depois de sua aventura com o Gavião Negro e a Mulher-Gavião, o Superman é encontrado pela Tropa dos Lanternas Verdes e se une à corporação para enfrentar um estranho organismo que ameaça um sistema planetário e que tem íntima relação com uma aventura anterior do Homem de Aço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "589",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 589/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Antigos laços",
+          "tituloOriginal": "Old Ties",
+          "quantidadePaginas": 22,
+          "resumo": "Clark Kent começa a se envolver mais com Cat Grant, conhecendo nesta edição seu filho Adam. Mas o momento de calmaria chega ao fim quando Abalador, um dos integrantes do maligno grupo O Círculo, aparece e exige a presença do Superman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "429",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 429/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A caminho de casa!",
+          "tituloOriginal": "Homeward Bound!",
+          "quantidadePaginas": 22,
+          "resumo": "A festa de 49 anos de casamento de Jonathan e Martha Kent é interrompida quando Clark precisa dar lugar ao Superman e protegê-los do ataque traiçoeiro do Quinteto Mortal!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "430",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 430/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Uma morte melhor por meio da química",
+          "tituloOriginal": "Better Dying Through Chemistry",
+          "quantidadePaginas": 22,
+          "resumo": "Quando Clark Kent cai um tanque de variados produtos químicos, surge uma nova e superpoderosa versão de Químio. Para deter essa praga ambulante, só há um recurso a mobilizar: Dr. Will Magnus e seus Homens Metálicos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "590",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 590/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Fúria!",
+          "tituloOriginal": "Rampage!",
+          "quantidadePaginas": 22,
+          "resumo": "Lois Lane entrevista Dra. Faulkner e Dr. Moyers, que desenvolveram um dispositivo bioenergético capaz de gerar energia elétrica a partir de uma alga. Mas o equipamento sobrecarrega e explode. O Homem de Aço vai em socorro e encara Fúria, enorme criatura laranja. É quando Moyers faz uma revelação chocante: Lois é Fúria.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 7/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-08-01",
+      "publicadoTexto": "agosto de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/713FVDG8DnL._SY385_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 5\nPublicado em: agosto de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Uma volta no tempo",
+          "tituloOriginal": "A Twist in Time",
+          "quantidadePaginas": 27,
+          "resumo": "A Legião faz uma viagem temporal para combater o Senhor do Tempo, mas este desvia a rota dos heróis e eles vão parar num lugar chamado Universo Compacto, onde encontram seu velho parceiro, Superboy. Para espanto geral, descobre-se que, durante todos esses anos, a Legião nunca esteve na Terra do século XX, mas numa réplica do planeta, criada pelo Senhor do Tempo, onde Superboy viveria sem saber.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Legion of Super-Heroes (1984)",
+            "numeroOriginal": "37",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Legion of Super-Heroes (1984) n° 37/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Choque do futuro",
+          "tituloOriginal": "Future Shock",
+          "quantidadePaginas": 21,
+          "resumo": "História que reintroduziu a Legião dos Super-Heróis na fase Pós-Crise. Um tranquilo e feliz piquenique entre Clark, Lana Lang, Jonathan e Martha Kent acaba interrompido com a chegada de estranhos visitantes. Subitamente, os poderes do Superman saem do controle e ele entra em confronto com a Legião, que acredita que ele seja o Superboy. Mas como se nessa realidade Clark só agiu publicamente quando adulto?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 8/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Passado imperfeito",
+          "tituloOriginal": "Past Imperfect",
+          "quantidadePaginas": 22,
+          "resumo": "Superman é surpreendido em seu confronto com a equipe com o surgimento do Superboy. Ao persegui-lo e à Legião através de uma bolha do tempo, o Superman vai parar numa Smallville bem diferente da que se lembrava: é a primeira incursão do Homem de Aço no Universo Compacto, uma realidade paralela onde ele foi o Superboy antes de ser Superman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "591",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 591/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O maior herói de todos",
+          "tituloOriginal": "The Greatest Hero of Them All",
+          "quantidadePaginas": 27,
+          "resumo": "Superboy e a Legião dos Super-Heróis se unem num esforço final para colocar fim nas maquinações do vilão Senhor do Tempo, o grande responsável pela confusão entre universo regular e Universo Compacto. Mas a batalha não será nada fácil e talvez um sacrifício seja necessário para salvar o mundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Legion of Super-Heroes (1984)",
+            "numeroOriginal": "38",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Legion of Super-Heroes (1984) n° 38/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Eles o chamam de... Doutor Stratos",
+          "tituloOriginal": "They Call Him-- Doctor Stratos",
+          "quantidadePaginas": 22,
+          "resumo": "Estranhas mudanças climáticas estão sendo causadas pelo Doutor Stratos, um homem que pensa que é um deus e que atualmente tem controle sobre o clima do mundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "431",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 431/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Rir e morrer em Metrópolis",
+          "tituloOriginal": "To Laugh and Die in Metropolis",
+          "quantidadePaginas": 17,
+          "resumo": "Superman encara a descontrolada insanidade do Coringa, com direito a robô gigante ladrão de diamantes, gás do riso e sequestro de Lois, Jimmy e Perry!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 9/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Metrópolis 1.450 km",
+          "tituloOriginal": "Metropolis 900 Mi",
+          "quantidadePaginas": 7,
+          "resumo": "Lex se dirige até um pequeno restaurante longe de Metrópolis e oferece a uma garçonete casada um milhão de dólares para morar com ele por um mês.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 9/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Das ruas para as ruas!",
+          "tituloOriginal": "Gangwar: Part One: From the Streets, to the Streets!",
+          "quantidadePaginas": 22,
+          "resumo": "Nas sombras, Lex Luthor instiga a guerra entre as gangues de Metrópolis, forçando o Superman e José Delgado a tentar controlar a violência das ruas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "432",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 432/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-09-01",
+      "publicadoTexto": "setembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71ihmCEuaAL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 6\nPublicado em: setembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "...Um passeio pelo lado sombrio!",
+          "tituloOriginal": "...A Walk on the Darkside!",
+          "quantidadePaginas": 22,
+          "resumo": "Sleez é um alienígena anão com grandes poderes de empatia, ou seja, reconhecer e controlar emoções alheias. Originário de Apokolips, suas habilidades o fizeram assessor de Darkseid, mas o seu grau de vilania e perversidade enervou até o próprio ditador cósmico, conhecido por sua crueldade. Banido para a Terra, Sleez decide se divertir com alguns superseres e usando seus sortilégios, põe o Superman contra a Grande Barda!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "592",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 592/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O sequestro suicida",
+          "tituloOriginal": "The Suicide Snare",
+          "quantidadePaginas": 22,
+          "resumo": "O sádico Sleez tem o controle mental da Grande Barda e do Superman, e ele pretende se divertir um pouco com os seus \"peões\", colocando-os numa situação moralmente questionável: protagonistas de um filme pornô! Somente a intervenção do Senhor Milagre poderá salvar os dois desta situação!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "593",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 593/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Super ameaça de Metrópolis!",
+          "tituloOriginal": "The Super Menace of Metropolis",
+          "quantidadePaginas": 21,
+          "resumo": "Clark Kent chega para mais um dia de trabalho e seus problemas não tardam a começar. De alguma forma, seus poderes começam a funcionar descontroladamente, ameaçando não só sua identidade secreta, como toda a população de Metrópolis. O Homem de Aço precisa achar um meio de descobrir o que está havendo antes que as pessoas realmente se convençam de que ele enlouqueceu e que sua presença é um risco total.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 10/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Uma tragédia em cinco atos",
+          "tituloOriginal": "Gangwar: Part Two: A Tragedy in Five Acts",
+          "quantidadePaginas": 22,
+          "resumo": "Em meio ao palco de guerra criado pelas gangues, Jerry White, filho de Perry, é preso e suas ligações com Lex Luthor são relatadas sob o ponto de vista do próprio Luthor, Jimmy Olsen, Perry White, Lois Lane e José Delgado.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "433",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 433/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O jogo do nome",
+          "tituloOriginal": "The Name Game",
+          "quantidadePaginas": 22,
+          "resumo": "Um homenzinho de aparência ridícula e vultosos poderes começa a virar Metrópolis de cabeça para baixo. Enquanto o Superman tenta compreender qual o sentido de tudo aquilo - e também evitar que inocentes se firam -, o sujeito de nome complicado parece se divertir a valer. Primeira aparição do Sr. Mxyzptlk pós-Crise.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 11/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Ruínas",
+          "tituloOriginal": "[Gangwar: Part Three]: Shambles",
+          "quantidadePaginas": 22,
+          "resumo": "Para ajudar de maneira mais eficiente o Supermam no combate à guerra das gangues, José Delgado veste o manto do Predador pela primeira vez!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "434",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 434/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Vira o círculo",
+          "tituloOriginal": "The Circle Turns",
+          "quantidadePaginas": 22,
+          "resumo": "Os membros do grupo O Círculo pedem ajuda ao Superman para escaparem dos confins da Terra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "435",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 435/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "7",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-10-01",
+      "publicadoTexto": "outubro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71ea8dJzkJL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 7\nPublicado em: outubro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nDesenho: Arthur 'Art' Adams Arte-Final: Dick Giordano Editor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Skeeter!",
+          "tituloOriginal": "Skeeter",
+          "quantidadePaginas": 39,
+          "resumo": "Superman e Batman enfrentam uma horda de vampiros.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics Annual (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics Annual (1987) n° 1/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Lágrimas para Titano!",
+          "tituloOriginal": "Tears for Titano!",
+          "quantidadePaginas": 38,
+          "resumo": "Um macaco gigante chamado Titano destrói Metrópolis prova-se um desafio e tanto para o Homem de Aço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman Annual (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman Annual (1987) n° 1/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A união",
+          "tituloOriginal": "The Union",
+          "quantidadePaginas": 38,
+          "resumo": "Superman é enviado pelo presidente Reagan quando todos os residentes de Trudeau, na Dakota do Sul, desaparecem misteriosamente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman Annual (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman Annual (1987) n° 1/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Nem tudo que reluz",
+          "tituloOriginal": "All That Glisters",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de ir a Gotham City pedir ajuda ao Batman na investigação envolvendo o mistério de um fragmento de texto, o Superman está prestes a receber as glórias do Dia do Superman, instituído pela prefeitura de Metrópolis. Mas o Gladiador Dourado aparece, critica o Homem de Aço por suas ações recentes no Qurac e o desafia a provar que é melhor herói do que ele. O embate se torna inevitável!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "594",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 594/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Obsessão cega",
+          "tituloOriginal": "Blind Obsession",
+          "quantidadePaginas": 22,
+          "resumo": "Gladiador Dourado e Superman descobrem a pessoa por trás do andróide que se vestia e agia como o Gladiador Dourado... nada mais, nada menos que Lex Luthor!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Booster Gold (1986)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Booster Gold (1986) n° 23/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-11-01",
+      "publicadoTexto": "novembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 172,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71yYurAMsRL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 8\nPublicado em: novembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 172\nFormato: Americano (17 x 26 cm)\nColorido/Preto e branco/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Diogo Prado",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Amor perdido",
+          "tituloOriginal": "Lost Love",
+          "quantidadePaginas": 21,
+          "resumo": "Antes do Superman, antes de Metrópolis e antes de Lois Lane, havia o jovem, inseguro e superpoderoso Clark Kent, com sua paixão recíproca e intensa por uma moça chamada Lori Lemaris, uma bela mulher que guardava um surpreendente e mágico segredo. Clark relembra os momentos marcantes desse amor.\nPrimeira aparição de Lori Lemaris e Ronal Pós-Crise.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 12/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O fantasma do Superman",
+          "tituloOriginal": "The Ghost of Superman",
+          "quantidadePaginas": 22,
+          "resumo": "Metrópolis está em pânico. Uma estranha mulher, vestida de preto e branco e com a face semelhante à uma caveira, está invadindo livrarias à cata de um misterioso volume, deixando uma trilha de corpos pelo caminho. Para conseguir vencê-la, talvez o Homem de Aço precise morrer primeiro,\nPrimeira aparição da Banshee Prateada.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "595",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 595/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Brinquedos no sótão",
+          "tituloOriginal": "Toys in the Attic",
+          "quantidadePaginas": 22,
+          "resumo": "Superman é convocado por Maggie Sawyer e pela inteligência britânica para lidar com os atos terroristas de Winslow Schott. Schott era um designer de brinquedos que acabou demitido quando seu trabalho foi considerado fraco e antiquado. Agora, assumindo o nome de Homem dos Brinquedos, ele ataca seus antigos desafetos com brinquedos mortais e seu próximo alvo é o proprietário da fábrica onde trabalhava: Lex Luthor!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 13/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lixo",
+          "tituloOriginal": "Junk",
+          "quantidadePaginas": 22,
+          "resumo": "Em Smallville, o Superman desconfia que Lana Lang pode ter sido substituída por um dos temidos Caçadores Cósmicos. Após se encontrar com Pete Ross como Clark Kent, o Homem de Aço acaba surpreendido pelo verdadeiro agente dos caçadores e se torna refém dos descontrolados patrulheiros do universo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "436",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 436/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Inferno é onde está o coração...",
+          "tituloOriginal": "Hell Is Where the Heart Is...",
+          "quantidadePaginas": 22,
+          "resumo": "Superman apela ao Espectro para ajudá-lo a resgatar do Além milhares de habitantes de Smallville que supostamente morreram por influência dos Caçadores Cósmicos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "596",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 596/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "A ultima defesa!",
+          "tituloOriginal": "Last Stand!",
+          "quantidadePaginas": 22,
+          "resumo": "Hal Jordan e Superman viajam a dimensão onde os Guardiões e as Zamaronas se refugiaram, para protege-los do Grande Mestre dos Caçadores Cosmicos. Utilizando um labirinto rochoso, o Grande Mestre separa Jordan de Superman, e deixa o Lanterna sem energia no anel e a sua mercê, mas os heróis conseguem superar as adversidades e, com trabalho de equipe, derrotam o andróide.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 14/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Ponto de vista",
+          "tituloOriginal": "Point of View",
+          "quantidadePaginas": 22,
+          "resumo": "Lex Luthor convida Celia Windward para uma conversa, onde pretende convencê-la sobre o perigo extremo que as ações dos super-heróis podem trazer à Humanidade em seus confrontos contra os supervilões. Enquanto o vilão ilustra seus argumentos com uma suposta batalha entre o Superman e o meta-humano Combator, o verdadeiro criminoso ataca Lois Lane e José Delgado em sua noite romântica de cinema.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "437",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 437/1987 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2021-12-01",
+      "publicadoTexto": "dezembro de 2021",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 168,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 34.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71w0hu2tbFL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 9\nPublicado em: dezembro de 2021\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 168\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 34,90\nCrédito da capa e editor\nArte: John Byrne Editor: Diogo Prado , Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Visitante",
+          "tituloOriginal": "Visitor",
+          "quantidadePaginas": 22,
+          "resumo": "Com o fim dos eventos relacionados à saga Milênio, Lois Lane vai até Smallville, descobrir afinal quem é o Superman. Chegando lá, ela o encontra com Lana Lang e a repórter se desestabiliza ao cogitar que ambos estejam envolvidos romanticamente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "597",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 597/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Asas",
+          "tituloOriginal": "Wings",
+          "quantidadePaginas": 22,
+          "resumo": "Nos anos 1880, Aleister Hook era um médico doentio que sequestrava e matava crianças. Depois de linchado pela população, foi transformado em Gancho, um demônio alado horrendo, pela satânica Blaze. Agora, Jamie Sawyer, filha da capitã Maggie Sawyer, é sequestrada pela criatura e só o Superman pode resgatá-la do destino infernal.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "15",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 15/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "...O espetacular Brainiac",
+          "tituloOriginal": "...The Amazing Brainiac",
+          "quantidadePaginas": 22,
+          "resumo": "O circo está em Metrópolis e a principal atração é Milton Fine, um mentalista com espantosas habilidades e aclamado como o Incrível Brainiac! No entanto, os dons de Fine não são obra de magia ou ilusionismo, mas de um organismo alienígena poderoso, cujos funestos objetivos baterão de frente com o Superman!\nPrimeira apaição da versão Pós-Crise de Brainiac.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "438",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 438/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Xeque-Mate!",
+          "tituloOriginal": "Checkmate!",
+          "quantidadePaginas": 22,
+          "resumo": "Na estreia da agência de espionagem Xeque-Mate, a corporação se une a ninguém menos que o Superman para enfrentar um grupo terrorista!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "598",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 598/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Ele só ri quando me machuco!",
+          "tituloOriginal": "He Only Laughs When I Hurt!",
+          "quantidadePaginas": 22,
+          "resumo": "Oswald Loomis, um apresentador de TV infantil, tem seu programa cancelado e é demitido depois de exagerar nos riscos de suas brincadeiras. Furioso com o povo de Metrópolis, ele assume a alcunha de Galhofeiro e começa a pregar peças letais nos cidadãos da cidade. Superman terá que enfrentar esse novo adversário que mistura comicidade e crime.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "16",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 16/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Soldadinhos de chumbo",
+          "tituloOriginal": "Tin Soldiers",
+          "quantidadePaginas": 23,
+          "resumo": "O Superman criou um robô idêntico a ele para agir em casos de emergência, quando ele não conseguisse chegar a tempo de ajudar as pessoas. O androide, no entanto, entra em colapso e ao acordar, pensa que é de fato o Homem de Aço, gerando muita confusão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "439",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 439/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Elemento 126",
+          "tituloOriginal": "Element 126",
+          "quantidadePaginas": 22,
+          "resumo": "Os Homens-Metálicos contratam um cientista para reconstruir um de seus integrantes, Zinco, danificado na última missão. Só que o tal gênio é na verdade empregado de Lex Luthor, que tem outros planos para o simpático andróide...",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "599",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 599/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-01-01",
+      "publicadoTexto": "janeiro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71k0WiVvoEL._SY385_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 10\nPublicado em: janeiro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Byrne , Dick Giordano , Kurt Schaffenberger , Curt Swan Arte: Mike Mignola Arte-Final: John Byrne , Murphy Anderson , Jerry Ordway , George Pérez , John Beatty Editor: Gabriel Faria , Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Gritos na noite",
+          "tituloOriginal": "Cries in the Night",
+          "quantidadePaginas": 22,
+          "resumo": "Superman encara o retorno de Banshee Prateada, que continua na caçada ao seu grande objetivo: aparentemente um livro místico oriundo da Irlanda.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "17",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 17/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Quanto mais eu corro",
+          "tituloOriginal": "The Hurrieder I Go",
+          "quantidadePaginas": 21,
+          "resumo": "Com um encontro marcado com a Mulher-Maravilha, Superman acaba fazendo uma visitinha à Batman, que lhe revela que descobriu que nosso herói é Clark Kent. Os dois heróis, então, se unem para frustrar um crime. De quebra, o kryptoniano indestrutível informa ao Cruzado Embuçado que também conhece a verdadeira identidade deste.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "440",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 440/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Mundos diferentes",
+          "tituloOriginal": "Different Worlds",
+          "quantidadePaginas": 32,
+          "resumo": "Desde que se conheceram durante a saga \"Lendas\", sempre existiu uma tensão sexual entre Superman e Mulher-Maravilha. Depois de alguns encontros forçados pelas circunstâncias, os dois decidem ter um encontro \"de verdade\". Mas o encontro vai para o vinagre de vez quando os heróis precisam se unir para impedir que Darkseid conquiste o Monte Olimpo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 600/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "[True Love]",
+          "quantidadePaginas": 8,
+          "resumo": "Lois Lane está chateada porque os jornais dizem que o Superman e a Mulher-Maravilha estão namorando. Clark Kent, sabendo a verdade, aparece na casa de Lois para conversar, mas depois desaparece para responder ao seu relógio de sinal de socorro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 600/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Como as pessoas jogam",
+          "tituloOriginal": "Games People Play",
+          "quantidadePaginas": 8,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 600/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Um amigo com problemas",
+          "tituloOriginal": "A Friend in Need",
+          "quantidadePaginas": 8,
+          "resumo": "Superman vai para Millersburg para atender o relógio de sinal de socorro de Jimmy Olsen, mas se enfraquece de intoxicação por kryptonita. Jimmy leva Superman para uma caverna e vai em busca de ajuda.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 600/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "O escuro onde se vive a loucura",
+          "tituloOriginal": "The Dark Where Madness Lies",
+          "quantidadePaginas": 8,
+          "resumo": "Enfraquecido pela kryptonita, Superman pensa que o Morcego Humano é um monstro que tenta destruí-lo. Uma vez que ele recupera a seus sentidos, ele envia Morcego Humano para obter ajuda.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "600",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 600/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Retorno a Krypton",
+          "tituloOriginal": "Return to Krypton",
+          "quantidadePaginas": 22,
+          "resumo": "Graças à ajuda de Gavião Negro e Mulher-Gavião, nosso Ás da Ação retorna ao exato local onde Krypton explodiu, e constata que alí, devido à gravidade, se formou um novo planeta: gasoso e com anéis de kryptonita em volta. Ao entrar na órbita daquele mundo, as memórias implantadas por seu pai biológico são revividas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "18",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 18/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-02-01",
+      "publicadoTexto": "fevereiro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61knIJKo-AL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 11\nPublicado em: fevereiro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: John Byrne Editor: Gabriel Faria , Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O ínfimo terror de Hollywood",
+          "tituloOriginal": "The Tiny Terror of Tinseltown",
+          "quantidadePaginas": 22,
+          "resumo": "Mascotes assassinos, bombardeios de hambúrgueres gigantes e personagens de desenhos animados tornados reais são alguns dos loucos desafios que o Superman tem de enfrentar no acachapante retorno do Sr. Mxyzptlk!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "441",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 441/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O poder que falhou!",
+          "tituloOriginal": "The Power That Failed!",
+          "quantidadePaginas": 22,
+          "resumo": "Por algum motivo inexplicável, os poderes do Superman - força, vôo, velocidade, invulnerabilidade e visão - começam a falhar. Como o Homem de Aço pode esperar sobreviver a um ataque generalizado da nova e ameaçadora dupla Dreno e Encouraçado?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "19",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 19/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Jogada de poder",
+          "tituloOriginal": "Power Play",
+          "quantidadePaginas": 22,
+          "resumo": "Recuperando seus poderes, o Homem de Aço parte para a revanche contra Dreno e Encouraçado! Participação especial: Liga da Justiça Internacional!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "442",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 442/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A alma da máquina",
+          "tituloOriginal": "The Soul of the Machine",
+          "quantidadePaginas": 22,
+          "resumo": "Metallo está procurando as suas partes faltantes e o Homem-Robô as tem.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Doom Patrol (1987)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Doom Patrol (1987) n° 10/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Destino no coração do país!",
+          "tituloOriginal": "Doom in the Heartland!",
+          "quantidadePaginas": 22,
+          "resumo": "Lana apresenta os pais de Clark Kent a Supergirl. Superman vai investigar um distúrbio em Kansas City e encontra a Patrulha do Destino, que acaba de ser derrotada por Metallo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "20",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 20/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Prisioneiro da consciência",
+          "tituloOriginal": "Prisoner of Conscience",
+          "quantidadePaginas": 30,
+          "resumo": "Clark Kent e Jimmy Olsen são enviados como correspondentes ao Qurac, a fim de acompanhar a situação de prisioneiros naquele país. Lá, os jornalistas acabam descobrindo uma sociedade alienígena subterrânea, cujos propósitos exigirão a intervenção do Superman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "443",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 443/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-03-01",
+      "publicadoTexto": "março de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 156,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/613wTQuI8nL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 12\nPublicado em: março de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 156\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: John Byrne Editor: Gabriel Faria , Erick Garcia\nNão dá para voltar para casa",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Não dá para voltar para casa",
+          "tituloOriginal": "You Can't Go Home Again",
+          "quantidadePaginas": 22,
+          "resumo": "Ao ser enviada por Lex Luthor do Universo Compacto para o nosso mundo, Supergirl do Universo Compacto se encontra com Superman e pede ajuda para enfrentar os 3 kryptonianos que escaparam da Zona Fantasma. No entanto, em sua viagem, ela perde a memória e por um tempo passa a viver com os Kents.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "21",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 21/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Vidas paralelas se encontram no infinito...",
+          "tituloOriginal": "Parallel Lives Meet at Infinity...",
+          "quantidadePaginas": 22,
+          "resumo": "No Universo Compacto, o Superman se choca com a desolação total que encontra. É quando ele é abordado pelo Lex Luthor daquela realidade, que lhe conta como suas buscas pelo Superboy acidentalmente libertaram três criminosos kryptonianos: General Zod, Zaora e Quex-Ul, os responsáveis pela destruição daquele mundo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "444",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 444/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O preço",
+          "tituloOriginal": "The Price",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de testemunhar a aniquilação total da Terra do Universo Compacto nas mãos de General Zod, Zaora e Quex-Ul, o Superman decide sobrepujá-los com suas próprias fraquezas: a kryptonita daquela realidade, em sua versão dourada. Mas talvez apenas retirar os poderes desses genocidas não seja a forma mais segura de detê-los e o Superman toma uma decisão que o perturbará para sempre.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "22",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 22/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O projeto Cadmus",
+          "tituloOriginal": "The Cadmus Project",
+          "quantidadePaginas": 40,
+          "resumo": "Quando Sleez assume o Cadmus, ele força a Legião Jovem original a fazer clones jovens de si mesmos. Esses clones fogemw de Cadmus e viajam para Metrópolis, onde chamam a atenção do Superman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman Annual (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman Annual (1987) n° 2/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Os trabalhos do amor... \"Vidas particulares\"",
+          "tituloOriginal": "Love's Labors...",
+          "quantidadePaginas": 8,
+          "resumo": "Enquanto Dan Turpin se recupera do ataque de Barragem, Capitão Sawyer o visita no hospital e nesta visita, Dan tem uma nova visão sobre seu chefe.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman Annual (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman Annual (1987) n° 2/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Segredos",
+          "tituloOriginal": "Secrets",
+          "quantidadePaginas": 23,
+          "resumo": "O passado de Martha Kent será desvendado: ela já foi casada com outra pessoa antes de Jonathan Kent?",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Smallville (1988)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Smallville (1988) n° 1/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-04-01",
+      "publicadoTexto": "abril de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61BdOoPQM0L._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 13\nPublicado em: abril de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: John Byrne Arte-Final: Walter \"Walt\" Simonson Editor: Gabriel Faria , Erick Garcia\nMomentos roubados",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Momentos roubados",
+          "tituloOriginal": "Stolen Moments",
+          "quantidadePaginas": 23,
+          "resumo": "Exploraremos a cidadezinha de Smallville, descobrindo os segredos dos jovens Jonathan Kent e Martha Clark, mergulharemos no passado de Lana Lang e sua conexão com os Caçadores Cósmicos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Smallville (1988)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Smallville (1988) n° 2/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Almas roubadas",
+          "tituloOriginal": "Stolen Souls",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Smallville (1988)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Smallville (1988) n° 3/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "sem título",
+          "tituloOriginal": "Return to Smallville",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Smallville (1988)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Smallville (1988) n° 4/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Partes",
+          "tituloOriginal": "Pieces",
+          "quantidadePaginas": 23,
+          "resumo": "Viajaremos para Krypton, desvendando o histórico do planeta e da família El.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Krypton (1987)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1987,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Krypton (1987) n° 1/1987 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Depois da queda",
+          "tituloOriginal": "After the Fall",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Krypton (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Krypton (1987) n° 2/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Aula de história",
+          "tituloOriginal": "History Lesson",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Krypton (1987)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Krypton (1987) n° 3/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "História de família",
+          "tituloOriginal": "Family History",
+          "quantidadePaginas": 23,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Krypton (1987)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Krypton (1987) n° 4/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-05-01",
+      "publicadoTexto": "maio de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 176,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/619NZnXqxZL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 14\nPublicado em: maio de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 176\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Jerry Ordway Pintura: Jerry Ordway Editor: Gabriel Faria , Erick Garcia\nA história de um repórter",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A história de um repórter",
+          "tituloOriginal": "A Reporter's Story",
+          "quantidadePaginas": 23,
+          "resumo": "Conheça mais sobre a vida de Lois Lane, Perry White e Jimmy Olsen!\nFlashback dos dias de Perry White como repórter e seu casamento com Alice Spencer.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Metropolis (1988)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Metropolis (1988) n° 1/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Como passei minhas férias de verão",
+          "tituloOriginal": "How I Spent My Summer Vacation",
+          "quantidadePaginas": 22,
+          "resumo": "Uma Lois Lane de de 15 anos consegue seu primeiro furo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Metropolis (1988)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Metropolis (1988) n° 2/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O Sr. Kent vai a Metrópolis!",
+          "tituloOriginal": "Mr. Kent Goes to Metropolis",
+          "quantidadePaginas": 22,
+          "resumo": "O primeiro dia de Clark Kent em Metrópolis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Metropolis (1988)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Metropolis (1988) n° 3/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Amigos em apuros",
+          "tituloOriginal": "Friends in Need",
+          "quantidadePaginas": 22,
+          "resumo": "Como Jimmy Olsen inventou o relógio sinalizador para chamar o Superman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "World of Metropolis (1988)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "World of Metropolis (1988) n° 4/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Os ladrões da Terra",
+          "tituloOriginal": "The Earth Stealers",
+          "quantidadePaginas": 47,
+          "resumo": "Quando os recursos da Terra e da Lua são roubadas por alienígenas e levadas através de uma dobra espacial para outra parte da galáxia, o Superman tem que intervir e derrotar um poderoso guerreiro alienígena."
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Empacotadores do destino",
+          "tituloOriginal": "BONUS BOOK No. 1: The Karma Baggers",
+          "quantidadePaginas": 15,
+          "resumo": "Jimmy tenta conseguir um grande furo sozinho.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "599",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 599/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-06-01",
+      "publicadoTexto": "junho de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61GSUqHjM2L._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 15\nPublicado em: junho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Mike Mignola Arte-Final: P. Craig Russell Editor: Erick Garcia , Isabel Ferreira",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Caçador de cabeças",
+          "tituloOriginal": "Headhunter",
+          "quantidadePaginas": 22,
+          "resumo": "Ainda tentando lidar com o fato de ter executado os três criminosos kryptonianos no Universo Compacto, o Superman volta para Metrópolis. Brainiac está louco para estabilizar a estrutura de seu corpo, o que exige drenar certas substâncias dos seres humanos. Ele sequestra Jimmy Olsen e Cat Grant, abalada por uma discussão com Perry White acerca de seu alcoolismo, é presa fácil do vilão.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "445",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 445/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "A maldição da Banshee",
+          "tituloOriginal": "Curse of the Banshee",
+          "quantidadePaginas": 22,
+          "resumo": "Revelada a origem da macabra Banshee Prateada! Depois de receber de Batman o livro que a vilã tanto cobiça, Superman voa até a Irlanda, onde Lois e Jimmy viraram reféns de Beven e seu tio Seamus McDougal. A história do clã McDougal e a estranha tradição que transformou Siobhan, a irmã de Beven, em Banshee Prateada é revelada!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "23",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 23/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Primeiros passos",
+          "tituloOriginal": "First Steps",
+          "quantidadePaginas": 22,
+          "resumo": "O Superman e toda a cidade de Metrópolis se surpreendem com o retorno do Predador. Mas se José Delgado, que vestiu o manto do vigilante está paraplégico, quem será o novo Predador?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "446",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 446/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Políticas de poder",
+          "tituloOriginal": "Power Politics",
+          "quantidadePaginas": 22,
+          "resumo": "Segundo round do confronto entre Superman e Fúria. Desta vez, a vilã quer a cabeça do senador Herbert Forest, cuja plataforma de campanha para presidente se sustenta capitalizando a fama do Superman. O embate se torna inevitável.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "24",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 24/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Além dos limites",
+          "tituloOriginal": "Over the Edge",
+          "quantidadePaginas": 22,
+          "resumo": "O mistério em torno da identidade do novo Predador prossegue, ao mesmo tempo em que as disputas entre os inescrupulosos Morgan Edge e Lex Luthor alcançam o estágio crítico. Em meio a esses acontecimentos, a pergunta que não quer calar é: onde está o Superman?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "447",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 447/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Coisa da cabeça",
+          "tituloOriginal": "Head Trips",
+          "quantidadePaginas": 22,
+          "resumo": "Superman encara uma dupla ameaça: Lex Luthor e seu aliado, a nova e letal versão de Brainiac!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "25",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 25/1988 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "16",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-07-01",
+      "publicadoTexto": "julho de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61Ba0jix6dL._SY522_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 16\nPublicado em: julho de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kerry Gammill Arte-Final: Dennis Janke Editor: Erick Garcia , Isabel Ferreira",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O parapeito",
+          "tituloOriginal": "The Ledge",
+          "quantidadePaginas": 22,
+          "resumo": "Um homem está decidido a cometer suicídio, jogando-se do alto de um prédio. Superman e Predador tentam demovê-lo desse intento com abordagens radicalmente diferentes. Os resultados são imprevisíveis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "448",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 448/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "...A apenas um tiro de distância!",
+          "tituloOriginal": "...It's Just a Shot Away!",
+          "quantidadePaginas": 22,
+          "resumo": "Superman e a Unidade de Crimes Especiais se unem para investigar os crimes do Barão Domingo, um criminoso que está assassinando pessoas por meio de forças aparentemente sobrenaturais. Enquanto isso, em meio à Invasão, o Homem de Aço tem que lidar o ataque traiçoeiro dos thanagarianos à Metrópolis e com a interferência do governo que acredita numa solução diplomática para a crise.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "26",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 26/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A busca",
+          "tituloOriginal": "The Search",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de colocar fim a um pequeno desentendimento entre o Predador e o Guardião e a Legião Jovem, o Superman é incumbido pelo Capitão Átomo, líder da resistência terráquea à Invasão, a ir até a esquadra dos Domínions, líderes da Aliança Alienígena, negociar um cessar-fogo. Apesar do esforço do Homem de Aço, seus argumentos não convencem os invasores e a guerra pela conquista da Terra e a rendição dos meta-humanos é mantida!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "449",
+            "anoOriginal": 1988,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 449/1988 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Claro que você sabe que isso significa guerra!",
+          "tituloOriginal": "Of Course, You Know, This Means War!",
+          "quantidadePaginas": 22,
+          "resumo": "O Guardião, como eterno defensor da lei e da ordem, está cansado de ver em Metrópolis o resultado dos métodos violentos e ilegais do vigilante conhecido como Predador. Chegou a hora de acertar os ponteiros com ele.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "27",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 27/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Ameaça tripla",
+          "tituloOriginal": "Triple Threat",
+          "quantidadePaginas": 22,
+          "resumo": "O embate entre Guardião e Predador se conclui com uma revelação chocante: perturbado com os eventos ocorridos em sua aventura no Universo Compacto, o Superman criou uma segunda personalidade, com a qual saía trajado como Predador. Trazido de volta a si, ele se julga indigno de continuar como defensor da Terra, despede-se de seus pais em Smallville e se autoexila no espaço.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "450",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 450/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Superman no exílio",
+          "tituloOriginal": "Superman in Exile",
+          "quantidadePaginas": 22,
+          "resumo": "Em seu autoexílio solitário no espaço sideral, o Superman faz um balanço de sua carreira como defensor da Terra, recordando de suas aventuras até então.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "28",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 28/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-08-01",
+      "publicadoTexto": "agosto de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71JRGCG+3rL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 17\nPublicado em: agosto de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Jerry Ordway Editor: Erick Garcia\nTerreno perigoso",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Terreno perigoso",
+          "tituloOriginal": "Dangerous Ground",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto Clark Kent é dado como morto em Metrópolis, Lex Luthor afia suas garras para se vingar da tentativa de assassinato sofrida por ele por parte da Intergangue. Antes disso, contudo, controlando José Delgado graças às próteses que lhe trouxeram de volta o movimento das pernas, Luthor o envia para liquidar um velho desafeto seu: o Professor Hamilton!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "451",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 451/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Se é este o meu destino",
+          "tituloOriginal": "If This Be My Fate",
+          "quantidadePaginas": 22,
+          "resumo": "Uma nave alienígena em fuga leva o Superman ao seu planeta de origem. Ao chegar lá, o Homem de Aço fica horrorizado com uma cenário de genocídio tão desolador quanto a Terra do Universo Compacto. O herói não desistirá enquanto não encontrar o culpado. Enquanto isso na Terra, Lois Lane investiga uma catástrofe em Dakota do Sul que pode ter relação com o mesmo mal.\nEstreia de Dan Jurgens escrevendo e desenhando as histórias do Superman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "29",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 29/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Inferno além",
+          "tituloOriginal": "Hell Beyond",
+          "quantidadePaginas": 22,
+          "resumo": "O Superman encontra Hfuhruhurr, o alienígena responsável por toda a desolação que viu recentemente e um confronto dramático tem início!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "452",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 452/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Sozinho!",
+          "tituloOriginal": "Alone!",
+          "quantidadePaginas": 14,
+          "resumo": "Num planeta distante, Superman constrói uma casa e uma fazenda para matar as saudades de Smallville... Apenas para ver tudo ser arrasado por um tornado e uma inundação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "30",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 30/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O rei que tudo vê!",
+          "tituloOriginal": "[Hostile Takeover, Part I]: King of All He Surveys!",
+          "quantidadePaginas": 8,
+          "resumo": "Lex reflete sobre sua história e conflitos com o Superman e então procura um novo desafio, já que o Superman deixou a Terra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "30",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 30/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Aparições",
+          "tituloOriginal": "Apparitions",
+          "quantidadePaginas": 14,
+          "resumo": "Na medida em que o oxigênio do Superman vai acabando, o Homem de Aço começa a sofrer com alucinações e se vê revivendo o momento trágico que o levou ao auto exílio, quando enfrenta novamente os três criminosos kryptonianos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "453",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 453/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Boatos internos!",
+          "tituloOriginal": "Hostile Takeover, Part II: Insider Rumors",
+          "quantidadePaginas": 8,
+          "resumo": "Lex Luthor continua em suas maquinações para tomar posse dos Laboratórios Delta (Star).",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "453",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 453/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 8,
+          "tituloPortugues": "Um homem de palavra!",
+          "tituloOriginal": "As Good As His Word!",
+          "quantidadePaginas": 14,
+          "resumo": "O Sr. Mxyzptlk está furioso e volta para Metrópolis querendo acertar contas com o Superman... Mas só encontra Lex Luthor pela frente!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "31",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 31/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 9,
+          "tituloPortugues": "Pílula de veneno!",
+          "tituloOriginal": "Hostile Takeover, Part III: Poison Pill!",
+          "quantidadePaginas": 8,
+          "resumo": "Lex ainda insiste na compra dos Laboratórios Delta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "31",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 31/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "18",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-09-01",
+      "publicadoTexto": "setembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71pcu1ZNpHL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 18\nPublicado em: setembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: George Pérez Arte-Final: Jerry Ordway Editor: Erick Garcia\nPeregrino",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Peregrino",
+          "tituloOriginal": "Wayfarer",
+          "quantidadePaginas": 14,
+          "resumo": "Superman foi resgatado, mas se encontra a bordo de uma nave em direção ao Mundo Bélico. Os alienígenas prendem ele e o nosso herói precisa lutar por sua vida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "454",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 454/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Procurando um cavaleiro andante",
+          "tituloOriginal": "Hostile Takeover, Part IV: Looking for a White Knight",
+          "quantidadePaginas": 8,
+          "resumo": "Finalmente os ardis de Lex Luthor surtem efeito: agora os Laboratórios Delta (Star) no Colorado são seus!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "454",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 454/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Memórias do passado de Krypton",
+          "tituloOriginal": "Memories of Krypton's Past",
+          "quantidadePaginas": 48,
+          "resumo": "O Superman vai parar no Mundo Bélico, um monstruoso planetoide com propulsão própria, onde diversos guerreiros se enfrentam numa arena ao modo dos gladiadores romanos. O Homem de Aço se torna um dos gladiadores e na medida em que vai enfrentando adversários temíveis, vai conquistando a simpatia do povo do Mundo Bélico e ódio e inveja do soberano desse planeta-arena, o ardiloso Mongul!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics Annual (1987)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics Annual (1987) n° 2/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Gladiador",
+          "tituloOriginal": "Gladiator",
+          "quantidadePaginas": 22,
+          "resumo": "Superman e Mongul se enfrentam na mais aguardada batalha do Mundo Bélico. O vilão joga sujo e massacra o Homem de Aço. No último minuto, ele é salvo pelo Clérigo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "32",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 32/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Herança",
+          "tituloOriginal": "Heritage",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto uma rebelião toma conta do Mundo Bélico, o Clérigo apresenta ao Superman o Erradicador, um aparelho com inteligência própria e que encerra em si toda a história e cultura da civilização kryptoniana! Já na Terra, Matriz gera mais confusão na sua equivocada interpretação de substituir o Homem de Aço como defensora do planeta.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "455",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 455/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dois destinos!",
+          "tituloOriginal": "Two Destinies!",
+          "quantidadePaginas": 22,
+          "resumo": "Superman e Clérigo se submetem ao Erradicador e com isso, o herói acaba se libertando dos sentimentos de culpa que o perturbavam desde a execução dos três genocidas kryptonianos. Assim, ele decide terminar seu autoexílio e voltar para a Terra.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "33",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 33/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "19",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-10-01",
+      "publicadoTexto": "outubro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61UTma2IJVL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 19\nPublicado em: outubro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: George Pérez Editor: Erick Garcia\nRedenção!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Redenção!",
+          "tituloOriginal": "Redemption!",
+          "quantidadePaginas": 22,
+          "resumo": "A curiosidade de Lois Lane pelas atividades da Intergangue irrita Darkseid, que envia o seu servo Tumulto para liquidá-la. Com o Superman ainda começando a sua viagem de retorno à Terra, o Predador se torna a única esperança da intrépida repórter contra essa ameaça!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "456",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 456/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Superman na Terra",
+          "tituloOriginal": "Superman on Earth",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de seu exílio no espaço, o Superman precisa deter o ataque do descontrolado Tumulto! Enquanto isso, com suas maquinações criminosas cada vez mais ficando expostas, o inescrupuloso Morgan Edge não aguenta e seu coração entra em colapso!\nRetorno da revista Action Comics depois de mais de 40 edições sem o Superman como personagem fixo.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "643",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 643/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Por bem ou por mal!",
+          "tituloOriginal": "By Hook or by Crook!",
+          "quantidadePaginas": 22,
+          "resumo": "Maggie e James Sawyer visitam sua filha Jamie na sede do Projeto Cadmus. Mas a reunião pode perder todo o ar festivo, pois o maligno Gancho está de volta e com ele, o sequestro de crianças. É definitivamente um trabalho para o Superman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "34",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 34/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Ecos",
+          "tituloOriginal": "Echoes",
+          "quantidadePaginas": 22,
+          "resumo": "Com o retorno do Superman à Terra, uma bizarra conexão mental se estabelece entre ele e Matriz. Enquanto em Metrópolis o Homem de Aço combate a Intergangue, que ataca uma festa do Planeta Diári. Em Smallville, Matriz também acredita estar enfrentando os super criminosos e cria um cenário de completa destruição pela cidadezinha.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "457",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 457/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Impostor",
+          "tituloOriginal": "Doppelganger",
+          "quantidadePaginas": 22,
+          "resumo": "Ao tomar conhecimento dos eventos ocorridos em Smallville, o Superman ruma para lá. Matriz, mergulhada na confusão de personalidades que a faz acreditar ser o Superman, termina por entrar em confronto com o verdadeiro Homem de Aço, trazendo mais ação e perigo ao coração do Kansas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "644",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 644/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Visões de grandeza",
+          "tituloOriginal": "Visions of Grandeur",
+          "quantidadePaginas": 11,
+          "resumo": "A forma astral de Vril Dox escapa do corpo de Milton Fine e do controle de Luthor.\nHistória na metade superior de cada página. A contagem de páginas é dividida entre as duas histórias. Superman aparece como uma alucinação.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "35",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 35/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 7,
+          "tituloPortugues": "Corrida mortal",
+          "tituloOriginal": "The Racer's Edge",
+          "quantidadePaginas": 11,
+          "resumo": "A forma astral de Vril Dox escapa do corpo de Milton Fine e do controle de Luthor.\nHistória na metade inferior de cada página. A contagem de páginas é dividida entre as duas histórias. Superman não aparece nesta história.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "35",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 35/1989 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "20",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-11-01",
+      "publicadoTexto": "novembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61lZ-bem8RL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 20\nPublicado em: novembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Eu tenho um corpo elástico",
+          "tituloOriginal": "I Sing the Body Elastic",
+          "quantidadePaginas": 22,
+          "resumo": "O Superman precisa ajudar Jimmy Olsen, cujo corpo começa a apresentar uma descontrolada elasticidade sobre-humana e ainda tem que lidar com uma difícil constatação: tudo pode ser culpa sua!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "458",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 458/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Minha lady Máxima!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Conheça Máxima, a superpoderosa e egocêntrica rainha do planeta Almerac. Ela está em busca de um \"parceiro perfeito\", um alguém que não só garanta a sua linhagem, mas que reine ao seu lado com o mesmo nível de poder e pujança. Sua busca acaba por levá-la ao encontro do Superman. Encantada pelo Homem de Aço, Máxima mobiliza seus recursos para atrair sua atenção e testá-lo. O problema é que no processo, Metrópolis inteira pode ir pelos ares.\nTítulo orginal: \"My Lady Maxima\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "645",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 645/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "É de matar... De rir!",
+          "tituloOriginal": "Laugh... I Thought I'd Die!",
+          "quantidadePaginas": 22,
+          "resumo": "Morgan Edge, hospitalizado e enrolado até o pescoço com a Justiça, demite Cat Grant por causa de seu envolvimento nas denúncias contra ele. No entanto, o empresário inescrupuloso tem mais problemas do que imagina: o Galhofeiro invade seu quarto de hospital e passa a torturá-lo com suas brincadeiras sádicas e agora só o Supeman pode salvar sua pele. Enquanto isso, Perry White conhece a nova namorada de seu filho Jerry, Tammy.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "36",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 36/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Solidão",
+          "tituloOriginal": "Solitude",
+          "quantidadePaginas": 22,
+          "resumo": "Consciente dos vários transtornos que o Erradicador causou nos últimos dias, o Superman decide abandonar o dispositivo onde ele não possa ferir mais ninguém e ruma então para a Antártida.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "459",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 459/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Enterrado",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Superman detecta um distúrbio vindo da Antártida e temeroso quanto ao que pode encontrar no continente gelado, ruma para lá imediatamente. Como se não bastasse isso, a psique doentia de Brainiac abandona o corpo de Milton Fine e sai à cata de uma nova forma física!\nTítulo orginal: \"Burial Ground\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "646",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 646/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Melhores amigos",
+          "tituloOriginal": "Best Friends",
+          "quantidadePaginas": 22,
+          "resumo": "Penalizado pelos problemas de alteração corpórea de Jimmy Olsen, o Superman tenta levá-lo para o Projeto Cadmus, a fim de que os cientistas do projeto consigam reverter a situação, mas a amizade dos dois está mais abalada do que se imagina. Enquanto isso, sem ter como recorrer à armadura do Predador, José Delgado precisa impedir a ação de um bando de ladrões de bancos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "37",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 37/1989 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

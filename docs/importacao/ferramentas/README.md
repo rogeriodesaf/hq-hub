@@ -82,3 +82,68 @@ python docs/importacao/ferramentas/robo_capas_panini.py `
 ```
 
 Esse teste encontrou capas Panini para as edições 1 a 9 da Saga do Batman. As demais não seguiram o mesmo padrão de URL no site atual da Panini e ficaram com aviso no JSON.
+
+## Coletar capas Panini por sequência de URL
+
+Quando os produtos seguem um padrão incremental de URL, use o robô abaixo para coletar as capas e salvar em TXT.
+
+Padrões suportados:
+- Contador único: `...produto-25`, `...produto-26`, `...produto-27`
+- Contador duplo: `...vol-1-25`, `...vol-2-26`, `...vol-3-27`
+
+Exemplo para 18 edições a partir de `vol-1-25`:
+
+```powershell
+python docs/importacao/ferramentas/robo_coletar_capas_panini_sequencial.py `
+  --url-inicial "https://panini.com.br/a-saga-do-superman-vol-1-25" `
+  --quantidade 18 `
+  --saida docs/importacao/rascunhos/a-saga-do-superman/capas-panini-vol-1-25-a-42.txt `
+  --intervalo-segundos 0.5 `
+  --tentativas 2
+```
+
+Saída: arquivo TXT com uma URL de capa por linha. Se alguma página falhar ou não tiver capa, a linha correspondente é gravada como `null`.
+
+## Coletar capas da Amazon por URL de produto
+
+Quando você já tiver as URLs dos produtos na Amazon, use o robô abaixo para extrair:
+- `#productTitle` (título da página)
+- URL da capa principal (preferindo alta resolução quando disponível)
+
+Entrada esperada:
+- Um arquivo `.txt` com uma URL de produto por linha.
+
+Exemplo:
+
+```powershell
+python docs/importacao/ferramentas/robo_coletar_capas_amazon.py `
+  --entrada-urls docs/importacao/rascunhos/a-saga-do-batman/urls-amazon.txt `
+  --saida-urls docs/importacao/rascunhos/a-saga-do-batman/capas-amazon.txt `
+  --saida-relatorio docs/importacao/rascunhos/a-saga-do-batman/capas-amazon-relatorio.json `
+  --intervalo-segundos 1.0 `
+  --tentativas 2
+```
+
+Saídas:
+- `capas-amazon.txt`: uma URL de capa por linha (ou `null`)
+- `capas-amazon-relatorio.json`: detalhes por URL (título, capa, erro)
+
+Observação:
+- A Amazon pode bloquear requisições automatizadas. Use intervalos maiores se necessário e revise os resultados antes de aplicar no JSON final.
+
+## Aplicar lista manual de URLs de capa
+
+Quando você já tiver uma lista de URLs pronta (uma por edição, em ordem), use este robô para preencher `edicoes[].urlCapa` automaticamente.
+
+1. Crie um arquivo `.txt` com uma URL por linha.
+2. Execute o comando abaixo.
+
+```powershell
+python docs/importacao/ferramentas/robo_aplicar_url_capa.py `
+  --entrada docs/importacao/rascunhos/a-saga-do-superman/a-saga-do-superman-1-a-18.json `
+  --urls docs/importacao/rascunhos/a-saga-do-superman/capas-amazon.txt `
+  --saida docs/importacao/rascunhos/a-saga-do-superman/a-saga-do-superman-1-a-18-com-capas.json
+```
+
+Se a quantidade de URLs não bater com a quantidade de edições, o script aplica até onde for possível e registra aviso no JSON. Para exigir quantidade exata, adicione `--estrito`.
+Linhas `null` no TXT viram `urlCapa: null` no JSON final.

@@ -1,0 +1,43 @@
+{
+  "origem": {
+    "arquivoEntrada": "colecao-carl-barks-definitiva-n-20-gdq-155404",
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-20/ti011113/155404",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-20/ti011113/155404",
+      "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=155404&path=ti01111320_155404.jpg"
+    ],
+    "geradoEm": "2026-07-02",
+    "gerador": "Cadastro manual (mapeado de URL Guia dos Quadrinhos)"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Carl Barks Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 20
+  },
+  "totalEdicoes": 1,
+  "totalHistorias": 0,
+  "avisos": [
+    "Dados extraidos da URL do Guia dos Quadrinhos informada pelo usuario.",
+    "A pagina nao expôs a listagem completa de historias no trecho retornado; o campo historias ficou vazio para preenchimento posterior se necessario."
+  ],
+  "edicoes": [
+    {
+      "numero": "20",
+      "tituloChamada": "Coleção Carl Barks Definitiva n° 20",
+      "dataPublicacao": "2020-09-01",
+      "publicadoTexto": "setembro de 2020",
+      "editora": "Panini",
+      "licenciador": "Walt Disney",
+      "categoria": "Álbum de Luxo",
+      "genero": "Infantil",
+      "status": "Em circulação",
+      "numeroPaginas": 216,
+      "formato": "(16,5 x 24 cm) Colorido/Capa dura",
+      "precoCapa": 79.00,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=155404&path=ti01111320_155404.jpg",
+      "descricao": "Publicado em: setembro de 2020\nEditora: Panini\nLicenciador: Walt Disney\nCategoria: Álbum de Luxo\nGênero: Infantil\nStatus: Em circulação\nNúmero de páginas: 216\nFormato: (16,5 x 24 cm)\nColorido/Capa dura\nPreço de capa: R$ 79,00\nCrédito da capa e editor\nArte: Carl Barks\nEditor: ...",
+      "historias": []
+    }
+  ]
+}

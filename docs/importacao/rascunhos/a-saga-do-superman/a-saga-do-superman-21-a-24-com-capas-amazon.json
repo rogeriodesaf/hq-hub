@@ -1,0 +1,473 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-1-serie-n-21/sa011127/169472",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-1-serie-n-21/sa011127/169472",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-22/sa011127/169910",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-23/sa011127/172261",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-24/sa011127/173279"
+    ],
+    "geradoEm": "2026-07-04T19:15:55",
+    "gerador": "robo_importador_texto.py",
+    "aplicacaoManualCapas": {
+      "arquivoUrls": "docs\\importacao\\rascunhos\\a-saga-do-superman\\capas-amazon-volume1-21-a-24-20260704.txt",
+      "aplicadoEm": "2026-07-04T20:33:34",
+      "totalUrlsInformadas": 4,
+      "totalEdicoes": 4,
+      "totalCapasAplicadas": 4,
+      "modo": "sequencial"
+    }
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga do Superman",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 4,
+  "totalHistorias": 23,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "21",
+      "tituloChamada": null,
+      "dataPublicacao": "2022-12-01",
+      "publicadoTexto": "dezembro de 2022",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71lZ7c8KX2L._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 21\nPublicado em: dezembro de 2022\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: George Pérez Cores: Tom Ziuko Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Que seja tão mortal",
+          "tituloOriginal": "Be It Ever So Deadly",
+          "quantidadePaginas": 22,
+          "resumo": "Dores de cabeça misteriosas levam o Superman a voltar à Antártida para verificar se o Erradicador continua no mesmo lugar onde o largou. Ao chegar ao local, o Homem de Aço se depara estarrecido com uma gigantesca fortaleza construída pelo artefato, glorificando a história e cultura de Krypton e preparando terreno para tornar a Terra numa cópia fiel do planeta-natal do Superman. Este, é claro, não vai permitir isso!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "460",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 460/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Drenagem cerebral",
+          "tituloOriginal": "Brain Drain; [The Brainiac Trilogy, Part 1]",
+          "quantidadePaginas": 22,
+          "resumo": "Conheça a ascensão da ameaça alienígena Brainiac e sua volta à grandeza, no qual ele e seu novo aliado, Metallo, planejam uma elaborada vingança contra Lex Luthor!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "647",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 647/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Desastres sobrenaturais",
+          "tituloOriginal": "Unnatural Disasters",
+          "quantidadePaginas": 22,
+          "resumo": "Durante uma visita ao Professor Hamilton, Jimmy tenta mais uma vez reverter as transformações pelas quais passaram seu corpo, mas uma descarga elétrica atinge o maquinário do professor e o fotógrafo vai parar em outra dimensão. O Superman está em Wisconsin procurando por sinais de Brainiac quando um terremoto acontece e uma avassaladora tsunami atinge Metrópolis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "38",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 38/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lar",
+          "tituloOriginal": "Home",
+          "quantidadePaginas": 22,
+          "resumo": "O Professor Hamilton confirma que a crise climática no planeta é causada pelo Erradicador. O Superman tenta novamente dar fim aos propósitos do artefato, mas acaba dominado e transportado no tempo e no espaço. Ele toma conhecimento das origens do Erradicador e tem um dramático encontro com Jor-El e Lara, seus pais biológicos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "461",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 461/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Corpo & mente",
+          "tituloOriginal": "Body and Mind; [The Brainiac Trilogy, Part 2]",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "648",
+            "anoOriginal": 1989,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 648/1989 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Homem e máquina",
+          "tituloOriginal": "[The Brainiac Trilogy, Part 3] Man and Machine",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "649",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 649/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "22",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-01-01",
+      "publicadoTexto": "janeiro de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71O29jOFOVL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 22\nPublicado em: janeiro de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A aventura fantástica de Jimmy Olsen",
+          "tituloOriginal": "Jimmy Olsen's Excellent Adventure",
+          "quantidadePaginas": 22,
+          "resumo": "Jimmy vai parar numa dimensão paralela e o Superman é contatado por um estranho jovem de grandes poderes, que oferece ajuda para resgatar Jimmy, desde que também possa ter ajuda para resgatar sua irmã, tiranizada naquela dimensão paralela.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "39",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 39/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Passando o natal em casa",
+          "tituloOriginal": "Home for the Holidays!",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de aceitar a proposta da revista Newstime, Clark tem seu último dia de trabalho no Planeta Diário. Ele é surpreendido por uma festa surpresa, instigada pela tímida Alice. Ao ir agradecê-la, Clark descobre que a jovem está há três anos vivendo num depósito do jornal depois de perder a mãe e quase todas as economias na tentativa de salvá-la da doença que a matou. Clark, Lois, Jimmy e Perry decidem ajudar Alice.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "462",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 462/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Terror nas ruas",
+          "tituloOriginal": "Terror on the Streets",
+          "quantidadePaginas": 22,
+          "resumo": "Mokkari e Simyan estão de volta e enviam um monstro ensandecido para destruir o Superman, levando caos e destruição à Metrópolis.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "40",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 40/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Velocidade mata!",
+          "tituloOriginal": "Speed Kills",
+          "quantidadePaginas": 22,
+          "resumo": "Para se livrar do insuportável Mxyzptlk, o Superman aceita participar de um inusitado torneio proposto pelo duende extradimensional: vencer o Flash numa corrida ao redor do mundo e enfim descobrir quem é o homem mais rápido do mundo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "463",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 463/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Reflexões",
+          "tituloOriginal": "Reflections",
+          "quantidadePaginas": 40,
+          "resumo": "Enquanto que Draaga está pegando uma carona em direção a Terra, os amigos do Superman pensam nos seus grandes feitos.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "650",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 650/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "23",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-03-01",
+      "publicadoTexto": "março de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/71Uegn8ePFL._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 23\nPublicado em: março de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia\nA natureza da fera",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A natureza da fera",
+          "tituloOriginal": "[The Day of the Krypton Man, Part I]: The Nature of the Beast",
+          "quantidadePaginas": 22,
+          "resumo": "Lobo e Draaga rumam para a Terra a fim de confrontar o Superman por desavenças passadas, sem imaginar que o Homem de Aço que encararam é bem diferente daquele que vão encontrar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "41",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 41/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Briga mortal",
+          "tituloOriginal": "[The Day of the Krypton Man, Part II] Blood Brawl",
+          "quantidadePaginas": 22,
+          "resumo": "Uma batalha há muito aguardada que abalará os alicerces da Terra! O sanguinário Lobo encontra a Fortaleza da Solidão e entra num confronto feroz com o Superman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "464",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 464/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "De fora desta Terra",
+          "tituloOriginal": "[The Day of the Krypton Man, Part III] Not of This Earth",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "651",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 651/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O Kryptoniano",
+          "tituloOriginal": "[The Day of the Krypton Man, Part IV:] Krypton Man",
+          "quantidadePaginas": 22,
+          "resumo": "Draaga tem sua vez de confrontar o Superman. O embate é monumental, arrasa trechos da cidade, alcança a Estátua da Liberdade e com uma ajudinha de Professor Hamilton, alcança seu clímax na Lua!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "42",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 42/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O último filho de Krypton",
+          "tituloOriginal": "[The Day of the Krypton Man, Part V] The Last Son of Krypton",
+          "quantidadePaginas": 22,
+          "resumo": "Depois de derrotar Draaga, o Superman é trazido de volta à Terra pelo Professor Hamilton. Sua vida foi transformada em frangalhos, mas o Homem de Aço parece não dar importância.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "465",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 465/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Filho pródigo",
+          "tituloOriginal": "[The Day of the Krypton Man, Part VI] Wayward Son",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "652",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 652/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "24",
+      "tituloChamada": null,
+      "dataPublicacao": "2023-05-01",
+      "publicadoTexto": "maio de 2023",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Título encerrado",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://m.media-amazon.com/images/I/61ChaRCNl7L._SL1000_.jpg",
+      "descricao": "Saga do Superman, A 1ª Série - n° 24\nPublicado em: maio de 2023\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Título encerrado\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Cores: Glenn Whitmore Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A fábrica do mal",
+          "tituloOriginal": "The Evil Factory",
+          "quantidadePaginas": 22,
+          "resumo": "A organização Fábrica do Mal revela sua última maligna criação: um clone do Homem de Aço sob seu completo comando, mas com o diferencial de ser totalmente infundido de kryptonita. Assim, ele é enviado para dar cabo do Superman. Pode alguém ir contra esta aparentemente invencível força?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "43",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 43/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Os limites do poder",
+          "tituloOriginal": "The Limits of Power!",
+          "quantidadePaginas": 22,
+          "resumo": "A tripulação do ônibus espacial Excalibur é exposta à radiação cósmica e obrigada a fazer um pouso forçado. Dois dos quatro tripulantes tem seus corpos destruídos, mas suas mentes se preservam e criam novos corpos a partir de blocos de terra e restos da nave. Enlouquecidos, eles entram em confronto com o Superman. Primeira aparição de Hank Henshaw, o homem que se tornaria o vilão Superciborgue.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "466",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 466/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Amor & morte",
+          "tituloOriginal": "Love & Death",
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "653",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 653/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Um morcego em Metrópolis - Parte um",
+          "tituloOriginal": "Dark Knight Over Metropolis [Part 1]",
+          "quantidadePaginas": 22,
+          "resumo": "Ameaçada pelos membros da Intergangue, a jornalista Cat Grant e seu filho Adam são alvos de um atentado, mas são salvos pelo Superman e pelo Predador. Enquanto isso em Gotham City, Batman, numa de suas rondas, faz uma curiosa descoberta ao encontrar o cadáver de uma mulher: Um anel decorado por um lindo rubi de kryptonita!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "44",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 44/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Um morcego em Metrópolis - Parte dois",
+          "tituloOriginal": "Part Two: Dark Knight Over Metropolis",
+          "quantidadePaginas": 22,
+          "resumo": "A Intergangue invade uma cerimônia de premiação jornalística em Metrópolis e sequestra Cat Grant e José Delgado. O Superman não pode ajudá-los... Pois Clark Kent está ocupado sendo salvo por Lex Luthor! Para salvar o dia, no entanto, Metrópolis terá a ajuda de um nobre visitante: o convidado da festa Bruce Wayne ou melhor... Batman!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "467",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 467/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Um morcego em Metrópolis - Parte três",
+          "tituloOriginal": "Part Three: Dark Knight Over Metropolis",
+          "quantidadePaginas": 23,
+          "resumo": "Superman e Batman acabam com os assassinos de Bruno Mannheim. Depois disso, Superman entrega o anel de Kryptonita para o Batman.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "654",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 654/1990 - DC Comics"
+          }
+        }
+      ]
+    }
+  ]
+}

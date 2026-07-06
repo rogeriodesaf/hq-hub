@@ -99,11 +99,30 @@ def html_para_texto(html):
     texto = re.sub(r"<br\s*/?>", "\n", texto, flags=re.IGNORECASE)
     texto = re.sub(r"</(p|div|li|tr|td|h1|h2|h3|span)>", "\n", texto, flags=re.IGNORECASE)
     texto = re.sub(r"<[^>]+>", " ", texto)
+    
     linhas = []
+    # Padrões de linhas lixo que devem ser removidas - apenas os mais seguros
+    padroes_lixo = [
+        r"^\s*\d+\s+votos?\s+no\s+total\s*$",
+        r"^\s*Seu voto:\s+\d+\s*$",  # Seu voto: 10, Seu voto: 9, etc
+        r"^\s*Faça sua avaliação:\s*$",
+        r"^\s*Galeria de capas\s*$",
+        r"^\s*Clique nos números para navegar pelas edições\s*$",
+        r"^\s*Relate algum problema encontrado nessa edição\s*$",
+        r"^\s*(?:Título|Edição|Editado por)\s+adicionado por\s*$",
+        r"^\s*Please enable JavaScript to view the comments\s*$",
+        r"^\s*© \d{4}-\d{4}\s+Guia dos Quadrinhos",
+        r"^\s*Design e desenvolvimento:",
+        r"^\s*Nas redes sociais\s*$",
+    ]
+    
     for linha in unescape(texto).splitlines():
         linha_limpa = normalizar_espacos(linha)
         if linha_limpa:
-            linhas.append(linha_limpa)
+            # Verificar se a linha é lixo
+            eh_lixo = any(re.match(padrao, linha_limpa, re.IGNORECASE) for padrao in padroes_lixo)
+            if not eh_lixo:
+                linhas.append(linha_limpa)
 
     if imagens:
         linhas.extend(dict.fromkeys(imagens))
@@ -138,6 +157,22 @@ def extrair_links_galeria(html, url_base):
     return sorted(links_unicos, key=extrair_numero_url_edicao)
 
 
+def limitar_urls_a_partir_da_inicial(urls, url_inicial, maximo_edicoes):
+    if not maximo_edicoes:
+        return urls
+
+    try:
+        indice_inicial = urls.index(url_inicial)
+    except ValueError:
+        numero_inicial = extrair_numero_url_edicao(url_inicial)
+        indice_inicial = next(
+            (indice for indice, url in enumerate(urls) if extrair_numero_url_edicao(url) >= numero_inicial),
+            0,
+        )
+
+    return urls[indice_inicial : indice_inicial + maximo_edicoes]
+
+
 def carregar_texto_e_origem(args):
     if not args.url:
         return ler_texto(args.entrada), [], []
@@ -147,8 +182,7 @@ def carregar_texto_e_origem(args):
         return html_para_texto(html_inicial), [args.url], []
 
     urls = extrair_links_galeria(html_inicial, args.url)
-    if args.maximo_edicoes:
-        urls = urls[: args.maximo_edicoes]
+    urls = limitar_urls_a_partir_da_inicial(urls, args.url, args.maximo_edicoes)
 
     textos = []
     urls_processadas = []
@@ -478,6 +512,55 @@ def salvar_json_utf8(caminho, dados):
     caminho.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def slugificar(texto):
+    if not texto:
+        return "colecao"
+    texto = texto.lower().strip()
+    texto = re.sub(r"[^a-z0-9]+", "-", texto)
+    texto = re.sub(r"-{2,}", "-", texto)
+    return texto.strip("-") or "colecao"
+
+
+def numero_para_ordem(numero):
+    if numero is None:
+        return 10**9
+    numeros = re.sub(r"\D", "", str(numero))
+    return int(numeros) if numeros else 10**9
+
+
+def descobrir_faixa_edicoes(edicoes):
+    if not edicoes:
+        return "sem-edicoes"
+
+    numeros = [str(edicao.get("numero", "")).strip() for edicao in edicoes if str(edicao.get("numero", "")).strip()]
+    if not numeros:
+        return "sem-numero"
+
+    ordenados = sorted(numeros, key=numero_para_ordem)
+    if len(ordenados) == 1:
+        return ordenados[0]
+    return f"{ordenados[0]}-a-{ordenados[-1]}"
+
+
+def resolver_caminho_saida(args, resultado):
+    saida_base = Path(args.saida)
+    if not args.organizar_saida_por_serie:
+        return saida_base
+
+    titulo_serie = resultado.get("serieBrasileira", {}).get("titulo")
+    pasta_serie = slugificar(titulo_serie)
+    faixa = descobrir_faixa_edicoes(resultado.get("edicoes", []))
+    nome_base = f"{pasta_serie}-{faixa}.json"
+    pasta_destino = saida_base / pasta_serie
+    destino = pasta_destino / nome_base
+
+    if destino.exists():
+        sufixo = datetime.now().strftime("%Y%m%d-%H%M%S")
+        destino = pasta_destino / f"{pasta_serie}-{faixa}-{sufixo}.json"
+
+    return destino
+
+
 def main():
     parser = argparse.ArgumentParser(description="Gera JSON de importação do HQ-HUB a partir de texto colado.")
     origem = parser.add_mutually_exclusive_group(required=True)
@@ -492,10 +575,18 @@ def main():
     parser.add_argument("--intervalo-segundos", type=float, default=2.0, help="Pausa entre acessos quando seguir galeria.")
     parser.add_argument("--maximo-edicoes", type=int, default=None, help="Limita a quantidade de edições processadas.")
     parser.add_argument("--tentativas", type=int, default=3, help="Quantidade de tentativas por URL.")
+    parser.add_argument(
+        "--organizar-saida-por-serie",
+        action="store_true",
+        help=(
+            "Salva em pasta da coleção com arquivo por faixa de edições. "
+            "Com essa opção, --saida vira a pasta raiz de saída."
+        ),
+    )
     args = parser.parse_args()
 
     resultado = montar_json(args)
-    saida = Path(args.saida)
+    saida = resolver_caminho_saida(args, resultado)
     saida.parent.mkdir(parents=True, exist_ok=True)
     salvar_json_utf8(saida, resultado)
 

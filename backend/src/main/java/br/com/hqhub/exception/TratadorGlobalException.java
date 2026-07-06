@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import org.jboss.logging.Logger;
+import org.hibernate.exception.DataException;
 
+import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import jakarta.ws.rs.WebApplicationException;
@@ -39,6 +41,14 @@ public class TratadorGlobalException implements ExceptionMapper<Exception> {
             return criarResposta(Response.Status.BAD_REQUEST, "Verifique se os dados enviados estão válidos.");
         }
 
+        if (excecao instanceof PersistenceException
+            || excecao instanceof org.hibernate.exception.ConstraintViolationException
+            || excecao instanceof DataException) {
+            return criarResposta(
+                Response.Status.BAD_REQUEST,
+                "Falha ao salvar os dados no catálogo. " + detalharCausaRaiz(excecao));
+        }
+
         if (excecao instanceof WebApplicationException webApplicationException
                 && webApplicationException.getResponse().getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
             return criarResposta(Response.Status.BAD_REQUEST,
@@ -54,5 +64,20 @@ public class TratadorGlobalException implements ExceptionMapper<Exception> {
         return Response.status(status)
                 .entity(erro)
                 .build();
+    }
+
+    private String detalharCausaRaiz(Throwable excecao) {
+        Throwable atual = excecao;
+        while (atual.getCause() != null && atual.getCause() != atual) {
+            atual = atual.getCause();
+        }
+
+        String mensagem = atual.getMessage();
+        if (mensagem == null || mensagem.isBlank()) {
+            return "Verifique limites de tamanho dos campos, duplicidades e formatos inválidos.";
+        }
+
+        String resumida = mensagem.length() > 300 ? mensagem.substring(0, 300) + "..." : mensagem;
+        return "Detalhe: " + resumida;
     }
 }

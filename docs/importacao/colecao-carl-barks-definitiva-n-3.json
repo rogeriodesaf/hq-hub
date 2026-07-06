@@ -1,0 +1,43 @@
+{
+  "origem": {
+    "arquivoEntrada": "colecao-carl-barks-definitiva-n-3-gdq-187465",
+    "url": "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-3/ti011113/187465",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/colecao-carl-barks-definitiva-n-3/ti011113/187465",
+      "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=187465&path=ti01111303_187465.jpg"
+    ],
+    "geradoEm": "2026-07-02",
+    "gerador": "Cadastro manual (mapeado de URL Guia dos Quadrinhos)"
+  },
+  "serieBrasileira": {
+    "titulo": "Coleção Carl Barks Definitiva",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 1
+  },
+  "totalEdicoes": 3,
+  "totalHistorias": 0,
+  "avisos": [
+    "Dados extraidos da URL do Guia dos Quadrinhos informada pelo usuario.",
+    "A pagina nao expôs a listagem completa de historias no trecho retornado; o campo historias ficou vazio para preenchimento posterior se necessario."
+  ],
+  "edicoes": [
+    {
+      "numero": "3",
+      "tituloChamada": "Coleção Carl Barks Definitiva n° 3",
+      "dataPublicacao": "2025-12-01",
+      "publicadoTexto": "dezembro de 2025",
+      "editora": "Panini",
+      "licenciador": "Walt Disney",
+      "categoria": "Álbum de Luxo",
+      "genero": "Infantil",
+      "status": "Em circulação",
+      "numeroPaginas": 256,
+      "formato": "(16,5 x 24 cm) Colorido/Capa dura",
+      "precoCapa": 119.90,
+      "urlCapa": "http://www.guiadosquadrinhos.com/edicao/ShowImage.aspx?id=187465&path=ti01111303_187465.jpg",
+      "descricao": "Publicado em: dezembro de 2025\nEditora: Panini\nLicenciador: Walt Disney\nCategoria: Álbum de Luxo\nGênero: Infantil\nStatus: Em circulação\nNúmero de páginas: 256\nFormato: (16,5 x 24 cm)\nColorido/Capa dura\nPreço de capa: R$ 119,90\nCrédito da capa e editor\nArte: Carl Barks\nEditor: Marcel...",
+      "historias": []
+    }
+  ]
+}

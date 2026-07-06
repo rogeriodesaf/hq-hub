@@ -1,0 +1,1809 @@
+{
+  "origem": {
+    "arquivoEntrada": null,
+    "url": "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-2-serie-n-1/sa011141/176421",
+    "urlsProcessadas": [
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-2-serie-n-1/sa011141/176421",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-2/sa011141/176708",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-3/sa011141/177454",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-4/sa011141/178534",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-5/sa011141/179064",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-6/sa011141/180957",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-7/sa011141/181837",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-8/sa011141/183529",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-9/sa011141/184805",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-10/sa011141/185346",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-11/sa011141/185973",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-12/sa011141/186949",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-13/sa011141/187607",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-14/sa011141/188684",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-15/sa011141/189117",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-16/sa011141/189311",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-17/sa011141/189442",
+      "http://www.guiadosquadrinhos.com/edicao/saga-do-superman-a-n-18/sa011141/190092"
+    ],
+    "geradoEm": "2026-07-04T19:42:24",
+    "gerador": "robo_importador_texto.py",
+    "aplicacaoManualCapas": {
+      "arquivoUrls": "docs\\importacao\\rascunhos\\a-saga-do-superman\\capas-panini-vol-1-25-a-42.txt",
+      "aplicadoEm": "2026-07-04T21:36:05",
+      "totalUrlsInformadas": 18,
+      "totalEdicoes": 18,
+      "totalCapasAplicadas": 18,
+      "modo": "sequencial"
+    }
+  },
+  "serieBrasileira": {
+    "titulo": "A Saga do Superman",
+    "fase": null,
+    "editora": "Panini",
+    "volume": 2
+  },
+  "totalEdicoes": 18,
+  "totalHistorias": 90,
+  "avisos": [],
+  "edicoes": [
+    {
+      "numero": "1",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-02-01",
+      "publicadoTexto": "fevereiro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_0reqprt3k56ff9pq61fbmfbq0b/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 1\nPublicado em: fevereiro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Pintura: Jerry Ordway Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Filhos nativos",
+          "tituloOriginal": "Native Sons",
+          "quantidadePaginas": 22,
+          "resumo": "O Superman faz uma visita a seus pais em Smallville, mas o encontro é interrompido quando índios da tribo Oto, revoltados por estarem sendo preteridos por indústrias que ambicionam suas terras, tomam Pete Ross como refém e exigem a presença da imprensa. O Homem de Aço precisa intervir, mas acaba se deparando com os poderes místicos de Lobo de Fogo, o mestre xamã da tribo. Ao mesmo tempo, Clark precisa dizer a Lana Lang que ele e Lois Lane estão namorando.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "45",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 45/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O exilado",
+          "tituloOriginal": "The Outcast",
+          "quantidadePaginas": 22,
+          "resumo": "Um incidente derruba praticamente todos os sistemas de comunicação da costa leste dos Estados Unidos. O Superman interrompe seus dias com os pais em Smallville e parte para Metrópolis, onde se depara com o causador do problema: uma complexa forma cibernética de vida, inteligente e nascida de uma trágica viagem ao espaço e que certamente lhe trará muitos problemas pela frente.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "468",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 468/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Sobrevivência!",
+          "tituloOriginal": "Survival",
+          "quantidadePaginas": 22,
+          "resumo": "Lois está atrás de uma história sobre ladrões roubando munições militares, mas ela acaba se metendo em apuros e só o Superman consegue salvá-la!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "655",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 655/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O mundo do amanhã",
+          "tituloOriginal": "The World of Tomorrow",
+          "quantidadePaginas": 22,
+          "resumo": "O Superman está participando de um encontro numa cidade que está se destacando por sua preocupação ecológica, quando a paz é interrompida pelo retorno de Terra-Man e seus asseclas. Só que desta vez, não será apenas com o Homem de Aço que o vilão terá que lidar, mas também com Jade e Manto Negro, os poderosos filhos de Alan Scott, o Lanterna Verde original!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "46",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 46/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Maus elementos",
+          "tituloOriginal": "Nasty Boys",
+          "quantidadePaginas": 22,
+          "resumo": "O Superrman encontra a raça extraterrestre Gemini e na busca de auxiliá-los a conhecer mais sobre suas origens, tem a desagradável surpresa de que eles estão conectados à Dreno e Encouraçado, seus velhos e implacáveis inimigos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "469",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 469/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Rumo ao Labareda - Parte um de três",
+          "tituloOriginal": "Soul Search, Part One of Three: Going to Blaze's",
+          "quantidadePaginas": 22,
+          "resumo": "Por meses, a boate Labareda, instalada na estrutura de uma igreja abandonada, gerou empolgação e estranheza aos cidadãos de Metrópolis, especialmente por sua decorações e atrações tendendo ao macabro. As desconfianças eram legítimas, pois o antigo templo é domínio da satânica Blaze, que mostra suas garras e traga Jimmy Olsen e Jerry White para o inferno. E ainda, Perry White conhece um chocante segredo entre sua esposa e Lex!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "656",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 656/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "2",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-03-01",
+      "publicadoTexto": "março de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_tf91q32ku91q12l021q5nb8m3c/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 2\nPublicado em: março de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Cores: Glenn Whitmore Editor: Erick Garcia\nPrimeira aparição de personagens nesta edição:\nSinbad",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Vidas em jogo - Parte dois de três",
+          "tituloOriginal": "Soul Search, Part Two of Three: Lives in the Balance",
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto que Blaze tenta controlar o Superman, Lex revela a Perry que Jerry é seu filho e o Predador tenta ajudar aqueles que estão presos na boate em chamas.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "47",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 47/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Fúria do inferno - Parte três de três",
+          "tituloOriginal": "Soul Search, Part Three of Three: ...Like a Woman Scorned!",
+          "quantidadePaginas": 22,
+          "resumo": "A batalha final contra Blaze, no Inferno, alcança proporções trágicas quando o Superman é capaz de salvar apenas a vida de um dos jovens. A pergunta que fica é... Quem será salvo?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "470",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 470/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "A terra feliz",
+          "tituloOriginal": "There Is a Happy Land... Far, Far Away",
+          "quantidadePaginas": 22,
+          "resumo": "Superman volta a enfrentar os ardis do Homem dos Brinquedos, que continua em sua sanha para se vingar de Lex Luthor. Desta vez, ele usa seus brinquedos para sequestrar os filhos de acionistas da LexCorp e somente o Homem de Aço pode trazer as crianças de volta!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "657",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 657/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O contrato de Sinbad - Parte um",
+          "tituloOriginal": "The Sinbad Contract: Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Davood Nassur, um jovem refugiado do Qurac, começa a descobrir seus poderes meta humanos, enquanto isso Superman enfrenta inimigos com armaduras e tecnologia alienígena.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "48",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 48/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O contrato de Sinbad - Parte dois",
+          "tituloOriginal": "The Sinbad Contract: Part Two",
+          "quantidadePaginas": 22,
+          "resumo": "Davood está em posso de algo que Lex Luthor quer e usa o medo e o preconceito contra árabes para transformar Davood em um criminoso, passando a chamá-lo de Sinbad.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "471",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 471/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O contrato de Sinbad - Parte três",
+          "tituloOriginal": "The Sinbad Contract: Part Three",
+          "quantidadePaginas": 22,
+          "resumo": "Conclusão da história e o sacrifício de Sinbad.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "658",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 658/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "3",
+      "tituloChamada": "Onde comprar essa edição:",
+      "dataPublicacao": "2024-05-01",
+      "publicadoTexto": "maio de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_fe7baolphh5er0dqje4r45i05h/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 3\nPublicado em: maio de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nArte: Jerry Ordway Cores: Jerry Ordway Editor: Erick Garcia\nA ameaça da Kryptonita Vermelha!",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "A ameaça da Kryptonita Vermelha!",
+          "tituloOriginal": "Krisis of the Krimson Kryptonite, Part One",
+          "quantidadePaginas": 22,
+          "resumo": "Lex Luthor descobre que, embora tenha amputado sua mão direita, seu câncer se espalhou por todo o corpo. Mas ele não pretende sucumbir antes de cumprir a razão de sua existência: destruir o Superman. Com a ajuda do Sr. Mxyzptlk, ele tem acesso à kryptonita vermelha e atrai o Homem de Aço para uma armadilha: basta o primeiro contato e seus poderes são eliminados, tornando-o um homem comum, vulnerável à fúria de Lex Luthor!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "49",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 49/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Clark Kent: O homem de aço!",
+          "tituloOriginal": "Clark Kent -- Man of Steel!",
+          "quantidadePaginas": 22,
+          "resumo": "Sem poderes e lançando mão apenas de sua inteligência e inabalável coragem, o Superman se lança numa missão suicida para deter o feroz Mamute!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "472",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 472/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O fim de uma lenda?",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Título orignal: \"Krisis of the Krimson Kryptonite, Part Two/A: The End of a Legend?\".",
+          "publicacaoOriginal": {
+            "serieOriginal": "Starman (1988)",
+            "numeroOriginal": "28",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Starman (1988) n° 28/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Escapada!",
+          "tituloOriginal": "Breakout!",
+          "quantidadePaginas": 24,
+          "resumo": "Como se os problemas do Superman já não fossem muitos, o Professor Thaddeus Killgrave faz o \"favor\" de organizar uma rebelião na prisão da Ilha Riker. Sem seus superpoderes, o Homem de Aço recorre ao Predador, Guardião e os operativos do Projeto Cadmus para conseguir recapturar os fugitivos!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "659",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 659/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O fator humano",
+          "tituloOriginal": "The Human Factor",
+          "quantidadePaginas": 38,
+          "resumo": "Lex Luthor vive seu momento de maior glória após conseguir tornar o Superman indefeso e consequentemente humilhá-lo e espancá-lo. Contudo, sua arrogância e orgulho são seus pontos fracos e quando ele quebra as regras estabelecidas por seu parceiro Sr. Mxyzptlk, seu grande plano se desmorona e o Homem de Aço volta com força total! E enfim, Lois Lane dá à Clark Kent a resposta à sua proposta de casamento!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "50",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 50/1990 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "4",
+      "tituloChamada": "Onde comprar essa edição:",
+      "dataPublicacao": "2024-07-01",
+      "publicadoTexto": "julho de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_kbvc9fnhtp7fj8r548bp7j363o/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 4\nPublicado em: julho de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Art Thibert Cores: Glenn Whitmore Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Anéis de fogo",
+          "tituloOriginal": "Rings of Fire",
+          "quantidadePaginas": 22,
+          "resumo": "O Lanterna Verde Hal Jordan é misteriosamente capturado e usa seu anel energético para pedir ajuda. O Superman atende ao chamado, mas o outro lanterna verde terráqueo, o esquentado Guy Gardner, também. O que parece uma união perfeita para resgatar Jordan pode se tornar um problemão quando as diferenças gritantes entre o Homem de Aço e Gardner se tornam evidentes!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "473",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 473/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Morte certa",
+          "tituloOriginal": "Certain Death",
+          "quantidadePaginas": 22,
+          "resumo": "A morte está cada vez mais perto de Lex Luthor. No entanto, o megaempresário e arqui-inimigo do Superman não pretende deixar o mundo sem estilo e embarca no voo teste de seu mais novo protótipo de aeronave. Será o último?",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "660",
+            "anoOriginal": 1990,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 660/1990 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O Senhor Z!",
+          "tituloOriginal": "Mister Z!",
+          "quantidadePaginas": 22,
+          "resumo": "Um novo criminoso surge em Metrópolis, usando de sua condição de imortal e seus misteriosos poderes para capturar almas: é o insidioso Senhor Z, que agora ambiciona a alma de um certo kryptoniano.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "51",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 51/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Face a face com o ontem",
+          "tituloOriginal": "Face to Face with Yesterday",
+          "quantidadePaginas": 22,
+          "resumo": "Nesta história especial de fim de ano, o Superman retorna à Smallville para reviver um dos momentos mais delicados e trágicos de sua juventude, quando um amigo seu próximo entrou em coma depois de um acidente automobilístico. Na trama, é debatida a nociva relação entre álcool e direção.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "474",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 474/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Esticando um argumento!",
+          "tituloOriginal": "Stretching a Point",
+          "quantidadePaginas": 22,
+          "resumo": "Um novo e imprevisível supervilão ataca em Metrópolis, o Bomba-Relógio. Para deter essa inusitada ameaça, só mesmo uma inusitada dupla: Superman e Homem-Borracha!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "661",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 661/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O nome, parceiros, é Terraman!",
+          "tituloOriginal": "The Name, Pardners, Is Terra-Man...",
+          "quantidadePaginas": 22,
+          "resumo": "O lunático Terraman, um ecoterrorista que pode literalmente nadar nos subterrâneos, está de volta e patrocinado pela LexCorp. Desta vez, ele cruza os seus limites e um homem inocente paga o preço de sua insanidade. Agora o Superman precisa não só levar o Terraman à Justiça, como impedir que Lois Lane seja a próxima vítima da guerra corporativa do criminoso.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "52",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 52/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "5",
+      "tituloChamada": "Onde comprar essa edição:",
+      "dataPublicacao": "2024-10-01",
+      "publicadoTexto": "outubro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_7p9pcgjo2546n0api2nvlk074i/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 5\nPublicado em: outubro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Brett Breeding Arte-Final: Kerry Gammill Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O mais sórdido de todos",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Jimmy Olsen e Lucy Lane comparecem à reinauguração do melhor parque de diversões de Metrópolis, mas nem imaginam que o lugar agora é o mais novo covil do insidioso Homem dos Brinquedos! Agora só o Super-Homem pode salvá-los da loucura em grande escala do vilão!\nSegredos na noite\nPublicada pela primeira vez em Action Comics (1938) n° 662 /1991 - DC Comics\nDepois de muita espera e indecisão, o Super-Homem decide revelar sua identidade secreta numa noite romântica com Lois. Mas a aparição da Banshee Prateada e as maquinações da demoníaca Blaze podem tornar essa emocionante ocasião numa festa de horror.\nVerdade, justiça e o modo de vida americano",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "475",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 475/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Segredos na noite",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Depois de muita espera e indecisão, o Super-Homem decide revelar sua identidade secreta numa noite romântica com Lois. Mas a aparição da Banshee Prateada e as maquinações da demoníaca Blaze podem tornar essa emocionante ocasião numa festa de horror.\nVerdade, justiça e o modo de vida americano\nPublicada pela primeira vez em Superman (1987) n° 53 /1991 - DC Comics\nDesde seu surgimento, o Super-Homem sempre ajudou onde fosse necessário, independente de bandeiras nacionais. Contudo, agora ele penetra no tenso campo da política, quando recebe do governo dos Estados Unidos a incumbência de derrubar o ditador do Qurac. Enquanto isso, ainda se recuperando do choque da revelação de que Clark Kent é o Super-Homem, Lois reflete sobre seu noivado com o Homem de Aço.\nO Homem Linear",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "662",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 662/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Verdade, justiça e o modo de vida americano",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Desde seu surgimento, o Super-Homem sempre ajudou onde fosse necessário, independente de bandeiras nacionais. Contudo, agora ele penetra no tenso campo da política, quando recebe do governo dos Estados Unidos a incumbência de derrubar o ditador do Qurac. Enquanto isso, ainda se recuperando do choque da revelação de que Clark Kent é o Super-Homem, Lois reflete sobre seu noivado com o Homem de Aço.\nO Homem Linear\nPublicada pela primeira vez em Adventures of Superman (1987) n° 476 /1991 - DC Comics\nPreocupado se havia sido ou não boa ideia revelar sua identidade secreta à Lois Lane depois que o relacionamento dos dois se estreitou, o Super-Homem se une ao Gladiador Dourado para enfrentar o misterioso viajante do futuro chamado Homem Linear. Em meio ao confronto, o Homem de Aço e o vilão acabam tragados pela máquina do tempo deste... E o Super-Homem se perde no tempo!\nPerdido nos anos quarenta nesta noite",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "53",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 53/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O Homem Linear",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Preocupado se havia sido ou não boa ideia revelar sua identidade secreta à Lois Lane depois que o relacionamento dos dois se estreitou, o Super-Homem se une ao Gladiador Dourado para enfrentar o misterioso viajante do futuro chamado Homem Linear. Em meio ao confronto, o Homem de Aço e o vilão acabam tragados pela máquina do tempo deste... E o Super-Homem se perde no tempo!\nPerdido nos anos quarenta nesta noite\nPublicada pela primeira vez em Action Comics (1938) n° 663 /1991 - DC Comics\nO Super-Homem vai parar nos anos 40, onde depois de um tempo servindo como atração de um circo, consegue salvar a vida do presidente Franklin Roosevelt de agentes nazistas. Impressionado, o governante sugere que o Homem de Aço se una à Sociedade da Justiça, e é o que ele procura, na esperança que possam ajudá-lo a voltar à sua época. Mas no meio de seu caminho está... O Espectro!\nGueto de Varsóvia",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "476",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 476/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Perdido nos anos quarenta nesta noite",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O Super-Homem vai parar nos anos 40, onde depois de um tempo servindo como atração de um circo, consegue salvar a vida do presidente Franklin Roosevelt de agentes nazistas. Impressionado, o governante sugere que o Homem de Aço se una à Sociedade da Justiça, e é o que ele procura, na esperança que possam ajudá-lo a voltar à sua época. Mas no meio de seu caminho está... O Espectro!\nGueto de Varsóvia\nPublicada pela primeira vez em Superman (1987) n° 54 /1991 - DC Comics\nNa terceira parte de \"Perdido No Tempo\", o Super-Homem está na Polônia de 1940, onde tenta impedir que um trem de refugiados judeus seja destruído, e que um cientista estadunidense- na verdade, o vilão Senhor Z disfarçado- ceda uma bomba atômica aos nazistas.\n9,4\nSeu voto: 10",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "663",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 663/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Gueto de Varsóvia",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Na terceira parte de \"Perdido No Tempo\", o Super-Homem está na Polônia de 1940, onde tenta impedir que um trem de refugiados judeus seja destruído, e que um cientista estadunidense- na verdade, o vilão Senhor Z disfarçado- ceda uma bomba atômica aos nazistas.\n9,4\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "54",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 54/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "6",
+      "tituloChamada": null,
+      "dataPublicacao": "2024-12-01",
+      "publicadoTexto": "dezembro de 2024",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 39.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_ljnmi8hgjd4e18qp0565u96f2f/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 6\nPublicado em: dezembro de 2024\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 39,90\nCrédito da capa e editor\nDesenho: Kerry Gammill Arte-Final: Dennis Janke Editor: Erick Garcia , Arthur Marchetto\nMorte reavivada",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Morte reavivada",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "No século 30, o Super-Homem se une à Legião dos Super-Heróis para enfrentar o novo Devorador de Sóis!\nMuitos e muitos anos atrás...\nPublicada pela primeira vez em Action Comics (1938) n° 664 /1991 - DC Comics\nSuper-Homem e o supervilão Cronos se encontram e precisam lidar com um mundo inóspito, onde a única companhia que tem são um ao outro... E centenas de dinossauros!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "477",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 477/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Muitos e muitos anos atrás...",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Super-Homem e o supervilão Cronos se encontram e precisam lidar com um mundo inóspito, onde a única companhia que tem são um ao outro... E centenas de dinossauros!\nCamelot\nPublicada pela primeira vez em Superman (1987) n° 55 /1991 - DC Comics\nNa sexta parte de \"Perdido No Tempo\", o Super-Homem vai parar na antiga Grã-Bretanha, mais precisamente, o reino mítico de Camelot, onde se alia ao demônio do bem Etrigan contra as hordas malignas da feiticeira Morgana Le Fay e seu filho Mordred! Última edição do título original \"Superman\" sob a pena de Jerry Ordway.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "664",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 664/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Camelot",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Na sexta parte de \"Perdido No Tempo\", o Super-Homem vai parar na antiga Grã-Bretanha, mais precisamente, o reino mítico de Camelot, onde se alia ao demônio do bem Etrigan contra as hordas malignas da feiticeira Morgana Le Fay e seu filho Mordred! Última edição do título original \"Superman\" sob a pena de Jerry Ordway.\nLua abalada\nPublicada pela primeira vez em Adventures of Superman (1987) n° 478 /1991 - DC Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "55",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 55/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lua abalada",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "No século 30, o Super-Homem e a Legião dos Super-Heróis combatem juntos o maligno daxamita Dev-Em. Em meio a batalha, o Homem de Aço descobre um meio de retornar à sua época original, mas para isso um enorme sacrifício será exigido: a destruição da lua no século 30!\nO despertar dos mortos!\nPublicada pela primeira vez em Action Comics (1938) n° 665 /1991 - DC Comics\nO Barão Sunday reanima alguns presos caídos na Ilha Stryker para escapar.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "478",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 478/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "O despertar dos mortos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O Barão Sunday reanima alguns presos caídos na Ilha Stryker para escapar.\nFragmentado\nPublicada pela primeira vez em Superman (1987) n° 56 /1991 - DC Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "665",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 665/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Fragmentado",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Superman de repente se encontra em um mundo onde todos os seus arqui-vilões foram mortos... por ele. E o público em geral vive com medo do que ele pode fazer a seguir. O Homem de Aço pode resolver esse mistério e descobrir o que está acontecendo antes que seja tarde demais?\n9\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "56",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 56/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "7",
+      "tituloChamada": "Pintura: Jon Bogdanove Editor: Erick Garcia , Arthur Marchetto",
+      "dataPublicacao": "2025-01-01",
+      "publicadoTexto": "janeiro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_39j0vbj6t92npbps3lb62nso4n/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 7\nPublicado em: janeiro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nPintura: Jon Bogdanove Editor: Erick Garcia , Arthur Marchetto\nDegringolando",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Degringolando",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Recolhendo os cacos\nPublicada pela primeira vez em Action Comics (1938) n° 666 /1991 - DC Comics\nHomem de aço / homem de fogo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "479",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 479/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Recolhendo os cacos",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Homem de aço / homem de fogo!\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 1 /1991 - DC Comics\nO retorno do Kryptoniano",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "666",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 666/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Homem de aço / homem de fogo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O retorno do Kryptoniano\nPublicada pela primeira vez em Superman (1987) n° 57 /1991 - DC Comics\nNa primeira aparição antropomórfica do Erradicador, a entidade kryptoniana decide que o Super-Homem não está fazendo jus à herança de sua civilização e começa a orquestrar drásticas mudanças climáticas para transformar a Terra na imagem e semelhança de Krypton! Estreia do escritor e desenhista Dan Jurgens no comando do título \"Superman\".\n9,3\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "1",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 1/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O retorno do Kryptoniano",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Na primeira aparição antropomórfica do Erradicador, a entidade kryptoniana decide que o Super-Homem não está fazendo jus à herança de sua civilização e começa a orquestrar drásticas mudanças climáticas para transformar a Terra na imagem e semelhança de Krypton! Estreia do escritor e desenhista Dan Jurgens no comando do título \"Superman\".\n9,3\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "57",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 57/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "8",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-03-01",
+      "publicadoTexto": "março de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 132,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_vt702imh6d6jndbh018vi2h823/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 8\nPublicado em: março de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 132\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Jerry Ordway Editor: Erick Garcia , Arthur Marchetto\nPrimeira aparição de personagens nesta edição:\nMac , Rastreador , Sangue",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Espécie em extinção",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O embate estrondoso entre o Super-Homem e o Erradicador alcança o planeta Mercúrio e com ele, aproxima-se perigosamente do sol. O Homem de Aço escapará desse conflito contra a epítome cultural de Krypton?\nO capítulo final\nPublicada pela primeira vez em Action Comics (1938) n° 667 /1991 - DC Comics\nNa conclusão de \"A Volta do Erradicador\", o artefato kryptoniano se apossa da gema mística do Senhor Z e parte para o confronto final com o Super-Homem!\nO menino que falava com o Superman",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "480",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 480/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O capítulo final",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Na conclusão de \"A Volta do Erradicador\", o artefato kryptoniano se apossa da gema mística do Senhor Z e parte para o confronto final com o Super-Homem!\nO menino que falava com o Superman\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 2 /1991 - DC Comics\nAs presas dos cães de caça",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "667",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 667/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "O menino que falava com o Superman",
+          "tituloOriginal": "Fangs of the Bloodhounds",
+          "quantidadePaginas": 22,
+          "resumo": "As presas dos cães de caça\nPublicada pela primeira vez em Superman (1987) n° 58 /1991 - DC Comics\nO diretor do Projeto Cadmus mobilizou os Cães de Guerra para capturar o Superman como parte de uma medida preventiva. Seu objetivo era acessar a mente do herói para descobrir informações que permitissem elaborar um plano de contingência, caso o Homem de Aço viesse a se tornar uma ameaça no futuro.\nTítulo Original: \"Fangs of the Bloodhounds\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "2",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 2/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "As presas dos cães de caça",
+          "tituloOriginal": "Fangs of the Bloodhounds",
+          "quantidadePaginas": 22,
+          "resumo": "O diretor do Projeto Cadmus mobilizou os Cães de Guerra para capturar o Superman como parte de uma medida preventiva. Seu objetivo era acessar a mente do herói para descobrir informações que permitissem elaborar um plano de contingência, caso o Homem de Aço viesse a se tornar uma ameaça no futuro.\nTítulo Original: \"Fangs of the Bloodhounds\"",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "58",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 58/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "9",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-05-01",
+      "publicadoTexto": "maio de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_jcvr0esjnl6sv6cta6cmoibp21/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 9\nPublicado em: maio de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia , Arthur Marchetto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "O sanguessuga",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Um trem é atacado pelo Parasita. Cabe ao Superman investigar\nO fantasma de Luthor\nPublicada pela primeira vez em Action Comics (1938) n° 668 /1991 - DC Comics\nSuperman tem pesadelos com Luthor. Duvidas sobre a morte de Lex começam a surgir em Metropolis.\nGuerra dos Deuses",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "481",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 481/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O fantasma de Luthor",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Superman tem pesadelos com Luthor. Duvidas sobre a morte de Lex começam a surgir em Metropolis.\nGuerra dos Deuses\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 3 /1991 - DC Comics\nLois Lane: a noiva do Superman",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "668",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 668/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Guerra dos Deuses",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Lois Lane: a noiva do Superman\nPublicada pela primeira vez em Superman (1987) n° 59 /1991 - DC Comics\nPlaneta em greve!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "3",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 3/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Lois Lane: a noiva do Superman",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Planeta em greve!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 482 /1991 - DC Comics\nTrilha de papel",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "59",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 59/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Planeta em greve!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Trilha de papel\nPublicada pela primeira vez em Action Comics (1938) n° 669 /1991 - DC Comics\n9,1\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "482",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 482/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Trilha de papel",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "9,1\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar\nCapa enviada por leobastos18",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "669",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 669/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "10",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-07-01",
+      "publicadoTexto": "julho de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 144,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": null,
+      "descricao": "Saga do Superman, A 2ª Série - n° 10\nPublicado em: julho de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 144\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Mãos ociosas",
+          "tituloOriginal": null,
+          "quantidadePaginas": 24,
+          "resumo": "Clark e Lois entram numa disputa para saber quem é o melhor repórter, no entanto, de acordo com as regras impostas, Super-Homem não pode usar os seus poderes. Enquanto isso, um ex-soldado que fora objeto de um projeto fracassado do governo culpa o capitão Lane por sua condição crítica e o ataca, após fugir dos Laboratórios Delta. Então, cabe ao Super-Homem a tarefa de salvar seu futuro sogro.",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "4",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 4/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Intergangue... nunca mais!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Uma pasta cheia de documentos comprometedores para Bruno Mannheim e a Intergangue chega às mãos de Clark Kent e o repórter pode demolir o grupo criminoso com suas reportagens. Mas quando um tubo de explosão se abre em Metrópolis para garantir a dianteira aos vilões, a questão vira um trabalho para o Super-Homem!\nPonto cego!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 483 /1991 - DC Comics\nTrapaça",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "60",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 60/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Ponto cego!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Trapaça\nPublicada pela primeira vez em Action Comics (1938) n° 670 /1991 - DC Comics\nA maldição do Caveira Atômica",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "483",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 483/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Trapaça",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "A maldição do Caveira Atômica\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 5 /1991 - DC Comics\nMais tempo perdido no tempo!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "670",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 670/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "A maldição do Caveira Atômica",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Mais tempo perdido no tempo!\nPublicada pela primeira vez em Superman (1987) n° 61 /1991 - DC Comics\nO Super-Homem se une aos Homens Metálicos e Homens Lineares para manter a tessitura do espaço-tempo, ameaçada pelo amargurado Tempus!\n9,1\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "5",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 5/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Mais tempo perdido no tempo!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O Super-Homem se une aos Homens Metálicos e Homens Lineares para manter a tessitura do espaço-tempo, ameaçada pelo amargurado Tempus!\n9,1\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "61",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 61/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "11",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-09-01",
+      "publicadoTexto": "setembro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": null,
+      "descricao": "Saga do Superman, A 2ª Série - n° 11\nPublicado em: setembro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nArte: Jerry Ordway Editor: Erick Garcia\nBlecaute",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Blecaute",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Uma simples visita do Super-Homem ao Professor Hamilton tem trágicas consequências quando o misterioso Senhor Z retorna e consegue penetrar nas zonas mais escuras da mente do Homem de Aço. Depois que o vilão é enfim expulso, a surpreendente conclusão: não só Z, mas também o Super-Homem perdeu a memória!\nDesaparecido em combate\nPublicada pela primeira vez em Action Comics (1938) n° 671 /1991 - DC Comics\nO Super-Homem e o Senhor Z vão parar numa estranha ilha que aparentemente o tempo esqueceu. Já Metrópolis testemunha a estarrecedora chegada do mais novo e enigmático herdeiro da cidade: Lex Luthor II!\nDescompasso",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "484",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 484/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Desaparecido em combate",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O Super-Homem e o Senhor Z vão parar numa estranha ilha que aparentemente o tempo esqueceu. Já Metrópolis testemunha a estarrecedora chegada do mais novo e enigmático herdeiro da cidade: Lex Luthor II!\nDescompasso\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 6 /1991 - DC Comics\nCasamento confuso",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "671",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 671/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Descompasso",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Casamento confuso\nPublicada pela primeira vez em Superman (1987) n° 62 /1991 - DC Comics\nFora da névoa",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "6",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 6/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Casamento confuso",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Fora da névoa\nPublicada pela primeira vez em Adventures of Superman (1987) n° 485 /1991 - DC Comics\nCom a ajuda de Dubbilex e um beijo, Lois Lane consegue recuperar a memória do Super-Homem, resgatando-o da ilha deserta onde estava e abandonando o insidioso Senhor Z no esquecimento do lugar!\nTudo isso... e Lex Luthor II!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "62",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 62/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Fora da névoa",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Com a ajuda de Dubbilex e um beijo, Lois Lane consegue recuperar a memória do Super-Homem, resgatando-o da ilha deserta onde estava e abandonando o insidioso Senhor Z no esquecimento do lugar!\nTudo isso... e Lex Luthor II!\nPublicada pela primeira vez em Action Comics (1938) n° 672 /1991 - DC Comics\nLex Luthor II mostra à Metrópolis seus audaciosos planos com o lançamento de sua própria corporação de segurança, a Equipe Luthor. Na ocasião, o jovem herdeiro finalmente se vê frente a frente com Lois Lane e Clark Kent!\n9,3\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "485",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 485/1991 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Tudo isso... e Lex Luthor II!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Lex Luthor II mostra à Metrópolis seus audaciosos planos com o lançamento de sua própria corporação de segurança, a Equipe Luthor. Na ocasião, o jovem herdeiro finalmente se vê frente a frente com Lois Lane e Clark Kent!\n9,3\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "672",
+            "anoOriginal": 1991,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 672/1991 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "12",
+      "tituloChamada": null,
+      "dataPublicacao": "2025-11-01",
+      "publicadoTexto": "novembro de 2025",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_mct443mle13756v5ft7ueqdd5f/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 12\nPublicado em: novembro de 2025\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Clima Tespestuoso",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Sombras do passado\nPublicada pela primeira vez em Superman (1987) n° 63 /1992 - DC Comics\nClark e Cat Grant estão viajando num navio para cobrir a iminência de uma guerra envolvendo Atlântida, o reino de Aquaman. De repente, o barco é atacado por um plessiossauro, cuja ameaça exige a presença do Super-Homem e do Rei dos Sete Mares, que se unem para investigar o caso. O mistério que envolve o suposto conflito se torna ainda mais confuso quando Atlântida se torna alvo de torpedos. E em meio à aventura, o Super-Homem reencontra uma figura importante de seu passado: Lori Lemaris!\nExpurgo",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "7",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 7/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Sombras do passado",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Clark e Cat Grant estão viajando num navio para cobrir a iminência de uma guerra envolvendo Atlântida, o reino de Aquaman. De repente, o barco é atacado por um plessiossauro, cuja ameaça exige a presença do Super-Homem e do Rei dos Sete Mares, que se unem para investigar o caso. O mistério que envolve o suposto conflito se torna ainda mais confuso quando Atlântida se torna alvo de torpedos. E em meio à aventura, o Super-Homem reencontra uma figura importante de seu passado: Lori Lemaris!\nExpurgo\nPublicada pela primeira vez em Adventures of Superman (1987) n° 486 /1992 - DC Comics\nClark e Lois fazem uma visita à Martha e Jonathan Kent, mas o encontro é interrompido quando o Super-Homem é convocado para impedir um ataque da Intergangue à prisão da Ilha Riker.\nAmigos em apuros",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "63",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 63/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Expurgo",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Clark e Lois fazem uma visita à Martha e Jonathan Kent, mas o encontro é interrompido quando o Super-Homem é convocado para impedir um ataque da Intergangue à prisão da Ilha Riker.\nAmigos em apuros\nPublicada pela primeira vez em Action Comics (1938) n° 673 /1992 - DC Comics\nO dia de Ação de Graças de Jimmy Olsen vira um pesadelo quando ele se torna a mais nova presa do asqueroso Hellgrammite! Este é um trabalho para o Super-Homem!\nAbuso de Poder!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "486",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 486/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Amigos em apuros",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O dia de Ação de Graças de Jimmy Olsen vira um pesadelo quando ele se torna a mais nova presa do asqueroso Hellgrammite! Este é um trabalho para o Super-Homem!\nAbuso de Poder!\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 8 /1992 - DC Comics\nO correio de Metrópolis",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "673",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 673/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Abuso de Poder!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "O correio de Metrópolis\nPublicada pela primeira vez em Superman (1987) n° 64 /1992 - DC Comics\nTocante conto de natal do Super-Homem. Todo 23 de dezembro, o Homem de Aço lê cartas depositadas nos correios, enviadas a ele por pessoas que solicitam sua ajuda. Como ato de natal, o herói decide ajudar um velho sobrevivente de guerra, um filho cujo pai sofre com uma doença mortal e uma festa de crianças carentes. Em todos esses casos, o Super-Homem descobre que embora superforte e invulnerável, alguns desafios não exigem superpoderes. Participação especial: Batman, ou melhor... Bruce Wayne!\n9,6\nSeu voto: 10\nSeu voto: 9",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "8",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 8/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "O correio de Metrópolis",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Tocante conto de natal do Super-Homem. Todo 23 de dezembro, o Homem de Aço lê cartas depositadas nos correios, enviadas a ele por pessoas que solicitam sua ajuda. Como ato de natal, o herói decide ajudar um velho sobrevivente de guerra, um filho cujo pai sofre com uma doença mortal e uma festa de crianças carentes. Em todos esses casos, o Super-Homem descobre que embora superforte e invulnerável, alguns desafios não exigem superpoderes. Participação especial: Batman, ou melhor... Bruce Wayne!\n9,6\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\nClique na capa para ampliar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "64",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 64/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "13",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-01-01",
+      "publicadoTexto": "janeiro de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 45.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_4cavrv1jbl1n7dm4in67kh252l/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 13\nPublicado em: janeiro de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 45,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Editor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Natal no Beco do Suicídio",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Enquanto o Super-Homem tenta livrar seu amigo Pete Ross de uma trama conspiratória armada pelos enigmáticos Filhos da Liberdade, Jimmy Olsen e Bibbo se unem para fazer mais feliz o natal de crianças carentes de Metrópolis.\nO passado é prólogo\nPublicada pela primeira vez em Action Comics (1938) n° 674 /1992 - DC Comics\nEnquanto na Terra o Super-Homem continua sua cruzada contra a Intergangue, no espaço, no planeta Kletus 4, seus outrora adversários Draaga e Máxima são reunidos à Supermoça por uma mente ainda mais perversa que prepara meticulosamente um plano de vingança contra a Terra e seu maior defensor: Brainiac!\nCafé reforçado",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "487",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 487/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "O passado é prólogo",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": "Enquanto na Terra o Super-Homem continua sua cruzada contra a Intergangue, no espaço, no planeta Kletus 4, seus outrora adversários Draaga e Máxima são reunidos à Supermoça por uma mente ainda mais perversa que prepara meticulosamente um plano de vingança contra a Terra e seu maior defensor: Brainiac!\nCafé reforçado\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 9 /1992 - DC Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "674",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 674/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Café reforçado",
+          "tituloOriginal": null,
+          "quantidadePaginas": 21,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "9",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 9/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "A convocação",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Depois de ver Brainiac dominar Máxima e Supermoça e derrotar Órion e Magtron, além dele próprio, o Super-Homem reconhece que precisará de ajuda extra contra o Colecionador de Mundos e os mercenários do Mundo Bélico. Sendo assim, ele convoca um verdadeiro exército com os maiores heróis da Terra para proteger o planeta!\nContra-ataque!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 488 /1992 - DC Comics\nA nave-mãe de Brainiac que se acreditava aniquilada no mar pelo Super-Homem está bem viva. Depois de sobrepujar Aquaman, a inteligência cibernética volta suas baterias contra os maiores heróis da Terra que, liderados por Batman, enfrentam o ataque dos mercenários do Mundo Bélico à Metrópolis!\nDividir e conquistar",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "65",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 65/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Contra-ataque!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A nave-mãe de Brainiac que se acreditava aniquilada no mar pelo Super-Homem está bem viva. Depois de sobrepujar Aquaman, a inteligência cibernética volta suas baterias contra os maiores heróis da Terra que, liderados por Batman, enfrentam o ataque dos mercenários do Mundo Bélico à Metrópolis!\nDividir e conquistar\nPublicada pela primeira vez em Action Comics (1938) n° 675 /1992 - DC Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "488",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 488/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Dividir e conquistar",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "675",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 675/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "14",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-03-01",
+      "publicadoTexto": "março de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_p1migraob97sr0dh701agk3b77/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 14\nPublicado em: março de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nDesenho: Dan Jurgens Arte-Final: Brett Breeding Cores: Brett Breeding Editor: Erick Garcia\nMaremoto",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Maremoto",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "10",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 10/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Nosso exército em Guerra",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "A batalha final contra as hordas de Brainiac! No momento mais dramático da batalha, a última esperança da Humanidade repousa sobre os ombros de uma improvável dupla: Máxima e Guy Gardner!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "66",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 66/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Salve os heróis vitoriosos",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "Enquanto a Terra enfim celebra a vitória dos heróis, o Mundo Bélico, sob nova direção, retorna para seu próprio caminho, Metron fica com um lobotomizado Brainiac e o leva para ser estudado em Nova Gênese e depois que Órion rejeita Máxima mais uma vez, a ex-rainha de Almerac se rende aos encantos de... Guy Gardner!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "489",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 489/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "O homem do momento",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "O Super-Homem volta a encarar o bizarro Hellgrammite, que desta vez quer por as garras no homem do momento: Lex Luthor II! E mais: Husque está de volta e a Supermoça, no seu retorno à Terra, tem um encontro apaixonante - e surpreendente- que promete dar muitas dores de cabeça ao Homem de Aço!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "676",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 676/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Confusão de identidade",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": null,
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "11",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 11/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Outro pânico nos céus!",
+          "tituloOriginal": null,
+          "quantidadePaginas": 22,
+          "resumo": "No bojo dos eventos de \"Pânico Nos Céus\", um enxame de bizarros escavadores de planetas que vieram na esteira da invasão de Brainiac atacam Metrópolis. Isso é definitivamente um trabalho para o... Lex Luthor II?!",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "67",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 67/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "15",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-04-01",
+      "publicadoTexto": "abril de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_kdg86n2ek916179hl63d0sog5q/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 15\nPublicado em: abril de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nEditor: Erick Garcia",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Sangue e Areia",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Os Filhos da Liberdade apertam o cerco contra Pete Ross. Agora só o Super-Homem pode ajudá-lo. Enquanto isso, finalmente Husque se reencontra com sua irmã!\nNo amor e na Guerra!\nPublicada pela primeira vez em Action Comics (1938) n° 677 /1992 - DC Comics\nCompletamente encantada por Lex Luthor II, a Supermoça revela sua origem ao megaempresário ruivo. O Super-Homem tenta alertá-la sobre suas desconfianças acerca do misterioso filho de seu antigo algoz, mas só consegue atrair a fúria da Supermoça, o que resulta num embate pelos céus de Metrópolis. Um deleite para Lex Luthor II!\nPânico nas Ruas",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "490",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 490/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "No amor e na Guerra!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Completamente encantada por Lex Luthor II, a Supermoça revela sua origem ao megaempresário ruivo. O Super-Homem tenta alertá-la sobre suas desconfianças acerca do misterioso filho de seu antigo algoz, mas só consegue atrair a fúria da Supermoça, o que resulta num embate pelos céus de Metrópolis. Um deleite para Lex Luthor II!\nPânico nas Ruas\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 12 /1992 - DC Comics\nPecados do Pai",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "677",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 677/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "Pânico nas Ruas",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Pecados do Pai\nPublicada pela primeira vez em Superman (1987) n° 68 /1992 - DC Comics\nLucy Lane é baleada e a procura do Super-Homem pelo autor do atentado o leva ao encontro do Exterminador. Um confronto como nunca se viu tem início!\nUma Cabeça Boa Sobre os Ombros\nPublicada pela primeira vez em Adventures of Superman (1987) n° 491 /1992 - DC Comics",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "12",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 12/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "Pecados do Pai",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Lucy Lane é baleada e a procura do Super-Homem pelo autor do atentado o leva ao encontro do Exterminador. Um confronto como nunca se viu tem início!\nUma Cabeça Boa Sobre os Ombros\nPublicada pela primeira vez em Adventures of Superman (1987) n° 491 /1992 - DC Comics\nCerberus está de volta em sua caça ao Super-Homem. Criando um super-robô equipado com o crânio de Metallo, ele ataca um teatro para forçar a aparição do Homem de Aço e confrontá-lo. Será que ele cairá na cilada?\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "68",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 68/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Uma Cabeça Boa Sobre os Ombros",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Cerberus está de volta em sua caça ao Super-Homem. Criando um super-robô equipado com o crânio de Metallo, ele ataca um teatro para forçar a aparição do Homem de Aço e confrontá-lo. Será que ele cairá na cilada?\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "491",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 491/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "16",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_vcvrdfe90p56je4jf7qovsja3i/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 16\nPublicado em: maio de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Art Thibert Editor: Erick Garcia\nCabeças falantes\nPublicada pela primeira vez em Action Comics (1938) n° 678 /1992 - DC Comics\nPapo cabeça\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 13 /1992 - DC Comics\n... Matar é assunto sério!\nPublicada pela primeira vez em Superman (1987) n° 69 /1992 - DC Comics\n... E justiça para todos!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 492 /1992 - DC Comics\nTrauma explosivo\nPublicada pela primeira vez em Action Comics (1938) n° 679 /1992 - DC Comics\nMovimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18\nBolove\nem 05/02/2024 13:48:00\nEdição adicionada por\ncarnificina\nem 20/05/2026 14:03:00\nEditado por\ncarnificina\nVer outras contribuições\nPlease enable JavaScript to view the comments powered by Disqus.\nTítulos estrangeiros\nEditoras estrangeiras\nArco de histórias\nÚltimas capas adicionadas\nÚltimas capas restauradas\nÚltimas capas estrangeiras\nTodas as capas disponíveis\nTítulos com capas completas\nLançamentos do mês\nGibis nas bancas quando você nasceu\nMais e maiores\nAs mais votadas\nAs mais colecionadas\nAs mais desejadas\nAs maiores coleções\nNas redes sociais\n© 2007-2026 Guia dos Quadrinhos - Design e desenvolvimento: Edson Diogo\n.\n*\nhttp://www.guiadosquadrinhos.com//images/coversoon.jpg\nhttp://www.guiadosquadrinhos.com/images/mundos_jack_banner.jpg\nhttp://www.guiadosquadrinhos.com/images/banner_vertigo.jpg\nSaga do Superman, A 2ª Série - n° 17/Panini | Guia dos Quadrinhos\nTudo\nTítulo\nTítulo estrangeiro\nEditora\nEditora estrangeira\nArtista\nPersonagem\nHistória\nArco de história\nLicenciador\nUsuário\nColeção\nTítulos ▼\nTítulos estrangeiros\nAdicionar título\nAdicionar título estrangeiro\nTítulos estrangeiros\nAdicionar título\nAdicionar título estrangeiro\nLançamentos\nEditoras ▼\nEditoras estrangeiras\nEditoras estrangeiras\nUsuários ▼",
+      "historias": [
+        {
+          "ordem": 1,
+          "tituloPortugues": "Cabeças falantes",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Papo cabeça\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 13 /1992 - DC Comics\n... Matar é assunto sério!\nPublicada pela primeira vez em Superman (1987) n° 69 /1992 - DC Comics\n... E justiça para todos!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 492 /1992 - DC Comics\nTrauma explosivo\nPublicada pela primeira vez em Action Comics (1938) n° 679 /1992 - DC Comics\nMovimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "678",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 678/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 2,
+          "tituloPortugues": "Papo cabeça",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "... Matar é assunto sério!\nPublicada pela primeira vez em Superman (1987) n° 69 /1992 - DC Comics\n... E justiça para todos!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 492 /1992 - DC Comics\nTrauma explosivo\nPublicada pela primeira vez em Action Comics (1938) n° 679 /1992 - DC Comics\nMovimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "13",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 13/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 3,
+          "tituloPortugues": "... Matar é assunto sério!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "... E justiça para todos!\nPublicada pela primeira vez em Adventures of Superman (1987) n° 492 /1992 - DC Comics\nTrauma explosivo\nPublicada pela primeira vez em Action Comics (1938) n° 679 /1992 - DC Comics\nMovimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman (1987)",
+            "numeroOriginal": "69",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman (1987) n° 69/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 4,
+          "tituloPortugues": "... E justiça para todos!",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Trauma explosivo\nPublicada pela primeira vez em Action Comics (1938) n° 679 /1992 - DC Comics\nMovimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3",
+          "publicacaoOriginal": {
+            "serieOriginal": "Adventures of Superman (1987)",
+            "numeroOriginal": "492",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Adventures of Superman (1987) n° 492/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 5,
+          "tituloPortugues": "Trauma explosivo",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "Movimentos noturnos\nPublicada pela primeira vez em Superman: The Man of Steel (1991) n° 14 /1992 - DC Comics\n9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1",
+          "publicacaoOriginal": {
+            "serieOriginal": "Action Comics (1938)",
+            "numeroOriginal": "679",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Action Comics (1938) n° 679/1992 - DC Comics"
+          }
+        },
+        {
+          "ordem": 6,
+          "tituloPortugues": "Movimentos noturnos",
+          "tituloOriginal": null,
+          "quantidadePaginas": null,
+          "resumo": "9,5\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18\nBolove",
+          "publicacaoOriginal": {
+            "serieOriginal": "Superman: The Man of Steel (1991)",
+            "numeroOriginal": "14",
+            "anoOriginal": 1992,
+            "urlOrigem": null,
+            "urlCapa": null,
+            "urlCompraAmazon": null,
+            "texto": "Superman: The Man of Steel (1991) n° 14/1992 - DC Comics"
+          }
+        }
+      ]
+    },
+    {
+      "numero": "17",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-05-01",
+      "publicadoTexto": "maio de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_0es3qurf5554d4pl0n5ef81t4g/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 17\nPublicado em: maio de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Tom Grummett Editor: Erick Garcia\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18\nBolove\nem 05/02/2024 13:48:00\nEdição adicionada por\ncarnificina\nem 01/06/2026 00:09:00\nEditado por\ncarnificina\nVer outras contribuições\nPlease enable JavaScript to view the comments powered by Disqus.\nTítulos estrangeiros\nEditoras estrangeiras\nArco de histórias\nÚltimas capas adicionadas\nÚltimas capas restauradas\nÚltimas capas estrangeiras\nTodas as capas disponíveis\nTítulos com capas completas\nLançamentos do mês\nGibis nas bancas quando você nasceu\nMais e maiores\nAs mais votadas\nAs mais colecionadas\nAs mais desejadas\nAs maiores coleções\nNas redes sociais\n© 2007-2026 Guia dos Quadrinhos - Design e desenvolvimento: Edson Diogo\n.\n*\nhttp://www.guiadosquadrinhos.com/images/logo_only.png\nhttp://www.guiadosquadrinhos.com/images/mundos_jack_banner.jpg\nhttp://www.guiadosquadrinhos.com/images/banner_vertigo.jpg\nhttp://www.guiadosquadrinhos.com//images/nocover.jpg\nSaga do Superman, A 2ª Série - n° 18/Panini | Guia dos Quadrinhos\nTudo\nTítulo\nTítulo estrangeiro\nEditora\nEditora estrangeira\nArtista\nPersonagem\nHistória\nArco de história\nLicenciador\nUsuário\nColeção\nTítulos ▼\nTítulos estrangeiros\nAdicionar título\nAdicionar título estrangeiro\nTítulos estrangeiros\nAdicionar título\nAdicionar título estrangeiro\nLançamentos\nEditoras ▼\nEditoras estrangeiras\nEditoras estrangeiras\nUsuários ▼",
+      "historias": []
+    },
+    {
+      "numero": "18",
+      "tituloChamada": null,
+      "dataPublicacao": "2026-06-01",
+      "publicadoTexto": "junho de 2026",
+      "editora": "Panini",
+      "licenciador": "DC Comics",
+      "categoria": "Edição Especial",
+      "genero": "Super-heróis",
+      "status": "Em circulação",
+      "numeroPaginas": 148,
+      "formato": "Americano (17 x 26 cm)",
+      "precoCapa": 47.9,
+      "urlCapa": "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_gtrgg7d9qp1up6k79efbho2p3j/-S265-FWEBP",
+      "descricao": "Saga do Superman, A 2ª Série - n° 18\nPublicado em: junho de 2026\nEditora: Panini\nLicenciador: DC Comics\nCategoria: Edição Especial\nGênero: Super-heróis\nStatus: Em circulação\nNúmero de páginas: 148\nFormato: Americano (17 x 26 cm)\nColorido/Lombada quadrada\nPreço de capa: R$ 47,90\nCrédito da capa e editor\nArte: Jon Bogdanove Editor: Erick Garcia\nsem votos\nSeu voto: 10\nSeu voto: 9\nSeu voto: 8\nSeu voto: 7\nSeu voto: 6\nSeu voto: 5\nSeu voto: 4\nSeu voto: 3\nSeu voto: 2\nSeu voto: 1\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18\nBolove\nem 05/02/2024 13:48:00\nEdição adicionada por\ncarnificina\nem 19/06/2026 04:53:00\nEditado por\ncarnificina\nVer outras contribuições\nPlease enable JavaScript to view the comments powered by Disqus.\nTítulos estrangeiros\nEditoras estrangeiras\nArco de histórias\nÚltimas capas adicionadas\nÚltimas capas restauradas\nÚltimas capas estrangeiras\nTodas as capas disponíveis\nTítulos com capas completas\nLançamentos do mês\nGibis nas bancas quando você nasceu\nMais e maiores\nAs mais votadas\nAs mais colecionadas\nAs mais desejadas\nAs maiores coleções\nNas redes sociais\n© 2007-2026 Guia dos Quadrinhos - Design e desenvolvimento: Edson Diogo\n.\n*\nhttp://www.guiadosquadrinhos.com/images/logo_only.png\nhttp://www.guiadosquadrinhos.com/images/mundos_jack_banner.jpg\nhttp://www.guiadosquadrinhos.com/images/banner_vertigo.jpg\nhttp://www.guiadosquadrinhos.com//images/nocover.jpg",
+      "historias": []
+    }
+  ]
+}
