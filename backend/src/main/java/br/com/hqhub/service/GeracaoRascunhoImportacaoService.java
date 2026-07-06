@@ -272,6 +272,9 @@ public class GeracaoRascunhoImportacaoService {
         if (corpo == null || corpo.isBlank()) {
             return "";
         }
+        if (corpo.contains("Just a moment") || corpo.contains("challenge-platform")) {
+            return ": Bloqueio Cloudflare do site de origem. O servidor nao conseguiu ler esta pagina automaticamente.";
+        }
         String texto = htmlParaTexto(corpo);
         if (texto.length() > 120) {
             texto = texto.substring(0, 120);

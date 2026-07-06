@@ -50,6 +50,7 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
             <div>
               <h3>Gerar rascunho pelo robo</h3>
               <p class="texto-suave">Fluxo novo em teste. Ele preenche o JSON para revisao antes da importacao.</p>
+              <p class="texto-suave">Se o Guia bloquear o servidor, gere o JSON pelos robos locais e cole o resultado no campo abaixo.</p>
             </div>
           </div>
 
