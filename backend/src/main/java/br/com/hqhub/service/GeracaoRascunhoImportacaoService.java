@@ -43,6 +43,7 @@ public class GeracaoRascunhoImportacaoService {
 
     private final HttpClient httpClient = HttpClient.newBuilder()
             .followRedirects(HttpClient.Redirect.NORMAL)
+            .version(HttpClient.Version.HTTP_1_1)
             .build();
 
     public ImportacaoCatalogoDTO gerar(GeracaoRascunhoImportacaoDTO pedido) {
@@ -241,15 +242,41 @@ public class GeracaoRascunhoImportacaoService {
 
     private String buscarHtml(String url) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder(URI.create(url))
-                .header("User-Agent", "Mozilla/5.0 HQ-HUB gerador de rascunho")
+                .version(HttpClient.Version.HTTP_1_1)
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
                 .header("Accept-Language", "pt-BR,pt;q=0.9,en;q=0.8")
+                .header("Cache-Control", "no-cache")
+                .header("Pragma", "no-cache")
+                .header("Referer", refererPara(url))
                 .GET()
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         if (response.statusCode() < 200 || response.statusCode() >= 400) {
-            throw new IOException("HTTP " + response.statusCode());
+            throw new IOException("HTTP " + response.statusCode() + detalheRespostaErro(response.body()));
         }
         return response.body();
+    }
+
+    private String refererPara(String url) {
+        if (url.contains("guiadosquadrinhos.com")) {
+            return "https://www.guiadosquadrinhos.com/";
+        }
+        if (url.contains("panini.com.br")) {
+            return "https://panini.com.br/";
+        }
+        return "https://www.google.com/";
+    }
+
+    private String detalheRespostaErro(String corpo) {
+        if (corpo == null || corpo.isBlank()) {
+            return "";
+        }
+        String texto = htmlParaTexto(corpo);
+        if (texto.length() > 120) {
+            texto = texto.substring(0, 120);
+        }
+        return ": " + texto;
     }
 
     private Optional<String> extrairCapaPanini(String html) {
