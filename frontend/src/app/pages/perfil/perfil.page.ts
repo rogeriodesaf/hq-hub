@@ -5,38 +5,124 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
-import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
-import { Usuario, UsuarioAutenticado } from '../../core/modelos';
+import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
+import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuario, UsuarioAutenticado } from '../../core/modelos';
 
 @Component({
   selector: 'app-perfil-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <section class="cabecalho-pagina">
-      <div>
-        <p class="rotulo">Perfil</p>
-        <h1>{{ modo() === 'edicao' ? 'Foto, nome e bio ficam aqui.' : usuarioVisualizacao()?.nome }}</h1>
-      </div>
-      <a class="botao secundario" routerLink="/painel">Voltar ao feed</a>
-    </section>
-
     <section class="perfil-layout">
-      <article class="bloco">
-        <app-perfil-feed
-          [usuario]="usuarioVisualizacao()"
-          [nome]="perfilNome"
-          [bio]="perfilBio"
-          [salvando]="salvandoPerfil()"
-          [modo]="modo()"
-          (nomeChange)="perfilNome = $event"
-          (bioChange)="perfilBio = $event"
-          (fotoSelecionada)="selecionarFotoPerfil($event)"
-          (salvar)="salvarPerfil()"
-        ></app-perfil-feed>
+      <article class="perfil-principal">
+        <section class="perfil-hero">
+          <div class="perfil-capa"></div>
+          <div class="perfil-identidade">
+            <div class="avatar-perfil">
+              @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
+                <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
+              } @else {
+                {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
+              }
+            </div>
+            <div>
+              <p class="rotulo">Perfil</p>
+              <h1>{{ usuarioVisualizacao()?.nome || perfilNome || 'Seu perfil' }}</h1>
+              <p>{{ usuarioVisualizacao()?.bio || perfilBio || 'Leio livros e HQs interessantes e sou parte da comunidade HQ-HUB.' }}</p>
+            </div>
+          </div>
+
+          <div class="perfil-estatisticas">
+            <article>
+              <strong>{{ totalPostagens() }}</strong>
+              <span>Atividades</span>
+            </article>
+            <article>
+              <strong>{{ totalItensPerfil() }}</strong>
+              <span>HQs na estante</span>
+            </article>
+            <article>
+              <strong>{{ totalAmigos() }}</strong>
+              <span>Amigos</span>
+            </article>
+          </div>
+
+          <div class="perfil-acoes">
+            @if (modo() === 'edicao') {
+              <label class="botao compacto secundario seletor-foto">
+                Trocar foto
+                <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarFotoPerfil($event)" />
+              </label>
+            }
+            <a class="botao compacto" routerLink="/painel">Voltar ao feed</a>
+          </div>
+        </section>
+
+        @if (modo() === 'edicao') {
+          <section class="bloco perfil-editor">
+            <div>
+              <p class="rotulo">Editar dados</p>
+              <h2>Deixe seu perfil com cara de colecionador.</h2>
+            </div>
+            <label>
+              Nome
+              <input [(ngModel)]="perfilNome" name="perfilNome" />
+            </label>
+            <label>
+              Bio
+              <textarea
+                [(ngModel)]="perfilBio"
+                name="perfilBio"
+                rows="4"
+                maxlength="500"
+                placeholder="O que voce le, coleciona ou procura?"
+              ></textarea>
+            </label>
+            <button class="botao primario compacto" type="button" (click)="salvarPerfil()" [disabled]="salvandoPerfil() || !perfilNome.trim()">
+              {{ salvandoPerfil() ? 'Salvando...' : 'Salvar perfil' }}
+            </button>
+          </section>
+        }
 
         @if (mensagem()) {
           <p class="mensagem-erro">{{ mensagem() }}</p>
+        }
+
+        <section class="perfil-grade">
+          <article class="bloco perfil-secao">
+            <p class="rotulo">Sobre mim</p>
+            <p>{{ usuarioVisualizacao()?.bio || perfilBio || 'Esse colecionador ainda nao escreveu uma bio.' }}</p>
+          </article>
+
+          <article class="bloco perfil-secao">
+            <p class="rotulo">Estatisticas</p>
+            <div class="lista-estatisticas">
+              <span>HQs lidas <strong>{{ totalLidosPerfil() }}</strong></span>
+              <span>Series acompanhadas <strong>{{ totalSeriesPerfil() }}</strong></span>
+              <span>Editoras na estante <strong>{{ totalEditorasPerfil() }}</strong></span>
+            </div>
+          </article>
+        </section>
+
+        @if (itensColecao().length) {
+          <section class="bloco perfil-secao">
+            <div class="perfil-secao-topo">
+              <div>
+                <p class="rotulo">Colecao em destaque</p>
+                <h2>Capas da estante</h2>
+              </div>
+              <a routerLink="/colecao">Ver todas</a>
+            </div>
+            <div class="capas-perfil">
+              @for (item of itensColecao().slice(0, 6); track item.id) {
+                <article>
+                  <img [src]="item.edicao.urlCapa || 'assets/capa-reserva.svg'" [alt]="tituloItemColecao(item)" loading="lazy" />
+                  <strong>{{ tituloItemColecao(item) }}</strong>
+                  <span>{{ item.edicao.serie?.titulo || 'HQ-HUB' }}</span>
+                </article>
+              }
+            </div>
+          </section>
         }
       </article>
 
@@ -77,9 +163,227 @@ import { Usuario, UsuarioAutenticado } from '../../core/modelos';
   styles: `
     .perfil-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 18px;
+      grid-template-columns: minmax(0, 760px) 300px;
+      gap: 22px;
       align-items: start;
+      justify-content: center;
+    }
+
+    .perfil-principal {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .perfil-hero {
+      overflow: hidden;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie);
+      box-shadow: var(--sombra);
+    }
+
+    .perfil-capa {
+      min-height: 190px;
+      background:
+        linear-gradient(135deg, rgba(21, 25, 31, 0.18), rgba(255, 122, 0, 0.3)),
+        radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.46), transparent 18%),
+        linear-gradient(135deg, #15191f 0%, #64320d 52%, #ff7a00 100%);
+    }
+
+    :host-context(body.tema-escuro) .perfil-capa {
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 138, 31, 0.22)),
+        radial-gradient(circle at 24% 24%, rgba(255, 255, 255, 0.14), transparent 18%),
+        linear-gradient(135deg, #0d1117 0%, #2b1d15 52%, #a04400 100%);
+    }
+
+    .perfil-identidade {
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr);
+      gap: 18px;
+      align-items: end;
+      padding: 0 20px 16px;
+      margin-top: -54px;
+    }
+
+    .avatar-perfil {
+      display: grid;
+      width: 116px;
+      height: 116px;
+      place-items: center;
+      overflow: hidden;
+      border: 4px solid var(--superficie);
+      border-radius: 50%;
+      background: var(--marca);
+      color: #15191f;
+      font-size: 2rem;
+      font-weight: 900;
+      box-shadow: 0 12px 32px rgba(21, 25, 31, 0.22);
+    }
+
+    .avatar-perfil img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .perfil-identidade h1,
+    .perfil-identidade p {
+      margin: 0;
+    }
+
+    .perfil-identidade h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1;
+    }
+
+    .perfil-identidade > div:last-child {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .perfil-identidade > div:last-child p:last-child {
+      color: var(--texto-suave);
+      line-height: 1.45;
+    }
+
+    .perfil-estatisticas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 20px 16px;
+    }
+
+    .perfil-estatisticas article {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      padding: 10px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie-2);
+    }
+
+    .perfil-estatisticas strong {
+      color: var(--marca);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .perfil-estatisticas span {
+      color: var(--texto-suave);
+      font-size: 0.82rem;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .perfil-acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 20px 20px;
+    }
+
+    .seletor-foto input {
+      display: none;
+    }
+
+    .perfil-editor,
+    .perfil-secao {
+      display: grid;
+      gap: 12px;
+    }
+
+    .perfil-editor h2,
+    .perfil-secao h2 {
+      margin: 0;
+      font-size: 1.12rem;
+    }
+
+    .perfil-editor label {
+      display: grid;
+      gap: 6px;
+      color: var(--texto);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .perfil-grade {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .perfil-secao > p:not(.rotulo) {
+      margin: 0;
+      color: var(--texto-suave);
+      line-height: 1.6;
+    }
+
+    .lista-estatisticas {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lista-estatisticas span {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--texto-suave);
+    }
+
+    .lista-estatisticas strong {
+      color: var(--texto);
+    }
+
+    .perfil-secao-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .perfil-secao-topo a {
+      color: var(--azul);
+      font-weight: 850;
+    }
+
+    .capas-perfil {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .capas-perfil article {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .capas-perfil img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--superficie-suave);
+    }
+
+    .capas-perfil strong,
+    .capas-perfil span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .capas-perfil strong {
+      font-size: 0.82rem;
+    }
+
+    .capas-perfil span {
+      color: var(--texto-suave);
+      font-size: 0.76rem;
     }
 
     .painel-ajuda-perfil {
@@ -129,6 +433,23 @@ import { Usuario, UsuarioAutenticado } from '../../core/modelos';
         grid-template-columns: 1fr;
       }
 
+      .perfil-identidade {
+        grid-template-columns: 88px minmax(0, 1fr);
+        gap: 14px;
+        margin-top: -42px;
+      }
+
+      .avatar-perfil {
+        width: 88px;
+        height: 88px;
+        font-size: 1.45rem;
+      }
+
+      .perfil-grade,
+      .capas-perfil {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .painel-ajuda-perfil {
         position: static;
       }
@@ -147,6 +468,11 @@ export class PerfilPage implements OnInit {
   readonly salvandoSenha = signal(false);
   readonly mensagem = signal('');
   readonly mensagemSenha = signal('');
+  readonly resumo = signal<ColecaoResumo | null>(null);
+  readonly estatisticasPublicas = signal<EstatisticasPublicasColecao | null>(null);
+  readonly amigos = signal<Amizade[]>([]);
+  readonly itensColecao = signal<ItemColecao[]>([]);
+  readonly totalPostagens = signal(0);
   perfilNome = '';
   perfilBio = '';
   senhaAtual = '';
@@ -161,6 +487,9 @@ export class PerfilPage implements OnInit {
     } else {
       this.modo.set('edicao');
       this.carregarPerfilPropio();
+      this.carregarResumoProprio();
+      this.carregarAmigos();
+      this.carregarItensColecao();
     }
   }
 
@@ -249,6 +578,45 @@ export class PerfilPage implements OnInit {
     }
   }
 
+  resolverUrlMidia(url: string | null | undefined): string {
+    return resolverUrlMidiaCore(url, '');
+  }
+
+  iniciais(nome: string) {
+    return nome
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((parte) => parte[0]?.toUpperCase())
+      .join('') || 'HQ';
+  }
+
+  totalItensPerfil() {
+    return this.estatisticasPublicas()?.totalItens ?? this.resumo()?.totalItens ?? this.itensColecao().length;
+  }
+
+  totalSeriesPerfil() {
+    return this.estatisticasPublicas()?.totalSeries ?? this.resumo()?.totalSeries ?? 0;
+  }
+
+  totalEditorasPerfil() {
+    return this.estatisticasPublicas()?.totalEditoras ?? this.resumo()?.totalEditoras ?? 0;
+  }
+
+  totalLidosPerfil() {
+    return this.estatisticasPublicas()?.totalLidos ?? this.itensColecao().filter((item) => item.statusLeitura === 'LIDO').length;
+  }
+
+  totalAmigos() {
+    return this.amigos().length;
+  }
+
+  tituloItemColecao(item: ItemColecao) {
+    const serie = item.edicao.serie?.titulo;
+    const numero = item.edicao.numero ? ` #${item.edicao.numero}` : '';
+    return item.edicao.titulo || `${serie || 'Edicao'}${numero}`;
+  }
+
   private carregarPerfilPropio() {
     this.api.obterMeuPerfil().subscribe({
       next: (usuario) => {
@@ -256,6 +624,8 @@ export class PerfilPage implements OnInit {
         this.usuarioVisualizacao.set(usuario);
         this.perfilNome = usuario.nome;
         this.perfilBio = usuario.bio || '';
+        this.carregarEstatisticasPublicas(usuario.id);
+        this.carregarFeedUsuario(usuario.id);
       },
       error: () => {
         const usuario = this.usuarioAtual();
@@ -272,10 +642,47 @@ export class PerfilPage implements OnInit {
         this.usuarioVisualizacao.set(usuario);
         this.perfilNome = usuario.nome;
         this.perfilBio = usuario.bio || '';
+        this.carregarEstatisticasPublicas(usuario.id);
+        this.carregarFeedUsuario(usuario.id);
       },
       error: () => {
         this.mensagem.set('Perfil não encontrado.');
       },
+    });
+  }
+
+  private carregarResumoProprio() {
+    this.api.obterResumoColecao().subscribe({
+      next: (resumo) => this.resumo.set(resumo),
+      error: () => this.resumo.set(null),
+    });
+  }
+
+  private carregarEstatisticasPublicas(usuarioId: number) {
+    this.api.obterEstatisticasPublicasColecao(usuarioId).subscribe({
+      next: (estatisticas) => this.estatisticasPublicas.set(estatisticas),
+      error: () => this.estatisticasPublicas.set(null),
+    });
+  }
+
+  private carregarAmigos() {
+    this.api.listarAmigos().subscribe({
+      next: (amigos) => this.amigos.set(amigos),
+      error: () => this.amigos.set([]),
+    });
+  }
+
+  private carregarItensColecao() {
+    this.api.listarItensColecao().subscribe({
+      next: (itens) => this.itensColecao.set(itens.slice(0, 12)),
+      error: () => this.itensColecao.set([]),
+    });
+  }
+
+  private carregarFeedUsuario(usuarioId: number) {
+    this.api.obterFeedUsuario(usuarioId, 0, 20).subscribe({
+      next: (postagens) => this.totalPostagens.set(postagens.length),
+      error: () => this.totalPostagens.set(0),
     });
   }
 }

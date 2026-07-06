@@ -40,6 +40,10 @@ public class PostagemFeed {
     @Column(nullable = false)
     private boolean sistema = false;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_colecao_id")
+    private ItemColecao itemColecao;
+
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;

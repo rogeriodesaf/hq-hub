@@ -31,6 +31,10 @@ public class ItemColecaoRepository implements PanacheRepository<ItemColecao> {
                 .list();
     }
 
+    public long contarPorUsuarioESerie(Long usuarioId, Long serieId) {
+        return count("usuario.id = ?1 and edicao.serie.id = ?2", usuarioId, serieId);
+    }
+
     public Optional<ItemColecao> buscarPorUsuarioEOrigemExterna(Long usuarioId, String fonteExterna, String idExterno) {
         return find("usuario.id = ?1 and edicao.fonteExterna = ?2 and edicao.idExterno = ?3",
                 usuarioId, fonteExterna, idExterno)

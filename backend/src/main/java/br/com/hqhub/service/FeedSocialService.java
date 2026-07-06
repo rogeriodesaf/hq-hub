@@ -4,21 +4,28 @@ import java.util.List;
 
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
+import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.PostagemFeedRespostaDTO;
 import br.com.hqhub.entity.ComentarioFeed;
 import br.com.hqhub.entity.CurtidaPostagemFeed;
+import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ImagemPostagemFeed;
+import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
+import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.StatusColecaoSerie;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.AmizadeRepository;
+import br.com.hqhub.repository.ColecaoSerieRepository;
 import br.com.hqhub.repository.ComentarioFeedRepository;
 import br.com.hqhub.repository.CurtidaPostagemFeedRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
+import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -31,6 +38,8 @@ public class FeedSocialService {
     private final CurtidaPostagemFeedRepository curtidaRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
     private final AmizadeRepository amizadeRepository;
+    private final ItemColecaoRepository itemColecaoRepository;
+    private final ColecaoSerieRepository colecaoSerieRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final UsuarioMapper usuarioMapper;
     private final UrlPublicaService urlPublicaService;
@@ -41,6 +50,8 @@ public class FeedSocialService {
             CurtidaPostagemFeedRepository curtidaRepository,
             ImagemPostagemFeedRepository imagemRepository,
             AmizadeRepository amizadeRepository,
+            ItemColecaoRepository itemColecaoRepository,
+            ColecaoSerieRepository colecaoSerieRepository,
             UsuarioAutenticadoService usuarioAutenticadoService,
             UsuarioMapper usuarioMapper,
             UrlPublicaService urlPublicaService) {
@@ -49,6 +60,8 @@ public class FeedSocialService {
         this.curtidaRepository = curtidaRepository;
         this.imagemRepository = imagemRepository;
         this.amizadeRepository = amizadeRepository;
+        this.itemColecaoRepository = itemColecaoRepository;
+        this.colecaoSerieRepository = colecaoSerieRepository;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.usuarioMapper = usuarioMapper;
         this.urlPublicaService = urlPublicaService;
@@ -195,11 +208,35 @@ public class FeedSocialService {
                 postagem.getConteudo(),
                 primeiraImagem(postagem, imagens),
                 imagens,
+                paraColecaoFeed(postagem.getItemColecao()),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 curtidaRepository.existePorPostagemEUsuario(postagem.getId(), usuarioId),
                 comentarios,
                 postagem.getDataCriacao(),
                 postagem.getDataAtualizacao());
+    }
+
+    private ColecaoFeedDTO paraColecaoFeed(ItemColecao item) {
+        if (item == null) {
+            return null;
+        }
+
+        Edicao edicao = item.getEdicao();
+        Serie serie = edicao.getSerie();
+        Long usuarioId = item.getUsuario().getId();
+        long quantidadeEdicoes = itemColecaoRepository.contarPorUsuarioESerie(usuarioId, serie.getId());
+        boolean concluida = colecaoSerieRepository.buscarPorUsuarioESerie(usuarioId, serie.getId())
+                .map(colecao -> colecao.getStatus() == StatusColecaoSerie.CONCLUIDA)
+                .orElse(false);
+
+        return new ColecaoFeedDTO(
+                item.getId(),
+                serie.getId(),
+                serie.getTitulo(),
+                serie.getEditora().getNome(),
+                Math.toIntExact(quantidadeEdicoes),
+                urlPublicaService.normalizarApiUrl(edicao.getUrlCapa()),
+                concluida);
     }
 
     private String textoOuNull(String valor) {

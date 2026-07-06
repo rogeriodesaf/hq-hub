@@ -9,6 +9,7 @@ public record PostagemFeedRespostaDTO(
         String conteudo,
         String urlImagem,
         List<ImagemFeedDTO> imagens,
+        ColecaoFeedDTO colecaoDestaque,
         long totalCurtidas,
         boolean curtidaPeloUsuario,
         List<ComentarioFeedRespostaDTO> comentarios,

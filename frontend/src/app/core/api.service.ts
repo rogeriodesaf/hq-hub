@@ -838,6 +838,12 @@ export class ApiService {
       usuario: this.normalizarUsuario(postagem.usuario),
       urlImagem: this.normalizarUrlMidia(postagem.urlImagem),
       imagens: (postagem.imagens || []).map((imagem) => this.normalizarImagem(imagem)),
+      colecaoDestaque: postagem.colecaoDestaque
+        ? {
+            ...postagem.colecaoDestaque,
+            urlCapa: this.normalizarUrlMidia(postagem.colecaoDestaque.urlCapa),
+          }
+        : null,
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),

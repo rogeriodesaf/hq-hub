@@ -15,8 +15,8 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
   template: `
     <section class="cabecalho-pagina feed-cabecalho">
       <div>
-        <p class="rotulo">Feed</p>
-        <h1>Compartilhe leituras, achados e fotos com seus amigos.</h1>
+        <p class="rotulo">Feed principal</p>
+        <h1>No que a comunidade esta lendo hoje?</h1>
       </div>
       <a class="botao primario" routerLink="/amigos">Encontrar amigos</a>
     </section>
@@ -100,22 +100,33 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
         }
 
         <article class="bloco compositor-feed">
-          <label>
-            No que voce esta pensando?
+          <div class="compositor-topo">
+            <div class="avatar-feed">
+              @if (usuario()?.fotoPerfilThumbnailUrl) {
+                <img [src]="resolverUrlMidia(usuario()?.fotoPerfilThumbnailUrl)" alt="" />
+              } @else {
+                {{ iniciais(usuario()?.nome || 'HQ') }}
+              }
+            </div>
+            <label>No que voce esta pensando?</label>
+          </div>
+          <div class="compositor-corpo">
             <textarea
               [(ngModel)]="novoConteudo"
               name="novoConteudo"
               rows="4"
               maxlength="2000"
-              placeholder="Ex.: terminei A Saga do Homem-Aranha #12 hoje. Que final!"
+              placeholder="Compartilhe uma leitura, uma capa bonita ou uma descoberta da sua estante..."
             ></textarea>
-          </label>
-          <div class="upload-feed">
-            <label class="botao secundario compacto seletor-feed">
-              Escolher fotos
+          </div>
+          <div class="compositor-rodape">
+            <label class="acao-upload-feed seletor-feed">
+              <span>Adicionar fotos</span>
               <input type="file" accept="image/jpeg,image/png,image/webp" multiple (change)="selecionarImagens($event)" />
             </label>
-            <span>JPG, PNG ou WEBP. Ate 3 imagens, 2 MB cada.</span>
+            <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
+              {{ publicando() ? 'Publicando...' : 'Publicar' }}
+            </button>
           </div>
 
           @if (previsualizacoes.length) {
@@ -133,11 +144,6 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
             <p class="mensagem-erro">{{ mensagem() }}</p>
           }
 
-          <div class="acoes-feed">
-            <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
-              {{ publicando() ? 'Publicando...' : 'Publicar' }}
-            </button>
-          </div>
         </article>
 
         <section class="lista-feed">
@@ -161,7 +167,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     @if (postagem.usuario.bio) {
                       {{ postagem.usuario.bio }} ·
                     }
-                    {{ dataRelativa(postagem.dataCriacao) }}
+                    {{ dataRelativa(postagem.dataCriacao) }} - Publico
                   </small>
                 </div>
                 @if (postagem.usuario.id === usuario()?.id) {
@@ -171,12 +177,33 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     (click)="removerPostagem(postagem)"
                     [disabled]="interagindoId() === postagem.id"
                   >
-                    Excluir
+                    Remover
                   </button>
                 }
               </header>
 
               <p class="texto-postagem">{{ postagem.conteudo }}</p>
+
+              @if (postagem.colecaoDestaque) {
+                <article class="cartao-colecao-feed">
+                  <img
+                    [src]="postagem.colecaoDestaque.urlCapa || 'assets/capa-reserva.svg'"
+                    [alt]="postagem.colecaoDestaque.titulo"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p class="rotulo">Colecao</p>
+                    <h3>{{ postagem.colecaoDestaque.titulo }}</h3>
+                    <span>{{ postagem.colecaoDestaque.quantidadeEdicoes }} edicoes - {{ postagem.colecaoDestaque.editora }}</span>
+                    @if (postagem.colecaoDestaque.concluida) {
+                      <strong class="status-colecao concluida">Colecao completa</strong>
+                    } @else {
+                      <strong class="status-colecao">Na estante</strong>
+                    }
+                    <a class="botao compacto" routerLink="/colecao">Ver colecao</a>
+                  </div>
+                </article>
+              }
 
               @if (imagensPostagem(postagem).length) {
                 <div class="grade-imagens-feed imagens-postagem" [class.multipla]="imagensPostagem(postagem).length > 1">
@@ -195,16 +222,17 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
               <div class="barra-postagem">
                 <button
-                  class="botao compacto"
+                  class="acao-social"
                   type="button"
-                  [class.primario]="postagem.curtidaPeloUsuario"
+                  [class.ativo]="postagem.curtidaPeloUsuario"
                   (click)="curtir(postagem)"
                   [disabled]="interagindoId() === postagem.id"
                 >
-                  {{ postagem.curtidaPeloUsuario ? 'Curtido' : 'Curtir' }}
+                  <span>{{ postagem.curtidaPeloUsuario ? '♥' : '♡' }}</span>
+                  {{ postagem.totalCurtidas }}
                 </button>
-                <span>{{ postagem.totalCurtidas }} curtidas</span>
-                <span>{{ postagem.comentarios.length }} comentarios</span>
+                <span class="contador-social">{{ postagem.comentarios.length }} comentarios</span>
+                <span class="contador-social">Compartilhar</span>
               </div>
 
               <section class="comentarios-feed">
@@ -224,6 +252,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                         <strong>{{ comentario.usuario.nome }}</strong>
                       </a>
                       <p>{{ comentario.texto }}</p>
+                      <span class="tempo-comentario">{{ dataRelativa(comentario.dataCriacao) }}</span>
                       @if (comentario.usuario.id === usuario()?.id) {
                         <button
                           class="botao-texto perigo"
@@ -231,7 +260,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                           (click)="removerComentario(postagem, comentario.id)"
                           [disabled]="interagindoId() === postagem.id"
                         >
-                          Excluir comentario
+                          Excluir
                         </button>
                       }
                     </div>
@@ -243,7 +272,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                 <input
                   [(ngModel)]="comentarios[postagem.id]"
                   [name]="'comentario' + postagem.id"
-                  placeholder="Escreva um comentario"
+                  placeholder="Comente com a comunidade"
                   (keyup.enter)="comentar(postagem)"
                 />
                 <button
@@ -302,15 +331,20 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       align-items: end;
     }
 
+    .feed-cabecalho h1 {
+      max-width: 640px;
+    }
+
     .feed-metricas {
       margin-bottom: 18px;
     }
 
     .feed-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 18px;
+      grid-template-columns: minmax(0, 680px) 300px;
+      gap: 22px;
       align-items: start;
+      justify-content: center;
     }
 
     .feed-coluna,
@@ -327,17 +361,67 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       margin-top: -4px;
     }
 
+    .compositor-feed {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .compositor-topo {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 16px 16px 10px;
+    }
+
     .compositor-feed label {
       display: grid;
       gap: 8px;
-      color: var(--texto-suave);
-      font-size: 0.9rem;
-      font-weight: 750;
+      color: var(--texto);
+      font-size: 0.95rem;
+      font-weight: 850;
+    }
+
+    .compositor-corpo {
+      padding: 0 16px;
     }
 
     .compositor-feed textarea {
       resize: vertical;
       min-height: 110px;
+      border-color: rgba(101, 113, 125, 0.24);
+      background: var(--superficie-2);
+      line-height: 1.55;
+    }
+
+    .compositor-rodape {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-top: 12px;
+      padding: 12px 16px 16px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .acao-upload-feed {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--texto-suave);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .acao-upload-feed:hover {
+      border-color: var(--borda);
+      color: var(--azul);
+      background: var(--superficie-2);
     }
 
     .sugestao-amigo-card {
@@ -363,20 +447,6 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
     .sugestao-amigo-card span,
     .sugestao-amigo-card small {
-      color: var(--texto-suave);
-      font-size: 0.86rem;
-    }
-
-    .acoes-feed {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .upload-feed {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
       color: var(--texto-suave);
       font-size: 0.86rem;
     }
@@ -439,6 +509,10 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       align-items: center;
     }
 
+    .postagem-card {
+      padding: 16px;
+    }
+
     .autor-postagem {
       display: grid;
       gap: 4px;
@@ -492,15 +566,113 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       margin: 0;
       line-height: 1.6;
       white-space: pre-wrap;
+      font-size: 0.98rem;
+    }
+
+    .cartao-colecao-feed {
+      display: grid;
+      grid-template-columns: minmax(110px, 0.42fr) minmax(0, 1fr);
+      gap: 14px;
+      overflow: hidden;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie-2);
+    }
+
+    .cartao-colecao-feed > img {
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      object-fit: cover;
+      background: var(--superficie-suave);
+    }
+
+    .cartao-colecao-feed > div {
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 14px 14px 14px 0;
+    }
+
+    .cartao-colecao-feed h3,
+    .cartao-colecao-feed span {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .cartao-colecao-feed h3 {
+      font-size: 1.15rem;
+      line-height: 1.12;
+    }
+
+    .cartao-colecao-feed span {
+      color: var(--texto-suave);
+      font-size: 0.88rem;
+    }
+
+    .status-colecao {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      color: var(--texto-suave);
+      font-size: 0.86rem;
+    }
+
+    .status-colecao.concluida {
+      color: var(--verde);
+    }
+
+    .status-colecao.concluida::after {
+      content: "✓";
+      display: inline-grid;
+      width: 18px;
+      height: 18px;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(47, 143, 107, 0.14);
+      color: var(--verde);
+      font-size: 0.72rem;
+      font-weight: 900;
     }
 
     .barra-postagem {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 14px;
       align-items: center;
-      padding-top: 4px;
+      padding-top: 10px;
       border-top: 1px solid var(--borda);
+    }
+
+    .acao-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 0;
+      border: 0;
+      color: var(--texto-suave);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .acao-social span {
+      color: #e11d48;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .acao-social.ativo {
+      color: var(--texto);
+    }
+
+    .contador-social {
+      color: var(--texto-suave);
+      font-size: 0.88rem;
+      font-weight: 750;
     }
 
     .comentarios-feed {
@@ -519,6 +691,15 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
     .comentarios-feed article p {
       margin: 4px 0 0;
+      color: var(--texto);
+      line-height: 1.45;
+    }
+
+    .tempo-comentario {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--texto-suave);
+      font-size: 0.78rem;
     }
 
     .botao-texto {
@@ -547,6 +728,12 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 8px;
+    }
+
+    .novo-comentario input {
+      min-height: 40px;
+      border-radius: 8px;
+      background: var(--superficie-2);
     }
 
     .feed-lateral {
@@ -635,6 +822,14 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
       .novo-comentario {
         grid-template-columns: 1fr;
+      }
+
+      .cartao-colecao-feed {
+        grid-template-columns: 104px minmax(0, 1fr);
+      }
+
+      .cartao-colecao-feed > img {
+        min-height: 170px;
       }
 
       .sugestao-amigo-card {

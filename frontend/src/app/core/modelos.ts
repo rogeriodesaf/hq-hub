@@ -594,12 +594,23 @@ export interface ImagemFeed {
   ordem: number | null;
 }
 
+export interface ColecaoFeed {
+  itemColecaoId: number;
+  serieId: number;
+  titulo: string;
+  editora: string;
+  quantidadeEdicoes: number;
+  urlCapa: string | null;
+  concluida: boolean;
+}
+
 export interface PostagemFeed {
   id: number;
   usuario: Usuario;
   conteudo: string;
   urlImagem: string | null;
   imagens: ImagemFeed[];
+  colecaoDestaque: ColecaoFeed | null;
   totalCurtidas: number;
   curtidaPeloUsuario: boolean;
   comentarios: ComentarioFeed[];

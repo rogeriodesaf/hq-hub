@@ -12,6 +12,7 @@ import br.com.hqhub.dto.ItemColecaoRespostaDTO;
 import br.com.hqhub.entity.ContribuicaoCatalogo;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemColecao;
+import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.StatusContribuicaoCatalogo;
 import br.com.hqhub.entity.TipoContribuicaoCatalogo;
 import br.com.hqhub.entity.Usuario;
@@ -21,6 +22,7 @@ import br.com.hqhub.mapper.ItemColecaoMapper;
 import br.com.hqhub.repository.ContribuicaoCatalogoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
+import br.com.hqhub.repository.PostagemFeedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -34,6 +36,7 @@ public class ItemColecaoService {
     private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final EntityManager entityManager;
     private final ContribuicaoCatalogoRepository contribuicaoCatalogoRepository;
+    private final PostagemFeedRepository postagemFeedRepository;
 
     public ItemColecaoService(
             ItemColecaoRepository itemColecaoRepository,
@@ -41,13 +44,15 @@ public class ItemColecaoService {
             ItemColecaoMapper itemColecaoMapper,
             UsuarioAutenticadoService usuarioAutenticadoService,
             EntityManager entityManager,
-            ContribuicaoCatalogoRepository contribuicaoCatalogoRepository) {
+            ContribuicaoCatalogoRepository contribuicaoCatalogoRepository,
+            PostagemFeedRepository postagemFeedRepository) {
         this.itemColecaoRepository = itemColecaoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoMapper = itemColecaoMapper;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.entityManager = entityManager;
         this.contribuicaoCatalogoRepository = contribuicaoCatalogoRepository;
+        this.postagemFeedRepository = postagemFeedRepository;
     }
 
     @Transactional
@@ -61,11 +66,26 @@ public class ItemColecaoService {
 
         ItemColecao item = itemColecaoMapper.paraEntidade(dto, usuario, edicao);
         itemColecaoRepository.persist(item);
+        publicarItemAdicionadoNaColecao(usuario, item);
         if (!Boolean.TRUE.equals(dto.suprimirRevisaoCatalogo())) {
             registrarRevisaoEstante(usuario, item, "ITEM_ADICIONADO", montarDadosItemJson(item, null));
         }
 
         return itemColecaoMapper.paraResposta(item);
+    }
+
+    private void publicarItemAdicionadoNaColecao(Usuario usuario, ItemColecao item) {
+        Edicao edicao = item.getEdicao();
+        String tituloEdicao = edicao.getTitulo() == null || edicao.getTitulo().isBlank()
+                ? edicao.getSerie().getTitulo()
+                : edicao.getTitulo();
+
+        PostagemFeed postagem = new PostagemFeed();
+        postagem.setUsuario(usuario);
+        postagem.setItemColecao(item);
+        postagem.setUrlImagem(edicao.getUrlCapa());
+        postagem.setConteudo("Adicionou " + tituloEdicao + " a colecao.");
+        postagemFeedRepository.persist(postagem);
     }
 
     @Transactional
