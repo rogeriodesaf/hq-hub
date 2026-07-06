@@ -167,6 +167,9 @@ public class FeedSocialService {
     }
 
     private boolean podeVerPostagem(PostagemFeed postagem, Usuario usuario) {
+        if (postagem.isSistema()) {
+            return true;
+        }
         Long autorId = postagem.getUsuario().getId();
         return autorId.equals(usuario.getId()) || amizadeRepository.saoAmigos(usuario.getId(), autorId);
     }

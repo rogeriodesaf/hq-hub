@@ -23,6 +23,7 @@ import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Historia;
 import br.com.hqhub.entity.LinkEdicao;
+import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.PublicacaoHistoria;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusPublicacaoHistoria;
@@ -30,12 +31,14 @@ import br.com.hqhub.entity.StatusValidacao;
 import br.com.hqhub.entity.TipoConteudoEdicao;
 import br.com.hqhub.entity.TipoLinkEdicao;
 import br.com.hqhub.entity.TipoPublicacaoHistoria;
+import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.ConteudoEdicaoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.LinkEdicaoRepository;
+import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
 import br.com.hqhub.repository.SerieRepository;
 import br.com.hqhub.util.NormalizadorTexto;
@@ -57,6 +60,8 @@ public class ImportacaoCatalogoService {
     private final PublicacaoHistoriaRepository publicacaoHistoriaRepository;
     private final IntegracaoExternaService integracaoExternaService;
     private final LinkEdicaoRepository linkEdicaoRepository;
+    private final PostagemFeedRepository postagemFeedRepository;
+    private final UsuarioAutenticadoService usuarioAutenticadoService;
 
     public ImportacaoCatalogoService(
             EditoraRepository editoraRepository,
@@ -66,7 +71,9 @@ public class ImportacaoCatalogoService {
             ConteudoEdicaoRepository conteudoEdicaoRepository,
             PublicacaoHistoriaRepository publicacaoHistoriaRepository,
             IntegracaoExternaService integracaoExternaService,
-            LinkEdicaoRepository linkEdicaoRepository) {
+            LinkEdicaoRepository linkEdicaoRepository,
+            PostagemFeedRepository postagemFeedRepository,
+            UsuarioAutenticadoService usuarioAutenticadoService) {
         this.editoraRepository = editoraRepository;
         this.serieRepository = serieRepository;
         this.edicaoRepository = edicaoRepository;
@@ -75,6 +82,8 @@ public class ImportacaoCatalogoService {
         this.publicacaoHistoriaRepository = publicacaoHistoriaRepository;
         this.integracaoExternaService = integracaoExternaService;
         this.linkEdicaoRepository = linkEdicaoRepository;
+        this.postagemFeedRepository = postagemFeedRepository;
+        this.usuarioAutenticadoService = usuarioAutenticadoService;
     }
 
     @Transactional
@@ -93,6 +102,8 @@ public class ImportacaoCatalogoService {
             Edicao edicaoBrasileira = obterOuCriarEdicaoBrasileira(serieBrasileira, edicaoDto, dto, contadores);
             importarHistorias(edicaoBrasileira, edicaoDto, dto, contadores, avisos);
         }
+
+        publicarNovidadeNoFeed(serieBrasileira, dto, contadores, avisos);
 
         return new ResultadoImportacaoCatalogoDTO(
                 serieBrasileira.getId(),
@@ -777,6 +788,73 @@ public class ImportacaoCatalogoService {
         if (valor != null && !valor.isBlank()) {
             destino.accept(limitar(valor, tamanho));
         }
+    }
+
+    private void publicarNovidadeNoFeed(
+            Serie serie,
+            ImportacaoCatalogoDTO importacao,
+            ContadoresImportacao contadores,
+            List<String> avisos) {
+        if (contadores.seriesCriadas == 0 && contadores.edicoesCriadas == 0 && contadores.edicoesAtualizadas == 0) {
+            return;
+        }
+
+        try {
+            Usuario usuario = usuarioAutenticadoService.obterUsuario();
+            PostagemFeed postagem = new PostagemFeed();
+            postagem.setUsuario(usuario);
+            postagem.setSistema(true);
+            postagem.setConteudo(textoNovidadeFeed(usuario, serie, importacao.serieBrasileira(), contadores));
+            postagem.setUrlImagem(primeiraCapaImportacao(importacao));
+            postagemFeedRepository.persist(postagem);
+        } catch (RuntimeException e) {
+            avisos.add("Nao foi possivel publicar a novidade no feed: "
+                    + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes"));
+        }
+    }
+
+    private String textoNovidadeFeed(
+            Usuario usuario,
+            Serie serie,
+            SerieBrasileiraImportacaoDTO serieDto,
+            ContadoresImportacao contadores) {
+        String nome = usuario.getNome() == null || usuario.getNome().isBlank()
+                ? "Um colaborador"
+                : limitar(usuario.getNome(), 80);
+        String acao = contadores.seriesCriadas > 0 || contadores.edicoesCriadas > 0 ? "adicionou" : "editou";
+        String titulo = tituloParaFeed(serie.getTitulo());
+        String fase = serieDto.fase() == null || serieDto.fase().isBlank()
+                ? ""
+                : " " + limitar(serieDto.fase(), 80);
+        return limitar(nome + " " + acao + " " + titulo + fase + " no nosso catalogo.", 2000);
+    }
+
+    private String tituloParaFeed(String titulo) {
+        if (titulo == null || titulo.isBlank()) {
+            return "uma nova serie";
+        }
+
+        String limpo = limitar(titulo, 255);
+        if (limpo.endsWith(", A")) {
+            return "A " + limpo.substring(0, limpo.length() - 3);
+        }
+        if (limpo.endsWith(", O")) {
+            return "O " + limpo.substring(0, limpo.length() - 3);
+        }
+        return limpo;
+    }
+
+    private String primeiraCapaImportacao(ImportacaoCatalogoDTO importacao) {
+        if (importacao.edicoes() == null) {
+            return null;
+        }
+
+        return importacao.edicoes().stream()
+                .map(EdicaoImportacaoDTO::urlCapa)
+                .filter(url -> url != null && !url.isBlank())
+                .map(url -> limitar(url, 1000))
+                .findFirst()
+                .orElse(null);
     }
 
     private static class ContadoresImportacao {

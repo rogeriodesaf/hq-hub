@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -37,67 +37,7 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
           <button class="botao compacto" type="button" (click)="adicionarHistoriaAoModelo()" [disabled]="!jsonTexto.trim()">
             + Historia no JSON
           </button>
-          <button class="botao compacto" type="button" (click)="preencherExemploBatman()">
-            Exemplo da Saga do Batman
-          </button>
-          <button class="botao compacto" type="button" (click)="limpar()">
-            Limpar
-          </button>
         </div>
-
-        <section class="gerador-rascunho">
-          <div class="secao-titulo compacta">
-            <div>
-              <h3>Gerar rascunho pelo robo</h3>
-              <p class="texto-suave">Fluxo novo em teste. Ele preenche o JSON para revisao antes da importacao.</p>
-              <p class="texto-suave">Se o Guia bloquear o servidor, gere o JSON pelos robos locais e cole o resultado no campo abaixo.</p>
-            </div>
-          </div>
-
-          <div class="grade-importacao-visual">
-            <label class="campo-largo">
-              URL do Guia
-              <small>Use a pagina /capas da serie quando houver varias edicoes.</small>
-              <input [(ngModel)]="rascunho.urlGuia" name="rascunhoUrlGuia" placeholder="https://www.guiadosquadrinhos.com/capas/..." />
-            </label>
-            <label class="campo-largo">
-              URL inicial da Panini
-              <small>Ex.: ...-01 ou ...-01-08.</small>
-              <input [(ngModel)]="rascunho.urlPaniniInicial" name="rascunhoUrlPanini" placeholder="https://panini.com.br/..." />
-            </label>
-            <label>
-              Quantidade
-              <small>Edicoes</small>
-              <input type="number" min="1" [(ngModel)]="rascunho.quantidade" name="rascunhoQuantidade" />
-            </label>
-            <label>
-              Titulo
-              <small>serieBrasileira.titulo</small>
-              <input [(ngModel)]="rascunho.tituloSerie" name="rascunhoTituloSerie" />
-            </label>
-            <label>
-              Fase
-              <small>serieBrasileira.fase</small>
-              <input [(ngModel)]="rascunho.fase" name="rascunhoFase" />
-            </label>
-            <label>
-              Editora
-              <small>serieBrasileira.editora</small>
-              <input [(ngModel)]="rascunho.editora" name="rascunhoEditora" />
-            </label>
-            <label>
-              Volume
-              <small>serieBrasileira.volume</small>
-              <input type="number" min="1" [(ngModel)]="rascunho.volume" name="rascunhoVolume" />
-            </label>
-          </div>
-
-          <div class="acoes-importacao">
-            <button class="botao primario compacto" type="button" (click)="gerarRascunhoPeloRobo()" [disabled]="gerandoRascunho()">
-              {{ gerandoRascunho() ? 'Gerando...' : 'Gerar JSON' }}
-            </button>
-          </div>
-        </section>
 
         <details class="editor-visual-importacao" open>
           <summary>Cadastro visual do JSON</summary>
@@ -326,7 +266,7 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
         </label>
 
         @if (mensagem()) {
-          <p class="mensagem-erro">{{ mensagem() }}</p>
+          <p class="mensagem-importacao" [class.sucesso]="tipoMensagem() === 'sucesso'" [class.erro]="tipoMensagem() === 'erro'">{{ mensagem() }}</p>
         }
 
         <div class="rodape-importacao">
@@ -405,7 +345,7 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
           <section class="resultado-destaque">
             <span>Série importada</span>
             <strong>{{ resultado()?.serieTitulo }}</strong>
-            <a class="botao compacto" routerLink="/catalogo">Abrir no catálogo</a>
+            <a class="botao compacto" routerLink="/catalogo" [queryParams]="{ serieId: resultado()?.serieId }">Abrir no catálogo</a>
           </section>
 
           <div class="metricas-importacao">
@@ -506,7 +446,6 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
     }
 
     .editor-visual-importacao,
-    .gerador-rascunho,
     .edicao-visual,
     .historia-visual {
       display: grid;
@@ -714,6 +653,26 @@ import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
       color: #8a5b16;
     }
 
+    .mensagem-importacao {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--borda);
+      font-weight: 700;
+    }
+
+    .mensagem-importacao.sucesso {
+      border-color: rgba(22, 163, 74, 0.35);
+      background: rgba(22, 163, 74, 0.12);
+      color: #15803d;
+    }
+
+    .mensagem-importacao.erro {
+      border-color: rgba(220, 38, 38, 0.32);
+      background: rgba(220, 38, 38, 0.1);
+      color: #b91c1c;
+    }
+
     @media (max-width: 900px) {
       .importacao-layout {
         grid-template-columns: 1fr;
@@ -734,6 +693,7 @@ export class ImportacaoPage {
 
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
   readonly mensagem = signal('');
+  readonly tipoMensagem = computed(() => this.classificarMensagem(this.mensagem()));
   readonly importando = signal(false);
   readonly gerandoRascunho = signal(false);
   readonly nomeArquivo = signal('');
@@ -890,6 +850,7 @@ export class ImportacaoPage {
       next: (resultado) => {
         this.resultado.set(resultado);
         this.importando.set(false);
+        this.mensagem.set('Importacao feita com sucesso. A serie ja esta disponivel no catalogo.');
       },
       error: (erro) => {
         this.importando.set(false);
@@ -1191,6 +1152,27 @@ export class ImportacaoPage {
       return `Preencha edicoes[${edicaoSemNumero}].numero antes de importar.`;
     }
     return '';
+  }
+
+  private classificarMensagem(mensagem: string) {
+    const normalizada = mensagem
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+    if (!normalizada.trim()) {
+      return 'info';
+    }
+
+    if (normalizada.includes('sucesso') || normalizada.includes('atualizada') || normalizada.includes('carregado') || normalizada.includes('adicionada')) {
+      return 'sucesso';
+    }
+
+    if (normalizada.includes('nao foi possivel') || normalizada.includes('erro') || normalizada.includes('invalido') || normalizada.includes('preencha') || normalizada.includes('informe')) {
+      return 'erro';
+    }
+
+    return 'info';
   }
 
   private validarGeracaoRascunho() {

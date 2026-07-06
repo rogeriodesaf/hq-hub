@@ -37,6 +37,9 @@ public class PostagemFeed {
     @Column(name = "url_imagem", length = 1000)
     private String urlImagem;
 
+    @Column(nullable = false)
+    private boolean sistema = false;
+
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;

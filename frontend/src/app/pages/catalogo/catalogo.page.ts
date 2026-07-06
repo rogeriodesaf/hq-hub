@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -737,6 +738,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
 
   private readonly api = inject(ApiService);
+  private readonly rota = inject(ActivatedRoute);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly sanitizador = inject(DomSanitizer);
   readonly capaReserva = 'assets/capa-reserva.svg';
@@ -822,6 +824,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.carregarEditoras();
+    const serieId = Number(this.rota.snapshot.queryParamMap.get('serieId'));
+    if (Number.isFinite(serieId) && serieId > 0) {
+      this.carregarEdicoesDaSerieImportada(serieId);
+    }
   }
 
   ngOnDestroy() {
@@ -838,6 +844,31 @@ export class CatalogoPage implements OnInit, OnDestroy {
   carregar() {
     this.paginaResultados.set(0);
     this.buscarResultados(0);
+  }
+
+  private carregarEdicoesDaSerieImportada(serieId: number) {
+    this.serieSelecionada.set(null);
+    this.busca = '';
+    this.seriesConsultadas.set(false);
+    this.carregandoResultados.set(true);
+    this.mensagem.set('Carregando edicoes da serie importada...');
+
+    this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId).subscribe({
+      next: (resposta) => {
+        this.resultadosCatalogo.set({
+          ...resposta,
+          itens: resposta.itens.map((edicao) => this.paraResultadoInterno(edicao)),
+        });
+        this.paginaResultados.set(resposta.pagina);
+        this.carregandoResultados.set(false);
+        this.mensagem.set(resposta.itens.length ? 'Edicoes da serie importada carregadas.' : 'Nenhuma edicao encontrada para a serie importada.');
+      },
+      error: () => {
+        this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
+        this.carregandoResultados.set(false);
+        this.mensagem.set('Nao foi possivel carregar as edicoes da serie importada agora.');
+      },
+    });
   }
 
   selecionarSerie(serie: Serie) {

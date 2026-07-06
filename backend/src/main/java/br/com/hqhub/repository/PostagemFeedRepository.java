@@ -19,7 +19,8 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
 
     public List<PostagemFeed> listarFeed(Long usuarioId, int pagina, int tamanho) {
         return find("""
-                usuario.id = ?1
+                sistema = true
+                or usuario.id = ?1
                 or usuario.id in (
                     select case
                         when a.solicitante.id = ?1 then a.solicitado.id
