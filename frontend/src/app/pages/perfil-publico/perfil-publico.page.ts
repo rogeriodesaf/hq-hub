@@ -256,7 +256,7 @@ import {
           </section>
 
           <!-- Estante -->
-          <section class="bloco perfil-secao">
+          <section class="bloco perfil-secao" id="estante">
             <div class="secao-titulo">
               <h2>Estante</h2>
               @if (estantePagina()) {

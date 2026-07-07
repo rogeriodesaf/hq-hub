@@ -200,7 +200,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                     } @else {
                       <strong class="status-colecao">Na estante</strong>
                     }
-                    <a class="botao compacto" routerLink="/colecao">Ver colecao</a>
+                    <a class="botao compacto" [routerLink]="['/usuario', postagem.usuario.id]" fragment="estante">Ver colecao</a>
                   </div>
                 </article>
               }
