@@ -302,12 +302,17 @@ import {
                 class="descricao-formatada"
                 [innerHTML]="formatarDescricao(descricaoEdicaoDetalhe())"
               ></div>
-              @if (linksAmazonDetalhe().length) {
+              @if (linksAmazonDetalhe().length || edicaoDetalhe()?.serie?.titulo) {
                 <div class="acoes-detalhe-edicao">
                   @for (link of linksAmazonDetalhe(); track link.id) {
                     <a class="botao compacto botao-amazon" [href]="link.url" target="_blank" rel="noreferrer" [attr.aria-label]="link.titulo || 'Comprar na Amazon'">
                       <span>Comprar na</span>
                       <span class="amazon-marca" aria-hidden="true">amazon</span>
+                    </a>
+                  }
+                  @if (edicaoDetalhe()?.serie?.titulo) {
+                    <a class="botao compacto botao-ml" [href]="urlBuscaMercadoLivre()" target="_blank" rel="noreferrer" aria-label="Buscar no Mercado Livre">
+                      <span class="ml-marca">Mercado Livre</span>
                     </a>
                   }
                 </div>
@@ -1231,6 +1236,12 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   linksAmazonDetalhe() {
     return this.linksDetalhe().filter((link) => link.tipo === 'AMAZON');
+  }
+
+  urlBuscaMercadoLivre() {
+    const titulo = this.edicaoDetalhe()?.serie?.titulo;
+    if (!titulo) return '#';
+    return `https://lista.mercadolivre.com.br/${encodeURIComponent(titulo)}`;
   }
 
   urlCapaPublicacao(publicacao: PublicacaoHistoria) {

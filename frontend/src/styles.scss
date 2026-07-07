@@ -499,6 +499,25 @@ img {
   gap: 7px;
 }
 
+.botao-ml {
+  gap: 6px;
+  border-color: #d0e4ff;
+  background: #f0f7ff;
+  color: #1a3c6e;
+}
+
+.botao-ml:hover {
+  background: #dceeff;
+  border-color: #3483fa;
+}
+
+.ml-marca {
+  color: #3483fa;
+  font-weight: 800;
+  font-size: 0.9em;
+  letter-spacing: -0.01em;
+}
+
 .amazon-marca {
   position: relative;
   display: inline-block;
