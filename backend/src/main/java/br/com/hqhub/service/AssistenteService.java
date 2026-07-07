@@ -93,6 +93,10 @@ public class AssistenteService {
             return responderRelacionamentos(pergunta);
         }
 
+        if (ehPerguntaImportacaoGuiaBloqueada(perguntaNormalizada)) {
+            return responderImportacaoGuiaBloqueada();
+        }
+
         if (ehPerguntaResumoColecao(perguntaNormalizada)) {
             return responderResumo();
         }
@@ -346,6 +350,72 @@ public class AssistenteService {
                 "total de edicoes",
                 "total de numeros",
                 "total de revistas");
+    }
+
+    private boolean ehPerguntaImportacaoGuiaBloqueada(String perguntaNormalizada) {
+        boolean falaDoGuiaOuRobo = contemAlguma(perguntaNormalizada,
+                "guia dos quadrinhos",
+                "guiadosquadrinhos",
+                "robo_importador_texto",
+                "robo importador",
+                "importador texto",
+                "importacao pelo guia",
+                "importar pelo guia",
+                "txt do guia");
+        boolean falaDeBloqueioOuTxt = contemAlguma(perguntaNormalizada,
+                "403",
+                "forbidden",
+                "cloudflare",
+                "bloqueio",
+                "bloqueado",
+                "nao baixa",
+                "nao puxou",
+                "nao conseguiu baixar",
+                "copiar texto",
+                "arquivo txt",
+                "--entrada",
+                "--url");
+
+        return falaDoGuiaOuRobo && falaDeBloqueioOuTxt;
+    }
+
+    private RespostaAssistenteDTO responderImportacaoGuiaBloqueada() {
+        String resposta = String.join("\n",
+                "Quando o Guia dos Quadrinhos bloqueia o robo com HTTP 403, Forbidden ou Cloudflare, o problema nao e o caminho do PowerShell.",
+                "O site bloqueou a leitura automatica por URL. Nesse caso, use o fluxo manual com TXT:",
+                "",
+                "1. Abra a pagina do Guia no navegador.",
+                "2. Use Ctrl+A e Ctrl+C para copiar o conteudo da pagina.",
+                "3. Na raiz do HQ-HUB, crie o TXT:",
+                "mkdir docs\\importacao\\rascunhos\\NOME-DA-PASTA",
+                "notepad docs\\importacao\\rascunhos\\NOME-DA-PASTA\\entrada-guia.txt",
+                "",
+                "4. Cole o texto no Notepad, salve e feche.",
+                "5. Rode o importador usando --entrada, nao --url:",
+                "python docs\\importacao\\ferramentas\\fluxo-essencial-hqhub\\robo_importador_texto.py `",
+                "  --entrada \"docs\\importacao\\rascunhos\\NOME-DA-PASTA\\entrada-guia.txt\" `",
+                "  --saida \"docs\\importacao\\rascunhos\\NOME-DA-PASTA\\saida-base-guia.json\" `",
+                "  --titulo-serie \"Titulo da serie\" `",
+                "  --fase \"1a Serie\" `",
+                "  --editora \"Panini\" `",
+                "  --volume 1",
+                "",
+                "Exemplo para Dinossauro Demonio por Jack Kirby:",
+                "python docs\\importacao\\ferramentas\\fluxo-essencial-hqhub\\robo_importador_texto.py `",
+                "  --entrada \"docs\\importacao\\rascunhos\\marvel-omnibus\\dinossauro-demonio-guia.txt\" `",
+                "  --saida \"docs\\importacao\\rascunhos\\marvel-omnibus\\dinossauro-demonio-base-guia.json\" `",
+                "  --titulo-serie \"Dinossauro Demonio por Jack Kirby\" `",
+                "  --fase \"1a Serie\" `",
+                "  --editora \"Panini\" `",
+                "  --volume 1",
+                "",
+                "Dica de PowerShell: o acento grave (`) precisa ser o ultimo caractere da linha, sem espaco depois dele.");
+
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("motivo", "Guia bloqueia acesso automatico com 403/Cloudflare");
+        dados.put("alternativa", "Copiar pagina no navegador e usar robo_importador_texto.py com --entrada");
+
+        return new RespostaAssistenteDTO(resposta, ORIGEM_CONHECIMENTO_ESSENCIAL, dados);
     }
 
     private boolean ehPerguntaSobreSistema(String perguntaNormalizada) {

@@ -1163,7 +1163,7 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    return new URL(`/usuario/${postagem.usuario.id}#${this.idPostagem(postagem)}`, window.location.origin).toString();
+    return new URL(`/api/compartilhar/postagens/${postagem.id}`, window.location.origin).toString();
   }
 
   private textoCompartilhamento(postagem: PostagemFeed) {

@@ -5,6 +5,21 @@
   "descricao": "Base estruturada de FAQ para o assistente do HQ-HUB.",
   "itens": [
     {
+      "id": "importacao-guia-403-01",
+      "intencao": "importacao_guia_bloqueada",
+      "modulo": "importacao",
+      "pergunta": "O Guia dos Quadrinhos deu 403 no robo. O que eu faco?",
+      "variacoes": [
+        "guia bloqueou o robo",
+        "cloudflare no guia dos quadrinhos",
+        "robo_importador_texto nao baixa a url",
+        "como usar txt do guia com --entrada"
+      ],
+      "resposta": "Explique que 403/Cloudflare nao e erro do PowerShell; nesse caso, abra a pagina no navegador, copie tudo para um TXT e rode robo_importador_texto.py com --entrada em vez de --url.",
+      "tags": ["importacao", "guia-dos-quadrinhos", "403", "cloudflare", "powershell"],
+      "acaoSugerida": "Peca exemplos de comando para a raiz do HQ-HUB."
+    },
+    {
       "id": "resumo-01",
       "intencao": "resumo_colecao",
       "modulo": "colecao",
