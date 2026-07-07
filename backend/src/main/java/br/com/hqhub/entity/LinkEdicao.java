@@ -1,5 +1,7 @@
 package br.com.hqhub.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,6 +50,12 @@ public class LinkEdicao {
 
     @Column(length = 1000)
     private String observacoes;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal preco;
+
+    @Column(name = "data_captura_preco")
+    private LocalDate dataCapturacaoPreco;
 
     @Column(name = "data_criacao", nullable = false)
     @CreationTimestamp

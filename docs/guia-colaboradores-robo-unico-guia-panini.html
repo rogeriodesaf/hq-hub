@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Guia do colaborador - Robo unico Guia + Panini</title>
+  <style>
+    @page { size: A4; margin: 15mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #172033;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    header {
+      padding-bottom: 14px;
+      border-bottom: 3px solid #ff871f;
+      margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 6px; font-size: 26px; color: #111827; }
+    h2 { margin: 20px 0 8px; font-size: 18px; color: #111827; }
+    h3 { margin: 14px 0 6px; font-size: 15px; color: #1f2937; }
+    p { margin: 0 0 10px; }
+    ol, ul { margin: 8px 0 10px 22px; padding: 0; }
+    li { margin: 6px 0; }
+    .sub { margin: 0; color: #4b5563; }
+    .bloco {
+      margin: 10px 0 14px;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      color: #0f172a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f3f4f6; }
+    .dica {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #ff871f;
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+    .ok {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #16a34a;
+      background: #f0fdf4;
+      color: #14532d;
+    }
+    .alerta {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-left: 5px solid #dc2626;
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+    .quebra { page-break-before: always; }
+    .rodape {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #d1d5db;
+      color: #6b7280;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guia do colaborador: robo unico Guia + Panini</h1>
+    <p class="sub">Como gerar um JSON pronto para importar no HQ-HUB usando PowerShell.</p>
+  </header>
+
+  <section>
+    <h2>Objetivo</h2>
+    <p>Este guia mostra como rodar um unico robo que faz tres coisas de uma vez:</p>
+    <ol>
+      <li>Pega os dados das edicoes no Guia dos Quadrinhos.</li>
+      <li>Pega as capas na Panini usando uma sequencia de URLs.</li>
+      <li>Gera um JSON final pronto para colar/importar no HQ-HUB.</li>
+    </ol>
+    <div class="dica">
+      Importante: nao cole as URLs soltas no PowerShell. As URLs entram dentro de um comando completo.
+    </div>
+  </section>
+
+  <section>
+    <h2>Antes de comecar</h2>
+    <ul>
+      <li>Use um computador com o projeto HQ-HUB baixado.</li>
+      <li>Abra o PowerShell dentro da pasta do projeto.</li>
+      <li>Copie e cole um comando por vez.</li>
+      <li>Espere o comando terminar antes de fazer o proximo passo.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Passo 1: abrir o PowerShell no lugar certo</h2>
+    <p>Abra a pasta do projeto:</p>
+    <div class="bloco"><pre>C:\Users\User\OneDrive\Area de Trabalho\HQ-HUB</pre></div>
+    <p>Clique na barra de endereco da pasta, digite <strong>powershell</strong> e aperte Enter.</p>
+    <p>Depois confirme o local com:</p>
+    <div class="bloco"><pre>pwd</pre></div>
+    <p>O resultado deve mostrar a pasta HQ-HUB.</p>
+  </section>
+
+  <section>
+    <h2>Passo 2: confirmar o Python</h2>
+    <p>No PowerShell, rode:</p>
+    <div class="bloco"><pre>python --version</pre></div>
+    <p>Se aparecer uma versao do Python, pode seguir.</p>
+  </section>
+
+  <section>
+    <h2>Passo 3: testar se o robo responde</h2>
+    <p>Este comando nao gera arquivo. Ele apenas mostra a ajuda do robo.</p>
+    <div class="bloco"><pre>python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py --help</pre></div>
+    <p>Se aparecer a lista de opcoes do robo, esta tudo certo.</p>
+  </section>
+
+  <section class="quebra">
+    <h2>Passo 4: separar as informacoes da colecao</h2>
+    <p>Antes de rodar o comando final, tenha estas informacoes:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>O que colocar</th>
+          <th>Exemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>URL do Guia</td>
+          <td>Preferencialmente a pagina de capas da colecao.</td>
+          <td>https://www.guiadosquadrinhos.com/capas/saga-do-lanterna-verde-a/sa011149</td>
+        </tr>
+        <tr>
+          <td>URL inicial da Panini</td>
+          <td>A pagina da primeira edicao na sequencia da Panini.</td>
+          <td>https://panini.com.br/a-saga-do-lanterna-verde-01</td>
+        </tr>
+        <tr>
+          <td>Quantidade</td>
+          <td>Quantidade de edicoes que serao geradas.</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Titulo da serie</td>
+          <td>Nome principal da colecao no HQ-HUB.</td>
+          <td>Saga do Lanterna Verde, A</td>
+        </tr>
+        <tr>
+          <td>Fase</td>
+          <td>Temporada, fase ou serie.</td>
+          <td>Primeira temporada</td>
+        </tr>
+        <tr>
+          <td>Volume</td>
+          <td>Numero usado para diferenciar fases com o mesmo titulo.</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Passo 5: rodar o robo</h2>
+    <p>Exemplo completo para <strong>A Saga do Lanterna Verde</strong>:</p>
+    <div class="bloco"><pre>python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
+  --url-guia "https://www.guiadosquadrinhos.com/capas/saga-do-lanterna-verde-a/sa011149" `
+  --url-panini-inicial "https://panini.com.br/a-saga-do-lanterna-verde-01" `
+  --quantidade 10 `
+  --saida "docs/importacao/rascunhos/saga-do-lanterna-verde/saga-do-lanterna-verde-1-temporada-com-capas-panini.json" `
+  --titulo-serie "Saga do Lanterna Verde, A" `
+  --fase "Primeira temporada" `
+  --editora Panini `
+  --volume 1</pre></div>
+    <p>Depois de colar o comando, aperte Enter e aguarde terminar.</p>
+  </section>
+
+  <section>
+    <h2>O que deve aparecer</h2>
+    <p>Durante a execucao, o PowerShell deve mostrar mensagens parecidas com:</p>
+    <div class="bloco"><pre>URL inicial do Guia: ...
+Executando:
+Processando 1/10: ...
+Arquivo gerado: ...
+Capas encontradas: 10
+Capas aplicadas: 10
+Pronto.</pre></div>
+    <div class="ok">
+      Se aparecer <strong>Pronto</strong> e <strong>Avisos: 0</strong>, o arquivo final foi gerado com sucesso.
+    </div>
+  </section>
+
+  <section class="quebra">
+    <h2>Arquivos gerados</h2>
+    <p>O robo gera um arquivo final e tambem arquivos intermediarios.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Arquivo</th>
+          <th>Para que serve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>*-base-guia.json</td>
+          <td>JSON base gerado com dados do Guia dos Quadrinhos.</td>
+        </tr>
+        <tr>
+          <td>*-capas-panini.txt</td>
+          <td>Lista de capas encontradas na Panini, uma por linha.</td>
+        </tr>
+        <tr>
+          <td>*-com-capas-panini.json</td>
+          <td>JSON final, pronto para importar no HQ-HUB.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>No exemplo, o arquivo final fica em:</p>
+    <div class="bloco"><pre>docs/importacao/rascunhos/saga-do-lanterna-verde/saga-do-lanterna-verde-1-temporada-com-capas-panini.json</pre></div>
+  </section>
+
+  <section>
+    <h2>Passo 6: importar no HQ-HUB</h2>
+    <ol>
+      <li>Abra o sistema HQ-HUB.</li>
+      <li>Entre em <strong>Importacao</strong>.</li>
+      <li>Clique em <strong>Selecionar JSON</strong>.</li>
+      <li>Escolha o arquivo final gerado pelo robo.</li>
+      <li>Revise o conteudo em <strong>Conteudo JSON</strong>.</li>
+      <li>Clique em <strong>Importar para o catalogo</strong>.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Quando o arquivo ficar grande demais</h2>
+    <div class="alerta">
+      Se o HQ-HUB mostrar <strong>erro interno do servidor</strong> ao importar um JSON muito grande, gere lotes menores.
+    </div>
+    <p>A quantidade de edicoes geradas e controlada pelo parametro <strong>--quantidade</strong>.</p>
+    <p>Exemplo: para gerar apenas as 3 primeiras edicoes:</p>
+    <div class="bloco"><pre>--quantidade 3</pre></div>
+    <p>O comando completo ficaria assim:</p>
+    <div class="bloco"><pre>python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
+  --url-guia "https://www.guiadosquadrinhos.com/capas/saga-do-lanterna-verde-a/sa011149" `
+  --url-panini-inicial "https://panini.com.br/a-saga-do-lanterna-verde-01" `
+  --quantidade 3 `
+  --saida "docs/importacao/rascunhos/saga-do-lanterna-verde/saga-do-lanterna-verde-1-a-3-com-capas-panini.json" `
+  --titulo-serie "Saga do Lanterna Verde, A" `
+  --fase "Primeira temporada" `
+  --editora Panini `
+  --volume 1</pre></div>
+    <p>Para gerar as proximas edicoes, comece pela URL da edicao seguinte no Guia e pela URL Panini correspondente.</p>
+    <p><strong>Regra:</strong> o campo <strong>--url-guia</strong> deve ser a URL do Guia da primeira edicao do lote. O campo <strong>--url-panini-inicial</strong> deve ser a URL da Panini da mesma edicao.</p>
+    <p>Exemplo para continuar pela edicao 4:</p>
+    <div class="bloco"><pre>--url-guia "URL_DA_EDICAO_4_NO_GUIA"
+--url-panini-inicial "https://panini.com.br/a-saga-do-lanterna-verde-04"
+--quantidade 3
+--saida "docs/importacao/rascunhos/saga-do-lanterna-verde/saga-do-lanterna-verde-4-a-6-com-capas-panini.json"</pre></div>
+    <p>Se o lote for da edicao 4 ate a 10, use a URL do Guia da edicao 4, a URL Panini da edicao 4 e <strong>--quantidade 7</strong>.</p>
+    <div class="dica">
+      Recomendacao: quando a importacao grande falhar, use lotes de 3 a 5 edicoes por arquivo.
+    </div>
+  </section>
+
+  <section>
+    <h2>Como trocar para outra colecao</h2>
+    <p>No comando, normalmente voce troca apenas estes trechos:</p>
+    <ul>
+      <li><strong>--url-guia</strong></li>
+      <li><strong>--url-panini-inicial</strong></li>
+      <li><strong>--quantidade</strong></li>
+      <li><strong>--saida</strong></li>
+      <li><strong>--titulo-serie</strong></li>
+      <li><strong>--fase</strong></li>
+      <li><strong>--volume</strong></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Erros comuns</h2>
+    <div class="alerta">
+      <strong>Erro:</strong> o PowerShell diz que nao encontrou o arquivo do robo.<br />
+      <strong>Solucao:</strong> confirme se voce esta dentro da pasta HQ-HUB usando o comando <code>pwd</code>.
+    </div>
+    <div class="alerta">
+      <strong>Erro:</strong> quantidade de capas diferente da quantidade de edicoes.<br />
+      <strong>Solucao:</strong> confira se a URL inicial da Panini e a quantidade estao corretas.
+    </div>
+    <div class="alerta">
+      <strong>Erro:</strong> pagina da Panini inexistente.<br />
+      <strong>Solucao:</strong> abra a URL inicial da Panini no navegador antes de rodar o comando.
+    </div>
+  </section>
+
+  <section>
+    <h2>Regra de ouro</h2>
+    <div class="dica">
+      Primeiro teste a URL da Panini no navegador. Se a primeira URL abrir corretamente, o robo geralmente consegue seguir a sequencia.
+    </div>
+  </section>
+
+  <div class="rodape">
+    Guia para colaboradores do HQ-HUB. Fluxo: Guia dos Quadrinhos + capas Panini + JSON final de importacao.
+  </div>
+</body>
+</html>

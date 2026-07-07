@@ -48,6 +48,10 @@ def extrair_capa(html):
 
 
 def extrair_padrao_url(url_inicial):
+    # Suporta formato markdown: [Titulo](https://...)
+    markdown = re.match(r"^\[.*?\]\((.+?)\)\s*$", url_inicial.strip())
+    if markdown:
+        url_inicial = markdown.group(1)
     url_limpa = url_inicial.strip().rstrip("/")
 
     # Suporta dois contadores no final sem marcador "vol", exemplo:
@@ -93,13 +97,17 @@ def extrair_padrao_url(url_inicial):
             "largura_numero": len(encontrado_simples.group("numero")),
         }
 
-    raise ValueError(
-        "Nao foi possivel identificar o padrao numerico da URL inicial. "
-        "Exemplo valido: https://panini.com.br/a-saga-do-superman-vol-1-25"
-    )
+    # Fallback para URL fixa (sem numero), util quando --quantidade 1
+    return {
+        "tipo": "fixo",
+        "url": url_limpa,
+    }
 
 
 def montar_url(padrao_url, deslocamento):
+    if padrao_url["tipo"] == "fixo":
+        return padrao_url["url"]
+
     if padrao_url["tipo"] == "duplo_final":
         primeiro = padrao_url["primeiro_inicial"] + deslocamento
         segundo = padrao_url["segundo_inicial"] + deslocamento

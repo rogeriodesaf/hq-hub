@@ -312,7 +312,13 @@ import {
                       <a class="botao compacto botao-amazon" [href]="link.url" target="_blank" rel="noreferrer" [attr.aria-label]="link.titulo || 'Comprar na Amazon'">
                         <span>Comprar na</span>
                         <span class="amazon-marca" aria-hidden="true">amazon</span>
+                        @if (link.preco) {
+                          <span class="amazon-preco">R$ {{ link.preco | number:'1.2-2':'pt-BR' }}</span>
+                        }
                       </a>
+                      @if (link.preco && link.dataCapturacaoPreco) {
+                        <span class="preco-captura-data">capturado em {{ link.dataCapturacaoPreco | date:'dd/MM/yyyy' }}</span>
+                      }
                     }
                     @if (edicaoDetalhe()?.serie?.titulo) {
                       <a class="botao compacto botao-ml" [href]="urlBuscaMercadoLivre()" target="_blank" rel="noreferrer" aria-label="Buscar no Mercado Livre">

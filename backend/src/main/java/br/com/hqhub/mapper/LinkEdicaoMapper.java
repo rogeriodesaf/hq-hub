@@ -35,6 +35,8 @@ public class LinkEdicaoMapper {
                 link.getTitulo(),
                 link.getUrl(),
                 link.getObservacoes(),
+                link.getPreco(),
+                link.getDataCapturacaoPreco(),
                 link.getDataCriacao(),
                 link.getDataAtualizacao());
     }

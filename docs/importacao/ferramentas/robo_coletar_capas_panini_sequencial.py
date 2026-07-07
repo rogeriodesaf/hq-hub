@@ -48,6 +48,10 @@ def extrair_capa(html):
 
 
 def extrair_padrao_url(url_inicial):
+    # Suporta formato markdown: [Titulo](https://...)
+    markdown = re.match(r"^\[.*?\]\((.+?)\)\s*$", url_inicial.strip())
+    if markdown:
+        url_inicial = markdown.group(1)
     url_limpa = url_inicial.strip().rstrip("/")
 
     # Suporta dois contadores no final sem marcador "vol", exemplo:

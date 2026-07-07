@@ -124,17 +124,149 @@ hq-hub/
 └── contexto IA/      (este arquivo)
 ```
 
+## ESTRUTURA REAL DE PASTAS (ATUALIZADA)
+
+```
+c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\          ← RAIZ DO PROJETO (rodar comandos aqui)
+├── docs\importacao\ferramentas\
+│   └── fluxo-essencial-hqhub\                           ← pasta dos robôs principais
+│       ├── robo_gerar_importacao_guia_panini.py          ← fluxo completo (guia + panini)
+│       ├── robo_importador_texto.py                      ← só metadados do Guia
+│       ├── robo_coletar_capas_panini_sequencial.py       ← só capas da Panini
+│       └── robo_aplicar_url_capa.py                      ← junta base-guia + capas
+├── docs\importacao\rascunhos\
+│   ├── saga-da-liga-da-justica\                          ← JSONs da Liga
+│   ├── epic-collection\                                  ← JSONs da Epic Collection
+│   ├── marvel-omnibus\                                   ← JSONs de Omnibus/volumes únicos
+│   └── (outras séries)
+└── contexto IA\
+    └── prompt-robo-python.txt                            ← este arquivo
+```
+
+**REGRA CRÍTICA**: Todos os comandos devem ser rodados sempre da raiz do projeto:
+`c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB`
+
+---
+
 ## COMMAND LINES COMUNS
 
-### Importar 5 edições a partir de edição específica (organizado)
+### CASO 1 — Fluxo completo (série com número + capa na Panini)
+Usar quando: série tem página no Guia DOS QUADRINHOS e produto no panini.com.br com número na URL.
+
 ```powershell
-python docs/importacao/ferramentas/robo_importador_texto.py --url-inicial "http://www.guiadosquadrinhos.com/edicao/..." --quantidade 5 --saida "rascunhos-importacao" --organizar-saida-por-serie
+cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB"
+
+python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
+  --url-guia "https://www.guiadosquadrinhos.com/edicao/saga-da-liga-da-justica-a-1-serie-n-1/sa011131/165824" `
+  --url-panini-inicial "https://panini.com.br/a-saga-da-liga-da-justica-vol-1" `
+  --quantidade 5 `
+  --saida "docs/importacao/rascunhos/saga-da-liga-da-justica/saga-da-liga-da-justica-1-serie-1-a-5.json" `
+  --titulo-serie "Saga da Liga da Justiça, A" `
+  --fase "1ª Série" `
+  --editora Panini `
+  --volume 1
 ```
 
-### Importar sem organizar
+### CASO 2 — Omnibus / volume único sem número na URL da Panini
+Usar quando: a URL da Panini não termina em número (ex: panini.com.br/aniquilacao).
+Usar --quantidade 1.
+
 ```powershell
-python docs/importacao/ferramentas/robo_importador_texto.py --url-inicial "http://www.guiadosquadrinhos.com/colecao/..." --quantidade 10 --saida "rascunhos-importacao"
+cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB"
+
+# Apagar arquivos intermediários de tentativas anteriores (se existirem)
+Remove-Item "docs\importacao\rascunhos\marvel-omnibus\aniquilacao-base-guia.json" -ErrorAction SilentlyContinue
+Remove-Item "docs\importacao\rascunhos\marvel-omnibus\aniquilacao-capas-panini.txt" -ErrorAction SilentlyContinue
+
+python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
+  --url-guia "https://www.guiadosquadrinhos.com/edicao/aniquilacao/an011111/160971" `
+  --url-panini-inicial "https://panini.com.br/aniquilacao" `
+  --quantidade 1 `
+  --saida "docs/importacao/rascunhos/marvel-omnibus/aniquilacao.json" `
+  --titulo-serie "Aniquilação" `
+  --fase "1ª Série" `
+  --editora Panini `
+  --volume 1
 ```
+
+### CASO 3 — Só metadados do Guia, com limitador de edições (sem capas)
+Usar quando: não há produto na Panini ou só se quer o JSON base.
+Rodar de dentro da pasta ferramentas\fluxo-essencial-hqhub.
+
+```powershell
+cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\docs\importacao\ferramentas\fluxo-essencial-hqhub"
+
+python robo_importador_texto.py `
+  --url "https://www.guiadosquadrinhos.com/edicao/marvel-epic-collection-n-1/ep011100/172289" `
+  --seguir-galeria `
+  --maximo-edicoes 5 `
+  --saida "rascunhos\epic-collection\marvel-epic-collection-base-guia.json" `
+  --titulo-serie "Marvel Epic Collection" `
+  --editora "Panini"
+```
+
+### CASO 4 — Só metadados do Guia, sem limitador (todas as edições disponíveis)
+Usar quando: quer baixar a série inteira de uma vez.
+Rodar de dentro da pasta ferramentas\fluxo-essencial-hqhub.
+
+```powershell
+cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\docs\importacao\ferramentas\fluxo-essencial-hqhub"
+
+python robo_importador_texto.py `
+  --url "https://www.guiadosquadrinhos.com/edicao/marvel-epic-collection-n-1/ep011100/172289" `
+  --seguir-galeria `
+  --saida "..\rascunhos\epic-collection\marvel-epic-collection-base-guia.json" `
+  --titulo-serie "Marvel Epic Collection" `
+  --editora "Panini"
+```
+
+---
+
+## ERROS COMUNS E DIAGNÓSTICO
+
+### Erro: "O sistema não pode encontrar o caminho especificado" ou "No such file or directory"
+**Causa**: Comando rodado da pasta errada.
+**Como identificar**: O caminho no erro não bate com a estrutura real. Se o erro aponta para `c:\Users\User\...` e o caminho esperado é relativo ao projeto, o `cd` foi esquecido ou errado.
+**Solução**: Sempre confirmar com `Get-Location` antes de rodar. Garantir que está em `c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB`.
+
+### Erro: "python : The term 'python' is not recognized"
+**Causa**: Python não está no PATH ou o terminal está fora do ambiente correto.
+**Solução**: Usar `python3` ou verificar instalação com `Get-Command python`.
+
+### Erro: "Edições: 0 / Histórias: 0" no JSON gerado
+**Causa**: O parser não reconheceu a estrutura da página do Guia dos Quadrinhos (ex: edição sem número no título, como volumes únicos/omnibus).
+**Consequência**: O passo seguinte (`robo_aplicar_url_capa.py`) falha com `ValueError: O JSON de entrada não possui edições em 'edicoes'`.
+**Solução**: O robô foi corrigido para tratar esse caso (fallback para edições sem número). Apagar os arquivos intermediários gerados (`-base-guia.json` e `-capas-panini.txt`) e rodar novamente.
+
+### Erro: "Nao foi possivel identificar o padrao numerico da URL inicial"
+**Causa**: A URL da Panini não termina em número (ex: `panini.com.br/aniquilacao` em vez de `panini.com.br/aniquilacao-vol-1`).
+**Solução**: O robô foi corrigido para aceitar URLs fixas. Apagar arquivos intermediários e rodar novamente.
+
+### Erro: "ValueError: O JSON de entrada não possui edições em 'edicoes'"
+**Causa**: O arquivo `-base-guia.json` foi gerado com `totalEdicoes: 0` (problema no parser).
+**Solução**: Ver diagnóstico de "Edições: 0" acima.
+
+### Erro: Comando trava sem saída após iniciar
+**Causa**: Rate limiting ou bloqueio temporário do Guia dos Quadrinhos.
+**Solução**: Aguardar 1-2 minutos e tentar novamente. Aumentar `--tentativas 3`.
+
+### Erro: Arquivos intermediários corrompidos de tentativa anterior
+**Causa**: Uma execução com erro deixou arquivos `-base-guia.json` ou `-capas-panini.txt` incompletos.
+**Solução**: Apagar os arquivos intermediários com `Remove-Item` antes de rodar novamente (ver Caso 2 acima).
+
+---
+
+## QUANDO USAR CADA FLUXO
+
+| Situação | Fluxo a usar |
+|---|---|
+| Série numerada Panini com capa no site | Caso 1 |
+| Omnibus / volume único sem número na URL | Caso 2 |
+| Série de outra editora (Mythos, Abril, etc.) | Caso 3 ou 4 |
+| Só quer o JSON base sem capas | Caso 3 ou 4 |
+| Quer todas as edições sem limite | Caso 4 |
+
+---
 
 ## TROUBLESHOOTING
 
@@ -144,12 +276,13 @@ python docs/importacao/ferramentas/robo_importador_texto.py --url-inicial "http:
 **Problema**: "Erro interno do servidor" na importação
 - Solução: Backend tem retry automático, tentar novamente em poucos segundos
 
-**Problema**: JSON gerado vazio ou incomplete
-- Solução: Verificar se URL inicial é válida no Guia dos Quadrinhos
+**Problema**: JSON gerado vazio ou incompleto
+- Solução: Verificar se URL inicial é válida no Guia dos Quadrinhos. Testar a URL no navegador.
 
 **Problema**: Arquivos sendo sobrescritos
-- Solução: Usar --organizar-saida-por-serie para criar nomes únicos + pastas
+- Solução: Usar `--organizar-saida-por-serie` para criar nomes únicos + pastas
 
 ---
 Use este contexto sempre que iniciar um novo chat sobre o robô Python ou importações HQ-Hub.
 Inclua detalhes específicos do que você quer fazer (ex: "quero importar 20 edições da série X a partir da edição Y").
+Sempre informe: a URL do Guia dos Quadrinhos, a URL da Panini (se houver) e a pasta de saída desejada.

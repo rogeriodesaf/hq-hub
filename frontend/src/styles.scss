@@ -499,6 +499,11 @@ img {
   gap: 7px;
 }
 
+.amazon-preco {
+  color: #1f7a4d;
+  font-weight: 800;
+}
+
 .botao-ml {
   gap: 6px;
   border-color: #d0e4ff;
@@ -546,6 +551,12 @@ img {
   color: var(--texto-suave, #888);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.preco-captura-data {
+  align-self: center;
+  color: var(--texto-suave, #667085);
+  font-size: 0.78rem;
 }
 
 .amazon-marca {

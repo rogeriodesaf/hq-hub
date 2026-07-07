@@ -1,5 +1,6 @@
 package br.com.hqhub.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
@@ -18,6 +19,8 @@ public record PublicacaoOriginalImportacaoDTO(
         String urlCapa,
         String urlOrigem,
         String urlCompraAmazon,
+        BigDecimal precoCompraAmazon,
+        LocalDate dataCapturacaoPrecoCompraAmazon,
         String titulo,
         String nomeVolume,
         LocalDate dataCapa,

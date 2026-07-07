@@ -196,6 +196,8 @@ public class GeracaoRascunhoImportacaoService {
                             null,
                             null,
                             null,
+                            null,
+                            null,
                             null)));
         }
         return historias;

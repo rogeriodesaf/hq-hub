@@ -2,6 +2,7 @@
 import argparse
 import json
 import re
+from datetime import date
 from pathlib import Path
 from time import sleep
 from urllib.parse import quote_plus
@@ -72,6 +73,29 @@ def extrair_titulo_produto(page):
         return None
     texto = titulo.first.inner_text().strip()
     return " ".join(texto.split()) if texto else None
+
+
+def extrair_preco_produto(page):
+    """Tenta extrair o preco da pagina de produto da Amazon."""
+    seletores = [
+        ".a-price.a-text-price.a-size-medium .a-offscreen",
+        ".a-price .a-offscreen",
+        "#price_inside_buybox",
+        "#priceblock_ourprice",
+        "#priceblock_dealprice",
+        ".a-price[data-a-color='price'] .a-offscreen",
+    ]
+    for seletor in seletores:
+        el = page.locator(seletor).first
+        if el.count() > 0:
+            texto = el.inner_text().strip()
+            texto_limpo = re.sub(r"[^\d,]", "", texto).replace(",", ".")
+            if texto_limpo:
+                try:
+                    return float(texto_limpo)
+                except ValueError:
+                    continue
+    return None
 
 
 def descobrir_primeiro_produto(page_busca, page_detalhe, numero_edicao, timeout_ms, max_validacoes=6):
@@ -182,6 +206,8 @@ def executar(args):
                 "urlBusca": url_busca,
                 "urlProduto": None,
                 "tituloEncontradoNaBusca": None,
+                "precoCompraAmazon": None,
+                "dataCapturacaoPrecoCompraAmazon": None,
                 "erro": None,
             }
 
@@ -198,7 +224,20 @@ def executar(args):
                 )
                 item["urlProduto"] = url_produto
                 item["tituloEncontradoNaBusca"] = titulo_encontrado
-                if not item["urlProduto"]:
+                if item["urlProduto"]:
+                    try:
+                        page_detalhe.goto(item["urlProduto"], wait_until="domcontentloaded", timeout=args.timeout_ms)
+                        page_detalhe.wait_for_timeout(800)
+                        preco = extrair_preco_produto(page_detalhe)
+                        if preco:
+                            item["precoCompraAmazon"] = preco
+                            item["dataCapturacaoPrecoCompraAmazon"] = date.today().isoformat()
+                            print(f"  Preço capturado: R$ {preco:.2f}")
+                        else:
+                            print("  Preço não encontrado na página do produto.")
+                    except Exception as erro_preco:
+                        print(f"  Aviso: não foi possível capturar preço: {erro_preco}")
+                else:
                     item["erro"] = "Nenhum link de produto encontrado na busca."
             except PlaywrightTimeoutError:
                 item["erro"] = "Timeout ao abrir página de busca."

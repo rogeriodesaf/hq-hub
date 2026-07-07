@@ -258,6 +258,23 @@ def separar_blocos_edicoes(linhas):
     if bloco_atual:
         blocos.append(bloco_atual)
 
+    # Fallback: pagina de edicao unica sem numero no titulo (ex: "Aniquilacao")
+    if not blocos:
+        for indice_linha, linha in enumerate(linhas):
+            if linha.strip().startswith("Publicado em:"):
+                # Recua ate 3 linhas para encontrar o titulo real da edicao
+                titulo_idx = indice_linha
+                for retrocesso in range(1, 4):
+                    idx = indice_linha - retrocesso
+                    if idx < 0:
+                        break
+                    candidata = linhas[idx].strip()
+                    if candidata and not re.match(r"^https?://", candidata):
+                        titulo_idx = idx
+                        break
+                blocos = [[l.strip() for l in linhas[titulo_idx:] if l.strip()]]
+                break
+
     return blocos
 
 
@@ -472,8 +489,15 @@ def montar_json(args):
     for bloco in blocos:
         edicao = extrair_edicao(bloco, args.titulo_serie, args.editora)
         if not edicao["numero"]:
-            avisos.append(f"Bloco ignorado sem número: {bloco[0][:80]}")
-            continue
+            if edicao.get("editora") or edicao.get("dataPublicacao"):
+                status = (edicao.get("status") or "").lower()
+                if "única" in status or "unica" in status:
+                    edicao["numero"] = "UNICA"
+                else:
+                    edicao["numero"] = "1"
+            else:
+                avisos.append(f"Bloco ignorado sem número: {bloco[0][:80]}")
+                continue
         if not edicao["historias"] and len(bloco) <= 3:
             avisos.append(f"Edição {edicao['numero']} parece incompleta e precisa de revisão.")
         edicoes.append(edicao)

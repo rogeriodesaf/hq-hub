@@ -501,7 +501,9 @@ public class ImportacaoCatalogoService {
         }
 
         String url = limitar(dto.urlCompraAmazon(), 1000);
-        if (linkEdicaoRepository.existePorEdicaoEUrl(edicaoOriginal.getId(), url)) {
+        Optional<LinkEdicao> linkExistente = linkEdicaoRepository.buscarPorEdicaoEUrl(edicaoOriginal.getId(), url);
+        if (linkExistente.isPresent()) {
+            aplicarPrecoCompraAmazon(linkExistente.get(), dto);
             contadores.itensReaproveitados++;
             return;
         }
@@ -512,7 +514,17 @@ public class ImportacaoCatalogoService {
         link.setTitulo("Comprar na Amazon");
         link.setUrl(url);
         link.setObservacoes("Link de compra informado na importacao.");
+        aplicarPrecoCompraAmazon(link, dto);
         linkEdicaoRepository.persist(link);
+    }
+
+    private void aplicarPrecoCompraAmazon(LinkEdicao link, PublicacaoOriginalImportacaoDTO dto) {
+        if (dto.precoCompraAmazon() != null) {
+            link.setPreco(dto.precoCompraAmazon());
+        }
+        if (dto.dataCapturacaoPrecoCompraAmazon() != null) {
+            link.setDataCapturacaoPreco(dto.dataCapturacaoPrecoCompraAmazon());
+        }
     }
 
     private boolean temDadosComicVineCompletos(Edicao edicao) {

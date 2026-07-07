@@ -1,5 +1,7 @@
 package br.com.hqhub.repository;
 
+import java.util.Optional;
+
 import br.com.hqhub.entity.LinkEdicao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -8,9 +10,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class LinkEdicaoRepository implements PanacheRepository<LinkEdicao> {
 
     public boolean existePorEdicaoEUrl(Long edicaoId, String url) {
+        return buscarPorEdicaoEUrl(edicaoId, url)
+                .isPresent();
+    }
+
+    public Optional<LinkEdicao> buscarPorEdicaoEUrl(Long edicaoId, String url) {
         return find("edicao.id = ?1 and url = ?2", edicaoId, url)
                 .firstResultOptional()
-                .isPresent();
+                .map(LinkEdicao.class::cast);
     }
 
     public boolean existePorEdicaoEUrlEmOutroLink(Long edicaoId, String url, Long id) {

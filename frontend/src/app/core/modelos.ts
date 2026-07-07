@@ -144,6 +144,8 @@ export interface LinkEdicao {
   titulo: string;
   url: string;
   observacoes: string | null;
+  preco: number | null;
+  dataCapturacaoPreco: string | null;
   dataCriacao: string;
   dataAtualizacao: string;
 }

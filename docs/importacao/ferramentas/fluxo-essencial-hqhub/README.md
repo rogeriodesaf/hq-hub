@@ -2,6 +2,33 @@
 
 Esta pasta separa os robos principais para montar um JSON pronto para importar no HQ-HUB.
 
+## Fluxo em um comando
+
+Use este robo quando voce ja sabe:
+
+- a URL do Guia dos Quadrinhos, de preferencia a pagina `/capas/`;
+- a URL inicial da sequencia da Panini;
+- a quantidade de edicoes.
+
+Ele roda o Guia, coleta as capas Panini e aplica as capas no JSON final.
+
+```powershell
+python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
+  --url-guia "https://www.guiadosquadrinhos.com/capas/saga-do-lanterna-verde-a/sa011149" `
+  --url-panini-inicial "https://panini.com.br/a-saga-do-lanterna-verde-01" `
+  --quantidade 7 `
+  --saida "docs/importacao/rascunhos/saga-do-lanterna-verde/saga-do-lanterna-verde-1-serie-com-capas-panini.json" `
+  --titulo-serie "Saga do Lanterna Verde, A" `
+  --fase "Primeira temporada" `
+  --editora Panini `
+  --volume 1
+```
+
+O robo tambem gera arquivos intermediarios ao lado do JSON final:
+
+- `*-base-guia.json`
+- `*-capas-panini.txt`
+
 ## 1. Gerar JSON base pelo Guia dos Quadrinhos
 
 Use quando voce tem a URL de uma edicao no Guia dos Quadrinhos e quer gerar o JSON base da colecao.
@@ -58,6 +85,8 @@ python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_descobrir_urls_pro
   --saida-relatorio "docs/importacao/rascunhos/NOME-DA-PASTA/urls-produto-amazon-relatorio.json" `
   --intervalo-segundos 1.0
 ```
+
+O relatorio tambem tenta registrar `precoCompraAmazon` e `dataCapturacaoPrecoCompraAmazon`, que podem ser copiados para `publicacaoOriginal` no JSON final.
 
 ## 4. Coletar URLs diretas das capas da Amazon
 
