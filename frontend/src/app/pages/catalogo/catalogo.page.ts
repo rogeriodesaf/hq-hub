@@ -294,27 +294,32 @@ import {
                 @if (edicaoDetalhe()?.formato) {
                   <span>{{ edicaoDetalhe()?.formato }}</span>
                 }
-                @if (edicaoDetalhe()?.precoCapa) {
-                  <span>{{ formatarMoeda(edicaoDetalhe()?.precoCapa || 0) }}</span>
-                }
               </div>
               <div
                 class="descricao-formatada"
                 [innerHTML]="formatarDescricao(descricaoEdicaoDetalhe())"
               ></div>
               @if (linksAmazonDetalhe().length || edicaoDetalhe()?.serie?.titulo) {
-                <div class="acoes-detalhe-edicao">
-                  @for (link of linksAmazonDetalhe(); track link.id) {
-                    <a class="botao compacto botao-amazon" [href]="link.url" target="_blank" rel="noreferrer" [attr.aria-label]="link.titulo || 'Comprar na Amazon'">
-                      <span>Comprar na</span>
-                      <span class="amazon-marca" aria-hidden="true">amazon</span>
-                    </a>
+                <div class="bloco-compra">
+                  @if (edicaoDetalhe()?.precoCapa) {
+                    <p class="preco-capa-referencia">
+                      <span class="preco-capa-valor">{{ formatarMoeda(edicaoDetalhe()?.precoCapa || 0) }}</span>
+                      <span class="preco-capa-rotulo">preço de capa</span>
+                    </p>
                   }
-                  @if (edicaoDetalhe()?.serie?.titulo) {
-                    <a class="botao compacto botao-ml" [href]="urlBuscaMercadoLivre()" target="_blank" rel="noreferrer" aria-label="Buscar no Mercado Livre">
-                      <span class="ml-marca">Mercado Livre</span>
-                    </a>
-                  }
+                  <div class="acoes-detalhe-edicao">
+                    @for (link of linksAmazonDetalhe(); track link.id) {
+                      <a class="botao compacto botao-amazon" [href]="link.url" target="_blank" rel="noreferrer" [attr.aria-label]="link.titulo || 'Comprar na Amazon'">
+                        <span>Comprar na</span>
+                        <span class="amazon-marca" aria-hidden="true">amazon</span>
+                      </a>
+                    }
+                    @if (edicaoDetalhe()?.serie?.titulo) {
+                      <a class="botao compacto botao-ml" [href]="urlBuscaMercadoLivre()" target="_blank" rel="noreferrer" aria-label="Buscar no Mercado Livre">
+                        <span class="ml-marca">Mercado Livre</span>
+                      </a>
+                    }
+                  </div>
                 </div>
               }
               @if (edicaoDetalhe() && podeEditarCatalogo()) {

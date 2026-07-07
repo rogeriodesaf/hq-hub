@@ -518,6 +518,36 @@ img {
   letter-spacing: -0.01em;
 }
 
+.bloco-compra {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preco-capa-referencia {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+}
+
+.preco-capa-valor {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--texto);
+}
+
+.preco-capa-rotulo {
+  font-size: 0.78rem;
+  color: var(--texto-suave, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .amazon-marca {
   position: relative;
   display: inline-block;
