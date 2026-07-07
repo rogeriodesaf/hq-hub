@@ -116,7 +116,7 @@ import {
           @if (postagens().length) {
             <div class="lista-postagens-publico">
               @for (postagem of postagens(); track postagem.id) {
-                <article class="bloco postagem-card">
+                <article class="bloco postagem-card" [id]="'postagem-' + postagem.id">
                   <header>
                     <div class="avatar-feed">
                       @if (usuario()!.fotoPerfilThumbnailUrl) {
@@ -882,7 +882,10 @@ export class PerfilPublicoPage implements OnInit {
     });
 
     this.api.obterFeedUsuario(usuarioId).subscribe({
-      next: (postagens) => this.postagens.set(postagens),
+      next: (postagens) => {
+        this.postagens.set(postagens);
+        this.rolarParaFragmento();
+      },
       error: () => this.postagens.set([]),
     });
 
@@ -910,6 +913,7 @@ export class PerfilPublicoPage implements OnInit {
         this.edicaoSelecionada.set(null);
         this.carregandoEstante.set(false);
         this.carregarInteracoesColecao(usuarioId, estante);
+        this.rolarParaFragmento();
       },
       error: () => {
         this.estante.set([]);
@@ -1054,6 +1058,15 @@ export class PerfilPublicoPage implements OnInit {
 
       return this.normalizarNumeroEstante(a.numero).localeCompare(this.normalizarNumeroEstante(b.numero));
     });
+  }
+
+  private rolarParaFragmento() {
+    const fragmento = this.route.snapshot.fragment;
+    if (!fragmento) {
+      return;
+    }
+
+    setTimeout(() => document.getElementById(fragmento)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   }
 
   private primeiroNumeroEstante(valor: string | null) {

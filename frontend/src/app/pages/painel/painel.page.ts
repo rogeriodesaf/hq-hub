@@ -148,7 +148,7 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 
         <section class="lista-feed">
           @for (postagem of feed(); track postagem.id) {
-            <article class="bloco postagem-card">
+            <article class="bloco postagem-card" [id]="idPostagem(postagem)">
               <header>
                 <div class="avatar-feed">
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-perfil">
@@ -251,7 +251,14 @@ import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
                   {{ postagem.totalCurtidas }}
                 </button>
                 <span class="contador-social">{{ postagem.comentarios.length }} comentarios</span>
-                <span class="contador-social">Compartilhar</span>
+                <button
+                  class="acao-social compartilhar"
+                  type="button"
+                  (click)="compartilhar(postagem)"
+                  [disabled]="compartilhandoId() === postagem.id"
+                >
+                  {{ compartilhandoId() === postagem.id ? 'Compartilhando...' : 'Compartilhar' }}
+                </button>
               </div>
 
               <section class="comentarios-feed">
@@ -877,6 +884,7 @@ export class PainelPage implements OnInit {
   readonly mensagemSugestaoAmigo = signal('');
   readonly publicando = signal(false);
   readonly interagindoId = signal<number | null>(null);
+  readonly compartilhandoId = signal<number | null>(null);
   readonly mensagem = signal('');
   novoConteudo = '';
   imagensSelecionadas: File[] = [];
@@ -1006,6 +1014,30 @@ export class PainelPage implements OnInit {
     });
   }
 
+  async compartilhar(postagem: PostagemFeed) {
+    this.compartilhandoId.set(postagem.id);
+    const url = this.urlPostagem(postagem);
+    const texto = this.textoCompartilhamento(postagem);
+    const titulo = `Postagem de ${postagem.usuario.nome} no HQ-HUB`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: titulo, text: texto, url });
+        return;
+      }
+
+      await this.copiarTexto(`${texto}\n${url}`);
+      this.mensagem.set('Link da postagem copiado. Agora e so colar no WhatsApp ou onde quiser.');
+    } catch (erro) {
+      if (erro instanceof DOMException && erro.name === 'AbortError') {
+        return;
+      }
+      this.mensagem.set('Nao foi possivel compartilhar agora. Tente copiar o link manualmente.');
+    } finally {
+      this.compartilhandoId.set(null);
+    }
+  }
+
   adicionarSugestaoAmigo() {
     const usuario = this.sugestaoAmigo();
     if (!usuario) {
@@ -1124,6 +1156,40 @@ export class PainelPage implements OnInit {
 
   private substituirPostagem(postagem: PostagemFeed) {
     this.feed.update((feed) => feed.map((item) => item.id === postagem.id ? postagem : item));
+  }
+
+  idPostagem(postagem: PostagemFeed) {
+    return `postagem-${postagem.id}`;
+  }
+
+  private urlPostagem(postagem: PostagemFeed) {
+    return new URL(`/usuario/${postagem.usuario.id}#${this.idPostagem(postagem)}`, window.location.origin).toString();
+  }
+
+  private textoCompartilhamento(postagem: PostagemFeed) {
+    const destaque = postagem.colecaoDestaque?.titulo || postagem.catalogoDestaque?.titulo;
+    return [
+      `${postagem.usuario.nome} publicou no HQ-HUB`,
+      postagem.conteudo,
+      destaque ? `Destaque: ${destaque}` : '',
+    ].filter(Boolean).join('\n');
+  }
+
+  private async copiarTexto(texto: string) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(texto);
+      return;
+    }
+
+    const area = document.createElement('textarea');
+    area.value = texto;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.left = '-9999px';
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    document.body.removeChild(area);
   }
 
   private enviarImagensSelecionadas(): Promise<ImagemFeed[]> {
