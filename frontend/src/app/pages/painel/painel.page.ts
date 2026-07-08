@@ -1163,7 +1163,9 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    return new URL(`/api/compartilhar/postagens/${postagem.id}`, window.location.origin).toString();
+    const url = new URL(`/api/compartilhar/postagens/${postagem.id}`, window.location.origin);
+    url.searchParams.set('v', String(new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id));
+    return url.toString();
   }
 
   private textoCompartilhamento(postagem: PostagemFeed) {

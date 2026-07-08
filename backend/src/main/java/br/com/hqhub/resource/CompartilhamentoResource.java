@@ -1,5 +1,10 @@
 package br.com.hqhub.resource;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.List;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -32,6 +37,10 @@ public class CompartilhamentoResource {
     private final ItemColecaoRepository itemColecaoRepository;
     private final EdicaoRepository edicaoRepository;
     private final UrlPublicaService urlPublicaService;
+    private final HttpClient httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(8))
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .build();
 
     @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub-frontend.onrender.com")
     String urlBase;
@@ -62,11 +71,21 @@ public class CompartilhamentoResource {
                         .build());
     }
 
+    @GET
+    @Path("/postagens/{id}/imagem")
+    @Produces({ "image/jpeg", "image/png", "image/webp", "image/gif" })
+    @Transactional
+    public Response imagemPostagem(@PathParam("id") Long id) {
+        return postagemRepository.findByIdOptional(id)
+                .map(this::responderImagem)
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
+    }
+
     private String htmlPostagem(PostagemFeed postagem) {
         String appUrl = appUrl(postagem);
         String titulo = titulo(postagem);
         String descricao = descricao(postagem);
-        String imagem = imagem(postagem);
+        String imagem = imagemCompartilhamento(postagem);
         String urlCompartilhamento = baseNormalizada() + "/api/compartilhar/postagens/" + postagem.getId();
 
         return """
@@ -117,6 +136,30 @@ public class CompartilhamentoResource {
                 escaparHtml(descricao),
                 escaparHtml(appUrl),
                 literalJavascript(appUrl));
+    }
+
+    private Response responderImagem(PostagemFeed postagem) {
+        String urlImagem = imagem(postagem);
+        try {
+            HttpRequest request = HttpRequest.newBuilder(URI.create(urlImagem))
+                    .timeout(Duration.ofSeconds(12))
+                    .header("User-Agent", "HQ-HUB/1.0 image-preview")
+                    .GET()
+                    .build();
+            HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            if (resposta.statusCode() >= 200 && resposta.statusCode() < 300 && resposta.body().length > 0) {
+                String tipo = resposta.headers().firstValue("content-type")
+                        .filter(valor -> valor.toLowerCase().startsWith("image/"))
+                        .orElse(MediaType.APPLICATION_OCTET_STREAM);
+                return Response.ok(resposta.body(), tipo)
+                        .header("Cache-Control", "public, max-age=86400")
+                        .build();
+            }
+        } catch (Exception ignored) {
+            // Fallback abaixo evita quebrar o preview quando a origem externa bloqueia a imagem.
+        }
+
+        return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
     }
 
     private String htmlNaoEncontrado() {
@@ -181,6 +224,10 @@ public class CompartilhamentoResource {
         return urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO));
     }
 
+    private String imagemCompartilhamento(PostagemFeed postagem) {
+        return baseNormalizada() + "/api/compartilhar/postagens/" + postagem.getId() + "/imagem?v=" + versao(postagem);
+    }
+
     private String primeiraUrlPublica(String... urls) {
         for (String url : urls) {
             if (url != null && !url.isBlank()) {
@@ -198,6 +245,12 @@ public class CompartilhamentoResource {
 
     private String appUrl(PostagemFeed postagem) {
         return baseNormalizada() + "/usuario/" + postagem.getUsuario().getId() + "#postagem-" + postagem.getId();
+    }
+
+    private String versao(PostagemFeed postagem) {
+        return postagem.getDataAtualizacao() == null
+                ? String.valueOf(postagem.getId())
+                : String.valueOf(postagem.getDataAtualizacao().toString().hashCode());
     }
 
     private String urlPublica(String url) {
