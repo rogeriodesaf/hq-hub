@@ -82,6 +82,9 @@ public class CompartilhamentoResource {
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="630">
                   <meta property="og:url" content="%s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
@@ -103,6 +106,7 @@ public class CompartilhamentoResource {
                 escaparHtml(descricao),
                 escaparHtml(titulo),
                 escaparHtml(descricao),
+                escaparHtml(imagem),
                 escaparHtml(imagem),
                 escaparHtml(urlCompartilhamento),
                 escaparHtml(titulo),
@@ -162,19 +166,28 @@ public class CompartilhamentoResource {
     }
 
     private String imagem(PostagemFeed postagem) {
-        List<ImagemPostagemFeed> imagens = imagemRepository.listarPorPostagem(postagem.getId());
-        if (!imagens.isEmpty()) {
-            return urlPublica(imagens.get(0).getUrlImagem());
-        }
         if (postagem.getItemColecao() != null) {
-            return urlPublica(postagem.getItemColecao().getEdicao().getUrlCapa());
+            return primeiraUrlPublica(postagem.getItemColecao().getEdicao().getUrlCapa(), postagem.getUrlImagem());
         }
         if (postagem.getSerieCatalogo() != null) {
             return edicaoRepository.primeiraCapaPorSerie(postagem.getSerieCatalogo().getId())
                     .map(this::urlPublica)
-                    .orElse(urlAbsoluta(IMAGEM_PADRAO));
+                    .orElseGet(() -> urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO)));
+        }
+        List<ImagemPostagemFeed> imagens = imagemRepository.listarPorPostagem(postagem.getId());
+        if (!imagens.isEmpty()) {
+            return urlPublica(imagens.get(0).getUrlImagem());
         }
         return urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO));
+    }
+
+    private String primeiraUrlPublica(String... urls) {
+        for (String url : urls) {
+            if (url != null && !url.isBlank()) {
+                return urlPublica(url);
+            }
+        }
+        return urlAbsoluta(IMAGEM_PADRAO);
     }
 
     private String tituloColecao(ItemColecao item) {
