@@ -8,6 +8,7 @@ import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
@@ -1163,7 +1164,8 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    const url = new URL(`/api/compartilhar/postagens/${postagem.id}`, window.location.origin);
+    const base = environment.apiUrl || window.location.origin;
+    const url = new URL(`/api/compartilhar/postagens/${postagem.id}`, base);
     url.searchParams.set('v', String(new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id));
     return url.toString();
   }

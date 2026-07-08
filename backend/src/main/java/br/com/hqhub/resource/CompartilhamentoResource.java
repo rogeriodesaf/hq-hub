@@ -26,6 +26,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Context;
 
 @Path("/compartilhar")
 public class CompartilhamentoResource {
@@ -62,9 +64,9 @@ public class CompartilhamentoResource {
     @Path("/postagens/{id}")
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    public Response compartilharPostagem(@PathParam("id") Long id) {
+    public Response compartilharPostagem(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         return postagemRepository.findByIdOptional(id)
-                .map(postagem -> Response.ok(htmlPostagem(postagem)).build())
+                .map(postagem -> Response.ok(htmlPostagem(postagem, origemRequisicao(uriInfo))).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .entity(htmlNaoEncontrado())
                         .type(MediaType.TEXT_HTML)
@@ -81,12 +83,12 @@ public class CompartilhamentoResource {
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
     }
 
-    private String htmlPostagem(PostagemFeed postagem) {
+    private String htmlPostagem(PostagemFeed postagem, String origemCompartilhamento) {
         String appUrl = appUrl(postagem);
         String titulo = titulo(postagem);
         String descricao = descricao(postagem);
-        String imagem = imagemCompartilhamento(postagem);
-        String urlCompartilhamento = baseNormalizada() + "/api/compartilhar/postagens/" + postagem.getId();
+        String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
+        String urlCompartilhamento = origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId();
 
         return """
                 <!doctype html>
@@ -224,8 +226,8 @@ public class CompartilhamentoResource {
         return urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO));
     }
 
-    private String imagemCompartilhamento(PostagemFeed postagem) {
-        return baseNormalizada() + "/api/compartilhar/postagens/" + postagem.getId() + "/imagem?v=" + versao(postagem);
+    private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
+        return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId() + "/imagem?v=" + versao(postagem);
     }
 
     private String primeiraUrlPublica(String... urls) {
@@ -278,6 +280,15 @@ public class CompartilhamentoResource {
     private String baseNormalizada() {
         String base = urlBase == null || urlBase.isBlank() ? "https://hqhub-frontend.onrender.com" : urlBase.trim();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
+    }
+
+    private String origemRequisicao(UriInfo uriInfo) {
+        if (uriInfo == null || uriInfo.getBaseUri() == null) {
+            return baseNormalizada();
+        }
+        URI base = uriInfo.getBaseUri();
+        String origem = base.getScheme() + "://" + base.getAuthority();
+        return origem.endsWith("/") ? origem.substring(0, origem.length() - 1) : origem;
     }
 
     private String resumir(String texto, int limite) {
