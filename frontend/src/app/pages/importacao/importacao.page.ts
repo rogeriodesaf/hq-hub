@@ -17,37 +17,64 @@ import {
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Importação</p>
-        <h1>Importe para o catálogo os JSONs gerados pelo robô.</h1>
+        <p class="rotulo">Alimentar catálogo</p>
+        <h1>Cadastre HQs pelo formulário ou importe o JSON gerado pelo robô.</h1>
       </div>
     </section>
 
     <section class="importacao-layout">
       <article class="bloco painel-importacao">
+        <nav class="modos-importacao" aria-label="Forma de alimentação do catálogo">
+          <button
+            type="button"
+            [class.ativo]="modoEntrada() === 'visual'"
+            (click)="selecionarModo('visual')"
+          >
+            <strong>Cadastro visual</strong>
+            <span>Preencha os campos diretamente no site</span>
+          </button>
+          <button
+            type="button"
+            [class.ativo]="modoEntrada() === 'json'"
+            (click)="selecionarModo('json')"
+          >
+            <strong>JSON / robô</strong>
+            <span>Mantenha o processo que você já usa hoje</span>
+          </button>
+        </nav>
+
         <div class="secao-titulo">
           <div>
-            <h2>JSON do robô</h2>
-            <p class="texto-suave">Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado.</p>
+            <h2>{{ modoEntrada() === 'visual' ? 'Cadastro visual da HQ' : 'JSON do robô' }}</h2>
+            <p class="texto-suave">
+              @if (modoEntrada() === 'visual') {
+                Preencha a série, as edições e as histórias. O HQ-HUB monta e envia o JSON por você.
+              } @else {
+                Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
+              }
+            </p>
           </div>
         </div>
 
-        <div class="acoes-importacao">
-          <label class="botao secundario compacto seletor-arquivo">
-            Selecionar JSON
-            <input type="file" accept="application/json,.json" (change)="selecionarArquivo($event)" />
-          </label>
-          <button class="botao compacto" type="button" (click)="preencherModeloEmBranco()">
-            Modelo em branco
-          </button>
-          <button class="botao compacto" type="button" (click)="adicionarHistoriaAoModelo()" [disabled]="!jsonTexto.trim()">
-            + Historia no JSON
-          </button>
-        </div>
+        @if (modoEntrada() === 'json') {
+          <div class="acoes-importacao">
+            <label class="botao secundario compacto seletor-arquivo">
+              Selecionar JSON
+              <input type="file" accept="application/json,.json" (change)="selecionarArquivo($event)" />
+            </label>
+            <button class="botao compacto" type="button" (click)="preencherModeloEmBranco()">
+              Modelo em branco
+            </button>
+            <button class="botao compacto" type="button" (click)="adicionarHistoriaAoModelo()" [disabled]="!jsonTexto.trim()">
+              + História no JSON
+            </button>
+          </div>
+        }
 
-        <details class="editor-visual-importacao" open>
-          <summary>Cadastro visual do JSON</summary>
+        @if (modoEntrada() === 'visual') {
+        <section class="editor-visual-importacao">
           <aside class="dica-importacao-colaborador">
-            <strong>Guia rapido para colaboradores</strong>
+            <strong>Guia rápido para colaboradores</strong>
             <p>
               Use este formulario quando a edicao tiver historias ou publicacoes originais. Preencha serie, editora e volume com cuidado:
               o volume diferencia fases com o mesmo titulo, como V1 e V2.
@@ -242,6 +269,76 @@ import {
                           <small>publicacaoOriginal.texto</small>
                           <input [(ngModel)]="historia.publicacaoOriginal.texto" [name]="'visualHistoriaTextoOriginal' + indiceEdicao + '-' + indiceHistoria" />
                         </label>
+                        <details class="dados-avancados campo-largo">
+                          <summary>Outros dados da publicação original</summary>
+                          <div class="grade-importacao-visual">
+                            <label>
+                              ID Comic Vine
+                              <small>publicacaoOriginal.idComicVine</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.idComicVine" [name]="'visualHistoriaComicVineId' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label class="campo-largo">
+                              URL Comic Vine
+                              <small>publicacaoOriginal.urlComicVine</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.urlComicVine" [name]="'visualHistoriaComicVineUrl' + indiceEdicao + '-' + indiceHistoria" placeholder="https://..." />
+                            </label>
+                            <label class="campo-largo">
+                              URL da fonte
+                              <small>publicacaoOriginal.urlOrigem</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.urlOrigem" [name]="'visualHistoriaUrlOrigem' + indiceEdicao + '-' + indiceHistoria" placeholder="https://..." />
+                            </label>
+                            <label class="campo-largo">
+                              URL da capa original
+                              <small>publicacaoOriginal.urlCapa</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.urlCapa" [name]="'visualHistoriaUrlCapa' + indiceEdicao + '-' + indiceHistoria" placeholder="https://..." />
+                            </label>
+                            <label class="campo-largo">
+                              URL de compra na Amazon
+                              <small>publicacaoOriginal.urlCompraAmazon</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.urlCompraAmazon" [name]="'visualHistoriaUrlAmazon' + indiceEdicao + '-' + indiceHistoria" placeholder="https://..." />
+                            </label>
+                            <label>
+                              Preço na Amazon
+                              <small>publicacaoOriginal.precoCompraAmazon</small>
+                              <input type="number" min="0" step="0.01" [(ngModel)]="historia.publicacaoOriginal.precoCompraAmazon" [name]="'visualHistoriaPrecoAmazon' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label>
+                              Data de captura do preço
+                              <small>publicacaoOriginal.dataCapturacaoPrecoCompraAmazon</small>
+                              <input type="date" [(ngModel)]="historia.publicacaoOriginal.dataCapturacaoPrecoCompraAmazon" [name]="'visualHistoriaDataPrecoAmazon' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label>
+                              Título da publicação
+                              <small>publicacaoOriginal.titulo</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.titulo" [name]="'visualHistoriaPublicacaoTitulo' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label>
+                              Nome do volume
+                              <small>publicacaoOriginal.nomeVolume</small>
+                              <input [(ngModel)]="historia.publicacaoOriginal.nomeVolume" [name]="'visualHistoriaNomeVolume' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label>
+                              Data de capa
+                              <small>publicacaoOriginal.dataCapa</small>
+                              <input type="date" [(ngModel)]="historia.publicacaoOriginal.dataCapa" [name]="'visualHistoriaDataCapa' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label>
+                              Data de venda
+                              <small>publicacaoOriginal.dataVenda</small>
+                              <input type="date" [(ngModel)]="historia.publicacaoOriginal.dataVenda" [name]="'visualHistoriaDataVenda' + indiceEdicao + '-' + indiceHistoria" />
+                            </label>
+                            <label class="campo-largo">
+                              Descrição original
+                              <small>publicacaoOriginal.descricaoOriginal</small>
+                              <textarea rows="3" [(ngModel)]="historia.publicacaoOriginal.descricaoOriginal" [name]="'visualHistoriaDescricaoOriginal' + indiceEdicao + '-' + indiceHistoria"></textarea>
+                            </label>
+                            <label class="campo-largo">
+                              Descrição em português
+                              <small>publicacaoOriginal.descricaoPortugues</small>
+                              <textarea rows="3" [(ngModel)]="historia.publicacaoOriginal.descricaoPortugues" [name]="'visualHistoriaDescricaoPortugues' + indiceEdicao + '-' + indiceHistoria"></textarea>
+                            </label>
+                          </div>
+                        </details>
                       </div>
                     </article>
                   }
@@ -251,33 +348,41 @@ import {
           </section>
 
           <div class="acoes-importacao">
-            <button class="botao compacto" type="button" (click)="atualizarJsonPeloVisual()">Atualizar JSON pelo formulario</button>
-            <button class="botao compacto secundario" type="button" (click)="carregarVisualDoJson()" [disabled]="!jsonTexto.trim()">Carregar formulario pelo JSON</button>
+            <button class="botao compacto secundario" type="button" (click)="baixarJsonVisual()">Baixar cópia em JSON</button>
           </div>
-        </details>
-
-        @if (nomeArquivo()) {
-          <p class="texto-suave arquivo-selecionado">Arquivo selecionado: {{ nomeArquivo() }}</p>
+        </section>
         }
 
-        <label class="campo-json">
-          Conteúdo JSON
-          <textarea
-            [(ngModel)]="jsonTexto"
-            name="jsonTexto"
-            spellcheck="false"
-            placeholder='Cole aqui o JSON gerado pelo robô, começando com { "origem": ... }'
-          ></textarea>
-        </label>
+        @if (modoEntrada() === 'json') {
+          @if (nomeArquivo()) {
+            <p class="texto-suave arquivo-selecionado">Arquivo selecionado: {{ nomeArquivo() }}</p>
+          }
+
+          <label class="campo-json">
+            Conteúdo JSON
+            <textarea
+              [(ngModel)]="jsonTexto"
+              name="jsonTexto"
+              spellcheck="false"
+              placeholder='Cole aqui o JSON gerado pelo robô, começando com { "origem": ... }'
+            ></textarea>
+          </label>
+        }
 
         @if (mensagem()) {
           <p class="mensagem-importacao" [class.sucesso]="tipoMensagem() === 'sucesso'" [class.erro]="tipoMensagem() === 'erro'">{{ mensagem() }}</p>
         }
 
         <div class="rodape-importacao">
-          <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
-            {{ importando() ? 'Importando...' : 'Importar para o catálogo' }}
-          </button>
+          @if (modoEntrada() === 'visual') {
+            <button class="botao primario" type="button" (click)="importarVisual()" [disabled]="importando()">
+              {{ importando() ? 'Cadastrando...' : 'Cadastrar no catálogo' }}
+            </button>
+          } @else {
+            <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
+              {{ importando() ? 'Importando...' : 'Importar para o catálogo' }}
+            </button>
+          }
         </div>
       </article>
 
@@ -419,6 +524,36 @@ import {
       gap: 18px;
     }
 
+    .modos-importacao {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .modos-importacao button {
+      display: grid;
+      gap: 4px;
+      padding: 14px;
+      text-align: left;
+      color: var(--texto);
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie);
+      cursor: pointer;
+    }
+
+    .modos-importacao button.ativo {
+      border-color: var(--primaria);
+      background: rgba(37, 99, 235, 0.1);
+      box-shadow: inset 0 0 0 1px var(--primaria);
+    }
+
+    .modos-importacao span {
+      color: var(--texto-suave);
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
     .acoes-importacao,
     .rodape-importacao {
       display: flex;
@@ -461,11 +596,6 @@ import {
       background: var(--superficie-suave);
     }
 
-    .editor-visual-importacao summary {
-      cursor: pointer;
-      font-weight: 850;
-    }
-
     .dica-importacao-colaborador {
       display: grid;
       gap: 6px;
@@ -506,6 +636,22 @@ import {
 
     .campo-largo {
       grid-column: 1 / -1;
+    }
+
+    .dados-avancados {
+      padding: 12px;
+      border: 1px dashed var(--borda);
+      border-radius: 8px;
+      background: var(--superficie);
+    }
+
+    .dados-avancados summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .dados-avancados[open] summary {
+      margin-bottom: 12px;
     }
 
     .edicoes-visuais,
@@ -687,6 +833,10 @@ import {
         grid-template-columns: 1fr;
       }
 
+      .modos-importacao {
+        grid-template-columns: 1fr;
+      }
+
       .campo-json textarea {
         min-height: 320px;
       }
@@ -702,6 +852,7 @@ export class ImportacaoPage {
   readonly importando = signal(false);
   readonly gerandoRascunho = signal(false);
   readonly nomeArquivo = signal('');
+  readonly modoEntrada = signal<'visual' | 'json'>('visual');
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
   readonly seriesCapa = signal<Serie[]>([]);
@@ -720,6 +871,20 @@ export class ImportacaoPage {
     volume: 1,
   };
   visualImportacao: any = this.modeloImportacao();
+
+  selecionarModo(modo: 'visual' | 'json') {
+    if (modo === this.modoEntrada()) {
+      return;
+    }
+
+    if (modo === 'json') {
+      this.atualizarJsonPeloVisual(false);
+    } else if (this.jsonTexto.trim()) {
+      this.carregarVisualDoJson(false);
+    }
+    this.modoEntrada.set(modo);
+    this.mensagem.set('');
+  }
 
   selecionarArquivo(evento: Event) {
     const input = evento.target as HTMLInputElement;
@@ -879,6 +1044,29 @@ export class ImportacaoPage {
     } finally {
       this.importando.set(false);
     }
+  }
+
+  importarVisual() {
+    this.atualizarJsonPeloVisual(false);
+    return this.importar();
+  }
+
+  baixarJsonVisual() {
+    this.atualizarJsonPeloVisual(false);
+    const titulo = String(this.visualImportacao?.serieBrasileira?.titulo || 'catalogo-hqhub')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+    const arquivo = new Blob([this.jsonTexto], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(arquivo);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${titulo || 'catalogo-hqhub'}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    this.mensagem.set('Cópia em JSON gerada a partir do formulário visual.');
   }
 
   private async executarBackfillCapasComicVine(
@@ -1136,10 +1324,12 @@ export class ImportacaoPage {
     this.atualizarTotaisVisuais();
   }
 
-  atualizarJsonPeloVisual() {
+  atualizarJsonPeloVisual(exibirMensagem = true) {
     this.atualizarTotaisVisuais();
     this.jsonTexto = JSON.stringify(this.visualImportacao, null, 2);
-    this.mensagem.set('JSON atualizado a partir do formulario visual.');
+    if (exibirMensagem) {
+      this.mensagem.set('JSON atualizado a partir do formulário visual.');
+    }
   }
 
   carregarVisualDoJson(exibirMensagem = true) {
@@ -1256,9 +1446,19 @@ export class ImportacaoPage {
         numeroOriginal: '',
         anoOriginal: null,
         texto: '',
+        idComicVine: '',
+        urlComicVine: '',
         urlOrigem: '',
         urlCapa: '',
         urlCompraAmazon: '',
+        precoCompraAmazon: null,
+        dataCapturacaoPrecoCompraAmazon: null,
+        titulo: '',
+        nomeVolume: '',
+        dataCapa: null,
+        dataVenda: null,
+        descricaoOriginal: '',
+        descricaoPortugues: '',
       },
     };
   }
