@@ -125,7 +125,6 @@ public class CompartilhamentoResource {
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
-                  <link rel="canonical" href="%s">
                   <script>window.location.replace(%s);</script>
                 </head>
                 <body>
@@ -144,7 +143,6 @@ public class CompartilhamentoResource {
                 escaparHtml(titulo),
                 escaparHtml(DESCRICAO_COMPARTILHAMENTO),
                 escaparHtml(imagem),
-                escaparHtml(appUrl),
                 literalJavascript(appUrl),
                 escaparHtml(titulo),
                 escaparHtml("Redirecionando para o HQ-HUB..."));
@@ -163,6 +161,7 @@ public class CompartilhamentoResource {
                 byte[] jpeg = converterParaJpeg(resposta.body());
                 return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
+                        .header("Content-Length", jpeg.length)
                         .build();
             }
         } catch (Exception ignored) {
