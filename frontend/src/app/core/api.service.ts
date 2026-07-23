@@ -44,6 +44,7 @@ import {
   ResultadoDeduplicacaoSeries,
   ResultadoPesquisaCatalogo,
   ResultadoImportacaoCatalogo,
+  ResultadoBackfillComicVine,
   ResultadoImportacaoCapas,
   RespostaAssistente,
   AssistenteFaqBase,
@@ -766,8 +767,23 @@ export class ApiService {
     return this.http.get<CruzamentoEdicao>('/api/cruzamentos-edicoes', { params });
   }
 
-  importarCatalogo(jsonImportacao: unknown) {
-    return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao);
+  importarCatalogo(jsonImportacao: unknown, publicarNovidade = true) {
+    const params = new HttpParams().set('publicarNovidade', String(publicarNovidade));
+    return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao, { params });
+  }
+
+  preencherCapasComicVineImportacao(serieBrasileiraId: number, aposId: number | null) {
+    let params = new HttpParams()
+      .set('limite', '1')
+      .set('serieBrasileiraId', String(serieBrasileiraId));
+    if (aposId) {
+      params = params.set('aposId', String(aposId));
+    }
+    return this.http.post<ResultadoBackfillComicVine>(
+      '/api/importacoes/catalogo/backfill/comic-vine/originais-guia',
+      {},
+      { params },
+    );
   }
 
   gerarRascunhoImportacao(dto: GeracaoRascunhoImportacao) {

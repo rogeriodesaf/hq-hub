@@ -16,6 +16,7 @@ import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.HistoriaImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.PublicacaoOriginalImportacaoDTO;
+import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.dto.SerieBrasileiraImportacaoDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
@@ -88,6 +89,11 @@ public class ImportacaoCatalogoService {
 
     @Transactional
     public ResultadoImportacaoCatalogoDTO importar(ImportacaoCatalogoDTO dto) {
+        return importar(dto, true);
+    }
+
+    @Transactional
+    public ResultadoImportacaoCatalogoDTO importar(ImportacaoCatalogoDTO dto, boolean publicarNovidade) {
         validar(dto);
 
         ContadoresImportacao contadores = new ContadoresImportacao();
@@ -103,7 +109,9 @@ public class ImportacaoCatalogoService {
             importarHistorias(edicaoBrasileira, edicaoDto, dto, contadores, avisos);
         }
 
-        publicarNovidadeNoFeed(serieBrasileira, dto, contadores, avisos);
+        if (publicarNovidade) {
+            publicarNovidadeNoFeed(serieBrasileira, dto, contadores, avisos);
+        }
 
         return new ResultadoImportacaoCatalogoDTO(
                 serieBrasileira.getId(),
@@ -120,32 +128,42 @@ public class ImportacaoCatalogoService {
     }
 
     @Transactional
-    public ResultadoImportacaoCatalogoDTO preencherComicVineEdicoesOriginaisGuia(Integer limite, String serie, String numero) {
-        int limiteTratado = limite == null || limite <= 0 ? 10 : Math.min(limite, 50);
+    public ResultadoBackfillComicVineDTO preencherComicVineEdicoesOriginaisGuia(
+            Integer limite,
+            String serie,
+            String numero,
+            Long serieBrasileiraId,
+            Long aposId) {
+        int limiteTratado = limite == null || limite <= 0 ? 1 : Math.min(limite, 5);
         List<Edicao> edicoes;
         try {
-            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(FONTE_GUIA_DOS_QUADRINHOS, limiteTratado, serie, numero);
+            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(
+                    FONTE_GUIA_DOS_QUADRINHOS,
+                    limiteTratado + 1,
+                    serie,
+                    numero,
+                    serieBrasileiraId,
+                    aposId);
         } catch (Throwable e) {
-            return new ResultadoImportacaoCatalogoDTO(
-                    null,
-                    "Backfill Comic Vine",
+            return new ResultadoBackfillComicVineDTO(
                     0,
                     0,
                     0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    List.of("Falha ao listar edicoes originais do Guia para backfill: "
+                    aposId,
+                    false,
+                    List.of("Falha ao listar edições originais do Guia para backfill: "
                             + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes")));
         }
 
+        boolean possuiMais = edicoes.size() > limiteTratado;
+        List<Edicao> lote = edicoes.stream().limit(limiteTratado).toList();
         int atualizadas = 0;
         int semCorrespondencia = 0;
         List<String> avisos = new ArrayList<>();
+        Long proximoCursor = aposId;
 
-        for (Edicao edicao : edicoes) {
+        for (Edicao edicao : lote) {
+            proximoCursor = edicao.getId();
             try {
                 if (enriquecerEdicaoOriginalComicVine(edicao)) {
                     atualizadas++;
@@ -161,22 +179,12 @@ public class ImportacaoCatalogoService {
             }
         }
 
-        if (semCorrespondencia > LIMITE_AVISOS_BACKFILL && !avisos.isEmpty()) {
-            avisos.set(avisos.size() - 1, "Outras " + (semCorrespondencia - avisos.size() + 1)
-                    + " edicoes ficaram sem correspondencia segura.");
-        }
-
-        return new ResultadoImportacaoCatalogoDTO(
-                null,
-                "Backfill Comic Vine",
-                0,
-                0,
-                0,
+        return new ResultadoBackfillComicVineDTO(
+                lote.size(),
                 atualizadas,
-                0,
-                0,
-                0,
                 semCorrespondencia,
+                proximoCursor,
+                possuiMais,
                 avisos);
     }
 
@@ -320,7 +328,6 @@ public class ImportacaoCatalogoService {
 
         if (existente.isPresent()) {
             atualizarDadosComicVineOriginal(existente.get(), dto);
-            enriquecerEdicaoOriginalComicVine(existente.get(), dto, editora.getNome());
             contadores.itensReaproveitados++;
             return existente.get();
         }
@@ -334,7 +341,6 @@ public class ImportacaoCatalogoService {
         edicao.setIdExterno(idExterno);
         edicao.setUrlOrigem(urlOrigem(importacao));
         atualizarDadosComicVineOriginal(edicao, dto);
-        enriquecerEdicaoOriginalComicVine(edicao, dto, editora.getNome());
         edicaoRepository.persist(edicao);
         contadores.edicoesCriadas++;
         return edicao;
@@ -423,31 +429,6 @@ public class ImportacaoCatalogoService {
             }
         }
 
-    }
-
-    private boolean enriquecerEdicaoOriginalComicVine(
-            Edicao edicao,
-            PublicacaoOriginalImportacaoDTO dto,
-            String editoraOriginal) {
-        if (temDadosComicVineCompletos(edicao)) {
-            return false;
-        }
-
-        try {
-            Optional<EdicaoComicVineRespostaDTO> encontrada = integracaoExternaService.resolverEdicaoComicVineOriginal(
-                    dto.serieOriginal(),
-                    dto.numeroOriginal(),
-                    dto.anoOriginal(),
-                    editoraOriginal);
-            if (encontrada.isEmpty()) {
-                return false;
-            }
-
-            aplicarDadosComicVineOriginal(edicao, encontrada.get());
-            return true;
-        } catch (Throwable e) {
-            return false;
-        }
     }
 
     private boolean enriquecerEdicaoOriginalComicVine(Edicao edicao) {

@@ -93,12 +93,19 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .firstResultOptional();
     }
 
-    public List<Edicao> listarOriginaisGuiaSemComicVine(String fonteExterna, int limite, String serie, String numero) {
+    public List<Edicao> listarOriginaisGuiaSemComicVine(
+            String fonteExterna,
+            int limite,
+            String serie,
+            String numero,
+            Long serieBrasileiraId,
+            Long aposId) {
         StringBuilder sql = new StringBuilder("""
                 select distinct e.*
                 from edicoes e
                 inner join publicacoes_historias p on p.edicao_original_id = e.id
                 inner join series s on s.id = e.serie_id
+                inner join edicoes eb on eb.id = p.edicao_publicada_id
                 where e.fonte_externa = :fonteExterna
                   and (
                     e.id_comic_vine is null or e.id_comic_vine = ''
@@ -106,6 +113,10 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                     or e.url_capa is null or e.url_capa = ''
                   )
                 """);
+
+        if (serieBrasileiraId != null) {
+            sql.append(" and eb.serie_id = :serieBrasileiraId");
+        }
 
         if (serie != null && !serie.isBlank()) {
             sql.append(" and lower(s.titulo) like :serie");
@@ -115,11 +126,19 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
             sql.append(" and lower(e.numero) = :numero");
         }
 
+        if (aposId != null && aposId > 0) {
+            sql.append(" and e.id > :aposId");
+        }
+
         sql.append(" order by e.id");
 
         var query = entityManager.createNativeQuery(sql.toString(), Edicao.class)
                 .setParameter("fonteExterna", fonteExterna)
                 .setMaxResults(limite);
+
+        if (serieBrasileiraId != null) {
+            query.setParameter("serieBrasileiraId", serieBrasileiraId);
+        }
 
         if (serie != null && !serie.isBlank()) {
             query.setParameter("serie", "%" + serie.trim().toLowerCase() + "%");
@@ -127,6 +146,10 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
 
         if (numero != null && !numero.isBlank()) {
             query.setParameter("numero", numero.trim().toLowerCase());
+        }
+
+        if (aposId != null && aposId > 0) {
+            query.setParameter("aposId", aposId);
         }
 
         return query.getResultList();

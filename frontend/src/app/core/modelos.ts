@@ -536,6 +536,15 @@ export interface ResultadoImportacaoCatalogo {
   avisos: string[];
 }
 
+export interface ResultadoBackfillComicVine {
+  processadas: number;
+  atualizadas: number;
+  semCorrespondencia: number;
+  proximoCursor: number | null;
+  possuiMais: boolean;
+  avisos: string[];
+}
+
 export interface GeracaoRascunhoImportacao {
   urlGuia: string;
   urlPaniniInicial: string | null;

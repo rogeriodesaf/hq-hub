@@ -7,6 +7,7 @@ import java.util.Set;
 
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
+import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
@@ -54,12 +55,15 @@ public class ImportacaoCatalogoResource {
     }
 
     @POST
-    public Response importar(@Valid ImportacaoCatalogoDTO dto) {
+    public Response importar(
+            @Valid ImportacaoCatalogoDTO dto,
+            @QueryParam("publicarNovidade") Boolean publicarNovidade) {
         RuntimeException ultimaFalha = null;
+        boolean devePublicarNovidade = publicarNovidade == null || publicarNovidade;
 
         for (int tentativa = 1; tentativa <= MAX_TENTATIVAS_IMPORTACAO; tentativa++) {
             try {
-                ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.importar(dto);
+                ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService.importar(dto, devePublicarNovidade);
                 return Response.ok(resultado).build();
             } catch (RuntimeException excecao) {
                 ultimaFalha = excecao;
@@ -93,27 +97,29 @@ public class ImportacaoCatalogoResource {
     public Response preencherComicVineEdicoesOriginaisGuia(
             @QueryParam("limite") Integer limite,
             @QueryParam("serie") String serie,
-            @QueryParam("numero") String numero) {
+            @QueryParam("numero") String numero,
+            @QueryParam("serieBrasileiraId") Long serieBrasileiraId,
+            @QueryParam("aposId") Long aposId) {
         if (!securityIdentity.hasRole("ADMINISTRADOR")) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
         try {
-            ResultadoImportacaoCatalogoDTO resultado = importacaoCatalogoService
-                    .preencherComicVineEdicoesOriginaisGuia(limite, serie, numero);
+            ResultadoBackfillComicVineDTO resultado = importacaoCatalogoService
+                    .preencherComicVineEdicoesOriginaisGuia(
+                            limite,
+                            serie,
+                            numero,
+                            serieBrasileiraId,
+                            aposId);
             return Response.ok(resultado).build();
         } catch (Throwable e) {
-            return Response.ok(new ResultadoImportacaoCatalogoDTO(
-                    null,
-                    "Backfill Comic Vine",
+            return Response.ok(new ResultadoBackfillComicVineDTO(
                     0,
                     0,
                     0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
+                    aposId,
+                    false,
                     List.of("Falha geral no backfill: " + e.getClass().getSimpleName() + " - " + e.getMessage())))
                     .build();
         }

@@ -2,9 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
-import { ResultadoImportacaoCatalogo, Serie } from '../../core/modelos';
+import {
+  ResultadoBackfillComicVine,
+  ResultadoImportacaoCatalogo,
+  Serie,
+} from '../../core/modelos';
 
 @Component({
   selector: 'app-importacao-page',
@@ -824,7 +829,7 @@ export class ImportacaoPage {
     });
   }
 
-  importar() {
+  async importar() {
     this.mensagem.set('');
     this.resultado.set(null);
 
@@ -845,18 +850,140 @@ export class ImportacaoPage {
     corpo = this.normalizarImportacao(corpo);
     this.jsonTexto = JSON.stringify(corpo, null, 2);
 
+    const lotes = this.criarLotesImportacao(corpo);
     this.importando.set(true);
-    this.api.importarCatalogo(corpo).subscribe({
-      next: (resultado) => {
-        this.resultado.set(resultado);
-        this.importando.set(false);
-        this.mensagem.set('Importacao feita com sucesso. A serie ja esta disponivel no catalogo.');
-      },
-      error: (erro) => {
-        this.importando.set(false);
-        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível importar o catálogo.');
-      },
-    });
+    let acumulado: ResultadoImportacaoCatalogo | null = null;
+    let loteAtual = 0;
+
+    try {
+      for (let indice = 0; indice < lotes.length; indice++) {
+        loteAtual = indice + 1;
+        this.mensagem.set(`Importando lote ${indice + 1} de ${lotes.length}...`);
+        const resultadoLote = await firstValueFrom(
+          this.api.importarCatalogo(lotes[indice], indice === lotes.length - 1),
+        );
+        acumulado = this.somarResultadosImportacao(acumulado, resultadoLote);
+        this.resultado.set(acumulado);
+      }
+
+      const resumoCapas = await this.executarBackfillCapasComicVine(acumulado);
+      this.mensagem.set(
+        `Importação feita com sucesso em ${lotes.length} lote(s). A série já está disponível no catálogo. ${resumoCapas}`,
+      );
+    } catch (erro: any) {
+      const concluidos = acumulado
+        ? 'Os lotes anteriores foram salvos e podem ser reenviados com segurança. '
+        : '';
+      const detalhe = erro?.error?.mensagem || 'Não foi possível importar o catálogo.';
+      this.mensagem.set(`Falha no lote ${loteAtual} de ${lotes.length}. ${concluidos}${detalhe}`);
+    } finally {
+      this.importando.set(false);
+    }
+  }
+
+  private async executarBackfillCapasComicVine(
+    resultadoImportacao: ResultadoImportacaoCatalogo | null,
+  ): Promise<string> {
+    if (!resultadoImportacao?.serieId) {
+      return 'O enriquecimento de capas ficou pendente porque a série não retornou um identificador.';
+    }
+
+    let cursor: number | null = null;
+    let processadas = 0;
+    let atualizadas = 0;
+    let semCorrespondencia = 0;
+    const avisos: string[] = [];
+
+    try {
+      do {
+        this.mensagem.set(
+          `Catálogo importado. Enriquecendo capas da Comic Vine: ${processadas} processada(s)...`,
+        );
+        const lote: ResultadoBackfillComicVine = await firstValueFrom(
+          this.api.preencherCapasComicVineImportacao(resultadoImportacao.serieId, cursor),
+        );
+        processadas += lote.processadas;
+        atualizadas += lote.atualizadas;
+        semCorrespondencia += lote.semCorrespondencia;
+        avisos.push(...(lote.avisos || []));
+        cursor = lote.proximoCursor;
+
+        if (!lote.possuiMais) {
+          break;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 250));
+      } while (processadas < 5000);
+
+      if (avisos.length) {
+        this.resultado.set({
+          ...resultadoImportacao,
+          avisos: [...(resultadoImportacao.avisos || []), ...avisos.slice(0, 50)],
+        });
+      }
+
+      return `Comic Vine: ${atualizadas} capa(s) atualizada(s) e ${semCorrespondencia} sem correspondência segura.`;
+    } catch (erro: any) {
+      if (erro?.status === 403) {
+        return 'As capas da Comic Vine ficaram pendentes porque o backfill exige perfil de administrador.';
+      }
+      const detalhe = erro?.error?.mensagem || 'falha temporária';
+      return `As capas da Comic Vine poderão ser retomadas depois (${detalhe}).`;
+    }
+  }
+
+  private criarLotesImportacao(corpo: any) {
+    const maximoHistoriasPorLote = 20;
+    const lotes: any[] = [];
+
+    for (const edicao of corpo.edicoes || []) {
+      const historias = Array.isArray(edicao.historias) ? edicao.historias : [];
+      const grupos = historias.length
+        ? Array.from(
+            { length: Math.ceil(historias.length / maximoHistoriasPorLote) },
+            (_, indice) =>
+              historias.slice(
+                indice * maximoHistoriasPorLote,
+                (indice + 1) * maximoHistoriasPorLote,
+              ),
+          )
+        : [[]];
+
+      for (const grupo of grupos) {
+        lotes.push({
+          ...corpo,
+          totalEdicoes: 1,
+          totalHistorias: grupo.length,
+          avisos: lotes.length === 0 ? corpo.avisos || [] : [],
+          edicoes: [{ ...edicao, historias: grupo }],
+        });
+      }
+    }
+
+    return lotes;
+  }
+
+  private somarResultadosImportacao(
+    acumulado: ResultadoImportacaoCatalogo | null,
+    atual: ResultadoImportacaoCatalogo,
+  ): ResultadoImportacaoCatalogo {
+    if (!acumulado) {
+      return { ...atual, avisos: [...(atual.avisos || [])] };
+    }
+
+    return {
+      serieId: acumulado.serieId || atual.serieId,
+      serieTitulo: acumulado.serieTitulo || atual.serieTitulo,
+      editorasCriadas: acumulado.editorasCriadas + atual.editorasCriadas,
+      seriesCriadas: acumulado.seriesCriadas + atual.seriesCriadas,
+      edicoesCriadas: acumulado.edicoesCriadas + atual.edicoesCriadas,
+      edicoesAtualizadas: acumulado.edicoesAtualizadas + atual.edicoesAtualizadas,
+      historiasCriadas: acumulado.historiasCriadas + atual.historiasCriadas,
+      conteudosCriados: acumulado.conteudosCriados + atual.conteudosCriados,
+      publicacoesCriadas: acumulado.publicacoesCriadas + atual.publicacoesCriadas,
+      itensReaproveitados: acumulado.itensReaproveitados + atual.itensReaproveitados,
+      avisos: [...(acumulado.avisos || []), ...(atual.avisos || [])],
+    };
   }
 
   aplicarCapaManual() {
