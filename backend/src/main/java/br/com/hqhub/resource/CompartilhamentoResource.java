@@ -1,11 +1,18 @@
 package br.com.hqhub.resource;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -77,9 +84,21 @@ public class CompartilhamentoResource {
 
     @GET
     @Path("/postagens/{id}/imagem")
-    @Produces({ "image/jpeg", "image/png", "image/webp", "image/gif" })
+    @Produces("image/jpeg")
     @Transactional
     public Response imagemPostagem(@PathParam("id") Long id) {
+        return buscarImagemPostagem(id);
+    }
+
+    @GET
+    @Path("/postagens/{id}/imagem.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemPostagemJpeg(@PathParam("id") Long id) {
+        return buscarImagemPostagem(id);
+    }
+
+    private Response buscarImagemPostagem(Long id) {
         return postagemRepository.findByIdOptional(id)
                 .map(this::responderImagem)
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
@@ -141,10 +160,8 @@ public class CompartilhamentoResource {
                     .build();
             HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
             if (resposta.statusCode() >= 200 && resposta.statusCode() < 300 && resposta.body().length > 0) {
-                String tipo = resposta.headers().firstValue("content-type")
-                        .filter(valor -> valor.toLowerCase().startsWith("image/"))
-                        .orElse(MediaType.APPLICATION_OCTET_STREAM);
-                return Response.ok(resposta.body(), tipo)
+                byte[] jpeg = converterParaJpeg(resposta.body());
+                return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
                         .build();
             }
@@ -153,6 +170,33 @@ public class CompartilhamentoResource {
         }
 
         return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
+    }
+
+    private byte[] converterParaJpeg(byte[] conteudo) throws Exception {
+        BufferedImage original;
+        try (ByteArrayInputStream entrada = new ByteArrayInputStream(conteudo)) {
+            original = ImageIO.read(entrada);
+        }
+        if (original == null) {
+            throw new IllegalArgumentException("Formato de imagem não reconhecido.");
+        }
+
+        BufferedImage rgb = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D grafico = rgb.createGraphics();
+        try {
+            grafico.setColor(Color.WHITE);
+            grafico.fillRect(0, 0, rgb.getWidth(), rgb.getHeight());
+            grafico.drawImage(original, 0, 0, null);
+        } finally {
+            grafico.dispose();
+        }
+
+        try (ByteArrayOutputStream saida = new ByteArrayOutputStream()) {
+            if (!ImageIO.write(rgb, "jpg", saida)) {
+                throw new IllegalStateException("Conversor JPEG indisponível.");
+            }
+            return saida.toByteArray();
+        }
     }
 
     private String htmlNaoEncontrado() {
@@ -203,7 +247,8 @@ public class CompartilhamentoResource {
     }
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
-        return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId() + "/imagem?v=" + versao(postagem);
+        return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
+                + "/imagem.jpg?v=2-" + versao(postagem);
     }
 
     private String primeiraUrlPublica(String... urls) {
