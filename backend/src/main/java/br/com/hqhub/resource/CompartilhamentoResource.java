@@ -20,6 +20,7 @@ import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -61,9 +62,13 @@ public class CompartilhamentoResource {
     @Path("/postagens/{id}")
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    public Response compartilharPostagem(@PathParam("id") Long id, @Context UriInfo uriInfo) {
+    public Response compartilharPostagem(
+            @PathParam("id") Long id,
+            @Context UriInfo uriInfo,
+            @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
         return postagemRepository.findByIdOptional(id)
-                .map(postagem -> Response.ok(htmlPostagem(postagem, origemRequisicao(uriInfo))).build())
+                .map(postagem -> Response.ok(
+                        htmlPostagem(postagem, origemRequisicao(uriInfo, protocoloEncaminhado))).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .entity(htmlNaoEncontrado())
                         .type(MediaType.TEXT_HTML)
@@ -253,13 +258,24 @@ public class CompartilhamentoResource {
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
 
-    private String origemRequisicao(UriInfo uriInfo) {
+    private String origemRequisicao(UriInfo uriInfo, String protocoloEncaminhado) {
         if (uriInfo == null || uriInfo.getBaseUri() == null) {
             return baseNormalizada();
         }
         URI base = uriInfo.getBaseUri();
-        String origem = base.getScheme() + "://" + base.getAuthority();
+        String protocolo = protocoloPublico(protocoloEncaminhado, base.getScheme());
+        String origem = protocolo + "://" + base.getAuthority();
         return origem.endsWith("/") ? origem.substring(0, origem.length() - 1) : origem;
+    }
+
+    private String protocoloPublico(String protocoloEncaminhado, String protocoloRequisicao) {
+        if (protocoloEncaminhado != null && !protocoloEncaminhado.isBlank()) {
+            String primeiro = protocoloEncaminhado.split(",", 2)[0].trim();
+            if ("http".equalsIgnoreCase(primeiro) || "https".equalsIgnoreCase(primeiro)) {
+                return primeiro.toLowerCase();
+            }
+        }
+        return protocoloRequisicao;
     }
 
     private String escaparHtml(String texto) {
