@@ -1018,16 +1018,17 @@ export class PainelPage implements OnInit {
   async compartilhar(postagem: PostagemFeed) {
     this.compartilhandoId.set(postagem.id);
     const url = this.urlPostagem(postagem);
-    const texto = this.textoCompartilhamento(postagem);
-    const titulo = `Postagem de ${postagem.usuario.nome} no HQ-HUB`;
+    const titulo = postagem.colecaoDestaque?.titulo
+      || postagem.catalogoDestaque?.titulo
+      || 'HQ-HUB';
 
     try {
       if (navigator.share) {
-        await navigator.share({ title: titulo, text: texto, url });
+        await navigator.share({ title: titulo, url });
         return;
       }
 
-      await this.copiarTexto(`${texto}\n${url}`);
+      await this.copiarTexto(url);
       this.mensagem.set('Link da postagem copiado. Agora e so colar no WhatsApp ou onde quiser.');
     } catch (erro) {
       if (erro instanceof DOMException && erro.name === 'AbortError') {
@@ -1168,15 +1169,6 @@ export class PainelPage implements OnInit {
     const url = new URL(`/api/compartilhar/postagens/${postagem.id}`, base);
     url.searchParams.set('v', String(new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id));
     return url.toString();
-  }
-
-  private textoCompartilhamento(postagem: PostagemFeed) {
-    const destaque = postagem.colecaoDestaque?.titulo || postagem.catalogoDestaque?.titulo;
-    return [
-      `${postagem.usuario.nome} publicou no HQ-HUB`,
-      postagem.conteudo,
-      destaque ? `Destaque: ${destaque}` : '',
-    ].filter(Boolean).join('\n');
   }
 
   private async copiarTexto(texto: string) {

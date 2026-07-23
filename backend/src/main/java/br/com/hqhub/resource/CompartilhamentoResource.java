@@ -16,7 +16,6 @@ import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
-import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
 import jakarta.transaction.Transactional;
@@ -33,10 +32,10 @@ import jakarta.ws.rs.core.Context;
 public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
+    private static final String DESCRICAO_COMPARTILHAMENTO = "Veja esta HQ no HQ-HUB.";
 
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
-    private final ItemColecaoRepository itemColecaoRepository;
     private final EdicaoRepository edicaoRepository;
     private final UrlPublicaService urlPublicaService;
     private final HttpClient httpClient = HttpClient.newBuilder()
@@ -50,12 +49,10 @@ public class CompartilhamentoResource {
     public CompartilhamentoResource(
             PostagemFeedRepository postagemRepository,
             ImagemPostagemFeedRepository imagemRepository,
-            ItemColecaoRepository itemColecaoRepository,
             EdicaoRepository edicaoRepository,
             UrlPublicaService urlPublicaService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
-        this.itemColecaoRepository = itemColecaoRepository;
         this.edicaoRepository = edicaoRepository;
         this.urlPublicaService = urlPublicaService;
     }
@@ -85,10 +82,8 @@ public class CompartilhamentoResource {
 
     private String htmlPostagem(PostagemFeed postagem, String origemCompartilhamento) {
         String appUrl = appUrl(postagem);
-        String titulo = titulo(postagem);
-        String descricao = descricao(postagem);
+        String titulo = tituloHq(postagem);
         String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
-        String urlCompartilhamento = origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId();
 
         return """
                 <!doctype html>
@@ -98,46 +93,37 @@ public class CompartilhamentoResource {
                   <meta name="viewport" content="width=device-width, initial-scale=1">
                   <title>%s</title>
                   <meta name="description" content="%s">
-                  <meta property="og:type" content="article">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:type" content="website">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:image" content="%s">
-                  <meta property="og:image:secure_url" content="%s">
-                  <meta property="og:image:width" content="1200">
-                  <meta property="og:image:height" content="630">
-                  <meta property="og:url" content="%s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
                   <link rel="canonical" href="%s">
+                  <script>window.location.replace(%s);</script>
                 </head>
                 <body>
                   <main>
                     <h1>%s</h1>
                     <p>%s</p>
-                    <p><a href="%s">Abrir no HQ-HUB</a></p>
                   </main>
-                  <script>window.location.replace(%s);</script>
                 </body>
                 </html>
                 """.formatted(
                 escaparHtml(titulo),
-                escaparHtml(descricao),
+                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
                 escaparHtml(titulo),
-                escaparHtml(descricao),
+                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
                 escaparHtml(imagem),
-                escaparHtml(imagem),
-                escaparHtml(urlCompartilhamento),
                 escaparHtml(titulo),
-                escaparHtml(descricao),
+                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
                 escaparHtml(imagem),
                 escaparHtml(appUrl),
+                literalJavascript(appUrl),
                 escaparHtml(titulo),
-                escaparHtml(descricao),
-                escaparHtml(appUrl),
-                literalJavascript(appUrl));
+                escaparHtml("Redirecionando para o HQ-HUB..."));
     }
 
     private Response responderImagem(PostagemFeed postagem) {
@@ -184,30 +170,15 @@ public class CompartilhamentoResource {
                 """.formatted(escaparHtml(urlAbsoluta(IMAGEM_PADRAO)), escaparHtml(appUrl));
     }
 
-    private String titulo(PostagemFeed postagem) {
-        String autor = postagem.getUsuario().getNome();
+    private String tituloHq(PostagemFeed postagem) {
         if (postagem.getItemColecao() != null) {
-            return autor + " adicionou " + tituloColecao(postagem.getItemColecao()) + " a colecao";
+            return tituloColecao(postagem.getItemColecao());
         }
         if (postagem.getSerieCatalogo() != null) {
-            return autor + " atualizou " + postagem.getSerieCatalogo().getTitulo() + " no catalogo";
+            String titulo = postagem.getSerieCatalogo().getTitulo();
+            return titulo == null || titulo.isBlank() ? "HQ-HUB" : titulo;
         }
-        return "Postagem de " + autor + " no HQ-HUB";
-    }
-
-    private String descricao(PostagemFeed postagem) {
-        if (postagem.getItemColecao() != null) {
-            ItemColecao item = postagem.getItemColecao();
-            Serie serie = item.getEdicao().getSerie();
-            long quantidade = itemColecaoRepository.contarPorUsuarioESerie(item.getUsuario().getId(), serie.getId());
-            return "%d edicao(oes) - %s".formatted(quantidade, serie.getEditora().getNome());
-        }
-        if (postagem.getSerieCatalogo() != null) {
-            Serie serie = postagem.getSerieCatalogo();
-            long quantidade = edicaoRepository.contarPorSerie(serie.getId());
-            return "%d edicao(oes) - %s".formatted(quantidade, serie.getEditora().getNome());
-        }
-        return resumir(postagem.getConteudo(), 180);
+        return "HQ-HUB";
     }
 
     private String imagem(PostagemFeed postagem) {
@@ -289,14 +260,6 @@ public class CompartilhamentoResource {
         URI base = uriInfo.getBaseUri();
         String origem = base.getScheme() + "://" + base.getAuthority();
         return origem.endsWith("/") ? origem.substring(0, origem.length() - 1) : origem;
-    }
-
-    private String resumir(String texto, int limite) {
-        if (texto == null || texto.isBlank()) {
-            return "Veja essa postagem no HQ-HUB.";
-        }
-        String limpo = texto.trim().replaceAll("\\s+", " ");
-        return limpo.length() <= limite ? limpo : limpo.substring(0, limite - 1) + "...";
     }
 
     private String escaparHtml(String texto) {
