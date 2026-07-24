@@ -249,11 +249,17 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
     }
 
     .perfil-identidade {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 116px minmax(0, 1fr);
       gap: 18px;
-      align-items: end;
+      align-items: start;
       padding: 0 20px 16px;
+    }
+
+    .perfil-identidade > .avatar-perfil,
+    .perfil-identidade > .avatar-editor {
       margin-top: -54px;
     }
 
@@ -311,6 +317,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       display: grid;
       gap: 6px;
       min-width: 0;
+      padding-top: 14px;
     }
 
     .perfil-identidade > div:last-child p:last-child {
@@ -505,6 +512,10 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       .perfil-identidade {
         grid-template-columns: 88px minmax(0, 1fr);
         gap: 14px;
+      }
+
+      .perfil-identidade > .avatar-perfil,
+      .perfil-identidade > .avatar-editor {
         margin-top: -42px;
       }
 
