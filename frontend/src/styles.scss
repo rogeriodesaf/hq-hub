@@ -1545,6 +1545,18 @@ body.tema-escuro .sugestoes-assistente {
   resize: vertical;
 }
 
+.campo-busca-serie-edicao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.campo-busca-serie-edicao .botao {
+  align-self: stretch;
+  white-space: nowrap;
+}
+
 .acoes-formulario {
   display: flex;
   flex-wrap: wrap;

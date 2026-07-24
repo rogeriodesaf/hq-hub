@@ -423,6 +423,32 @@ import {
             <section class="painel-formulario editor-edicao-detalhe">
               <h2>Dados editoriais da edicao</h2>
               <div class="grade-formulario">
+                <label class="campo-largo">
+                  Serie
+                  <div class="campo-busca-serie-edicao">
+                    <input
+                      [(ngModel)]="buscaSerieEdicao"
+                      name="buscaSerieEdicaoCatalogo"
+                      placeholder="Ex.: Saga do Batman"
+                      (keyup.enter)="buscarSeriesParaEdicao()"
+                    />
+                    <button
+                      class="botao secundario compacto"
+                      type="button"
+                      (click)="buscarSeriesParaEdicao()"
+                      [disabled]="carregandoSeriesEdicao()"
+                    >
+                      {{ carregandoSeriesEdicao() ? 'Buscando...' : 'Buscar serie' }}
+                    </button>
+                  </div>
+                  <select [(ngModel)]="formularioEdicao.serieId" name="serieEdicaoCatalogo" required>
+                    @for (serie of seriesParaEdicao(); track serie.id) {
+                      <option [ngValue]="serie.id">
+                        {{ serie.titulo }} · volume {{ serie.volume || '-' }} · {{ serie.editora?.nome || 'Sem editora' }} (ID {{ serie.id }})
+                      </option>
+                    }
+                  </select>
+                </label>
                 <label>
                   Numero
                   <input [(ngModel)]="formularioEdicao.numero" name="numeroEdicaoCatalogo" required />
@@ -792,6 +818,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly carregandoSeriesEdicao = signal(false);
+  readonly seriesParaEdicao = signal<Serie[]>([]);
   readonly salvandoVinculoOriginal = signal(false);
   readonly buscandoOriginaisVinculo = signal(false);
   readonly resultadosOriginaisVinculo = signal<ResultadoPesquisaCatalogo[]>([]);
@@ -812,6 +840,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly serieEmEdicao = signal<Serie | null>(null);
   busca = '';
   buscaSeries = '';
+  buscaSerieEdicao = '';
   urlCapaEnvio = '';
   arquivoCapaSelecionado: File | null = null;
   formularioEdicao = this.formularioEdicaoVazio();
@@ -1626,22 +1655,75 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     this.formularioEdicao = this.formularioAPartirDaEdicao(edicao);
     this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(this.linksDetalhe());
+    this.buscaSerieEdicao = this.termoBuscaSerieRelacionada(edicao.serie?.titulo || '');
+    this.seriesParaEdicao.set(edicao.serie ? [{
+      id: edicao.serie.id,
+      titulo: edicao.serie.titulo,
+      descricao: null,
+      anoInicio: null,
+      anoFim: null,
+      volume: edicao.serie.volume,
+      ordemCronologica: null,
+      fonteExterna: null,
+      idExterno: null,
+      urlOrigem: null,
+      editora: edicao.serie.editora,
+    }] : []);
     this.editandoDetalhe.set(true);
+    this.buscarSeriesParaEdicao();
   }
 
   cancelarEdicaoDetalhe() {
     const edicao = this.edicaoDetalhe();
     this.formularioEdicao = edicao ? this.formularioAPartirDaEdicao(edicao) : this.formularioEdicaoVazio();
     this.formularioEdicao.urlCompraAmazon = this.primeiroLinkAmazon(this.linksDetalhe());
+    this.seriesParaEdicao.set([]);
+    this.buscaSerieEdicao = '';
     this.editandoDetalhe.set(false);
+  }
+
+  buscarSeriesParaEdicao() {
+    const edicao = this.edicaoDetalhe();
+    const busca = this.buscaSerieEdicao.trim();
+    if (!edicao || !busca || this.carregandoSeriesEdicao()) {
+      return;
+    }
+
+    this.carregandoSeriesEdicao.set(true);
+    this.api.listarSeries(busca, 0, 50).subscribe({
+      next: (pagina) => {
+        const atual = edicao.serie;
+        const candidatas = atual && !pagina.itens.some((serie) => serie.id === atual.id)
+          ? [{
+              id: atual.id,
+              titulo: atual.titulo,
+              descricao: null,
+              anoInicio: null,
+              anoFim: null,
+              volume: atual.volume,
+              ordemCronologica: null,
+              fonteExterna: null,
+              idExterno: null,
+              urlOrigem: null,
+              editora: atual.editora,
+            }, ...pagina.itens]
+          : pagina.itens;
+        this.seriesParaEdicao.set(candidatas);
+        this.carregandoSeriesEdicao.set(false);
+      },
+      error: () => {
+        this.carregandoSeriesEdicao.set(false);
+        this.mensagem.set('Nao foi possivel buscar as series.');
+      },
+    });
   }
 
   salvarEdicaoDetalhe() {
     const edicao = this.edicaoDetalhe();
     const numero = this.formularioEdicao.numero.trim();
-    const serieId = edicao?.serie?.id;
+    const serieId = Number(this.formularioEdicao.serieId);
     if (!edicao || !serieId) {
-      this.mensagem.set('Nao foi possivel identificar a serie desta edicao.');
+      this.mensagem.set('Selecione a serie desta edicao.');
       return;
     }
 
@@ -2093,6 +2175,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private formularioEdicaoVazio() {
     return {
+      serieId: null as number | null,
       numero: '',
       titulo: '',
       descricao: '',
@@ -2139,6 +2222,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private formularioAPartirDaEdicao(edicao: Edicao) {
     return {
+      serieId: edicao.serie?.id || null,
       numero: edicao.numero || '',
       titulo: edicao.titulo || '',
       descricao: edicao.descricao || edicao.descricaoExibicao || '',
@@ -2151,6 +2235,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
       formato: edicao.formato || '',
       urlOrigem: edicao.urlOrigem || edicao.urlComicVine || '',
     };
+  }
+
+  private termoBuscaSerieRelacionada(titulo: string) {
+    return titulo
+      .replace(/\b\d+\s*[ªºa]?\s*(?:temporada|serie|série)\b/giu, '')
+      .replace(/\s{2,}/g, ' ')
+      .replace(/[,\s]+$/g, '')
+      .trim() || titulo;
   }
 
   private primeiroLinkAmazon(links: LinkEdicao[]) {
