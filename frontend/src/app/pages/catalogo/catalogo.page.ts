@@ -3,6 +3,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, effect, 
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { LucideBookOpen, LucideSearch } from '@lucide/angular';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -23,12 +24,12 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LucideBookOpen, LucideSearch],
   template: `
-    <section class="cabecalho-pagina">
+    <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
         <p class="rotulo">Catálogo</p>
-        <h1>Busque no acervo interno e também em fontes externas.</h1>
+        <h1>Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.</h1>
       </div>
     </section>
 
@@ -40,33 +41,41 @@ import {
     }
 
     <section class="catalogo-layout">
-      <article class="bloco">
+      <article class="bloco catalogo-bloco-series">
         <div class="secao-titulo">
           <div>
             <h2>Séries internas</h2>
-            <p class="texto-suave">Acervo já cadastrado no HQ-HUB.</p>
+            <p class="texto-suave">Pesquise primeiro no acervo do HQ-HUB. Se não encontrarmos, a busca poderá continuar na Comic Vine.</p>
           </div>
           @if (seriesConsultadas()) {
-            <span>{{ series().totalItens }} itens</span>
+            <span>{{ series().totalItens === 1 ? '1 série' : series().totalItens + ' séries' }}</span>
           }
         </div>
 
         <div class="controles-series">
-          <input
-            [(ngModel)]="buscaSeries"
-            placeholder="Filtrar séries internas"
-            (keyup.enter)="buscarSeriesInternas()"
-          />
-          <button class="botao primario compacto" type="button" (click)="buscarSeriesInternas()">
+          <label class="campo-busca-catalogo">
+            <span class="sr-only">Pesquisar quadrinhos</span>
+            <svg lucideSearch size="19" aria-hidden="true"></svg>
+            <input
+              [(ngModel)]="buscaSeries"
+              placeholder="Pesquise Batman, X-Men, Spawn..."
+              (keyup.enter)="buscarCatalogoCompleto()"
+            />
+          </label>
+          <button class="botao primario compacto botao-busca-catalogo" type="button" (click)="buscarCatalogoCompleto()" aria-label="Buscar no catálogo">
+            <svg lucideSearch size="18" aria-hidden="true"></svg>
             Buscar
           </button>
-          <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
-            <button type="button" [class.ativo]="inicialSeries() === '' && seriesConsultadas()" (click)="alterarInicialSeries('')">Todas</button>
-            @for (letra of letrasIndice; track letra) {
-              <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)">
-                {{ letra }}
-              </button>
-            }
+          <div class="filtro-alfabetico-catalogo">
+            <span class="rotulo-indice">Filtrar por letra</span>
+            <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
+              <button type="button" [class.ativo]="inicialSeries() === '' && seriesConsultadas()" (click)="alterarInicialSeries('')" aria-label="Mostrar todas as letras">Todas</button>
+              @for (letra of letrasIndice; track letra) {
+                <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)" [attr.aria-label]="'Filtrar séries pela letra ' + letra">
+                  {{ letra }}
+                </button>
+              }
+            </div>
           </div>
         </div>
 
@@ -133,7 +142,7 @@ import {
             <h2>Resultados da busca</h2>
             <p class="texto-suave">Clique em uma edição interna para ver capa, histórias e publicações originais.</p>
           </div>
-          <span>{{ resultadosCatalogo().totalItens }} itens</span>
+          <span>{{ rotuloContadorResultados() }}</span>
         </div>
 
         <div class="grade-mini-capas">
@@ -176,9 +185,21 @@ import {
               }
             </article>
           } @empty {
-            <section class="estado-vazio compacto">
-              <h2>Nenhuma edição encontrada</h2>
-              <p>Digite um termo para buscar no HQ-HUB e na Comic Vine.</p>
+            <section class="estado-vazio estado-vazio-catalogo">
+              @if (resultadosConsultados()) {
+                <svg lucideSearch size="34" aria-hidden="true"></svg>
+                <h2>Nenhuma edição encontrada</h2>
+                <p>Tente outro termo, verifique a grafia ou escolha uma letra diferente.</p>
+              } @else {
+                <svg lucideBookOpen size="34" aria-hidden="true"></svg>
+                <h2>Encontre sua próxima leitura</h2>
+                <p>Digite o nome de uma série, personagem ou editora, ou escolha uma letra acima.</p>
+                <div class="sugestoes-catalogo" aria-label="Sugestões rápidas de pesquisa">
+                  @for (sugestao of sugestoesPesquisa; track sugestao) {
+                    <button type="button" (click)="buscarSugestao(sugestao)">{{ sugestao }}</button>
+                  }
+                </div>
+              }
             </section>
           }
         </div>
@@ -883,6 +904,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private readonly sanitizador = inject(DomSanitizer);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly letrasIndice = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  readonly sugestoesPesquisa = ['Batman', 'Homem-Aranha', 'X-Men', 'Superman', 'Spawn'];
   readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly podeExcluirCatalogo = this.autenticacao.ehAdministrador;
   readonly editoras = signal<EditoraResumo[]>([]);
@@ -928,6 +950,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly salvandoItemColecao = signal<number | null>(null);
   readonly resultadoParaEstante = signal<ResultadoPesquisaCatalogo | null>(null);
   readonly seriesConsultadas = signal(false);
+  readonly resultadosConsultados = signal(false);
   readonly previewCapaSelecionada = signal<string | null>(null);
   readonly urlsCapasPublicacoes = signal<Record<number, string>>({});
   readonly mensagem = signal('');
@@ -999,6 +1022,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.busca = '';
     this.seriesConsultadas.set(false);
     this.carregandoResultados.set(true);
+    this.resultadosConsultados.set(true);
     this.mensagem.set('Carregando edicoes da serie importada...');
 
     this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId).subscribe({
@@ -1097,6 +1121,29 @@ export class CatalogoPage implements OnInit, OnDestroy {
   buscarSeriesInternas() {
     this.serieSelecionada.set(null);
     this.carregarSeriesInternas(0);
+  }
+
+  buscarCatalogoCompleto() {
+    const termo = this.buscaSeries.trim();
+    this.buscarSeriesInternas();
+    if (!termo) {
+      return;
+    }
+    this.busca = termo;
+    this.carregar();
+  }
+
+  buscarSugestao(termo: string) {
+    this.buscaSeries = termo;
+    this.buscarCatalogoCompleto();
+  }
+
+  rotuloContadorResultados() {
+    const total = this.resultadosCatalogo().totalItens;
+    if (total === 1) {
+      return '1 edição encontrada';
+    }
+    return total > 1 ? `${total} edições encontradas` : 'Nenhuma edição encontrada';
   }
 
   private formularioSerieEdicaoVazio() {
@@ -2377,6 +2424,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
 
+    this.resultadosConsultados.set(true);
     this.carregandoResultados.set(true);
     this.mensagem.set('Pesquisando catálogo...');
 

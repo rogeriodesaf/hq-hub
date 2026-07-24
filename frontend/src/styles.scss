@@ -499,6 +499,16 @@ img {
   gap: 7px;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .amazon-preco {
   color: #1f7a4d;
   font-weight: 800;
@@ -1364,6 +1374,45 @@ body.tema-escuro .sugestoes-assistente {
   margin-bottom: 14px;
 }
 
+.campo-busca-catalogo {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo-busca-catalogo > svg {
+  position: absolute;
+  left: 13px;
+  z-index: 1;
+  color: var(--texto-suave);
+  pointer-events: none;
+}
+
+.campo-busca-catalogo input {
+  width: 100%;
+  padding-left: 42px;
+}
+
+.botao-busca-catalogo {
+  gap: 7px;
+}
+
+.filtro-alfabetico-catalogo {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 7px;
+}
+
+.rotulo-indice {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.filtro-alfabetico-catalogo .indice-alfabetico {
+  grid-column: auto;
+}
+
 .indice-alfabetico {
   display: flex;
   flex-wrap: wrap;
@@ -1386,6 +1435,62 @@ body.tema-escuro .sugestoes-assistente {
 .indice-alfabetico button:hover {
   border-color: var(--azul);
   color: var(--azul);
+}
+
+.indice-alfabetico button.ativo {
+  border-color: var(--marca);
+  background: var(--marca);
+  color: #15191f;
+}
+
+.estado-vazio-catalogo {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 230px;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.estado-vazio-catalogo > svg {
+  color: var(--marca-escura);
+}
+
+.estado-vazio-catalogo h2,
+.estado-vazio-catalogo p {
+  margin: 0;
+}
+
+.estado-vazio-catalogo p {
+  max-width: 560px;
+  color: var(--texto-suave);
+  line-height: 1.5;
+}
+
+.sugestoes-catalogo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.sugestoes-catalogo button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto);
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.sugestoes-catalogo button:hover,
+.sugestoes-catalogo button:focus-visible {
+  border-color: var(--marca);
+  background: var(--marca-suave);
 }
 
 .grade-edicoes {
@@ -3623,5 +3728,179 @@ body.tema-escuro .banner-apoio span {
   .linha-info {
     display: grid;
     gap: 2px;
+  }
+}
+
+@media (max-width: 620px) {
+  .app-shell:has(app-catalogo-page) .barra-lateral {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    min-height: 58px;
+    height: auto;
+    padding: calc(7px + env(safe-area-inset-top, 0px)) 12px 7px;
+    gap: 0;
+  }
+
+  .app-shell:has(app-catalogo-page) .marca {
+    min-height: 42px;
+    gap: 9px;
+  }
+
+  .app-shell:has(app-catalogo-page) .marca img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .app-shell:has(app-catalogo-page) .marca strong {
+    font-size: 0.96rem;
+  }
+
+  .app-shell:has(app-catalogo-page) .atalhos-superiores {
+    position: fixed;
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    right: 12px;
+    z-index: 41;
+    margin: 0;
+    gap: 5px;
+  }
+
+  .app-shell:has(app-catalogo-page) .atalho-tema {
+    position: static;
+  }
+
+  .app-shell:has(app-catalogo-page) .conteudo-app {
+    padding-top: 12px;
+    padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
+    overflow-x: clip;
+  }
+
+  .catalogo-cabecalho {
+    margin-bottom: 12px;
+    gap: 6px;
+  }
+
+  .catalogo-cabecalho .rotulo {
+    margin-bottom: 4px;
+  }
+
+  .catalogo-cabecalho h1 {
+    max-width: 100%;
+    font-size: clamp(1.45rem, 7vw, 1.75rem);
+    line-height: 1.08;
+  }
+
+  .catalogo-layout {
+    gap: 12px;
+  }
+
+  .catalogo-bloco-series,
+  .resultados-catalogo-bloco {
+    padding: 13px;
+  }
+
+  .catalogo-bloco-series .secao-titulo,
+  .resultados-catalogo-bloco .secao-titulo {
+    gap: 8px;
+  }
+
+  .catalogo-bloco-series .secao-titulo > span,
+  .resultados-catalogo-bloco .secao-titulo > span {
+    align-self: start;
+  }
+
+  .controles-series {
+    gap: 9px;
+    margin-bottom: 10px;
+  }
+
+  .campo-busca-catalogo,
+  .botao-busca-catalogo {
+    width: 100%;
+  }
+
+  .filtro-alfabetico-catalogo {
+    gap: 6px;
+  }
+
+  .filtro-alfabetico-catalogo .indice-alfabetico {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+    gap: 5px;
+    width: 100%;
+  }
+
+  .filtro-alfabetico-catalogo .indice-alfabetico button {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .filtro-alfabetico-catalogo .indice-alfabetico button:first-child {
+    grid-column: span 2;
+    aspect-ratio: auto;
+  }
+
+  .grade-mini-capas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .estado-vazio-catalogo {
+    min-height: 250px;
+    padding: 24px 14px;
+  }
+
+  .sugestoes-catalogo {
+    gap: 6px;
+  }
+
+  .sugestoes-catalogo button {
+    min-height: 38px;
+    padding-inline: 11px;
+  }
+
+  .app-shell:has(app-catalogo-page) .navegacao-mobile {
+    bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .app-shell:has(app-catalogo-page) .navegacao-mobile a[href="/catalogo"].ativo {
+    background: var(--marca);
+    color: #15191f;
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.28);
+  }
+}
+
+@media (max-width: 360px) {
+  .app-shell:has(app-catalogo-page) .atalhos-superiores .atalho-superior {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+  }
+
+  .catalogo-bloco-series,
+  .resultados-catalogo-bloco {
+    padding: 11px;
+  }
+
+  .filtro-alfabetico-catalogo .indice-alfabetico {
+    grid-template-columns: repeat(auto-fit, minmax(34px, 1fr));
+  }
+
+  .grade-mini-capas {
+    gap: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell:has(app-catalogo-page) *,
+  .app-shell:has(app-catalogo-page) *::before,
+  .app-shell:has(app-catalogo-page) *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
