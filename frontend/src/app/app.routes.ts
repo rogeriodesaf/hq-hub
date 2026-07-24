@@ -13,6 +13,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/estante-publica/estante-publica.page').then((m) => m.EstantePublicaPage),
   },
   {
+    path: 'compartilhar-estante/:id',
+    loadComponent: () => import('./pages/estante-publica/estante-publica.page').then((m) => m.EstantePublicaPage),
+  },
+  {
     path: '',
     canActivate: [autenticadoGuard],
     children: [
