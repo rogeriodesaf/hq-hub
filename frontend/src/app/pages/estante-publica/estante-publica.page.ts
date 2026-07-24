@@ -124,7 +124,8 @@ export class EstantePublicaPage implements OnInit {
   }
 
   async copiarLink() {
-    await navigator.clipboard.writeText(window.location.href);
+    const link = `${window.location.origin}${window.location.pathname}?previa=2`;
+    await navigator.clipboard.writeText(link);
     this.mensagem.set('Link copiado.');
   }
 

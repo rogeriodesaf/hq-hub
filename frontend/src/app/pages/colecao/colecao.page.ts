@@ -678,7 +678,7 @@ export class ColecaoPage implements OnInit {
   async copiarLinkEstantePublica() {
     const usuarioId = this.autenticacao.usuario()?.id;
     if (!usuarioId) return;
-    const link = `${window.location.origin}/estante-publica/${usuarioId}`;
+    const link = `${window.location.origin}/estante-publica/${usuarioId}?previa=2`;
     try {
       await navigator.clipboard.writeText(link);
       this.mensagem.set('Link público da estante copiado.');
