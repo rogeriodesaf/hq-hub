@@ -15,6 +15,7 @@ import {
   LucideSearch,
   LucideShoppingBag,
   LucideSun,
+  LucideUserRound,
   LucideUsers,
   LucideTv,
 } from '@lucide/angular';
@@ -46,6 +47,7 @@ import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
     LucideSearch,
     LucideShoppingBag,
     LucideSun,
+    LucideUserRound,
     LucideUsers,
     LucideTv,
   ],

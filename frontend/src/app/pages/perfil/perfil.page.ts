@@ -534,6 +534,36 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
         position: static;
       }
     }
+
+    @media (max-width: 720px) {
+      .perfil-capa {
+        min-height: 150px;
+      }
+
+      .perfil-identidade {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-inline: 16px;
+      }
+
+      .perfil-identidade > .avatar-perfil,
+      .perfil-identidade > .avatar-editor {
+        justify-self: start;
+        margin-top: -42px;
+        margin-bottom: 6px;
+      }
+
+      .perfil-identidade > div:last-child {
+        width: 100%;
+        padding-top: 0;
+      }
+
+      .perfil-identidade h1 {
+        font-size: 1.75rem;
+        line-height: 1.12;
+        overflow-wrap: anywhere;
+      }
+    }
   `,
 })
 export class PerfilPage implements OnInit {
