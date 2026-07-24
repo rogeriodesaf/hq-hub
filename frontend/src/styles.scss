@@ -1452,11 +1452,11 @@ body.tema-escuro .sugestoes-assistente {
 }
 
 .detalhe-painel-catalogo {
-  width: min(1180px, calc(100vw - 24px));
+  width: min(1080px, calc(100vw - 24px));
 }
 
 .detalhe-painel-catalogo > .detalhe-cabecalho {
-  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
   gap: clamp(22px, 3vw, 40px);
 }
 
@@ -3510,9 +3510,9 @@ body.tema-escuro .banner-apoio span {
   }
 
   .detalhe-painel-catalogo > .detalhe-cabecalho > img {
-    width: min(320px, 82vw);
+    width: min(280px, 78vw);
     max-width: none;
-    max-height: 62vh;
+    max-height: 56vh;
     justify-self: center;
   }
 
