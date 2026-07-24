@@ -232,7 +232,7 @@ export class AnunciosPage implements OnInit {
   }
 
   async copiarLinkPublico() {
-    const link = `${window.location.origin}/classificados-compartilhar`;
+    const link = `${window.location.origin}/classificados-compartilhar.html`;
     try {
       await navigator.clipboard.writeText(link);
       this.mensagemCompartilhamento.set('Link público dos anúncios copiado.');
