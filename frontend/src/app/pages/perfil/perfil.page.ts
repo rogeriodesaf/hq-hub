@@ -19,8 +19,10 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
           <div
             class="perfil-capa"
             [class.com-imagem]="usuarioVisualizacao()?.capaPerfilUrl"
-            [style.background-image]="usuarioVisualizacao()?.capaPerfilUrl ? 'linear-gradient(180deg, rgba(10, 14, 20, .08), rgba(10, 14, 20, .3)), url(' + resolverUrlMidia(usuarioVisualizacao()?.capaPerfilUrl) + ')' : null"
           >
+            @if (usuarioVisualizacao()?.capaPerfilUrl) {
+              <img class="imagem-capa" [src]="resolverUrlMidia(usuarioVisualizacao()?.capaPerfilUrl)" alt="" />
+            }
             @if (modo() === 'edicao') {
               <label class="trocar-capa" [class.carregando]="salvandoCapa()">
                 {{ salvandoCapa() ? 'Enviando...' : 'Alterar imagem de capa' }}
@@ -212,8 +214,23 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
     }
 
     .perfil-capa.com-imagem {
-      background-position: center;
-      background-size: cover;
+      background: #15191f;
+    }
+
+    .imagem-capa {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .perfil-capa.com-imagem::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 14, 20, 0.04), rgba(10, 14, 20, 0.24));
+      pointer-events: none;
     }
 
     .trocar-capa {
@@ -228,6 +245,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       font-size: 0.78rem;
       font-weight: 850;
       backdrop-filter: blur(8px);
+      z-index: 2;
     }
 
     .trocar-capa input,
@@ -241,7 +259,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       opacity: 0.72;
     }
 
-    :host-context(body.tema-escuro) .perfil-capa {
+    :host-context(body.tema-escuro) .perfil-capa:not(.com-imagem) {
       background:
         linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 138, 31, 0.22)),
         radial-gradient(circle at 24% 24%, rgba(255, 255, 255, 0.14), transparent 18%),
@@ -535,35 +553,6 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       }
     }
 
-    @media (max-width: 720px) {
-      .perfil-capa {
-        min-height: 150px;
-      }
-
-      .perfil-identidade {
-        grid-template-columns: 1fr;
-        gap: 0;
-        padding-inline: 16px;
-      }
-
-      .perfil-identidade > .avatar-perfil,
-      .perfil-identidade > .avatar-editor {
-        justify-self: start;
-        margin-top: -42px;
-        margin-bottom: 6px;
-      }
-
-      .perfil-identidade > div:last-child {
-        width: 100%;
-        padding-top: 0;
-      }
-
-      .perfil-identidade h1 {
-        font-size: 1.75rem;
-        line-height: 1.12;
-        overflow-wrap: anywhere;
-      }
-    }
   `,
 })
 export class PerfilPage implements OnInit {
