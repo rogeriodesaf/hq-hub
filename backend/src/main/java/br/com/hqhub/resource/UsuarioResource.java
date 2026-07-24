@@ -93,6 +93,18 @@ public class UsuarioResource {
         return Response.ok(usuarioService.atualizarFotoPerfil(imagens.get(0))).build();
     }
 
+    @POST
+    @Path("/me/capa")
+    @Authenticated
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response atualizarCapaPerfil(@RestForm("capa") FileUpload capa) {
+        List<ImagemFeedDTO> imagens = feedMidiaService.salvarImagens(capa == null ? List.of() : List.of(capa));
+        if (imagens.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Informe uma imagem de capa.").build();
+        }
+        return Response.ok(usuarioService.atualizarCapaPerfil(imagens.get(0))).build();
+    }
+
     @GET
     @Path("/{id}")
     @Authenticated

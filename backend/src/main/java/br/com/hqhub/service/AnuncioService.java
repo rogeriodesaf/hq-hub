@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import br.com.hqhub.dto.AnuncioRespostaDTO;
+import br.com.hqhub.dto.AnuncioPublicoDTO;
 import br.com.hqhub.dto.AtualizacaoAnuncioDTO;
 import br.com.hqhub.dto.CadastroAnuncioDTO;
 import br.com.hqhub.dto.CadastroFotoAnuncioDTO;
@@ -84,6 +85,29 @@ public class AnuncioService {
         return anuncioRepository.listarAtivos()
                 .stream()
                 .map(anuncioMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
+    public List<AnuncioPublicoDTO> listarAtivosPublicos() {
+        return anuncioRepository.listarAtivos()
+                .stream()
+                .map(anuncio -> {
+                    AnuncioRespostaDTO resposta = anuncioMapper.paraResposta(anuncio);
+                    return new AnuncioPublicoDTO(
+                            resposta.id(),
+                            resposta.tituloEdicao(),
+                            resposta.itemColecao().edicao().urlCapa(),
+                            resposta.nomeAnunciante(),
+                            resposta.tipoAnuncio(),
+                            resposta.preco(),
+                            resposta.estadoConservacao(),
+                            resposta.descricao(),
+                            resposta.cidade(),
+                            resposta.estado(),
+                            resposta.linkContatoWhatsapp(),
+                            resposta.dataCriacao());
+                })
                 .toList();
     }
 

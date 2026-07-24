@@ -32,6 +32,7 @@ public class UsuarioMapper {
                 usuario.getBio(),
                 urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilUrl()),
                 urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilThumbnailUrl()),
+                urlPublicaService.normalizarApiUrl(usuario.getCapaPerfilUrl()),
                 usuario.getDataCriacao(),
                 usuario.getDataAtualizacao());
     }

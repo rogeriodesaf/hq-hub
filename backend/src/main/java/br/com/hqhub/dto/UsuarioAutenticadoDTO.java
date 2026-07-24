@@ -8,6 +8,7 @@ public record UsuarioAutenticadoDTO(
         String bio,
         String fotoPerfilUrl,
         String fotoPerfilThumbnailUrl,
+        String capaPerfilUrl,
         String token,
         String tipoToken,
         long expiraEm,

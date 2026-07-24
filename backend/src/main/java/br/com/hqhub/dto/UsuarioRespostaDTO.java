@@ -10,6 +10,7 @@ public record UsuarioRespostaDTO(
         String bio,
         String fotoPerfilUrl,
         String fotoPerfilThumbnailUrl,
+        String capaPerfilUrl,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao) {
 }

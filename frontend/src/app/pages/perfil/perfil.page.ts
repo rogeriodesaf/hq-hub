@@ -16,16 +16,29 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
     <section class="perfil-layout">
       <article class="perfil-principal">
         <section class="perfil-hero">
-          <div class="perfil-capa"></div>
+          <div
+            class="perfil-capa"
+            [class.com-imagem]="usuarioVisualizacao()?.capaPerfilUrl"
+            [style.background-image]="usuarioVisualizacao()?.capaPerfilUrl ? 'linear-gradient(180deg, rgba(10, 14, 20, .08), rgba(10, 14, 20, .3)), url(' + resolverUrlMidia(usuarioVisualizacao()?.capaPerfilUrl) + ')' : null"
+          >
+            @if (modo() === 'edicao') {
+              <label class="trocar-capa" [class.carregando]="salvandoCapa()">
+                {{ salvandoCapa() ? 'Enviando...' : 'Alterar imagem de capa' }}
+                <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarCapaPerfil($event)" />
+              </label>
+            }
+          </div>
           <div class="perfil-identidade">
             @if (modo() === 'edicao') {
-              <label class="avatar-perfil avatar-perfil-editavel" [class.carregando]="salvandoFoto()">
-                @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
-                  <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
-                } @else {
-                  {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
-                }
-                <span>{{ salvandoFoto() ? 'Enviando...' : 'Trocar foto' }}</span>
+              <label class="avatar-editor" [class.carregando]="salvandoFoto()">
+                <span class="avatar-perfil">
+                  @if (usuarioVisualizacao()?.fotoPerfilThumbnailUrl) {
+                    <img [src]="resolverUrlMidia(usuarioVisualizacao()?.fotoPerfilThumbnailUrl)" alt="Foto de perfil" />
+                  } @else {
+                    {{ iniciais(usuarioVisualizacao()?.nome || perfilNome || 'HQ') }}
+                  }
+                </span>
+                <span class="trocar-foto">{{ salvandoFoto() ? 'Enviando...' : 'Trocar foto' }}</span>
                 <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarFotoPerfil($event)" />
               </label>
             } @else {
@@ -190,11 +203,42 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
     }
 
     .perfil-capa {
+      position: relative;
       min-height: 190px;
       background:
         linear-gradient(135deg, rgba(21, 25, 31, 0.18), rgba(255, 122, 0, 0.3)),
         radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.46), transparent 18%),
         linear-gradient(135deg, #15191f 0%, #64320d 52%, #ff7a00 100%);
+    }
+
+    .perfil-capa.com-imagem {
+      background-position: center;
+      background-size: cover;
+    }
+
+    .trocar-capa {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(15, 18, 24, 0.78);
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 850;
+      backdrop-filter: blur(8px);
+    }
+
+    .trocar-capa input,
+    .avatar-editor input {
+      display: none;
+    }
+
+    .trocar-capa.carregando,
+    .avatar-editor.carregando {
+      pointer-events: none;
+      opacity: 0.72;
     }
 
     :host-context(body.tema-escuro) .perfil-capa {
@@ -229,32 +273,22 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       box-shadow: 0 12px 32px rgba(21, 25, 31, 0.22);
     }
 
-    .avatar-perfil-editavel {
+    .avatar-editor {
+      display: grid;
+      gap: 5px;
+      justify-items: center;
       cursor: pointer;
     }
 
-    .avatar-perfil-editavel input {
-      display: none;
-    }
-
-    .avatar-perfil-editavel span {
-      position: absolute;
-      inset: auto 0 0;
-      display: grid;
-      min-height: 34px;
-      place-items: center;
-      padding: 0 8px;
-      background: rgba(21, 25, 31, 0.72);
-      color: #fff;
+    .trocar-foto {
+      color: var(--azul);
       font-size: 0.72rem;
-      font-weight: 900;
-      line-height: 1.1;
+      font-weight: 850;
       text-align: center;
     }
 
-    .avatar-perfil-editavel.carregando {
-      pointer-events: none;
-      opacity: 0.78;
+    .avatar-editor:hover .trocar-foto {
+      text-decoration: underline;
     }
 
     .avatar-perfil img {
@@ -501,6 +535,7 @@ export class PerfilPage implements OnInit {
   readonly modo = signal<'edicao' | 'visualizacao'>('edicao');
   readonly salvandoPerfil = signal(false);
   readonly salvandoFoto = signal(false);
+  readonly salvandoCapa = signal(false);
   readonly salvandoSenha = signal(false);
   readonly mensagem = signal('');
   readonly mensagemSenha = signal('');
@@ -571,6 +606,29 @@ export class PerfilPage implements OnInit {
       error: (erroResposta) => {
         this.salvandoFoto.set(false);
         this.mensagem.set(erroResposta?.error?.mensagem || 'Nao foi possivel atualizar a foto.');
+      },
+    });
+  }
+
+  selecionarCapaPerfil(evento: Event) {
+    const input = evento.target as HTMLInputElement;
+    const arquivo = input.files?.[0];
+    input.value = '';
+    if (!arquivo) {
+      return;
+    }
+
+    this.salvandoCapa.set(true);
+    this.api.atualizarCapaPerfil(arquivo).subscribe({
+      next: (usuario) => {
+        this.autenticacao.atualizarPerfilLocal(usuario);
+        this.usuarioVisualizacao.set(usuario);
+        this.salvandoCapa.set(false);
+        this.mensagem.set('Imagem de capa atualizada.');
+      },
+      error: (erroResposta) => {
+        this.salvandoCapa.set(false);
+        this.mensagem.set(erroResposta?.error?.mensagem || 'Nao foi possivel atualizar a capa.');
       },
     });
   }

@@ -44,6 +44,9 @@ public class Usuario {
     @Column(name = "foto_perfil_thumbnail_url", length = 1000)
     private String fotoPerfilThumbnailUrl;
 
+    @Column(name = "capa_perfil_url", length = 1000)
+    private String capaPerfilUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PerfilUsuario perfil = PerfilUsuario.USUARIO;

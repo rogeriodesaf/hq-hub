@@ -39,6 +39,7 @@ entrar(email: string, senha: string) {
         token: this.normalizarToken(usuario.token),
         fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
         fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+        capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
       };
       console.log('[AUTH] Token normalizado:', usuarioNormalizado.token);
       localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
@@ -74,6 +75,7 @@ redefinirSenha(token: string, novaSenha: string) {
       bio: usuario.bio,
       fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
       fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+      capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
     };
     localStorage.setItem(CHAVE_USUARIO, JSON.stringify(atualizado));
     this.usuarioAtual.set(atualizado);
@@ -160,6 +162,7 @@ redefinirSenha(token: string, novaSenha: string) {
         ...usuario,
         fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
         fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+        capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
       };
       localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
       console.warn('🔐 Usuário recuperado:', { email: usuario.email, perfil: usuario.perfil, temToken: !!usuario.token });

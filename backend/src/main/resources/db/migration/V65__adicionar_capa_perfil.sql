@@ -1,0 +1,2 @@
+ALTER TABLE usuarios
+    ADD COLUMN IF NOT EXISTS capa_perfil_url VARCHAR(1000);

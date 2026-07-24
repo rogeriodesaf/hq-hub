@@ -14,6 +14,7 @@ export interface UsuarioAutenticado {
   bio: string | null;
   fotoPerfilUrl: string | null;
   fotoPerfilThumbnailUrl: string | null;
+  capaPerfilUrl: string | null;
   token: string;
   tipoToken: string;
   expiraEm: number;
@@ -28,6 +29,7 @@ export interface Usuario {
   bio: string | null;
   fotoPerfilUrl: string | null;
   fotoPerfilThumbnailUrl: string | null;
+  capaPerfilUrl: string | null;
   dataCriacao: string;
   dataAtualizacao: string;
 }
@@ -348,6 +350,21 @@ export interface Anuncio {
   avisoResponsabilidade: string;
   dataCriacao: string;
   dataAtualizacao: string;
+}
+
+export interface AnuncioPublico {
+  id: number;
+  tituloEdicao: string;
+  urlCapa: string | null;
+  nomeAnunciante: string;
+  tipoAnuncio: TipoAnuncio;
+  preco: number | null;
+  estadoConservacao: EstadoConservacao;
+  descricao: string | null;
+  cidade: string | null;
+  estado: string | null;
+  linkContatoWhatsapp: string | null;
+  dataCriacao: string;
 }
 
 export interface CadastroAnuncio {

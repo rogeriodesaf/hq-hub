@@ -15,7 +15,13 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
         <p class="rotulo">Classificados</p>
         <h1>Venda, troca e procura entre colecionadores.</h1>
       </div>
-      <a class="botao" routerLink="/canais">Ver canais</a>
+      <div class="acoes-linha">
+        <button class="botao" type="button" (click)="copiarLinkPublico()">Copiar link público</button>
+        <a class="botao" routerLink="/canais">Ver canais</a>
+      </div>
+      @if (mensagemCompartilhamento()) {
+        <p class="texto-suave">{{ mensagemCompartilhamento() }}</p>
+      }
     </section>
 
     <section class="anuncios-layout">
@@ -208,6 +214,7 @@ export class AnunciosPage implements OnInit {
   readonly meusAnuncios = signal<Anuncio[]>([]);
   readonly salvando = signal(false);
   readonly mensagemFormulario = signal('');
+  readonly mensagemCompartilhamento = signal('');
   buscaItem = '';
   formulario = {
     tipoAnuncio: 'VENDA' as TipoAnuncio,
@@ -222,6 +229,16 @@ export class AnunciosPage implements OnInit {
 
   ngOnInit() {
     this.carregar();
+  }
+
+  async copiarLinkPublico() {
+    const link = `${window.location.origin}/classificados`;
+    try {
+      await navigator.clipboard.writeText(link);
+      this.mensagemCompartilhamento.set('Link público dos anúncios copiado.');
+    } catch {
+      this.mensagemCompartilhamento.set(`Copie este link: ${link}`);
+    }
   }
 
   carregar() {

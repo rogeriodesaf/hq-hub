@@ -7,6 +7,7 @@ import { normalizarUrlMidia } from './midia-url';
 
 import {
   Anuncio,
+  AnuncioPublico,
   Amizade,
   CadastroAnuncio,
   ColecaoResumo,
@@ -224,6 +225,12 @@ export class ApiService {
     const dados = new FormData();
     dados.append('foto', arquivo);
     return this.http.post<Usuario>('/api/usuarios/me/foto', dados).pipe(map((usuario) => this.normalizarUsuario(usuario)));
+  }
+
+  atualizarCapaPerfil(arquivo: File) {
+    const dados = new FormData();
+    dados.append('capa', arquivo);
+    return this.http.post<Usuario>('/api/usuarios/me/capa', dados).pipe(map((usuario) => this.normalizarUsuario(usuario)));
   }
 
   obterPerfilUsuario(id: number) {
@@ -708,6 +715,10 @@ export class ApiService {
     return this.http.post<ConteudoEdicao>('/api/conteudos-edicoes', dto);
   }
 
+  listarAnunciosPublicos() {
+    return this.http.get<AnuncioPublico[]>('/api/publico/anuncios');
+  }
+
   obterEstanteCompartilhada(usuarioId: number) {
     return this.http.get<EstanteCompartilhada>(`/api/publico/estantes/${usuarioId}`);
   }
@@ -877,6 +888,7 @@ export class ApiService {
       ...usuario,
       fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
       fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+      capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
     };
   }
 

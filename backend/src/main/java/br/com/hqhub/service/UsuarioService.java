@@ -128,6 +128,19 @@ public class UsuarioService {
         return usuarioMapper.paraResposta(usuario);
     }
 
+    @Transactional
+    public UsuarioRespostaDTO atualizarCapaPerfil(ImagemFeedDTO imagem) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        String capaAnterior = usuario.getCapaPerfilUrl();
+        usuario.setCapaPerfilUrl(imagem.urlImagem());
+
+        if (capaAnterior != null && !capaAnterior.isBlank() && !capaAnterior.equals(imagem.urlImagem())) {
+            feedMidiaService.excluirImagemCloudinaryPorUrl(capaAnterior);
+        }
+
+        return usuarioMapper.paraResposta(usuario);
+    }
+
     private String textoOuNull(String valor) {
         if (valor == null || valor.isBlank()) {
             return null;
