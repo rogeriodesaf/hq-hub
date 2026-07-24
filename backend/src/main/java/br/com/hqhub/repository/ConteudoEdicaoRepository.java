@@ -14,6 +14,12 @@ public class ConteudoEdicaoRepository implements PanacheRepository<ConteudoEdica
         return find("edicao.id = ?1 and ordem = ?2", edicaoId, ordem).firstResultOptional().isPresent();
     }
 
+    public boolean existePorEdicaoEOrdemEmOutroConteudo(Long edicaoId, Integer ordem, Long conteudoId) {
+        return find("edicao.id = ?1 and ordem = ?2 and id <> ?3", edicaoId, ordem, conteudoId)
+                .firstResultOptional()
+                .isPresent();
+    }
+
     public List<ConteudoEdicao> listarPorEdicao(Long edicaoId) {
         return list("edicao.id = ?1 order by ordem asc", edicaoId);
     }

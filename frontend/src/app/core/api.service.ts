@@ -707,6 +707,35 @@ export class ApiService {
     return this.http.post<ConteudoEdicao>('/api/conteudos-edicoes', dto);
   }
 
+  atualizarHistoria(id: number, dto: {
+    titulo: string;
+    tituloOriginal: string | null;
+    descricao: string | null;
+    quantidadePaginas: number | null;
+    tipo: TipoConteudoEdicao;
+    fonteExterna: string | null;
+    idExterno: string | null;
+    urlOrigem: string | null;
+  }) {
+    return this.http.put<Historia>(`/api/historias/${id}`, dto);
+  }
+
+  atualizarConteudoEdicao(id: number, dto: {
+    ordem: number;
+    tituloUsado: string | null;
+    paginaInicio: number | null;
+    paginaFim: number | null;
+    quantidadePaginas: number | null;
+    tipo: TipoConteudoEdicao;
+    observacoes: string | null;
+  }) {
+    return this.http.put<ConteudoEdicao>(`/api/conteudos-edicoes/${id}`, dto);
+  }
+
+  removerConteudoEdicao(id: number) {
+    return this.http.delete<void>(`/api/conteudos-edicoes/${id}`);
+  }
+
   listarConteudosPorEdicao(edicaoId: number) {
     return this.http.get<ConteudoEdicao[]>(`/api/conteudos-edicoes/edicoes/${edicaoId}`);
   }

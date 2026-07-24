@@ -18,6 +18,7 @@ import {
   PublicacaoHistoria,
   ResultadoPesquisaCatalogo,
   Serie,
+  TipoConteudoEdicao,
 } from '../../core/modelos';
 
 @Component({
@@ -674,17 +675,112 @@ import {
 
           @if (!carregandoDetalhe()) {
           <section class="detalhe-secao">
-            <h3>Conteúdos cadastrados diretamente nesta edição</h3>
+            <div class="secao-titulo compacta">
+              <div>
+                <h3>Histórias e conteúdos desta edição</h3>
+                <p class="texto-suave">Estas informações podem ser acrescentadas ou corrigidas depois que a revista já estiver no catálogo.</p>
+              </div>
+              @if (podeEditarCatalogo() && !exibindoFormularioConteudo()) {
+                <button class="botao primario compacto" type="button" (click)="iniciarNovoConteudo()">
+                  + Adicionar história
+                </button>
+              }
+            </div>
+
+            @if (podeEditarCatalogo() && exibindoFormularioConteudo()) {
+              <section class="painel-formulario formulario-conteudo-edicao">
+                <div class="secao-titulo compacta">
+                  <div>
+                    <h2>{{ editandoConteudo() ? 'Editar história' : 'Adicionar história depois' }}</h2>
+                    <p class="texto-suave">Você pode salvar agora mesmo que a revista tenha sido cadastrada anteriormente.</p>
+                  </div>
+                </div>
+                <div class="grade-formulario">
+                  <label class="campo-largo">
+                    Título da história
+                    <input [(ngModel)]="formularioConteudo.titulo" name="tituloConteudoCatalogo" placeholder="Ex.: Bens congelados" required />
+                  </label>
+                  <label class="campo-largo">
+                    Título original
+                    <input [(ngModel)]="formularioConteudo.tituloOriginal" name="tituloOriginalConteudoCatalogo" placeholder="Opcional" />
+                  </label>
+                  <label>
+                    Ordem na revista
+                    <input [(ngModel)]="formularioConteudo.ordem" name="ordemConteudoCatalogo" type="number" min="1" />
+                  </label>
+                  <label>
+                    Páginas
+                    <input [(ngModel)]="formularioConteudo.quantidadePaginas" name="paginasConteudoCatalogo" type="number" min="1" />
+                  </label>
+                  <label>
+                    Tipo
+                    <select [(ngModel)]="formularioConteudo.tipo" name="tipoConteudoCatalogo">
+                      <option value="HISTORIA">História</option>
+                      <option value="MATERIAL_EDITORIAL">Material editorial</option>
+                      <option value="EXTRA">Extra</option>
+                      <option value="CAPA">Capa</option>
+                      <option value="PINUP">Pin-up</option>
+                      <option value="EDITORIAL">Editorial</option>
+                      <option value="ENTREVISTA">Entrevista</option>
+                      <option value="OUTRO">Outro</option>
+                    </select>
+                  </label>
+                  <label class="campo-largo">
+                    Título usado nesta edição
+                    <input [(ngModel)]="formularioConteudo.tituloUsado" name="tituloUsadoConteudoCatalogo" placeholder="Preencha apenas se for diferente" />
+                  </label>
+                  <label class="campo-largo">
+                    Fonte consultada
+                    <input [(ngModel)]="formularioConteudo.urlOrigem" name="urlOrigemConteudoCatalogo" placeholder="https://..." />
+                  </label>
+                  <label class="campo-largo campo-descricao-edicao">
+                    Resumo ou descrição
+                    <textarea [(ngModel)]="formularioConteudo.descricao" name="descricaoConteudoCatalogo" rows="5"></textarea>
+                  </label>
+                  <label class="campo-largo">
+                    Observações
+                    <input [(ngModel)]="formularioConteudo.observacoes" name="observacoesConteudoCatalogo" />
+                  </label>
+                </div>
+                <div class="acoes-formulario">
+                  <button class="botao primario" type="button" (click)="salvarConteudoDetalhe()" [disabled]="salvandoConteudo()">
+                    {{ salvandoConteudo() ? 'Salvando...' : editandoConteudo() ? 'Salvar alterações' : 'Adicionar à edição' }}
+                  </button>
+                  <button class="botao secundario" type="button" (click)="cancelarFormularioConteudo()" [disabled]="salvandoConteudo()">
+                    Cancelar
+                  </button>
+                </div>
+              </section>
+            }
+
             @for (conteudo of conteudosDetalhe(); track conteudo.id) {
               <article class="publicacao-card">
                 <div>
-                  <p class="rotulo">Ordem {{ conteudo.ordem }}</p>
+                  <p class="rotulo">Ordem {{ conteudo.ordem }} · {{ rotuloTipoConteudo(conteudo.tipo) }}</p>
                   <h4>{{ conteudo.tituloUsado || conteudo.historia.tituloExibicao || conteudo.historia.titulo }}</h4>
                   <p>{{ conteudo.historia.descricaoExibicao || conteudo.observacoes || 'Sem descrição.' }}</p>
+                  @if (conteudo.quantidadePaginas || conteudo.historia.quantidadePaginas) {
+                    <p>{{ conteudo.quantidadePaginas || conteudo.historia.quantidadePaginas }} páginas</p>
+                  }
+                  @if (podeEditarCatalogo()) {
+                    <div class="acoes-detalhe-edicao">
+                      <button class="botao compacto" type="button" (click)="iniciarEdicaoConteudo(conteudo)">Editar história</button>
+                      @if (podeExcluirCatalogo()) {
+                        <button class="botao compacto perigo" type="button" (click)="removerConteudoDetalhe(conteudo)" [disabled]="removendoConteudo() === conteudo.id">
+                          {{ removendoConteudo() === conteudo.id ? 'Removendo...' : 'Remover da edição' }}
+                        </button>
+                      }
+                    </div>
+                  }
                 </div>
               </article>
             } @empty {
-              <p class="texto-suave">Esta edição não tem conteúdos diretos cadastrados.</p>
+              <section class="estado-vazio compacto">
+                <p>Nenhuma história foi informada ainda.</p>
+                @if (podeEditarCatalogo() && !exibindoFormularioConteudo()) {
+                  <button class="botao primario compacto" type="button" (click)="iniciarNovoConteudo()">Adicionar quando a informação estiver disponível</button>
+                }
+              </section>
             }
           </section>
           }
@@ -818,6 +914,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly exibindoFormularioConteudo = signal(false);
+  readonly editandoConteudo = signal<ConteudoEdicao | null>(null);
+  readonly salvandoConteudo = signal(false);
+  readonly removendoConteudo = signal<number | null>(null);
   readonly carregandoSeriesEdicao = signal(false);
   readonly seriesParaEdicao = signal<Serie[]>([]);
   readonly salvandoVinculoOriginal = signal(false);
@@ -845,6 +945,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   arquivoCapaSelecionado: File | null = null;
   formularioEdicao = this.formularioEdicaoVazio();
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
+  formularioConteudo = this.formularioConteudoVazio();
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
   formularioItemColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
@@ -1210,6 +1311,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
   abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
     this.mensagem.set('');
+    this.exibindoFormularioConteudo.set(false);
+    this.editandoConteudo.set(null);
+    this.salvandoConteudo.set(false);
+    this.formularioConteudo = this.formularioConteudoVazio();
     this.rolarPainelDetalheMobile();
     forkJoin({
       edicao: this.api.buscarEdicaoPorId(edicaoId),
@@ -1258,6 +1363,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.removendoEdicao.set(false);
     this.removendoPublicacao.set(null);
     this.salvandoCapaPublicacao.set(null);
+    this.exibindoFormularioConteudo.set(false);
+    this.editandoConteudo.set(null);
+    this.salvandoConteudo.set(false);
+    this.removendoConteudo.set(null);
+    this.formularioConteudo = this.formularioConteudoVazio();
     this.formularioEdicao = this.formularioEdicaoVazio();
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
@@ -1588,6 +1698,163 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
   }
 
+  iniciarNovoConteudo() {
+    if (!this.edicaoDetalhe() || !this.podeEditarCatalogo()) {
+      return;
+    }
+
+    const proximaOrdem = this.conteudosDetalhe().reduce(
+      (maior, conteudo) => Math.max(maior, conteudo.ordem),
+      0,
+    ) + 1;
+    this.editandoConteudo.set(null);
+    this.formularioConteudo = {
+      ...this.formularioConteudoVazio(),
+      ordem: proximaOrdem,
+    };
+    this.exibindoFormularioConteudo.set(true);
+  }
+
+  iniciarEdicaoConteudo(conteudo: ConteudoEdicao) {
+    if (!this.podeEditarCatalogo()) {
+      return;
+    }
+
+    this.editandoConteudo.set(conteudo);
+    this.formularioConteudo = {
+      titulo: conteudo.historia.tituloExibicao || conteudo.historia.titulo,
+      tituloOriginal: conteudo.historia.tituloOriginal || '',
+      descricao: conteudo.historia.descricaoExibicao || conteudo.historia.descricao || '',
+      ordem: conteudo.ordem,
+      quantidadePaginas: conteudo.quantidadePaginas || conteudo.historia.quantidadePaginas,
+      tipo: conteudo.tipo,
+      tituloUsado: conteudo.tituloUsado || '',
+      urlOrigem: conteudo.historia.urlOrigem || '',
+      observacoes: conteudo.observacoes || '',
+    };
+    this.exibindoFormularioConteudo.set(true);
+  }
+
+  cancelarFormularioConteudo() {
+    if (this.salvandoConteudo()) {
+      return;
+    }
+
+    this.exibindoFormularioConteudo.set(false);
+    this.editandoConteudo.set(null);
+    this.formularioConteudo = this.formularioConteudoVazio();
+  }
+
+  async salvarConteudoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    const conteudoEmEdicao = this.editandoConteudo();
+    const titulo = this.formularioConteudo.titulo.trim();
+    const ordem = this.numeroOuNull(this.formularioConteudo.ordem);
+    const tipo = this.formularioConteudo.tipo;
+
+    if (!edicao || !this.podeEditarCatalogo()) {
+      return;
+    }
+    if (!titulo) {
+      this.mensagem.set('Informe o título da história ou conteúdo.');
+      return;
+    }
+    if (!ordem || ordem < 1) {
+      this.mensagem.set('Informe uma ordem válida para o conteúdo.');
+      return;
+    }
+
+    this.salvandoConteudo.set(true);
+    this.mensagem.set('');
+
+    try {
+      const quantidadePaginas = this.numeroOuNull(this.formularioConteudo.quantidadePaginas);
+      const dadosHistoria = {
+        titulo,
+        tituloOriginal: this.valorTextoOuNull(this.formularioConteudo.tituloOriginal),
+        descricao: this.valorTextoOuNull(this.formularioConteudo.descricao),
+        quantidadePaginas,
+        tipo,
+        fonteExterna: conteudoEmEdicao?.historia.fonteExterna || null,
+        idExterno: conteudoEmEdicao?.historia.idExterno || null,
+        urlOrigem: this.valorTextoOuNull(this.formularioConteudo.urlOrigem),
+      };
+      const dadosConteudo = {
+        ordem,
+        tituloUsado: this.valorTextoOuNull(this.formularioConteudo.tituloUsado),
+        paginaInicio: null,
+        paginaFim: null,
+        quantidadePaginas,
+        tipo,
+        observacoes: this.valorTextoOuNull(this.formularioConteudo.observacoes),
+      };
+
+      let conteudoSalvo: ConteudoEdicao;
+      if (conteudoEmEdicao) {
+        const historia = await firstValueFrom(
+          this.api.atualizarHistoria(conteudoEmEdicao.historia.id, dadosHistoria),
+        );
+        const vinculo = await firstValueFrom(
+          this.api.atualizarConteudoEdicao(conteudoEmEdicao.id, dadosConteudo),
+        );
+        conteudoSalvo = { ...vinculo, historia };
+        this.conteudosDetalhe.update((conteudos) => this.ordenarConteudos(
+          conteudos.map((conteudo) => conteudo.id === conteudoSalvo.id ? conteudoSalvo : conteudo),
+        ));
+      } else {
+        const historia = await firstValueFrom(this.api.cadastrarHistoria(dadosHistoria));
+        conteudoSalvo = await firstValueFrom(this.api.cadastrarConteudoEdicao({
+          edicaoId: edicao.id,
+          historiaId: historia.id,
+          ...dadosConteudo,
+        }));
+        this.conteudosDetalhe.update((conteudos) => this.ordenarConteudos([...conteudos, conteudoSalvo]));
+      }
+
+      this.salvandoConteudo.set(false);
+      this.cancelarFormularioConteudo();
+      this.mensagem.set(conteudoEmEdicao
+        ? 'História atualizada nesta edição.'
+        : 'História adicionada à edição.');
+    } catch (erro: any) {
+      this.mensagem.set(this.extrairMensagemErro(
+        erro,
+        conteudoEmEdicao
+          ? 'Não foi possível atualizar esta história.'
+          : 'Não foi possível adicionar esta história.',
+      ));
+    } finally {
+      this.salvandoConteudo.set(false);
+    }
+  }
+
+  removerConteudoDetalhe(conteudo: ConteudoEdicao) {
+    if (!this.podeExcluirCatalogo()) {
+      return;
+    }
+
+    const titulo = conteudo.tituloUsado || conteudo.historia.tituloExibicao || conteudo.historia.titulo;
+    if (!window.confirm(`Remover "${titulo}" desta edição?`)) {
+      return;
+    }
+
+    this.removendoConteudo.set(conteudo.id);
+    this.api.removerConteudoEdicao(conteudo.id).subscribe({
+      next: () => {
+        this.conteudosDetalhe.update((conteudos) => conteudos.filter((item) => item.id !== conteudo.id));
+        if (this.editandoConteudo()?.id === conteudo.id) {
+          this.cancelarFormularioConteudo();
+        }
+        this.removendoConteudo.set(null);
+        this.mensagem.set('Conteúdo removido desta edição.');
+      },
+      error: (erro) => {
+        this.removendoConteudo.set(null);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível remover este conteúdo.'));
+      },
+    });
+  }
+
   removerPublicacaoDetalhe(publicacao: PublicacaoHistoria) {
     if (!this.podeExcluirCatalogo()) {
       return;
@@ -1848,6 +2115,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  rotuloTipoConteudo(tipo: TipoConteudoEdicao) {
+    const rotulos: Record<string, string> = {
+      HISTORIA: 'História',
+      POSTER: 'Pôster',
+      GALERIA: 'Galeria',
+      MATERIAL_EDITORIAL: 'Material editorial',
+      EXTRA: 'Extra',
+      CAPA: 'Capa',
+      PINUP: 'Pin-up',
+      EDITORIAL: 'Editorial',
+      CHECKLIST: 'Checklist',
+      ENTREVISTA: 'Entrevista',
+      MATERIA: 'Matéria',
+      PROPAGANDA: 'Propaganda',
+      OUTRO: 'Outro',
+    };
+    return rotulos[tipo] || tipo;
   }
 
   rotuloStatusCapa(status: string) {
@@ -2235,6 +2521,34 @@ export class CatalogoPage implements OnInit, OnDestroy {
       formato: edicao.formato || '',
       urlOrigem: edicao.urlOrigem || edicao.urlComicVine || '',
     };
+  }
+
+  private formularioConteudoVazio(): {
+    titulo: string;
+    tituloOriginal: string;
+    descricao: string;
+    ordem: number | null;
+    quantidadePaginas: number | null;
+    tipo: TipoConteudoEdicao;
+    tituloUsado: string;
+    urlOrigem: string;
+    observacoes: string;
+  } {
+    return {
+      titulo: '',
+      tituloOriginal: '',
+      descricao: '',
+      ordem: null,
+      quantidadePaginas: null,
+      tipo: 'HISTORIA',
+      tituloUsado: '',
+      urlOrigem: '',
+      observacoes: '',
+    };
+  }
+
+  private ordenarConteudos(conteudos: ConteudoEdicao[]) {
+    return [...conteudos].sort((a, b) => a.ordem - b.ordem || a.id - b.id);
   }
 
   private termoBuscaSerieRelacionada(titulo: string) {

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.hqhub.dto.AtualizacaoHistoriaDTO;
+import br.com.hqhub.dto.AtualizacaoConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroHistoriaDTO;
 import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
@@ -115,6 +116,22 @@ public class HistoriaService {
                 .stream()
                 .map(conteudoEdicaoMapper::paraResposta)
                 .toList();
+    }
+
+    @Transactional
+    public ConteudoEdicaoRespostaDTO atualizarConteudo(Long id, AtualizacaoConteudoEdicaoDTO dto) {
+        ConteudoEdicao conteudo = conteudoEdicaoRepository.findByIdOptional(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Conteúdo da edição não encontrado."));
+
+        if (conteudoEdicaoRepository.existePorEdicaoEOrdemEmOutroConteudo(
+                conteudo.getEdicao().getId(),
+                dto.ordem(),
+                id)) {
+            throw new RegraNegocioException("Já existe conteúdo cadastrado nesta ordem para esta edição.");
+        }
+
+        conteudoEdicaoMapper.atualizarEntidade(conteudo, dto);
+        return conteudoEdicaoMapper.paraResposta(conteudo);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package br.com.hqhub.resource;
 import java.net.URI;
 
 import br.com.hqhub.dto.AtualizacaoHistoriaDTO;
+import br.com.hqhub.dto.AtualizacaoConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroHistoriaDTO;
 import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
@@ -81,6 +82,15 @@ public class HistoriaResource {
     @Path("/conteudos-edicoes/edicoes/{edicaoId}")
     public Response listarConteudosPorEdicao(@PathParam("edicaoId") Long edicaoId) {
         return Response.ok(historiaService.listarConteudosPorEdicao(edicaoId)).build();
+    }
+
+    @PUT
+    @Path("/conteudos-edicoes/{id}")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    public Response atualizarConteudo(
+            @PathParam("id") Long id,
+            @Valid AtualizacaoConteudoEdicaoDTO dto) {
+        return Response.ok(historiaService.atualizarConteudo(id, dto)).build();
     }
 
     @DELETE

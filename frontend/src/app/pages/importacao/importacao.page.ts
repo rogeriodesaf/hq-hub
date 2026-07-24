@@ -84,6 +84,50 @@ import {
               Prefira URLs de capa da Panini, Amazon ou outra fonte que carregue fora do site.
             </p>
           </aside>
+          <section class="seletor-serie-existente">
+            <div>
+              <strong>Adicionar edição a uma série existente</strong>
+              <p>Busque e selecione a série que já contém as outras edições. O título, a editora e o volume serão preenchidos automaticamente.</p>
+            </div>
+            <div class="busca-serie-existente">
+              <input
+                [(ngModel)]="buscaSerieVisual"
+                name="buscaSerieVisual"
+                placeholder="Ex.: A Saga dos X-Men"
+                (keyup.enter)="buscarSeriesVisuais()"
+              />
+              <button class="botao primario" type="button" (click)="buscarSeriesVisuais()" [disabled]="buscandoSeriesVisual()">
+                {{ buscandoSeriesVisual() ? 'Buscando...' : 'Buscar série existente' }}
+              </button>
+            </div>
+
+            @if (seriesVisual().length) {
+              <div class="resultados-serie-existente">
+                @for (serie of seriesVisual(); track serie.id) {
+                  <button
+                    type="button"
+                    [class.ativo]="serieVisualSelecionada()?.id === serie.id"
+                    (click)="selecionarSerieVisual(serie)"
+                  >
+                    <strong>{{ serie.titulo }}</strong>
+                    <span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }} · ID {{ serie.id }}</span>
+                  </button>
+                }
+              </div>
+            }
+
+            @if (serieVisualSelecionada(); as serieSelecionada) {
+              <aside class="serie-reaproveitada">
+                <div>
+                  <strong>Série selecionada para reaproveitamento</strong>
+                  <span>{{ serieSelecionada.titulo }} · {{ serieSelecionada.editora?.nome || 'Sem editora' }} · V{{ serieSelecionada.volume || '-' }}</span>
+                  <small>As edições já cadastradas serão mantidas. Somente as edições preenchidas abaixo serão adicionadas ou atualizadas.</small>
+                </div>
+                <button class="botao secundario compacto" type="button" (click)="desvincularSerieVisual()">Cadastrar como nova série</button>
+              </aside>
+            }
+          </section>
+
           <div class="grade-importacao-visual">
             <label>
               Arquivo de origem
@@ -98,7 +142,7 @@ import {
             <label>
               Titulo da serie
               <small>serieBrasileira.titulo</small>
-              <input [(ngModel)]="visualImportacao.serieBrasileira.titulo" name="visualSerieTitulo" placeholder="Ex.: O Espetacular Homem-Aranha" />
+              <input [(ngModel)]="visualImportacao.serieBrasileira.titulo" name="visualSerieTitulo" placeholder="Ex.: O Espetacular Homem-Aranha" [readOnly]="!!serieVisualSelecionada()" />
             </label>
             <label>
               Fase
@@ -109,12 +153,12 @@ import {
             <label>
               Editora
               <small>serieBrasileira.editora</small>
-              <input [(ngModel)]="visualImportacao.serieBrasileira.editora" name="visualSerieEditora" placeholder="Ex.: Panini" />
+              <input [(ngModel)]="visualImportacao.serieBrasileira.editora" name="visualSerieEditora" placeholder="Ex.: Panini" [readOnly]="!!serieVisualSelecionada()" />
             </label>
             <label>
               Volume
               <small>serieBrasileira.volume</small>
-              <input type="number" min="1" [(ngModel)]="visualImportacao.serieBrasileira.volume" name="visualSerieVolume" placeholder="Ex.: 1" />
+              <input type="number" min="1" [(ngModel)]="visualImportacao.serieBrasileira.volume" name="visualSerieVolume" placeholder="Ex.: 1" [readOnly]="!!serieVisualSelecionada()" />
               <small class="ajuda-campo">Número da sequência editorial: V1, V2 etc. Use 1 quando for o primeiro volume.</small>
             </label>
             <label>
@@ -208,17 +252,21 @@ import {
                     <input type="number" min="0" step="0.01" [(ngModel)]="edicao.precoCapa" [name]="'visualEdicaoPreco' + indiceEdicao" />
                   </label>
                   <label class="campo-largo">
-                    URL da capa
+                    URL da capa (opcional)
                     <small>edicoes[{{ indiceEdicao }}].urlCapa</small>
                     <input [(ngModel)]="edicao.urlCapa" [name]="'visualEdicaoCapa' + indiceEdicao" placeholder="https://..." />
+                    <small class="ajuda-campo">Cole uma URL ou use a área de upload logo abaixo.</small>
                   </label>
-                  <div class="campo-largo upload-capa-visual">
+                  <section class="campo-largo upload-capa-visual">
                     <div>
-                      <strong>Ou envie a capa do seu dispositivo</strong>
-                      <small>JPG, PNG ou WEBP, com no máximo 3 MB. A URL acima será preenchida automaticamente.</small>
+                      <span class="icone-upload-capa" aria-hidden="true">↑</span>
+                      <div>
+                        <strong>Upload da capa</strong>
+                        <small>Escolha uma imagem do computador ou celular. Aceita JPG, PNG ou WEBP, com no máximo 3 MB.</small>
+                      </div>
                     </div>
-                    <label class="botao secundario compacto seletor-arquivo">
-                      {{ capaEmUpload(edicao) ? 'Enviando capa...' : 'Selecionar capa' }}
+                    <label class="botao primario seletor-arquivo botao-upload-capa">
+                      {{ capaEmUpload(edicao) ? 'Enviando capa...' : 'Fazer upload da capa' }}
                       <input
                         type="file"
                         accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
@@ -235,7 +283,7 @@ import {
                     @if (capaErro(edicao)) {
                       <p class="erro-upload-capa">{{ capaErro(edicao) }}</p>
                     }
-                  </div>
+                  </section>
                   <label class="campo-largo">
                     Descricao
                     <small>edicoes[{{ indiceEdicao }}].descricao</small>
@@ -643,6 +691,73 @@ import {
       line-height: 1.45;
     }
 
+    .seletor-serie-existente {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      border-radius: 10px;
+      background: rgba(37, 99, 235, 0.07);
+    }
+
+    .seletor-serie-existente p {
+      margin: 4px 0 0;
+      color: var(--texto-suave);
+      line-height: 1.45;
+    }
+
+    .busca-serie-existente {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+    }
+
+    .resultados-serie-existente {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px;
+    }
+
+    .resultados-serie-existente button {
+      display: grid;
+      gap: 4px;
+      padding: 11px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: var(--superficie);
+      color: var(--texto);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .resultados-serie-existente button.ativo {
+      border-color: var(--primaria);
+      box-shadow: 0 0 0 2px rgba(255, 135, 31, 0.18);
+    }
+
+    .resultados-serie-existente span,
+    .serie-reaproveitada small {
+      color: var(--texto-suave);
+      font-size: 0.8rem;
+    }
+
+    .serie-reaproveitada {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      border-radius: 8px;
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    .serie-reaproveitada > div {
+      display: grid;
+      gap: 3px;
+    }
+
     .grade-importacao-visual {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -678,18 +793,42 @@ import {
     .upload-capa-visual {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 14px;
+      gap: 14px;
       align-items: center;
-      padding: 12px;
-      border: 1px dashed var(--borda);
-      border-radius: 8px;
-      background: var(--superficie-suave);
+      padding: 18px;
+      border: 2px dashed rgba(255, 135, 31, 0.62);
+      border-radius: 10px;
+      background: rgba(255, 135, 31, 0.09);
     }
 
     .upload-capa-visual > div:first-child {
-      display: grid;
+      display: flex;
       flex: 1 1 280px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .upload-capa-visual > div:first-child > div {
+      display: grid;
       gap: 4px;
+    }
+
+    .icone-upload-capa {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primaria);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .botao-upload-capa {
+      min-height: 44px;
+      padding-inline: 18px;
     }
 
     .upload-capa-visual small {
@@ -921,6 +1060,15 @@ import {
         grid-template-columns: 1fr;
       }
 
+      .busca-serie-existente {
+        grid-template-columns: 1fr;
+      }
+
+      .busca-serie-existente .botao,
+      .botao-upload-capa {
+        width: 100%;
+      }
+
       .modos-importacao {
         grid-template-columns: 1fr;
       }
@@ -941,14 +1089,18 @@ export class ImportacaoPage {
   readonly gerandoRascunho = signal(false);
   readonly nomeArquivo = signal('');
   readonly modoEntrada = signal<'visual' | 'json'>('visual');
+  readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
   readonly uploadsCapaPendentes = signal(0);
+  readonly seriesVisual = signal<Serie[]>([]);
+  readonly serieVisualSelecionada = signal<Serie | null>(null);
   readonly seriesCapa = signal<Serie[]>([]);
   readonly serieCapaSelecionada = signal<Serie | null>(null);
   private readonly previewsCapaVisual = new WeakMap<object, string>();
   private readonly uploadsCapaVisual = new WeakSet<object>();
   private readonly errosCapaVisual = new WeakMap<object, string>();
+  buscaSerieVisual = '';
   buscaSerieCapa = '';
   numeroEdicaoCapa = '';
   urlCapaManual = '';
@@ -994,6 +1146,52 @@ export class ImportacaoPage {
     };
     leitor.onerror = () => this.mensagem.set('Não foi possível ler o arquivo selecionado.');
     leitor.readAsText(arquivo, 'utf-8');
+  }
+
+  buscarSeriesVisuais() {
+    const busca = this.buscaSerieVisual.trim();
+    if (!busca) {
+      this.mensagem.set('Informe o nome da série que deseja reaproveitar.');
+      return;
+    }
+
+    this.mensagem.set('');
+    this.buscandoSeriesVisual.set(true);
+    this.api.listarSeries(busca, 0, 20).subscribe({
+      next: (pagina) => {
+        this.seriesVisual.set(pagina.itens);
+        this.buscandoSeriesVisual.set(false);
+        if (!pagina.itens.length) {
+          this.mensagem.set('Nenhuma série existente foi encontrada. Confira o título ou cadastre uma nova série.');
+        }
+      },
+      error: (erro) => {
+        this.buscandoSeriesVisual.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível buscar as séries existentes.');
+      },
+    });
+  }
+
+  selecionarSerieVisual(serie: Serie) {
+    this.serieVisualSelecionada.set(serie);
+    this.buscaSerieVisual = serie.titulo;
+    this.visualImportacao.serieBrasileira.titulo = serie.titulo;
+    this.visualImportacao.serieBrasileira.editora = serie.editora?.nome || '';
+    this.visualImportacao.serieBrasileira.volume = serie.volume;
+    if (serie.descricao) {
+      this.visualImportacao.serieBrasileira.fase = serie.descricao;
+    }
+    for (const edicao of this.visualImportacao.edicoes || []) {
+      if (!String(edicao.editora || '').trim()) {
+        edicao.editora = serie.editora?.nome || '';
+      }
+    }
+    this.mensagem.set(`Série "${serie.titulo}" V${serie.volume || '-'} selecionada. As edições existentes serão preservadas.`);
+  }
+
+  desvincularSerieVisual() {
+    this.serieVisualSelecionada.set(null);
+    this.mensagem.set('Seleção removida. Os dados da série podem ser editados para um novo cadastro.');
   }
 
   selecionarCapaVisual(evento: Event, edicao: any) {
@@ -1077,6 +1275,9 @@ export class ImportacaoPage {
 
   preencherModeloEmBranco() {
     this.visualImportacao = this.modeloImportacao();
+    this.serieVisualSelecionada.set(null);
+    this.seriesVisual.set([]);
+    this.buscaSerieVisual = '';
     this.jsonTexto = JSON.stringify(this.visualImportacao, null, 2);
     this.nomeArquivo.set('modelo-importacao-hqhub.json');
     this.resultado.set(null);
@@ -1427,6 +1628,9 @@ export class ImportacaoPage {
   limpar() {
     this.jsonTexto = '';
     this.visualImportacao = this.modeloImportacao();
+    this.buscaSerieVisual = '';
+    this.seriesVisual.set([]);
+    this.serieVisualSelecionada.set(null);
     this.nomeArquivo.set('');
     this.resultado.set(null);
     this.mensagem.set('');
@@ -1443,7 +1647,9 @@ export class ImportacaoPage {
   }
 
   adicionarEdicaoVisual() {
-    this.visualImportacao.edicoes.push(this.modeloEdicao());
+    const edicao = this.modeloEdicao();
+    edicao.editora = this.visualImportacao.serieBrasileira.editora || '';
+    this.visualImportacao.edicoes.push(edicao);
     this.atualizarTotaisVisuais();
   }
 
@@ -1486,6 +1692,9 @@ export class ImportacaoPage {
     try {
       const corpo = JSON.parse(this.jsonTexto);
       this.visualImportacao = this.completarVisualImportacao(corpo);
+      this.serieVisualSelecionada.set(null);
+      this.seriesVisual.set([]);
+      this.buscaSerieVisual = '';
       this.atualizarTotaisVisuais();
       if (exibirMensagem) {
         this.mensagem.set('Formulario visual carregado a partir do JSON.');

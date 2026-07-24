@@ -2,6 +2,7 @@ package br.com.hqhub.mapper;
 
 import br.com.hqhub.dto.CadastroConteudoEdicaoDTO;
 import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
+import br.com.hqhub.dto.AtualizacaoConteudoEdicaoDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Historia;
@@ -46,5 +47,15 @@ public class ConteudoEdicaoMapper {
                 conteudo.getObservacoes(),
                 conteudo.getDataCriacao(),
                 conteudo.getDataAtualizacao());
+    }
+
+    public void atualizarEntidade(ConteudoEdicao conteudo, AtualizacaoConteudoEdicaoDTO dto) {
+        conteudo.setOrdem(dto.ordem());
+        conteudo.setTituloUsado(dto.tituloUsado());
+        conteudo.setPaginaInicio(dto.paginaInicio());
+        conteudo.setPaginaFim(dto.paginaFim());
+        conteudo.setQuantidadePaginas(dto.quantidadePaginas());
+        conteudo.setTipo(dto.tipo());
+        conteudo.setObservacoes(dto.observacoes());
     }
 }
