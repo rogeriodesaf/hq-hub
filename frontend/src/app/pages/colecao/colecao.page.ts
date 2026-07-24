@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles } from '@lucide/angular';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -19,23 +20,29 @@ import {
 
 @Component({
   selector: 'app-colecao-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles],
   template: `
-    <section class="cabecalho-pagina">
+    <section class="cabecalho-pagina estante-cabecalho">
       <div>
         <p class="rotulo">Estante</p>
         <h1>Suas HQs agrupadas por editora e série.</h1>
       </div>
     </section>
 
-    <section class="painel-formulario">
+    <section class="painel-formulario estante-painel-formulario">
       <div class="secao-titulo">
         <div>
           <p class="rotulo">Adicionar ao perfil</p>
           <h2>Cadastrar edição na sua coleção</h2>
         </div>
-        <button class="botao icone-texto" type="button" (click)="alternarCadastroManual()">
-          {{ exibindoCadastroManual() ? 'Usar catálogo interno' : 'Não encontrei no catálogo' }}
+      </div>
+
+      <div class="controle-segmentado-estante" role="group" aria-label="Forma de cadastro">
+        <button type="button" [class.ativo]="!exibindoCadastroManual()" [attr.aria-pressed]="!exibindoCadastroManual()" (click)="exibindoCadastroManual() && alternarCadastroManual()">
+          Catálogo HQ-HUB
+        </button>
+        <button type="button" [class.ativo]="exibindoCadastroManual()" [attr.aria-pressed]="exibindoCadastroManual()" (click)="!exibindoCadastroManual() && alternarCadastroManual()">
+          Cadastro manual
         </button>
       </div>
 
@@ -43,11 +50,12 @@ import {
         <div class="barra-busca">
           <input
             [(ngModel)]="buscaEdicao"
-            placeholder="Digite parte do título, ex.: Homem-Aranha, Definitiva, Saga do Batman"
+            placeholder="Ex.: Batman, X-Men..."
             (ngModelChange)="agendarBuscaEdicoes()"
             (keyup.enter)="buscarEdicoes()"
           />
           <button class="botao primario" type="button" (click)="buscarEdicoes()" [disabled]="carregandoEdicoes()">
+            <svg lucideSearch size="18" aria-hidden="true"></svg>
             {{ carregandoEdicoes() ? 'Buscando...' : 'Buscar edição' }}
           </button>
         </div>
@@ -56,7 +64,7 @@ import {
           <div class="barra-selecao-edicoes">
             <div>
               <strong>{{ totalSelecionadas() }} selecionada(s)</strong>
-              <span>Selecione varias edicoes do catalogo interno para adicionar de uma vez.</span>
+              <span>Selecione edições internas para adicionar de uma vez.</span>
             </div>
             <div class="acoes-selecao-edicoes">
               <button class="botao compacto" type="button" (click)="selecionarTodasInternas()" [disabled]="!totalInternasSelecionaveis() || salvandoItem()">
@@ -66,6 +74,7 @@ import {
                 Limpar
               </button>
               <button class="botao primario compacto" type="button" (click)="adicionarSelecionadasNaEstante()" [disabled]="!totalSelecionadas() || salvandoItem()">
+                <svg lucidePlus size="17" aria-hidden="true"></svg>
                 {{ salvandoItem() ? 'Adicionando...' : 'Adicionar selecionadas' }}
               </button>
             </div>
@@ -73,7 +82,7 @@ import {
           <div class="lista-escolha">
             @for (resultado of resultadosEncontrados(); track chaveResultado(resultado)) {
               <div class="resultado-selecao" [class.ativo]="resultadoSelecionado()?.idExterno === resultado.idExterno && resultadoSelecionado()?.id === resultado.id">
-                <label class="checkbox-selecao" [class.desabilitado]="!resultadoSelecionavelEmMassa(resultado)">
+                <label class="checkbox-selecao switch-controle" [class.desabilitado]="!resultadoSelecionavelEmMassa(resultado)">
                   <input
                     type="checkbox"
                     [checked]="resultadoSelecionadoEmMassa(resultado)"
@@ -91,53 +100,75 @@ import {
           </div>
         }
 
-        <form class="grade-formulario colecao-formulario" (ngSubmit)="cadastrarNaColecao()">
-          <label>
-            Edição escolhida
-            <input [value]="rotuloEdicaoEscolhida()" disabled />
-          </label>
+        <form class="colecao-formulario formulario-accordions" (ngSubmit)="cadastrarNaColecao()">
+          <details class="accordion-formulario" open>
+            <summary>Dados da coleção</summary>
+            <div class="grade-formulario">
+              <label class="campo-largo">
+                Edição escolhida
+                <input [value]="rotuloEdicaoEscolhida()" disabled />
+              </label>
+            </div>
+          </details>
 
-          <label>
-            Conservação
-            <select [(ngModel)]="estadoConservacao" name="estadoConservacao">
-              <option value="NOVO">Novo</option>
-              <option value="EXCELENTE">Excelente</option>
-              <option value="MUITO_BOM">Muito bom</option>
-              <option value="BOM">Bom</option>
-              <option value="REGULAR">Regular</option>
-              <option value="RUIM">Ruim</option>
-            </select>
-          </label>
+          <details class="accordion-formulario">
+            <summary>Dados da edição</summary>
+            <div class="grade-formulario">
+              <label>
+                Leitura
+                <select [(ngModel)]="statusLeitura" name="statusLeitura">
+                  <option value="NAO_LIDO">Não lido</option>
+                  <option value="LIDO">Lido</option>
+                </select>
+              </label>
+            </div>
+          </details>
 
-          <label>
-            Data da compra
-            <input type="date" [(ngModel)]="dataAquisicao" name="dataAquisicao" />
-          </label>
+          <details class="accordion-formulario" open>
+            <summary>Estado e compra</summary>
+            <div class="grade-formulario">
+              <label>
+                Conservação
+                <select [(ngModel)]="estadoConservacao" name="estadoConservacao">
+                  <option value="NOVO">Novo</option>
+                  <option value="EXCELENTE">Excelente</option>
+                  <option value="MUITO_BOM">Muito bom</option>
+                  <option value="BOM">Bom</option>
+                  <option value="REGULAR">Regular</option>
+                  <option value="RUIM">Ruim</option>
+                </select>
+              </label>
+              <label>
+                Data da compra
+                <input type="date" [(ngModel)]="dataAquisicao" name="dataAquisicao" />
+              </label>
+              <label>
+                Preço (R$)
+                <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" placeholder="Usar preço de capa" />
+              </label>
+            </div>
+          </details>
 
-          <label>
-            Preço pago
-            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" placeholder="Vazio usa preço de capa" />
-          </label>
+          <details class="accordion-formulario">
+            <summary>Informações extras</summary>
+            <div class="grade-formulario">
+              <label class="campo-largo">
+                Observações
+                <input [(ngModel)]="observacoes" name="observacoes" placeholder="Ex.: promoção, capa variante..." />
+              </label>
+            </div>
+          </details>
 
-          <label>
-            Leitura
-            <select [(ngModel)]="statusLeitura" name="statusLeitura">
-              <option value="NAO_LIDO">Não lido</option>
-              <option value="LIDO">Lido</option>
-            </select>
-          </label>
-
-          <label class="campo-largo">
-            Observações
-            <input [(ngModel)]="observacoes" name="observacoes" placeholder="Ex.: comprado em promoção, capa variante..." />
-          </label>
-
-          <button class="botao primario" type="submit" [disabled]="salvandoItem() || (!edicaoSelecionada() && !resultadoSelecionado())">
+          <button class="botao primario botao-principal-estante" type="submit" [disabled]="salvandoItem() || (!edicaoSelecionada() && !resultadoSelecionado())">
+            <svg lucidePlus size="18" aria-hidden="true"></svg>
             {{ salvandoItem() ? 'Salvando...' : 'Adicionar à estante' }}
           </button>
         </form>
       } @else {
-        <form class="grade-formulario colecao-formulario" (ngSubmit)="cadastrarEdicaoManual()">
+        <form class="colecao-formulario formulario-accordions" (ngSubmit)="cadastrarEdicaoManual()">
+          <details class="accordion-formulario" open>
+            <summary>Dados da coleção</summary>
+            <div class="grade-formulario">
           <label>
             Editora
             <input
@@ -170,7 +201,7 @@ import {
             <input
               [(ngModel)]="novaSerieTitulo"
               name="novaSerieTitulo"
-              placeholder="Ex.: Batman, Amazing Spider-Man, X-Men..."
+              placeholder="Ex.: Batman, X-Men..."
               (ngModelChange)="atualizarSugestoesSerie()"
             />
           </label>
@@ -195,7 +226,7 @@ import {
           <label>
             Volume/fase da série
             <input type="number" min="1" [(ngModel)]="novaSerieVolume" name="novaSerieVolume" placeholder="1 para V1, 2 para V2..." />
-            <span class="texto-suave">Use para separar fases diferentes da mesma série. Ex.: Batman V1 para a fase antiga e Batman V2 para uma nova fase/relançamento.</span>
+            <span class="texto-suave">Use V1, V2 etc. para separar fases.</span>
           </label>
 
           <label>
@@ -204,7 +235,7 @@ import {
           </label>
 
           @if (!serieSelecionadaManual()) {
-            <label class="checkbox-formulario campo-largo">
+            <label class="checkbox-formulario switch-controle campo-largo">
               <input
                 type="checkbox"
                 [(ngModel)]="gerarEdicoesAutomaticamente"
@@ -219,7 +250,7 @@ import {
             <section class="geracao-edicoes campo-largo">
               <div>
                 <h3>Geração automática de edições</h3>
-                <p class="texto-suave">As edições serão criadas automaticamente e poderão ser editadas posteriormente.</p>
+                <p class="texto-suave">Você poderá editar as edições depois.</p>
               </div>
 
               <div class="grade-formulario geracao-edicoes-campos">
@@ -238,7 +269,8 @@ import {
               </div>
 
               <button class="botao compacto" type="button" (click)="gerarPreviaEdicoesAutomaticas()">
-                Gerar PrÃ©via
+                <svg lucideSparkles size="17" aria-hidden="true"></svg>
+                Gerar prévia
               </button>
 
               @if (previewGeradoEdicoesAutomaticas && previewEdicoesAutomaticas().length) {
@@ -253,20 +285,25 @@ import {
               }
             </section>
           }
+            </div>
+          </details>
 
+          <details class="accordion-formulario" open>
+            <summary>Dados da edição</summary>
+            <div class="grade-formulario">
           <label>
             Número da edição
             <input [(ngModel)]="novaEdicaoNumero" name="novaEdicaoNumero" [disabled]="novaEdicaoSemNumero" placeholder="1, 25, 300..." />
           </label>
 
-          <label class="checkbox-formulario">
+          <label class="checkbox-formulario switch-controle">
             <input type="checkbox" [(ngModel)]="novaEdicaoSemNumero" name="novaEdicaoSemNumero" (ngModelChange)="alternarEdicaoSemNumero()" />
             Edição única ou sem número
           </label>
 
           <label>
             Título desta edição
-            <input [(ngModel)]="novaEdicaoTitulo" name="novaEdicaoTitulo" placeholder="Opcional. Ex.: A noite em que Gwen Stacy morreu" />
+            <input [(ngModel)]="novaEdicaoTitulo" name="novaEdicaoTitulo" placeholder="Ex.: A noite de Gwen Stacy" />
           </label>
 
           <label>
@@ -276,28 +313,19 @@ import {
 
           <label>
             Link da imagem da capa
-            <input [(ngModel)]="novaEdicaoUrlCapa" name="novaEdicaoUrlCapa" placeholder="Opcional. Cole uma URL de imagem" />
+            <input [(ngModel)]="novaEdicaoUrlCapa" name="novaEdicaoUrlCapa" placeholder="URL da imagem" />
           </label>
 
           <label>
             Formato/acabamento
-            <input [(ngModel)]="novaEdicaoFormato" name="novaEdicaoFormato" placeholder="Opcional. Ex.: capa dura, brochura, omnibus..." />
+            <input [(ngModel)]="novaEdicaoFormato" name="novaEdicaoFormato" placeholder="Ex.: capa dura, brochura" />
           </label>
+            </div>
+          </details>
 
-          <label>
-            Link de referência
-            <input [(ngModel)]="novaEdicaoUrlOrigem" name="novaEdicaoUrlOrigem" placeholder="Opcional. Página onde você encontrou essa edição" />
-          </label>
-
-          <label class="campo-largo">
-            O que ainda precisa ser revisado?
-            <input
-              [(ngModel)]="observacoesRevisaoCatalogo"
-              name="observacoesRevisaoCatalogo"
-              placeholder="Opcional. Ex.: falta capa, data aproximada, conferir editora..."
-            />
-          </label>
-
+          <details class="accordion-formulario" open>
+            <summary>Estado e compra</summary>
+            <div class="grade-formulario">
           <label>
             Conservação
             <select [(ngModel)]="estadoConservacao" name="estadoConservacaoManual">
@@ -316,8 +344,8 @@ import {
           </label>
 
           <label>
-            Preço pago
-            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" placeholder="Vazio usa preço de capa" />
+            Preço (R$)
+            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" placeholder="Usar preço de capa" />
           </label>
 
           <label>
@@ -327,13 +355,33 @@ import {
               <option value="LIDO">Lido</option>
             </select>
           </label>
+            </div>
+          </details>
 
-          <label class="campo-largo">
-            Observações
-            <input [(ngModel)]="observacoes" name="observacoesManual" placeholder="Ex.: importada manualmente para a estante" />
-          </label>
+          <details class="accordion-formulario">
+            <summary>Informações extras</summary>
+            <div class="grade-formulario">
+              <label>
+                Link de referência
+                <input [(ngModel)]="novaEdicaoUrlOrigem" name="novaEdicaoUrlOrigem" placeholder="URL de referência" />
+              </label>
+              <label class="campo-largo">
+                O que precisa ser revisado?
+                <input
+                  [(ngModel)]="observacoesRevisaoCatalogo"
+                  name="observacoesRevisaoCatalogo"
+                  placeholder="Ex.: falta capa ou data"
+                />
+              </label>
+              <label class="campo-largo">
+                Observações
+                <input [(ngModel)]="observacoes" name="observacoesManual" placeholder="Ex.: cadastro manual" />
+              </label>
+            </div>
+          </details>
 
-          <button class="botao primario" type="submit" [disabled]="salvandoItem()">
+          <button class="botao primario botao-principal-estante" type="submit" [disabled]="salvandoItem()">
+            <svg lucidePlus size="18" aria-hidden="true"></svg>
             {{ salvandoItem() ? 'Salvando...' : 'Criar edição e adicionar à estante' }}
           </button>
         </form>
@@ -355,9 +403,11 @@ import {
         </div>
         <div class="acoes-estante">
           <button class="botao compacto" type="button" (click)="exportarColecao('EXCEL')" [disabled]="exportandoColecao()">
+            <svg lucideDownload size="17" aria-hidden="true"></svg>
             Excel
           </button>
           <button class="botao compacto" type="button" (click)="exportarColecao('GOOGLE')" [disabled]="exportandoColecao()">
+            <svg lucideDownload size="17" aria-hidden="true"></svg>
             Google Sheets
           </button>
           @if (podeAdministrarCatalogo()) {
@@ -402,7 +452,7 @@ import {
           </select>
         </label>
 
-        <label class="checkbox-formulario">
+        <label class="checkbox-formulario switch-controle">
           <input
             type="checkbox"
             [checked]="configuracaoColecao()?.exibirValorColecao ?? true"
@@ -418,7 +468,10 @@ import {
             <strong>Compartilhe sua estante</strong>
             <p class="texto-suave">Visitantes verão capas, séries e status de leitura, sem preços ou datas de compra.</p>
           </div>
-          <button class="botao primario compacto" type="button" (click)="copiarLinkEstantePublica()">Copiar link público</button>
+          <button class="botao primario compacto" type="button" (click)="copiarLinkEstantePublica()">
+            <svg lucideShare2 size="17" aria-hidden="true"></svg>
+            Copiar link público
+          </button>
         </div>
       }
 
