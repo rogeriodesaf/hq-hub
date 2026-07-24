@@ -9,6 +9,7 @@ import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
+import br.com.hqhub.service.ArmazenamentoImagemService;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
@@ -24,6 +25,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.RestForm;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 @Path("/importacoes/catalogo")
 @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
@@ -43,14 +46,17 @@ public class ImportacaoCatalogoResource {
 
     private final ImportacaoCatalogoService importacaoCatalogoService;
     private final GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService;
+    private final ArmazenamentoImagemService armazenamentoImagemService;
     private final SecurityIdentity securityIdentity;
 
     public ImportacaoCatalogoResource(
             ImportacaoCatalogoService importacaoCatalogoService,
             GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService,
+            ArmazenamentoImagemService armazenamentoImagemService,
             SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
         this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
+        this.armazenamentoImagemService = armazenamentoImagemService;
         this.securityIdentity = securityIdentity;
     }
 
@@ -90,6 +96,13 @@ public class ImportacaoCatalogoResource {
     public Response gerarRascunho(@Valid GeracaoRascunhoImportacaoDTO dto) {
         ImportacaoCatalogoDTO rascunho = geracaoRascunhoImportacaoService.gerar(dto);
         return Response.ok(rascunho).build();
+    }
+
+    @POST
+    @Path("/capas/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response enviarCapa(@RestForm("arquivo") FileUpload arquivo) {
+        return Response.ok(armazenamentoImagemService.salvarCapa(arquivo)).build();
     }
 
     @POST

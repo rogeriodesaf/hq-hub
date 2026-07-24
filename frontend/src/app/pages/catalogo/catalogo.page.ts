@@ -140,13 +140,15 @@ import {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
               <img
                 [src]="resultado.urlCapa || capaReserva"
-                [alt]="resultado.titulo || resultado.numero || 'Edição'"
+                [alt]="tituloResultadoCartao(resultado)"
                 loading="lazy"
                 (error)="usarCapaReserva($event)"
               />
               <strong>#{{ resultado.numero || '-' }}</strong>
-              <span>{{ resultado.titulo || resultado.nomeVolume || 'Sem título' }}</span>
-              <small>{{ resultado.nomeVolume || 'Volume não informado' }}</small>
+              <span [title]="tituloResultadoCartao(resultado)">{{ tituloResultadoCartao(resultado) }}</span>
+              @if (subtituloResultadoCartao(resultado)) {
+                <small [title]="subtituloResultadoCartao(resultado)">{{ subtituloResultadoCartao(resultado) }}</small>
+              }
               <em>{{ rotuloFonte(resultado) }}</em>
               @if (resultado.jaCadastrada && resultado.id) {
                 <div class="resultado-catalogo-acoes">
@@ -272,7 +274,7 @@ import {
     @if (exibirPainelDetalhe()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
         <div class="detalhe-fundo" (click)="fecharDetalhe()"></div>
-        <article class="detalhe-painel" #detalhePainel>
+        <article class="detalhe-painel detalhe-painel-catalogo" #detalhePainel>
           <button class="fechar-detalhe" type="button" (click)="fecharDetalhe()" aria-label="Fechar detalhes">×</button>
           @if (historicoDetalhes().length) {
             <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
@@ -1086,6 +1088,22 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   rotuloFonte(resultado: ResultadoPesquisaCatalogo) {
     return resultado.fonte === 'HQ_HUB' ? 'Catálogo HQ-HUB' : 'Comic Vine';
+  }
+
+  tituloResultadoCartao(resultado: ResultadoPesquisaCatalogo) {
+    return resultado.titulo || resultado.nomeVolume || 'Sem título';
+  }
+
+  subtituloResultadoCartao(resultado: ResultadoPesquisaCatalogo) {
+    const nomeVolume = String(resultado.nomeVolume || '').trim();
+    if (!nomeVolume) {
+      return '';
+    }
+
+    const titulo = this.tituloResultadoCartao(resultado);
+    return this.normalizarComparacao(nomeVolume) === this.normalizarComparacao(titulo)
+      ? ''
+      : nomeVolume;
   }
 
   chaveResultado(resultado: ResultadoPesquisaCatalogo) {

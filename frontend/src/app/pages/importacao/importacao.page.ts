@@ -88,7 +88,7 @@ import {
             <label>
               Arquivo de origem
               <small>origem.arquivoEntrada</small>
-              <input [(ngModel)]="visualImportacao.origem.arquivoEntrada" name="visualOrigemArquivo" />
+              <input [(ngModel)]="visualImportacao.origem.arquivoEntrada" name="visualOrigemArquivo" placeholder="Ex.: revista-edicao-01.html" />
             </label>
             <label class="campo-largo">
               URL da fonte
@@ -98,32 +98,36 @@ import {
             <label>
               Titulo da serie
               <small>serieBrasileira.titulo</small>
-              <input [(ngModel)]="visualImportacao.serieBrasileira.titulo" name="visualSerieTitulo" />
+              <input [(ngModel)]="visualImportacao.serieBrasileira.titulo" name="visualSerieTitulo" placeholder="Ex.: O Espetacular Homem-Aranha" />
             </label>
             <label>
               Fase
               <small>serieBrasileira.fase</small>
-              <input [(ngModel)]="visualImportacao.serieBrasileira.fase" name="visualSerieFase" />
+              <input [(ngModel)]="visualImportacao.serieBrasileira.fase" name="visualSerieFase" placeholder="Ex.: 1ª série" />
+              <small class="ajuda-campo">Nome usado para diferenciar relançamentos ou períodos editoriais da mesma série.</small>
             </label>
             <label>
               Editora
               <small>serieBrasileira.editora</small>
-              <input [(ngModel)]="visualImportacao.serieBrasileira.editora" name="visualSerieEditora" />
+              <input [(ngModel)]="visualImportacao.serieBrasileira.editora" name="visualSerieEditora" placeholder="Ex.: Panini" />
             </label>
             <label>
               Volume
               <small>serieBrasileira.volume</small>
-              <input type="number" min="1" [(ngModel)]="visualImportacao.serieBrasileira.volume" name="visualSerieVolume" />
+              <input type="number" min="1" [(ngModel)]="visualImportacao.serieBrasileira.volume" name="visualSerieVolume" placeholder="Ex.: 1" />
+              <small class="ajuda-campo">Número da sequência editorial: V1, V2 etc. Use 1 quando for o primeiro volume.</small>
             </label>
             <label>
               Total de edicoes
               <small>totalEdicoes</small>
               <input type="number" [ngModel]="visualImportacao.edicoes.length" name="visualTotalEdicoes" disabled />
+              <small class="ajuda-campo">Calculado automaticamente conforme você adiciona ou remove edições.</small>
             </label>
             <label>
               Total de historias
               <small>totalHistorias</small>
               <input type="number" [ngModel]="totalHistoriasVisual()" name="visualTotalHistorias" disabled />
+              <small class="ajuda-campo">Soma automática das histórias incluídas em todas as edições.</small>
             </label>
           </div>
 
@@ -143,22 +147,25 @@ import {
                   <label>
                     Numero
                     <small>edicoes[{{ indiceEdicao }}].numero</small>
-                    <input [(ngModel)]="edicao.numero" [name]="'visualEdicaoNumero' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.numero" [name]="'visualEdicaoNumero' + indiceEdicao" placeholder="Ex.: 1 ou Especial 01" />
                   </label>
                   <label>
                     Titulo de chamada
                     <small>edicoes[{{ indiceEdicao }}].tituloChamada</small>
-                    <input [(ngModel)]="edicao.tituloChamada" [name]="'visualEdicaoTitulo' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.tituloChamada" [name]="'visualEdicaoTitulo' + indiceEdicao" placeholder="Ex.: A chegada do Duende Verde!" />
+                    <small class="ajuda-campo">Frase de destaque da capa; não é o nome da série nem o número da edição.</small>
                   </label>
                   <label>
-                    Data
+                    Data de publicação
                     <small>edicoes[{{ indiceEdicao }}].dataPublicacao</small>
                     <input type="date" [(ngModel)]="edicao.dataPublicacao" [name]="'visualEdicaoData' + indiceEdicao" />
+                    <small class="ajuda-campo">Data em que esta edição foi publicada no Brasil.</small>
                   </label>
                   <label>
-                    Publicado texto
+                    Publicado como texto
                     <small>edicoes[{{ indiceEdicao }}].publicadoTexto</small>
-                    <input [(ngModel)]="edicao.publicadoTexto" [name]="'visualEdicaoPublicado' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.publicadoTexto" [name]="'visualEdicaoPublicado' + indiceEdicao" placeholder="Ex.: Abril de 2024" />
+                    <small class="ajuda-campo">Mês, ano ou período escrito na fonte. Use quando não houver uma data exata.</small>
                   </label>
                   <label>
                     Editora
@@ -168,22 +175,22 @@ import {
                   <label>
                     Licenciador
                     <small>edicoes[{{ indiceEdicao }}].licenciador</small>
-                    <input [(ngModel)]="edicao.licenciador" [name]="'visualEdicaoLicenciador' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.licenciador" [name]="'visualEdicaoLicenciador' + indiceEdicao" placeholder="Ex.: Marvel Comics" />
                   </label>
                   <label>
                     Categoria
                     <small>edicoes[{{ indiceEdicao }}].categoria</small>
-                    <input [(ngModel)]="edicao.categoria" [name]="'visualEdicaoCategoria' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.categoria" [name]="'visualEdicaoCategoria' + indiceEdicao" placeholder="Ex.: Revista Periódica" />
                   </label>
                   <label>
                     Genero
                     <small>edicoes[{{ indiceEdicao }}].genero</small>
-                    <input [(ngModel)]="edicao.genero" [name]="'visualEdicaoGenero' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.genero" [name]="'visualEdicaoGenero' + indiceEdicao" placeholder="Ex.: Super-heróis" />
                   </label>
                   <label>
                     Status
                     <small>edicoes[{{ indiceEdicao }}].status</small>
-                    <input [(ngModel)]="edicao.status" [name]="'visualEdicaoStatus' + indiceEdicao" />
+                    <input [(ngModel)]="edicao.status" [name]="'visualEdicaoStatus' + indiceEdicao" placeholder="Ex.: Encerrado" />
                   </label>
                   <label>
                     Paginas
@@ -205,6 +212,30 @@ import {
                     <small>edicoes[{{ indiceEdicao }}].urlCapa</small>
                     <input [(ngModel)]="edicao.urlCapa" [name]="'visualEdicaoCapa' + indiceEdicao" placeholder="https://..." />
                   </label>
+                  <div class="campo-largo upload-capa-visual">
+                    <div>
+                      <strong>Ou envie a capa do seu dispositivo</strong>
+                      <small>JPG, PNG ou WEBP, com no máximo 3 MB. A URL acima será preenchida automaticamente.</small>
+                    </div>
+                    <label class="botao secundario compacto seletor-arquivo">
+                      {{ capaEmUpload(edicao) ? 'Enviando capa...' : 'Selecionar capa' }}
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                        (change)="selecionarCapaVisual($event, edicao)"
+                        [disabled]="capaEmUpload(edicao)"
+                      />
+                    </label>
+                    @if (capaPreview(edicao)) {
+                      <div class="previa-capa-upload">
+                        <img [src]="capaPreview(edicao)" [alt]="'Prévia da capa da edição ' + (edicao.numero || indiceEdicao + 1)" />
+                        <span>{{ capaEmUpload(edicao) ? 'Enviando e preparando a imagem...' : 'Capa pronta para o cadastro.' }}</span>
+                      </div>
+                    }
+                    @if (capaErro(edicao)) {
+                      <p class="erro-upload-capa">{{ capaErro(edicao) }}</p>
+                    }
+                  </div>
                   <label class="campo-largo">
                     Descricao
                     <small>edicoes[{{ indiceEdicao }}].descricao</small>
@@ -375,8 +406,8 @@ import {
 
         <div class="rodape-importacao">
           @if (modoEntrada() === 'visual') {
-            <button class="botao primario" type="button" (click)="importarVisual()" [disabled]="importando()">
-              {{ importando() ? 'Cadastrando...' : 'Cadastrar no catálogo' }}
+            <button class="botao primario" type="button" (click)="importarVisual()" [disabled]="importando() || uploadsCapaPendentes() > 0">
+              {{ importando() ? 'Cadastrando...' : uploadsCapaPendentes() > 0 ? 'Aguardando capa...' : 'Cadastrar no catálogo' }}
             </button>
           } @else {
             <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
@@ -634,8 +665,65 @@ import {
       overflow-wrap: anywhere;
     }
 
+    .grade-importacao-visual .ajuda-campo {
+      color: var(--texto-suave);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
     .campo-largo {
       grid-column: 1 / -1;
+    }
+
+    .upload-capa-visual {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      padding: 12px;
+      border: 1px dashed var(--borda);
+      border-radius: 8px;
+      background: var(--superficie-suave);
+    }
+
+    .upload-capa-visual > div:first-child {
+      display: grid;
+      flex: 1 1 280px;
+      gap: 4px;
+    }
+
+    .upload-capa-visual small {
+      display: block;
+    }
+
+    .previa-capa-upload {
+      display: flex;
+      flex: 1 0 100%;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .previa-capa-upload img {
+      width: 72px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      background: var(--superficie);
+    }
+
+    .previa-capa-upload span {
+      color: var(--texto-suave);
+      font-size: 0.85rem;
+      font-weight: 650;
+    }
+
+    .erro-upload-capa {
+      flex: 1 0 100%;
+      margin: 0;
+      color: #b91c1c;
+      font-size: 0.84rem;
+      font-weight: 700;
     }
 
     .dados-avancados {
@@ -855,8 +943,12 @@ export class ImportacaoPage {
   readonly modoEntrada = signal<'visual' | 'json'>('visual');
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
+  readonly uploadsCapaPendentes = signal(0);
   readonly seriesCapa = signal<Serie[]>([]);
   readonly serieCapaSelecionada = signal<Serie | null>(null);
+  private readonly previewsCapaVisual = new WeakMap<object, string>();
+  private readonly uploadsCapaVisual = new WeakSet<object>();
+  private readonly errosCapaVisual = new WeakMap<object, string>();
   buscaSerieCapa = '';
   numeroEdicaoCapa = '';
   urlCapaManual = '';
@@ -902,6 +994,64 @@ export class ImportacaoPage {
     };
     leitor.onerror = () => this.mensagem.set('Não foi possível ler o arquivo selecionado.');
     leitor.readAsText(arquivo, 'utf-8');
+  }
+
+  selecionarCapaVisual(evento: Event, edicao: any) {
+    const input = evento.target as HTMLInputElement;
+    const arquivo = input.files?.[0];
+    input.value = '';
+    if (!arquivo || this.capaEmUpload(edicao)) {
+      return;
+    }
+
+    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!tiposPermitidos.includes(arquivo.type)) {
+      this.errosCapaVisual.set(edicao, 'Use uma imagem JPG, PNG ou WEBP.');
+      return;
+    }
+    if (arquivo.size > 3 * 1024 * 1024) {
+      this.errosCapaVisual.set(edicao, 'A imagem deve ter no máximo 3 MB.');
+      return;
+    }
+
+    this.errosCapaVisual.delete(edicao);
+    const previewLocal = URL.createObjectURL(arquivo);
+    this.previewsCapaVisual.set(edicao, previewLocal);
+    this.uploadsCapaVisual.add(edicao);
+    this.uploadsCapaPendentes.update((total) => total + 1);
+
+    this.api.enviarCapaImportacao(arquivo).subscribe({
+      next: (imagem) => {
+        edicao.urlCapa = imagem.urlImagem;
+        this.finalizarUploadCapa(edicao, previewLocal);
+      },
+      error: (erro) => {
+        this.errosCapaVisual.set(
+          edicao,
+          erro?.error?.mensagem || 'Não foi possível enviar a capa. Tente novamente.',
+        );
+        this.finalizarUploadCapa(edicao, previewLocal);
+      },
+    });
+  }
+
+  capaPreview(edicao: any) {
+    return this.previewsCapaVisual.get(edicao) || String(edicao?.urlCapa || '').trim();
+  }
+
+  capaEmUpload(edicao: any) {
+    return this.uploadsCapaVisual.has(edicao);
+  }
+
+  capaErro(edicao: any) {
+    return this.errosCapaVisual.get(edicao) || '';
+  }
+
+  private finalizarUploadCapa(edicao: any, previewLocal: string) {
+    this.uploadsCapaVisual.delete(edicao);
+    this.uploadsCapaPendentes.update((total) => Math.max(0, total - 1));
+    this.previewsCapaVisual.delete(edicao);
+    URL.revokeObjectURL(previewLocal);
   }
 
   preencherExemploBatman() {

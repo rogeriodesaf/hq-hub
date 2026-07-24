@@ -772,6 +772,12 @@ export class ApiService {
     return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao, { params });
   }
 
+  enviarCapaImportacao(arquivo: File) {
+    const dados = new FormData();
+    dados.append('arquivo', arquivo);
+    return this.http.post<{ urlImagem: string }>('/api/importacoes/catalogo/capas/upload', dados);
+  }
+
   preencherCapasComicVineImportacao(serieBrasileiraId: number, aposId: number | null) {
     let params = new HttpParams()
       .set('limite', '1')
