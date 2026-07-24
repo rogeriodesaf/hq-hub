@@ -262,6 +262,25 @@ export interface EstanteEditora {
   series: EstanteSerie[];
 }
 
+export interface EstanteCompartilhada {
+  usuarioId: number;
+  nome: string;
+  editoras: Array<{
+    nome: string;
+    series: Array<{
+      titulo: string;
+      volume: number | null;
+      edicoes: Array<{
+        id: number;
+        numero: string;
+        titulo: string | null;
+        urlCapa: string | null;
+        statusLeitura: string;
+      }>;
+    }>;
+  }>;
+}
+
 export interface GrupoDuplicidadeEdicao {
   chave: string;
   edicaoMantida: Edicao;

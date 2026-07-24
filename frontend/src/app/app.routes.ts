@@ -9,6 +9,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/autenticacao/autenticacao.page').then((m) => m.AutenticacaoPage),
   },
   {
+    path: 'estante-publica/:id',
+    loadComponent: () => import('./pages/estante-publica/estante-publica.page').then((m) => m.EstantePublicaPage),
+  },
+  {
     path: '',
     canActivate: [autenticadoGuard],
     children: [

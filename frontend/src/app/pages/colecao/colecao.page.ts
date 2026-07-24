@@ -412,6 +412,16 @@ import {
         </label>
       </div>
 
+      @if (configuracaoColecao()?.visibilidadeColecao === 'PUBLICA') {
+        <div class="configuracao-estante">
+          <div>
+            <strong>Compartilhe sua estante</strong>
+            <p class="texto-suave">Visitantes verão capas, séries e status de leitura, sem preços ou datas de compra.</p>
+          </div>
+          <button class="botao primario compacto" type="button" (click)="copiarLinkEstantePublica()">Copiar link público</button>
+        </div>
+      }
+
       <div class="controles-estante">
         <input [(ngModel)]="buscaEstante" placeholder="Filtrar por título, editora ou número" (ngModelChange)="agendarBuscaEstante()" />
         <section class="abas-filtro">
@@ -663,6 +673,18 @@ export class ColecaoPage implements OnInit {
         this.mensagem.set('Não foi possível atualizar a configuração da estante.');
       },
     });
+  }
+
+  async copiarLinkEstantePublica() {
+    const usuarioId = this.autenticacao.usuario()?.id;
+    if (!usuarioId) return;
+    const link = `${window.location.origin}/estante-publica/${usuarioId}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      this.mensagem.set('Link público da estante copiado.');
+    } catch {
+      this.mensagem.set(`Copie este link: ${link}`);
+    }
   }
 
   agendarBuscaEstante() {

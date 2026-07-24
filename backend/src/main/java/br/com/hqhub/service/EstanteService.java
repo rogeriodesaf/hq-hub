@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import br.com.hqhub.dto.EstanteEdicaoDTO;
 import br.com.hqhub.dto.EstanteEditoraDTO;
+import br.com.hqhub.dto.EstanteCompartilhadaDTO;
 import br.com.hqhub.dto.EstanteSerieDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.entity.Editora;
@@ -19,7 +20,11 @@ import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusLeitura;
 import br.com.hqhub.entity.Usuario;
+import br.com.hqhub.entity.VisibilidadeColecao;
+import br.com.hqhub.exception.RecursoNaoEncontradoException;
+import br.com.hqhub.repository.ConfiguracaoColecaoRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
+import br.com.hqhub.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -32,10 +37,18 @@ public class EstanteService {
 
     private final ItemColecaoRepository itemColecaoRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
+    private final ConfiguracaoColecaoRepository configuracaoColecaoRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public EstanteService(ItemColecaoRepository itemColecaoRepository, UsuarioAutenticadoService usuarioAutenticadoService) {
+    public EstanteService(
+            ItemColecaoRepository itemColecaoRepository,
+            UsuarioAutenticadoService usuarioAutenticadoService,
+            ConfiguracaoColecaoRepository configuracaoColecaoRepository,
+            UsuarioRepository usuarioRepository) {
         this.itemColecaoRepository = itemColecaoRepository;
         this.usuarioAutenticadoService = usuarioAutenticadoService;
+        this.configuracaoColecaoRepository = configuracaoColecaoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Transactional
@@ -50,6 +63,39 @@ public class EstanteService {
     public List<EstanteEditoraDTO> montarEstantePublica(Long usuarioId) {
         List<ItemColecao> itens = itemColecaoRepository.list("usuario.id", usuarioId);
         return montarEstantePorItens(itens);
+    }
+
+    @Transactional
+    public EstanteCompartilhadaDTO montarEstanteCompartilhada(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findByIdOptional(usuarioId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Estante pública não encontrada."));
+        boolean publica = configuracaoColecaoRepository.buscarPorUsuario(usuarioId)
+                .map(configuracao -> configuracao.getVisibilidadeColecao() == VisibilidadeColecao.PUBLICA)
+                .orElse(false);
+        if (!publica) {
+            throw new RecursoNaoEncontradoException("Estante pública não encontrada.");
+        }
+
+        List<EstanteCompartilhadaDTO.Editora> editoras = montarEstantePorItens(
+                itemColecaoRepository.list("usuario.id", usuarioId))
+                .stream()
+                .map(editora -> new EstanteCompartilhadaDTO.Editora(
+                        editora.nome(),
+                        editora.series().stream()
+                                .map(serie -> new EstanteCompartilhadaDTO.Serie(
+                                        serie.titulo(),
+                                        serie.volume(),
+                                        serie.edicoes().stream()
+                                                .map(edicao -> new EstanteCompartilhadaDTO.Edicao(
+                                                        edicao.edicaoId(),
+                                                        edicao.numero(),
+                                                        edicao.titulo(),
+                                                        edicao.urlCapa(),
+                                                        edicao.statusLeitura()))
+                                                .toList()))
+                                .toList()))
+                .toList();
+        return new EstanteCompartilhadaDTO(usuarioId, usuario.getNome(), editoras);
     }
 
     @Transactional

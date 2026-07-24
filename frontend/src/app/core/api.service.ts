@@ -25,6 +25,7 @@ import {
   EditoraResumo,
   EdicaoComicVine,
   EstanteEditora,
+  EstanteCompartilhada,
   EstatisticasPublicasColecao,
   GeracaoRascunhoImportacao,
   Historia,
@@ -705,6 +706,10 @@ export class ApiService {
     observacoes: string | null;
   }) {
     return this.http.post<ConteudoEdicao>('/api/conteudos-edicoes', dto);
+  }
+
+  obterEstanteCompartilhada(usuarioId: number) {
+    return this.http.get<EstanteCompartilhada>(`/api/publico/estantes/${usuarioId}`);
   }
 
   atualizarHistoria(id: number, dto: {
