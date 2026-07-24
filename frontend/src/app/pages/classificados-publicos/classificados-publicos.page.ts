@@ -14,9 +14,9 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
       <header class="hero">
         <a class="marca" routerLink="/entrar">HQ-HUB</a>
         <div>
-          <p class="rotulo">Classificados de quadrinhos</p>
-          <h1>HQs à venda e para troca</h1>
-          <p>Descubra edições oferecidas diretamente por colecionadores.</p>
+          <p class="rotulo">Mercado de colecionadores</p>
+          <h1>Anúncios ativos</h1>
+          <p>HQs à venda e para troca, oferecidas diretamente por colecionadores.</p>
         </div>
         <a class="botao primario" routerLink="/entrar">Entrar ou criar conta</a>
       </header>
