@@ -2240,6 +2240,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private termoBuscaSerieRelacionada(titulo: string) {
     return titulo
       .replace(/\b\d+\s*[ªºa]?\s*(?:temporada|serie|série)\b/giu, '')
+      .replace(/^(?:a|as|o|os)\s+/iu, '')
+      .replace(/,\s*(?:a|as|o|os)$/iu, '')
       .replace(/\s{2,}/g, ' ')
       .replace(/[,\s]+$/g, '')
       .trim() || titulo;
