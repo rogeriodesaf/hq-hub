@@ -35,6 +35,22 @@ public class ItemColecaoRepository implements PanacheRepository<ItemColecao> {
         return count("usuario.id = ?1 and edicao.serie.id = ?2", usuarioId, serieId);
     }
 
+    public List<ItemColecao> listarPorUsuarioESerie(Long usuarioId, Long serieId) {
+        return entityManager.createQuery("""
+                select item
+                  from ItemColecao item
+                  join fetch item.edicao edicao
+                  join fetch edicao.serie serie
+                  join fetch serie.editora editora
+                 where item.usuario.id = :usuarioId
+                   and edicao.serie.id = :serieId
+                 order by lower(edicao.numero), item.id
+                """, ItemColecao.class)
+                .setParameter("usuarioId", usuarioId)
+                .setParameter("serieId", serieId)
+                .getResultList();
+    }
+
     public Optional<ItemColecao> buscarPorUsuarioEOrigemExterna(Long usuarioId, String fonteExterna, String idExterno) {
         return find("usuario.id = ?1 and edicao.fonteExterna = ?2 and edicao.idExterno = ?3",
                 usuarioId, fonteExterna, idExterno)

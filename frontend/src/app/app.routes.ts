@@ -17,6 +17,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/estante-publica/estante-publica.page').then((m) => m.EstantePublicaPage),
   },
   {
+    path: 'colecao-compartilhada/:id',
+    loadComponent: () => import('./pages/colecao-compartilhada/colecao-compartilhada.page').then((m) => m.ColecaoCompartilhadaPage),
+  },
+  {
     path: 'classificados',
     loadComponent: () => import('./pages/classificados-publicos/classificados-publicos.page').then((m) => m.ClassificadosPublicosPage),
   },

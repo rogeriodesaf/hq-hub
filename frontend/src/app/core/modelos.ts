@@ -674,6 +674,22 @@ export interface PostagemFeed {
   dataAtualizacao: string;
 }
 
+export interface PostagemColecaoPublica {
+  postagemId: number;
+  usuarioId: number;
+  nomeUsuario: string;
+  conteudo: string;
+  titulo: string;
+  editora: string;
+  edicoes: {
+    id: number;
+    numero: string;
+    titulo: string | null;
+    urlCapa: string | null;
+    statusLeitura: 'LIDO' | 'NAO_LIDO';
+  }[];
+}
+
 export interface MensagemDireta {
   id: number;
   remetente: Usuario;

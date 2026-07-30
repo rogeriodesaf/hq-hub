@@ -21,8 +21,10 @@ import br.com.hqhub.entity.ImagemPostagemFeed;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
+import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
 import jakarta.transaction.Transactional;
@@ -45,6 +47,7 @@ public class CompartilhamentoResource {
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
     private final EdicaoRepository edicaoRepository;
+    private final ItemColecaoRepository itemColecaoRepository;
     private final UrlPublicaService urlPublicaService;
     private final HttpClient httpClient = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(8))
@@ -58,10 +61,12 @@ public class CompartilhamentoResource {
             PostagemFeedRepository postagemRepository,
             ImagemPostagemFeedRepository imagemRepository,
             EdicaoRepository edicaoRepository,
+            ItemColecaoRepository itemColecaoRepository,
             UrlPublicaService urlPublicaService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
         this.edicaoRepository = edicaoRepository;
+        this.itemColecaoRepository = itemColecaoRepository;
         this.urlPublicaService = urlPublicaService;
     }
 
@@ -98,6 +103,42 @@ public class CompartilhamentoResource {
         return buscarImagemPostagem(id);
     }
 
+    @GET
+    @Path("/postagens/{id}/colecao")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response obterColecaoPublica(@PathParam("id") Long id) {
+        PostagemFeed postagem = postagemRepository.findByIdOptional(id)
+                .filter(item -> item.getItemColecao() != null)
+                .orElse(null);
+        if (postagem == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        ItemColecao destaque = postagem.getItemColecao();
+        Serie serie = destaque.getEdicao().getSerie();
+        Long usuarioId = postagem.getUsuario().getId();
+        List<PostagemColecaoPublicaDTO.Edicao> edicoes = itemColecaoRepository
+                .listarPorUsuarioESerie(usuarioId, serie.getId())
+                .stream()
+                .map(item -> new PostagemColecaoPublicaDTO.Edicao(
+                        item.getEdicao().getId(),
+                        item.getEdicao().getNumero(),
+                        item.getEdicao().getTitulo(),
+                        urlPublicaService.normalizarApiUrl(item.getEdicao().getUrlCapa()),
+                        item.getStatusLeitura()))
+                .toList();
+
+        return Response.ok(new PostagemColecaoPublicaDTO(
+                postagem.getId(),
+                usuarioId,
+                postagem.getUsuario().getNome(),
+                postagem.getConteudo(),
+                serie.getTitulo(),
+                serie.getEditora().getNome(),
+                edicoes)).build();
+    }
+
     private Response buscarImagemPostagem(Long id) {
         return postagemRepository.findByIdOptional(id)
                 .map(this::responderImagem)
@@ -107,6 +148,7 @@ public class CompartilhamentoResource {
     private String htmlPostagem(PostagemFeed postagem, String origemCompartilhamento) {
         String appUrl = appUrl(postagem);
         String titulo = tituloHq(postagem);
+        String descricao = descricaoCompartilhamento(postagem);
         String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
 
         return """
@@ -125,27 +167,31 @@ public class CompartilhamentoResource {
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
+                  <meta http-equiv="refresh" content="0;url=%s">
                   <script>window.location.replace(%s);</script>
                 </head>
                 <body>
                   <main>
                     <h1>%s</h1>
                     <p>%s</p>
+                    <p><a href="%s">Abrir coleção compartilhada</a></p>
                   </main>
                 </body>
                 </html>
                 """.formatted(
                 escaparHtml(titulo),
-                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
+                escaparHtml(descricao),
                 escaparHtml(titulo),
-                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
+                escaparHtml(descricao),
                 escaparHtml(imagem),
                 escaparHtml(titulo),
-                escaparHtml(DESCRICAO_COMPARTILHAMENTO),
+                escaparHtml(descricao),
                 escaparHtml(imagem),
+                escaparHtml(appUrl),
                 literalJavascript(appUrl),
                 escaparHtml(titulo),
-                escaparHtml("Redirecionando para o HQ-HUB..."));
+                escaparHtml("Redirecionando para o HQ-HUB..."),
+                escaparHtml(appUrl));
     }
 
     private Response responderImagem(PostagemFeed postagem) {
@@ -265,7 +311,18 @@ public class CompartilhamentoResource {
         return tituloSerie == null || tituloSerie.isBlank() ? "uma HQ" : tituloSerie;
     }
 
+    private String descricaoCompartilhamento(PostagemFeed postagem) {
+        if (postagem.getItemColecao() != null) {
+            return "Veja a coleção compartilhada por " + postagem.getUsuario().getNome()
+                    + " no HQ-HUB, sem precisar criar uma conta.";
+        }
+        return DESCRICAO_COMPARTILHAMENTO;
+    }
+
     private String appUrl(PostagemFeed postagem) {
+        if (postagem.getItemColecao() != null) {
+            return baseNormalizada() + "/colecao-compartilhada/" + postagem.getId();
+        }
         return baseNormalizada() + "/usuario/" + postagem.getUsuario().getId() + "#postagem-" + postagem.getId();
     }
 
