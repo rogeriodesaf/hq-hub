@@ -349,12 +349,14 @@ interface EdicaoDescoberta {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição interna">
         <div class="detalhe-fundo" (click)="fecharDetalheInterno()"></div>
         <article class="detalhe-painel">
-          <button class="fechar-detalhe" type="button" (click)="fecharDetalheInterno()" aria-label="Fechar detalhes">×</button>
-          @if (historicoDetalhes().length) {
-            <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
-              Voltar
-            </button>
-          }
+          <header class="detalhe-acoes-topo">
+            @if (historicoDetalhes().length) {
+              <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
+                Voltar
+              </button>
+            }
+            <button class="fechar-detalhe" type="button" (click)="fecharDetalheInterno()" aria-label="Fechar detalhes">×</button>
+          </header>
 
           <div class="detalhe-cabecalho">
             <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="tituloEdicaoInterna(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />

@@ -1570,11 +1570,24 @@ body.tema-escuro .sugestoes-assistente {
   object-fit: contain;
 }
 
-.fechar-detalhe {
+.detalhe-acoes-topo {
   position: sticky;
   top: 0;
   z-index: 2;
-  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 42px;
+  margin-bottom: 12px;
+  pointer-events: none;
+}
+
+.detalhe-acoes-topo > * {
+  pointer-events: auto;
+}
+
+.fechar-detalhe {
   display: grid;
   width: 42px;
   height: 42px;
@@ -1887,11 +1900,8 @@ body.tema-escuro .sugestoes-assistente {
 }
 
 .voltar-detalhe {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  margin-right: 8px;
-  float: right;
+  width: auto;
+  margin: 0;
 }
 
 .estado-vazio.compacto {
@@ -4064,9 +4074,27 @@ body.tema-escuro .banner-apoio span {
   .detalhe-painel {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     margin: 0;
     border-radius: 0;
-    padding: 14px 12px 104px;
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px calc(env(safe-area-inset-bottom, 0px) + 104px);
+  }
+
+  .detalhe-acoes-topo {
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .detalhe-acoes-topo .fechar-detalhe {
+    flex: 0 0 42px;
+    margin-left: auto;
+  }
+
+  .app-shell:has(app-catalogo-page) .detalhe-acoes-topo {
+    width: calc(100% - 142px);
   }
 
   .detalhe-cabecalho,
@@ -4331,6 +4359,12 @@ body.tema-escuro .banner-apoio span {
 }
 
 @media (max-width: 360px) {
+  .app-shell:has(app-catalogo-page) .detalhe-acoes-topo {
+    top: calc(env(safe-area-inset-top, 0px) + 54px);
+    width: 100%;
+    margin-top: 46px;
+  }
+
   .app-shell:has(app-catalogo-page) .atalhos-superiores .atalho-superior {
     width: 36px;
     min-width: 36px;

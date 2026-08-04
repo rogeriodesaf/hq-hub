@@ -297,12 +297,14 @@ import {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
         <div class="detalhe-fundo" (click)="fecharDetalhe()"></div>
         <article class="detalhe-painel detalhe-painel-catalogo" #detalhePainel>
-          <button class="fechar-detalhe" type="button" (click)="fecharDetalhe()" aria-label="Fechar detalhes">×</button>
-          @if (historicoDetalhes().length) {
-            <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
-              Voltar
-            </button>
-          }
+          <header class="detalhe-acoes-topo">
+            @if (historicoDetalhes().length) {
+              <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
+                Voltar
+              </button>
+            }
+            <button class="fechar-detalhe" type="button" (click)="fecharDetalhe()" aria-label="Fechar detalhes">×</button>
+          </header>
 
           @if (edicaoDetalhe()) {
           <div class="detalhe-cabecalho">
