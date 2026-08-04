@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
@@ -22,6 +23,7 @@ import br.com.hqhub.dto.PostagemFeedRespostaDTO;
 import br.com.hqhub.dto.PostagemPublicaDTO;
 import br.com.hqhub.dto.VideoRelacionadoDTO;
 import br.com.hqhub.entity.ComentarioFeed;
+import br.com.hqhub.entity.CurtidaComentarioFeed;
 import br.com.hqhub.entity.CurtidaPostagemFeed;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ImagemPostagemFeed;
@@ -38,6 +40,7 @@ import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.AmizadeRepository;
 import br.com.hqhub.repository.ColecaoSerieRepository;
 import br.com.hqhub.repository.ComentarioFeedRepository;
+import br.com.hqhub.repository.CurtidaComentarioFeedRepository;
 import br.com.hqhub.repository.CurtidaPostagemFeedRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
@@ -52,6 +55,7 @@ public class FeedSocialService {
 
     private final PostagemFeedRepository postagemRepository;
     private final ComentarioFeedRepository comentarioRepository;
+    private final CurtidaComentarioFeedRepository curtidaComentarioRepository;
     private final CurtidaPostagemFeedRepository curtidaRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
     private final VideoRelacionadoFeedRepository videoRelacionadoRepository;
@@ -66,6 +70,7 @@ public class FeedSocialService {
     public FeedSocialService(
             PostagemFeedRepository postagemRepository,
             ComentarioFeedRepository comentarioRepository,
+            CurtidaComentarioFeedRepository curtidaComentarioRepository,
             CurtidaPostagemFeedRepository curtidaRepository,
             ImagemPostagemFeedRepository imagemRepository,
             VideoRelacionadoFeedRepository videoRelacionadoRepository,
@@ -78,6 +83,7 @@ public class FeedSocialService {
             UrlPublicaService urlPublicaService) {
         this.postagemRepository = postagemRepository;
         this.comentarioRepository = comentarioRepository;
+        this.curtidaComentarioRepository = curtidaComentarioRepository;
         this.curtidaRepository = curtidaRepository;
         this.imagemRepository = imagemRepository;
         this.videoRelacionadoRepository = videoRelacionadoRepository;
@@ -192,6 +198,25 @@ public class FeedSocialService {
     }
 
     @Transactional
+    public PostagemFeedRespostaDTO alternarCurtidaComentario(Long postagemId, Long comentarioId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemVisivel(postagemId, usuario);
+        ComentarioFeed comentario = buscarComentarioDaPostagem(postagem, comentarioId);
+
+        curtidaComentarioRepository.buscarPorComentarioEUsuario(comentario.getId(), usuario.getId())
+                .ifPresentOrElse(
+                        curtidaComentarioRepository::delete,
+                        () -> {
+                            CurtidaComentarioFeed curtida = new CurtidaComentarioFeed();
+                            curtida.setComentario(comentario);
+                            curtida.setUsuario(usuario);
+                            curtidaComentarioRepository.persist(curtida);
+                        });
+
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
     public PostagemPublicaDTO obterPostagemPublica(Long postagemId) {
         PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
@@ -200,13 +225,17 @@ public class FeedSocialService {
                 .stream()
                 .map(this::paraImagemResposta)
                 .toList();
-        List<PostagemPublicaDTO.Comentario> comentarios = comentarioRepository.listarPorPostagem(postagem.getId())
+        List<ComentarioFeed> comentariosEntidades = comentarioRepository.listarPorPostagem(postagem.getId());
+        Map<Long, Long> totaisCurtidasComentarios = curtidaComentarioRepository.contarPorComentarios(
+                comentariosEntidades.stream().map(ComentarioFeed::getId).toList());
+        List<PostagemPublicaDTO.Comentario> comentarios = comentariosEntidades
                 .stream()
                 .map(comentario -> new PostagemPublicaDTO.Comentario(
                         comentario.getId(),
                         paraAutorPublico(comentario.getUsuario()),
                         comentario.getTexto(),
-                        comentario.getDataCriacao()))
+                        comentario.getDataCriacao(),
+                        totaisCurtidasComentarios.getOrDefault(comentario.getId(), 0L)))
                 .toList();
 
         return new PostagemPublicaDTO(
@@ -260,6 +289,15 @@ public class FeedSocialService {
         return paraResposta(postagem, usuario.getId());
     }
 
+    private ComentarioFeed buscarComentarioDaPostagem(PostagemFeed postagem, Long comentarioId) {
+        ComentarioFeed comentario = comentarioRepository.findByIdOptional(comentarioId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Comentario nao encontrado."));
+        if (!comentario.getPostagem().getId().equals(postagem.getId())) {
+            throw new RecursoNaoEncontradoException("Comentario nao encontrado.");
+        }
+        return comentario;
+    }
+
     private PostagemFeed buscarPostagemVisivel(Long postagemId, Usuario usuario) {
         PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
@@ -280,13 +318,20 @@ public class FeedSocialService {
     }
 
     private PostagemFeedRespostaDTO paraResposta(PostagemFeed postagem, Long usuarioId) {
-        List<ComentarioFeedRespostaDTO> comentarios = comentarioRepository.listarPorPostagem(postagem.getId())
+        List<ComentarioFeed> comentariosEntidades = comentarioRepository.listarPorPostagem(postagem.getId());
+        List<Long> comentarioIds = comentariosEntidades.stream().map(ComentarioFeed::getId).toList();
+        Map<Long, Long> totaisCurtidasComentarios = curtidaComentarioRepository.contarPorComentarios(comentarioIds);
+        Set<Long> comentariosCurtidos = curtidaComentarioRepository.listarComentariosCurtidosPorUsuario(
+                comentarioIds, usuarioId);
+        List<ComentarioFeedRespostaDTO> comentarios = comentariosEntidades
                 .stream()
                 .map(comentario -> new ComentarioFeedRespostaDTO(
                         comentario.getId(),
                         usuarioMapper.paraResposta(comentario.getUsuario()),
                         comentario.getTexto(),
-                        comentario.getDataCriacao()))
+                        comentario.getDataCriacao(),
+                        totaisCurtidasComentarios.getOrDefault(comentario.getId(), 0L),
+                        comentariosCurtidos.contains(comentario.getId())))
                 .toList();
 
         List<ImagemFeedDTO> imagens = imagemRepository.listarPorPostagem(postagem.getId())

@@ -605,6 +605,8 @@ export interface ComentarioFeed {
   usuario: Usuario;
   texto: string;
   dataCriacao: string;
+  totalCurtidas: number;
+  curtidaPeloUsuario: boolean;
 }
 
 export interface ComentarioColecao {
@@ -725,6 +727,7 @@ export interface PostagemPublica {
     autor: AutorPostagemPublica;
     texto: string;
     dataCriacao: string;
+    totalCurtidas: number;
   }>;
   dataCriacao: string;
   dataAtualizacao: string;

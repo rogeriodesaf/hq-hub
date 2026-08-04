@@ -196,6 +196,16 @@ import {
                             <strong>{{ comentario.usuario.nome }}</strong>
                           </a>
                           <p>{{ comentario.texto }}</p>
+                          <button
+                            class="botao compacto"
+                            type="button"
+                            [class.primario]="comentario.curtidaPeloUsuario"
+                            (click)="curtirComentario(postagem, comentario.id)"
+                            [disabled]="interagindoId() === postagem.id"
+                          >
+                            {{ comentario.curtidaPeloUsuario ? '♥' : '♡' }}
+                            {{ comentario.totalCurtidas || 'Curtir' }}
+                          </button>
                           @if (comentario.usuario.id === usuarioAtual()?.id) {
                             <button class="botao compacto" type="button" (click)="removerComentario(postagem, comentario.id)" [disabled]="interagindoId() === postagem.id">
                               Excluir comentario
@@ -1344,6 +1354,17 @@ export class PerfilPublicoPage implements OnInit {
       .map((p) => p[0])
       .join('')
       .toUpperCase();
+  }
+
+  curtirComentario(postagem: PostagemFeed, comentarioId: number) {
+    this.interagindoId.set(postagem.id);
+    this.api.alternarCurtidaComentario(postagem.id, comentarioId).subscribe({
+      next: (atualizada) => {
+        this.postagens.update((lista) => lista.map((p) => (p.id === atualizada.id ? atualizada : p)));
+      },
+      error: () => this.interagindoId.set(null),
+      complete: () => this.interagindoId.set(null),
+    });
   }
 
   private normalizarTexto(valor: string | null | undefined) {

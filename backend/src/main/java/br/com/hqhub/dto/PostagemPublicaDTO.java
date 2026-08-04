@@ -30,6 +30,7 @@ public record PostagemPublicaDTO(
             Long id,
             Autor autor,
             String texto,
-            LocalDateTime dataCriacao) {
+            LocalDateTime dataCriacao,
+            long totalCurtidas) {
     }
 }

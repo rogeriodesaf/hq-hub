@@ -94,7 +94,12 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
                 <article>
                   <strong>{{ comentario.autor.nome }}</strong>
                   <p>{{ comentario.texto }}</p>
-                  <small>{{ dataFormatada(comentario.dataCriacao) }}</small>
+                  <small>
+                    {{ dataFormatada(comentario.dataCriacao) }}
+                    @if (comentario.totalCurtidas > 0) {
+                      · ♥ {{ comentario.totalCurtidas }}
+                    }
+                  </small>
                 </article>
               }
             </section>

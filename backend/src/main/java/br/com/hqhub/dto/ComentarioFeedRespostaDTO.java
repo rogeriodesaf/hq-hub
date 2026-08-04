@@ -6,5 +6,7 @@ public record ComentarioFeedRespostaDTO(
         Long id,
         UsuarioRespostaDTO usuario,
         String texto,
-        LocalDateTime dataCriacao) {
+        LocalDateTime dataCriacao,
+        long totalCurtidas,
+        boolean curtidaPeloUsuario) {
 }

@@ -397,7 +397,23 @@ import { environment } from '../../../environments/environment';
                         <strong>{{ comentario.usuario.nome }}</strong>
                       </a>
                       <p>{{ comentario.texto }}</p>
-                      <span class="tempo-comentario">{{ dataRelativa(comentario.dataCriacao) }}</span>
+                      <div class="acoes-comentario">
+                        <span class="tempo-comentario">{{ dataRelativa(comentario.dataCriacao) }}</span>
+                        <button
+                          class="curtir-comentario"
+                          type="button"
+                          [class.ativo]="comentario.curtidaPeloUsuario"
+                          [attr.aria-label]="comentario.curtidaPeloUsuario ? 'Remover curtida do comentario' : 'Curtir comentario'"
+                          [attr.aria-pressed]="comentario.curtidaPeloUsuario"
+                          (click)="curtirComentario(postagem, comentario.id)"
+                          [disabled]="interagindoId() === postagem.id"
+                        >
+                          {{ comentario.curtidaPeloUsuario ? '♥' : '♡' }}
+                          @if (comentario.totalCurtidas > 0) {
+                            <span>{{ comentario.totalCurtidas }}</span>
+                          }
+                        </button>
+                      </div>
                       @if (comentario.usuario.id === usuario()?.id) {
                         <button
                           class="botao-texto perigo"
@@ -849,10 +865,39 @@ import { environment } from '../../../environments/environment';
     }
 
     .tempo-comentario {
-      display: inline-block;
-      margin-top: 4px;
       color: var(--texto-suave);
       font-size: 0.78rem;
+    }
+
+    .acoes-comentario {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .curtir-comentario {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 28px;
+      padding: 2px 6px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--texto-suave);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 850;
+    }
+
+    .curtir-comentario:hover {
+      background: rgba(255, 135, 31, 0.12);
+      color: #d75f00;
+    }
+
+    .curtir-comentario.ativo {
+      color: #e5484d;
     }
 
     .botao-texto {
@@ -1299,6 +1344,18 @@ export class PainelPage implements OnInit {
         this.substituirPostagem(atualizada);
       },
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel comentar esta postagem.'),
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  curtirComentario(postagem: PostagemFeed, comentarioId: number) {
+    this.interagindoId.set(postagem.id);
+    this.api.alternarCurtidaComentario(postagem.id, comentarioId).subscribe({
+      next: (atualizada) => this.substituirPostagem(atualizada),
+      error: (erro) => {
+        this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel curtir este comentario.');
+        this.interagindoId.set(null);
+      },
       complete: () => this.interagindoId.set(null),
     });
   }

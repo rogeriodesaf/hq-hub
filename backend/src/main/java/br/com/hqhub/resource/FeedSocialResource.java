@@ -102,6 +102,14 @@ public class FeedSocialResource {
         return Response.ok(feedSocialService.comentar(id, dto)).build();
     }
 
+    @POST
+    @Path("/{id}/comentarios/{comentarioId}/curtidas")
+    public Response alternarCurtidaComentario(
+            @PathParam("id") Long id,
+            @PathParam("comentarioId") Long comentarioId) {
+        return Response.ok(feedSocialService.alternarCurtidaComentario(id, comentarioId)).build();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response removerPostagem(@PathParam("id") Long id) {

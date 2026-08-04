@@ -146,6 +146,12 @@ export class ApiService {
       .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
+  alternarCurtidaComentario(postagemId: number, comentarioId: number) {
+    return this.http
+      .post<PostagemFeed>(`/api/feed/${postagemId}/comentarios/${comentarioId}/curtidas`, {})
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
   removerPostagemFeed(id: number) {
     return this.http.delete<void>(`/api/feed/${id}`);
   }
@@ -978,6 +984,8 @@ export class ApiService {
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),
+        totalCurtidas: comentario.totalCurtidas || 0,
+        curtidaPeloUsuario: comentario.curtidaPeloUsuario || false,
       })),
     };
   }
