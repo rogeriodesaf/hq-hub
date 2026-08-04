@@ -71,6 +71,9 @@ public class CompartilhamentoResource {
     @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub-frontend.onrender.com")
     String urlBase;
 
+    @ConfigProperty(name = "hqhub.compartilhamento.abrir-catalogo", defaultValue = "false")
+    boolean abrirCatalogoAoCompartilhar;
+
     public CompartilhamentoResource(
             PostagemFeedRepository postagemRepository,
             ImagemPostagemFeedRepository imagemRepository,
@@ -223,7 +226,7 @@ public class CompartilhamentoResource {
                   <main>
                     <h1>%s</h1>
                     <p>%s</p>
-                    <p><a href="%s">Abrir coleção compartilhada</a></p>
+                    <p><a href="%s">Abrir publicação no feed</a></p>
                   </main>
                 </body>
                 </html>
@@ -390,7 +393,7 @@ public class CompartilhamentoResource {
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=6-" + versao(postagem);
+                + "?v=7-" + versao(postagem);
     }
 
     private String primeiraUrlPublica(String... urls) {
@@ -417,6 +420,14 @@ public class CompartilhamentoResource {
     }
 
     private String appUrl(PostagemFeed postagem) {
+        if (!abrirCatalogoAoCompartilhar) {
+            return baseNormalizada() + "/postagem/" + postagem.getId();
+        }
+
+        return appUrlCatalogo(postagem);
+    }
+
+    private String appUrlCatalogo(PostagemFeed postagem) {
         Long edicaoId = null;
         if (postagem.getItemColecao() != null) {
             edicaoId = postagem.getItemColecao().getEdicao().getId();
