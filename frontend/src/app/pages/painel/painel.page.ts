@@ -125,9 +125,19 @@ import { environment } from '../../../environments/environment';
               name="novoConteudo"
               rows="4"
               maxlength="2000"
-              placeholder="Compartilhe uma leitura, uma capa bonita ou uma descoberta da sua estante..."
+              placeholder="Compartilhe uma leitura ou cole aqui um link do YouTube..."
             ></textarea>
           </div>
+
+          @if (linksYoutubeNoConteudo().length) {
+            <div class="youtube-detectado" role="status">
+              <span aria-hidden="true">▶</span>
+              <div>
+                <strong>{{ linksYoutubeNoConteudo().length === 1 ? 'Link do YouTube detectado' : linksYoutubeNoConteudo().length + ' links do YouTube detectados' }}</strong>
+                <small>O HQ-HUB criará automaticamente {{ linksYoutubeNoConteudo().length === 1 ? 'um card para o vídeo' : 'cards para os vídeos' }}.</small>
+              </div>
+            </div>
+          }
 
           @if (videosRelacionadosFormulario.length) {
             <div class="videos-compositor">
@@ -1028,14 +1038,15 @@ export class PainelPage implements OnInit {
       return;
     }
 
-    const videosRelacionados = this.videosRelacionadosFormulario.map((video) => ({
+    const videosManuais: RelatedVideoInput[] = this.videosRelacionadosFormulario.map((video) => ({
       title: video.title.trim(),
       url: video.url.trim(),
     }));
-    if (videosRelacionados.some((video) => !video.title || !video.url)) {
+    if (videosManuais.some((video) => !video.title || !video.url)) {
       this.mensagem.set('Informe o título e a URL de cada vídeo relacionado.');
       return;
     }
+    const videosRelacionados = this.mesclarVideosYoutube(conteudo, videosManuais);
     const partnerChannel = this.canalParceiroFormulario
       ? { name: this.canalParceiroFormulario.name.trim() || null, url: this.canalParceiroFormulario.url.trim() }
       : null;
@@ -1058,6 +1069,10 @@ export class PainelPage implements OnInit {
     if (this.videosRelacionadosFormulario.length < 3) {
       this.videosRelacionadosFormulario.push({ title: '', url: '' });
     }
+  }
+
+  linksYoutubeNoConteudo() {
+    return this.extrairLinksYoutube(this.novoConteudo).slice(0, Math.max(0, 3 - this.videosRelacionadosFormulario.length));
   }
 
   removerVideoRelacionado(indice: number) {
@@ -1208,6 +1223,58 @@ export class PainelPage implements OnInit {
         this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel publicar agora.');
       },
     });
+  }
+
+  private mesclarVideosYoutube(conteudo: string, videosManuais: RelatedVideoInput[]) {
+    const urlsExistentes = new Set(videosManuais.map((video) => this.normalizarUrlYoutube(video.url)));
+    const automaticos: RelatedVideoInput[] = [];
+
+    for (const url of this.extrairLinksYoutube(conteudo)) {
+      const normalizada = this.normalizarUrlYoutube(url);
+      if (!normalizada || urlsExistentes.has(normalizada)) {
+        continue;
+      }
+      urlsExistentes.add(normalizada);
+      const videoId = this.extrairIdYoutube(url);
+      automaticos.push({
+        title: 'Vídeo compartilhado no YouTube',
+        url,
+        thumbnail: videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null,
+      });
+      if (videosManuais.length + automaticos.length >= 3) {
+        break;
+      }
+    }
+
+    return [...videosManuais, ...automaticos].slice(0, 3);
+  }
+
+  private extrairLinksYoutube(texto: string) {
+    const padrao = /https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?[^\s<]*v=|shorts\/|live\/|embed\/)|youtu\.be\/)[^\s<]+/gi;
+    return [...texto.matchAll(padrao)]
+      .map((resultado) => resultado[0].replace(/[),.;!?]+$/g, ''))
+      .filter((url, indice, urls) => urls.indexOf(url) === indice);
+  }
+
+  private extrairIdYoutube(url: string) {
+    try {
+      const endereco = new URL(url);
+      const host = endereco.hostname.replace(/^www\.|^m\./, '');
+      let videoId = '';
+      if (host === 'youtu.be') {
+        videoId = endereco.pathname.split('/').filter(Boolean)[0] || '';
+      } else if (host === 'youtube.com') {
+        videoId = endereco.searchParams.get('v') || endereco.pathname.split('/').filter(Boolean)[1] || '';
+      }
+      return /^[A-Za-z0-9_-]{6,}$/.test(videoId) ? videoId : '';
+    } catch {
+      return '';
+    }
+  }
+
+  private normalizarUrlYoutube(url: string) {
+    const videoId = this.extrairIdYoutube(url);
+    return videoId ? `youtube:${videoId}` : url.trim().toLowerCase();
   }
 
   curtir(postagem: PostagemFeed) {

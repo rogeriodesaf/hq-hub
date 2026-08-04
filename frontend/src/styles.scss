@@ -3554,6 +3554,39 @@ body.tema-escuro .banner-apoio span {
   white-space: nowrap;
 }
 
+.youtube-detectado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 16px 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(230, 0, 46, 0.24);
+  border-radius: 10px;
+  background: rgba(230, 0, 46, 0.06);
+}
+
+.youtube-detectado > span {
+  display: grid;
+  width: 34px;
+  height: 25px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 7px;
+  background: #e6002e;
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.youtube-detectado strong,
+.youtube-detectado small {
+  display: block;
+}
+
+.youtube-detectado small {
+  margin-top: 2px;
+  color: var(--texto-suave);
+}
+
 .social-card {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) auto;
