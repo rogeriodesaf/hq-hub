@@ -6,6 +6,7 @@ import br.com.hqhub.dto.AtualizacaoHistoriaDTO;
 import br.com.hqhub.dto.AtualizacaoConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroHistoriaDTO;
+import br.com.hqhub.dto.CadastroHistoriasLoteDTO;
 import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
 import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
@@ -46,6 +47,17 @@ public class HistoriaResource {
         HistoriaRespostaDTO resposta = historiaService.cadastrarHistoria(dto);
         return Response.created(URI.create("/historias/" + resposta.id()))
                 .entity(resposta)
+                .build();
+    }
+
+    @POST
+    @Path("/edicoes/{edicaoId}/historias/lote")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    public Response cadastrarHistoriasEmLote(
+            @PathParam("edicaoId") Long edicaoId,
+            @Valid CadastroHistoriasLoteDTO dto) {
+        return Response.status(Response.Status.CREATED)
+                .entity(historiaService.cadastrarHistoriasEmLote(edicaoId, dto))
                 .build();
     }
 

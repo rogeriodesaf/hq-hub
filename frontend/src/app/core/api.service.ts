@@ -704,6 +704,20 @@ export class ApiService {
     return this.http.post<Historia>('/api/historias', dto);
   }
 
+  cadastrarHistoriasEmLote(edicaoId: number, dto: {
+    urlFonte: string | null;
+    historias: Array<{
+      ordem: number | null;
+      titulo: string;
+      tituloOriginal: string | null;
+      quantidadePaginas: number | null;
+      tipo: TipoConteudoEdicao;
+      resumo: string | null;
+    }>;
+  }) {
+    return this.http.post<ConteudoEdicao[]>(`/api/edicoes/${edicaoId}/historias/lote`, dto);
+  }
+
   cadastrarConteudoEdicao(dto: {
     edicaoId: number;
     historiaId: number;

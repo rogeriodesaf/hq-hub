@@ -1,6 +1,9 @@
 package br.com.hqhub.service;
 
+import java.text.Normalizer;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -8,10 +11,12 @@ import br.com.hqhub.dto.AtualizacaoHistoriaDTO;
 import br.com.hqhub.dto.AtualizacaoConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroConteudoEdicaoDTO;
 import br.com.hqhub.dto.CadastroHistoriaDTO;
+import br.com.hqhub.dto.CadastroHistoriasLoteDTO;
 import br.com.hqhub.dto.CadastroPublicacaoHistoriaDTO;
 import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.CruzamentoEdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
+import br.com.hqhub.dto.ItemHistoriaLoteDTO;
 import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
 import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
@@ -75,6 +80,79 @@ public class HistoriaService {
         Historia historia = historiaMapper.paraEntidade(dto);
         historiaRepository.persist(historia);
         return historiaMapper.paraResposta(historia);
+    }
+
+    @Transactional
+    public List<ConteudoEdicaoRespostaDTO> cadastrarHistoriasEmLote(
+            Long edicaoId,
+            CadastroHistoriasLoteDTO dto) {
+        Edicao edicao = buscarEdicaoPorId(edicaoId);
+        List<ConteudoEdicao> conteudosExistentes = conteudoEdicaoRepository.listarPorEdicao(edicaoId);
+        Set<Integer> ordensOcupadas = conteudosExistentes.stream()
+                .map(ConteudoEdicao::getOrdem)
+                .collect(Collectors.toCollection(HashSet::new));
+        Set<String> titulosOcupados = conteudosExistentes.stream()
+                .map(this::tituloDoConteudo)
+                .map(this::normalizarTitulo)
+                .filter(titulo -> !titulo.isBlank())
+                .collect(Collectors.toCollection(HashSet::new));
+
+        int proximaOrdem = conteudosExistentes.stream()
+                .map(ConteudoEdicao::getOrdem)
+                .max(Integer::compareTo)
+                .orElse(0) + 1;
+        List<Integer> ordens = new java.util.ArrayList<>(dto.historias().size());
+
+        for (ItemHistoriaLoteDTO item : dto.historias()) {
+            int ordem = item.ordem() == null ? proximaOrdem : item.ordem();
+            while (item.ordem() == null && ordensOcupadas.contains(ordem)) {
+                ordem++;
+            }
+            proximaOrdem = Math.max(proximaOrdem, ordem + 1);
+
+            if (!ordensOcupadas.add(ordem)) {
+                throw new RegraNegocioException("A ordem " + ordem + " já está ocupada nesta edição.");
+            }
+
+            String tituloNormalizado = normalizarTitulo(item.titulo());
+            if (!titulosOcupados.add(tituloNormalizado)) {
+                throw new RegraNegocioException(
+                        "A história ‘" + item.titulo().trim() + "’ já está cadastrada nesta edição ou repetida no lote.");
+            }
+            ordens.add(ordem);
+        }
+
+        List<ConteudoEdicaoRespostaDTO> respostas = new java.util.ArrayList<>(dto.historias().size());
+        for (int indice = 0; indice < dto.historias().size(); indice++) {
+            ItemHistoriaLoteDTO item = dto.historias().get(indice);
+            String titulo = item.titulo().trim();
+            CadastroHistoriaDTO historiaDTO = new CadastroHistoriaDTO(
+                    titulo,
+                    textoOuNull(item.tituloOriginal()),
+                    textoOuNull(item.resumo()),
+                    item.quantidadePaginas(),
+                    item.tipo(),
+                    null,
+                    null,
+                    textoOuNull(dto.urlFonte()));
+            Historia historia = historiaMapper.paraEntidade(historiaDTO);
+            historiaRepository.persist(historia);
+
+            CadastroConteudoEdicaoDTO conteudoDTO = new CadastroConteudoEdicaoDTO(
+                    edicaoId,
+                    historia.getId(),
+                    ordens.get(indice),
+                    titulo,
+                    null,
+                    null,
+                    item.quantidadePaginas(),
+                    item.tipo(),
+                    textoOuNull(item.resumo()));
+            ConteudoEdicao conteudo = conteudoEdicaoMapper.paraEntidade(conteudoDTO, edicao, historia);
+            conteudoEdicaoRepository.persist(conteudo);
+            respostas.add(conteudoEdicaoMapper.paraResposta(conteudo));
+        }
+        return respostas;
     }
 
     @Transactional
@@ -278,5 +356,27 @@ public class HistoriaService {
         if ((fonteExterna == null) != (idExterno == null)) {
             throw new RegraNegocioException("Fonte externa e id externo devem ser informados juntos.");
         }
+    }
+
+    private String tituloDoConteudo(ConteudoEdicao conteudo) {
+        if (conteudo.getTituloUsado() != null && !conteudo.getTituloUsado().isBlank()) {
+            return conteudo.getTituloUsado();
+        }
+        Historia historia = conteudo.getHistoria();
+        if (historia.getTituloPortugues() != null && !historia.getTituloPortugues().isBlank()) {
+            return historia.getTituloPortugues();
+        }
+        return historia.getTitulo();
+    }
+
+    private String normalizarTitulo(String titulo) {
+        return Normalizer.normalize(titulo.trim().toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .replaceAll("[^a-z0-9]+", " ")
+                .trim();
+    }
+
+    private String textoOuNull(String texto) {
+        return texto == null || texto.isBlank() ? null : texto.trim();
     }
 }

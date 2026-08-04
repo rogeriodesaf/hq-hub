@@ -78,6 +78,52 @@ import {
             </button>
           </div>
 
+          <section class="painel-formulario">
+            <div class="secao-titulo">
+              <div>
+                <h3>Cadastro rápido de histórias</h3>
+                <p class="texto-suave">Cole ou digite um título por linha. A ordem é preenchida automaticamente.</p>
+              </div>
+            </div>
+
+            <div class="grade-formulario conteudo-formulario">
+              <label class="campo-largo">
+                Títulos das histórias
+                <textarea
+                  rows="7"
+                  [(ngModel)]="historiasEmLoteTexto"
+                  name="historiasEmLoteTexto"
+                  placeholder="A primeira história&#10;A segunda história&#10;A terceira história"
+                ></textarea>
+              </label>
+              <label class="campo-largo">
+                Fonte consultada para o lote
+                <input
+                  [(ngModel)]="urlFonteLote"
+                  name="urlFonteLote"
+                  placeholder="URL do Guia dos Quadrinhos ou outra fonte (opcional)"
+                />
+              </label>
+            </div>
+
+            <div class="acoes-formulario">
+              <button
+                class="botao primario"
+                type="button"
+                (click)="cadastrarHistoriasEmLote()"
+                [disabled]="salvandoLote() || !quantidadeHistoriasLote()"
+              >
+                {{ salvandoLote() ? 'Salvando...' : 'Adicionar ' + quantidadeHistoriasLote() + (quantidadeHistoriasLote() === 1 ? ' história' : ' histórias') }}
+              </button>
+            </div>
+          </section>
+
+          <div class="secao-titulo">
+            <div>
+              <h3>Cadastro detalhado</h3>
+              <p class="texto-suave">Use quando precisar informar páginas, tipo ou observações individualmente.</p>
+            </div>
+          </div>
           <form class="grade-formulario conteudo-formulario" (ngSubmit)="cadastrarConteudoOriginal()">
             <label class="campo-largo">
               Título da história
@@ -270,6 +316,7 @@ export class ConteudosPage {
   readonly carregandoOriginais = signal(false);
   readonly carregandoPublicadas = signal(false);
   readonly salvandoConteudo = signal(false);
+  readonly salvandoLote = signal(false);
   readonly salvandoPublicacao = signal(false);
   readonly salvandoDadosOriginais = signal(false);
   readonly cruzando = signal(false);
@@ -284,6 +331,8 @@ export class ConteudosPage {
   tipoConteudo: TipoConteudoEdicao = 'HISTORIA';
   urlOrigemHistoria = '';
   observacoesConteudo = '';
+  historiasEmLoteTexto = '';
+  urlFonteLote = '';
   urlCapaOriginal = '';
   urlCompraAmazonOriginal = '';
   statusPublicacao: StatusPublicacaoHistoria = 'COMPLETA';
@@ -321,49 +370,28 @@ export class ConteudosPage {
     this.salvandoConteudo.set(true);
     this.mensagem.set('');
 
-    this.api
-      .cadastrarHistoria({
+    this.api.cadastrarHistoriasEmLote(edicao.id, {
+      urlFonte: this.urlOrigemHistoria.trim() || null,
+      historias: [{
+        ordem: this.ordemConteudo,
         titulo: this.tituloHistoria.trim(),
         tituloOriginal: this.tituloOriginal.trim() || null,
-        descricao: this.observacoesConteudo.trim() || null,
         quantidadePaginas: this.quantidadePaginas,
         tipo: this.tipoConteudo,
-        fonteExterna: null,
-        idExterno: null,
-        urlOrigem: this.urlOrigemHistoria.trim() || null,
-      })
-      .subscribe({
-        next: (historia) => {
-          this.api
-            .cadastrarConteudoEdicao({
-              edicaoId: edicao.id,
-              historiaId: historia.id,
-              ordem: this.ordemConteudo || 1,
-              tituloUsado: this.tituloHistoria.trim(),
-              paginaInicio: null,
-              paginaFim: null,
-              quantidadePaginas: this.quantidadePaginas,
-              tipo: this.tipoConteudo,
-              observacoes: this.observacoesConteudo.trim() || null,
-            })
-            .subscribe({
-              next: () => {
-                this.salvandoConteudo.set(false);
-                this.mensagem.set('História cadastrada na edição original.');
-                this.limparFormularioHistoria();
-                this.carregarConteudos();
-              },
-              error: (erro) => {
-                this.salvandoConteudo.set(false);
-                this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar o conteúdo da edição.'));
-              },
-            });
-        },
-        error: (erro) => {
-          this.salvandoConteudo.set(false);
-          this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar a história.'));
-        },
-      });
+        resumo: this.observacoesConteudo.trim() || null,
+      }],
+    }).subscribe({
+      next: () => {
+        this.salvandoConteudo.set(false);
+        this.mensagem.set('História cadastrada na edição original.');
+        this.limparFormularioHistoria();
+        this.carregarConteudos();
+      },
+      error: (erro: unknown) => {
+        this.salvandoConteudo.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar a história.'));
+      },
+    });
   }
 
   vincularPublicacao(conteudo: ConteudoEdicao) {
@@ -426,6 +454,46 @@ export class ConteudosPage {
       error: (erro: unknown) => {
         this.salvandoDadosOriginais.set(false);
         this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível salvar capa/link da edição original.'));
+      },
+    });
+  }
+
+  quantidadeHistoriasLote() {
+    return this.titulosDoLote().length;
+  }
+
+  cadastrarHistoriasEmLote() {
+    const edicao = this.edicaoOriginal();
+    const titulos = this.titulosDoLote();
+    if (!edicao || !titulos.length) {
+      this.mensagem.set('Escolha uma edição original e informe pelo menos um título.');
+      return;
+    }
+
+    this.salvandoLote.set(true);
+    this.mensagem.set('');
+    this.api.cadastrarHistoriasEmLote(edicao.id, {
+      urlFonte: this.urlFonteLote.trim() || null,
+      historias: titulos.map((titulo) => ({
+        ordem: null,
+        titulo,
+        tituloOriginal: null,
+        quantidadePaginas: null,
+        tipo: 'HISTORIA',
+        resumo: null,
+      })),
+    }).subscribe({
+      next: (conteudos) => {
+        this.salvandoLote.set(false);
+        this.historiasEmLoteTexto = '';
+        this.mensagem.set(
+          `${conteudos.length} ${conteudos.length === 1 ? 'história cadastrada' : 'histórias cadastradas'} com sucesso.`,
+        );
+        this.carregarConteudos();
+      },
+      error: (erro: unknown) => {
+        this.salvandoLote.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar as histórias.'));
       },
     });
   }
@@ -513,6 +581,7 @@ export class ConteudosPage {
     this.api.listarConteudosPorEdicao(edicao.id).subscribe({
       next: (conteudos) => {
         this.conteudosOriginais.set(conteudos);
+        this.ordemConteudo = conteudos.reduce((maior, conteudo) => Math.max(maior, conteudo.ordem), 0) + 1;
         this.carregarPublicacoesHistorias();
       },
       error: (erro: unknown) => this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível carregar os conteúdos da edição.')),
@@ -613,6 +682,13 @@ export class ConteudosPage {
     this.tipoConteudo = 'HISTORIA';
     this.urlOrigemHistoria = '';
     this.observacoesConteudo = '';
+  }
+
+  private titulosDoLote() {
+    return this.historiasEmLoteTexto
+      .split(/\r?\n/)
+      .map((titulo) => titulo.trim())
+      .filter(Boolean);
   }
 
   private extrairMensagemErro(erro: unknown, mensagemPadrao: string) {
