@@ -1,7 +1,6 @@
 package br.com.hqhub.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record GeracaoRascunhoImportacaoDTO(
@@ -10,7 +9,6 @@ public record GeracaoRascunhoImportacaoDTO(
 
         String urlPaniniInicial,
 
-        @NotNull(message = "Quantidade de edicoes e obrigatoria.")
         @Positive(message = "Quantidade de edicoes deve ser maior que zero.")
         Integer quantidade,
 

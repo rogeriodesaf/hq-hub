@@ -31,6 +31,7 @@ import {
   PostagemColecaoPublica,
   EstatisticasPublicasColecao,
   GeracaoRascunhoImportacao,
+  ColetaGuia,
   Historia,
   InteracaoItemColecao,
   InteracaoSocialColecao,
@@ -900,6 +901,22 @@ export class ApiService {
 
   gerarRascunhoImportacao(dto: GeracaoRascunhoImportacao) {
     return this.http.post<unknown>('/api/importacoes/catalogo/gerar-rascunho', dto);
+  }
+
+  iniciarColetaGuia(dto: GeracaoRascunhoImportacao) {
+    return this.http.post<ColetaGuia>('/api/importacoes/catalogo/coletas-guia', dto);
+  }
+
+  buscarColetaGuia(id: string) {
+    return this.http.get<ColetaGuia>(`/api/importacoes/catalogo/coletas-guia/${id}`);
+  }
+
+  processarColetaGuia(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-guia/${id}/processar`, {});
+  }
+
+  retomarColetaGuia(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-guia/${id}/retomar`, {});
   }
 
   cadastrarContribuicaoCatalogo(dto: {

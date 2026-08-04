@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import {
+  ColetaGuia,
   ResultadoBackfillComicVine,
   ResultadoImportacaoCatalogo,
   Serie,
@@ -41,16 +42,26 @@ import {
             <strong>JSON / robô</strong>
             <span>Mantenha o processo que você já usa hoje</span>
           </button>
+          <button
+            type="button"
+            [class.ativo]="modoEntrada() === 'guia'"
+            (click)="selecionarModo('guia')"
+          >
+            <strong>Coletar do Guia</strong>
+            <span>Gere, revise e importe o JSON pelo HQ-HUB</span>
+          </button>
         </nav>
 
         <div class="secao-titulo">
           <div>
-            <h2>{{ modoEntrada() === 'visual' ? 'Cadastro visual da HQ' : 'JSON do robô' }}</h2>
+            <h2>{{ tituloModoEntrada() }}</h2>
             <p class="texto-suave">
               @if (modoEntrada() === 'visual') {
                 Preencha a série, as edições e as histórias. O HQ-HUB monta e envia o JSON por você.
-              } @else {
+              } @else if (modoEntrada() === 'json') {
                 Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
+              } @else {
+                Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
               }
             </p>
           </div>
@@ -69,6 +80,83 @@ import {
               + História no JSON
             </button>
           </div>
+        }
+
+        @if (modoEntrada() === 'guia') {
+          <section class="editor-visual-importacao coleta-guia">
+            <aside class="dica-importacao-colaborador">
+              <strong>Coleta segura em etapas</strong>
+              <p>O HQ-HUB processa uma página por vez e descansa de 2 a 5 minutos a cada 10 páginas. Você pode sair desta tela e voltar depois: o progresso fica salvo.</p>
+              <p>Se o Guia solicitar verificação humana, a coleta será pausada. O importador manual de JSON continua disponível na aba ao lado.</p>
+            </aside>
+            <div class="grade-importacao-visual">
+              <label class="campo-largo">
+                URL do Guia dos Quadrinhos
+                <small>Página /edicao/ inicial ou /capas/ da série</small>
+                <input [(ngModel)]="rascunho.urlGuia" name="coletaUrlGuia" placeholder="https://www.guiadosquadrinhos.com/edicao/..." />
+              </label>
+              <label>
+                Título da série
+                <input [(ngModel)]="rascunho.tituloSerie" name="coletaTituloSerie" placeholder="Ex.: Mulher Maravilha Hiketeia" />
+              </label>
+              <label>
+                Editora
+                <input [(ngModel)]="rascunho.editora" name="coletaEditora" placeholder="Ex.: Panini" />
+              </label>
+              <label>
+                Volume
+                <input type="number" min="1" [(ngModel)]="rascunho.volume" name="coletaVolume" />
+              </label>
+              <label>
+                Limite de edições
+                <small>Opcional; sem valor, coleta toda a galeria encontrada</small>
+                <input type="number" min="1" max="200" [(ngModel)]="rascunho.quantidade" name="coletaQuantidade" />
+              </label>
+            </div>
+
+            @if (!coletaGuia()) {
+              <button class="botao primario" type="button" (click)="iniciarColetaGuia()" [disabled]="gerandoRascunho()">
+                {{ gerandoRascunho() ? 'Preparando coleta...' : 'Gerar JSON' }}
+              </button>
+            } @else {
+              <section class="andamento-coleta">
+                <div>
+                  <strong>{{ coletaGuia()!.mensagem }}</strong>
+                  <span>{{ coletaGuia()!.paginasProcessadas }} de {{ coletaGuia()!.totalPaginas }} páginas</span>
+                </div>
+                <progress [value]="coletaGuia()!.paginasProcessadas" [max]="coletaGuia()!.totalPaginas || 1"></progress>
+                @if (coletaGuia()!.status === 'AGUARDANDO') {
+                  <p class="texto-suave">Continuando automaticamente em {{ tempoEsperaColeta() }}.</p>
+                }
+                @if (coletaGuia()!.status === 'PAUSADA') {
+                  <button class="botao secundario compacto" type="button" (click)="retomarColetaGuia()">Retomar coleta</button>
+                }
+              </section>
+
+              @if (coletaGuia()!.avisos.length) {
+                <details>
+                  <summary>Avisos da coleta ({{ coletaGuia()!.avisos.length }})</summary>
+                  <ul>
+                    @for (aviso of coletaGuia()!.avisos; track $index) { <li>{{ aviso }}</li> }
+                  </ul>
+                </details>
+              }
+
+              @if (coletaGuia()!.status === 'CONCLUIDA') {
+                <label class="campo-json">
+                  JSON gerado para revisão
+                  <textarea [(ngModel)]="jsonTexto" name="jsonColetaGuia" spellcheck="false"></textarea>
+                </label>
+                <div class="acoes-importacao">
+                  <button class="botao secundario" type="button" (click)="baixarJsonGerado()">Baixar JSON</button>
+                  <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
+                    {{ importando() ? 'Importando...' : 'Importar JSON' }}
+                  </button>
+                  <button class="botao compacto" type="button" (click)="novaColetaGuia()">Nova coleta</button>
+                </div>
+              }
+            }
+          </section>
         }
 
         @if (modoEntrada() === 'visual') {
@@ -457,7 +545,7 @@ import {
             <button class="botao primario" type="button" (click)="importarVisual()" [disabled]="importando() || uploadsCapaPendentes() > 0">
               {{ importando() ? 'Cadastrando...' : uploadsCapaPendentes() > 0 ? 'Aguardando capa...' : 'Cadastrar no catálogo' }}
             </button>
-          } @else {
+          } @else if (modoEntrada() === 'json') {
             <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
               {{ importando() ? 'Importando...' : 'Importar para o catálogo' }}
             </button>
@@ -605,7 +693,7 @@ import {
 
     .modos-importacao {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
 
@@ -663,6 +751,11 @@ import {
       font-size: 0.86rem;
       line-height: 1.5;
     }
+
+    .andamento-coleta { display: grid; gap: 10px; }
+    .andamento-coleta div { display: flex; justify-content: space-between; gap: 12px; }
+    .andamento-coleta span { color: var(--texto-suave); }
+    .andamento-coleta progress { width: 100%; accent-color: var(--primaria); }
 
     .editor-visual-importacao,
     .edicao-visual,
@@ -1079,7 +1172,8 @@ import {
     }
   `,
 })
-export class ImportacaoPage {
+export class ImportacaoPage implements OnInit, OnDestroy {
+  private static readonly COLETA_GUIA_STORAGE = 'hqhub-coleta-guia-id';
   private readonly api = inject(ApiService);
 
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
@@ -1087,8 +1181,13 @@ export class ImportacaoPage {
   readonly tipoMensagem = computed(() => this.classificarMensagem(this.mensagem()));
   readonly importando = signal(false);
   readonly gerandoRascunho = signal(false);
+  readonly processandoColeta = signal(false);
+  readonly coletaGuia = signal<ColetaGuia | null>(null);
+  private readonly agoraColeta = signal(Date.now());
+  private readonly prazoColetaMs = signal(0);
+  private temporizadorColeta: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1108,7 +1207,7 @@ export class ImportacaoPage {
   rascunho = {
     urlGuia: '',
     urlPaniniInicial: '',
-    quantidade: 1,
+    quantidade: null as number | null,
     tituloSerie: '',
     fase: '',
     editora: 'Panini',
@@ -1116,14 +1215,39 @@ export class ImportacaoPage {
   };
   visualImportacao: any = this.modeloImportacao();
 
-  selecionarModo(modo: 'visual' | 'json') {
+  ngOnInit() {
+    const coletaId = localStorage.getItem(ImportacaoPage.COLETA_GUIA_STORAGE);
+    if (!coletaId) {
+      return;
+    }
+    this.api.buscarColetaGuia(coletaId).subscribe({
+      next: (coleta) => {
+        this.modoEntrada.set('guia');
+        this.atualizarColetaGuia(coleta);
+      },
+      error: () => localStorage.removeItem(ImportacaoPage.COLETA_GUIA_STORAGE),
+    });
+  }
+
+  ngOnDestroy() {
+    this.cancelarTemporizadorColeta();
+  }
+
+  tituloModoEntrada() {
+    if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
+    if (this.modoEntrada() === 'json') return 'JSON do robô';
+    return 'Coletar do Guia dos Quadrinhos';
+  }
+
+  selecionarModo(modo: 'visual' | 'json' | 'guia') {
     if (modo === this.modoEntrada()) {
       return;
     }
 
-    if (modo === 'json') {
+    const modoAnterior = this.modoEntrada();
+    if (modo === 'json' && modoAnterior === 'visual') {
       this.atualizarJsonPeloVisual(false);
-    } else if (this.jsonTexto.trim()) {
+    } else if (modo === 'visual' && this.jsonTexto.trim()) {
       this.carregarVisualDoJson(false);
     }
     this.modoEntrada.set(modo);
@@ -1325,7 +1449,7 @@ export class ImportacaoPage {
     this.api.gerarRascunhoImportacao({
       urlGuia: this.rascunho.urlGuia.trim(),
       urlPaniniInicial: this.rascunho.urlPaniniInicial.trim() || null,
-      quantidade: Number(this.rascunho.quantidade),
+      quantidade: this.rascunho.quantidade ? Number(this.rascunho.quantidade) : null,
       tituloSerie: this.rascunho.tituloSerie.trim(),
       fase: this.rascunho.fase.trim() || null,
       editora: this.rascunho.editora.trim(),
@@ -1343,6 +1467,143 @@ export class ImportacaoPage {
         this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel gerar o rascunho pelo robo.');
       },
     });
+  }
+
+  iniciarColetaGuia() {
+    this.mensagem.set('');
+    const validacao = this.validarGeracaoRascunho();
+    if (validacao) {
+      this.mensagem.set(validacao);
+      return;
+    }
+
+    this.gerandoRascunho.set(true);
+    this.api.iniciarColetaGuia({
+      urlGuia: this.rascunho.urlGuia.trim(),
+      urlPaniniInicial: this.rascunho.urlPaniniInicial.trim() || null,
+      quantidade: this.rascunho.quantidade ? Number(this.rascunho.quantidade) : null,
+      tituloSerie: this.rascunho.tituloSerie.trim(),
+      fase: this.rascunho.fase.trim() || null,
+      editora: this.rascunho.editora.trim(),
+      volume: this.rascunho.volume ? Number(this.rascunho.volume) : null,
+    }).subscribe({
+      next: (coleta) => {
+        this.gerandoRascunho.set(false);
+        this.atualizarColetaGuia(coleta);
+      },
+      error: (erro) => {
+        this.gerandoRascunho.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível iniciar a coleta do Guia.');
+      },
+    });
+  }
+
+  retomarColetaGuia() {
+    const coleta = this.coletaGuia();
+    if (!coleta || this.processandoColeta()) return;
+    this.processandoColeta.set(true);
+    this.api.retomarColetaGuia(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGuia(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível retomar a coleta.');
+      },
+    });
+  }
+
+  novaColetaGuia() {
+    this.cancelarTemporizadorColeta();
+    localStorage.removeItem(ImportacaoPage.COLETA_GUIA_STORAGE);
+    this.coletaGuia.set(null);
+    this.jsonTexto = '';
+    this.nomeArquivo.set('');
+    this.mensagem.set('');
+  }
+
+  tempoEsperaColeta() {
+    this.agoraColeta();
+    const prazo = this.prazoColetaMs();
+    if (!prazo) return 'alguns segundos';
+    const segundos = Math.max(0, Math.ceil((prazo - Date.now()) / 1000));
+    const minutos = Math.floor(segundos / 60);
+    const restante = segundos % 60;
+    return minutos ? `${minutos} min ${restante}s` : `${restante}s`;
+  }
+
+  baixarJsonGerado() {
+    let titulo = 'rascunho-guia-hqhub';
+    try {
+      titulo = String(JSON.parse(this.jsonTexto)?.serieBrasileira?.titulo || titulo)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    } catch {
+      // O importador exibira a validacao completa se o usuario tiver editado um JSON invalido.
+    }
+    const arquivo = new Blob([this.jsonTexto], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(arquivo);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${titulo || 'rascunho-guia-hqhub'}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    this.mensagem.set('JSON gerado pelo Guia baixado com sucesso.');
+  }
+
+  private processarProximaPaginaColeta() {
+    const coleta = this.coletaGuia();
+    if (!coleta || this.processandoColeta() || coleta.status === 'CONCLUIDA' || coleta.status === 'PAUSADA') return;
+    this.processandoColeta.set(true);
+    this.api.processarColetaGuia(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGuia(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'A coleta perdeu a conexão. Abra novamente para continuar.');
+      },
+    });
+  }
+
+  private atualizarColetaGuia(coleta: ColetaGuia) {
+    this.coletaGuia.set(coleta);
+    this.agoraColeta.set(Date.now());
+    this.prazoColetaMs.set(Date.now() + Math.max(0, coleta.segundosAteProximaExecucao) * 1000);
+    localStorage.setItem(ImportacaoPage.COLETA_GUIA_STORAGE, coleta.id);
+    if (coleta.resultado) {
+      this.jsonTexto = JSON.stringify(coleta.resultado, null, 2);
+      this.nomeArquivo.set('rascunho-gerado-pelo-guia.json');
+    }
+    this.agendarProximoPassoColeta();
+  }
+
+  private agendarProximoPassoColeta() {
+    this.cancelarTemporizadorColeta();
+    const coleta = this.coletaGuia();
+    if (!coleta || coleta.status === 'CONCLUIDA' || coleta.status === 'PAUSADA') return;
+    const espera = coleta.status === 'AGUARDANDO' ? 1000 : 800;
+    this.temporizadorColeta = setTimeout(() => {
+      this.agoraColeta.set(Date.now());
+      const atual = this.coletaGuia();
+      if (atual?.status === 'AGUARDANDO' && this.prazoColetaMs() > Date.now()) {
+        this.agendarProximoPassoColeta();
+        return;
+      }
+      this.processarProximaPaginaColeta();
+    }, espera);
+  }
+
+  private cancelarTemporizadorColeta() {
+    if (this.temporizadorColeta) {
+      clearTimeout(this.temporizadorColeta);
+      this.temporizadorColeta = null;
+    }
   }
 
   async importar() {
@@ -1871,8 +2132,9 @@ export class ImportacaoPage {
     if (!this.rascunho.editora.trim()) {
       return 'Informe a editora antes de gerar o JSON.';
     }
-    if (!Number(this.rascunho.quantidade) || Number(this.rascunho.quantidade) < 1) {
-      return 'Informe uma quantidade de edicoes maior que zero.';
+    if (this.rascunho.quantidade !== null
+        && (!Number(this.rascunho.quantidade) || Number(this.rascunho.quantidade) < 1)) {
+      return 'Informe uma quantidade de edicoes maior que zero ou deixe o limite vazio.';
     }
     return '';
   }

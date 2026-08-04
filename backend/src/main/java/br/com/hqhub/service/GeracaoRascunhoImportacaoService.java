@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.OrigemImportacaoCatalogoDTO;
 import br.com.hqhub.dto.PublicacaoOriginalImportacaoDTO;
 import br.com.hqhub.dto.SerieBrasileiraImportacaoDTO;
+import br.com.hqhub.exception.RegraNegocioException;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -40,21 +42,23 @@ public class GeracaoRascunhoImportacaoService {
             "Publicada .*? em\\s+(.+?)\\s+n[°º]\\s*([^/\\s]+)\\s*/\\s*(\\d{4})\\s*-\\s*([^\\n\\r]+)",
             Pattern.CASE_INSENSITIVE);
     private static final DateTimeFormatter DATA_ORIGEM = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final int MAXIMO_EDICOES_POR_COLETA = 200;
 
     private final HttpClient httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(15))
             .followRedirects(HttpClient.Redirect.NORMAL)
             .version(HttpClient.Version.HTTP_1_1)
             .build();
 
     public ImportacaoCatalogoDTO gerar(GeracaoRascunhoImportacaoDTO pedido) {
-        List<String> avisos = new ArrayList<>();
-        List<String> urlsProcessadas = descobrirUrlsEdicoes(pedido.urlGuia(), pedido.quantidade(), avisos);
+        PreparacaoColeta preparacao = prepararColeta(pedido);
+        List<String> avisos = new ArrayList<>(preparacao.avisos());
+        List<String> urlsProcessadas = preparacao.urls();
         List<EdicaoImportacaoDTO> edicoes = new ArrayList<>();
 
         for (String urlEdicao : urlsProcessadas) {
             try {
-                String html = buscarHtml(urlEdicao);
-                edicoes.add(extrairEdicao(html, urlEdicao, pedido.editora(), avisos));
+                edicoes.add(coletarEdicao(urlEdicao, pedido.editora(), avisos));
             } catch (Exception e) {
                 avisos.add("Nao foi possivel ler a edicao do Guia: " + urlEdicao + " (" + e.getMessage() + ")");
             }
@@ -66,6 +70,45 @@ public class GeracaoRascunhoImportacaoService {
             avisos.add("Nenhuma URL inicial da Panini foi informada. As capas permaneceram como vieram do Guia.");
         }
 
+        return montarResultado(pedido, urlsProcessadas, edicoes, avisos);
+    }
+
+    public PreparacaoColeta prepararColeta(GeracaoRascunhoImportacaoDTO pedido) {
+        validarUrlGuia(pedido.urlGuia());
+        List<String> avisos = new ArrayList<>();
+        int quantidade = pedido.quantidade() == null
+                ? MAXIMO_EDICOES_POR_COLETA
+                : Math.min(pedido.quantidade(), MAXIMO_EDICOES_POR_COLETA);
+        List<String> urls = descobrirUrlsEdicoes(pedido.urlGuia(), quantidade, avisos);
+        return new PreparacaoColeta(urls, avisos);
+    }
+
+    private void validarUrlGuia(String valor) {
+        try {
+            URI url = URI.create(valor.trim());
+            String host = url.getHost() == null ? "" : url.getHost().toLowerCase(Locale.ROOT);
+            boolean hostPermitido = host.equals("guiadosquadrinhos.com")
+                    || host.equals("www.guiadosquadrinhos.com");
+            if (!"https".equalsIgnoreCase(url.getScheme()) || !hostPermitido
+                    || (!url.getPath().contains("/edicao/") && !url.getPath().contains("/capas/"))) {
+                throw new IllegalArgumentException();
+            }
+        } catch (RuntimeException erro) {
+            throw new RegraNegocioException(
+                    "Informe uma URL HTTPS de /edicao/ ou /capas/ do Guia dos Quadrinhos.");
+        }
+    }
+
+    public EdicaoImportacaoDTO coletarEdicao(String urlEdicao, String editora, List<String> avisos)
+            throws IOException, InterruptedException {
+        return extrairEdicao(buscarHtml(urlEdicao), urlEdicao, editora, avisos);
+    }
+
+    public ImportacaoCatalogoDTO montarResultado(
+            GeracaoRascunhoImportacaoDTO pedido,
+            List<String> urlsProcessadas,
+            List<EdicaoImportacaoDTO> edicoes,
+            List<String> avisos) {
         int totalHistorias = edicoes.stream()
                 .mapToInt(edicao -> edicao.historias() == null ? 0 : edicao.historias().size())
                 .sum();
@@ -106,8 +149,21 @@ public class GeracaoRascunhoImportacaoService {
         }
 
         if (url.contains("/edicao/")) {
-            avisos.add("URL do Guia informada e de edicao. Para gerar varias edicoes automaticamente, prefira a URL /capas/ da serie.");
-            return List.of(url);
+            try {
+                List<String> links = extrairLinksEdicao(buscarHtml(url), url);
+                if (links.isEmpty()) {
+                    avisos.add("A pagina da edicao nao trouxe a galeria completa. Somente a URL informada sera processada.");
+                    return List.of(url);
+                }
+                if (!links.contains(url)) {
+                    links = new ArrayList<>(links);
+                    links.add(0, url);
+                }
+                return links.stream().distinct().limit(quantidade).toList();
+            } catch (Exception e) {
+                avisos.add("Nao foi possivel descobrir a galeria pela edicao inicial: " + e.getMessage());
+                return List.of(url);
+            }
         }
 
         avisos.add("URL do Guia nao reconhecida. Informe uma URL /capas/ ou /edicao/.");
@@ -251,6 +307,7 @@ public class GeracaoRascunhoImportacaoService {
                 .header("Cache-Control", "no-cache")
                 .header("Pragma", "no-cache")
                 .header("Referer", refererPara(url))
+                .timeout(Duration.ofSeconds(30))
                 .GET()
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -444,5 +501,8 @@ public class GeracaoRascunhoImportacaoService {
             }
             return prefixo + primeiroFormatado + "-" + segundoFormatado;
         }
+    }
+
+    public record PreparacaoColeta(List<String> urls, List<String> avisos) {
     }
 }

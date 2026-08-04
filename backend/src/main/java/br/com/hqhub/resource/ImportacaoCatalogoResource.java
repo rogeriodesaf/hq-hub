@@ -4,12 +4,15 @@ import java.sql.SQLException;
 import java.sql.SQLTransientException;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
+import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.ArmazenamentoImagemService;
+import br.com.hqhub.service.ColetaGuiaService;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
@@ -19,8 +22,10 @@ import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -47,16 +52,19 @@ public class ImportacaoCatalogoResource {
     private final ImportacaoCatalogoService importacaoCatalogoService;
     private final GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService;
     private final ArmazenamentoImagemService armazenamentoImagemService;
+    private final ColetaGuiaService coletaGuiaService;
     private final SecurityIdentity securityIdentity;
 
     public ImportacaoCatalogoResource(
             ImportacaoCatalogoService importacaoCatalogoService,
             GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService,
             ArmazenamentoImagemService armazenamentoImagemService,
+            ColetaGuiaService coletaGuiaService,
             SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
         this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
         this.armazenamentoImagemService = armazenamentoImagemService;
+        this.coletaGuiaService = coletaGuiaService;
         this.securityIdentity = securityIdentity;
     }
 
@@ -96,6 +104,31 @@ public class ImportacaoCatalogoResource {
     public Response gerarRascunho(@Valid GeracaoRascunhoImportacaoDTO dto) {
         ImportacaoCatalogoDTO rascunho = geracaoRascunhoImportacaoService.gerar(dto);
         return Response.ok(rascunho).build();
+    }
+
+    @POST
+    @Path("/coletas-guia")
+    public Response iniciarColetaGuia(@Valid GeracaoRascunhoImportacaoDTO dto) {
+        ColetaGuiaRespostaDTO coleta = coletaGuiaService.iniciar(dto);
+        return Response.ok(coleta).build();
+    }
+
+    @GET
+    @Path("/coletas-guia/{id}")
+    public Response buscarColetaGuia(@PathParam("id") UUID id) {
+        return Response.ok(coletaGuiaService.buscar(id)).build();
+    }
+
+    @POST
+    @Path("/coletas-guia/{id}/processar")
+    public Response processarColetaGuia(@PathParam("id") UUID id) {
+        return Response.ok(coletaGuiaService.processarProximaPagina(id)).build();
+    }
+
+    @POST
+    @Path("/coletas-guia/{id}/retomar")
+    public Response retomarColetaGuia(@PathParam("id") UUID id) {
+        return Response.ok(coletaGuiaService.retomar(id)).build();
     }
 
     @POST

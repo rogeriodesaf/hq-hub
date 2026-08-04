@@ -584,11 +584,23 @@ export interface ResultadoBackfillComicVine {
 export interface GeracaoRascunhoImportacao {
   urlGuia: string;
   urlPaniniInicial: string | null;
-  quantidade: number;
+  quantidade: number | null;
   tituloSerie: string;
   fase: string | null;
   editora: string;
   volume: number | null;
+}
+
+export interface ColetaGuia {
+  id: string;
+  status: 'PRONTA' | 'PROCESSANDO' | 'AGUARDANDO' | 'PAUSADA' | 'CONCLUIDA';
+  totalPaginas: number;
+  paginasProcessadas: number;
+  proximaExecucao: string | null;
+  segundosAteProximaExecucao: number;
+  mensagem: string;
+  avisos: string[];
+  resultado: unknown | null;
 }
 
 export interface Amizade {
