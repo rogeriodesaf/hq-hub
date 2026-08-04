@@ -14,6 +14,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -24,12 +26,14 @@ import br.com.hqhub.entity.ImagemPostagemFeed;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.VideoRelacionadoFeed;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
+import br.com.hqhub.repository.VideoRelacionadoFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
 import br.com.hqhub.service.FeedSocialService;
 import br.com.hqhub.service.EdicaoService;
@@ -53,9 +57,14 @@ public class CompartilhamentoResource {
     private static final String DESCRICAO_COMPARTILHAMENTO = "Veja esta HQ no HQ-HUB.";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 630;
+    private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
+            "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
+            Pattern.CASE_INSENSITIVE);
+    private static final Pattern YOUTUBE_ID_QUERY = Pattern.compile("[?&]v=([A-Za-z0-9_-]{6,})", Pattern.CASE_INSENSITIVE);
 
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
+    private final VideoRelacionadoFeedRepository videoRelacionadoRepository;
     private final EdicaoRepository edicaoRepository;
     private final ItemColecaoRepository itemColecaoRepository;
     private final UrlPublicaService urlPublicaService;
@@ -77,6 +86,7 @@ public class CompartilhamentoResource {
     public CompartilhamentoResource(
             PostagemFeedRepository postagemRepository,
             ImagemPostagemFeedRepository imagemRepository,
+            VideoRelacionadoFeedRepository videoRelacionadoRepository,
             EdicaoRepository edicaoRepository,
             ItemColecaoRepository itemColecaoRepository,
             UrlPublicaService urlPublicaService,
@@ -86,6 +96,7 @@ public class CompartilhamentoResource {
             HistoriaService historiaService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
+        this.videoRelacionadoRepository = videoRelacionadoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoRepository = itemColecaoRepository;
         this.urlPublicaService = urlPublicaService;
@@ -371,6 +382,10 @@ public class CompartilhamentoResource {
     }
 
     private String imagem(PostagemFeed postagem) {
+        String thumbnailVideo = thumbnailPrimeiroVideo(postagem.getId());
+        if (thumbnailVideo != null) {
+            return urlPublica(thumbnailVideo);
+        }
         if (postagem.getItemColecao() != null) {
             return primeiraUrlPublica(postagem.getItemColecao().getEdicao().getUrlCapa(), postagem.getUrlImagem());
         }
@@ -388,12 +403,40 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=4-" + versao(postagem);
+                + "/imagem.jpg?v=5-" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=7-" + versao(postagem);
+                + "?v=8-" + versao(postagem);
+    }
+
+    private String thumbnailPrimeiroVideo(Long postagemId) {
+        return videoRelacionadoRepository.listarPorPostagem(postagemId).stream()
+                .findFirst()
+                .map(this::thumbnailVideo)
+                .filter(valor -> valor != null && !valor.isBlank())
+                .orElse(null);
+    }
+
+    private String thumbnailVideo(VideoRelacionadoFeed video) {
+        if (video.getThumbnail() != null && !video.getThumbnail().isBlank()) {
+            return video.getThumbnail().trim();
+        }
+        String videoId = extrairIdYoutube(video.getUrl());
+        return videoId == null ? null : "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
+    }
+
+    private String extrairIdYoutube(String url) {
+        if (url == null || url.isBlank()) {
+            return null;
+        }
+        Matcher caminho = YOUTUBE_ID_CAMINHO.matcher(url);
+        if (caminho.find()) {
+            return caminho.group(1);
+        }
+        Matcher query = YOUTUBE_ID_QUERY.matcher(url);
+        return query.find() ? query.group(1) : null;
     }
 
     private String primeiraUrlPublica(String... urls) {
