@@ -61,6 +61,9 @@ public class CompartilhamentoResource {
             "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern YOUTUBE_ID_QUERY = Pattern.compile("[?&]v=([A-Za-z0-9_-]{6,})", Pattern.CASE_INSENSITIVE);
+    private static final Pattern URL_CONTEUDO = Pattern.compile("https?://\\S+", Pattern.CASE_INSENSITIVE);
+    private static final int LIMITE_TITULO_COMPARTILHAMENTO = 90;
+    private static final int LIMITE_DESCRICAO_COMPARTILHAMENTO = 180;
 
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
@@ -202,8 +205,9 @@ public class CompartilhamentoResource {
 
     private String htmlPostagem(PostagemFeed postagem, String origemCompartilhamento) {
         String appUrl = appUrl(postagem);
-        String titulo = tituloHq(postagem);
-        String descricao = descricaoCompartilhamento(postagem);
+        VideoRelacionadoFeed primeiroVideo = primeiroVideo(postagem.getId());
+        String titulo = tituloCompartilhamento(postagem, primeiroVideo);
+        String descricao = descricaoCompartilhamento(postagem, primeiroVideo);
         String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
         String urlCompartilhamento = urlCompartilhamento(postagem, origemCompartilhamento);
 
@@ -381,6 +385,20 @@ public class CompartilhamentoResource {
         return "HQ-HUB";
     }
 
+    private String tituloCompartilhamento(PostagemFeed postagem, VideoRelacionadoFeed video) {
+        String tituloHq = tituloHq(postagem);
+        if (!"HQ-HUB".equals(tituloHq)) {
+            return tituloHq;
+        }
+        if (video != null && video.getTitulo() != null && !video.getTitulo().isBlank()
+                && !"Vídeo compartilhado no YouTube".equalsIgnoreCase(video.getTitulo().trim())) {
+            return limitarTexto(video.getTitulo().trim(), LIMITE_TITULO_COMPARTILHAMENTO);
+        }
+        String nome = nomeAutor(postagem, "Um leitor");
+        String titulo = video == null ? nome + " no HQ-HUB" : nome + " compartilhou um vídeo no HQ-HUB";
+        return limitarTexto(titulo, LIMITE_TITULO_COMPARTILHAMENTO);
+    }
+
     private String imagem(PostagemFeed postagem) {
         String thumbnailVideo = thumbnailPrimeiroVideo(postagem.getId());
         if (thumbnailVideo != null) {
@@ -403,19 +421,26 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=5-" + versao(postagem);
+                + "/imagem.jpg?v=6-" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=8-" + versao(postagem);
+                + "?v=9-" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {
+        VideoRelacionadoFeed video = primeiroVideo(postagemId);
+        if (video == null) {
+            return null;
+        }
+        String thumbnail = thumbnailVideo(video);
+        return thumbnail == null || thumbnail.isBlank() ? null : thumbnail;
+    }
+
+    private VideoRelacionadoFeed primeiroVideo(Long postagemId) {
         return videoRelacionadoRepository.listarPorPostagem(postagemId).stream()
                 .findFirst()
-                .map(this::thumbnailVideo)
-                .filter(valor -> valor != null && !valor.isBlank())
                 .orElse(null);
     }
 
@@ -454,12 +479,49 @@ public class CompartilhamentoResource {
         return tituloSerie == null || tituloSerie.isBlank() ? "uma HQ" : tituloSerie;
     }
 
-    private String descricaoCompartilhamento(PostagemFeed postagem) {
+    private String descricaoCompartilhamento(PostagemFeed postagem, VideoRelacionadoFeed video) {
+        String conteudo = textoDaPostagem(postagem.getConteudo());
+        if (!conteudo.isBlank()) {
+            return limitarTexto(conteudo, LIMITE_DESCRICAO_COMPARTILHAMENTO);
+        }
+        String nome = nomeAutor(postagem, "um leitor");
+        if (video != null) {
+            return "Assista ao vídeo compartilhado por " + nome + " no HQ-HUB.";
+        }
         if (postagem.getItemColecao() != null) {
-            return "Veja a coleção compartilhada por " + postagem.getUsuario().getNome()
+            return "Veja a coleção compartilhada por " + nome
                     + " no HQ-HUB, sem precisar criar uma conta.";
         }
         return DESCRICAO_COMPARTILHAMENTO;
+    }
+
+    private String textoDaPostagem(String conteudo) {
+        if (conteudo == null || conteudo.isBlank()) {
+            return "";
+        }
+        return URL_CONTEUDO.matcher(conteudo)
+                .replaceAll(" ")
+                .replaceAll("\\s+", " ")
+                .trim();
+    }
+
+    private String nomeAutor(PostagemFeed postagem, String fallback) {
+        if (postagem.getUsuario() == null || postagem.getUsuario().getNome() == null
+                || postagem.getUsuario().getNome().isBlank()) {
+            return fallback;
+        }
+        return postagem.getUsuario().getNome().trim();
+    }
+
+    private String limitarTexto(String texto, int limite) {
+        if (texto == null || texto.length() <= limite) {
+            return texto;
+        }
+        int corte = texto.lastIndexOf(' ', limite - 1);
+        if (corte < limite / 2) {
+            corte = limite - 1;
+        }
+        return texto.substring(0, corte).stripTrailing() + "…";
     }
 
     private String appUrl(PostagemFeed postagem) {

@@ -1456,7 +1456,7 @@ export class PainelPage implements OnInit {
     const base = environment.apiUrl || window.location.origin;
     const url = new URL(`/api/compartilhar/postagens/${postagem.id}`, base);
     const versaoPostagem = new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id;
-    url.searchParams.set('v', `8-${versaoPostagem}`);
+    url.searchParams.set('v', `9-${versaoPostagem}`);
     return url.toString();
   }
 
