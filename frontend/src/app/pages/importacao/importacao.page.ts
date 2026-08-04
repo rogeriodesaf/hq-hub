@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import {
   ColetaGuia,
+  SerieGcd,
   ResultadoBackfillComicVine,
   ResultadoImportacaoCatalogo,
   Serie,
@@ -50,6 +51,14 @@ import {
             <strong>Coletar do Guia</strong>
             <span>Gere, revise e importe o JSON pelo HQ-HUB</span>
           </button>
+          <button
+            type="button"
+            [class.ativo]="modoEntrada() === 'gcd'"
+            (click)="selecionarModo('gcd')"
+          >
+            <strong>Coletar do GCD</strong>
+            <span>Pesquise séries no Grand Comics Database</span>
+          </button>
         </nav>
 
         <div class="secao-titulo">
@@ -60,8 +69,10 @@ import {
                 Preencha a série, as edições e as histórias. O HQ-HUB monta e envia o JSON por você.
               } @else if (modoEntrada() === 'json') {
                 Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
-              } @else {
+              } @else if (modoEntrada() === 'guia') {
                 Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
+              } @else {
+                Pesquise no GCD, escolha a série e gere um JSON revisável antes da importação.
               }
             </p>
           </div>
@@ -153,6 +164,70 @@ import {
                     {{ importando() ? 'Importando...' : 'Importar JSON' }}
                   </button>
                   <button class="botao compacto" type="button" (click)="novaColetaGuia()">Nova coleta</button>
+                </div>
+              }
+            }
+          </section>
+        }
+
+        @if (modoEntrada() === 'gcd') {
+          <section class="editor-visual-importacao coleta-guia">
+            <aside class="dica-importacao-colaborador">
+              <strong>Busca pelo Grand Comics Database</strong>
+              <p>Pesquise como na busca do GCD, selecione a série correta e o HQ-HUB coletará suas edições e histórias pela API oficial.</p>
+              <p>O resultado será um JSON para revisão. A importação só acontece quando você clicar em <strong>Importar JSON</strong>.</p>
+            </aside>
+
+            @if (!coletaGcd()) {
+              <section class="seletor-serie-existente">
+                <div class="busca-serie-existente">
+                  <input [(ngModel)]="buscaGcd" name="buscaGcd" placeholder="Ex.: Brasil" (keyup.enter)="buscarSeriesGcd()" />
+                  <button class="botao primario" type="button" (click)="buscarSeriesGcd()" [disabled]="buscandoGcd()">
+                    {{ buscandoGcd() ? 'Pesquisando...' : 'Pesquisar no GCD' }}
+                  </button>
+                </div>
+                @if (seriesGcd().length) {
+                  <div class="resultados-serie-existente">
+                    @for (serie of seriesGcd(); track serie.apiUrl) {
+                      <button type="button" [class.ativo]="serieGcdSelecionada()?.apiUrl === serie.apiUrl" (click)="selecionarSerieGcd(serie)">
+                        <strong>{{ serie.nome }}</strong>
+                        <span>{{ serie.pais || '-' }} · {{ serie.idioma || '-' }} · {{ serie.anoInicio || '?' }}–{{ serie.anoFim || '?' }} · {{ serie.totalEdicoes }} edição(ões)</span>
+                      </button>
+                    }
+                  </div>
+                }
+              </section>
+
+              @if (serieGcdSelecionada()) {
+                <div class="grade-importacao-visual">
+                  <label class="campo-largo">Título no HQ-HUB<input [(ngModel)]="rascunhoGcd.tituloSerie" name="gcdTitulo" /></label>
+                  <label>Editora<small>Opcional; se vazio, será obtida do GCD</small><input [(ngModel)]="rascunhoGcd.editora" name="gcdEditora" /></label>
+                  <label>Volume<input type="number" min="1" [(ngModel)]="rascunhoGcd.volume" name="gcdVolume" /></label>
+                  <label>Limite de edições<small>Máximo de 200</small><input type="number" min="1" max="200" [(ngModel)]="rascunhoGcd.quantidade" name="gcdQuantidade" /></label>
+                </div>
+                <button class="botao primario" type="button" (click)="iniciarColetaGcd()" [disabled]="gerandoRascunho()">
+                  {{ gerandoRascunho() ? 'Preparando coleta...' : 'Gerar JSON' }}
+                </button>
+              }
+            } @else {
+              <section class="andamento-coleta">
+                <div><strong>{{ coletaGcd()!.mensagem }}</strong><span>{{ coletaGcd()!.paginasProcessadas }} de {{ coletaGcd()!.totalPaginas }} edições</span></div>
+                <progress [value]="coletaGcd()!.paginasProcessadas" [max]="coletaGcd()!.totalPaginas || 1"></progress>
+                @if (coletaGcd()!.status === 'PAUSADA') {
+                  <button class="botao secundario compacto" type="button" (click)="retomarColetaGcd()">Retomar coleta</button>
+                }
+              </section>
+              @if (coletaGcd()!.avisos.length) {
+                <details><summary>Avisos da coleta ({{ coletaGcd()!.avisos.length }})</summary><ul>
+                  @for (aviso of coletaGcd()!.avisos; track $index) { <li>{{ aviso }}</li> }
+                </ul></details>
+              }
+              @if (coletaGcd()!.status === 'CONCLUIDA') {
+                <label class="campo-json">JSON gerado para revisão<textarea [(ngModel)]="jsonTexto" name="jsonColetaGcd" spellcheck="false"></textarea></label>
+                <div class="acoes-importacao">
+                  <button class="botao secundario" type="button" (click)="baixarJsonGerado()">Baixar JSON</button>
+                  <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">{{ importando() ? 'Importando...' : 'Importar JSON' }}</button>
+                  <button class="botao compacto" type="button" (click)="novaColetaGcd()">Nova busca</button>
                 </div>
               }
             }
@@ -1174,6 +1249,7 @@ import {
 })
 export class ImportacaoPage implements OnInit, OnDestroy {
   private static readonly COLETA_GUIA_STORAGE = 'hqhub-coleta-guia-id';
+  private static readonly COLETA_GCD_STORAGE = 'hqhub-coleta-gcd-id';
   private readonly api = inject(ApiService);
 
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
@@ -1183,11 +1259,16 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly gerandoRascunho = signal(false);
   readonly processandoColeta = signal(false);
   readonly coletaGuia = signal<ColetaGuia | null>(null);
+  readonly coletaGcd = signal<ColetaGuia | null>(null);
+  readonly buscandoGcd = signal(false);
+  readonly seriesGcd = signal<SerieGcd[]>([]);
+  readonly serieGcdSelecionada = signal<SerieGcd | null>(null);
   private readonly agoraColeta = signal(Date.now());
   private readonly prazoColetaMs = signal(0);
   private temporizadorColeta: ReturnType<typeof setTimeout> | null = null;
+  private temporizadorColetaGcd: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1200,6 +1281,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private readonly uploadsCapaVisual = new WeakSet<object>();
   private readonly errosCapaVisual = new WeakMap<object, string>();
   buscaSerieVisual = '';
+  buscaGcd = 'brasil';
   buscaSerieCapa = '';
   numeroEdicaoCapa = '';
   urlCapaManual = '';
@@ -1213,9 +1295,26 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     editora: 'Panini',
     volume: 1,
   };
+  rascunhoGcd = {
+    tituloSerie: '',
+    editora: '',
+    volume: 1,
+    quantidade: null as number | null,
+  };
   visualImportacao: any = this.modeloImportacao();
 
   ngOnInit() {
+    const coletaGcdId = localStorage.getItem(ImportacaoPage.COLETA_GCD_STORAGE);
+    if (coletaGcdId) {
+      this.api.buscarColetaGcd(coletaGcdId).subscribe({
+        next: (coleta) => {
+          this.modoEntrada.set('gcd');
+          this.atualizarColetaGcd(coleta);
+        },
+        error: () => localStorage.removeItem(ImportacaoPage.COLETA_GCD_STORAGE),
+      });
+      return;
+    }
     const coletaId = localStorage.getItem(ImportacaoPage.COLETA_GUIA_STORAGE);
     if (!coletaId) {
       return;
@@ -1231,15 +1330,17 @@ export class ImportacaoPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.cancelarTemporizadorColeta();
+    this.cancelarTemporizadorColetaGcd();
   }
 
   tituloModoEntrada() {
     if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
     if (this.modoEntrada() === 'json') return 'JSON do robô';
+    if (this.modoEntrada() === 'gcd') return 'Coletar do Grand Comics Database';
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd') {
     if (modo === this.modoEntrada()) {
       return;
     }
@@ -1496,6 +1597,127 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         this.mensagem.set(erro?.error?.mensagem || 'Não foi possível iniciar a coleta do Guia.');
       },
     });
+  }
+
+  buscarSeriesGcd() {
+    const busca = this.buscaGcd.trim();
+    if (busca.length < 2) {
+      this.mensagem.set('Informe ao menos 2 caracteres para pesquisar no GCD.');
+      return;
+    }
+    this.buscandoGcd.set(true);
+    this.mensagem.set('');
+    this.api.buscarSeriesGcd(busca).subscribe({
+      next: (series) => {
+        this.buscandoGcd.set(false);
+        this.seriesGcd.set(series);
+        if (!series.length) this.mensagem.set('Nenhuma série foi encontrada no GCD.');
+      },
+      error: (erro) => {
+        this.buscandoGcd.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível pesquisar no GCD.');
+      },
+    });
+  }
+
+  selecionarSerieGcd(serie: SerieGcd) {
+    this.serieGcdSelecionada.set(serie);
+    this.rascunhoGcd.tituloSerie = serie.nome;
+    this.rascunhoGcd.editora = serie.editora || '';
+    this.rascunhoGcd.quantidade = serie.totalEdicoes || null;
+    this.mensagem.set(`Série "${serie.nome}" selecionada.`);
+  }
+
+  iniciarColetaGcd() {
+    const serie = this.serieGcdSelecionada();
+    if (!serie || !this.rascunhoGcd.tituloSerie.trim()) {
+      this.mensagem.set('Pesquise e selecione uma série do GCD.');
+      return;
+    }
+    this.gerandoRascunho.set(true);
+    this.mensagem.set('');
+    this.api.iniciarColetaGcd({
+      apiUrlSerie: serie.apiUrl,
+      tituloSerie: this.rascunhoGcd.tituloSerie.trim(),
+      editora: this.rascunhoGcd.editora.trim() || null,
+      volume: this.rascunhoGcd.volume ? Number(this.rascunhoGcd.volume) : null,
+      quantidade: this.rascunhoGcd.quantidade ? Number(this.rascunhoGcd.quantidade) : null,
+    }).subscribe({
+      next: (coleta) => {
+        this.gerandoRascunho.set(false);
+        this.atualizarColetaGcd(coleta);
+      },
+      error: (erro) => {
+        this.gerandoRascunho.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível iniciar a coleta do GCD.');
+      },
+    });
+  }
+
+  retomarColetaGcd() {
+    const coleta = this.coletaGcd();
+    if (!coleta || this.processandoColeta()) return;
+    this.processandoColeta.set(true);
+    this.api.retomarColetaGcd(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGcd(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível retomar a coleta do GCD.');
+      },
+    });
+  }
+
+  novaColetaGcd() {
+    this.cancelarTemporizadorColetaGcd();
+    localStorage.removeItem(ImportacaoPage.COLETA_GCD_STORAGE);
+    this.coletaGcd.set(null);
+    this.serieGcdSelecionada.set(null);
+    this.jsonTexto = '';
+    this.nomeArquivo.set('');
+    this.mensagem.set('');
+  }
+
+  private atualizarColetaGcd(coleta: ColetaGuia) {
+    this.coletaGcd.set(coleta);
+    localStorage.setItem(ImportacaoPage.COLETA_GCD_STORAGE, coleta.id);
+    if (coleta.resultado) {
+      this.jsonTexto = JSON.stringify(coleta.resultado, null, 2);
+      this.nomeArquivo.set('rascunho-gerado-pelo-gcd.json');
+    }
+    this.agendarProximoPassoColetaGcd();
+  }
+
+  private agendarProximoPassoColetaGcd() {
+    this.cancelarTemporizadorColetaGcd();
+    const coleta = this.coletaGcd();
+    if (!coleta || coleta.status === 'CONCLUIDA' || coleta.status === 'PAUSADA') return;
+    this.temporizadorColetaGcd = setTimeout(() => this.processarProximaEdicaoGcd(), 1200);
+  }
+
+  private processarProximaEdicaoGcd() {
+    const coleta = this.coletaGcd();
+    if (!coleta || this.processandoColeta() || coleta.status === 'CONCLUIDA' || coleta.status === 'PAUSADA') return;
+    this.processandoColeta.set(true);
+    this.api.processarColetaGcd(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGcd(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'A coleta do GCD perdeu a conexão. Abra novamente para continuar.');
+      },
+    });
+  }
+
+  private cancelarTemporizadorColetaGcd() {
+    if (this.temporizadorColetaGcd) {
+      clearTimeout(this.temporizadorColetaGcd);
+      this.temporizadorColetaGcd = null;
+    }
   }
 
   retomarColetaGuia() {

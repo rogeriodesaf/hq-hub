@@ -32,6 +32,8 @@ import {
   EstatisticasPublicasColecao,
   GeracaoRascunhoImportacao,
   ColetaGuia,
+  GeracaoRascunhoGcd,
+  SerieGcd,
   Historia,
   InteracaoItemColecao,
   InteracaoSocialColecao,
@@ -917,6 +919,28 @@ export class ApiService {
 
   retomarColetaGuia(id: string) {
     return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-guia/${id}/retomar`, {});
+  }
+
+  buscarSeriesGcd(busca: string) {
+    return this.http.get<SerieGcd[]>('/api/importacoes/catalogo/gcd/series', {
+      params: new HttpParams().set('busca', busca),
+    });
+  }
+
+  iniciarColetaGcd(dto: GeracaoRascunhoGcd) {
+    return this.http.post<ColetaGuia>('/api/importacoes/catalogo/coletas-gcd', dto);
+  }
+
+  buscarColetaGcd(id: string) {
+    return this.http.get<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}`);
+  }
+
+  processarColetaGcd(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}/processar`, {});
+  }
+
+  retomarColetaGcd(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}/retomar`, {});
   }
 
   cadastrarContribuicaoCatalogo(dto: {

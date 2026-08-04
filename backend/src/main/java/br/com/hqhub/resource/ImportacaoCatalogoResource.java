@@ -8,11 +8,13 @@ import java.util.UUID;
 
 import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
+import br.com.hqhub.dto.GeracaoRascunhoGcdDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.ArmazenamentoImagemService;
 import br.com.hqhub.service.ColetaGuiaService;
+import br.com.hqhub.service.ColetaGcdService;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
@@ -53,6 +55,7 @@ public class ImportacaoCatalogoResource {
     private final GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService;
     private final ArmazenamentoImagemService armazenamentoImagemService;
     private final ColetaGuiaService coletaGuiaService;
+    private final ColetaGcdService coletaGcdService;
     private final SecurityIdentity securityIdentity;
 
     public ImportacaoCatalogoResource(
@@ -60,11 +63,13 @@ public class ImportacaoCatalogoResource {
             GeracaoRascunhoImportacaoService geracaoRascunhoImportacaoService,
             ArmazenamentoImagemService armazenamentoImagemService,
             ColetaGuiaService coletaGuiaService,
+            ColetaGcdService coletaGcdService,
             SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
         this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
         this.armazenamentoImagemService = armazenamentoImagemService;
         this.coletaGuiaService = coletaGuiaService;
+        this.coletaGcdService = coletaGcdService;
         this.securityIdentity = securityIdentity;
     }
 
@@ -129,6 +134,36 @@ public class ImportacaoCatalogoResource {
     @Path("/coletas-guia/{id}/retomar")
     public Response retomarColetaGuia(@PathParam("id") UUID id) {
         return Response.ok(coletaGuiaService.retomar(id)).build();
+    }
+
+    @GET
+    @Path("/gcd/series")
+    public Response buscarSeriesGcd(@QueryParam("busca") String busca) {
+        return Response.ok(coletaGcdService.buscarSeries(busca)).build();
+    }
+
+    @POST
+    @Path("/coletas-gcd")
+    public Response iniciarColetaGcd(@Valid GeracaoRascunhoGcdDTO dto) {
+        return Response.ok(coletaGcdService.iniciar(dto)).build();
+    }
+
+    @GET
+    @Path("/coletas-gcd/{id}")
+    public Response buscarColetaGcd(@PathParam("id") UUID id) {
+        return Response.ok(coletaGcdService.buscar(id)).build();
+    }
+
+    @POST
+    @Path("/coletas-gcd/{id}/processar")
+    public Response processarColetaGcd(@PathParam("id") UUID id) {
+        return Response.ok(coletaGcdService.processar(id)).build();
+    }
+
+    @POST
+    @Path("/coletas-gcd/{id}/retomar")
+    public Response retomarColetaGcd(@PathParam("id") UUID id) {
+        return Response.ok(coletaGcdService.retomar(id)).build();
     }
 
     @POST

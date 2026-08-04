@@ -603,6 +603,25 @@ export interface ColetaGuia {
   resultado: unknown | null;
 }
 
+export interface SerieGcd {
+  apiUrl: string;
+  nome: string;
+  pais: string | null;
+  idioma: string | null;
+  anoInicio: number | null;
+  anoFim: number | null;
+  totalEdicoes: number;
+  editora: string | null;
+}
+
+export interface GeracaoRascunhoGcd {
+  apiUrlSerie: string;
+  tituloSerie: string;
+  editora: string | null;
+  volume: number | null;
+  quantidade: number | null;
+}
+
 export interface Amizade {
   id: number;
   solicitante: Usuario;

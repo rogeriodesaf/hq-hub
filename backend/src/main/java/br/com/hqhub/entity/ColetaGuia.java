@@ -37,6 +37,10 @@ public class ColetaGuia {
     @Column(nullable = false, length = 20)
     private StatusColetaGuia status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private FonteColetaCatalogo fonte;
+
     @Column(name = "pedido_json", nullable = false, columnDefinition = "TEXT")
     private String pedidoJson;
 

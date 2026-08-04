@@ -16,6 +16,7 @@ import br.com.hqhub.dto.EdicaoImportacaoDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.entity.ColetaGuia;
+import br.com.hqhub.entity.FonteColetaCatalogo;
 import br.com.hqhub.entity.StatusColetaGuia;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
@@ -60,6 +61,7 @@ public class ColetaGuiaService {
 
         ColetaGuia coleta = new ColetaGuia();
         coleta.setUsuario(usuario);
+        coleta.setFonte(FonteColetaCatalogo.GUIA);
         coleta.setPedidoJson(escreverJson(pedido));
         coleta.setUrlsJson(escreverJson(preparacao.urls()));
         coleta.setEdicoesJson("[]");
@@ -79,7 +81,7 @@ public class ColetaGuiaService {
     @Transactional
     public ColetaGuiaRespostaDTO processarProximaPagina(UUID id) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        ColetaGuia coleta = repository.buscarParaProcessamento(id, usuario.getId())
+        ColetaGuia coleta = repository.buscarParaProcessamento(id, usuario.getId(), FonteColetaCatalogo.GUIA)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Coleta do Guia nao encontrada."));
 
         if (coleta.getStatus() == StatusColetaGuia.CONCLUIDA || coleta.getStatus() == StatusColetaGuia.PAUSADA) {
@@ -145,14 +147,14 @@ public class ColetaGuiaService {
 
     public ColetaGuiaRespostaDTO buscar(UUID id) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        return paraResposta(repository.buscarPorUsuario(id, usuario.getId())
+        return paraResposta(repository.buscarPorUsuario(id, usuario.getId(), FonteColetaCatalogo.GUIA)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Coleta do Guia nao encontrada.")));
     }
 
     @Transactional
     public ColetaGuiaRespostaDTO retomar(UUID id) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        ColetaGuia coleta = repository.buscarParaProcessamento(id, usuario.getId())
+        ColetaGuia coleta = repository.buscarParaProcessamento(id, usuario.getId(), FonteColetaCatalogo.GUIA)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Coleta do Guia nao encontrada."));
         if (coleta.getStatus() != StatusColetaGuia.CONCLUIDA) {
             coleta.setStatus(StatusColetaGuia.PRONTA);
