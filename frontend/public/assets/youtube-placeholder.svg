@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title description">
+  <title id="title">Vídeo do YouTube</title>
+  <desc id="description">Imagem padrão para conteúdo relacionado do YouTube</desc>
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#171717"/>
+      <stop offset="1" stop-color="#3a0b0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#fundo)"/>
+  <rect x="244" y="119" width="152" height="106" rx="28" fill="#ff0033"/>
+  <path d="m305 148 55 24-55 25z" fill="#fff"/>
+  <text x="320" y="276" fill="#fff" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle">Conteúdo relacionado</text>
+</svg>

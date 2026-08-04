@@ -11,6 +11,7 @@ public record PostagemFeedRespostaDTO(
         List<ImagemFeedDTO> imagens,
         ColecaoFeedDTO colecaoDestaque,
         CatalogoFeedDTO catalogoDestaque,
+        List<VideoRelacionadoDTO> relatedVideos,
         long totalCurtidas,
         boolean curtidaPeloUsuario,
         List<ComentarioFeedRespostaDTO> comentarios,

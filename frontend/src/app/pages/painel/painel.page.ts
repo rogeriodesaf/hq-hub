@@ -6,13 +6,14 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed, Usuario } from '../../core/modelos';
+import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
+import { RelatedContentComponent } from '../../shared/related-content.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
-  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent],
+  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent, RelatedContentComponent],
   template: `
     <section class="cabecalho-pagina feed-cabecalho">
       <div>
@@ -120,11 +121,44 @@ import { environment } from '../../../environments/environment';
               placeholder="Compartilhe uma leitura, uma capa bonita ou uma descoberta da sua estante..."
             ></textarea>
           </div>
+
+          @if (videosRelacionadosFormulario.length) {
+            <div class="videos-compositor">
+              <strong>Vídeos relacionados</strong>
+              @for (video of videosRelacionadosFormulario; track $index) {
+                <div class="linha-video-compositor">
+                  <input
+                    [(ngModel)]="video.title"
+                    [name]="'tituloVideo' + $index"
+                    maxlength="200"
+                    placeholder="Título do vídeo"
+                  />
+                  <input
+                    [(ngModel)]="video.url"
+                    [name]="'urlVideo' + $index"
+                    type="url"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                  />
+                  <button type="button" class="botao compacto perigo" (click)="removerVideoRelacionado($index)">Remover</button>
+                </div>
+              }
+            </div>
+          }
           <div class="compositor-rodape">
-            <label class="acao-upload-feed seletor-feed">
-              <span>Adicionar fotos</span>
-              <input type="file" accept="image/jpeg,image/png,image/webp" multiple (change)="selecionarImagens($event)" />
-            </label>
+            <div class="compositor-acoes-midia">
+              <label class="acao-upload-feed seletor-feed">
+                <span>Adicionar fotos</span>
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple (change)="selecionarImagens($event)" />
+              </label>
+              <button
+                class="acao-upload-feed"
+                type="button"
+                (click)="adicionarVideoRelacionado()"
+                [disabled]="videosRelacionadosFormulario.length >= 3"
+              >
+                Adicionar vídeo
+              </button>
+            </div>
             <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
               {{ publicando() ? 'Publicando...' : 'Publicar' }}
             </button>
@@ -239,6 +273,11 @@ import { environment } from '../../../environments/environment';
                   }
                 </div>
               }
+
+              <app-related-content
+                [videos]="postagem.relatedVideos"
+                [referenceTitle]="postagem.catalogoDestaque?.titulo || postagem.colecaoDestaque?.titulo || ''"
+              ></app-related-content>
 
               <div class="barra-postagem">
                 <button
@@ -420,6 +459,10 @@ import { environment } from '../../../environments/environment';
       background: var(--superficie-2);
       line-height: 1.55;
     }
+
+    .videos-compositor { display: grid; gap: 10px; margin: 12px 16px 0; padding: 12px; border: 1px solid var(--borda); border-radius: 12px; background: var(--superficie-2); }
+    .linha-video-compositor { display: grid; grid-template-columns: minmax(140px, .8fr) minmax(220px, 1.4fr) auto; gap: 8px; align-items: center; }
+    .compositor-acoes-midia { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 
     .compositor-rodape {
       display: flex;
@@ -851,6 +894,8 @@ import { environment } from '../../../environments/environment';
         grid-template-columns: 1fr;
       }
 
+      .linha-video-compositor { grid-template-columns: 1fr; }
+
       .cartao-colecao-feed {
         grid-template-columns: 104px minmax(0, 1fr);
       }
@@ -890,6 +935,7 @@ export class PainelPage implements OnInit {
   novoConteudo = '';
   imagensSelecionadas: File[] = [];
   previsualizacoes: Array<{ url: string; nome: string }> = [];
+  videosRelacionadosFormulario: Array<{ title: string; url: string }> = [];
   comentarios: Record<number, string> = {};
 
   ngOnInit() {
@@ -905,14 +951,33 @@ export class PainelPage implements OnInit {
       return;
     }
 
+    const videosRelacionados = this.videosRelacionadosFormulario.map((video) => ({
+      title: video.title.trim(),
+      url: video.url.trim(),
+    }));
+    if (videosRelacionados.some((video) => !video.title || !video.url)) {
+      this.mensagem.set('Informe o título e a URL de cada vídeo relacionado.');
+      return;
+    }
+
     this.publicando.set(true);
     this.mensagem.set('');
     this.enviarImagensSelecionadas()
-      .then((imagens) => this.criarPostagem(conteudo, imagens))
+      .then((imagens) => this.criarPostagem(conteudo, imagens, videosRelacionados))
       .catch((mensagem) => {
         this.publicando.set(false);
         this.mensagem.set(String(mensagem));
       });
+  }
+
+  adicionarVideoRelacionado() {
+    if (this.videosRelacionadosFormulario.length < 3) {
+      this.videosRelacionadosFormulario.push({ title: '', url: '' });
+    }
+  }
+
+  removerVideoRelacionado(indice: number) {
+    this.videosRelacionadosFormulario.splice(indice, 1);
   }
 
   selecionarImagens(evento: Event) {
@@ -972,12 +1037,13 @@ export class PainelPage implements OnInit {
       : [];
   }
 
-  private criarPostagem(conteudo: string, imagens: ImagemFeed[]) {
-    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens }).subscribe({
+  private criarPostagem(conteudo: string, imagens: ImagemFeed[], relatedVideos: RelatedVideoInput[]) {
+    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens, relatedVideos }).subscribe({
       next: (postagem) => {
         this.feed.update((feed) => [postagem, ...feed]);
         this.novoConteudo = '';
         this.imagensSelecionadas = [];
+        this.videosRelacionadosFormulario = [];
         this.limparPrevisualizacoes();
         this.previsualizacoes = [];
         this.publicando.set(false);

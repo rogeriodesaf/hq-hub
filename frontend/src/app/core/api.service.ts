@@ -42,6 +42,7 @@ import {
   PessoaComicVine,
   PostagemFeed,
   PostagemPublica,
+  RelatedVideoInput,
   ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
@@ -104,8 +105,19 @@ export class ApiService {
     );
   }
 
-  publicarNoFeed(dto: { conteudo: string; urlImagem: string | null; imagens?: ImagemFeed[] }) {
+  publicarNoFeed(dto: {
+    conteudo: string;
+    urlImagem: string | null;
+    imagens?: ImagemFeed[];
+    relatedVideos?: RelatedVideoInput[];
+  }) {
     return this.http.post<PostagemFeed>('/api/feed', dto).pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
+  atualizarVideosRelacionados(postagemId: number, relatedVideos: RelatedVideoInput[]) {
+    return this.http
+      .put<PostagemFeed>(`/api/feed/${postagemId}/videos-relacionados`, { relatedVideos })
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
   alternarCurtidaPostagem(id: number) {
@@ -947,6 +959,7 @@ export class ApiService {
             urlCapa: this.normalizarUrlMidia(postagem.catalogoDestaque.urlCapa),
           }
         : null,
+      relatedVideos: postagem.relatedVideos || [],
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),

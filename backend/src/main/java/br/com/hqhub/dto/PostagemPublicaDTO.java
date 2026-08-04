@@ -11,6 +11,7 @@ public record PostagemPublicaDTO(
         List<ImagemFeedDTO> imagens,
         ColecaoFeedDTO colecaoDestaque,
         CatalogoFeedDTO catalogoDestaque,
+        List<VideoRelacionadoDTO> relatedVideos,
         long totalCurtidas,
         List<Comentario> comentarios,
         LocalDateTime dataCriacao,

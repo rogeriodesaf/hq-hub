@@ -659,6 +659,25 @@ export interface CatalogoFeed {
   urlCapa: string | null;
 }
 
+export interface RelatedVideo {
+  id: string;
+  title: string;
+  url: string;
+  thumbnail?: string | null;
+  channelName?: string | null;
+  durationSeconds?: number | null;
+  viewCount?: number | null;
+}
+
+export interface RelatedVideoInput {
+  title: string;
+  url: string;
+  thumbnail?: string | null;
+  channelName?: string | null;
+  durationSeconds?: number | null;
+  viewCount?: number | null;
+}
+
 export interface PostagemFeed {
   id: number;
   usuario: Usuario;
@@ -667,6 +686,7 @@ export interface PostagemFeed {
   imagens: ImagemFeed[];
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;
+  relatedVideos: RelatedVideo[];
   totalCurtidas: number;
   curtidaPeloUsuario: boolean;
   comentarios: ComentarioFeed[];
@@ -690,6 +710,7 @@ export interface PostagemPublica {
   imagens: ImagemFeed[];
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;
+  relatedVideos: RelatedVideo[];
   totalCurtidas: number;
   comentarios: Array<{
     id: number;

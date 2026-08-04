@@ -2,6 +2,7 @@ package br.com.hqhub.resource;
 
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
+import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
 import br.com.hqhub.service.FeedMidiaService;
 import br.com.hqhub.service.FeedSocialService;
 import io.quarkus.security.Authenticated;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -56,6 +58,14 @@ public class FeedSocialResource {
     @POST
     public Response publicar(@Valid CadastroPostagemFeedDTO dto) {
         return Response.ok(feedSocialService.publicar(dto)).build();
+    }
+
+    @PUT
+    @Path("/{id}/videos-relacionados")
+    public Response atualizarVideosRelacionados(
+            @PathParam("id") Long id,
+            @Valid AtualizacaoVideosRelacionadosDTO dto) {
+        return Response.ok(feedSocialService.atualizarVideosRelacionados(id, dto)).build();
     }
 
     @POST

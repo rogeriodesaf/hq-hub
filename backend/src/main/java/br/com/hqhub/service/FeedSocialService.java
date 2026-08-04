@@ -1,24 +1,35 @@
 package br.com.hqhub.service;
 
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
+import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
+import br.com.hqhub.dto.CadastroVideoRelacionadoDTO;
 import br.com.hqhub.dto.CatalogoFeedDTO;
 import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.PostagemFeedRespostaDTO;
 import br.com.hqhub.dto.PostagemPublicaDTO;
+import br.com.hqhub.dto.VideoRelacionadoDTO;
 import br.com.hqhub.entity.ComentarioFeed;
 import br.com.hqhub.entity.CurtidaPostagemFeed;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ImagemPostagemFeed;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
+import br.com.hqhub.entity.PerfilUsuario;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusColecaoSerie;
 import br.com.hqhub.entity.Usuario;
+import br.com.hqhub.entity.VideoRelacionadoFeed;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.UsuarioMapper;
@@ -30,6 +41,7 @@ import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
+import br.com.hqhub.repository.VideoRelacionadoFeedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -40,6 +52,7 @@ public class FeedSocialService {
     private final ComentarioFeedRepository comentarioRepository;
     private final CurtidaPostagemFeedRepository curtidaRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
+    private final VideoRelacionadoFeedRepository videoRelacionadoRepository;
     private final AmizadeRepository amizadeRepository;
     private final ItemColecaoRepository itemColecaoRepository;
     private final ColecaoSerieRepository colecaoSerieRepository;
@@ -53,6 +66,7 @@ public class FeedSocialService {
             ComentarioFeedRepository comentarioRepository,
             CurtidaPostagemFeedRepository curtidaRepository,
             ImagemPostagemFeedRepository imagemRepository,
+            VideoRelacionadoFeedRepository videoRelacionadoRepository,
             AmizadeRepository amizadeRepository,
             ItemColecaoRepository itemColecaoRepository,
             ColecaoSerieRepository colecaoSerieRepository,
@@ -64,6 +78,7 @@ public class FeedSocialService {
         this.comentarioRepository = comentarioRepository;
         this.curtidaRepository = curtidaRepository;
         this.imagemRepository = imagemRepository;
+        this.videoRelacionadoRepository = videoRelacionadoRepository;
         this.amizadeRepository = amizadeRepository;
         this.itemColecaoRepository = itemColecaoRepository;
         this.colecaoSerieRepository = colecaoSerieRepository;
@@ -105,6 +120,25 @@ public class FeedSocialService {
         postagem.setUrlImagem(textoOuNull(dto.urlImagem()));
         postagemRepository.persist(postagem);
         salvarImagens(postagem, dto.imagens());
+        salvarVideosRelacionados(postagem, dto.relatedVideos());
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO atualizarVideosRelacionados(
+            Long postagemId,
+            AtualizacaoVideosRelacionadosDTO dto) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
+
+        boolean administrador = usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR;
+        if (!postagem.getUsuario().getId().equals(usuario.getId()) && !administrador) {
+            throw new RegraNegocioException("Você não pode alterar os vídeos desta postagem.");
+        }
+
+        videoRelacionadoRepository.removerPorPostagem(postagemId);
+        salvarVideosRelacionados(postagem, dto.relatedVideos());
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -166,6 +200,7 @@ public class FeedSocialService {
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo()),
+                listarVideosRelacionados(postagem.getId()),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 comentarios,
                 postagem.getDataCriacao(),
@@ -185,6 +220,7 @@ public class FeedSocialService {
         comentarioRepository.delete("postagem.id", postagem.getId());
         curtidaRepository.delete("postagem.id", postagem.getId());
         imagemRepository.delete("postagem.id", postagem.getId());
+        videoRelacionadoRepository.removerPorPostagem(postagem.getId());
         postagemRepository.delete(postagem);
     }
 
@@ -248,6 +284,7 @@ public class FeedSocialService {
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo()),
+                listarVideosRelacionados(postagem.getId()),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 curtidaRepository.existePorPostagemEUsuario(postagem.getId(), usuarioId),
                 comentarios,
@@ -345,6 +382,124 @@ public class FeedSocialService {
             return imagens.get(0).urlImagem();
         }
         return urlPublicaService.normalizarApiUrl(postagem.getUrlImagem());
+    }
+
+    private void salvarVideosRelacionados(PostagemFeed postagem, List<CadastroVideoRelacionadoDTO> videos) {
+        if (videos == null || videos.isEmpty()) {
+            return;
+        }
+        if (videos.size() > 3) {
+            throw new RegraNegocioException("A postagem pode ter no máximo 3 vídeos relacionados.");
+        }
+
+        Set<String> idsYoutube = new HashSet<>();
+        for (int ordem = 0; ordem < videos.size(); ordem++) {
+            CadastroVideoRelacionadoDTO dto = videos.get(ordem);
+            String url = dto.url().trim();
+            String videoId = extrairIdYoutube(url);
+            if (videoId == null) {
+                throw new RegraNegocioException("Informe uma URL válida de vídeo do YouTube.");
+            }
+            if (!idsYoutube.add(videoId)) {
+                throw new RegraNegocioException("O mesmo vídeo foi informado mais de uma vez.");
+            }
+
+            VideoRelacionadoFeed video = new VideoRelacionadoFeed();
+            video.setPostagem(postagem);
+            video.setTitulo(dto.title().trim());
+            video.setUrl(url);
+            video.setThumbnail(thumbnailYoutube(dto.thumbnail(), videoId));
+            video.setNomeCanal(textoOuNull(dto.channelName()));
+            video.setDuracaoSegundos(dto.durationSeconds());
+            video.setVisualizacoes(dto.viewCount());
+            video.setOrdem(ordem);
+            videoRelacionadoRepository.persist(video);
+        }
+    }
+
+    private List<VideoRelacionadoDTO> listarVideosRelacionados(Long postagemId) {
+        return videoRelacionadoRepository.listarPorPostagem(postagemId)
+                .stream()
+                .map(video -> new VideoRelacionadoDTO(
+                        video.getId(),
+                        video.getTitulo(),
+                        video.getUrl(),
+                        video.getThumbnail(),
+                        video.getNomeCanal(),
+                        video.getDuracaoSegundos(),
+                        video.getVisualizacoes()))
+                .toList();
+    }
+
+    private String thumbnailYoutube(String thumbnail, String videoId) {
+        String informada = textoOuNull(thumbnail);
+        if (informada != null) {
+            validarUrlHttp(informada, "Thumbnail inválida.");
+            return informada;
+        }
+        return "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
+    }
+
+    private String extrairIdYoutube(String url) {
+        try {
+            URI uri = URI.create(url);
+            validarUrlHttp(url, "URL inválida.");
+            String host = uri.getHost().toLowerCase(Locale.ROOT);
+            String candidato = null;
+
+            if (host.equals("youtu.be")) {
+                candidato = primeiroTrechoCaminho(uri.getPath());
+            } else if (host.equals("youtube.com") || host.endsWith(".youtube.com")
+                    || host.equals("youtube-nocookie.com") || host.endsWith(".youtube-nocookie.com")) {
+                String caminho = uri.getPath() == null ? "" : uri.getPath();
+                if (caminho.equals("/watch")) {
+                    candidato = parametroConsulta(uri.getRawQuery(), "v");
+                } else if (caminho.startsWith("/shorts/") || caminho.startsWith("/embed/")
+                        || caminho.startsWith("/live/")) {
+                    candidato = primeiroTrechoCaminho(caminho.substring(caminho.indexOf('/', 1)));
+                }
+            }
+            return candidato != null && candidato.matches("[A-Za-z0-9_-]{6,20}") ? candidato : null;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    private void validarUrlHttp(String url, String mensagem) {
+        URI uri;
+        try {
+            uri = URI.create(url);
+        } catch (IllegalArgumentException e) {
+            throw new RegraNegocioException(mensagem);
+        }
+        String esquema = uri.getScheme();
+        if (uri.getHost() == null || esquema == null
+                || !(esquema.equalsIgnoreCase("https") || esquema.equalsIgnoreCase("http"))) {
+            throw new RegraNegocioException(mensagem);
+        }
+    }
+
+    private String primeiroTrechoCaminho(String caminho) {
+        if (caminho == null) {
+            return null;
+        }
+        return java.util.Arrays.stream(caminho.split("/"))
+                .filter(trecho -> !trecho.isBlank())
+                .findFirst()
+                .orElse(null);
+    }
+
+    private String parametroConsulta(String consulta, String nome) {
+        if (consulta == null) {
+            return null;
+        }
+        for (String parametro : consulta.split("&")) {
+            String[] partes = parametro.split("=", 2);
+            if (partes.length == 2 && partes[0].equals(nome)) {
+                return URLDecoder.decode(partes[1], StandardCharsets.UTF_8);
+            }
+        }
+        return null;
     }
 
     private PostagemPublicaDTO.Autor paraAutorPublico(Usuario usuario) {

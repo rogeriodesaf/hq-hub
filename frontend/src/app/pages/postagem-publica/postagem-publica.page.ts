@@ -5,10 +5,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { resolverUrlMidia } from '../../core/midia-url';
 import { PostagemPublica } from '../../core/modelos';
+import { RelatedContentComponent } from '../../shared/related-content.component';
 
 @Component({
   selector: 'app-postagem-publica-page',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RelatedContentComponent],
   template: `
     <main class="pagina-publica">
       <header class="topo">
@@ -74,6 +75,11 @@ import { PostagemPublica } from '../../core/modelos';
               }
             </div>
           }
+
+          <app-related-content
+            [videos]="postagem()!.relatedVideos"
+            [referenceTitle]="postagem()!.catalogoDestaque?.titulo || postagem()!.colecaoDestaque?.titulo || ''"
+          ></app-related-content>
 
           <div class="resumo">
             <span>♡ {{ postagem()!.totalCurtidas }}</span>

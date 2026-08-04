@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { RelatedContentComponent } from '../../shared/related-content.component';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import {
   Amizade,
@@ -22,7 +23,7 @@ import {
 
 @Component({
   selector: 'app-perfil-publico-page',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent],
   template: `
     @if (carregando()) {
       <div class="estado-carregando">
@@ -157,6 +158,11 @@ import {
                       }
                     </div>
                   }
+
+                  <app-related-content
+                    [videos]="postagem.relatedVideos"
+                    [referenceTitle]="postagem.catalogoDestaque?.titulo || postagem.colecaoDestaque?.titulo || ''"
+                  ></app-related-content>
 
                   <div class="barra-postagem">
                     <button

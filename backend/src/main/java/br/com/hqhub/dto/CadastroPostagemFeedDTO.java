@@ -3,6 +3,7 @@ package br.com.hqhub.dto;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 
 public record CadastroPostagemFeedDTO(
@@ -14,5 +15,8 @@ public record CadastroPostagemFeedDTO(
         String urlImagem,
 
         @Size(max = 3, message = "A postagem pode ter no maximo 3 imagens.")
-        List<ImagemFeedDTO> imagens) {
+        List<ImagemFeedDTO> imagens,
+
+        @Size(max = 3, message = "A postagem pode ter no máximo 3 vídeos relacionados.")
+        List<@Valid CadastroVideoRelacionadoDTO> relatedVideos) {
 }
