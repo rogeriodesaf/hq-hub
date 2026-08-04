@@ -34,6 +34,7 @@ import br.com.hqhub.service.UrlPublicaService;
 import br.com.hqhub.service.FeedSocialService;
 import br.com.hqhub.service.EdicaoService;
 import br.com.hqhub.service.LinkEdicaoService;
+import br.com.hqhub.service.HistoriaService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -61,6 +62,7 @@ public class CompartilhamentoResource {
     private final FeedSocialService feedSocialService;
     private final EdicaoService edicaoService;
     private final LinkEdicaoService linkEdicaoService;
+    private final HistoriaService historiaService;
     private final HttpClient httpClient = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
@@ -77,7 +79,8 @@ public class CompartilhamentoResource {
             UrlPublicaService urlPublicaService,
             FeedSocialService feedSocialService,
             EdicaoService edicaoService,
-            LinkEdicaoService linkEdicaoService) {
+            LinkEdicaoService linkEdicaoService,
+            HistoriaService historiaService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
         this.edicaoRepository = edicaoRepository;
@@ -86,6 +89,7 @@ public class CompartilhamentoResource {
         this.feedSocialService = feedSocialService;
         this.edicaoService = edicaoService;
         this.linkEdicaoService = linkEdicaoService;
+        this.historiaService = historiaService;
     }
 
     @GET
@@ -101,7 +105,10 @@ public class CompartilhamentoResource {
     public Response obterDetalheCatalogoPublico(@PathParam("id") Long id) {
         return Response.ok(new DetalheCatalogoPublicoDTO(
                 edicaoService.buscarPorId(id),
-                linkEdicaoService.listarPorEdicao(id))).build();
+                linkEdicaoService.listarPorEdicao(id),
+                historiaService.listarConteudosPorEdicao(id),
+                historiaService.listarPublicacoesPorEdicaoPublicada(id),
+                historiaService.listarPublicacoesPorEdicaoOriginal(id))).build();
     }
 
     @GET
@@ -184,6 +191,7 @@ public class CompartilhamentoResource {
         String titulo = tituloHq(postagem);
         String descricao = descricaoCompartilhamento(postagem);
         String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
+        String urlCompartilhamento = urlCompartilhamento(postagem, origemCompartilhamento);
 
         return """
                 <!doctype html>
@@ -192,8 +200,12 @@ public class CompartilhamentoResource {
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
                   <title>%s</title>
+                  <link rel="canonical" href="%s">
                   <meta name="description" content="%s">
                   <meta property="og:type" content="website">
+                  <meta property="og:locale" content="pt_BR">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:url" content="%s">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:image" content="%s">
@@ -205,7 +217,6 @@ public class CompartilhamentoResource {
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
-                  <meta http-equiv="refresh" content="0;url=%s">
                   <script>window.location.replace(%s);</script>
                 </head>
                 <body>
@@ -218,7 +229,9 @@ public class CompartilhamentoResource {
                 </html>
                 """.formatted(
                 escaparHtml(titulo),
+                escaparHtml(urlCompartilhamento),
                 escaparHtml(descricao),
+                escaparHtml(urlCompartilhamento),
                 escaparHtml(titulo),
                 escaparHtml(descricao),
                 escaparHtml(imagem),
@@ -226,7 +239,6 @@ public class CompartilhamentoResource {
                 escaparHtml(titulo),
                 escaparHtml(descricao),
                 escaparHtml(imagem),
-                escaparHtml(appUrl),
                 literalJavascript(appUrl),
                 escaparHtml(titulo),
                 escaparHtml("Redirecionando para o HQ-HUB..."),
@@ -373,7 +385,12 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=3-" + versao(postagem);
+                + "/imagem.jpg?v=4-" + versao(postagem);
+    }
+
+    private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
+        return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
+                + "?v=6-" + versao(postagem);
     }
 
     private String primeiraUrlPublica(String... urls) {

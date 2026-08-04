@@ -704,6 +704,9 @@ export interface PostagemPublica {
 export interface DetalheCatalogoPublico {
   edicao: Edicao;
   links: LinkEdicao[];
+  conteudos: ConteudoEdicao[];
+  publicacoes: PublicacaoHistoria[];
+  publicacoesOriginais: PublicacaoHistoria[];
 }
 
 export interface PostagemColecaoPublica {

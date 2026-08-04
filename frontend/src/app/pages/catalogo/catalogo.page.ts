@@ -1137,12 +1137,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private abrirDetalhePublico(edicaoId: number) {
     this.carregandoDetalhe.set(true);
     this.api.obterDetalheCatalogoPublico(edicaoId).subscribe({
-      next: ({ edicao, links }) => {
+      next: ({ edicao, links, conteudos, publicacoes, publicacoesOriginais }) => {
         this.edicaoDetalhe.set(edicao);
         this.linksDetalhe.set(links);
-        this.conteudosDetalhe.set([]);
-        this.publicacoesDetalhe.set([]);
-        this.publicacoesComoOriginal.set([]);
+        this.conteudosDetalhe.set(conteudos);
+        this.publicacoesDetalhe.set(publicacoes);
+        this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
+        this.publicacoesComoOriginal.set(publicacoesOriginais);
         this.capasDetalhe.set([]);
         this.carregandoDetalhe.set(false);
       },
