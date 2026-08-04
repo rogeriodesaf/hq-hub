@@ -1,7 +1,10 @@
 package br.com.hqhub.resource;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -47,6 +50,8 @@ public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
     private static final String DESCRICAO_COMPARTILHAMENTO = "Veja esta HQ no HQ-HUB.";
+    private static final int LARGURA_IMAGEM_SOCIAL = 1200;
+    private static final int ALTURA_IMAGEM_SOCIAL = 630;
 
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
@@ -192,6 +197,10 @@ public class CompartilhamentoResource {
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="630">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
@@ -213,6 +222,7 @@ public class CompartilhamentoResource {
                 escaparHtml(titulo),
                 escaparHtml(descricao),
                 escaparHtml(imagem),
+                escaparHtml(imagem),
                 escaparHtml(titulo),
                 escaparHtml(descricao),
                 escaparHtml(imagem),
@@ -233,7 +243,7 @@ public class CompartilhamentoResource {
                     .build();
             HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
             if (resposta.statusCode() >= 200 && resposta.statusCode() < 300 && resposta.body().length > 0) {
-                byte[] jpeg = converterParaJpeg(resposta.body());
+                byte[] jpeg = criarImagemSocial(resposta.body());
                 return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
                         .header("Content-Length", jpeg.length)
@@ -246,7 +256,7 @@ public class CompartilhamentoResource {
         return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
     }
 
-    private byte[] converterParaJpeg(byte[] conteudo) throws Exception {
+    private byte[] criarImagemSocial(byte[] conteudo) throws Exception {
         BufferedImage original;
         try (ByteArrayInputStream entrada = new ByteArrayInputStream(conteudo)) {
             original = ImageIO.read(entrada);
@@ -255,22 +265,63 @@ public class CompartilhamentoResource {
             throw new IllegalArgumentException("Formato de imagem não reconhecido.");
         }
 
-        BufferedImage rgb = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D grafico = rgb.createGraphics();
+        BufferedImage cartao = new BufferedImage(
+                LARGURA_IMAGEM_SOCIAL,
+                ALTURA_IMAGEM_SOCIAL,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D grafico = cartao.createGraphics();
         try {
-            grafico.setColor(Color.WHITE);
-            grafico.fillRect(0, 0, rgb.getWidth(), rgb.getHeight());
-            grafico.drawImage(original, 0, 0, null);
+            grafico.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            grafico.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            grafico.setPaint(new GradientPaint(
+                    0, 0, new Color(17, 24, 39),
+                    LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL, new Color(38, 51, 74)));
+            grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
+
+            desenharImagemCobrindo(grafico, original);
+            grafico.setComposite(AlphaComposite.SrcOver);
+            grafico.setColor(new Color(9, 14, 25, 178));
+            grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
+
+            int margem = 40;
+            int larguraMaxima = LARGURA_IMAGEM_SOCIAL - (margem * 2);
+            int alturaMaxima = ALTURA_IMAGEM_SOCIAL - (margem * 2);
+            double escala = Math.min(
+                    (double) larguraMaxima / original.getWidth(),
+                    (double) alturaMaxima / original.getHeight());
+            int largura = Math.max(1, (int) Math.round(original.getWidth() * escala));
+            int altura = Math.max(1, (int) Math.round(original.getHeight() * escala));
+            int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
+            int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
+
+            grafico.setColor(new Color(0, 0, 0, 105));
+            grafico.fillRoundRect(x - 12, y - 12, largura + 24, altura + 24, 18, 18);
+            grafico.drawImage(original, x, y, largura, altura, null);
+            grafico.setColor(new Color(255, 135, 31));
+            grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 10, LARGURA_IMAGEM_SOCIAL, 10);
         } finally {
             grafico.dispose();
         }
 
         try (ByteArrayOutputStream saida = new ByteArrayOutputStream()) {
-            if (!ImageIO.write(rgb, "jpg", saida)) {
+            if (!ImageIO.write(cartao, "jpg", saida)) {
                 throw new IllegalStateException("Conversor JPEG indisponível.");
             }
             return saida.toByteArray();
         }
+    }
+
+    private void desenharImagemCobrindo(Graphics2D grafico, BufferedImage original) {
+        double escala = Math.max(
+                (double) LARGURA_IMAGEM_SOCIAL / original.getWidth(),
+                (double) ALTURA_IMAGEM_SOCIAL / original.getHeight());
+        int largura = Math.max(1, (int) Math.round(original.getWidth() * escala));
+        int altura = Math.max(1, (int) Math.round(original.getHeight() * escala));
+        int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
+        int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
+
+        grafico.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.32f));
+        grafico.drawImage(original, x, y, largura, altura, null);
     }
 
     private String htmlNaoEncontrado() {
@@ -322,7 +373,7 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=2-" + versao(postagem);
+                + "/imagem.jpg?v=3-" + versao(postagem);
     }
 
     private String primeiraUrlPublica(String... urls) {
