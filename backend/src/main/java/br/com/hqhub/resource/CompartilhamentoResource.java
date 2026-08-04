@@ -22,12 +22,15 @@ import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
+import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
 import br.com.hqhub.service.FeedSocialService;
+import br.com.hqhub.service.EdicaoService;
+import br.com.hqhub.service.LinkEdicaoService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -51,6 +54,8 @@ public class CompartilhamentoResource {
     private final ItemColecaoRepository itemColecaoRepository;
     private final UrlPublicaService urlPublicaService;
     private final FeedSocialService feedSocialService;
+    private final EdicaoService edicaoService;
+    private final LinkEdicaoService linkEdicaoService;
     private final HttpClient httpClient = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
@@ -65,13 +70,17 @@ public class CompartilhamentoResource {
             EdicaoRepository edicaoRepository,
             ItemColecaoRepository itemColecaoRepository,
             UrlPublicaService urlPublicaService,
-            FeedSocialService feedSocialService) {
+            FeedSocialService feedSocialService,
+            EdicaoService edicaoService,
+            LinkEdicaoService linkEdicaoService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoRepository = itemColecaoRepository;
         this.urlPublicaService = urlPublicaService;
         this.feedSocialService = feedSocialService;
+        this.edicaoService = edicaoService;
+        this.linkEdicaoService = linkEdicaoService;
     }
 
     @GET
@@ -79,6 +88,15 @@ public class CompartilhamentoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obterPostagemPublica(@PathParam("id") Long id) {
         return Response.ok(feedSocialService.obterPostagemPublica(id)).build();
+    }
+
+    @GET
+    @Path("/catalogo/edicoes/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obterDetalheCatalogoPublico(@PathParam("id") Long id) {
+        return Response.ok(new DetalheCatalogoPublicoDTO(
+                edicaoService.buscarPorId(id),
+                linkEdicaoService.listarPorEdicao(id))).build();
     }
 
     @GET
@@ -331,6 +349,17 @@ public class CompartilhamentoResource {
     }
 
     private String appUrl(PostagemFeed postagem) {
+        Long edicaoId = null;
+        if (postagem.getItemColecao() != null) {
+            edicaoId = postagem.getItemColecao().getEdicao().getId();
+        } else if (postagem.getSerieCatalogo() != null) {
+            edicaoId = edicaoRepository.primeiraEdicaoPorSerie(postagem.getSerieCatalogo().getId())
+                    .map(Edicao::getId)
+                    .orElse(null);
+        }
+        if (edicaoId != null) {
+            return baseNormalizada() + "/catalogo?edicaoId=" + edicaoId;
+        }
         return baseNormalizada() + "/postagem/" + postagem.getId();
     }
 

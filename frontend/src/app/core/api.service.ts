@@ -21,6 +21,7 @@ import {
   ConversaDireta,
   ContribuicaoCatalogo,
   CapaEdicao,
+  DetalheCatalogoPublico,
   CruzamentoEdicao,
   Edicao,
   EditoraResumo,
@@ -731,6 +732,10 @@ export class ApiService {
 
   obterPostagemPublica(postagemId: number) {
     return this.http.get<PostagemPublica>(`/api/compartilhar/postagens/${postagemId}/dados`);
+  }
+
+  obterDetalheCatalogoPublico(edicaoId: number) {
+    return this.http.get<DetalheCatalogoPublico>(`/api/compartilhar/catalogo/edicoes/${edicaoId}`);
   }
 
   atualizarHistoria(id: number, dto: {

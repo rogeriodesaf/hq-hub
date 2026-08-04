@@ -56,6 +56,10 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .findFirst();
     }
 
+    public Optional<Edicao> primeiraEdicaoPorSerie(Long serieId) {
+        return find("serie.id = ?1 order by id", serieId).firstResultOptional();
+    }
+
     public boolean existePorNumeroESerieEmOutraEdicao(String numero, Long serieId, Long id) {
         return buscarPorNumeroESerie(numero, serieId)
                 .filter(edicao -> !edicao.getId().equals(id))

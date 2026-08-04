@@ -374,7 +374,7 @@ import {
           </div>
           }
 
-          @if (edicaoDetalhe()) {
+          @if (edicaoDetalhe() && autenticado()) {
             <section class="detalhe-secao capa-gestao">
               <div class="secao-titulo">
                 <div>
@@ -907,6 +907,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly sugestoesPesquisa = ['Batman', 'Homem-Aranha', 'X-Men', 'Superman', 'Spawn'];
   readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly podeExcluirCatalogo = this.autenticacao.ehAdministrador;
+  readonly autenticado = this.autenticacao.autenticado;
   readonly editoras = signal<EditoraResumo[]>([]);
   readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
@@ -994,6 +995,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const edicaoId = Number(this.rota.snapshot.queryParamMap.get('edicaoId'));
+    if (Number.isFinite(edicaoId) && edicaoId > 0) {
+      if (this.autenticado()) {
+        this.abrirDetalhePorId(edicaoId);
+      } else {
+        this.abrirDetalhePublico(edicaoId);
+        return;
+      }
+    }
+
     this.carregarEditoras();
     const serieId = Number(this.rota.snapshot.queryParamMap.get('serieId'));
     if (Number.isFinite(serieId) && serieId > 0) {
@@ -1121,6 +1132,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
   buscarSeriesInternas() {
     this.serieSelecionada.set(null);
     this.carregarSeriesInternas(0);
+  }
+
+  private abrirDetalhePublico(edicaoId: number) {
+    this.carregandoDetalhe.set(true);
+    this.api.obterDetalheCatalogoPublico(edicaoId).subscribe({
+      next: ({ edicao, links }) => {
+        this.edicaoDetalhe.set(edicao);
+        this.linksDetalhe.set(links);
+        this.conteudosDetalhe.set([]);
+        this.publicacoesDetalhe.set([]);
+        this.publicacoesComoOriginal.set([]);
+        this.capasDetalhe.set([]);
+        this.carregandoDetalhe.set(false);
+      },
+      error: () => {
+        this.carregandoDetalhe.set(false);
+        this.mensagem.set('Nao foi possivel carregar os detalhes desta edicao.');
+      },
+    });
   }
 
   buscarCatalogoCompleto() {

@@ -701,6 +701,11 @@ export interface PostagemPublica {
   dataAtualizacao: string;
 }
 
+export interface DetalheCatalogoPublico {
+  edicao: Edicao;
+  links: LinkEdicao[];
+}
+
 export interface PostagemColecaoPublica {
   postagemId: number;
   usuarioId: number;

@@ -25,6 +25,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/postagem-publica/postagem-publica.page').then((m) => m.PostagemPublicaPage),
   },
   {
+    path: 'catalogo',
+    loadComponent: () => import('./pages/catalogo/catalogo.page').then((m) => m.CatalogoPage),
+  },
+  {
     path: 'classificados',
     loadComponent: () => import('./pages/classificados-publicos/classificados-publicos.page').then((m) => m.ClassificadosPublicosPage),
   },
@@ -51,10 +55,6 @@ export const routes: Routes = [
       {
         path: 'descobrir',
         loadComponent: () => import('./pages/descobrir/descobrir.page').then((m) => m.DescobrirPage),
-      },
-      {
-        path: 'catalogo',
-        loadComponent: () => import('./pages/catalogo/catalogo.page').then((m) => m.CatalogoPage),
       },
       {
         path: 'conteudos',
