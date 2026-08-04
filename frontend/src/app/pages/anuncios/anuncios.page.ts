@@ -12,8 +12,8 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Classificados</p>
-        <h1>Venda, troca e procura entre colecionadores.</h1>
+        <p class="rotulo">Marketplace</p>
+        <h1>Compre, venda e troque entre colecionadores.</h1>
       </div>
       <div class="acoes-linha">
         <button class="botao" type="button" (click)="copiarLinkPublico()">Copiar link público</button>

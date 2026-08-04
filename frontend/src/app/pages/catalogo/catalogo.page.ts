@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LucideBookOpen, LucideSearch } from '@lucide/angular';
@@ -24,13 +25,14 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, LucideBookOpen, LucideSearch],
+  imports: [CommonModule, FormsModule, RouterLink, LucideBookOpen, LucideSearch],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
         <p class="rotulo">Catálogo</p>
         <h1>Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.</h1>
       </div>
+      <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
     </section>
 
     @if (mensagem()) {

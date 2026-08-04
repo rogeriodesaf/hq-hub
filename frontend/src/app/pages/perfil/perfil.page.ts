@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -80,6 +80,37 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
         </section>
 
         @if (modo() === 'edicao') {
+          <section class="bloco painel-colecionador" aria-labelledby="titulo-painel-colecionador">
+            <div class="painel-colecionador-topo">
+              <div>
+                <p class="rotulo">Meu HQ-HUB</p>
+                <h2 id="titulo-painel-colecionador">Painel do colecionador</h2>
+              </div>
+            </div>
+            <nav class="painel-colecionador-links">
+              <a routerLink="/colecao"><span>📚</span><strong>Minha Estante</strong></a>
+              <a routerLink="/compras"><span>❤️</span><strong>Compras e desejos</strong></a>
+              <a routerLink="/anuncios"><span>📢</span><strong>Meus anúncios</strong></a>
+              <a routerLink="/mensagens"><span>💬</span><strong>Direct</strong></a>
+              <a routerLink="/amigos"><span>👥</span><strong>Amigos</strong></a>
+              <a routerLink="/canais"><span>📺</span><strong>Canais</strong></a>
+              <a routerLink="/colaboradores"><span>🤝</span><strong>Colaboradores</strong></a>
+              <a routerLink="/assistente"><span>❓</span><strong>Ajuda</strong></a>
+              @if (podeRevisarCatalogo()) {
+                <a routerLink="/conteudos"><span>🧩</span><strong>Conteúdos</strong></a>
+                <a routerLink="/importacao"><span>📥</span><strong>Importação</strong></a>
+                <a routerLink="/revisao"><span>✅</span><strong>Revisão</strong></a>
+              }
+            </nav>
+            <div class="painel-colecionador-sistema">
+              <button type="button" (click)="alternarTema()"><span>🌙</span>Tema</button>
+              <a href="#configuracoes"><span>⚙️</span>Configurações</a>
+              <button type="button" class="sair" (click)="sair()"><span>🚪</span>Sair</button>
+            </div>
+          </section>
+        }
+
+        @if (modo() === 'edicao') {
           <section class="bloco perfil-editor">
             <div>
               <p class="rotulo">Editar dados</p>
@@ -147,7 +178,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
         }
       </article>
 
-      <aside class="bloco painel-ajuda-perfil">
+      <aside class="bloco painel-ajuda-perfil" id="configuracoes">
         <p class="rotulo">{{ modo() === 'edicao' ? 'Resumo' : 'Informacoes' }}</p>
         @if (modo() === 'edicao') {
           <p>A imagem e a bio atualizadas aqui aparecem no topo do feed e nas interações do sistema.</p>
@@ -487,6 +518,78 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       top: 88px;
     }
 
+    .painel-colecionador {
+      display: grid;
+      gap: 14px;
+    }
+
+    .painel-colecionador-topo h2,
+    .painel-colecionador-topo p {
+      margin: 0;
+    }
+
+    .painel-colecionador-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .painel-colecionador-links a {
+      display: grid;
+      min-height: 82px;
+      place-items: center;
+      align-content: center;
+      gap: 7px;
+      padding: 10px 6px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      color: var(--texto);
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .painel-colecionador-links a:hover {
+      border-color: rgba(255, 122, 0, 0.45);
+      background: rgba(255, 122, 0, 0.07);
+    }
+
+    .painel-colecionador-links span {
+      font-size: 1.25rem;
+    }
+
+    .painel-colecionador-links strong {
+      font-size: 0.76rem;
+    }
+
+    .painel-colecionador-sistema {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .painel-colecionador-sistema button,
+    .painel-colecionador-sistema a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 11px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--superficie-suave);
+      color: var(--texto);
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .painel-colecionador-sistema .sair {
+      color: var(--vermelho);
+    }
+
     .painel-ajuda-perfil p {
       margin: 0;
       color: var(--texto-suave);
@@ -551,6 +654,10 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
       .painel-ajuda-perfil {
         position: static;
       }
+
+      .painel-colecionador-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
   `,
@@ -559,8 +666,10 @@ export class PerfilPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   
   readonly usuarioAtual = this.autenticacao.usuario;
+  readonly podeRevisarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly usuarioVisualizacao = signal<(Usuario | UsuarioAutenticado) | null>(null);
   readonly modo = signal<'edicao' | 'visualizacao'>('edicao');
   readonly salvandoPerfil = signal(false);
@@ -592,6 +701,15 @@ export class PerfilPage implements OnInit {
       this.carregarAmigos();
       this.carregarItensColecao();
     }
+  }
+
+  alternarTema() {
+    window.dispatchEvent(new CustomEvent('hqhub-alternar-tema'));
+  }
+
+  sair() {
+    this.autenticacao.sair();
+    this.router.navigateByUrl('/entrar');
   }
 
   salvarPerfil() {

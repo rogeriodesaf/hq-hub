@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
   LucideBookOpen,
@@ -12,6 +12,7 @@ import {
   LucideMessageCircle,
   LucideMoon,
   LucideNewspaper,
+  LucidePlus,
   LucideSearch,
   LucideShoppingBag,
   LucideSun,
@@ -44,6 +45,7 @@ import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
     LucideMessageCircle,
     LucideMoon,
     LucideNewspaper,
+    LucidePlus,
     LucideSearch,
     LucideShoppingBag,
     LucideSun,
@@ -70,6 +72,8 @@ export class App implements OnInit {
   readonly solicitacoesAmizadePendentes = signal(0);
   readonly alteracoesEstanteAmigos = signal(0);
   readonly notificacoesAbertas = signal(false);
+  readonly publicarAberto = signal(false);
+  readonly urlAtual = signal('');
   readonly modoEscuro = signal(false);
   readonly carregandoNotificacoes = signal(false);
   readonly solicitacoesRecebidas = signal<Amizade[]>([]);
@@ -85,9 +89,13 @@ export class App implements OnInit {
         this.alteracoesEstanteAmigos(),
     ),
   );
+  readonly catalogoAtivo = computed(() => this.rotaEm('/catalogo', '/titulos-estrangeiros'));
+  readonly socialAtivo = computed(() => this.rotaEm('/social', '/mensagens', '/amigos', '/canais', '/colaboradores'));
+  readonly perfilAtivo = computed(() => this.rotaEm('/perfil', '/colecao', '/compras', '/anuncios', '/assistente', '/conteudos', '/importacao', '/revisao'));
   private intervaloNotificacoes: number | null = null;
 
   ngOnInit() {
+    this.urlAtual.set(this.roteador.url);
     this.carregarTema();
     this.carregarPendenciasCatalogo();
     this.carregarNovidadesFeed();
@@ -98,6 +106,12 @@ export class App implements OnInit {
       this.carregarSolicitacoesAmizadePendentes();
       if (this.notificacoesAbertas()) {
         this.carregarNotificacoes();
+      }
+    });
+    window.addEventListener('hqhub-alternar-tema', () => this.alternarTema());
+    window.addEventListener('hqhub-abrir-notificacoes', () => {
+      if (!this.notificacoesAbertas()) {
+        this.abrirNotificacoes();
       }
     });
     this.intervaloNotificacoes = window.setInterval(() => {
@@ -111,6 +125,7 @@ export class App implements OnInit {
     this.roteador.events
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
       .subscribe((evento) => {
+        this.urlAtual.set(evento.urlAfterRedirects);
         if (evento.urlAfterRedirects.startsWith('/painel')) {
           this.marcarNotificacoesComoVistas();
         }
@@ -123,7 +138,29 @@ export class App implements OnInit {
         if (this.notificacoesAbertas()) {
           this.fecharNotificacoes();
         }
+        this.fecharPublicar();
       });
+  }
+
+  private rotaEm(...prefixos: string[]) {
+    return prefixos.some((prefixo) => this.urlAtual().startsWith(prefixo));
+  }
+
+  abrirPublicar() {
+    this.publicarAberto.set(true);
+    document.body.classList.add('bottom-sheet-aberto');
+  }
+
+  fecharPublicar() {
+    this.publicarAberto.set(false);
+    document.body.classList.remove('bottom-sheet-aberto');
+  }
+
+  @HostListener('document:keydown.escape')
+  aoPressionarEscape() {
+    if (this.publicarAberto()) {
+      this.fecharPublicar();
+    }
   }
 
   abrirNotificacoes() {

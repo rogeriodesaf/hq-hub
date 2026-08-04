@@ -58,7 +58,7 @@
         }
         <a routerLink="/colecao" routerLinkActive="ativo">
           <svg lucideLibrary size="20"></svg>
-          Estante
+          Minha Estante
         </a>
         <a routerLink="/compras" routerLinkActive="ativo">
           <svg lucideCalendarDays size="20"></svg>
@@ -66,7 +66,7 @@
         </a>
         <a routerLink="/anuncios" routerLinkActive="ativo">
           <svg lucideShoppingBag size="20"></svg>
-          Anuncios
+          Marketplace
         </a>
         <a routerLink="/canais" routerLinkActive="ativo">
           <svg lucideTv size="20"></svg>
@@ -90,7 +90,7 @@
         </a>
         <a routerLink="/assistente" routerLinkActive="ativo">
           <svg lucideBot size="20"></svg>
-          Assistente
+          Ajuda
         </a>
       </nav>
 
@@ -255,102 +255,53 @@
           <small class="badge-feed">{{ totalNotificacoes() }}</small>
         }
       </a>
-      <a routerLink="/titulos-estrangeiros" routerLinkActive="ativo">
-        <svg lucideSearch size="20"></svg>
-        <span>Estrangeiros</span>
-      </a>
-      <a routerLink="/catalogo" routerLinkActive="ativo">
+      <a routerLink="/catalogo" [class.ativo]="catalogoAtivo()">
         <svg lucideBookOpen size="20"></svg>
         <span>Catálogo</span>
       </a>
-      <a routerLink="/canais" routerLinkActive="ativo">
-        <svg lucideTv size="20"></svg>
-        <span>Canais</span>
+      <button type="button" class="nav-publicar" [class.ativo]="publicarAberto()" (click)="abrirPublicar()" aria-label="Abrir opções para publicar">
+        <span class="nav-publicar-icone"><svg lucidePlus size="24"></svg></span>
+        <span>Publicar</span>
+      </button>
+      <a routerLink="/social" [class.ativo]="socialAtivo()">
+        <span class="nav-icone">
+          <svg lucideMessageCircle size="20"></svg>
+          @if (mensagensNaoLidas() + solicitacoesAmizadePendentes() > 0) {
+            <span class="ponto-novidade" aria-hidden="true"></span>
+          }
+        </span>
+        <span>Social</span>
+        @if (mensagensNaoLidas() + solicitacoesAmizadePendentes() > 0) {
+          <small class="badge-feed">{{ (mensagensNaoLidas() + solicitacoesAmizadePendentes()) > 9 ? '9+' : mensagensNaoLidas() + solicitacoesAmizadePendentes() }}</small>
+        }
       </a>
-      <a routerLink="/colaboradores" routerLinkActive="ativo">
-        <svg lucideUsers size="20"></svg>
-        <span>Colab.</span>
-      </a>
-      <a routerLink="/colecao" routerLinkActive="ativo">
-        <svg lucideLibrary size="20"></svg>
-        <span>Estante</span>
-      </a>
-      <a routerLink="/perfil" routerLinkActive="ativo">
+      <a routerLink="/perfil" [class.ativo]="perfilAtivo()">
         <svg lucideUserRound size="20"></svg>
         <span>Perfil</span>
       </a>
-      @if (podeRevisarCatalogo()) {
-        <a routerLink="/conteudos" routerLinkActive="ativo">
-          <svg lucideGitCompare size="20"></svg>
-          <span>Conteúdo</span>
-        </a>
-        <a routerLink="/importacao" routerLinkActive="ativo">
-          <svg lucideUpload size="20"></svg>
-          <span>Alimentar</span>
-        </a>
-        <a routerLink="/revisao" routerLinkActive="ativo">
-          <svg lucideClipboardCheck size="20"></svg>
-          <span>Revisão</span>
-          @if (pendenciasCatalogo() > 0) {
-            <small class="badge-pendencias">{{ pendenciasCatalogo() }}</small>
-          }
-        </a>
-      }
-      <a routerLink="/compras" routerLinkActive="ativo">
-        <svg lucideCalendarDays size="20"></svg>
-        <span>Compras</span>
-      </a>
-      <a routerLink="/anuncios" routerLinkActive="ativo">
-        <svg lucideShoppingBag size="20"></svg>
-        <span>Anuncios</span>
-      </a>
-      <a routerLink="/amigos" routerLinkActive="ativo">
-        <span class="nav-icone">
-          <svg lucideUsers size="20"></svg>
-          @if (solicitacoesAmizadePendentes() > 0) {
-            <span class="ponto-novidade" aria-hidden="true"></span>
-          }
-        </span>
-        <span>Amigos</span>
-        @if (solicitacoesAmizadePendentes() > 0) {
-          <small class="badge-feed">{{ solicitacoesAmizadePendentes() }}</small>
-        }
-      </a>
-      <a routerLink="/mensagens" routerLinkActive="ativo">
-        <span class="nav-icone">
-          <svg lucideMessageCircle size="20"></svg>
-          @if (mensagensNaoLidas() > 0) {
-            <span class="ponto-novidade" aria-hidden="true"></span>
-          }
-        </span>
-        <span>Direct</span>
-        @if (mensagensNaoLidas() > 0) {
-          <small class="badge-feed">{{ mensagensNaoLidas() }}</small>
-        }
-      </a>
-      <a routerLink="/assistente" routerLinkActive="ativo">
-        <svg lucideBot size="20"></svg>
-        <span>Ajuda</span>
-      </a>
-      <button type="button" class="nav-sair" (click)="sair()" aria-label="Sair do aplicativo">
-        <svg lucideLogOut size="20"></svg>
-        <span>Sair</span>
-      </button>
-      <button
-        type="button"
-        class="nav-sair nav-tema"
-        (click)="alternarTema()"
-        [attr.aria-label]="modoEscuro() ? 'Ativar modo claro' : 'Ativar modo escuro'"
-      >
-        @if (modoEscuro()) {
-          <svg lucideSun size="20"></svg>
-          <span>Claro</span>
-        } @else {
-          <svg lucideMoon size="20"></svg>
-          <span>Escuro</span>
-        }
-      </button>
     </nav>
+
+    @if (publicarAberto()) {
+      <button class="bottom-sheet-fundo" type="button" (click)="fecharPublicar()" aria-label="Fechar opções de publicação"></button>
+      <aside class="bottom-sheet-publicar" role="dialog" aria-modal="true" aria-labelledby="titulo-publicar">
+        <div class="bottom-sheet-alca" aria-hidden="true"></div>
+        <header>
+          <div>
+            <p class="rotulo">Criar no HQ-HUB</p>
+            <h2 id="titulo-publicar">O que você deseja publicar?</h2>
+          </div>
+          <button type="button" (click)="fecharPublicar()" aria-label="Fechar">×</button>
+        </header>
+        <nav class="opcoes-publicar">
+          <a routerLink="/anuncios" (click)="fecharPublicar()"><span>📢</span><div><strong>Anunciar HQ</strong><small>Venda ou troca no Marketplace</small></div></a>
+          <a routerLink="/painel" fragment="publicar" (click)="fecharPublicar()"><span>✍️</span><div><strong>Criar publicação</strong><small>Compartilhe com a comunidade</small></div></a>
+          <a routerLink="/colecao" (click)="fecharPublicar()"><span>📚</span><div><strong>Adicionar à estante</strong><small>Cadastre uma HQ que você possui</small></div></a>
+          @if (podeRevisarCatalogo()) {
+            <a routerLink="/importacao" (click)="fecharPublicar()"><span>📥</span><div><strong>Importar lista</strong><small>Alimente o catálogo em lote</small></div></a>
+          }
+        </nav>
+      </aside>
+    }
   </div>
 } @else {
   <router-outlet />

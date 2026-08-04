@@ -42,6 +42,13 @@ import { environment } from '../../../environments/environment';
       </article>
     </section>
 
+    <nav class="atalhos-feed" aria-label="Atalhos do colecionador">
+      <a routerLink="/colecao"><span>📚</span><strong>Minha Estante</strong></a>
+      <a routerLink="/anuncios"><span>📢</span><strong>Meus anúncios</strong></a>
+      <a routerLink="/compras"><span>🛒</span><strong>Compras e desejos</strong></a>
+      <a routerLink="/catalogo"><span>🔎</span><strong>Buscar HQ</strong></a>
+    </nav>
+
     <section class="feed-layout">
       <div class="feed-coluna">
         <a
@@ -101,7 +108,7 @@ import { environment } from '../../../environments/environment';
           </article>
         }
 
-        <article class="bloco compositor-feed">
+        <article class="bloco compositor-feed" id="publicar">
           <div class="compositor-topo">
             <div class="avatar-feed">
               @if (usuario()?.fotoPerfilThumbnailUrl) {

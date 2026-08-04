@@ -109,6 +109,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/mensagens/mensagens.page').then((m) => m.MensagensPage),
       },
       {
+        path: 'social',
+        loadComponent: () => import('./pages/social/social.page').then((m) => m.SocialPage),
+      },
+      {
         path: 'assistente',
         loadComponent: () => import('./pages/assistente/assistente.page').then((m) => m.AssistentePage),
       },
