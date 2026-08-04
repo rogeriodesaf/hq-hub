@@ -1,5 +1,7 @@
 package br.com.hqhub.service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -78,6 +80,10 @@ public class ColetaGcdService {
         if (coleta.getStatus() == StatusColetaGuia.CONCLUIDA || coleta.getStatus() == StatusColetaGuia.PAUSADA) {
             return resposta(coleta);
         }
+        if (coleta.getProximaExecucao() != null && coleta.getProximaExecucao().isAfter(LocalDateTime.now())) {
+            coleta.setStatus(StatusColetaGuia.AGUARDANDO);
+            return resposta(coleta);
+        }
         List<String> urls = ler(coleta.getUrlsJson(), STRINGS);
         List<EdicaoImportacaoDTO> edicoes = new ArrayList<>(ler(coleta.getEdicoesJson(), EDICOES));
         List<String> avisos = new ArrayList<>(ler(coleta.getAvisosJson(), STRINGS));
@@ -94,6 +100,7 @@ public class ColetaGcdService {
             edicoes.add(gcd.coletarEdicao(url, editora, avisos));
             coleta.setPaginasProcessadas(coleta.getPaginasProcessadas() + 1);
             coleta.setFalhasConsecutivas(0);
+            coleta.setProximaExecucao(null);
             coleta.setEdicoesJson(json(edicoes));
             coleta.setAvisosJson(json(avisos));
             if (coleta.getPaginasProcessadas() >= urls.size()) {
@@ -103,11 +110,18 @@ public class ColetaGcdService {
                 coleta.setMensagem("Edicao " + coleta.getPaginasProcessadas() + " de " + urls.size() + " coletada.");
             }
         } catch (RuntimeException erro) {
+            if (erro instanceof GcdCatalogoService.LimiteGcdException limite) {
+                coleta.setStatus(StatusColetaGuia.AGUARDANDO);
+                coleta.setProximaExecucao(LocalDateTime.now().plusSeconds(limite.segundos()));
+                coleta.setMensagem("O GCD atingiu o limite de consultas. A coleta continuara automaticamente depois da espera.");
+                return resposta(coleta);
+            }
             int falhas = coleta.getFalhasConsecutivas() + 1;
             coleta.setFalhasConsecutivas(falhas);
             avisos.add("Falha em " + url + ": " + erro.getMessage());
             coleta.setAvisosJson(json(avisos));
-            coleta.setStatus(falhas >= MAX_FALHAS ? StatusColetaGuia.PAUSADA : StatusColetaGuia.PRONTA);
+            coleta.setStatus(falhas >= MAX_FALHAS ? StatusColetaGuia.PAUSADA : StatusColetaGuia.AGUARDANDO);
+            coleta.setProximaExecucao(falhas >= MAX_FALHAS ? null : LocalDateTime.now().plusSeconds(30));
             coleta.setMensagem(falhas >= MAX_FALHAS
                     ? "Coleta pausada apos 3 falhas. Clique em Retomar para tentar novamente."
                     : "A API do GCD falhou. Uma nova tentativa sera feita.");
@@ -127,8 +141,38 @@ public class ColetaGcdService {
         if (coleta.getStatus() != StatusColetaGuia.CONCLUIDA) {
             coleta.setStatus(StatusColetaGuia.PRONTA);
             coleta.setFalhasConsecutivas(0);
+            coleta.setProximaExecucao(null);
             coleta.setMensagem("Coleta do GCD retomada.");
         }
+        return resposta(coleta);
+    }
+
+    @Transactional
+    public ColetaGuiaRespostaDTO pausar(UUID id) {
+        ColetaGuia coleta = obterComLock(id);
+        if (coleta.getStatus() != StatusColetaGuia.CONCLUIDA) {
+            coleta.setStatus(StatusColetaGuia.PAUSADA);
+            coleta.setProximaExecucao(null);
+            coleta.setMensagem("Coleta pausada pelo usuario. O progresso foi preservado.");
+        }
+        return resposta(coleta);
+    }
+
+    @Transactional
+    public ColetaGuiaRespostaDTO finalizarParcial(UUID id) {
+        ColetaGuia coleta = obterComLock(id);
+        List<String> urls = ler(coleta.getUrlsJson(), STRINGS);
+        List<EdicaoImportacaoDTO> edicoes = new ArrayList<>(ler(coleta.getEdicoesJson(), EDICOES));
+        if (edicoes.isEmpty()) {
+            throw new RegraNegocioException("Colete ao menos uma edicao antes de gerar o JSON parcial.");
+        }
+        List<String> avisos = new ArrayList<>(ler(coleta.getAvisosJson(), STRINGS));
+        GeracaoRascunhoGcdDTO pedido = ler(coleta.getPedidoJson(), GeracaoRascunhoGcdDTO.class);
+        String editora = avisos.isEmpty() ? pedido.editora() : avisos.get(0).replace("Editora selecionada: ", "");
+        List<String> urlsProcessadas = urls.subList(0, Math.min(edicoes.size(), urls.size()));
+        avisos.add("JSON parcial gerado com " + edicoes.size() + " edicoes. A proxima coleta pode iniciar na edicao "
+                + ((pedido.inicio() == null ? 1 : pedido.inicio()) + edicoes.size()) + ".");
+        concluir(coleta, pedido, editora, urlsProcessadas, edicoes, avisos);
         return resposta(coleta);
     }
 
@@ -147,8 +191,11 @@ public class ColetaGcdService {
     }
 
     private ColetaGuiaRespostaDTO resposta(ColetaGuia coleta) {
+        LocalDateTime agora = LocalDateTime.now();
+        long segundos = coleta.getProximaExecucao() == null ? 0
+                : Math.max(0, Duration.between(agora, coleta.getProximaExecucao()).toSeconds());
         return new ColetaGuiaRespostaDTO(coleta.getId(), coleta.getStatus().name(), coleta.getTotalPaginas(),
-                coleta.getPaginasProcessadas(), null, 0, coleta.getMensagem(),
+                coleta.getPaginasProcessadas(), coleta.getProximaExecucao(), segundos, coleta.getMensagem(),
                 ler(coleta.getAvisosJson(), STRINGS), coleta.getResultadoJson() == null ? null
                         : ler(coleta.getResultadoJson(), ImportacaoCatalogoDTO.class));
     }

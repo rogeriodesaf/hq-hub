@@ -619,6 +619,7 @@ export interface GeracaoRascunhoGcd {
   tituloSerie: string;
   editora: string | null;
   volume: number | null;
+  inicio: number | null;
   quantidade: number | null;
 }
 

@@ -167,6 +167,18 @@ public class ImportacaoCatalogoResource {
     }
 
     @POST
+    @Path("/coletas-gcd/{id}/pausar")
+    public Response pausarColetaGcd(@PathParam("id") UUID id) {
+        return Response.ok(coletaGcdService.pausar(id)).build();
+    }
+
+    @POST
+    @Path("/coletas-gcd/{id}/finalizar-parcial")
+    public Response finalizarColetaGcdParcial(@PathParam("id") UUID id) {
+        return Response.ok(coletaGcdService.finalizarParcial(id)).build();
+    }
+
+    @POST
     @Path("/capas/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response enviarCapa(@RestForm("arquivo") FileUpload arquivo) {

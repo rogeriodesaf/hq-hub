@@ -943,6 +943,14 @@ export class ApiService {
     return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}/retomar`, {});
   }
 
+  pausarColetaGcd(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}/pausar`, {});
+  }
+
+  finalizarColetaGcdParcial(id: string) {
+    return this.http.post<ColetaGuia>(`/api/importacoes/catalogo/coletas-gcd/${id}/finalizar-parcial`, {});
+  }
+
   cadastrarContribuicaoCatalogo(dto: {
     edicaoId: number;
     tipo: TipoContribuicaoCatalogo;

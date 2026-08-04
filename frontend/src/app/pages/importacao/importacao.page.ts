@@ -203,7 +203,8 @@ import {
                   <label class="campo-largo">Título no HQ-HUB<input [(ngModel)]="rascunhoGcd.tituloSerie" name="gcdTitulo" /></label>
                   <label>Editora<small>Opcional; se vazio, será obtida do GCD</small><input [(ngModel)]="rascunhoGcd.editora" name="gcdEditora" /></label>
                   <label>Volume<input type="number" min="1" [(ngModel)]="rascunhoGcd.volume" name="gcdVolume" /></label>
-                  <label>Limite de edições<small>Máximo de 200</small><input type="number" min="1" max="200" [(ngModel)]="rascunhoGcd.quantidade" name="gcdQuantidade" /></label>
+                  <label>Começar na edição<small>Use 26 para continuar depois do lote 1–25</small><input type="number" min="1" [(ngModel)]="rascunhoGcd.inicio" name="gcdInicio" /></label>
+                  <label>Quantidade neste lote<small>Recomendado: 20; máximo: 25</small><input type="number" min="1" max="25" [(ngModel)]="rascunhoGcd.quantidade" name="gcdQuantidade" /></label>
                 </div>
                 <button class="botao primario" type="button" (click)="iniciarColetaGcd()" [disabled]="gerandoRascunho()">
                   {{ gerandoRascunho() ? 'Preparando coleta...' : 'Gerar JSON' }}
@@ -213,8 +214,17 @@ import {
               <section class="andamento-coleta">
                 <div><strong>{{ coletaGcd()!.mensagem }}</strong><span>{{ coletaGcd()!.paginasProcessadas }} de {{ coletaGcd()!.totalPaginas }} edições</span></div>
                 <progress [value]="coletaGcd()!.paginasProcessadas" [max]="coletaGcd()!.totalPaginas || 1"></progress>
+                @if (coletaGcd()!.status === 'AGUARDANDO') {
+                  <p class="texto-suave">O limite temporário do GCD foi atingido. Continuação automática em {{ tempoEsperaColetaGcd() }}.</p>
+                }
+                @if (coletaGcd()!.status !== 'PAUSADA' && coletaGcd()!.status !== 'CONCLUIDA') {
+                  <button class="botao secundario compacto" type="button" (click)="pausarColetaGcd()" [disabled]="processandoColeta()">Pausar coleta</button>
+                }
                 @if (coletaGcd()!.status === 'PAUSADA') {
                   <button class="botao secundario compacto" type="button" (click)="retomarColetaGcd()">Retomar coleta</button>
+                  @if (coletaGcd()!.paginasProcessadas > 0) {
+                    <button class="botao primario compacto" type="button" (click)="finalizarColetaGcdParcial()">Gerar JSON com as {{ coletaGcd()!.paginasProcessadas }} coletadas</button>
+                  }
                 }
               </section>
               @if (coletaGcd()!.avisos.length) {
@@ -227,6 +237,9 @@ import {
                 <div class="acoes-importacao">
                   <button class="botao secundario" type="button" (click)="baixarJsonGerado()">Baixar JSON</button>
                   <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">{{ importando() ? 'Importando...' : 'Importar JSON' }}</button>
+                  @if (serieGcdSelecionada()) {
+                    <button class="botao secundario" type="button" (click)="continuarProximoLoteGcd()">Preparar próximo lote</button>
+                  }
                   <button class="botao compacto" type="button" (click)="novaColetaGcd()">Nova busca</button>
                 </div>
               }
@@ -1265,6 +1278,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly serieGcdSelecionada = signal<SerieGcd | null>(null);
   private readonly agoraColeta = signal(Date.now());
   private readonly prazoColetaMs = signal(0);
+  private readonly prazoColetaGcdMs = signal(0);
   private temporizadorColeta: ReturnType<typeof setTimeout> | null = null;
   private temporizadorColetaGcd: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
@@ -1299,7 +1313,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     tituloSerie: '',
     editora: '',
     volume: 1,
-    quantidade: null as number | null,
+    inicio: 1,
+    quantidade: 20 as number | null,
   };
   visualImportacao: any = this.modeloImportacao();
 
@@ -1624,7 +1639,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     this.serieGcdSelecionada.set(serie);
     this.rascunhoGcd.tituloSerie = serie.nome;
     this.rascunhoGcd.editora = serie.editora || '';
-    this.rascunhoGcd.quantidade = serie.totalEdicoes || null;
+    this.rascunhoGcd.inicio = 1;
+    this.rascunhoGcd.quantidade = Math.min(20, serie.totalEdicoes || 20);
     this.mensagem.set(`Série "${serie.nome}" selecionada.`);
   }
 
@@ -1641,6 +1657,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       tituloSerie: this.rascunhoGcd.tituloSerie.trim(),
       editora: this.rascunhoGcd.editora.trim() || null,
       volume: this.rascunhoGcd.volume ? Number(this.rascunhoGcd.volume) : null,
+      inicio: this.rascunhoGcd.inicio ? Number(this.rascunhoGcd.inicio) : 1,
       quantidade: this.rascunhoGcd.quantidade ? Number(this.rascunhoGcd.quantidade) : null,
     }).subscribe({
       next: (coleta) => {
@@ -1670,6 +1687,59 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     });
   }
 
+  pausarColetaGcd() {
+    const coleta = this.coletaGcd();
+    if (!coleta || this.processandoColeta()) return;
+    this.cancelarTemporizadorColetaGcd();
+    this.processandoColeta.set(true);
+    this.api.pausarColetaGcd(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGcd(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível pausar a coleta do GCD.');
+      },
+    });
+  }
+
+  finalizarColetaGcdParcial() {
+    const coleta = this.coletaGcd();
+    if (!coleta || this.processandoColeta()) return;
+    this.cancelarTemporizadorColetaGcd();
+    this.processandoColeta.set(true);
+    this.api.finalizarColetaGcdParcial(coleta.id).subscribe({
+      next: (atualizada) => {
+        this.processandoColeta.set(false);
+        this.atualizarColetaGcd(atualizada);
+      },
+      error: (erro) => {
+        this.processandoColeta.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível gerar o JSON parcial.');
+      },
+    });
+  }
+
+  continuarProximoLoteGcd() {
+    const processadas = this.coletaGcd()?.paginasProcessadas || 0;
+    this.cancelarTemporizadorColetaGcd();
+    localStorage.removeItem(ImportacaoPage.COLETA_GCD_STORAGE);
+    this.coletaGcd.set(null);
+    this.rascunhoGcd.inicio = Number(this.rascunhoGcd.inicio || 1) + processadas;
+    this.jsonTexto = '';
+    this.nomeArquivo.set('');
+    this.mensagem.set(`Próximo lote preparado a partir da edição ${this.rascunhoGcd.inicio}.`);
+  }
+
+  tempoEsperaColetaGcd() {
+    this.agoraColeta();
+    const segundos = Math.max(0, Math.ceil((this.prazoColetaGcdMs() - Date.now()) / 1000));
+    const minutos = Math.floor(segundos / 60);
+    const restante = segundos % 60;
+    return minutos ? `${minutos} min ${restante}s` : `${restante}s`;
+  }
+
   novaColetaGcd() {
     this.cancelarTemporizadorColetaGcd();
     localStorage.removeItem(ImportacaoPage.COLETA_GCD_STORAGE);
@@ -1682,6 +1752,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
 
   private atualizarColetaGcd(coleta: ColetaGuia) {
     this.coletaGcd.set(coleta);
+    this.agoraColeta.set(Date.now());
+    this.prazoColetaGcdMs.set(Date.now() + Math.max(0, coleta.segundosAteProximaExecucao) * 1000);
     localStorage.setItem(ImportacaoPage.COLETA_GCD_STORAGE, coleta.id);
     if (coleta.resultado) {
       this.jsonTexto = JSON.stringify(coleta.resultado, null, 2);
@@ -1694,7 +1766,16 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     this.cancelarTemporizadorColetaGcd();
     const coleta = this.coletaGcd();
     if (!coleta || coleta.status === 'CONCLUIDA' || coleta.status === 'PAUSADA') return;
-    this.temporizadorColetaGcd = setTimeout(() => this.processarProximaEdicaoGcd(), 1200);
+    const espera = coleta.status === 'AGUARDANDO' ? 1000 : 1500;
+    this.temporizadorColetaGcd = setTimeout(() => {
+      this.agoraColeta.set(Date.now());
+      const atual = this.coletaGcd();
+      if (atual?.status === 'AGUARDANDO' && this.prazoColetaGcdMs() > Date.now()) {
+        this.agendarProximoPassoColetaGcd();
+        return;
+      }
+      this.processarProximaEdicaoGcd();
+    }, espera);
   }
 
   private processarProximaEdicaoGcd() {

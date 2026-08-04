@@ -31,7 +31,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class GcdCatalogoService {
 
     private static final String BASE = "https://www.comics.org";
-    private static final int LIMITE_MAXIMO = 200;
+    private static final int TAMANHO_LOTE_PADRAO = 20;
     private final ObjectMapper objectMapper;
     private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
 
@@ -59,8 +59,12 @@ public class GcdCatalogoService {
         validarUrlApi(pedido.apiUrlSerie(), "/api/series/");
         JsonNode serie = obterJson(pedido.apiUrlSerie());
         List<String> urls = new ArrayList<>();
-        int limite = pedido.quantidade() == null ? LIMITE_MAXIMO : Math.min(pedido.quantidade(), LIMITE_MAXIMO);
+        int inicio = pedido.inicio() == null ? 1 : pedido.inicio();
+        int limite = pedido.quantidade() == null ? TAMANHO_LOTE_PADRAO : Math.min(pedido.quantidade(), 25);
+        int indice = 0;
         for (JsonNode url : serie.path("active_issues")) {
+            indice++;
+            if (indice < inicio) continue;
             if (urls.size() >= limite) break;
             validarUrlApi(url.asText(), "/api/issue/");
             urls.add(url.asText());
@@ -69,8 +73,12 @@ public class GcdCatalogoService {
         if (editora == null) editora = buscarNomeEditora(texto(serie, "publisher"));
         if (editora == null) editora = "Editora nao informada";
         List<String> avisos = new ArrayList<>();
-        if (serie.path("active_issues").size() > limite) {
-            avisos.add("A coleta foi limitada a " + limite + " edicoes.");
+        int total = serie.path("active_issues").size();
+        if (inicio > total) {
+            avisos.add("A edicao inicial " + inicio + " ultrapassa as " + total + " edicoes da serie.");
+        } else {
+            avisos.add("Lote do GCD: edicoes " + inicio + " a " + (inicio + Math.max(0, urls.size() - 1))
+                    + " de " + total + ".");
         }
         return new PreparacaoGcd(urls, editora, avisos);
     }
@@ -131,6 +139,11 @@ public class GcdCatalogoService {
                     .header("Accept", "application/json")
                     .header("User-Agent", "HQ-HUB/1.0 (catalog import)").GET().build();
             HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() == 429) {
+                long espera = response.headers().firstValue("Retry-After").map(this::segundosRetryAfter)
+                        .orElseGet(() -> esperaInformada(response.body()));
+                throw new LimiteGcdException(Math.max(60, espera));
+            }
             if (response.statusCode() < 200 || response.statusCode() >= 300) {
                 throw new RegraNegocioException("O GCD respondeu com status " + response.statusCode() + ".");
             }
@@ -199,6 +212,33 @@ public class GcdCatalogoService {
             return numero.isBlank() ? null : new BigDecimal(numero);
         } catch (NumberFormatException e) {
             return null;
+        }
+    }
+
+    private long segundosRetryAfter(String valor) {
+        try { return Long.parseLong(valor); }
+        catch (NumberFormatException e) { return 3600; }
+    }
+
+    private long esperaInformada(String corpo) {
+        if (corpo != null) {
+            var matcher = java.util.regex.Pattern.compile("available in (\\d+) seconds", java.util.regex.Pattern.CASE_INSENSITIVE)
+                    .matcher(corpo);
+            if (matcher.find()) return Long.parseLong(matcher.group(1));
+        }
+        return 3600;
+    }
+
+    public static class LimiteGcdException extends RegraNegocioException {
+        private final long segundos;
+
+        public LimiteGcdException(long segundos) {
+            super("O limite de consultas do GCD foi atingido.");
+            this.segundos = segundos;
+        }
+
+        public long segundos() {
+            return segundos;
         }
     }
 
