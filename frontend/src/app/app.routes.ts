@@ -21,6 +21,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/colecao-compartilhada/colecao-compartilhada.page').then((m) => m.ColecaoCompartilhadaPage),
   },
   {
+    path: 'postagem/:id',
+    loadComponent: () => import('./pages/postagem-publica/postagem-publica.page').then((m) => m.PostagemPublicaPage),
+  },
+  {
     path: 'classificados',
     loadComponent: () => import('./pages/classificados-publicos/classificados-publicos.page').then((m) => m.ClassificadosPublicosPage),
   },

@@ -674,6 +674,33 @@ export interface PostagemFeed {
   dataAtualizacao: string;
 }
 
+export interface AutorPostagemPublica {
+  id: number;
+  nome: string;
+  bio: string | null;
+  fotoPerfilUrl: string | null;
+  fotoPerfilThumbnailUrl: string | null;
+}
+
+export interface PostagemPublica {
+  id: number;
+  autor: AutorPostagemPublica;
+  conteudo: string;
+  urlImagem: string | null;
+  imagens: ImagemFeed[];
+  colecaoDestaque: ColecaoFeed | null;
+  catalogoDestaque: CatalogoFeed | null;
+  totalCurtidas: number;
+  comentarios: Array<{
+    id: number;
+    autor: AutorPostagemPublica;
+    texto: string;
+    dataCriacao: string;
+  }>;
+  dataCriacao: string;
+  dataAtualizacao: string;
+}
+
 export interface PostagemColecaoPublica {
   postagemId: number;
   usuarioId: number;

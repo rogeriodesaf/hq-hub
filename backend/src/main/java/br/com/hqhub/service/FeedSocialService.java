@@ -9,6 +9,7 @@ import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
 import br.com.hqhub.dto.PostagemFeedRespostaDTO;
+import br.com.hqhub.dto.PostagemPublicaDTO;
 import br.com.hqhub.entity.ComentarioFeed;
 import br.com.hqhub.entity.CurtidaPostagemFeed;
 import br.com.hqhub.entity.Edicao;
@@ -137,6 +138,38 @@ public class FeedSocialService {
         comentarioRepository.persist(comentario);
 
         return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemPublicaDTO obterPostagemPublica(Long postagemId) {
+        PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
+
+        List<ImagemFeedDTO> imagens = imagemRepository.listarPorPostagem(postagem.getId())
+                .stream()
+                .map(this::paraImagemResposta)
+                .toList();
+        List<PostagemPublicaDTO.Comentario> comentarios = comentarioRepository.listarPorPostagem(postagem.getId())
+                .stream()
+                .map(comentario -> new PostagemPublicaDTO.Comentario(
+                        comentario.getId(),
+                        paraAutorPublico(comentario.getUsuario()),
+                        comentario.getTexto(),
+                        comentario.getDataCriacao()))
+                .toList();
+
+        return new PostagemPublicaDTO(
+                postagem.getId(),
+                paraAutorPublico(postagem.getUsuario()),
+                postagem.getConteudo(),
+                primeiraImagem(postagem, imagens),
+                imagens,
+                paraColecaoFeed(postagem.getItemColecao()),
+                paraCatalogoFeed(postagem.getSerieCatalogo()),
+                curtidaRepository.contarPorPostagem(postagem.getId()),
+                comentarios,
+                postagem.getDataCriacao(),
+                postagem.getDataAtualizacao());
     }
 
     @Transactional
@@ -312,5 +345,14 @@ public class FeedSocialService {
             return imagens.get(0).urlImagem();
         }
         return urlPublicaService.normalizarApiUrl(postagem.getUrlImagem());
+    }
+
+    private PostagemPublicaDTO.Autor paraAutorPublico(Usuario usuario) {
+        return new PostagemPublicaDTO.Autor(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getBio(),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilUrl()),
+                urlPublicaService.normalizarApiUrl(usuario.getFotoPerfilThumbnailUrl()));
     }
 }

@@ -40,6 +40,7 @@ import {
   PaginaResposta,
   PessoaComicVine,
   PostagemFeed,
+  PostagemPublica,
   ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
@@ -726,6 +727,10 @@ export class ApiService {
 
   obterColecaoPublicaDaPostagem(postagemId: number) {
     return this.http.get<PostagemColecaoPublica>(`/api/compartilhar/postagens/${postagemId}/colecao`);
+  }
+
+  obterPostagemPublica(postagemId: number) {
+    return this.http.get<PostagemPublica>(`/api/compartilhar/postagens/${postagemId}/dados`);
   }
 
   atualizarHistoria(id: number, dto: {

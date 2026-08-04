@@ -27,6 +27,7 @@ import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
+import br.com.hqhub.service.FeedSocialService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -49,6 +50,7 @@ public class CompartilhamentoResource {
     private final EdicaoRepository edicaoRepository;
     private final ItemColecaoRepository itemColecaoRepository;
     private final UrlPublicaService urlPublicaService;
+    private final FeedSocialService feedSocialService;
     private final HttpClient httpClient = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
@@ -62,12 +64,21 @@ public class CompartilhamentoResource {
             ImagemPostagemFeedRepository imagemRepository,
             EdicaoRepository edicaoRepository,
             ItemColecaoRepository itemColecaoRepository,
-            UrlPublicaService urlPublicaService) {
+            UrlPublicaService urlPublicaService,
+            FeedSocialService feedSocialService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoRepository = itemColecaoRepository;
         this.urlPublicaService = urlPublicaService;
+        this.feedSocialService = feedSocialService;
+    }
+
+    @GET
+    @Path("/postagens/{id}/dados")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obterPostagemPublica(@PathParam("id") Long id) {
+        return Response.ok(feedSocialService.obterPostagemPublica(id)).build();
     }
 
     @GET
@@ -320,10 +331,7 @@ public class CompartilhamentoResource {
     }
 
     private String appUrl(PostagemFeed postagem) {
-        if (postagem.getItemColecao() != null) {
-            return baseNormalizada() + "/colecao-compartilhada/" + postagem.getId();
-        }
-        return baseNormalizada() + "/usuario/" + postagem.getUsuario().getId() + "#postagem-" + postagem.getId();
+        return baseNormalizada() + "/postagem/" + postagem.getId();
     }
 
     private String versao(PostagemFeed postagem) {
