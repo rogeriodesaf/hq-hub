@@ -347,7 +347,7 @@ import { environment } from '../../../environments/environment';
           <a routerLink="/perfil">Meu perfil</a>
           <a routerLink="/colecao">Ver estante</a>
           <a routerLink="/catalogo">Catalogo interno</a>
-          <a routerLink="/descobrir">Pesquisar HQs</a>
+          <a routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
           <a routerLink="/compras">Planejar compras</a>
         </div>
       </aside>

@@ -54,6 +54,11 @@ export const routes: Routes = [
       },
       {
         path: 'descobrir',
+        pathMatch: 'full',
+        redirectTo: 'titulos-estrangeiros',
+      },
+      {
+        path: 'titulos-estrangeiros',
         loadComponent: () => import('./pages/descobrir/descobrir.page').then((m) => m.DescobrirPage),
       },
       {

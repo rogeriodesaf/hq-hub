@@ -60,7 +60,7 @@ interface EdicaoDescoberta {
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Descobrir</p>
+        <p class="rotulo">Títulos estrangeiros</p>
         <h1>Pesquise edições estrangeiras e consulte publicações em ordem cronológica.</h1>
       </div>
     </section>
