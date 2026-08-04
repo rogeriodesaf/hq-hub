@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, ColecaoResumo, ImagemFeed, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
+import { Anuncio, ColecaoResumo, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { environment } from '../../../environments/environment';
@@ -144,6 +144,26 @@ import { environment } from '../../../environments/environment';
               }
             </div>
           }
+          @if (canalParceiroFormulario) {
+            <div class="videos-compositor canal-parceiro-compositor">
+              <strong>Canal parceiro em destaque</strong>
+              <div class="linha-video-compositor">
+                <input
+                  [(ngModel)]="canalParceiroFormulario.name"
+                  name="nomeCanalParceiro"
+                  maxlength="200"
+                  placeholder="Nome do canal (opcional)"
+                />
+                <input
+                  [(ngModel)]="canalParceiroFormulario.url"
+                  name="urlCanalParceiro"
+                  type="url"
+                  placeholder="Link do canal parceiro"
+                />
+                <button type="button" class="botao compacto perigo" (click)="removerCanalParceiroDoFormulario()">Remover</button>
+              </div>
+            </div>
+          }
           <div class="compositor-rodape">
             <div class="compositor-acoes-midia">
               <label class="acao-upload-feed seletor-feed">
@@ -157,6 +177,14 @@ import { environment } from '../../../environments/environment';
                 [disabled]="videosRelacionadosFormulario.length >= 3"
               >
                 Adicionar vídeo
+              </button>
+              <button
+                class="acao-upload-feed"
+                type="button"
+                (click)="adicionarCanalParceiroAoFormulario()"
+                [disabled]="!!canalParceiroFormulario"
+              >
+                Destacar canal parceiro
               </button>
             </div>
             <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
@@ -276,8 +304,42 @@ import { environment } from '../../../environments/environment';
 
               <app-related-content
                 [videos]="postagem.relatedVideos"
+                [partnerChannel]="postagem.partnerChannel"
                 [referenceTitle]="postagem.catalogoDestaque?.titulo || postagem.colecaoDestaque?.titulo || ''"
               ></app-related-content>
+
+              @if (podeEditarCanal(postagem)) {
+                <div class="gestao-canal-parceiro">
+                  <button class="botao-texto" type="button" (click)="alternarEditorCanal(postagem)">
+                    {{ postagem.partnerChannel ? 'Editar canal parceiro' : 'Destacar canal parceiro' }}
+                  </button>
+                  @if (editandoCanalId() === postagem.id) {
+                    <div class="editor-canal-parceiro">
+                      <input
+                        [(ngModel)]="canaisParceirosEdicao[postagem.id].name"
+                        [name]="'nomeCanalParceiroPostagem' + postagem.id"
+                        maxlength="200"
+                        placeholder="Nome do canal (opcional)"
+                      />
+                      <input
+                        [(ngModel)]="canaisParceirosEdicao[postagem.id].url"
+                        [name]="'urlCanalParceiroPostagem' + postagem.id"
+                        type="url"
+                        placeholder="Link do canal parceiro"
+                      />
+                      <div>
+                        <button class="botao compacto primario" type="button" (click)="salvarCanalParceiro(postagem)" [disabled]="salvandoCanalId() === postagem.id">
+                          {{ salvandoCanalId() === postagem.id ? 'Salvando...' : 'Salvar destaque' }}
+                        </button>
+                        @if (postagem.partnerChannel) {
+                          <button class="botao compacto perigo" type="button" (click)="removerCanalParceiro(postagem)" [disabled]="salvandoCanalId() === postagem.id">Remover destaque</button>
+                        }
+                        <button class="botao compacto" type="button" (click)="fecharEditorCanal()">Cancelar</button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
 
               <div class="barra-postagem">
                 <button
@@ -463,6 +525,10 @@ import { environment } from '../../../environments/environment';
     .videos-compositor { display: grid; gap: 10px; margin: 12px 16px 0; padding: 12px; border: 1px solid var(--borda); border-radius: 12px; background: var(--superficie-2); }
     .linha-video-compositor { display: grid; grid-template-columns: minmax(140px, .8fr) minmax(220px, 1.4fr) auto; gap: 8px; align-items: center; }
     .compositor-acoes-midia { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .canal-parceiro-compositor { border-color: rgba(255, 135, 31, .35); }
+    .gestao-canal-parceiro { display: grid; gap: 8px; justify-items: start; }
+    .editor-canal-parceiro { display: grid; width: 100%; gap: 8px; padding: 12px; border: 1px solid var(--borda); border-radius: 12px; background: var(--superficie-2); }
+    .editor-canal-parceiro > div { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .compositor-rodape {
       display: flex;
@@ -931,11 +997,15 @@ export class PainelPage implements OnInit {
   readonly publicando = signal(false);
   readonly interagindoId = signal<number | null>(null);
   readonly compartilhandoId = signal<number | null>(null);
+  readonly editandoCanalId = signal<number | null>(null);
+  readonly salvandoCanalId = signal<number | null>(null);
   readonly mensagem = signal('');
   novoConteudo = '';
   imagensSelecionadas: File[] = [];
   previsualizacoes: Array<{ url: string; nome: string }> = [];
   videosRelacionadosFormulario: Array<{ title: string; url: string }> = [];
+  canalParceiroFormulario: { name: string; url: string } | null = null;
+  canaisParceirosEdicao: Record<number, { name: string; url: string }> = {};
   comentarios: Record<number, string> = {};
 
   ngOnInit() {
@@ -959,11 +1029,18 @@ export class PainelPage implements OnInit {
       this.mensagem.set('Informe o título e a URL de cada vídeo relacionado.');
       return;
     }
+    const partnerChannel = this.canalParceiroFormulario
+      ? { name: this.canalParceiroFormulario.name.trim() || null, url: this.canalParceiroFormulario.url.trim() }
+      : null;
+    if (partnerChannel && !partnerChannel.url) {
+      this.mensagem.set('Informe o link do canal parceiro.');
+      return;
+    }
 
     this.publicando.set(true);
     this.mensagem.set('');
     this.enviarImagensSelecionadas()
-      .then((imagens) => this.criarPostagem(conteudo, imagens, videosRelacionados))
+      .then((imagens) => this.criarPostagem(conteudo, imagens, videosRelacionados, partnerChannel))
       .catch((mensagem) => {
         this.publicando.set(false);
         this.mensagem.set(String(mensagem));
@@ -978,6 +1055,71 @@ export class PainelPage implements OnInit {
 
   removerVideoRelacionado(indice: number) {
     this.videosRelacionadosFormulario.splice(indice, 1);
+  }
+
+  adicionarCanalParceiroAoFormulario() {
+    this.canalParceiroFormulario = { name: '', url: '' };
+  }
+
+  removerCanalParceiroDoFormulario() {
+    this.canalParceiroFormulario = null;
+  }
+
+  podeEditarCanal(postagem: PostagemFeed) {
+    return postagem.usuario.id === this.usuario()?.id || this.usuario()?.perfil === 'ADMINISTRADOR';
+  }
+
+  alternarEditorCanal(postagem: PostagemFeed) {
+    if (this.editandoCanalId() === postagem.id) {
+      this.fecharEditorCanal();
+      return;
+    }
+    this.canaisParceirosEdicao[postagem.id] = {
+      name: postagem.partnerChannel?.name || '',
+      url: postagem.partnerChannel?.url || '',
+    };
+    this.editandoCanalId.set(postagem.id);
+  }
+
+  fecharEditorCanal() {
+    this.editandoCanalId.set(null);
+  }
+
+  salvarCanalParceiro(postagem: PostagemFeed) {
+    const formulario = this.canaisParceirosEdicao[postagem.id];
+    const url = formulario?.url.trim();
+    if (!url) {
+      this.mensagem.set('Informe o link do canal parceiro.');
+      return;
+    }
+    this.salvandoCanalId.set(postagem.id);
+    this.mensagem.set('');
+    this.api.atualizarCanalParceiro(postagem.id, { name: formulario.name.trim() || null, url }).subscribe({
+      next: (atualizada) => {
+        this.substituirPostagem(atualizada);
+        this.salvandoCanalId.set(null);
+        this.fecharEditorCanal();
+      },
+      error: (erro) => {
+        this.salvandoCanalId.set(null);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível salvar o canal parceiro.');
+      },
+    });
+  }
+
+  removerCanalParceiro(postagem: PostagemFeed) {
+    this.salvandoCanalId.set(postagem.id);
+    this.api.removerCanalParceiro(postagem.id).subscribe({
+      next: (atualizada) => {
+        this.substituirPostagem(atualizada);
+        this.salvandoCanalId.set(null);
+        this.fecharEditorCanal();
+      },
+      error: (erro) => {
+        this.salvandoCanalId.set(null);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível remover o canal parceiro.');
+      },
+    });
   }
 
   selecionarImagens(evento: Event) {
@@ -1037,13 +1179,19 @@ export class PainelPage implements OnInit {
       : [];
   }
 
-  private criarPostagem(conteudo: string, imagens: ImagemFeed[], relatedVideos: RelatedVideoInput[]) {
-    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens, relatedVideos }).subscribe({
+  private criarPostagem(
+    conteudo: string,
+    imagens: ImagemFeed[],
+    relatedVideos: RelatedVideoInput[],
+    partnerChannel: PartnerChannel | null,
+  ) {
+    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens, relatedVideos, partnerChannel }).subscribe({
       next: (postagem) => {
         this.feed.update((feed) => [postagem, ...feed]);
         this.novoConteudo = '';
         this.imagensSelecionadas = [];
         this.videosRelacionadosFormulario = [];
+        this.canalParceiroFormulario = null;
         this.limparPrevisualizacoes();
         this.previsualizacoes = [];
         this.publicando.set(false);

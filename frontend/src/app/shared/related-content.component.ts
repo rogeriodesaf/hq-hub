@@ -1,12 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, signal } from '@angular/core';
 
-import { RelatedVideo } from '../core/modelos';
+import { PartnerChannel, RelatedVideo } from '../core/modelos';
 
 @Component({
   selector: 'app-related-content',
   imports: [CommonModule],
   template: `
+    @if (partnerChannel?.url) {
+      <aside class="canal-parceiro" aria-label="Canal parceiro em destaque">
+        <div class="avatar-canal">
+          @if (partnerChannel?.thumbnail) {
+            <img [src]="partnerChannel!.thumbnail" [alt]="partnerChannel!.name || 'Canal parceiro'" loading="lazy" decoding="async" />
+          } @else {
+            <span aria-hidden="true">★</span>
+          }
+        </div>
+        <div class="informacoes-canal">
+          <small>Canal parceiro</small>
+          <strong>{{ partnerChannel!.name || 'Conteúdo recomendado pelo HQ-HUB' }}</strong>
+        </div>
+        <a class="visitar-canal ripple" [href]="partnerChannel!.url" target="_blank" rel="noopener noreferrer">
+          Conhecer canal <span aria-hidden="true">↗</span>
+        </a>
+      </aside>
+    }
+
     @if (videosExibidos.length) {
       <section class="conteudo-relacionado" aria-label="Conteúdo relacionado">
         <button class="cabecalho-relacionado" type="button" (click)="alternarExpansao()" [attr.aria-expanded]="expandido()">
@@ -90,6 +109,7 @@ import { RelatedVideo } from '../core/modelos';
 })
 export class RelatedContentComponent {
   @Input() videos: RelatedVideo[] | null | undefined = [];
+  @Input() partnerChannel: PartnerChannel | null | undefined = null;
   @Input() referenceTitle = '';
 
   readonly expandido = signal(true);

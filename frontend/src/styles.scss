@@ -4228,3 +4228,88 @@ body.tema-escuro .banner-apoio span {
     animation-duration: 0.01ms !important;
   }
 }
+app-related-content .canal-parceiro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 135, 31, 0.36);
+  border-radius: 14px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--superficie) 88%, #ff871f 12%), var(--superficie));
+  box-shadow: 0 8px 22px rgba(255, 135, 31, 0.09);
+}
+
+app-related-content .avatar-canal {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(145deg, #ff871f, #e65000);
+  font-size: 1.15rem;
+}
+
+app-related-content .avatar-canal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+app-related-content .informacoes-canal {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+app-related-content .informacoes-canal small {
+  color: #e56d00;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+app-related-content .informacoes-canal strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+app-related-content .visitar-canal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 135, 31, 0.4);
+  border-radius: 9px;
+  color: #c85b00;
+  background: var(--superficie);
+  font-size: 0.8rem;
+  font-weight: 850;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+app-related-content .visitar-canal:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--superficie) 90%, #ff871f 10%);
+}
+
+@media (max-width: 520px) {
+  app-related-content .canal-parceiro {
+    grid-template-columns: auto 1fr;
+  }
+
+  app-related-content .visitar-canal {
+    grid-column: 1 / -1;
+    justify-content: center;
+    width: auto;
+  }
+}

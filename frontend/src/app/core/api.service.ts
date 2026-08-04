@@ -42,6 +42,7 @@ import {
   PessoaComicVine,
   PostagemFeed,
   PostagemPublica,
+  PartnerChannel,
   RelatedVideoInput,
   ImagemFeed,
   PublicacaoRelacionada,
@@ -110,6 +111,7 @@ export class ApiService {
     urlImagem: string | null;
     imagens?: ImagemFeed[];
     relatedVideos?: RelatedVideoInput[];
+    partnerChannel?: PartnerChannel | null;
   }) {
     return this.http.post<PostagemFeed>('/api/feed', dto).pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
@@ -117,6 +119,18 @@ export class ApiService {
   atualizarVideosRelacionados(postagemId: number, relatedVideos: RelatedVideoInput[]) {
     return this.http
       .put<PostagemFeed>(`/api/feed/${postagemId}/videos-relacionados`, { relatedVideos })
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
+  atualizarCanalParceiro(postagemId: number, partnerChannel: PartnerChannel) {
+    return this.http
+      .put<PostagemFeed>(`/api/feed/${postagemId}/canal-parceiro`, { partnerChannel })
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
+  removerCanalParceiro(postagemId: number) {
+    return this.http
+      .delete<PostagemFeed>(`/api/feed/${postagemId}/canal-parceiro`)
       .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
@@ -960,6 +974,7 @@ export class ApiService {
           }
         : null,
       relatedVideos: postagem.relatedVideos || [],
+      partnerChannel: postagem.partnerChannel || null,
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),

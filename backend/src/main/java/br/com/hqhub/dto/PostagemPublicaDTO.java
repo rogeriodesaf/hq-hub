@@ -12,6 +12,7 @@ public record PostagemPublicaDTO(
         ColecaoFeedDTO colecaoDestaque,
         CatalogoFeedDTO catalogoDestaque,
         List<VideoRelacionadoDTO> relatedVideos,
+        CanalParceiroDTO partnerChannel,
         long totalCurtidas,
         List<Comentario> comentarios,
         LocalDateTime dataCriacao,

@@ -48,6 +48,15 @@ public class PostagemFeed {
     @JoinColumn(name = "serie_catalogo_id")
     private Serie serieCatalogo;
 
+    @Column(name = "canal_parceiro_nome", length = 200)
+    private String canalParceiroNome;
+
+    @Column(name = "canal_parceiro_url", length = 1000)
+    private String canalParceiroUrl;
+
+    @Column(name = "canal_parceiro_thumbnail", length = 1000)
+    private String canalParceiroThumbnail;
+
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;

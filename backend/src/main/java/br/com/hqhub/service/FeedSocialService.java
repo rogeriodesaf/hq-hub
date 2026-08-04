@@ -9,9 +9,11 @@ import java.util.Locale;
 import java.util.Set;
 
 import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
+import br.com.hqhub.dto.AtualizacaoCanalParceiroDTO;
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
 import br.com.hqhub.dto.CadastroVideoRelacionadoDTO;
+import br.com.hqhub.dto.CanalParceiroDTO;
 import br.com.hqhub.dto.CatalogoFeedDTO;
 import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
@@ -121,6 +123,7 @@ public class FeedSocialService {
         postagemRepository.persist(postagem);
         salvarImagens(postagem, dto.imagens());
         salvarVideosRelacionados(postagem, dto.relatedVideos());
+        salvarCanalParceiro(postagem, dto.partnerChannel());
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -129,16 +132,30 @@ public class FeedSocialService {
             Long postagemId,
             AtualizacaoVideosRelacionadosDTO dto) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
-        PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
-
-        boolean administrador = usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR;
-        if (!postagem.getUsuario().getId().equals(usuario.getId()) && !administrador) {
-            throw new RegraNegocioException("Você não pode alterar os vídeos desta postagem.");
-        }
+        PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
 
         videoRelacionadoRepository.removerPorPostagem(postagemId);
         salvarVideosRelacionados(postagem, dto.relatedVideos());
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO atualizarCanalParceiro(
+            Long postagemId,
+            AtualizacaoCanalParceiroDTO dto) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
+        salvarCanalParceiro(postagem, dto.partnerChannel());
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO removerCanalParceiro(Long postagemId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
+        postagem.setCanalParceiroNome(null);
+        postagem.setCanalParceiroUrl(null);
+        postagem.setCanalParceiroThumbnail(null);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -201,6 +218,7 @@ public class FeedSocialService {
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo()),
                 listarVideosRelacionados(postagem.getId()),
+                paraCanalParceiro(postagem),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 comentarios,
                 postagem.getDataCriacao(),
@@ -285,6 +303,7 @@ public class FeedSocialService {
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo()),
                 listarVideosRelacionados(postagem.getId()),
+                paraCanalParceiro(postagem),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 curtidaRepository.existePorPostagemEUsuario(postagem.getId(), usuarioId),
                 comentarios,
@@ -429,6 +448,41 @@ public class FeedSocialService {
                         video.getDuracaoSegundos(),
                         video.getVisualizacoes()))
                 .toList();
+    }
+
+    private void salvarCanalParceiro(PostagemFeed postagem, CanalParceiroDTO canal) {
+        if (canal == null) {
+            return;
+        }
+        String url = canal.url().trim();
+        validarUrlHttp(url, "Link do canal parceiro inválido.");
+        String thumbnail = textoOuNull(canal.thumbnail());
+        if (thumbnail != null) {
+            validarUrlHttp(thumbnail, "Imagem do canal parceiro inválida.");
+        }
+        postagem.setCanalParceiroNome(textoOuNull(canal.name()) == null ? "Canal parceiro" : canal.name().trim());
+        postagem.setCanalParceiroUrl(url);
+        postagem.setCanalParceiroThumbnail(thumbnail);
+    }
+
+    private CanalParceiroDTO paraCanalParceiro(PostagemFeed postagem) {
+        if (postagem.getCanalParceiroUrl() == null || postagem.getCanalParceiroUrl().isBlank()) {
+            return null;
+        }
+        return new CanalParceiroDTO(
+                postagem.getCanalParceiroNome(),
+                postagem.getCanalParceiroUrl(),
+                postagem.getCanalParceiroThumbnail());
+    }
+
+    private PostagemFeed buscarPostagemEditavel(Long postagemId, Usuario usuario) {
+        PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
+        boolean administrador = usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR;
+        if (!postagem.getUsuario().getId().equals(usuario.getId()) && !administrador) {
+            throw new RegraNegocioException("Você não pode alterar os conteúdos relacionados desta postagem.");
+        }
+        return postagem;
     }
 
     private String thumbnailYoutube(String thumbnail, String videoId) {

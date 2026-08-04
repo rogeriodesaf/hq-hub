@@ -161,6 +161,7 @@ import {
 
                   <app-related-content
                     [videos]="postagem.relatedVideos"
+                    [partnerChannel]="postagem.partnerChannel"
                     [referenceTitle]="postagem.catalogoDestaque?.titulo || postagem.colecaoDestaque?.titulo || ''"
                   ></app-related-content>
 

@@ -678,6 +678,12 @@ export interface RelatedVideoInput {
   viewCount?: number | null;
 }
 
+export interface PartnerChannel {
+  name: string | null;
+  url: string;
+  thumbnail?: string | null;
+}
+
 export interface PostagemFeed {
   id: number;
   usuario: Usuario;
@@ -687,6 +693,7 @@ export interface PostagemFeed {
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;
   relatedVideos: RelatedVideo[];
+  partnerChannel: PartnerChannel | null;
   totalCurtidas: number;
   curtidaPeloUsuario: boolean;
   comentarios: ComentarioFeed[];
@@ -711,6 +718,7 @@ export interface PostagemPublica {
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;
   relatedVideos: RelatedVideo[];
+  partnerChannel: PartnerChannel | null;
   totalCurtidas: number;
   comentarios: Array<{
     id: number;

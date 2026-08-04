@@ -3,6 +3,7 @@ package br.com.hqhub.resource;
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
 import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
+import br.com.hqhub.dto.AtualizacaoCanalParceiroDTO;
 import br.com.hqhub.service.FeedMidiaService;
 import br.com.hqhub.service.FeedSocialService;
 import io.quarkus.security.Authenticated;
@@ -66,6 +67,20 @@ public class FeedSocialResource {
             @PathParam("id") Long id,
             @Valid AtualizacaoVideosRelacionadosDTO dto) {
         return Response.ok(feedSocialService.atualizarVideosRelacionados(id, dto)).build();
+    }
+
+    @PUT
+    @Path("/{id}/canal-parceiro")
+    public Response atualizarCanalParceiro(
+            @PathParam("id") Long id,
+            @Valid AtualizacaoCanalParceiroDTO dto) {
+        return Response.ok(feedSocialService.atualizarCanalParceiro(id, dto)).build();
+    }
+
+    @DELETE
+    @Path("/{id}/canal-parceiro")
+    public Response removerCanalParceiro(@PathParam("id") Long id) {
+        return Response.ok(feedSocialService.removerCanalParceiro(id)).build();
     }
 
     @POST
