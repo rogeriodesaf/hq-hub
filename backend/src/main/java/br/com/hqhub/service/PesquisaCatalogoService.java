@@ -20,8 +20,6 @@ import jakarta.transaction.Transactional;
 @ApplicationScoped
 public class PesquisaCatalogoService {
 
-    private static final String FONTE_COMIC_VINE = "COMICVINE";
-    private static final int LIMITE_INTERNO = 200;
     private static final int TAMANHO_MAXIMO = 100;
 
     private final EdicaoRepository edicaoRepository;
@@ -42,18 +40,27 @@ public class PesquisaCatalogoService {
 
         int paginaTratada = tratarPagina(pagina);
         int tamanhoTratado = tratarTamanho(tamanho);
-        List<ResultadoPesquisaCatalogoDTO> resultados = new ArrayList<>();
-        Set<String> chaves = new LinkedHashSet<>();
-        List<Edicao> edicoesInternas = edicaoRepository.buscarPaginado(null, termo, 0, LIMITE_INTERNO);
-
-        edicoesInternas.stream()
-                .map(this::paraResultadoInterno)
-                .forEach(resultado -> adicionarResultado(resultados, chaves, resultado));
+        long totalInternos = edicaoRepository.contarComBusca(null, termo);
+        if (totalInternos > 0) {
+            int totalPaginasInternas = (int) Math.ceil((double) totalInternos / tamanhoTratado);
+            List<ResultadoPesquisaCatalogoDTO> internos = edicaoRepository
+                    .buscarPaginado(null, termo, paginaTratada, tamanhoTratado)
+                    .stream()
+                    .map(this::paraResultadoInterno)
+                    .toList();
+            return new PaginaRespostaDTO<>(
+                    internos,
+                    paginaTratada,
+                    tamanhoTratado,
+                    totalInternos,
+                    totalPaginasInternas);
+        }
 
         PaginaRespostaDTO<EdicaoComicVineRespostaDTO> externos = buscarExternos(termo, paginaTratada, tamanhoTratado);
+        List<ResultadoPesquisaCatalogoDTO> resultados = new ArrayList<>();
+        Set<String> chaves = new LinkedHashSet<>();
         externos.itens().stream()
                 .map(this::paraResultadoExterno)
-                .filter(resultado -> !jaExisteNoCatalogoInterno(resultado, edicoesInternas))
                 .forEach(resultado -> adicionarResultado(resultados, chaves, resultado));
 
         return new PaginaRespostaDTO<>(
@@ -100,35 +107,6 @@ public class PesquisaCatalogoService {
                 primeiroValor(parseData(edicao.dataVenda()), parseData(edicao.dataCapa())),
                 false,
                 edicao.urlOrigem());
-    }
-
-    private boolean jaExisteNoCatalogoInterno(ResultadoPesquisaCatalogoDTO externo, List<Edicao> internas) {
-        return internas.stream().anyMatch(interna -> mesmaOrigemComicVine(externo, interna) || mesmoTituloNumeroVolume(externo, interna));
-    }
-
-    private boolean mesmaOrigemComicVine(ResultadoPesquisaCatalogoDTO externo, Edicao interna) {
-        if (externo.idExterno() == null || externo.idExterno().isBlank()) {
-            return false;
-        }
-
-        return externo.idExterno().equals(interna.getIdComicVine())
-                || externo.idExterno().equals(interna.getIdExterno())
-                || (FONTE_COMIC_VINE.equalsIgnoreCase(interna.getFonteExterna())
-                        && externo.idExterno().equals(interna.getIdExterno()));
-    }
-
-    private boolean mesmoTituloNumeroVolume(ResultadoPesquisaCatalogoDTO externo, Edicao interna) {
-        String numeroInterno = normalizar(interna.getNumero());
-        String numeroExterno = normalizar(externo.numero());
-        String volumeInterno = normalizar(primeiroValor(interna.getNomeVolume(), interna.getSerie().getTitulo()));
-        String volumeExterno = normalizar(externo.nomeVolume());
-        String tituloInterno = normalizar(primeiroValor(interna.getTitulo(), interna.getSerie().getTitulo()));
-        String tituloExterno = normalizar(externo.titulo());
-
-        return !numeroInterno.isBlank()
-                && numeroInterno.equals(numeroExterno)
-                && (!volumeInterno.isBlank() && volumeInterno.equals(volumeExterno)
-                        || !tituloInterno.isBlank() && tituloInterno.equals(tituloExterno));
     }
 
     private void adicionarResultado(

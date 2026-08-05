@@ -208,7 +208,15 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
 
     private String sqlBusca(Long serieId, List<String> termos, boolean contar) {
         String select = contar ? "select count(*)" : "select ed.*";
-        String ordem = contar ? "" : " order by lower(s.titulo), lower(ed.numero), ed.id";
+        String ordem = contar ? "" : """
+                 order by lower(s.titulo),
+                          coalesce(s.volume, 2147483647),
+                          case when ed.numero ~ '^[0-9]+' then 0 else 1 end,
+                          length(substring(ed.numero from '^[0-9]+')),
+                          substring(ed.numero from '^[0-9]+'),
+                          lower(ed.numero),
+                          ed.id
+                """;
         String filtroSerie = serieId == null ? "" : " and s.id = :serieId";
         String condicaoBusca = construirCondicaoBusca(termos);
 
