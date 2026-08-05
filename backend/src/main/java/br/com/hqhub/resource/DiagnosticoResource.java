@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Produces(MediaType.APPLICATION_JSON)
 public class DiagnosticoResource {
 
-    private static final String VERSAO_BACKEND = "estante-serie-completa-2026-08-04";
+    private static final String VERSAO_BACKEND = "feed-premium-2026-08-05";
 
     @GET
     @Path("/versao")
