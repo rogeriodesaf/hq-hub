@@ -11,8 +11,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,10 +35,15 @@ public class GcdCatalogoService {
     private static final String BASE = "https://www.comics.org";
     private static final int TAMANHO_LOTE_PADRAO = 20;
     private final ObjectMapper objectMapper;
+    private final String autorizacao;
     private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
 
-    public GcdCatalogoService(ObjectMapper objectMapper) {
+    public GcdCatalogoService(
+            ObjectMapper objectMapper,
+            @ConfigProperty(name = "hqhub.integracoes.gcd.usuario", defaultValue = "") String usuario,
+            @ConfigProperty(name = "hqhub.integracoes.gcd.senha", defaultValue = "") String senha) {
         this.objectMapper = objectMapper;
+        this.autorizacao = criarAutorizacao(usuario, senha);
     }
 
     public List<SerieGcdRespostaDTO> buscarSeries(String busca) {
@@ -135,10 +142,19 @@ public class GcdCatalogoService {
     private JsonNode obterJson(String url) {
         try {
             validarUrlApi(url, "/api/");
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(30))
+            HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(30))
                     .header("Accept", "application/json")
-                    .header("User-Agent", "HQ-HUB/1.0 (catalog import)").GET().build();
+                    .header("User-Agent", "HQ-HUB/1.0 (catalog import)");
+            if (autorizacao != null) {
+                requestBuilder.header("Authorization", autorizacao);
+            }
+            HttpRequest request = requestBuilder.GET().build();
             HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() == 401 || response.statusCode() == 403) {
+                throw new RegraNegocioException(autorizacao == null
+                        ? "O GCD recusou a consulta anonima."
+                        : "O GCD recusou as credenciais configuradas. Confira HQHUB_GCD_USUARIO e HQHUB_GCD_SENHA.");
+            }
             if (response.statusCode() == 429) {
                 long espera = response.headers().firstValue("Retry-After").map(this::segundosRetryAfter)
                         .orElseGet(() -> esperaInformada(response.body()));
@@ -213,6 +229,14 @@ public class GcdCatalogoService {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    private String criarAutorizacao(String usuario, String senha) {
+        if (usuario == null || usuario.isBlank() || senha == null || senha.isBlank()) {
+            return null;
+        }
+        String credenciais = usuario.trim() + ":" + senha;
+        return "Basic " + Base64.getEncoder().encodeToString(credenciais.getBytes(StandardCharsets.UTF_8));
     }
 
     private long segundosRetryAfter(String valor) {
