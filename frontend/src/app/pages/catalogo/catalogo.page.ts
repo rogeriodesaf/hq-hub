@@ -173,7 +173,19 @@ import {
             <h2>Resultados da busca</h2>
             <p class="texto-suave">Clique em uma edição interna para ver capa, histórias e publicações originais.</p>
           </div>
-          <span>{{ rotuloContadorResultados() }}</span>
+          <div class="resultado-catalogo-acoes">
+            <span>{{ rotuloContadorResultados() }}</span>
+            @if (serieSelecionada() && autenticado() && resultadosCatalogo().totalItens > 0) {
+              <button
+                class="botao primario compacto"
+                type="button"
+                (click)="abrirModalAdicionarSerieNaEstante()"
+                [disabled]="adicionandoSerieInteira()"
+              >
+                Adicionar série inteira à minha estante
+              </button>
+            }
+          </div>
         </div>
 
         <div class="grade-mini-capas">
@@ -316,6 +328,80 @@ import {
                 {{ salvandoItemColecao() ? 'Adicionando...' : 'Adicionar à estante' }}
               </button>
               <button class="botao secundario" type="button" (click)="fecharModalAdicionarNaEstante()" [disabled]="!!salvandoItemColecao()">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </article>
+      </section>
+    }
+
+    @if (exibindoModalSerieEstante() && serieSelecionada()) {
+      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Adicionar série inteira à estante">
+        <div class="detalhe-fundo" (click)="fecharModalAdicionarSerieNaEstante()"></div>
+        <article class="detalhe-painel modal-estante-catalogo">
+          <button class="fechar-detalhe" type="button" (click)="fecharModalAdicionarSerieNaEstante()" aria-label="Fechar adição da série">×</button>
+          <div class="detalhe-cabecalho">
+            <img
+              [src]="resultadosCatalogo().itens[0]?.urlCapa || capaReserva"
+              [alt]="serieSelecionada()!.titulo"
+              (error)="usarCapaReserva($event)"
+            />
+            <div>
+              <p class="rotulo">Adicionar série inteira</p>
+              <h2>{{ serieSelecionada()!.titulo }}</h2>
+              <div class="chips">
+                <span>{{ resultadosCatalogo().totalItens }} revista(s)</span>
+                <span>Volume {{ serieSelecionada()!.volume || '-' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="texto-suave">
+            Todas as revistas ainda ausentes serão adicionadas. As que já estiverem na sua estante serão ignoradas automaticamente.
+          </p>
+
+          <form class="painel-formulario grade-formulario modal-estante-formulario" (ngSubmit)="confirmarAdicionarSerieNaEstante()">
+            <label>
+              Conservação de todas
+              <select [(ngModel)]="formularioSerieColecao.estadoConservacao" name="estadoConservacaoSerieCatalogo">
+                <option value="NOVO">Novo</option>
+                <option value="EXCELENTE">Excelente</option>
+                <option value="MUITO_BOM">Muito bom</option>
+                <option value="BOM">Bom</option>
+                <option value="REGULAR">Regular</option>
+                <option value="RUIM">Ruim</option>
+              </select>
+            </label>
+
+            <label>
+              Data da compra
+              <input type="date" [(ngModel)]="formularioSerieColecao.dataAquisicao" name="dataAquisicaoSerieCatalogo" />
+            </label>
+
+            <label>
+              Preço pago por revista
+              <input type="number" min="0" step="0.01" [(ngModel)]="formularioSerieColecao.precoPago" name="precoPagoSerieCatalogo" placeholder="Vazio usa o preço de capa" />
+            </label>
+
+            <label>
+              Leitura de todas
+              <select [(ngModel)]="formularioSerieColecao.statusLeitura" name="statusLeituraSerieCatalogo">
+                <option value="NAO_LIDO">Não lido</option>
+                <option value="LIDO">Lido</option>
+              </select>
+            </label>
+
+            <label class="campo-largo">
+              Observações
+              <input [(ngModel)]="formularioSerieColecao.observacoes" name="observacoesSerieCatalogo" placeholder="Aplicadas às revistas adicionadas" />
+            </label>
+
+            <div class="acoes-formulario campo-largo">
+              <button class="botao primario" type="submit" [disabled]="adicionandoSerieInteira()">
+                {{ adicionandoSerieInteira() ? 'Adicionando...' : 'Confirmar série inteira' }}
+              </button>
+              <button class="botao secundario" type="button" (click)="fecharModalAdicionarSerieNaEstante()" [disabled]="adicionandoSerieInteira()">
                 Cancelar
               </button>
             </div>
@@ -991,6 +1077,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly revisandoCapa = signal<number | null>(null);
   readonly salvandoItemColecao = signal<number | null>(null);
   readonly resultadoParaEstante = signal<ResultadoPesquisaCatalogo | null>(null);
+  readonly exibindoModalSerieEstante = signal(false);
+  readonly adicionandoSerieInteira = signal(false);
   readonly seriesConsultadas = signal(false);
   readonly resultadosConsultados = signal(false);
   readonly previewCapaSelecionada = signal<string | null>(null);
@@ -1013,6 +1101,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioConteudo = this.formularioConteudoVazio();
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
   formularioItemColecao = this.formularioItemColecaoVazio();
+  formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
@@ -1077,8 +1166,12 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.resultadosConsultados.set(true);
     this.mensagem.set('Carregando edicoes da serie importada...');
 
-    this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId).subscribe({
-      next: (resposta) => {
+    forkJoin({
+      serie: this.api.buscarSeriePorId(serieId),
+      edicoes: this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId),
+    }).subscribe({
+      next: ({ serie, edicoes: resposta }) => {
+        this.serieSelecionada.set(serie);
         this.resultadosCatalogo.set({
           ...resposta,
           itens: resposta.itens.map((edicao) => this.paraResultadoInterno(edicao)),
@@ -1472,6 +1565,57 @@ export class CatalogoPage implements OnInit, OnDestroy {
       error: (erro) => {
         this.salvandoItemColecao.set(null);
         this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível adicionar a edição. Verifique se ela já está na sua estante.'));
+      },
+    });
+  }
+
+  abrirModalAdicionarSerieNaEstante() {
+    if (!this.serieSelecionada() || !this.autenticado()) {
+      this.mensagem.set('Selecione uma série interna para adicionar à estante.');
+      return;
+    }
+    this.formularioSerieColecao = this.formularioItemColecaoVazio();
+    this.exibindoModalSerieEstante.set(true);
+    this.mensagem.set('');
+  }
+
+  fecharModalAdicionarSerieNaEstante() {
+    if (this.adicionandoSerieInteira()) {
+      return;
+    }
+    this.exibindoModalSerieEstante.set(false);
+    this.formularioSerieColecao = this.formularioItemColecaoVazio();
+  }
+
+  confirmarAdicionarSerieNaEstante() {
+    const serie = this.serieSelecionada();
+    if (!serie || this.adicionandoSerieInteira()) {
+      return;
+    }
+
+    this.adicionandoSerieInteira.set(true);
+    this.mensagem.set('');
+    this.api.cadastrarSerieNaColecao({
+      serieId: serie.id,
+      estadoConservacao: this.formularioSerieColecao.estadoConservacao,
+      dataAquisicao: this.formularioSerieColecao.dataAquisicao || null,
+      precoPago: this.formularioSerieColecao.precoPago,
+      statusLeitura: this.formularioSerieColecao.statusLeitura,
+      observacoes: this.formularioSerieColecao.observacoes.trim() || null,
+    }).subscribe({
+      next: (resultado) => {
+        this.adicionandoSerieInteira.set(false);
+        this.exibindoModalSerieEstante.set(false);
+        this.formularioSerieColecao = this.formularioItemColecaoVazio();
+        this.mensagem.set(
+          resultado.adicionadas > 0
+            ? `${resultado.adicionadas} revista(s) adicionada(s) à estante. ${resultado.jaExistentes} já existente(s) foram ignorada(s).`
+            : `Nenhuma revista adicionada: as ${resultado.jaExistentes} edição(ões) já estavam na sua estante.`,
+        );
+      },
+      error: (erro) => {
+        this.adicionandoSerieInteira.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível adicionar a série inteira à estante.'));
       },
     });
   }

@@ -13,6 +13,7 @@ import {
   ColecaoResumo,
   ConfiguracaoColecao,
   CadastroItemColecao,
+  CadastroSerieItemColecao,
   CadastroCompraPlanejada,
   CalculoInflacao,
   CompraPlanejada,
@@ -53,6 +54,7 @@ import {
   ResultadoDeduplicacaoEdicoes,
   ResultadoDeduplicacaoSeries,
   ResultadoPesquisaCatalogo,
+  ResultadoCadastroSerieItemColecao,
   ResultadoImportacaoCatalogo,
   ResultadoBackfillComicVine,
   ResultadoImportacaoCapas,
@@ -176,6 +178,10 @@ export class ApiService {
     }
 
     return this.http.get<PaginaResposta<Serie>>('/api/series', { params });
+  }
+
+  buscarSeriePorId(id: number) {
+    return this.http.get<Serie>(`/api/series/${id}`);
   }
 
   listarEdicoes(busca = '', pagina = 0, tamanho = 24, serieId?: number) {
@@ -532,6 +538,10 @@ export class ApiService {
 
   cadastrarItemColecao(dto: CadastroItemColecao) {
     return this.http.post<ItemColecao>('/api/colecao/itens', dto);
+  }
+
+  cadastrarSerieNaColecao(dto: CadastroSerieItemColecao) {
+    return this.http.post<ResultadoCadastroSerieItemColecao>('/api/colecao/itens/series', dto);
   }
 
   buscarItemColecao(id: number) {

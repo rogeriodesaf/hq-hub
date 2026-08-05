@@ -5,7 +5,9 @@ import java.util.List;
 
 import br.com.hqhub.dto.AtualizacaoItemColecaoDTO;
 import br.com.hqhub.dto.CadastroItemColecaoDTO;
+import br.com.hqhub.dto.CadastroSerieItemColecaoDTO;
 import br.com.hqhub.dto.ItemColecaoRespostaDTO;
+import br.com.hqhub.dto.ResultadoCadastroSerieItemColecaoDTO;
 import br.com.hqhub.service.ItemColecaoService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -39,6 +41,13 @@ public class ItemColecaoResource {
         return Response.created(URI.create("/colecao/itens/" + item.id()))
                 .entity(item)
                 .build();
+    }
+
+    @POST
+    @Path("/series")
+    public Response cadastrarSerie(@Valid CadastroSerieItemColecaoDTO dto) {
+        ResultadoCadastroSerieItemColecaoDTO resultado = itemColecaoService.cadastrarSerie(dto);
+        return Response.ok(resultado).build();
     }
 
     @GET

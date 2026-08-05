@@ -239,6 +239,23 @@ export interface CadastroItemColecao {
   suprimirRevisaoCatalogo?: boolean;
 }
 
+export interface CadastroSerieItemColecao {
+  serieId: number;
+  estadoConservacao: string;
+  dataAquisicao: string | null;
+  precoPago: number | null;
+  statusLeitura: string;
+  observacoes: string | null;
+}
+
+export interface ResultadoCadastroSerieItemColecao {
+  serieId: number;
+  tituloSerie: string;
+  totalEdicoes: number;
+  adicionadas: number;
+  jaExistentes: number;
+}
+
 export interface EstanteEdicao {
   itemColecaoId: number;
   edicaoId: number;

@@ -2,17 +2,22 @@ package br.com.hqhub.service;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.StringJoiner;
 
 import br.com.hqhub.dto.AtualizacaoItemColecaoDTO;
 import br.com.hqhub.dto.CadastroItemColecaoDTO;
+import br.com.hqhub.dto.CadastroSerieItemColecaoDTO;
 import br.com.hqhub.dto.ItemColecaoRespostaDTO;
+import br.com.hqhub.dto.ResultadoCadastroSerieItemColecaoDTO;
 import br.com.hqhub.entity.ContribuicaoCatalogo;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
+import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusContribuicaoCatalogo;
 import br.com.hqhub.entity.TipoContribuicaoCatalogo;
 import br.com.hqhub.entity.Usuario;
@@ -23,6 +28,7 @@ import br.com.hqhub.repository.ContribuicaoCatalogoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
+import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -37,6 +43,7 @@ public class ItemColecaoService {
     private final EntityManager entityManager;
     private final ContribuicaoCatalogoRepository contribuicaoCatalogoRepository;
     private final PostagemFeedRepository postagemFeedRepository;
+    private final SerieRepository serieRepository;
 
     public ItemColecaoService(
             ItemColecaoRepository itemColecaoRepository,
@@ -45,7 +52,8 @@ public class ItemColecaoService {
             UsuarioAutenticadoService usuarioAutenticadoService,
             EntityManager entityManager,
             ContribuicaoCatalogoRepository contribuicaoCatalogoRepository,
-            PostagemFeedRepository postagemFeedRepository) {
+            PostagemFeedRepository postagemFeedRepository,
+            SerieRepository serieRepository) {
         this.itemColecaoRepository = itemColecaoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoMapper = itemColecaoMapper;
@@ -53,6 +61,7 @@ public class ItemColecaoService {
         this.entityManager = entityManager;
         this.contribuicaoCatalogoRepository = contribuicaoCatalogoRepository;
         this.postagemFeedRepository = postagemFeedRepository;
+        this.serieRepository = serieRepository;
     }
 
     @Transactional
@@ -72,6 +81,41 @@ public class ItemColecaoService {
         }
 
         return itemColecaoMapper.paraResposta(item);
+    }
+
+    @Transactional
+    public ResultadoCadastroSerieItemColecaoDTO cadastrarSerie(CadastroSerieItemColecaoDTO dto) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        Serie serie = serieRepository.findByIdOptional(dto.serieId())
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Serie nao encontrada."));
+        List<Edicao> edicoes = edicaoRepository.find("serie.id = ?1 order by id", serie.getId()).list();
+        Set<Long> idsExistentes = new HashSet<>(
+                itemColecaoRepository.listarIdsEdicoesPorUsuarioESerie(usuario.getId(), serie.getId()));
+
+        int adicionadas = 0;
+        for (Edicao edicao : edicoes) {
+            if (idsExistentes.contains(edicao.getId())) {
+                continue;
+            }
+
+            CadastroItemColecaoDTO itemDto = new CadastroItemColecaoDTO(
+                    edicao.getId(),
+                    dto.estadoConservacao(),
+                    dto.dataAquisicao(),
+                    dto.precoPago(),
+                    dto.statusLeitura(),
+                    dto.observacoes(),
+                    true);
+            itemColecaoRepository.persist(itemColecaoMapper.paraEntidade(itemDto, usuario, edicao));
+            adicionadas++;
+        }
+
+        return new ResultadoCadastroSerieItemColecaoDTO(
+                serie.getId(),
+                serie.getTitulo(),
+                edicoes.size(),
+                adicionadas,
+                edicoes.size() - adicionadas);
     }
 
     private void publicarItemAdicionadoNaColecao(Usuario usuario, ItemColecao item) {
