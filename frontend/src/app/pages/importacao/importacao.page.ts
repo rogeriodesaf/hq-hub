@@ -13,6 +13,19 @@ import {
   Serie,
 } from '../../core/modelos';
 
+type StatusColetaLocal = 'INICIANDO' | 'COLETANDO' | 'CONCLUIDA' | 'ERRO' | 'CANCELADA';
+
+interface ColetaGuiaLocal {
+  id: string;
+  status: StatusColetaLocal;
+  mensagem: string;
+  paginasProcessadas: number;
+  totalPaginas: number;
+  avisos: string[];
+  logs: string[];
+  resultado: unknown | null;
+}
+
 @Component({
   selector: 'app-importacao-page',
   imports: [CommonModule, FormsModule, RouterLink],
@@ -96,9 +109,9 @@ import {
         @if (modoEntrada() === 'guia') {
           <section class="editor-visual-importacao coleta-guia">
             <aside class="dica-importacao-colaborador">
-              <strong>Coleta segura em etapas</strong>
-              <p>O HQ-HUB processa uma página por vez e descansa de 2 a 5 minutos a cada 10 páginas. Você pode sair desta tela e voltar depois: o progresso fica salvo.</p>
-              <p>Se o Guia solicitar verificação humana, a coleta será pausada. O importador manual de JSON continua disponível na aba ao lado.</p>
+              <strong>Coleta com verificação humana</strong>
+              <p>Use o assistente local para abrir o Chrome neste computador. Marque “Não sou um robô” quando o Guia solicitar e aguarde o JSON voltar para esta tela.</p>
+              <p>Nada será importado sem sua confirmação. A seleção manual de JSON continua disponível na aba <strong>JSON / robô</strong>.</p>
             </aside>
             <div class="grade-importacao-visual">
               <label class="campo-largo">
@@ -125,9 +138,77 @@ import {
               </label>
             </div>
 
+            <section class="assistente-local-guia" [class.online]="assistenteLocalOnline() === true">
+              <div class="cabecalho-assistente-local">
+                <div>
+                  <strong>Assistente local com Chrome (recomendado)</strong>
+                  <span>{{ textoStatusAssistenteLocal() }}</span>
+                </div>
+                <span class="status-assistente-local">
+                  {{ assistenteLocalOnline() === true ? 'Conectado' : assistenteLocalOnline() === false ? 'Desconectado' : 'Verificando' }}
+                </span>
+              </div>
+              @if (assistenteLocalOnline() !== true) {
+                <p>Abra o PowerShell na pasta do HQ-HUB e mantenha a janela aberta:</p>
+                <code>powershell -ExecutionPolicy Bypass -File docs/importacao/ferramentas/iniciar_assistente_local.ps1</code>
+              }
+              <div class="acoes-importacao">
+                <button class="botao secundario compacto" type="button" (click)="verificarAssistenteLocal()" [disabled]="verificandoAssistenteLocal()">
+                  {{ verificandoAssistenteLocal() ? 'Verificando...' : 'Verificar conexão' }}
+                </button>
+                <button class="botao primario" type="button" (click)="iniciarColetaGuiaLocal()" [disabled]="assistenteLocalOnline() !== true || coletaLocalEmAndamento()">
+                  {{ coletaLocalEmAndamento() ? 'Chrome em execução...' : 'Abrir Chrome e gerar JSON' }}
+                </button>
+              </div>
+            </section>
+
+            @if (coletaGuiaLocal(); as coletaLocal) {
+              <section class="andamento-coleta andamento-coleta-local">
+                <div>
+                  <strong>{{ coletaLocal.mensagem }}</strong>
+                  @if (coletaLocal.totalPaginas > 0) {
+                    <span>{{ coletaLocal.paginasProcessadas }} de {{ coletaLocal.totalPaginas }} páginas</span>
+                  }
+                </div>
+                @if (coletaLocal.totalPaginas > 0) {
+                  <progress [value]="coletaLocal.paginasProcessadas" [max]="coletaLocal.totalPaginas"></progress>
+                }
+                @if (coletaLocalEmAndamento()) {
+                  <p class="texto-suave">Conclua a verificação na janela do Chrome. Não feche o PowerShell nem o Chrome durante a coleta.</p>
+                  <button class="botao secundario compacto" type="button" (click)="cancelarColetaGuiaLocal()">Interromper coleta local</button>
+                }
+                @if (coletaLocal.logs.length) {
+                  <details>
+                    <summary>Atividade do assistente</summary>
+                    <pre>{{ coletaLocal.logs.join('\n') }}</pre>
+                  </details>
+                }
+              </section>
+
+              @if (coletaLocal.status === 'CONCLUIDA') {
+                <label class="campo-json">
+                  JSON recebido do assistente local para revisão
+                  <textarea [(ngModel)]="jsonTexto" name="jsonColetaGuiaLocal" spellcheck="false"></textarea>
+                </label>
+                <div class="acoes-importacao">
+                  <button class="botao secundario" type="button" (click)="baixarJsonGerado()">Baixar JSON</button>
+                  <button class="botao primario" type="button" (click)="importar()" [disabled]="importando() || !jsonTexto.trim()">
+                    {{ importando() ? 'Importando...' : 'Importar JSON' }}
+                  </button>
+                  <button class="botao compacto" type="button" (click)="novaColetaGuiaLocal()">Nova coleta local</button>
+                </div>
+              } @else if (coletaLocal.status === 'ERRO' || coletaLocal.status === 'CANCELADA') {
+                <button class="botao compacto" type="button" (click)="novaColetaGuiaLocal()">Tentar nova coleta local</button>
+              }
+            }
+
+            <details class="alternativa-coleta-servidor">
+              <summary>Usar a coleta pelo servidor do HQ-HUB</summary>
+              <p class="texto-suave">Esta alternativa não compartilha a sessão liberada no seu Chrome e pode ser bloqueada pelo Guia.</p>
+
             @if (!coletaGuia()) {
               <button class="botao primario" type="button" (click)="iniciarColetaGuia()" [disabled]="gerandoRascunho()">
-                {{ gerandoRascunho() ? 'Preparando coleta...' : 'Gerar JSON' }}
+                {{ gerandoRascunho() ? 'Preparando coleta...' : 'Gerar JSON pelo servidor' }}
               </button>
             } @else {
               <section class="andamento-coleta">
@@ -167,6 +248,7 @@ import {
                 </div>
               }
             }
+            </details>
           </section>
         }
 
@@ -854,6 +936,75 @@ import {
     .andamento-coleta span { color: var(--texto-suave); }
     .andamento-coleta progress { width: 100%; accent-color: var(--primaria); }
 
+    .assistente-local-guia {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--superficie);
+    }
+
+    .assistente-local-guia.online {
+      border-color: rgba(34, 197, 94, 0.55);
+      box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.12);
+    }
+
+    .cabecalho-assistente-local {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cabecalho-assistente-local > div {
+      display: grid;
+      gap: 4px;
+    }
+
+    .cabecalho-assistente-local span,
+    .assistente-local-guia p {
+      margin: 0;
+      color: var(--texto-suave);
+    }
+
+    .status-assistente-local {
+      flex: 0 0 auto;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--superficie-suave);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .assistente-local-guia.online .status-assistente-local {
+      color: #15803d;
+      background: rgba(34, 197, 94, 0.14);
+    }
+
+    .assistente-local-guia code,
+    .andamento-coleta-local pre {
+      overflow: auto;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.92);
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+      font-size: 0.78rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .alternativa-coleta-servidor {
+      padding: 12px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .alternativa-coleta-servidor summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
     .editor-visual-importacao,
     .edicao-visual,
     .historia-visual {
@@ -1272,6 +1423,8 @@ import {
 export class ImportacaoPage implements OnInit, OnDestroy {
   private static readonly COLETA_GUIA_STORAGE = 'hqhub-coleta-guia-id';
   private static readonly COLETA_GCD_STORAGE = 'hqhub-coleta-gcd-id';
+  private static readonly COLETA_GUIA_LOCAL_STORAGE = 'hqhub-coleta-guia-local-id';
+  private static readonly ASSISTENTE_LOCAL_URL = 'http://127.0.0.1:8765';
   private readonly api = inject(ApiService);
 
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
@@ -1282,6 +1435,9 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly processandoColeta = signal(false);
   readonly coletaGuia = signal<ColetaGuia | null>(null);
   readonly coletaGcd = signal<ColetaGuia | null>(null);
+  readonly coletaGuiaLocal = signal<ColetaGuiaLocal | null>(null);
+  readonly assistenteLocalOnline = signal<boolean | null>(null);
+  readonly verificandoAssistenteLocal = signal(false);
   readonly buscandoGcd = signal(false);
   readonly seriesGcd = signal<SerieGcd[]>([]);
   readonly serieGcdSelecionada = signal<SerieGcd | null>(null);
@@ -1290,6 +1446,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private readonly prazoColetaGcdMs = signal(0);
   private temporizadorColeta: ReturnType<typeof setTimeout> | null = null;
   private temporizadorColetaGcd: ReturnType<typeof setTimeout> | null = null;
+  private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
   readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd'>('visual');
   readonly buscandoSeriesVisual = signal(false);
@@ -1328,6 +1485,10 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   visualImportacao: any = this.modeloImportacao();
 
   ngOnInit() {
+    const coletaLocalId = localStorage.getItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
+    const iniciadoPeloAssistente = new URLSearchParams(window.location.search).has('assistenteLocal');
+    if (iniciadoPeloAssistente) this.modoEntrada.set('guia');
+    if (coletaLocalId || iniciadoPeloAssistente) void this.restaurarColetaGuiaLocal();
     const coletaGcdId = localStorage.getItem(ImportacaoPage.COLETA_GCD_STORAGE);
     if (coletaGcdId) {
       this.api.buscarColetaGcd(coletaGcdId).subscribe({
@@ -1355,6 +1516,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.cancelarTemporizadorColeta();
     this.cancelarTemporizadorColetaGcd();
+    this.cancelarTemporizadorColetaLocal();
   }
 
   tituloModoEntrada() {
@@ -1377,6 +1539,166 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     }
     this.modoEntrada.set(modo);
     this.mensagem.set('');
+    if (modo === 'guia' && this.assistenteLocalOnline() !== true) {
+      void this.verificarAssistenteLocal(false);
+    }
+  }
+
+  textoStatusAssistenteLocal() {
+    if (this.assistenteLocalOnline() === true) {
+      return 'Pronto para abrir o Chrome e devolver o JSON a esta página.';
+    }
+    if (this.assistenteLocalOnline() === false) {
+      return 'Inicie o assistente pelo PowerShell e verifique novamente.';
+    }
+    return 'Procurando o assistente neste computador...';
+  }
+
+  coletaLocalEmAndamento() {
+    const status = this.coletaGuiaLocal()?.status;
+    return status === 'INICIANDO' || status === 'COLETANDO';
+  }
+
+  async verificarAssistenteLocal(exibirMensagem = true) {
+    if (this.verificandoAssistenteLocal()) return;
+    this.verificandoAssistenteLocal.set(true);
+    try {
+      const resposta = await this.requisicaoAssistenteLocal<{ online: boolean }>('/health');
+      this.assistenteLocalOnline.set(resposta.online === true);
+      if (exibirMensagem) this.mensagem.set('Assistente local conectado. Agora você pode abrir o Chrome.');
+    } catch {
+      this.assistenteLocalOnline.set(false);
+      if (exibirMensagem) {
+        this.mensagem.set('Assistente local não encontrado. Execute o comando PowerShell mostrado nesta tela e mantenha a janela aberta.');
+      }
+    } finally {
+      this.verificandoAssistenteLocal.set(false);
+    }
+  }
+
+  async iniciarColetaGuiaLocal() {
+    this.mensagem.set('');
+    const validacao = this.validarGeracaoRascunho();
+    if (validacao) {
+      this.mensagem.set(validacao);
+      return;
+    }
+    if (this.assistenteLocalOnline() !== true) {
+      await this.verificarAssistenteLocal();
+      if (this.assistenteLocalOnline() !== true) return;
+    }
+
+    try {
+      const coleta = await this.requisicaoAssistenteLocal<ColetaGuiaLocal>('/coletas', {
+        method: 'POST',
+        body: JSON.stringify({
+          urlGuia: this.rascunho.urlGuia.trim(),
+          tituloSerie: this.rascunho.tituloSerie.trim(),
+          fase: this.rascunho.fase.trim() || null,
+          editora: this.rascunho.editora.trim(),
+          volume: this.rascunho.volume ? Number(this.rascunho.volume) : 1,
+          quantidade: this.rascunho.quantidade ? Number(this.rascunho.quantidade) : null,
+        }),
+      }, 15_000);
+      this.coletaGuiaLocal.set(coleta);
+      localStorage.setItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE, coleta.id);
+      this.mensagem.set('Chrome aberto pelo assistente local. Conclua a verificação do Guia na nova janela.');
+      this.agendarConsultaColetaLocal();
+    } catch (erro: any) {
+      this.mensagem.set(erro?.message || 'Não foi possível iniciar a coleta no assistente local.');
+      await this.verificarAssistenteLocal(false);
+    }
+  }
+
+  async cancelarColetaGuiaLocal() {
+    const coleta = this.coletaGuiaLocal();
+    if (!coleta || !this.coletaLocalEmAndamento()) return;
+    this.cancelarTemporizadorColetaLocal();
+    try {
+      const atualizada = await this.requisicaoAssistenteLocal<ColetaGuiaLocal>(`/coletas/${coleta.id}`, { method: 'DELETE' });
+      this.coletaGuiaLocal.set(atualizada);
+      this.mensagem.set('Coleta local interrompida.');
+    } catch (erro: any) {
+      this.mensagem.set(erro?.message || 'Não foi possível interromper a coleta local.');
+    }
+  }
+
+  novaColetaGuiaLocal() {
+    this.cancelarTemporizadorColetaLocal();
+    localStorage.removeItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
+    this.coletaGuiaLocal.set(null);
+    this.jsonTexto = '';
+    this.nomeArquivo.set('');
+    this.mensagem.set('');
+  }
+
+  private async restaurarColetaGuiaLocal() {
+    const id = localStorage.getItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
+    try {
+      await this.verificarAssistenteLocal(false);
+      if (!id || this.assistenteLocalOnline() !== true) return;
+      const coleta = await this.requisicaoAssistenteLocal<ColetaGuiaLocal>(`/coletas/${id}`);
+      this.modoEntrada.set('guia');
+      this.atualizarColetaGuiaLocal(coleta);
+    } catch {
+      localStorage.removeItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
+    }
+  }
+
+  private agendarConsultaColetaLocal() {
+    this.cancelarTemporizadorColetaLocal();
+    if (!this.coletaLocalEmAndamento()) return;
+    this.temporizadorColetaLocal = setTimeout(() => void this.consultarColetaGuiaLocal(), 1500);
+  }
+
+  private async consultarColetaGuiaLocal() {
+    const coleta = this.coletaGuiaLocal();
+    if (!coleta || !this.coletaLocalEmAndamento()) return;
+    try {
+      const atualizada = await this.requisicaoAssistenteLocal<ColetaGuiaLocal>(`/coletas/${coleta.id}`);
+      this.atualizarColetaGuiaLocal(atualizada);
+    } catch {
+      this.assistenteLocalOnline.set(false);
+      this.mensagem.set('A conexão com o assistente local foi perdida. Mantenha o PowerShell aberto e clique em “Verificar conexão”.');
+    }
+  }
+
+  private atualizarColetaGuiaLocal(coleta: ColetaGuiaLocal) {
+    this.coletaGuiaLocal.set(coleta);
+    localStorage.setItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE, coleta.id);
+    if (coleta.resultado) {
+      this.jsonTexto = JSON.stringify(coleta.resultado, null, 2);
+      this.nomeArquivo.set('rascunho-gerado-pelo-assistente-local.json');
+      this.mensagem.set('JSON recebido do Chrome. Revise o conteúdo e clique em “Importar JSON” quando estiver pronto.');
+    }
+    this.agendarConsultaColetaLocal();
+  }
+
+  private cancelarTemporizadorColetaLocal() {
+    if (this.temporizadorColetaLocal) {
+      clearTimeout(this.temporizadorColetaLocal);
+      this.temporizadorColetaLocal = null;
+    }
+  }
+
+  private async requisicaoAssistenteLocal<T>(caminho: string, opcoes: RequestInit = {}, timeoutMs = 5000): Promise<T> {
+    const controlador = new AbortController();
+    const temporizador = setTimeout(() => controlador.abort(), timeoutMs);
+    try {
+      const resposta = await fetch(`${ImportacaoPage.ASSISTENTE_LOCAL_URL}${caminho}`, {
+        ...opcoes,
+        headers: { 'Content-Type': 'application/json', ...(opcoes.headers || {}) },
+        cache: 'no-store',
+        signal: controlador.signal,
+      });
+      const corpo = await resposta.json().catch(() => ({}));
+      if (!resposta.ok) {
+        throw new Error(corpo?.mensagem || `O assistente local respondeu com HTTP ${resposta.status}.`);
+      }
+      return corpo as T;
+    } finally {
+      clearTimeout(temporizador);
+    }
   }
 
   selecionarArquivo(evento: Event) {
