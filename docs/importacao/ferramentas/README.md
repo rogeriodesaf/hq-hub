@@ -160,6 +160,33 @@ Saídas:
 Observação:
 - A Amazon pode bloquear requisições automatizadas. Use intervalos maiores se necessário e revise os resultados antes de aplicar no JSON final.
 
+## Pesquisar capas na Amazon por série e número
+
+O robô `robo_buscar_capas_amazon.py` abre o Chrome e pesquisa cada edição. Ele
+grava `null` quando não encontra uma correspondência segura. Se a Amazon pedir
+uma verificação, conclua-a manualmente no navegador e pressione ENTER no
+terminal.
+
+Exemplo para Zagor regular da Mythos, em lote de 20 edições:
+
+```powershell
+python docs/importacao/ferramentas/robo_buscar_capas_amazon.py `
+  --serie "Zagor" `
+  --editora "Mythos" `
+  --inicio 1 `
+  --fim 20 `
+  --excluir "Classic" `
+  --excluir "Nova Série" `
+  --excluir "Extra" `
+  --excluir "Origens" `
+  --excluir "Omnibus" `
+  --saida-urls "docs/importacao/rascunhos/zagor-mythos/capas-amazon-1-a-20.txt" `
+  --saida-relatorio "docs/importacao/rascunhos/zagor-mythos/capas-amazon-1-a-20-relatorio.json"
+```
+
+Use lotes de 10 a 20 edições e continue mudando `--inicio` e `--fim`. O TXT
+gerado pode ser aplicado a um JSON existente com `robo_aplicar_url_capa.py`.
+
 ## Aplicar lista manual de URLs de capa
 
 Quando você já tiver uma lista de URLs pronta (uma por edição, em ordem), use este robô para preencher `edicoes[].urlCapa` automaticamente.
