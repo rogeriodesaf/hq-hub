@@ -31,7 +31,7 @@ Exemplo com URL:
 
 ```powershell
 python docs/importacao/ferramentas/robo_importador_texto.py `
-  --url "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263" `
+  --url "https://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263" `
   --saida docs/importacao/rascunhos/saga-do-batman-url-robo.json `
   --titulo-serie "Saga do Batman, A" `
   --fase "1ª Série" `
@@ -43,7 +43,7 @@ Exemplo seguindo a galeria da coleção:
 
 ```powershell
 python docs/importacao/ferramentas/robo_importador_texto.py `
-  --url "http://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263" `
+  --url "https://www.guiadosquadrinhos.com/edicao/saga-do-batman-a-1-serie-n-2/sa011126/159263" `
   --seguir-galeria `
   --maximo-edicoes 36 `
   --intervalo-segundos 0.5 `
@@ -54,6 +54,35 @@ python docs/importacao/ferramentas/robo_importador_texto.py `
   --editora Panini `
   --volume 1
 ```
+
+Se o Guia exigir a verificação no navegador, use o importador interativo. Com
+`--armazenar-capas-cloudinary`, a capa é baixada pela mesma sessão liberada do
+Chrome, validada e enviada ao Cloudinary. O JSON recebe a `secure_url`, em vez
+do endereço protegido `ShowImage.aspx`.
+
+Configure `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` e
+`CLOUDINARY_API_SECRET` no ambiente e execute:
+
+```powershell
+python docs/importacao/ferramentas/robo_importador_navegador_interativo.py `
+  --url "https://www.guiadosquadrinhos.com/edicao/batman-3-serie-n-1/ba011156/129574" `
+  --saida docs/importacao/rascunhos/batman-3-serie.json `
+  --titulo-serie "Batman" `
+  --fase "3ª Série" `
+  --editora Panini `
+  --volume 3 `
+  --recarregar-a-cada 10 `
+  --armazenar-capas-cloudinary
+```
+
+URLs antigas do Guia iniciadas por `http://` são convertidas automaticamente
+para HTTPS por ambos os importadores. O modo interativo captura a sequência da
+galeria uma única vez e continua sozinho: depois das edições 10, 20, 30 etc.,
+aguarda aleatoriamente de 2 a 5 minutos e abre a próxima edição no mesmo Chrome.
+Não é necessário informar manualmente a URL da edição 11. Se o Guia pedir uma
+nova verificação, conclua-a na janela já aberta; o robô preserva a posição.
+Se o Guia responder com HTTP 403, ele tenta uma recarga imediata e interrompe o
+lote caso o segundo acesso também seja negado.
 
 ## Fluxo recomendado
 

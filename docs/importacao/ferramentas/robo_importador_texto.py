@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 from html import unescape
 from time import sleep
-from urllib.parse import urldefrag, urljoin
+from urllib.parse import urldefrag, urljoin, urlsplit, urlunsplit
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 from pathlib import Path
@@ -67,11 +67,29 @@ def normalizar_espacos(texto):
     return re.sub(r"\s+", " ", texto).strip()
 
 
+def normalizar_url_guia(url):
+    """Força HTTPS nas URLs históricas do Guia dos Quadrinhos."""
+    if not url:
+        return url
+
+    partes = urlsplit(url)
+    if partes.hostname and partes.hostname.lower() in {
+        "guiadosquadrinhos.com",
+        "www.guiadosquadrinhos.com",
+    }:
+        porta = partes.port
+        host = partes.hostname
+        netloc = host if porta in {None, 80, 443} else partes.netloc
+        return urlunsplit(("https", netloc, partes.path, partes.query, partes.fragment))
+    return url
+
+
 def ler_texto(caminho):
     return Path(caminho).read_text(encoding="utf-8-sig")
 
 
 def buscar_url(url, tentativas=3):
+    url = normalizar_url_guia(url)
     requisicao = Request(
         url,
         headers={
@@ -94,7 +112,14 @@ def buscar_url(url, tentativas=3):
 
 
 def html_para_texto(html):
-    imagens = re.findall(r"https?://[^\"']+?(?:jpg|jpeg|png|webp|ShowImage\.aspx[^\"']*)", html, flags=re.IGNORECASE)
+    imagens = [
+        unescape(url)
+        for url in re.findall(
+            r"https?://[^\"']+?(?:jpg|jpeg|png|webp|ShowImage\.aspx[^\"']*)",
+            html,
+            flags=re.IGNORECASE,
+        )
+    ]
     texto = re.sub(r"<(script|style)[\s\S]*?</\1>", " ", html, flags=re.IGNORECASE)
     texto = re.sub(r"<br\s*/?>", "\n", texto, flags=re.IGNORECASE)
     texto = re.sub(r"</(p|div|li|tr|td|h1|h2|h3|span)>", "\n", texto, flags=re.IGNORECASE)
@@ -131,7 +156,9 @@ def html_para_texto(html):
 
 
 def extrair_codigo_colecao(url):
-    encontrado = re.search(r"/([a-z]{2}\d{6})/", url, re.IGNORECASE)
+    # O Guia usa códigos históricos com cinco ou seis algarismos depois das
+    # duas letras (por exemplo, ba01101 e na011109).
+    encontrado = re.search(r"/([a-z]{2}\d{5,6})/", url, re.IGNORECASE)
     return encontrado.group(1) if encontrado else None
 
 
@@ -147,14 +174,30 @@ def extrair_links_galeria(html, url_base):
     if not codigo:
         return [url_base]
 
+    url_base = normalizar_url_guia(urldefrag(url_base).url)
     links = [url_base]
     for href in re.findall(r'href=["\']([^"\']*/edicao/[^"\']+)["\']', html, flags=re.IGNORECASE):
-        url = urldefrag(urljoin(url_base, unescape(href))).url
-        if f"/{codigo}/" in url:
+        url = normalizar_url_guia(urldefrag(urljoin(url_base, unescape(href))).url)
+        if f"/{codigo.lower()}/" in url.lower() and extrair_numero_url_edicao(url) > 0:
             links.append(url)
 
     links_unicos = list(dict.fromkeys(links))
-    return sorted(links_unicos, key=extrair_numero_url_edicao)
+    links_ordenados = sorted(links_unicos, key=extrair_numero_url_edicao)
+
+    # Algumas galerias contêm anúncios com aparência de edição e, em casos
+    # pontuais, mais de uma URL para o mesmo número. A importação do catálogo
+    # usa o número como identificador da edição, então mantemos apenas a
+    # primeira URL válida de cada número.
+    numeros_encontrados = set()
+    edicoes = []
+    for url in links_ordenados:
+        numero = extrair_numero_url_edicao(url)
+        if numero <= 0 or numero in numeros_encontrados:
+            continue
+        numeros_encontrados.add(numero)
+        edicoes.append(url)
+
+    return edicoes or [url_base]
 
 
 def limitar_urls_a_partir_da_inicial(urls, url_inicial, maximo_edicoes):
@@ -234,7 +277,13 @@ def linha_parece_cabecalho_edicao(linha):
     if linha.startswith("Publicada "):
         return False
 
-    return bool(re.search(r"(?:^|\s)n[°º]\s*\d+[A-Za-z]?(?:\s|$)", linha))
+    return bool(
+        re.search(
+            r"(?:^|\s)n[°º]\s*(?:\d+[A-Za-z]?|[ÚU]NICA)(?:\s|$)",
+            linha,
+            re.IGNORECASE,
+        )
+    )
 
 
 def cabecalho_tem_metadados_de_edicao(linhas, indice):
@@ -242,7 +291,7 @@ def cabecalho_tem_metadados_de_edicao(linhas, indice):
     return "Publicado em:" in janela or "Editora:" in janela or "Licenciador:" in janela
 
 
-def separar_blocos_edicoes(linhas):
+def separar_blocos_edicoes(linhas, titulo_serie_fallback=None):
     blocos = []
     bloco_atual = []
 
@@ -258,11 +307,30 @@ def separar_blocos_edicoes(linhas):
     if bloco_atual:
         blocos.append(bloco_atual)
 
+    # Algumas edições encadernadas não exibem número no título. Nesse caso,
+    # cria um cabeçalho sintético para que o restante do extrator possa tratar
+    # a página como uma edição normal.
+    if not blocos:
+        indice_publicado = next(
+            (indice for indice, linha in enumerate(linhas) if linha.strip().startswith("Publicado em:")),
+            None,
+        )
+        if indice_publicado is not None:
+            texto = "\n".join(linhas)
+            status = extrair_primeiro(r"Status:\s*([^\n]+)", texto) or ""
+            numero = "UNICA" if re.search(r"(?:edição\s+)?[úu]nica", status, re.IGNORECASE) else "1"
+            titulo = titulo_serie_fallback or "Edição"
+            blocos = [[f"{titulo} n° {numero}", *[linha.strip() for linha in linhas[indice_publicado:] if linha.strip()]]]
+
     return blocos
 
 
 def extrair_cabecalho(linha):
-    encontrado = re.search(r"^(?P<titulo>.+?)\s*(?:-\s*)?n[°º]\s*(?P<numero>\d+[A-Za-z]?)", linha)
+    encontrado = re.search(
+        r"^(?P<titulo>.+?)\s*(?:-\s*)?n[°º]\s*(?P<numero>\d+[A-Za-z]?|[ÚU]NICA)",
+        linha,
+        re.IGNORECASE,
+    )
     if not encontrado:
         return None, None
 
@@ -465,9 +533,15 @@ def extrair_edicao(bloco, titulo_serie_padrao, editora_padrao):
 def montar_json(args):
     texto, urls_processadas, avisos_carregamento = carregar_texto_e_origem(args)
     linhas = texto.splitlines()
-    blocos = separar_blocos_edicoes(linhas)
+    blocos = separar_blocos_edicoes(linhas, args.titulo_serie)
     avisos = list(avisos_carregamento)
     edicoes = []
+
+    if not blocos:
+        avisos.append(
+            "Nenhuma edição foi identificada no conteúdo recebido. "
+            "A página pode estar incompleta ou o formato do site pode ter mudado."
+        )
 
     for bloco in blocos:
         edicao = extrair_edicao(bloco, args.titulo_serie, args.editora)
@@ -584,6 +658,7 @@ def main():
         ),
     )
     args = parser.parse_args()
+    args.url = normalizar_url_guia(args.url)
 
     resultado = montar_json(args)
     saida = resolver_caminho_saida(args, resultado)

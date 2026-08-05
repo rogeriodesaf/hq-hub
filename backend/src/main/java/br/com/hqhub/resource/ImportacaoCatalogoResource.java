@@ -211,6 +211,7 @@ public class ImportacaoCatalogoResource {
                     0,
                     0,
                     0,
+                    1,
                     aposId,
                     false,
                     List.of("Falha geral no backfill: " + e.getClass().getSimpleName() + " - " + e.getMessage())))

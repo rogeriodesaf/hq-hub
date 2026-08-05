@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.StreamSupport;
@@ -149,12 +150,18 @@ public class IntegracaoExternaService {
         for (String termo : termosResolucaoComicVineOriginal(serie, numero, ano, editora)) {
             PaginaRespostaDTO<EdicaoComicVineRespostaDTO> resposta = buscarEdicoesComicVinePorTermo(termo, 0,
                     TAMANHO_MAXIMO_COMICVINE);
-            Optional<EdicaoComicVineRespostaDTO> encontrada = resposta.itens().stream()
+            List<EdicaoComicVineRespostaDTO> encontradas = resposta.itens().stream()
                     .filter(edicao -> edicaoComicVineOriginalCombina(serie, numero, ano, editora, edicao))
-                    .findFirst();
+                    .filter(this::temIdentidadeComicVine)
+                    .collect(java.util.stream.Collectors.toMap(
+                            EdicaoComicVineRespostaDTO::idExterno,
+                            edicao -> edicao,
+                            (primeira, repetida) -> primeira,
+                            LinkedHashMap::new))
+                    .values().stream().toList();
 
-            if (encontrada.isPresent()) {
-                EdicaoComicVineRespostaDTO detalhe = buscarDetalheEdicaoComicVine(encontrada.get().idExterno());
+            if (encontradas.size() == 1) {
+                EdicaoComicVineRespostaDTO detalhe = buscarDetalheEdicaoComicVine(encontradas.get(0).idExterno());
                 if (edicaoComicVineOriginalCombina(serie, numero, ano, editora, detalhe)) {
                     return Optional.of(detalhe);
                 }
@@ -213,16 +220,34 @@ public class IntegracaoExternaService {
         for (String termo : termosResolucaoComicVine(serie, numero)) {
             PaginaRespostaDTO<EdicaoComicVineRespostaDTO> resposta = buscarEdicoesComicVinePorTermo(termo, 0,
                     TAMANHO_MAXIMO_COMICVINE);
-            Optional<EdicaoComicVineRespostaDTO> encontrada = resposta.itens().stream()
+            List<EdicaoComicVineRespostaDTO> encontradas = resposta.itens().stream()
                     .filter(edicao -> edicaoComicVineCombina(serie, numero, edicao))
-                    .findFirst();
+                    .filter(this::temIdentidadeComicVine)
+                    .collect(java.util.stream.Collectors.toMap(
+                            EdicaoComicVineRespostaDTO::idExterno,
+                            edicao -> edicao,
+                            (primeira, repetida) -> primeira,
+                            LinkedHashMap::new))
+                    .values().stream().toList();
 
-            if (encontrada.isPresent()) {
-                return buscarDetalheEdicaoComicVine(encontrada.get().idExterno());
+            if (encontradas.size() == 1) {
+                EdicaoComicVineRespostaDTO detalhe = buscarDetalheEdicaoComicVine(encontradas.get(0).idExterno());
+                if (edicaoComicVineCombina(serie, numero, detalhe) && !estaVazio(detalhe.urlImagem())) {
+                    return detalhe;
+                }
             }
         }
 
-        throw new RegraNegocioException("Edição não encontrada na ComicVine para a série e número informados.");
+        throw new RegraNegocioException(
+                "Edição não encontrada com correspondência única e capa na ComicVine para a série e número informados.");
+    }
+
+    private boolean temIdentidadeComicVine(EdicaoComicVineRespostaDTO edicao) {
+        return edicao.idExterno() != null && !edicao.idExterno().isBlank();
+    }
+
+    private boolean estaVazio(String texto) {
+        return texto == null || texto.isBlank();
     }
 
     public PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarEdicoesVolumeComicVine(

@@ -124,12 +124,28 @@ import {
         @if (serieSelecionada() && podeExcluirCatalogo()) {
           <aside class="acao-capas-serie" aria-live="polite">
             <div>
-              <strong>Capas da série {{ serieSelecionada()!.titulo }}</strong>
-              <span>Busque e salve automaticamente as capas que estiverem faltando, sem abrir cada edição.</span>
+              <strong>Capas ausentes de {{ serieSelecionada()!.titulo }}</strong>
+              <span>Procura correspondências únicas por título e número. Capas existentes nunca serão substituídas.</span>
             </div>
             <button class="botao primario compacto" type="button" (click)="preencherCapasSerieSelecionada()" [disabled]="preenchendoCapasSerie()">
-              {{ preenchendoCapasSerie() ? 'Buscando capas...' : 'Preencher capas automaticamente' }}
+              {{ preenchendoCapasSerie() ? 'Buscando capas...' : 'Buscar capas ausentes na Comic Vine' }}
             </button>
+            @if (resumoCapasSerie(); as resumoCapas) {
+              <div class="resumo-capas-comic-vine">
+                <span><strong>{{ resumoCapas.processadas }}</strong> analisadas</span>
+                <span class="sucesso"><strong>{{ resumoCapas.atualizadas }}</strong> salvas</span>
+                <span><strong>{{ resumoCapas.semCorrespondencia }}</strong> sem correspondência única</span>
+                <span [class.erro]="resumoCapas.falhas > 0"><strong>{{ resumoCapas.falhas }}</strong> falhas da API</span>
+                @if (resumoCapas.avisos.length) {
+                  <details>
+                    <summary>Ver detalhes</summary>
+                    <ul>
+                      @for (aviso of resumoCapas.avisos; track $index) { <li>{{ aviso }}</li> }
+                    </ul>
+                  </details>
+                }
+              </div>
+            }
           </aside>
         }
 
@@ -955,6 +971,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
   readonly preenchendoCapasSerie = signal(false);
+  readonly resumoCapasSerie = signal<{
+    processadas: number;
+    atualizadas: number;
+    semCorrespondencia: number;
+    falhas: number;
+    avisos: string[];
+  } | null>(null);
   readonly exibindoFormularioConteudo = signal(false);
   readonly editandoConteudo = signal<ConteudoEdicao | null>(null);
   readonly salvandoConteudo = signal(false);
@@ -1074,6 +1097,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   selecionarSerie(serie: Serie) {
     this.serieSelecionada.set(serie);
+    this.resumoCapasSerie.set(null);
     this.limparPesquisaSeries();
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
@@ -1088,6 +1112,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     let processadas = 0;
     let atualizadas = 0;
     let semCorrespondencia = 0;
+    let falhas = 0;
+    const avisos: string[] = [];
+    this.resumoCapasSerie.set(null);
     try {
       do {
         this.mensagem.set(`Buscando capas de ${serie.titulo}: ${processadas} edição(ões) processada(s)...`);
@@ -1097,13 +1124,26 @@ export class CatalogoPage implements OnInit, OnDestroy {
         processadas += lote.processadas;
         atualizadas += lote.atualizadas;
         semCorrespondencia += lote.semCorrespondencia;
+        falhas += lote.falhas || 0;
+        avisos.push(...(lote.avisos || []));
         cursor = lote.proximoCursor;
         if (!lote.possuiMais) break;
         await new Promise((resolve) => setTimeout(resolve, 250));
       } while (processadas < 5000);
 
       this.buscarResultados(0);
-      this.mensagem.set(`Capas concluídas: ${atualizadas} salva(s) e ${semCorrespondencia} sem correspondência segura.`);
+      this.resumoCapasSerie.set({
+        processadas,
+        atualizadas,
+        semCorrespondencia,
+        falhas,
+        avisos: avisos.slice(0, 100),
+      });
+      this.mensagem.set(falhas > 0 && processadas === 0
+        ? 'A consulta não pôde ser concluída. Abra “Ver detalhes” para conferir o erro da Comic Vine.'
+        : processadas === 0
+          ? 'Todas as edições relacionadas já possuem capa.'
+          : `Comic Vine concluída: ${atualizadas} capa(s) salva(s), ${semCorrespondencia} sem correspondência única e ${falhas} falha(s) de consulta.`);
     } catch (erro: any) {
       this.mensagem.set(erro?.error?.mensagem || 'Não foi possível preencher as capas automaticamente.');
     } finally {

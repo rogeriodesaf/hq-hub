@@ -124,6 +124,8 @@ def atualizar_por_log(coleta, linha):
             coleta["mensagem"] = f"Coletando edição {encontrado.group(1)} de {encontrado.group(2)} no Chrome..."
         elif "Aguardando a página do Guia" in linha:
             coleta["mensagem"] = "Aguardando você concluir a verificação 'Não sou um robô' no Chrome..."
+        elif "Pausa automática entre lotes:" in linha:
+            coleta["mensagem"] = linha
         elif "Arquivo gerado:" in linha:
             coleta["mensagem"] = "JSON gerado. Preparando a devolução ao HQ-HUB..."
 

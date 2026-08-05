@@ -2326,6 +2326,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     let processadas = 0;
     let atualizadas = 0;
     let semCorrespondencia = 0;
+    let falhas = 0;
     const avisos: string[] = [];
 
     try {
@@ -2339,6 +2340,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         processadas += lote.processadas;
         atualizadas += lote.atualizadas;
         semCorrespondencia += lote.semCorrespondencia;
+        falhas += lote.falhas || 0;
         avisos.push(...(lote.avisos || []));
         cursor = lote.proximoCursor;
 
@@ -2356,7 +2358,13 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         });
       }
 
-      return `Comic Vine: ${atualizadas} capa(s) atualizada(s) e ${semCorrespondencia} sem correspondência segura.`;
+      if (falhas > 0 && processadas === 0) {
+        return `Comic Vine: a consulta falhou. ${avisos[0] || 'Confira a configuração e tente novamente.'}`;
+      }
+      if (processadas === 0) {
+        return 'Comic Vine: todas as edições relacionadas já possuem capa.';
+      }
+      return `Comic Vine: ${atualizadas} capa(s) atualizada(s), ${semCorrespondencia} sem correspondência única e ${falhas} falha(s) de consulta.`;
     } catch (erro: any) {
       if (erro?.status === 403) {
         return 'As capas da Comic Vine ficaram pendentes porque o backfill exige perfil de administrador.';

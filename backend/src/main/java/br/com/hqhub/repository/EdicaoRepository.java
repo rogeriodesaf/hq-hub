@@ -97,7 +97,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .firstResultOptional();
     }
 
-    public List<Edicao> listarOriginaisGuiaSemComicVine(
+    public List<Edicao> listarCandidatasCapaComicVine(
             String fonteExterna,
             int limite,
             String serie,
@@ -110,18 +110,13 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 left join publicacoes_historias p on p.edicao_original_id = e.id
                 inner join series s on s.id = e.serie_id
                 left join edicoes eb on eb.id = p.edicao_publicada_id
-                where e.fonte_externa = :fonteExterna
-                  and (
-                    e.id_comic_vine is null or e.id_comic_vine = ''
-                    or e.url_comic_vine is null or e.url_comic_vine = ''
-                    or e.url_capa is null or e.url_capa = ''
-                  )
+                where (e.url_capa is null or trim(e.url_capa) = '')
                 """);
 
         if (serieBrasileiraId != null) {
             sql.append(" and (e.serie_id = :serieBrasileiraId or eb.serie_id = :serieBrasileiraId)");
         } else {
-            sql.append(" and p.id is not null");
+            sql.append(" and e.fonte_externa = :fonteExterna and p.id is not null");
         }
 
         if (serie != null && !serie.isBlank()) {
@@ -139,11 +134,12 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         sql.append(" order by e.id");
 
         var query = entityManager.createNativeQuery(sql.toString(), Edicao.class)
-                .setParameter("fonteExterna", fonteExterna)
                 .setMaxResults(limite);
 
         if (serieBrasileiraId != null) {
             query.setParameter("serieBrasileiraId", serieBrasileiraId);
+        } else {
+            query.setParameter("fonteExterna", fonteExterna);
         }
 
         if (serie != null && !serie.isBlank()) {

@@ -2868,6 +2868,7 @@ body.tema-escuro .sugestoes-assistente {
 
 .acao-capas-serie {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -2886,6 +2887,38 @@ body.tema-escuro .sugestoes-assistente {
 .acao-capas-serie span {
   color: var(--texto-suave);
   font-size: 0.9rem;
+}
+
+.resumo-capas-comic-vine {
+  display: flex !important;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem !important;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 122, 0, 0.24);
+}
+
+.resumo-capas-comic-vine .sucesso {
+  color: #15803d;
+}
+
+.resumo-capas-comic-vine .erro {
+  color: #b91c1c;
+}
+
+.resumo-capas-comic-vine details {
+  flex-basis: 100%;
+}
+
+.resumo-capas-comic-vine summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.resumo-capas-comic-vine li {
+  margin-top: 0.35rem;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
 }
 
 @media (max-width: 600px) {

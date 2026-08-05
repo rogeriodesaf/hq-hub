@@ -576,6 +576,7 @@ export interface ResultadoBackfillComicVine {
   processadas: number;
   atualizadas: number;
   semCorrespondencia: number;
+  falhas: number;
   proximoCursor: number | null;
   possuiMais: boolean;
   avisos: string[];

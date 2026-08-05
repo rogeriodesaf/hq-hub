@@ -6,6 +6,7 @@ public record ResultadoBackfillComicVineDTO(
         int processadas,
         int atualizadas,
         int semCorrespondencia,
+        int falhas,
         Long proximoCursor,
         boolean possuiMais,
         List<String> avisos) {

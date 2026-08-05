@@ -137,7 +137,7 @@ public class ImportacaoCatalogoService {
         int limiteTratado = limite == null || limite <= 0 ? 1 : Math.min(limite, 5);
         List<Edicao> edicoes;
         try {
-            edicoes = edicaoRepository.listarOriginaisGuiaSemComicVine(
+            edicoes = edicaoRepository.listarCandidatasCapaComicVine(
                     FONTE_GUIA_DOS_QUADRINHOS,
                     limiteTratado + 1,
                     serie,
@@ -149,9 +149,10 @@ public class ImportacaoCatalogoService {
                     0,
                     0,
                     0,
+                    1,
                     aposId,
                     false,
-                    List.of("Falha ao listar edições originais do Guia para backfill: "
+                    List.of("Falha ao listar edições sem capa para preenchimento pela Comic Vine: "
                             + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes")));
         }
 
@@ -159,13 +160,14 @@ public class ImportacaoCatalogoService {
         List<Edicao> lote = edicoes.stream().limit(limiteTratado).toList();
         int atualizadas = 0;
         int semCorrespondencia = 0;
+        int falhas = 0;
         List<String> avisos = new ArrayList<>();
         Long proximoCursor = aposId;
 
         for (Edicao edicao : lote) {
             proximoCursor = edicao.getId();
             try {
-                if (enriquecerEdicaoOriginalComicVine(edicao)) {
+                if (enriquecerCapaComicVine(edicao, serieBrasileiraId)) {
                     atualizadas++;
                 } else {
                     semCorrespondencia++;
@@ -173,8 +175,9 @@ public class ImportacaoCatalogoService {
                             + edicao.getSerie().getTitulo() + " #" + edicao.getNumero());
                 }
             } catch (Throwable e) {
-                semCorrespondencia++;
-                adicionarAvisoBackfill(avisos, "Falha ao enriquecer edicao original " + edicao.getId()
+                falhas++;
+                adicionarAvisoBackfill(avisos, "Falha ao consultar a Comic Vine para "
+                        + edicao.getSerie().getTitulo() + " #" + edicao.getNumero() + " (ID " + edicao.getId() + ")"
                         + ": " + e.getClass().getSimpleName() + " - " + textoOuPadrao(e.getMessage(), "sem detalhes"));
             }
         }
@@ -183,6 +186,7 @@ public class ImportacaoCatalogoService {
                 lote.size(),
                 atualizadas,
                 semCorrespondencia,
+                falhas,
                 proximoCursor,
                 possuiMais,
                 avisos);
@@ -431,26 +435,40 @@ public class ImportacaoCatalogoService {
 
     }
 
-    private boolean enriquecerEdicaoOriginalComicVine(Edicao edicao) {
-        if (temDadosComicVineCompletos(edicao)) {
+    private boolean enriquecerCapaComicVine(Edicao edicao, Long serieBrasileiraId) {
+        if (!estaVazio(edicao.getUrlCapa())) {
             return false;
         }
 
-        try {
-            Optional<EdicaoComicVineRespostaDTO> encontrada = integracaoExternaService.resolverEdicaoComicVineOriginal(
+        boolean edicaoDaSerieSelecionada = serieBrasileiraId != null
+                && edicao.getSerie() != null
+                && serieBrasileiraId.equals(edicao.getSerie().getId());
+        Optional<EdicaoComicVineRespostaDTO> encontrada;
+        if (edicaoDaSerieSelecionada) {
+            try {
+                encontrada = Optional.of(integracaoExternaService.resolverEdicaoComicVinePorSerieENumero(
+                        edicao.getSerie().getTitulo(),
+                        edicao.getNumero()));
+            } catch (RegraNegocioException e) {
+                if (e.getMessage() != null && e.getMessage().contains("não encontrada")) {
+                    return false;
+                }
+                throw e;
+            }
+        } else {
+            encontrada = integracaoExternaService.resolverEdicaoComicVineOriginal(
                     edicao.getSerie().getTitulo(),
                     edicao.getNumero(),
                     edicao.getDataPublicacao() == null ? edicao.getSerie().getAnoInicio() : edicao.getDataPublicacao().getYear(),
                     edicao.getSerie().getEditora().getNome());
-            if (encontrada.isEmpty()) {
-                return false;
-            }
+        }
 
-            aplicarDadosComicVineOriginal(edicao, encontrada.get());
-            return true;
-        } catch (Throwable e) {
+        if (encontrada.isEmpty() || estaVazio(encontrada.get().urlImagem())) {
             return false;
         }
+
+        aplicarDadosComicVineOriginal(edicao, encontrada.get());
+        return true;
     }
 
     private void aplicarDadosComicVineOriginal(Edicao edicao, EdicaoComicVineRespostaDTO comicVine) {
@@ -506,12 +524,6 @@ public class ImportacaoCatalogoService {
         if (dto.dataCapturacaoPrecoCompraAmazon() != null) {
             link.setDataCapturacaoPreco(dto.dataCapturacaoPrecoCompraAmazon());
         }
-    }
-
-    private boolean temDadosComicVineCompletos(Edicao edicao) {
-        return !estaVazio(edicao.getIdComicVine())
-                && !estaVazio(edicao.getUrlComicVine())
-                && !estaVazio(edicao.getUrlCapa());
     }
 
     private LocalDate dataComicVine(String data) {
