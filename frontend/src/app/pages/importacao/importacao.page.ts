@@ -704,6 +704,15 @@ import {
           >
             {{ salvandoCapaCatalogo() ? 'Atualizando...' : 'Atualizar capa no catálogo' }}
           </button>
+
+          <button
+            class="botao secundario compacto"
+            type="button"
+            (click)="buscarCapasComicVineDaSerie()"
+            [disabled]="!serieCapaSelecionada() || salvandoCapaCatalogo()"
+          >
+            {{ salvandoCapaCatalogo() ? 'Buscando capas...' : 'Buscar capas da série na Comic Vine' }}
+          </button>
         </section>
 
         @if (resultado()) {
@@ -2187,6 +2196,31 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         this.mensagem.set(erro?.error?.mensagem || 'Não foi possível listar edições da série.');
       },
     });
+  }
+
+  async buscarCapasComicVineDaSerie() {
+    const serie = this.serieCapaSelecionada();
+    if (!serie || this.salvandoCapaCatalogo()) return;
+    this.salvandoCapaCatalogo.set(true);
+    this.mensagem.set('Buscando e salvando capas da Comic Vine...');
+    try {
+      const resumo = await this.executarBackfillCapasComicVine({
+        serieId: serie.id,
+        serieTitulo: serie.titulo,
+        editorasCriadas: 0,
+        seriesCriadas: 0,
+        edicoesCriadas: 0,
+        edicoesAtualizadas: 0,
+        historiasCriadas: 0,
+        conteudosCriados: 0,
+        publicacoesCriadas: 0,
+        itensReaproveitados: 0,
+        avisos: [],
+      });
+      this.mensagem.set(resumo);
+    } finally {
+      this.salvandoCapaCatalogo.set(false);
+    }
   }
 
   limpar() {

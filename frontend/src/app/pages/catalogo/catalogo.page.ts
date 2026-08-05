@@ -2285,6 +2285,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       next: (detalhe) => {
         if (this.edicaoDetalhe()?.id === edicao.id) {
           this.detalheComicVineInterno.set(detalhe);
+          this.persistirCapaComicVine(edicao, detalhe.urlImagem);
         }
       },
       error: () => undefined,
@@ -2340,6 +2341,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       next: (detalhe) => {
         if (this.edicaoDetalhe()?.id === edicao.id) {
           this.detalheComicVineInterno.set(detalhe);
+          this.persistirCapaComicVine(edicao, detalhe.urlImagem);
         }
       },
       error: () => undefined,
@@ -2604,6 +2606,24 @@ export class CatalogoPage implements OnInit, OnDestroy {
       formato: edicao.formato || '',
       urlOrigem: edicao.urlOrigem || edicao.urlComicVine || '',
     };
+  }
+
+  private persistirCapaComicVine(edicao: Edicao, urlImagem: string | null) {
+    if (!urlImagem || edicao.urlCapa || !this.podeEditarCatalogo()) {
+      return;
+    }
+    this.api.atualizarCapaEdicao(edicao.id, urlImagem).subscribe({
+      next: (atualizada) => {
+        if (this.edicaoDetalhe()?.id === atualizada.id) {
+          this.edicaoDetalhe.set(atualizada);
+        }
+        this.resultadosCatalogo.update((pagina) => ({
+          ...pagina,
+          itens: pagina.itens.map((item) => item.id === atualizada.id ? { ...item, urlCapa: atualizada.urlCapa } : item),
+        }));
+      },
+      error: () => undefined,
+    });
   }
 
   private formularioConteudoVazio(): {

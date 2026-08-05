@@ -107,9 +107,9 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         StringBuilder sql = new StringBuilder("""
                 select distinct e.*
                 from edicoes e
-                inner join publicacoes_historias p on p.edicao_original_id = e.id
+                left join publicacoes_historias p on p.edicao_original_id = e.id
                 inner join series s on s.id = e.serie_id
-                inner join edicoes eb on eb.id = p.edicao_publicada_id
+                left join edicoes eb on eb.id = p.edicao_publicada_id
                 where e.fonte_externa = :fonteExterna
                   and (
                     e.id_comic_vine is null or e.id_comic_vine = ''
@@ -119,7 +119,9 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 """);
 
         if (serieBrasileiraId != null) {
-            sql.append(" and eb.serie_id = :serieBrasileiraId");
+            sql.append(" and (e.serie_id = :serieBrasileiraId or eb.serie_id = :serieBrasileiraId)");
+        } else {
+            sql.append(" and p.id is not null");
         }
 
         if (serie != null && !serie.isBlank()) {
