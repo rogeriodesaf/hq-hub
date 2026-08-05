@@ -228,8 +228,8 @@ import { environment } from '../../../environments/environment';
 
         <section class="lista-feed">
           @for (postagem of feed(); track postagem.id) {
-            <article class="bloco postagem-card" [id]="idPostagem(postagem)">
-              <header>
+            <article class="bloco postagem-card" [id]="idPostagem(postagem)" [class.postagem-fixada]="postagem.fixada">
+              <header class="cabecalho-postagem">
                 <div class="avatar-feed">
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-perfil">
                     @if (postagem.usuario.fotoPerfilThumbnailUrl) {
@@ -243,26 +243,42 @@ import { environment } from '../../../environments/environment';
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-nome-amigo">
                     <strong>{{ postagem.usuario.nome }}</strong>
                   </a>
-                  <small>
-                    @if (postagem.usuario.bio) {
-                      {{ postagem.usuario.bio }} ·
-                    }
-                    {{ dataRelativa(postagem.dataCriacao) }} - Publico
+                  @if (postagem.usuario.bio) {
+                    <span class="bio-autor">{{ postagem.usuario.bio }}</span>
+                  }
+                  <small class="metadados-postagem">
+                    {{ dataRelativa(postagem.dataCriacao) }} <span aria-hidden="true">•</span> Público
+                    @if (postagem.fixada) { <span class="selo-fixada">• Fixada</span> }
                   </small>
                 </div>
-                @if (postagem.usuario.id === usuario()?.id) {
-                  <button
-                    class="botao compacto perigo acao-postagem"
-                    type="button"
-                    (click)="removerPostagem(postagem)"
-                    [disabled]="interagindoId() === postagem.id"
-                  >
-                    Remover
-                  </button>
-                }
+                <details class="menu-postagem">
+                  <summary aria-label="Abrir opções da publicação" title="Opções">•••</summary>
+                  <div class="menu-postagem-popover">
+                    @if (podeEditarCanal(postagem)) {
+                      <button type="button" (click)="iniciarEdicaoPostagem(postagem, $event)">Editar postagem</button>
+                      <button class="perigo" type="button" (click)="removerPeloMenu(postagem, $event)" [disabled]="interagindoId() === postagem.id">
+                        Remover postagem
+                      </button>
+                      <button type="button" (click)="alternarFixacao(postagem, $event)" [disabled]="interagindoId() === postagem.id">
+                        {{ postagem.fixada ? 'Desafixar publicação' : 'Fixar publicação' }}
+                      </button>
+                    }
+                    <button type="button" (click)="compartilharPeloMenu(postagem, $event)">Compartilhar</button>
+                  </div>
+                </details>
               </header>
 
-              <p class="texto-postagem">{{ postagem.conteudo }}</p>
+              @if (editandoPostagemId() === postagem.id) {
+                <div class="editor-postagem">
+                  <textarea [(ngModel)]="conteudosEdicao[postagem.id]" [name]="'conteudoEdicao' + postagem.id" maxlength="2000" rows="4"></textarea>
+                  <div>
+                    <button class="botao compacto primario" type="button" (click)="salvarEdicaoPostagem(postagem)" [disabled]="interagindoId() === postagem.id">Salvar</button>
+                    <button class="botao compacto" type="button" (click)="cancelarEdicaoPostagem()">Cancelar</button>
+                  </div>
+                </div>
+              } @else if (conteudoVisivel(postagem)) {
+                <p class="texto-postagem">{{ conteudoVisivel(postagem) }}</p>
+              }
 
               @if (postagem.colecaoDestaque) {
                 <article class="cartao-colecao-feed">
@@ -319,6 +335,17 @@ import { environment } from '../../../environments/environment';
                 </div>
               }
 
+              @if (postagem.catalogoDestaque || postagem.colecaoDestaque) {
+                <section class="contexto-hq" aria-label="Relacionado a esta HQ">
+                  <strong><span aria-hidden="true">▤</span> Relacionado a esta HQ</strong>
+                  <div>
+                    <span>✓ HQ</span>
+                    @if (postagem.relatedVideos.length) { <span>✓ Vídeo</span> }
+                    @if (editoraRelacionada(postagem)) { <span>✓ {{ editoraRelacionada(postagem) }}</span> }
+                  </div>
+                </section>
+              }
+
               <app-related-content
                 [videos]="postagem.relatedVideos"
                 [partnerChannel]="postagem.partnerChannel"
@@ -358,6 +385,11 @@ import { environment } from '../../../environments/environment';
                 </div>
               }
 
+              <div class="contadores-postagem" [class.zerados]="postagem.totalCurtidas === 0 && postagem.comentarios.length === 0">
+                <span>♥ {{ postagem.totalCurtidas }}</span>
+                <span>💬 {{ postagem.comentarios.length }} {{ postagem.comentarios.length === 1 ? 'comentário' : 'comentários' }}</span>
+              </div>
+
               <div class="barra-postagem">
                 <button
                   class="acao-social"
@@ -367,15 +399,18 @@ import { environment } from '../../../environments/environment';
                   [disabled]="interagindoId() === postagem.id"
                 >
                   <span>{{ postagem.curtidaPeloUsuario ? '♥' : '♡' }}</span>
-                  {{ postagem.totalCurtidas }}
+                  {{ postagem.curtidaPeloUsuario ? 'Curtido' : 'Curtir' }}
                 </button>
-                <span class="contador-social">{{ postagem.comentarios.length }} comentarios</span>
+                <button class="acao-social" type="button" (click)="focarComentario(postagem)">
+                  <span class="icone-acao neutro">💬</span> Comentar
+                </button>
                 <button
                   class="acao-social compartilhar"
                   type="button"
                   (click)="compartilhar(postagem)"
                   [disabled]="compartilhandoId() === postagem.id"
                 >
+                  <span class="icone-acao neutro">↗</span>
                   {{ compartilhandoId() === postagem.id ? 'Compartilhando...' : 'Compartilhar' }}
                 </button>
               </div>
@@ -431,6 +466,7 @@ import { environment } from '../../../environments/environment';
 
               <div class="novo-comentario">
                 <input
+                  [id]="'comentario-postagem-' + postagem.id"
                   [(ngModel)]="comentarios[postagem.id]"
                   [name]="'comentario' + postagem.id"
                   placeholder="Comente com a comunidade"
@@ -1009,6 +1045,187 @@ import { environment } from '../../../environments/environment';
       color: var(--azul);
     }
 
+    /* Design system do feed */
+    :host {
+      --feed-raio-card: 16px;
+      --feed-raio-interno: 12px;
+      --feed-espaco: 12px;
+      --feed-sombra: 0 10px 32px rgba(15, 23, 42, 0.07);
+    }
+
+    .lista-feed { gap: 16px; }
+
+    .postagem-card {
+      gap: var(--feed-espaco);
+      padding: 16px;
+      border-radius: var(--feed-raio-card);
+      box-shadow: var(--feed-sombra);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .postagem-card.postagem-fixada {
+      border-color: color-mix(in srgb, var(--borda) 62%, var(--marca) 38%);
+    }
+
+    .cabecalho-postagem {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 11px;
+      align-items: start;
+    }
+
+    .autor-postagem { gap: 2px; padding-top: 1px; }
+    .autor-postagem strong { font-size: 1rem; line-height: 1.2; }
+
+    .bio-autor {
+      overflow: hidden;
+      color: var(--texto-suave);
+      font-size: .82rem;
+      line-height: 1.3;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .metadados-postagem {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      color: color-mix(in srgb, var(--texto-suave) 86%, transparent);
+      font-size: .75rem !important;
+    }
+
+    .selo-fixada { color: var(--marca); font-weight: 800; }
+
+    .menu-postagem { position: relative; margin-left: auto; }
+    .menu-postagem summary {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--texto-suave);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      list-style: none;
+      transition: color .18s ease, background .18s ease;
+    }
+    .menu-postagem summary::-webkit-details-marker { display: none; }
+    .menu-postagem summary:hover,
+    .menu-postagem[open] summary { color: var(--texto); background: var(--superficie-2); }
+    .menu-postagem-popover {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      z-index: 12;
+      display: grid;
+      width: min(220px, calc(100vw - 42px));
+      overflow: hidden;
+      padding: 6px;
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      background: var(--superficie);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, .18);
+      animation: abrir-menu .16s ease-out both;
+    }
+    .menu-postagem-popover button {
+      min-height: 40px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--texto);
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      font-size: .84rem;
+      font-weight: 750;
+      text-align: left;
+    }
+    .menu-postagem-popover button:hover { background: var(--superficie-2); }
+    .menu-postagem-popover button.perigo { color: #b42318; }
+
+    .texto-postagem {
+      padding-bottom: 2px;
+      color: var(--texto);
+      font-size: .98rem;
+      line-height: 1.55;
+    }
+
+    .editor-postagem { display: grid; gap: 8px; }
+    .editor-postagem textarea { resize: vertical; min-height: 96px; background: var(--superficie-2); }
+    .editor-postagem > div { display: flex; gap: 8px; justify-content: flex-end; }
+
+    .cartao-colecao-feed,
+    .grade-imagens-feed div,
+    .grade-imagens-feed a,
+    .comentarios-feed article,
+    .novo-comentario input { border-radius: var(--feed-raio-interno); }
+
+    .imagem-postagem { animation: revelar-imagem .28s ease-out both; }
+
+    .contexto-hq {
+      display: grid;
+      gap: 7px;
+      padding: 10px 12px;
+      border: 1px solid var(--borda);
+      border-radius: var(--feed-raio-interno);
+      background: var(--superficie-2);
+    }
+    .contexto-hq strong { display: flex; gap: 7px; align-items: center; font-size: .83rem; }
+    .contexto-hq strong span { color: var(--marca); }
+    .contexto-hq div { display: flex; flex-wrap: wrap; gap: 6px; }
+    .contexto-hq div span {
+      padding: 4px 7px;
+      border-radius: 999px;
+      color: var(--texto-suave);
+      background: var(--superficie);
+      font-size: .72rem;
+      font-weight: 750;
+    }
+
+    .gestao-canal-parceiro { margin-top: -4px; }
+
+    .contadores-postagem {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 2px;
+      color: var(--texto-suave);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .contadores-postagem.zerados { opacity: .62; }
+
+    .barra-postagem {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+      padding-top: 7px;
+    }
+    .acao-social {
+      justify-content: center;
+      min-width: 0;
+      min-height: 40px;
+      padding: 0 8px;
+      border-radius: 9px;
+      font-size: .82rem;
+      transition: color .18s ease, background .18s ease, transform .12s ease;
+    }
+    .acao-social:hover { color: var(--texto); background: var(--superficie-2); }
+    .acao-social:active { transform: scale(.97); }
+    .acao-social span { font-size: 1.15rem; }
+    .acao-social .icone-acao.neutro { color: currentColor; font-size: 1rem; }
+    .acao-social.ativo span { animation: curtir-pop .28s ease-out; }
+
+    .comentarios-feed article { padding: 9px 10px; background: var(--superficie-2); }
+    .novo-comentario input { min-height: 42px; }
+
+    @keyframes abrir-menu { from { opacity: 0; transform: translateY(-5px) scale(.98); } to { opacity: 1; transform: none; } }
+    @keyframes curtir-pop { 50% { transform: scale(1.3); } }
+    @keyframes revelar-imagem { from { opacity: 0; } to { opacity: 1; } }
+
     @media (max-width: 900px) {
       .feed-layout {
         grid-template-columns: 1fr;
@@ -1041,6 +1258,38 @@ import { environment } from '../../../environments/environment';
         width: 100%;
       }
     }
+
+    @media (max-width: 600px) {
+      :host { --feed-raio-card: 14px; --feed-espaco: 11px; }
+      .feed-cabecalho { align-items: start; gap: 10px; }
+      .feed-cabecalho h1 { font-size: clamp(1.35rem, 7vw, 1.75rem); }
+      .feed-metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .postagem-card { padding: 14px 12px; }
+      .cabecalho-postagem { grid-template-columns: 40px minmax(0, 1fr) 36px; gap: 9px; }
+      .cabecalho-postagem .avatar-feed { width: 40px; height: 40px; }
+      .bio-autor { max-width: 100%; }
+      .cartao-colecao-feed { grid-template-columns: 92px minmax(0, 1fr); gap: 11px; }
+      .cartao-colecao-feed > img { min-height: 148px; }
+      .cartao-colecao-feed > div { gap: 6px; padding: 10px 10px 10px 0; }
+      .cartao-colecao-feed h3 { font-size: 1rem; }
+      .acao-social { padding: 0 4px; font-size: .76rem; }
+      .novo-comentario { grid-template-columns: minmax(0, 1fr) auto; }
+      .novo-comentario .botao { padding-inline: 10px; }
+    }
+
+    @media (max-width: 360px) {
+      .acao-social { gap: 4px; font-size: .7rem; }
+      .acao-social span { font-size: 1rem; }
+      .contexto-hq { padding: 9px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .menu-postagem-popover,
+      .acao-social.ativo span,
+      .imagem-postagem { animation: none; }
+      .postagem-card,
+      .acao-social { transition: none; }
+    }
   `,
 })
 export class PainelPage implements OnInit {
@@ -1059,6 +1308,7 @@ export class PainelPage implements OnInit {
   readonly publicando = signal(false);
   readonly interagindoId = signal<number | null>(null);
   readonly compartilhandoId = signal<number | null>(null);
+  readonly editandoPostagemId = signal<number | null>(null);
   readonly editandoCanalId = signal<number | null>(null);
   readonly salvandoCanalId = signal<number | null>(null);
   readonly mensagem = signal('');
@@ -1068,6 +1318,7 @@ export class PainelPage implements OnInit {
   videosRelacionadosFormulario: Array<{ title: string; url: string }> = [];
   canalParceiroFormulario: { name: string; url: string } | null = null;
   canaisParceirosEdicao: Record<number, { name: string; url: string }> = {};
+  conteudosEdicao: Record<number, string> = {};
   comentarios: Record<number, string> = {};
 
   ngOnInit() {
@@ -1134,6 +1385,83 @@ export class PainelPage implements OnInit {
 
   podeEditarCanal(postagem: PostagemFeed) {
     return postagem.usuario.id === this.usuario()?.id || this.usuario()?.perfil === 'ADMINISTRADOR';
+  }
+
+  iniciarEdicaoPostagem(postagem: PostagemFeed, evento?: Event) {
+    this.fecharMenuPostagem(evento);
+    this.conteudosEdicao[postagem.id] = postagem.conteudo;
+    this.editandoPostagemId.set(postagem.id);
+  }
+
+  cancelarEdicaoPostagem() {
+    this.editandoPostagemId.set(null);
+  }
+
+  salvarEdicaoPostagem(postagem: PostagemFeed) {
+    const conteudo = this.conteudosEdicao[postagem.id]?.trim();
+    if (!conteudo) {
+      this.mensagem.set('A postagem não pode ficar vazia.');
+      return;
+    }
+    this.interagindoId.set(postagem.id);
+    this.api.atualizarPostagemFeed(postagem.id, conteudo).subscribe({
+      next: (atualizada) => {
+        this.substituirPostagem(atualizada);
+        this.editandoPostagemId.set(null);
+      },
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível editar esta postagem.'),
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  alternarFixacao(postagem: PostagemFeed, evento?: Event) {
+    this.fecharMenuPostagem(evento);
+    this.interagindoId.set(postagem.id);
+    this.api.alternarFixacaoPostagem(postagem.id).subscribe({
+      next: (atualizada) => {
+        this.substituirPostagem(atualizada);
+        this.feed.update((itens) => [...itens].sort((a, b) => Number(b.fixada) - Number(a.fixada)
+          || new Date(b.dataCriacao).getTime() - new Date(a.dataCriacao).getTime()));
+      },
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível alterar a fixação.'),
+      complete: () => this.interagindoId.set(null),
+    });
+  }
+
+  compartilharPeloMenu(postagem: PostagemFeed, evento: Event) {
+    this.fecharMenuPostagem(evento);
+    void this.compartilhar(postagem);
+  }
+
+  removerPeloMenu(postagem: PostagemFeed, evento: Event) {
+    this.fecharMenuPostagem(evento);
+    this.removerPostagem(postagem);
+  }
+
+  focarComentario(postagem: PostagemFeed) {
+    document.getElementById(`comentario-postagem-${postagem.id}`)?.focus();
+  }
+
+  conteudoVisivel(postagem: PostagemFeed) {
+    if (!postagem.relatedVideos?.length) {
+      return postagem.conteudo.trim();
+    }
+    return postagem.conteudo
+      .replace(/https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?[^\s<]*v=|shorts\/|live\/|embed\/)|youtu\.be\/)[^\s<]+/gi, '')
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  editoraRelacionada(postagem: PostagemFeed) {
+    return postagem.catalogoDestaque?.editora || postagem.colecaoDestaque?.editora || '';
+  }
+
+  private fecharMenuPostagem(evento?: Event) {
+    const detalhes = (evento?.currentTarget as HTMLElement | null)?.closest('details');
+    if (detalhes) {
+      detalhes.removeAttribute('open');
+    }
   }
 
   alternarEditorCanal(postagem: PostagemFeed) {

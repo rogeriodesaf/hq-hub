@@ -121,6 +121,18 @@ export class ApiService {
     return this.http.post<PostagemFeed>('/api/feed', dto).pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
+  atualizarPostagemFeed(postagemId: number, conteudo: string) {
+    return this.http
+      .put<PostagemFeed>(`/api/feed/${postagemId}`, { conteudo })
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
+  alternarFixacaoPostagem(postagemId: number) {
+    return this.http
+      .post<PostagemFeed>(`/api/feed/${postagemId}/fixacao`, {})
+      .pipe(map((postagem) => this.normalizarPostagem(postagem)));
+  }
+
   atualizarVideosRelacionados(postagemId: number, relatedVideos: RelatedVideoInput[]) {
     return this.http
       .put<PostagemFeed>(`/api/feed/${postagemId}/videos-relacionados`, { relatedVideos })
@@ -1040,6 +1052,7 @@ export class ApiService {
         : null,
       relatedVideos: postagem.relatedVideos || [],
       partnerChannel: postagem.partnerChannel || null,
+      fixada: postagem.fixada || false,
       comentarios: (postagem.comentarios || []).map((comentario) => ({
         ...comentario,
         usuario: this.normalizarUsuario(comentario.usuario),

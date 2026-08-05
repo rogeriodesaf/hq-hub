@@ -13,6 +13,7 @@ import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
 import br.com.hqhub.dto.AtualizacaoCanalParceiroDTO;
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
+import br.com.hqhub.dto.AtualizacaoPostagemFeedDTO;
 import br.com.hqhub.dto.CadastroVideoRelacionadoDTO;
 import br.com.hqhub.dto.CanalParceiroDTO;
 import br.com.hqhub.dto.CatalogoFeedDTO;
@@ -130,6 +131,22 @@ public class FeedSocialService {
         salvarImagens(postagem, dto.imagens());
         salvarVideosRelacionados(postagem, dto.relatedVideos());
         salvarCanalParceiro(postagem, dto.partnerChannel());
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO atualizarPostagem(Long postagemId, AtualizacaoPostagemFeedDTO dto) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
+        postagem.setConteudo(dto.conteudo().trim());
+        return paraResposta(postagem, usuario.getId());
+    }
+
+    @Transactional
+    public PostagemFeedRespostaDTO alternarFixacao(Long postagemId) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
+        postagem.setFixada(!postagem.isFixada());
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -349,6 +366,7 @@ public class FeedSocialService {
                 paraCatalogoFeed(postagem.getSerieCatalogo()),
                 listarVideosRelacionados(postagem.getId()),
                 paraCanalParceiro(postagem),
+                postagem.isFixada(),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
                 curtidaRepository.existePorPostagemEUsuario(postagem.getId(), usuarioId),
                 comentarios,

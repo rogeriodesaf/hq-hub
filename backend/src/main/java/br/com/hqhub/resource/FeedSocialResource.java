@@ -4,6 +4,7 @@ import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
 import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
 import br.com.hqhub.dto.AtualizacaoCanalParceiroDTO;
+import br.com.hqhub.dto.AtualizacaoPostagemFeedDTO;
 import br.com.hqhub.service.FeedMidiaService;
 import br.com.hqhub.service.FeedSocialService;
 import io.quarkus.security.Authenticated;
@@ -59,6 +60,18 @@ public class FeedSocialResource {
     @POST
     public Response publicar(@Valid CadastroPostagemFeedDTO dto) {
         return Response.ok(feedSocialService.publicar(dto)).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response atualizarPostagem(@PathParam("id") Long id, @Valid AtualizacaoPostagemFeedDTO dto) {
+        return Response.ok(feedSocialService.atualizarPostagem(id, dto)).build();
+    }
+
+    @POST
+    @Path("/{id}/fixacao")
+    public Response alternarFixacao(@PathParam("id") Long id) {
+        return Response.ok(feedSocialService.alternarFixacao(id)).build();
     }
 
     @PUT

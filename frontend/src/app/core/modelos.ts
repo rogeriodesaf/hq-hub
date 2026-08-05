@@ -746,6 +746,7 @@ export interface PostagemFeed {
   catalogoDestaque: CatalogoFeed | null;
   relatedVideos: RelatedVideo[];
   partnerChannel: PartnerChannel | null;
+  fixada: boolean;
   totalCurtidas: number;
   curtidaPeloUsuario: boolean;
   comentarios: ComentarioFeed[];

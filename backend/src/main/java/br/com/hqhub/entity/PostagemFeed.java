@@ -40,6 +40,9 @@ public class PostagemFeed {
     @Column(nullable = false)
     private boolean sistema = false;
 
+    @Column(nullable = false)
+    private boolean fixada = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_colecao_id")
     private ItemColecao itemColecao;

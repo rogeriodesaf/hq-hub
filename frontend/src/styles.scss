@@ -4080,6 +4080,19 @@ body.bottom-sheet-aberto {
     background: var(--superficie);
   }
 
+  .app-shell:has(app-painel-page) .atalhos-superiores {
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .app-shell:has(app-painel-page) .atalho-tema {
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: auto;
+    box-shadow: none;
+  }
+
   .aviso-nova-versao {
     right: 12px;
     bottom: 88px;

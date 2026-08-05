@@ -1,0 +1,2 @@
+ALTER TABLE postagens_feed
+    ADD COLUMN fixada BOOLEAN NOT NULL DEFAULT FALSE;

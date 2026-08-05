@@ -12,7 +12,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
 
     public List<PostagemFeed> listarPorUsuario(Long usuarioId, int pagina, int tamanho) {
-        return find("usuario.id = ?1 order by dataCriacao desc", usuarioId)
+        return find("usuario.id = ?1 order by fixada desc, dataCriacao desc", usuarioId)
                 .page(Page.of(pagina, tamanho))
                 .list();
     }
@@ -30,7 +30,7 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                     where (a.solicitante.id = ?1 or a.solicitado.id = ?1)
                       and a.status = ?2
                 )
-                order by dataCriacao desc
+                order by fixada desc, dataCriacao desc
                 """, usuarioId, StatusAmizade.ACEITA)
                 .page(Page.of(pagina, tamanho))
                 .list();

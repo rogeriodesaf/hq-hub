@@ -13,6 +13,7 @@ public record PostagemFeedRespostaDTO(
         CatalogoFeedDTO catalogoDestaque,
         List<VideoRelacionadoDTO> relatedVideos,
         CanalParceiroDTO partnerChannel,
+        boolean fixada,
         long totalCurtidas,
         boolean curtidaPeloUsuario,
         List<ComentarioFeedRespostaDTO> comentarios,
