@@ -25,7 +25,7 @@ URL, o título, a editora e o volume. Clique em **Abrir Chrome e gerar JSON**,
 conclua a verificação no Chrome e aguarde.
 
 O assistente continua automaticamente pela galeria. A cada dez edições ele
-aguarda de 2 a 5 minutos, recarrega a próxima página e segue da edição 11, 21,
+aguarda de 2 a 3 minutos, recarrega a próxima página e segue da edição 11, 21,
 31 etc. Não é necessário digitar uma nova URL entre os lotes.
 
 Ao final, o JSON aparece na página para revisão. A importação continua sendo

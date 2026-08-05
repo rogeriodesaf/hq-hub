@@ -78,7 +78,7 @@ python docs/importacao/ferramentas/robo_importador_navegador_interativo.py `
 URLs antigas do Guia iniciadas por `http://` são convertidas automaticamente
 para HTTPS por ambos os importadores. O modo interativo captura a sequência da
 galeria uma única vez e continua sozinho: depois das edições 10, 20, 30 etc.,
-aguarda aleatoriamente de 2 a 5 minutos e abre a próxima edição no mesmo Chrome.
+aguarda aleatoriamente de 2 a 3 minutos e abre a próxima edição no mesmo Chrome.
 Não é necessário informar manualmente a URL da edição 11. Se o Guia pedir uma
 nova verificação, conclua-a na janela já aberta; o robô preserva a posição.
 Se o Guia responder com HTTP 403, ele tenta uma recarga imediata e interrompe o

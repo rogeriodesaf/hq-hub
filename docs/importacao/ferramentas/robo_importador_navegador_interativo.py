@@ -469,8 +469,8 @@ def main():
     parser.add_argument(
         "--pausa-minutos-maxima",
         type=float,
-        default=5.0,
-        help="Pausa máxima automática entre lotes (padrão: 5 minutos).",
+        default=3.0,
+        help="Pausa máxima automática entre lotes (padrão: 3 minutos).",
     )
     parser.add_argument(
         "--tempo-verificacao",
