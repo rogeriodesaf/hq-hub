@@ -2866,6 +2866,35 @@ body.tema-escuro .sugestoes-assistente {
   gap: 6px;
 }
 
+.acao-capas-serie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  border-radius: 14px;
+  background: rgba(255, 122, 0, 0.08);
+}
+
+.acao-capas-serie div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.acao-capas-serie span {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .acao-capas-serie {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
 .mini-capa img {
   transform-origin: center bottom;
   box-shadow: 0 7px 16px rgba(21, 25, 31, 0.14);

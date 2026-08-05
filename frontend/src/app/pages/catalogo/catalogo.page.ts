@@ -18,6 +18,7 @@ import {
   LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
+  ResultadoBackfillComicVine,
   ResultadoPesquisaCatalogo,
   Serie,
   TipoConteudoEdicao,
@@ -118,6 +119,18 @@ import {
             </section>
           }
         </div>
+        }
+
+        @if (serieSelecionada() && podeExcluirCatalogo()) {
+          <aside class="acao-capas-serie" aria-live="polite">
+            <div>
+              <strong>Capas da série {{ serieSelecionada()!.titulo }}</strong>
+              <span>Busque e salve automaticamente as capas que estiverem faltando, sem abrir cada edição.</span>
+            </div>
+            <button class="botao primario compacto" type="button" (click)="preencherCapasSerieSelecionada()" [disabled]="preenchendoCapasSerie()">
+              {{ preenchendoCapasSerie() ? 'Buscando capas...' : 'Preencher capas automaticamente' }}
+            </button>
+          </aside>
         }
 
         @if (seriesConsultadas() && series().totalPaginas > 1) {
@@ -941,6 +954,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly removendoSerie = signal<number | null>(null);
   readonly removendoPublicacao = signal<number | null>(null);
   readonly salvandoCapaPublicacao = signal<number | null>(null);
+  readonly preenchendoCapasSerie = signal(false);
   readonly exibindoFormularioConteudo = signal(false);
   readonly editandoConteudo = signal<ConteudoEdicao | null>(null);
   readonly salvandoConteudo = signal(false);
@@ -1063,6 +1077,38 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.limparPesquisaSeries();
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
+  }
+
+  async preencherCapasSerieSelecionada() {
+    const serie = this.serieSelecionada();
+    if (!serie || !this.podeExcluirCatalogo() || this.preenchendoCapasSerie()) return;
+
+    this.preenchendoCapasSerie.set(true);
+    let cursor: number | null = null;
+    let processadas = 0;
+    let atualizadas = 0;
+    let semCorrespondencia = 0;
+    try {
+      do {
+        this.mensagem.set(`Buscando capas de ${serie.titulo}: ${processadas} edição(ões) processada(s)...`);
+        const lote: ResultadoBackfillComicVine = await firstValueFrom(
+          this.api.preencherCapasComicVineImportacao(serie.id, cursor),
+        );
+        processadas += lote.processadas;
+        atualizadas += lote.atualizadas;
+        semCorrespondencia += lote.semCorrespondencia;
+        cursor = lote.proximoCursor;
+        if (!lote.possuiMais) break;
+        await new Promise((resolve) => setTimeout(resolve, 250));
+      } while (processadas < 5000);
+
+      this.buscarResultados(0);
+      this.mensagem.set(`Capas concluídas: ${atualizadas} salva(s) e ${semCorrespondencia} sem correspondência segura.`);
+    } catch (erro: any) {
+      this.mensagem.set(erro?.error?.mensagem || 'Não foi possível preencher as capas automaticamente.');
+    } finally {
+      this.preenchendoCapasSerie.set(false);
+    }
   }
 
   editarVolumeSerie(serie: Serie) {
