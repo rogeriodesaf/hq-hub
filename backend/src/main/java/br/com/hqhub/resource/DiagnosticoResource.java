@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Produces(MediaType.APPLICATION_JSON)
 public class DiagnosticoResource {
 
-    private static final String VERSAO_BACKEND = "reset-senha-controlado-2026-06-26";
+    private static final String VERSAO_BACKEND = "comic-vine-lotes-guia-2026-08-04";
 
     @GET
     @Path("/versao")
