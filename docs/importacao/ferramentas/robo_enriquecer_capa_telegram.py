@@ -228,7 +228,7 @@ async def localizar_capa(client, grupo, consulta, limite):
     alvo = normalizar(consulta)
     sem_numero = re.sub(r"\s+\d+\s*$", "", alvo).strip()
     numero = alvo.removeprefix(sem_numero).strip()
-    palavras = sem_numero.split()
+    prefixo_esperado = alvo.split()
     numero_formatado = f"{int(numero):02d}" if numero.isdigit() else numero
     # Comeca pelo padrao exato dos arquivos (ex.: "Zagor Mythos 01") e deixa
     # a busca ampla por titulo como ultimo recurso.
@@ -243,14 +243,16 @@ async def localizar_capa(client, grupo, consulta, limite):
             inspecionadas += 1
             print(f"\r      Resultados inspecionados: {inspecionadas}", end="", flush=True)
             nome_arquivo = getattr(mensagem.file, "name", None) or ""
-            texto = normalizar(f"{mensagem.raw_text or ''} {nome_arquivo}")
-            tokens_texto = texto.split()
-            if not all(palavra in tokens_texto for palavra in palavras) or (
-                numero and numero not in tokens_texto
-            ):
+            tokens_nome = normalizar(nome_arquivo).split()
+            # O grupo contem colecoes como "Zagor Extra" que tambem podem
+            # mencionar a editora Mythos na legenda. Para impedir falsos
+            # positivos, o nome do documento deve comecar exatamente pelo
+            # titulo e numero pedidos: "Zagor Mythos 01 ...".
+            if tokens_nome[:len(prefixo_esperado)] != prefixo_esperado:
                 continue
             if mensagem.document and nome_arquivo.lower().endswith((".cbz", ".pdf")):
                 print()
+                print(f"      Arquivo selecionado: {nome_arquivo}", flush=True)
                 return mensagem
     print()
     raise LookupError(f'Nenhum arquivo CBZ/PDF encontrado para "{consulta}" em {grupo}.')
@@ -325,15 +327,28 @@ async def executar(args):
                 print(f"[Busca] Procurando '{consulta}' no Telegram...", flush=True)
                 mensagem = await localizar_capa(client, args.grupo, consulta, args.limite)
                 with tempfile.TemporaryDirectory(prefix="hqhub-telegram-") as pasta:
-                    print(f"[Download] Mensagem {mensagem.id}...", flush=True)
-                    baixado = await client.download_media(
-                        mensagem, file=str(Path(pasta)), progress_callback=progresso_download,
-                    )
-                    print()
-                    if not baixado:
-                        raise RuntimeError("O Telegram nao retornou o arquivo.")
-                    print("[Extracao] Extraindo a primeira pagina...", flush=True)
-                    capa = extrair_capa_documento(Path(baixado), Path(pasta))
+                    capa = None
+                    miniaturas = getattr(mensagem.document, "thumbs", None) or []
+                    if miniaturas and not args.capa_original:
+                        print(f"[Download] Baixando somente a miniatura da mensagem {mensagem.id}...", flush=True)
+                        miniatura = await client.download_media(
+                            mensagem, file=str(Path(pasta) / "miniatura"), thumb=-1,
+                            progress_callback=progresso_download,
+                        )
+                        print()
+                        if miniatura:
+                            capa = Path(miniatura)
+                            print("[Extracao] Miniatura do documento usada como capa.", flush=True)
+                    if capa is None:
+                        print(f"[Download] Baixando o arquivo completo da mensagem {mensagem.id}...", flush=True)
+                        baixado = await client.download_media(
+                            mensagem, file=str(Path(pasta)), progress_callback=progresso_download,
+                        )
+                        print()
+                        if not baixado:
+                            raise RuntimeError("O Telegram nao retornou o arquivo.")
+                        print("[Extracao] Extraindo a primeira pagina...", flush=True)
+                        capa = extrair_capa_documento(Path(baixado), Path(pasta))
                     conteudo, mime, extensao = detectar_imagem(capa)
                     print("[Upload] Enviando a capa ao HQ-Hub...", flush=True)
                     url = enviar_backend(conteudo, mime, extensao, args.backend_url, token)
@@ -367,6 +382,7 @@ def main():
     parser.add_argument("--serie-id", type=int, help="Processa em sequencia todas as edicoes desta serie.")
     parser.add_argument("--numero-inicial", type=int, default=1, help="Primeiro numero do modo sequencial.")
     parser.add_argument("--numero-final", type=int, help="Ultimo numero do modo sequencial; omitido processa todos.")
+    parser.add_argument("--capa-original", action="store_true", help="Ignora a miniatura e extrai a capa do arquivo completo.")
     parser.add_argument(
         "--backend-url",
         default=os.environ.get("HQHUB_API_URL", "http://localhost:8080"),

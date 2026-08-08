@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
+import { AutenticacaoService } from '../../core/autenticacao.service';
 import {
   ColetaGuia,
   SerieGcd,
@@ -24,6 +25,18 @@ interface ColetaGuiaLocal {
   avisos: string[];
   logs: string[];
   resultado: unknown | null;
+}
+
+interface ColetaCapasTelegramLocal {
+  id: string;
+  status: StatusColetaLocal;
+  mensagem: string;
+  edicoesProcessadas: number;
+  totalEdicoes: number;
+  sucessos: number;
+  falhas: number;
+  avisos: string[];
+  logs: string[];
 }
 
 @Component({
@@ -72,6 +85,10 @@ interface ColetaGuiaLocal {
             <strong>Coletar do GCD</strong>
             <span>Pesquise séries no Grand Comics Database</span>
           </button>
+          <button type="button" [class.ativo]="modoEntrada() === 'telegram'" (click)="selecionarModo('telegram')">
+            <strong>Capas do Telegram</strong>
+            <span>Extraia capas de CBZ/PDF pelo assistente local</span>
+          </button>
         </nav>
 
         <div class="secao-titulo">
@@ -84,6 +101,8 @@ interface ColetaGuiaLocal {
                 Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
               } @else if (modoEntrada() === 'guia') {
                 Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
+              } @else if (modoEntrada() === 'telegram') {
+                Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
               } @else {
                 Pesquise no GCD, escolha a série e gere um JSON revisável antes da importação.
               }
@@ -249,6 +268,49 @@ interface ColetaGuiaLocal {
               }
             }
             </details>
+          </section>
+        }
+
+        @if (modoEntrada() === 'telegram') {
+          <section class="editor-visual-importacao coleta-guia">
+            <aside class="dica-importacao-colaborador">
+              <strong>Capas pelo seu Telegram</strong>
+              <p>O assistente usa somente a sessão deste computador. CBZ/PDF e capas temporárias são descartados após o envio.</p>
+            </aside>
+            <div class="grade-importacao-visual">
+              <label class="campo-largo">Buscar série no HQ-HUB
+                <input [(ngModel)]="buscaSerieTelegram" name="buscaSerieTelegram" placeholder="Ex.: Zagor" (keyup.enter)="buscarSeriesTelegram()" />
+              </label>
+              <button class="botao secundario compacto" type="button" (click)="buscarSeriesTelegram()" [disabled]="buscandoSeriesTelegram()">{{ buscandoSeriesTelegram() ? 'Buscando...' : 'Buscar série' }}</button>
+              @if (seriesTelegram().length) {
+                <div class="campo-largo lista-selecao-serie">
+                  @for (serie of seriesTelegram(); track serie.id) {
+                    <button type="button" [class.ativo]="serieTelegramSelecionada()?.id === serie.id" (click)="selecionarSerieTelegram(serie)">
+                      <strong>{{ serie.titulo }}</strong><span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }} · ID {{ serie.id }}</span>
+                    </button>
+                  }
+                </div>
+              }
+              <label>Prefixo dos arquivos<input [(ngModel)]="capasTelegram.consulta" name="telegramConsulta" placeholder="Zagor Mythos" /></label>
+              <label>Grupo<input [(ngModel)]="capasTelegram.grupo" name="telegramGrupo" placeholder="@zagorbr" /></label>
+              <label>Número inicial<input type="number" min="1" [(ngModel)]="capasTelegram.numeroInicial" name="telegramInicio" /></label>
+              <label>Número final<input type="number" min="1" [(ngModel)]="capasTelegram.numeroFinal" name="telegramFim" /></label>
+            </div>
+            <section class="assistente-local-guia" [class.online]="assistenteLocalOnline() === true">
+              <div class="cabecalho-assistente-local"><div><strong>Assistente local</strong><span>{{ textoStatusAssistenteLocal() }}</span></div></div>
+              <div class="acoes-importacao">
+                <button class="botao secundario compacto" type="button" (click)="verificarAssistenteLocal()">Verificar conexão</button>
+                <button class="botao primario" type="button" (click)="iniciarCapasTelegram()" [disabled]="assistenteLocalOnline() !== true || capasTelegramEmAndamento() || !serieTelegramSelecionada()">{{ capasTelegramEmAndamento() ? 'Importando capas...' : 'Iniciar capas' }}</button>
+              </div>
+            </section>
+            @if (coletaCapasTelegram(); as coleta) {
+              <section class="andamento-coleta andamento-coleta-local">
+                <div><strong>{{ coleta.mensagem }}</strong><span>{{ coleta.edicoesProcessadas }} de {{ coleta.totalEdicoes }} · {{ coleta.sucessos }} sucessos · {{ coleta.falhas }} falhas</span></div>
+                <progress [value]="coleta.edicoesProcessadas" [max]="coleta.totalEdicoes || 1"></progress>
+                @if (capasTelegramEmAndamento()) { <button class="botao secundario compacto" type="button" (click)="cancelarCapasTelegram()">Interromper</button> }
+                @if (coleta.logs.length) { <details><summary>Atividade do robô</summary><pre>{{ coleta.logs.join('\n') }}</pre></details> }
+              </section>
+            }
           </section>
         }
 
@@ -1424,8 +1486,10 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private static readonly COLETA_GUIA_STORAGE = 'hqhub-coleta-guia-id';
   private static readonly COLETA_GCD_STORAGE = 'hqhub-coleta-gcd-id';
   private static readonly COLETA_GUIA_LOCAL_STORAGE = 'hqhub-coleta-guia-local-id';
+  private static readonly CAPAS_TELEGRAM_LOCAL_STORAGE = 'hqhub-capas-telegram-local-id';
   private static readonly ASSISTENTE_LOCAL_URL = 'http://127.0.0.1:8765';
   private readonly api = inject(ApiService);
+  private readonly autenticacao = inject(AutenticacaoService);
 
   readonly resultado = signal<ResultadoImportacaoCatalogo | null>(null);
   readonly mensagem = signal('');
@@ -1436,6 +1500,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly coletaGuia = signal<ColetaGuia | null>(null);
   readonly coletaGcd = signal<ColetaGuia | null>(null);
   readonly coletaGuiaLocal = signal<ColetaGuiaLocal | null>(null);
+  readonly coletaCapasTelegram = signal<ColetaCapasTelegramLocal | null>(null);
   readonly assistenteLocalOnline = signal<boolean | null>(null);
   readonly verificandoAssistenteLocal = signal(false);
   readonly buscandoGcd = signal(false);
@@ -1447,8 +1512,9 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private temporizadorColeta: ReturnType<typeof setTimeout> | null = null;
   private temporizadorColetaGcd: ReturnType<typeof setTimeout> | null = null;
   private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
+  private temporizadorCapasTelegram: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1457,14 +1523,19 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly serieVisualSelecionada = signal<Serie | null>(null);
   readonly seriesCapa = signal<Serie[]>([]);
   readonly serieCapaSelecionada = signal<Serie | null>(null);
+  readonly buscandoSeriesTelegram = signal(false);
+  readonly seriesTelegram = signal<Serie[]>([]);
+  readonly serieTelegramSelecionada = signal<Serie | null>(null);
   private readonly previewsCapaVisual = new WeakMap<object, string>();
   private readonly uploadsCapaVisual = new WeakSet<object>();
   private readonly errosCapaVisual = new WeakMap<object, string>();
   buscaSerieVisual = '';
   buscaGcd = 'brasil';
   buscaSerieCapa = '';
+  buscaSerieTelegram = 'Zagor';
   numeroEdicaoCapa = '';
   urlCapaManual = '';
+  capasTelegram = { consulta: 'Zagor Mythos', grupo: '@zagorbr', numeroInicial: 1, numeroFinal: 181 as number | null };
   jsonTexto = '';
   rascunho = {
     urlGuia: '',
@@ -1485,6 +1556,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   visualImportacao: any = this.modeloImportacao();
 
   ngOnInit() {
+    const capasTelegramId = localStorage.getItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
+    if (capasTelegramId) void this.restaurarCapasTelegram(capasTelegramId);
     const coletaLocalId = localStorage.getItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
     const iniciadoPeloAssistente = new URLSearchParams(window.location.search).has('assistenteLocal');
     if (iniciadoPeloAssistente) this.modoEntrada.set('guia');
@@ -1517,16 +1590,18 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     this.cancelarTemporizadorColeta();
     this.cancelarTemporizadorColetaGcd();
     this.cancelarTemporizadorColetaLocal();
+    this.cancelarTemporizadorCapasTelegram();
   }
 
   tituloModoEntrada() {
     if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
     if (this.modoEntrada() === 'json') return 'JSON do robô';
     if (this.modoEntrada() === 'gcd') return 'Coletar do Grand Comics Database';
+    if (this.modoEntrada() === 'telegram') return 'Importar capas do Telegram';
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram') {
     if (modo === this.modoEntrada()) {
       return;
     }
@@ -1539,7 +1614,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     }
     this.modoEntrada.set(modo);
     this.mensagem.set('');
-    if (modo === 'guia' && this.assistenteLocalOnline() !== true) {
+    if ((modo === 'guia' || modo === 'telegram') && this.assistenteLocalOnline() !== true) {
       void this.verificarAssistenteLocal(false);
     }
   }
@@ -1678,6 +1753,112 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     if (this.temporizadorColetaLocal) {
       clearTimeout(this.temporizadorColetaLocal);
       this.temporizadorColetaLocal = null;
+    }
+  }
+
+  capasTelegramEmAndamento() {
+    const status = this.coletaCapasTelegram()?.status;
+    return status === 'INICIANDO' || status === 'COLETANDO';
+  }
+
+  buscarSeriesTelegram() {
+    const busca = this.buscaSerieTelegram.trim();
+    if (!busca) return;
+    this.buscandoSeriesTelegram.set(true);
+    this.api.listarSeries(busca, 0, 20).subscribe({
+      next: (pagina) => {
+        this.seriesTelegram.set(pagina.itens);
+        this.buscandoSeriesTelegram.set(false);
+      },
+      error: (erro) => {
+        this.buscandoSeriesTelegram.set(false);
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível buscar as séries.');
+      },
+    });
+  }
+
+  selecionarSerieTelegram(serie: Serie) {
+    this.serieTelegramSelecionada.set(serie);
+    this.mensagem.set(`Série "${serie.titulo}" V${serie.volume || '-'} selecionada para as capas.`);
+  }
+
+  async iniciarCapasTelegram() {
+    const serie = this.serieTelegramSelecionada();
+    const token = this.autenticacao.obterToken();
+    if (!serie || !token) {
+      this.mensagem.set('Selecione uma série e confirme sua sessão no HQ-HUB.');
+      return;
+    }
+    if (this.assistenteLocalOnline() !== true) {
+      await this.verificarAssistenteLocal();
+      if (this.assistenteLocalOnline() !== true) return;
+    }
+    try {
+      const coleta = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>('/capas-telegram', {
+        method: 'POST',
+        body: JSON.stringify({
+          serieId: serie.id,
+          consulta: this.capasTelegram.consulta.trim(),
+          grupo: this.capasTelegram.grupo.trim(),
+          numeroInicial: Number(this.capasTelegram.numeroInicial || 1),
+          numeroFinal: this.capasTelegram.numeroFinal ? Number(this.capasTelegram.numeroFinal) : null,
+          tokenHqhub: token,
+          backendUrl: 'https://hqhub-backend.onrender.com',
+        }),
+      }, 15_000);
+      this.coletaCapasTelegram.set(coleta);
+      localStorage.setItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE, coleta.id);
+      this.agendarConsultaCapasTelegram();
+    } catch (erro: any) {
+      this.mensagem.set(erro?.message || 'Não foi possível iniciar as capas pelo Telegram.');
+    }
+  }
+
+  async cancelarCapasTelegram() {
+    const coleta = this.coletaCapasTelegram();
+    if (!coleta) return;
+    this.cancelarTemporizadorCapasTelegram();
+    try {
+      const atualizada = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>(`/capas-telegram/${coleta.id}`, { method: 'DELETE' });
+      this.coletaCapasTelegram.set(atualizada);
+    } catch (erro: any) {
+      this.mensagem.set(erro?.message || 'Não foi possível interromper o robô.');
+    }
+  }
+
+  private async restaurarCapasTelegram(id: string) {
+    try {
+      await this.verificarAssistenteLocal(false);
+      if (this.assistenteLocalOnline() !== true) return;
+      const coleta = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>(`/capas-telegram/${id}`);
+      this.coletaCapasTelegram.set(coleta);
+      this.modoEntrada.set('telegram');
+      this.agendarConsultaCapasTelegram();
+    } catch {
+      localStorage.removeItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
+    }
+  }
+
+  private agendarConsultaCapasTelegram() {
+    this.cancelarTemporizadorCapasTelegram();
+    if (!this.capasTelegramEmAndamento()) return;
+    this.temporizadorCapasTelegram = setTimeout(async () => {
+      const coleta = this.coletaCapasTelegram();
+      if (!coleta) return;
+      try {
+        const atualizada = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>(`/capas-telegram/${coleta.id}`);
+        this.coletaCapasTelegram.set(atualizada);
+        this.agendarConsultaCapasTelegram();
+      } catch {
+        this.assistenteLocalOnline.set(false);
+      }
+    }, 1500);
+  }
+
+  private cancelarTemporizadorCapasTelegram() {
+    if (this.temporizadorCapasTelegram) {
+      clearTimeout(this.temporizadorCapasTelegram);
+      this.temporizadorCapasTelegram = null;
     }
   }
 

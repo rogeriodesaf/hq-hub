@@ -24,7 +24,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-VERSAO = "1.0.0"
+VERSAO = "1.1.0"
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
     "https://hqhub-frontend.onrender.com",
@@ -32,9 +32,11 @@ ORIGENS_PERMITIDAS = {
     "http://127.0.0.1:4200",
 }
 COLETOR = Path(__file__).with_name("robo_importador_navegador_interativo.py")
+COLETOR_CAPAS_TELEGRAM = Path(__file__).with_name("robo_enriquecer_capa_telegram.py")
 
 trava = threading.Lock()
 coletas = {}
+coletas_capas_telegram = {}
 
 
 def agora_iso():
@@ -90,6 +92,62 @@ def validar_entrada(dados):
         "editora": editora,
         "volume": inteiro("volume", 1, 1, 999),
         "quantidade": inteiro("quantidade", None, 1, 200),
+    }
+
+
+def validar_entrada_capas_telegram(dados):
+    def inteiro(nome, padrao, minimo, maximo):
+        valor = dados.get(nome)
+        if valor in (None, ""):
+            return padrao
+        try:
+            numero = int(valor)
+        except (TypeError, ValueError) as erro:
+            raise ValueError(f"O campo {nome} deve ser um numero inteiro.") from erro
+        if numero < minimo or numero > maximo:
+            raise ValueError(f"O campo {nome} deve ficar entre {minimo} e {maximo}.")
+        return numero
+
+    serie_id = inteiro("serieId", None, 1, 2_147_483_647)
+    inicial = inteiro("numeroInicial", 1, 1, 9999)
+    final = inteiro("numeroFinal", None, inicial, 9999)
+    consulta = str(dados.get("consulta") or "").strip()
+    grupo = str(dados.get("grupo") or "@zagorbr").strip()
+    token = str(dados.get("tokenHqhub") or "").strip()
+    backend = str(dados.get("backendUrl") or "https://hqhub-backend.onrender.com").strip()
+    if not consulta:
+        raise ValueError("Informe o prefixo dos arquivos no Telegram.")
+    if not re.fullmatch(r"@[A-Za-z0-9_]{5,}", grupo):
+        raise ValueError("Informe um grupo publico no formato @nome_do_grupo.")
+    if not token:
+        raise ValueError("A sessao do HQ-HUB nao esta disponivel.")
+    host = (urlparse(backend).hostname or "").lower()
+    if host not in {"hqhub-backend.onrender.com", "localhost", "127.0.0.1"}:
+        raise ValueError("Backend HQ-HUB nao autorizado pelo assistente local.")
+    return {
+        "serieId": serie_id,
+        "numeroInicial": inicial,
+        "numeroFinal": final,
+        "consulta": consulta,
+        "grupo": grupo,
+        "tokenHqhub": token,
+        "backendUrl": backend,
+    }
+
+
+def resumo_capas_telegram(coleta):
+    return {
+        "id": coleta["id"],
+        "status": coleta["status"],
+        "mensagem": coleta["mensagem"],
+        "edicoesProcessadas": coleta["edicoesProcessadas"],
+        "totalEdicoes": coleta["totalEdicoes"],
+        "sucessos": coleta["sucessos"],
+        "falhas": coleta["falhas"],
+        "avisos": list(coleta["avisos"]),
+        "logs": list(coleta["logs"][-50:]),
+        "criadaEm": coleta["criadaEm"],
+        "atualizadaEm": coleta["atualizadaEm"],
     }
 
 
@@ -212,6 +270,83 @@ def executar_coleta(coleta, entrada):
         shutil.rmtree(pasta, ignore_errors=True)
 
 
+def atualizar_por_log_telegram(coleta, linha):
+    linha = linha.strip()
+    if not linha:
+        return
+    with trava:
+        coleta["logs"].append(linha)
+        coleta["logs"] = coleta["logs"][-150:]
+        coleta["atualizadaEm"] = agora_iso()
+        edicao = re.search(r"=== Edicao\s+(\d+)/(\d+):\s+numero\s+([^ ]+)", linha)
+        preparacao = re.search(r"(\d+) edicao\(oes\) para processar", linha)
+        if preparacao:
+            coleta["totalEdicoes"] = int(preparacao.group(1))
+        if edicao:
+            coleta["totalEdicoes"] = int(edicao.group(2))
+            coleta["mensagem"] = f"Processando edicao {edicao.group(1)} de {edicao.group(2)} (numero {edicao.group(3)})."
+        elif linha.startswith("[OK]"):
+            coleta["sucessos"] += 1
+            coleta["edicoesProcessadas"] += 1
+        elif linha.startswith("[FALHA]"):
+            coleta["falhas"] += 1
+            coleta["edicoesProcessadas"] += 1
+            coleta["avisos"].append(linha.removeprefix("[FALHA]").strip())
+
+
+def executar_capas_telegram(coleta, entrada):
+    comando = [
+        sys.executable, "-u", str(COLETOR_CAPAS_TELEGRAM),
+        "--consulta", entrada["consulta"],
+        "--serie-id", str(entrada["serieId"]),
+        "--numero-inicial", str(entrada["numeroInicial"]),
+        "--grupo", entrada["grupo"],
+        "--backend-url", entrada["backendUrl"],
+        "--sessao", str(Path.home() / ".telegram" / "hqhub"),
+    ]
+    if entrada["numeroFinal"] is not None:
+        comando.extend(["--numero-final", str(entrada["numeroFinal"])])
+    ambiente = os.environ.copy()
+    ambiente["HQHUB_API_TOKEN"] = entrada["tokenHqhub"]
+    try:
+        with trava:
+            coleta["status"] = "COLETANDO"
+            coleta["mensagem"] = "Conectando ao Telegram..."
+            coleta["atualizadaEm"] = agora_iso()
+        opcoes = {
+            "stdout": subprocess.PIPE, "stderr": subprocess.STDOUT,
+            "text": True, "encoding": "utf-8", "errors": "replace",
+            "bufsize": 1, "env": ambiente,
+        }
+        if os.name == "nt":
+            opcoes["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
+        else:
+            opcoes["start_new_session"] = True
+        processo = subprocess.Popen(comando, **opcoes)
+        with trava:
+            coleta["processo"] = processo
+        for linha in processo.stdout or []:
+            atualizar_por_log_telegram(coleta, linha)
+        codigo = processo.wait()
+        with trava:
+            if coleta["status"] == "CANCELADA":
+                return
+            if codigo != 0:
+                raise RuntimeError(coleta["logs"][-1] if coleta["logs"] else f"O robo encerrou com codigo {codigo}.")
+            coleta["status"] = "CONCLUIDA"
+            coleta["mensagem"] = f"Capas concluidas: {coleta['sucessos']} sucesso(s) e {coleta['falhas']} falha(s)."
+            coleta["atualizadaEm"] = agora_iso()
+    except Exception as erro:
+        with trava:
+            if coleta["status"] != "CANCELADA":
+                coleta["status"] = "ERRO"
+                coleta["mensagem"] = str(erro)
+                coleta["atualizadaEm"] = agora_iso()
+    finally:
+        with trava:
+            coleta["processo"] = None
+
+
 def encerrar_processo(processo):
     if not processo or processo.poll() is not None:
         return
@@ -279,22 +414,38 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
             else:
                 self.responder(200, corpo)
             return
+        encontrado = re.fullmatch(r"/capas-telegram/([a-f0-9]+)", self.path)
+        if encontrado:
+            with trava:
+                coleta = coletas_capas_telegram.get(encontrado.group(1))
+                corpo = resumo_capas_telegram(coleta) if coleta else None
+            if not corpo:
+                self.responder(404, {"mensagem": "Tarefa de capas nao encontrada."})
+            else:
+                self.responder(200, corpo)
+            return
         self.responder(404, {"mensagem": "Rota local não encontrada."})
 
     def do_POST(self):
         if not self.autorizar_origem():
             return
-        if self.path.rstrip("/") != "/coletas":
+        rota = self.path.rstrip("/")
+        if rota not in {"/coletas", "/capas-telegram"}:
             self.responder(404, {"mensagem": "Rota local não encontrada."})
             return
         try:
             tamanho = int(self.headers.get("Content-Length") or 0)
             if tamanho <= 0 or tamanho > TAMANHO_MAXIMO_REQUISICAO:
                 raise ValueError("A requisição local está vazia ou é grande demais.")
-            entrada = validar_entrada(json.loads(self.rfile.read(tamanho).decode("utf-8")))
+            dados = json.loads(self.rfile.read(tamanho).decode("utf-8"))
+            entrada = validar_entrada(dados) if rota == "/coletas" else validar_entrada_capas_telegram(dados)
             with trava:
                 ativa = next(
                     (item for item in coletas.values() if item["status"] in {"INICIANDO", "COLETANDO"}),
+                    None,
+                )
+                ativa = ativa or next(
+                    (item for item in coletas_capas_telegram.values() if item["status"] in {"INICIANDO", "COLETANDO"}),
                     None,
                 )
                 if ativa:
@@ -309,7 +460,7 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
                     "status": "INICIANDO",
                     "mensagem": "Preparando o Chrome...",
                     "paginasProcessadas": 0,
-                    "totalPaginas": entrada["quantidade"] or 0,
+                    "totalPaginas": (entrada.get("quantidade") or 0),
                     "avisos": [],
                     "logs": [],
                     "resultado": None,
@@ -317,9 +468,17 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
                     "criadaEm": agora_iso(),
                     "atualizadaEm": agora_iso(),
                 }
-                coletas[identificador] = coleta
-            threading.Thread(target=executar_coleta, args=(coleta, entrada), daemon=True).start()
-            self.responder(202, resumo_coleta(coleta, incluir_resultado=False))
+                if rota == "/capas-telegram":
+                    coleta.update({"edicoesProcessadas": 0, "totalEdicoes": 0, "sucessos": 0, "falhas": 0})
+                    coletas_capas_telegram[identificador] = coleta
+                    alvo = executar_capas_telegram
+                    resumo = resumo_capas_telegram
+                else:
+                    coletas[identificador] = coleta
+                    alvo = executar_coleta
+                    resumo = lambda item: resumo_coleta(item, incluir_resultado=False)
+            threading.Thread(target=alvo, args=(coleta, entrada), daemon=True).start()
+            self.responder(202, resumo(coleta))
         except (ValueError, json.JSONDecodeError) as erro:
             self.responder(400, {"mensagem": str(erro)})
         except Exception as erro:
@@ -328,12 +487,13 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
     def do_DELETE(self):
         if not self.autorizar_origem():
             return
-        encontrado = re.fullmatch(r"/coletas/([a-f0-9]+)", self.path)
+        encontrado = re.fullmatch(r"/(coletas|capas-telegram)/([a-f0-9]+)", self.path)
         if not encontrado:
             self.responder(404, {"mensagem": "Rota local não encontrada."})
             return
         with trava:
-            coleta = coletas.get(encontrado.group(1))
+            colecao = coletas if encontrado.group(1) == "coletas" else coletas_capas_telegram
+            coleta = colecao.get(encontrado.group(2))
             if not coleta:
                 self.responder(404, {"mensagem": "Coleta local não encontrada."})
                 return
@@ -343,7 +503,8 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
             processo = coleta.get("processo")
         encerrar_processo(processo)
         with trava:
-            corpo = resumo_coleta(coleta, incluir_resultado=False)
+            corpo = (resumo_coleta(coleta, incluir_resultado=False)
+                     if encontrado.group(1) == "coletas" else resumo_capas_telegram(coleta))
         self.responder(200, corpo)
 
 
@@ -354,6 +515,8 @@ def main():
     args = parser.parse_args()
     if not COLETOR.exists():
         parser.error(f"Coletor interativo não encontrado: {COLETOR}")
+    if not COLETOR_CAPAS_TELEGRAM.exists():
+        parser.error(f"Coletor de capas do Telegram não encontrado: {COLETOR_CAPAS_TELEGRAM}")
     if args.porta < 1024 or args.porta > 65535:
         parser.error("--porta deve ficar entre 1024 e 65535.")
 
@@ -375,6 +538,7 @@ def main():
     finally:
         with trava:
             processos = [item.get("processo") for item in coletas.values()]
+            processos.extend(item.get("processo") for item in coletas_capas_telegram.values())
         for processo in processos:
             encerrar_processo(processo)
         servidor.server_close()
