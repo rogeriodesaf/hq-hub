@@ -24,7 +24,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-VERSAO = "1.1.0"
+VERSAO = "1.2.0"
+MAXIMO_ROBOS_TELEGRAM = 2
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
     "https://hqhub-frontend.onrender.com",
@@ -138,6 +139,7 @@ def validar_entrada_capas_telegram(dados):
 def resumo_capas_telegram(coleta):
     return {
         "id": coleta["id"],
+        "robo": coleta["robo"],
         "status": coleta["status"],
         "mensagem": coleta["mensagem"],
         "edicoesProcessadas": coleta["edicoesProcessadas"],
@@ -302,7 +304,7 @@ def executar_capas_telegram(coleta, entrada):
         "--numero-inicial", str(entrada["numeroInicial"]),
         "--grupo", entrada["grupo"],
         "--backend-url", entrada["backendUrl"],
-        "--sessao", str(Path.home() / ".telegram" / "hqhub"),
+        "--sessao", str(Path.home() / ".telegram" / ("hqhub" if coleta["robo"] == 1 else "hqhub-worker-2")),
     ]
     if entrada["numeroFinal"] is not None:
         comando.extend(["--numero-final", str(entrada["numeroFinal"])])
@@ -440,20 +442,40 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
             dados = json.loads(self.rfile.read(tamanho).decode("utf-8"))
             entrada = validar_entrada(dados) if rota == "/coletas" else validar_entrada_capas_telegram(dados)
             with trava:
-                ativa = next(
-                    (item for item in coletas.values() if item["status"] in {"INICIANDO", "COLETANDO"}),
-                    None,
-                )
-                ativa = ativa or next(
-                    (item for item in coletas_capas_telegram.values() if item["status"] in {"INICIANDO", "COLETANDO"}),
-                    None,
-                )
-                if ativa:
-                    self.responder(409, {
-                        "mensagem": "Já existe uma coleta local em andamento.",
-                        "coleta": resumo_coleta(ativa, incluir_resultado=False),
-                    })
+                coletas_guia_ativas = [
+                    item for item in coletas.values() if item["status"] in {"INICIANDO", "COLETANDO"}
+                ]
+                capas_ativas = [
+                    item for item in coletas_capas_telegram.values()
+                    if item["status"] in {"INICIANDO", "COLETANDO"}
+                ]
+                if rota == "/coletas" and (coletas_guia_ativas or capas_ativas):
+                    self.responder(409, {"mensagem": "Existe um trabalho local em andamento. Aguarde ou interrompa-o."})
                     return
+                if rota == "/capas-telegram":
+                    if coletas_guia_ativas:
+                        self.responder(409, {"mensagem": "A coleta do Guia está usando o assistente. Aguarde ou interrompa-a."})
+                        return
+                    if len(capas_ativas) >= MAXIMO_ROBOS_TELEGRAM:
+                        self.responder(409, {"mensagem": "Os dois robôs de capas já estão trabalhando."})
+                        return
+                    novo_final = entrada["numeroFinal"] if entrada["numeroFinal"] is not None else 9999
+                    sobreposta = next((
+                        item for item in capas_ativas
+                        if item["serieId"] == entrada["serieId"]
+                        and entrada["numeroInicial"] <= item["numeroFinalComparacao"]
+                        and novo_final >= item["numeroInicial"]
+                    ), None)
+                    if sobreposta:
+                        self.responder(409, {
+                            "mensagem": (
+                                f"O intervalo informado coincide com o Robô {sobreposta['robo']} "
+                                f"({sobreposta['numeroInicial']}–{sobreposta['numeroFinalComparacao']})."
+                            )
+                        })
+                        return
+                    robos_ocupados = {item["robo"] for item in capas_ativas}
+                    robo = next(numero for numero in range(1, MAXIMO_ROBOS_TELEGRAM + 1) if numero not in robos_ocupados)
                 identificador = secrets.token_hex(12)
                 coleta = {
                     "id": identificador,
@@ -469,7 +491,16 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
                     "atualizadaEm": agora_iso(),
                 }
                 if rota == "/capas-telegram":
-                    coleta.update({"edicoesProcessadas": 0, "totalEdicoes": 0, "sucessos": 0, "falhas": 0})
+                    coleta.update({
+                        "robo": robo,
+                        "serieId": entrada["serieId"],
+                        "numeroInicial": entrada["numeroInicial"],
+                        "numeroFinalComparacao": entrada["numeroFinal"] if entrada["numeroFinal"] is not None else 9999,
+                        "edicoesProcessadas": 0,
+                        "totalEdicoes": 0,
+                        "sucessos": 0,
+                        "falhas": 0,
+                    })
                     coletas_capas_telegram[identificador] = coleta
                     alvo = executar_capas_telegram
                     resumo = resumo_capas_telegram
@@ -519,6 +550,14 @@ def main():
         parser.error(f"Coletor de capas do Telegram não encontrado: {COLETOR_CAPAS_TELEGRAM}")
     if args.porta < 1024 or args.porta > 65535:
         parser.error("--porta deve ficar entre 1024 e 65535.")
+
+    pasta_sessoes = Path.home() / ".telegram"
+    sessao_principal = pasta_sessoes / "hqhub.session"
+    sessao_segundo_robo = pasta_sessoes / "hqhub-worker-2.session"
+    if sessao_principal.exists() and not sessao_segundo_robo.exists():
+        pasta_sessoes.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(sessao_principal, sessao_segundo_robo)
+        print("Sessão autorizada do Telegram preparada para o Robô 2.")
 
     servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), RequisicaoAssistente)
     print("=" * 68)

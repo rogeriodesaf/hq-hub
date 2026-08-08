@@ -22,20 +22,33 @@ if ($python.Name -eq 'py.exe' -or $python.Name -eq 'py') {
     $prefixoPython = @('-3')
 }
 
+$tratamentoErroAnterior = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
 & $comandoPython @prefixoPython -c 'import playwright' 2>$null
-if ($LASTEXITCODE -ne 0) {
+$playwrightDisponivel = $LASTEXITCODE -eq 0
+$ErrorActionPreference = $tratamentoErroAnterior
+if (-not $playwrightDisponivel) {
     Write-Host 'Instalando a dependência Playwright para o assistente local...' -ForegroundColor Yellow
+    $ErrorActionPreference = 'Continue'
     & $comandoPython @prefixoPython -m pip install --user 'playwright>=1.40,<2'
-    if ($LASTEXITCODE -ne 0) {
+    $instalacaoPlaywrightOk = $LASTEXITCODE -eq 0
+    $ErrorActionPreference = $tratamentoErroAnterior
+    if (-not $instalacaoPlaywrightOk) {
         throw 'Não foi possível instalar o Playwright. Execute: python -m pip install playwright'
     }
 }
 
+$ErrorActionPreference = 'Continue'
 & $comandoPython @prefixoPython -c 'import telethon, pymupdf' 2>$null
-if ($LASTEXITCODE -ne 0) {
+$telegramDisponivel = $LASTEXITCODE -eq 0
+$ErrorActionPreference = $tratamentoErroAnterior
+if (-not $telegramDisponivel) {
     Write-Host 'Instalando dependencias do importador de capas do Telegram...' -ForegroundColor Yellow
+    $ErrorActionPreference = 'Continue'
     & $comandoPython @prefixoPython -m pip install --user 'telethon>=1.36,<2' 'pymupdf>=1.24,<2'
-    if ($LASTEXITCODE -ne 0) {
+    $instalacaoTelegramOk = $LASTEXITCODE -eq 0
+    $ErrorActionPreference = $tratamentoErroAnterior
+    if (-not $instalacaoTelegramOk) {
         throw 'Nao foi possivel instalar Telethon/PyMuPDF. Execute: python -m pip install telethon pymupdf'
     }
 }

@@ -38,7 +38,8 @@ permanece disponível para selecionar ou colar um arquivo manualmente.
 - Apenas o domínio oficial do HQ-HUB e endereços locais de desenvolvimento são
   aceitos pelo navegador.
 - A coleta pode ser interrompida pela página ou com `Ctrl+C` no PowerShell.
-- Somente uma coleta local pode ficar ativa por vez.
+- A coleta do Guia é exclusiva. Para capas do Telegram, até dois robôs podem
+  trabalhar ao mesmo tempo em intervalos diferentes.
 
 ## Opção
 
@@ -61,3 +62,9 @@ O robô usa a maior miniatura do CBZ/PDF como capa quando ela estiver disponíve
 Se o documento não possuir miniatura, baixa o arquivo em uma pasta temporária,
 extrai a primeira página e descarta tudo após o upload. A tela permite escolher
 a série, o intervalo, acompanhar sucessos/falhas e interromper a tarefa.
+
+Para usar dois robôs, inicie a primeira faixa em uma aba e abra uma nova aba do
+HQ-HUB para iniciar a segunda. O assistente reserva os slots **Robô 1** e
+**Robô 2**, usa arquivos de sessão separados e bloqueia intervalos sobrepostos
+da mesma série. Na primeira inicialização da versão 1.2, a autorização local já
+existente é copiada para a sessão independente do segundo robô.
