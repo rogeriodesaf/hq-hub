@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import br.com.hqhub.dto.GrupoDuplicidadeSerieDTO;
 import br.com.hqhub.dto.ResultadoDeduplicacaoSeriesDTO;
 import br.com.hqhub.dto.SerieRespostaDTO;
+import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.mapper.SerieMapper;
@@ -85,6 +86,54 @@ public class DeduplicacaoSerieService {
                 edicoesMescladas,
                 referenciasAtualizadas,
                 gruposMesclados);
+    }
+
+    @Transactional
+    public ResultadoDeduplicacaoSeriesDTO mesclarDirecionado(
+            Long serieMantidaId,
+            List<Long> seriesDescartadasIds) {
+        if (seriesDescartadasIds == null || seriesDescartadasIds.isEmpty()) {
+            throw new RegraNegocioException("Informe ao menos uma serie para descartar.");
+        }
+        if (seriesDescartadasIds.contains(serieMantidaId)) {
+            throw new RegraNegocioException("A serie mantida nao pode estar entre as descartadas.");
+        }
+        if (seriesDescartadasIds.stream().distinct().count() != seriesDescartadasIds.size()) {
+            throw new RegraNegocioException("A lista de series descartadas possui IDs repetidos.");
+        }
+
+        Serie mantida = serieRepository.findByIdOptional(serieMantidaId)
+                .orElseThrow(() -> new RegraNegocioException("Serie mantida nao encontrada."));
+        List<Serie> descartadas = seriesDescartadasIds.stream()
+                .map(id -> serieRepository.findByIdOptional(id)
+                        .orElseThrow(() -> new RegraNegocioException("Serie descartada nao encontrada: " + id)))
+                .toList();
+        List<SerieRespostaDTO> descartadasResumo = descartadas.stream()
+                .map(serieMapper::paraResposta)
+                .toList();
+
+        int edicoesMescladas = 0;
+        int referenciasAtualizadas = 0;
+        for (Serie descartada : descartadas) {
+            copiarCamposFaltantes(mantida, descartada);
+            ResultadoMesclagemSerie resultado = mesclarSerie(descartada, mantida);
+            edicoesMescladas += resultado.edicoesMescladas();
+            referenciasAtualizadas += resultado.referenciasAtualizadas();
+        }
+        entityManager.flush();
+
+        GrupoDuplicidadeSerieDTO grupo = new GrupoDuplicidadeSerieDTO(
+                chaveAmpla(mantida),
+                serieMapper.paraResposta(mantida),
+                descartadasResumo,
+                pontuar(mantida));
+        return new ResultadoDeduplicacaoSeriesDTO(
+                1,
+                1,
+                descartadas.size(),
+                edicoesMescladas,
+                referenciasAtualizadas,
+                List.of(grupo));
     }
 
     private List<List<Serie>> montarGruposDuplicados() {

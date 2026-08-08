@@ -94,6 +94,50 @@ lote caso o segundo acesso também seja negado.
 
 Esse fluxo evita que dados incompletos entrem direto no catálogo.
 
+## Enriquecer uma capa pelo Telegram
+
+O enriquecedor procura pelo texto um documento CBZ ou PDF, baixa-o em diretório
+temporário, extrai somente a primeira página como capa, envia a imagem ao
+endpoint de capas do backend e atualiza o `urlCapa` da edição indicada. O
+backend usa sua configuração já existente do Cloudinary. O documento e a capa
+temporários são removidos automaticamente após o upload.
+
+Configure `TELEGRAM_API_ID`, `TELEGRAM_API_HASH` e `HQHUB_API_TOKEN` com um
+token de colaborador ou administrador. Opcionalmente, defina `HQHUB_API_URL`;
+sem ela, o robô usa `http://localhost:8080`. Nenhuma credencial do Cloudinary é
+necessária no robô. Instale os clientes uma vez com
+`python -m pip install telethon pymupdf` e execute:
+
+```powershell
+python docs/importacao/ferramentas/robo_enriquecer_capa_telegram.py `
+  --consulta "Zagor Mythos 01" `
+  --numero 1 `
+  --busca-hqhub "Zagor Mythos" `
+  --grupo @zagorbr
+```
+
+A primeira execução solicita telefone, código recebido no Telegram e, quando
+ativada, a senha de verificação em duas etapas. A sessão fica em `.telegram/`,
+que é ignorada pelo Git; não compartilhe essa pasta nem as credenciais.
+O JSON original não é necessário quando a edição já foi importada: o robô
+localiza a edição pelo catálogo e atualiza sua capa diretamente. Se a busca
+retornar mais de uma edição, execute novamente com `--edicao-id ID`.
+Durante a execução, o terminal mostra as sete etapas do processo, a quantidade
+de resultados inspecionados e uma barra percentual para o download do arquivo.
+
+Para processar em sequência todas as edições numéricas já cadastradas em uma
+série, use `--serie-id`. O robô procura `01`, `02`, `03` etc., continua quando
+uma edição falha e exibe um relatório ao final:
+
+```powershell
+python docs/importacao/ferramentas/robo_enriquecer_capa_telegram.py `
+  --consulta "Zagor Mythos" `
+  --serie-id 1019 `
+  --numero-inicial 1 `
+  --grupo @zagorbr `
+  --backend-url "https://hqhub-backend.onrender.com"
+```
+
 ## Enriquecer capas pela Panini
 
 Quando uma coleção da Panini tiver páginas públicas com imagens exibíveis, use o robô de capas para gerar uma nova versão do JSON com `urlCapa` substituída.
