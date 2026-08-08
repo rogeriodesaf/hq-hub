@@ -29,6 +29,7 @@ interface ColetaGuiaLocal {
 
 interface ColetaCapasTelegramLocal {
   id: string;
+  robo: number;
   status: StatusColetaLocal;
   mensagem: string;
   edicoesProcessadas: number;
@@ -275,7 +276,7 @@ interface ColetaCapasTelegramLocal {
           <section class="editor-visual-importacao coleta-guia">
             <aside class="dica-importacao-colaborador">
               <strong>Capas pelo seu Telegram</strong>
-              <p>O assistente usa somente a sessão deste computador. CBZ/PDF e capas temporárias são descartados após o envio.</p>
+              <p>O assistente usa somente a sessão deste computador. CBZ/PDF e capas temporárias são descartados após o envio. Para acelerar, abra uma nova aba do HQ-HUB e envie outra faixa: até dois robôs podem trabalhar ao mesmo tempo.</p>
             </aside>
             <div class="grade-importacao-visual">
               <label class="campo-largo">Buscar série no HQ-HUB
@@ -305,7 +306,7 @@ interface ColetaCapasTelegramLocal {
             </section>
             @if (coletaCapasTelegram(); as coleta) {
               <section class="andamento-coleta andamento-coleta-local">
-                <div><strong>{{ coleta.mensagem }}</strong><span>{{ coleta.edicoesProcessadas }} de {{ coleta.totalEdicoes }} · {{ coleta.sucessos }} sucessos · {{ coleta.falhas }} falhas</span></div>
+                <div><strong>Robô {{ coleta.robo }} · {{ coleta.mensagem }}</strong><span>{{ coleta.edicoesProcessadas }} de {{ coleta.totalEdicoes }} · {{ coleta.sucessos }} sucessos · {{ coleta.falhas }} falhas</span></div>
                 <progress [value]="coleta.edicoesProcessadas" [max]="coleta.totalEdicoes || 1"></progress>
                 @if (capasTelegramEmAndamento()) { <button class="botao secundario compacto" type="button" (click)="cancelarCapasTelegram()">Interromper</button> }
                 @if (coleta.logs.length) { <details><summary>Atividade do robô</summary><pre>{{ coleta.logs.join('\n') }}</pre></details> }
@@ -1556,7 +1557,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   visualImportacao: any = this.modeloImportacao();
 
   ngOnInit() {
-    const capasTelegramId = localStorage.getItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
+    const capasTelegramId = sessionStorage.getItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
     if (capasTelegramId) void this.restaurarCapasTelegram(capasTelegramId);
     const coletaLocalId = localStorage.getItem(ImportacaoPage.COLETA_GUIA_LOCAL_STORAGE);
     const iniciadoPeloAssistente = new URLSearchParams(window.location.search).has('assistenteLocal');
@@ -1621,6 +1622,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
 
   textoStatusAssistenteLocal() {
     if (this.assistenteLocalOnline() === true) {
+      if (this.modoEntrada() === 'telegram') return 'Conectado e pronto para executar até dois robôs de capas.';
       return 'Pronto para abrir o Chrome e devolver o JSON a esta página.';
     }
     if (this.assistenteLocalOnline() === false) {
@@ -1640,7 +1642,11 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     try {
       const resposta = await this.requisicaoAssistenteLocal<{ online: boolean }>('/health');
       this.assistenteLocalOnline.set(resposta.online === true);
-      if (exibirMensagem) this.mensagem.set('Assistente local conectado. Agora você pode abrir o Chrome.');
+      if (exibirMensagem) {
+        this.mensagem.set(this.modoEntrada() === 'telegram'
+          ? 'Assistente conectado. Há dois robôs disponíveis para faixas diferentes.'
+          : 'Assistente local conectado. Agora você pode abrir o Chrome.');
+      }
     } catch {
       this.assistenteLocalOnline.set(false);
       if (exibirMensagem) {
@@ -1807,7 +1813,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         }),
       }, 15_000);
       this.coletaCapasTelegram.set(coleta);
-      localStorage.setItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE, coleta.id);
+      sessionStorage.setItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE, coleta.id);
       this.agendarConsultaCapasTelegram();
     } catch (erro: any) {
       this.mensagem.set(erro?.message || 'Não foi possível iniciar as capas pelo Telegram.');
@@ -1835,7 +1841,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       this.modoEntrada.set('telegram');
       this.agendarConsultaCapasTelegram();
     } catch {
-      localStorage.removeItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
+      sessionStorage.removeItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);
     }
   }
 
