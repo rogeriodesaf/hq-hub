@@ -31,6 +31,15 @@ if ($LASTEXITCODE -ne 0) {
     }
 }
 
+& $comandoPython @prefixoPython -c 'import telethon, pymupdf' 2>$null
+if ($LASTEXITCODE -ne 0) {
+    Write-Host 'Instalando dependencias do importador de capas do Telegram...' -ForegroundColor Yellow
+    & $comandoPython @prefixoPython -m pip install --user 'telethon>=1.36,<2' 'pymupdf>=1.24,<2'
+    if ($LASTEXITCODE -ne 0) {
+        throw 'Nao foi possivel instalar Telethon/PyMuPDF. Execute: python -m pip install telethon pymupdf'
+    }
+}
+
 $argumentos = @($prefixoPython) + @($assistente, '--porta', [string]$Porta)
 if (-not $NaoAbrirSite) {
     $argumentos += '--abrir-hqhub'

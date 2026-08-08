@@ -1,4 +1,4 @@
-# Assistente local do Guia dos Quadrinhos
+# Assistente local do HQ-HUB
 
 O assistente local permite que a página de importação do HQ-HUB use uma sessão
 visível do Google Chrome. A verificação “Não sou um robô” é concluída pela
@@ -49,3 +49,15 @@ powershell -ExecutionPolicy Bypass -File docs/importacao/ferramentas/iniciar_ass
 ```
 
 O frontend do HQ-HUB usa a porta padrão `8765`.
+
+## Capas do Telegram
+
+A aba **Capas do Telegram** usa a mesma ponte local. Configure
+`TELEGRAM_API_ID` e `TELEGRAM_API_HASH` antes de iniciar o assistente. A
+aplicação envia ao processo local somente o token temporário da sessão atual do
+HQ-HUB; ele não é salvo em arquivo nem retornado pelos endpoints locais.
+
+O robô usa a maior miniatura do CBZ/PDF como capa quando ela estiver disponível.
+Se o documento não possuir miniatura, baixa o arquivo em uma pasta temporária,
+extrai a primeira página e descarta tudo após o upload. A tela permite escolher
+a série, o intervalo, acompanhar sucessos/falhas e interromper a tarefa.
