@@ -5,6 +5,7 @@ import br.com.hqhub.dto.AtualizacaoSerieDTO;
 import br.com.hqhub.dto.CadastroSerieComEdicoesDTO;
 import br.com.hqhub.dto.CadastroSerieDTO;
 import br.com.hqhub.dto.PaginaRespostaDTO;
+import br.com.hqhub.dto.MesclagemSeriesDirecionadaDTO;
 import br.com.hqhub.dto.SerieRespostaDTO;
 import br.com.hqhub.service.DeduplicacaoSerieService;
 import br.com.hqhub.service.SerieService;
@@ -87,6 +88,15 @@ public class SerieResource {
     @RolesAllowed("ADMINISTRADOR")
     public Response deduplicar() {
         return Response.ok(deduplicacaoSerieService.deduplicar()).build();
+    }
+
+    @POST
+    @Path("/mesclar-direcionado")
+    @RolesAllowed("ADMINISTRADOR")
+    public Response mesclarDirecionado(@Valid MesclagemSeriesDirecionadaDTO dto) {
+        return Response.ok(deduplicacaoSerieService.mesclarDirecionado(
+                dto.serieMantidaId(),
+                dto.seriesDescartadasIds())).build();
     }
 
     @PUT
