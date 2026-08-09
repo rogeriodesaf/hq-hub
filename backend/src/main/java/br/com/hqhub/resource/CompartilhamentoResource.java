@@ -183,7 +183,9 @@ public class CompartilhamentoResource {
                         item.getEdicao().getId(),
                         item.getEdicao().getNumero(),
                         item.getEdicao().getTitulo(),
-                        urlPublicaService.normalizarApiUrl(item.getEdicao().getUrlCapa()),
+                        edicaoRepository.capaPublicaPorEdicao(item.getEdicao().getId())
+                                .map(urlPublicaService::normalizarApiUrl)
+                                .orElse(null),
                         item.getStatusLeitura()))
                 .toList();
 
@@ -405,12 +407,14 @@ public class CompartilhamentoResource {
             return urlPublica(thumbnailVideo);
         }
         if (postagem.getItemColecao() != null) {
-            return primeiraUrlPublica(postagem.getItemColecao().getEdicao().getUrlCapa(), postagem.getUrlImagem());
+            return edicaoRepository.capaPublicaPorEdicao(postagem.getItemColecao().getEdicao().getId())
+                    .map(this::urlPublica)
+                    .orElseGet(() -> urlPublicaSegura(postagem.getUrlImagem()));
         }
         if (postagem.getSerieCatalogo() != null) {
             return edicaoRepository.primeiraCapaPorSerie(postagem.getSerieCatalogo().getId())
                     .map(this::urlPublica)
-                    .orElseGet(() -> urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO)));
+                    .orElseGet(() -> urlPublicaSegura(postagem.getUrlImagem()));
         }
         List<ImagemPostagemFeed> imagens = imagemRepository.listarPorPostagem(postagem.getId());
         if (!imagens.isEmpty()) {
@@ -419,14 +423,21 @@ public class CompartilhamentoResource {
         return urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO));
     }
 
+    private String urlPublicaSegura(String url) {
+        if (url != null && url.toLowerCase(java.util.Locale.ROOT).contains("guiadosquadrinhos.com")) {
+            return urlAbsoluta(IMAGEM_PADRAO);
+        }
+        return urlPublica(url, urlAbsoluta(IMAGEM_PADRAO));
+    }
+
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=6-" + versao(postagem);
+                + "/imagem.jpg?v=7-" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=9-" + versao(postagem);
+                + "?v=10-" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {

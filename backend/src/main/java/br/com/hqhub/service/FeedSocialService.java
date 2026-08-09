@@ -393,7 +393,9 @@ public class FeedSocialService {
                 serie.getTitulo(),
                 serie.getEditora().getNome(),
                 Math.toIntExact(quantidadeEdicoes),
-                urlPublicaService.normalizarApiUrl(edicao.getUrlCapa()),
+                edicaoRepository.capaPublicaPorEdicao(edicao.getId())
+                        .map(urlPublicaService::normalizarApiUrl)
+                        .orElse(null),
                 concluida);
     }
 

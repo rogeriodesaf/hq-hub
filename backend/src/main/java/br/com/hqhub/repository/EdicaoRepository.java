@@ -48,10 +48,25 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                  where edicao.serie.id = :serieId
                    and edicao.urlCapa is not null
                    and edicao.urlCapa <> ''
+                   and lower(edicao.urlCapa) not like '%guiadosquadrinhos.com%'
                  order by edicao.id
                 """, String.class)
                 .setParameter("serieId", serieId)
                 .setMaxResults(1)
+                .getResultStream()
+                .findFirst();
+    }
+
+    public Optional<String> capaPublicaPorEdicao(Long edicaoId) {
+        return entityManager.createQuery("""
+                select edicao.urlCapa
+                  from Edicao edicao
+                 where edicao.id = :edicaoId
+                   and edicao.urlCapa is not null
+                   and edicao.urlCapa <> ''
+                   and lower(edicao.urlCapa) not like '%guiadosquadrinhos.com%'
+                """, String.class)
+                .setParameter("edicaoId", edicaoId)
                 .getResultStream()
                 .findFirst();
     }
