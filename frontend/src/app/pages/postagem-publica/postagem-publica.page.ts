@@ -56,8 +56,10 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
           }
 
           @if (postagem()!.catalogoDestaque; as catalogo) {
-            <section class="destaque">
-              <img [src]="midia(catalogo.urlCapa) || capaReserva" [alt]="catalogo.titulo" />
+            <section class="destaque" [class.sem-capa]="!capaExibivel(catalogo.urlCapa)">
+              @if (capaExibivel(catalogo.urlCapa); as urlCapa) {
+                <img [src]="urlCapa" [alt]="catalogo.titulo" />
+              }
               <div>
                 <span class="rotulo">Catalogo</span>
                 <h2>{{ catalogo.titulo }}</h2>
@@ -128,6 +130,7 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
     .conteudo { margin: 22px 0; font-size: 1.08rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
     .destaque { display: grid; grid-template-columns: 116px 1fr; gap: 20px; align-items: center; margin: 20px 0; padding: 16px; border-radius: 14px; background: var(--fundo); }
+    .destaque.sem-capa { grid-template-columns: 1fr; }
     .destaque img { width: 116px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 8px; }
     .destaque h2 { margin: 4px 0; }
     .rotulo { color: #ff871f; font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
@@ -181,6 +184,14 @@ export class PostagemPublicaPage implements OnInit {
     if (!postagem) return [];
     if (postagem.imagens.length) return postagem.imagens;
     return postagem.urlImagem ? [{ urlImagem: postagem.urlImagem, urlThumbnail: postagem.urlImagem }] : [];
+  }
+
+  capaExibivel(url: string | null | undefined): string | null {
+    const valor = url?.trim();
+    if (!valor || valor.toLowerCase().includes('guiadosquadrinhos.com')) {
+      return null;
+    }
+    return this.midia(valor) || null;
   }
 
   iniciais(nome: string) {

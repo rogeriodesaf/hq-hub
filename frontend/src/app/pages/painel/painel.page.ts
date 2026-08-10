@@ -302,12 +302,10 @@ import { environment } from '../../../environments/environment';
               }
 
               @if (postagem.catalogoDestaque) {
-                <article class="cartao-colecao-feed cartao-catalogo-feed">
-                  <img
-                    [src]="postagem.catalogoDestaque.urlCapa || 'assets/capa-reserva.svg'"
-                    [alt]="postagem.catalogoDestaque.titulo"
-                    loading="lazy"
-                  />
+                <article class="cartao-colecao-feed cartao-catalogo-feed" [class.sem-capa]="!capaCatalogoExibivel(postagem)">
+                  @if (capaCatalogoExibivel(postagem); as urlCapa) {
+                    <img [src]="urlCapa" [alt]="postagem.catalogoDestaque.titulo" loading="lazy" />
+                  }
                   <div>
                     <p class="rotulo">Catalogo</p>
                     <h3>{{ postagem.catalogoDestaque.titulo }}</h3>
@@ -798,6 +796,14 @@ import { environment } from '../../../environments/environment';
       gap: 8px;
       min-width: 0;
       padding: 14px 14px 14px 0;
+    }
+
+    .cartao-colecao-feed.sem-capa {
+      grid-template-columns: 1fr;
+    }
+
+    .cartao-colecao-feed.sem-capa > div {
+      padding: 14px;
     }
 
     .cartao-colecao-feed h3,
@@ -1736,6 +1742,14 @@ export class PainelPage implements OnInit {
 
   resolverUrlMidia(url: string | null | undefined): string {
     return resolverUrlMidiaCore(url, '');
+  }
+
+  capaCatalogoExibivel(postagem: PostagemFeed): string | null {
+    const url = postagem.catalogoDestaque?.urlCapa?.trim();
+    if (!url || url.toLowerCase().includes('guiadosquadrinhos.com')) {
+      return null;
+    }
+    return this.resolverUrlMidia(url) || null;
   }
 
   iniciais(nome: string) {
