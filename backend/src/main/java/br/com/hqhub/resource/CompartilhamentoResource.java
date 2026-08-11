@@ -432,12 +432,12 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=7-" + versao(postagem);
+                + "/imagem.jpg?v=8-" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=10-" + versao(postagem);
+                + "?v=11-" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {
@@ -570,6 +570,9 @@ public class CompartilhamentoResource {
 
     private String urlPublica(String url, String fallback) {
         if (url == null || url.isBlank()) {
+            return fallback;
+        }
+        if (url.toLowerCase(java.util.Locale.ROOT).contains("guiadosquadrinhos.com")) {
             return fallback;
         }
         String normalizada = urlPublicaService.normalizarApiUrl(url);
