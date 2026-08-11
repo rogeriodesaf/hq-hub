@@ -1840,6 +1840,324 @@ body.tema-escuro .sugestoes-assistente {
   margin: 0;
 }
 
+.mapa-historias-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 4px 0 16px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 122, 0, 0.22);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.11), rgba(255, 255, 255, 0.72));
+}
+
+.mapa-historias-cabecalho h3,
+.mapa-historias-cabecalho p {
+  margin: 0;
+}
+
+.mapa-historias-cabecalho .rotulo {
+  margin-bottom: 4px;
+}
+
+.mapa-historias-cabecalho > div > p:last-child {
+  margin-top: 5px;
+  max-width: 660px;
+}
+
+.mapa-historias-cabecalho > span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--laranja, #ff7a00);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.lista-historias-editorial {
+  display: grid;
+  gap: 12px;
+}
+
+.historia-editorial-card {
+  overflow: hidden;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--superficie-2);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.historia-editorial-card.expandida {
+  border-color: rgba(255, 122, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(31, 42, 55, 0.09);
+}
+
+.historia-editorial-resumo {
+  display: grid;
+  grid-template-columns: 34px 86px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
+}
+
+.historia-ordem {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 122, 0, 0.12);
+  color: var(--laranja, #d96800);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.capa-historia-original {
+  width: 86px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  background: var(--superficie);
+}
+
+.historia-editorial-texto {
+  min-width: 0;
+}
+
+.historia-editorial-texto h4 {
+  margin: 7px 0 0;
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+
+.historia-selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.historia-selos span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(33, 82, 128, 0.09);
+  color: var(--azul);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.titulo-original-historia,
+.origem-historia {
+  margin: 3px 0 0 !important;
+  font-size: 0.88rem;
+}
+
+.descricao-historia {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 7px 0 0 !important;
+  font-size: 0.88rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.origem-historia button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--azul);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-republicacoes {
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 122, 0, 0.38);
+  border-radius: 8px;
+  background: rgba(255, 122, 0, 0.09);
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.botao-republicacoes:hover:not(:disabled) {
+  background: rgba(255, 122, 0, 0.17);
+}
+
+.botao-republicacoes:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.republicacoes-historia {
+  padding: 14px;
+  border-top: 1px solid var(--borda);
+  background: rgba(33, 82, 128, 0.035);
+}
+
+.republicacoes-titulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.republicacoes-titulo span {
+  color: var(--texto-suave);
+  font-size: 0.82rem;
+}
+
+.grade-republicacoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.republicacao-card {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  background: var(--superficie);
+  color: var(--texto);
+  text-align: left;
+  cursor: pointer;
+}
+
+.republicacao-card:hover {
+  border-color: rgba(255, 122, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.republicacao-card img {
+  width: 54px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.republicacao-card span,
+.republicacao-card strong,
+.republicacao-card small {
+  display: block;
+  min-width: 0;
+}
+
+.republicacao-card strong {
+  line-height: 1.3;
+}
+
+.republicacao-card small {
+  margin-top: 4px;
+  color: var(--texto-suave);
+}
+
+.estado-republicacoes-vazio {
+  margin: 0 !important;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--superficie);
+}
+
+.ferramentas-historia-admin {
+  padding: 0 14px 14px;
+}
+
+.ferramentas-historia-admin summary {
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+body.tema-escuro .mapa-historias-cabecalho {
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.14), rgba(22, 29, 38, 0.86));
+}
+
+body.tema-escuro .historia-editorial-card,
+body.tema-escuro .republicacao-card,
+body.tema-escuro .estado-republicacoes-vazio {
+  background: var(--superficie-2);
+}
+
+@media (max-width: 620px) {
+  .mapa-historias-cabecalho {
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .mapa-historias-cabecalho > span {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
+  }
+
+  .historia-editorial-resumo {
+    grid-template-columns: 26px 64px minmax(0, 1fr);
+    gap: 9px;
+    padding: 11px;
+  }
+
+  .historia-ordem {
+    width: 25px;
+    height: 25px;
+    font-size: 0.72rem;
+  }
+
+  .capa-historia-original {
+    width: 64px;
+  }
+
+  .historia-editorial-texto h4 {
+    font-size: 1rem;
+  }
+
+  .botao-republicacoes {
+    width: 100%;
+    min-height: 42px;
+    text-align: left;
+  }
+
+  .republicacoes-titulo {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .grade-republicacoes {
+    grid-template-columns: 1fr;
+  }
+
+  .republicacao-card {
+    min-height: 92px;
+  }
+
+  .ferramentas-historia-admin .acoes-detalhe-edicao {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ferramentas-historia-admin .input-capa-publicacao,
+  .ferramentas-historia-admin .botao {
+    width: 100%;
+  }
+}
+
 .resultados-vinculo-original {
   display: grid;
   gap: 0.55rem;

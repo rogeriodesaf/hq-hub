@@ -715,62 +715,65 @@ import {
                   }
                 </section>
               }
-              @for (publicacao of publicacoesDetalhe(); track publicacao.id) {
-                <article class="publicacao-card">
-                  <img
-                    class="capa-publicacao"
-                    [src]="capaPublicacaoOriginal(publicacao) || capaReserva"
-                    [alt]="tituloEdicaoOriginal(publicacao)"
-                    loading="lazy"
-                    (error)="usarCapaReserva($event)"
-                  />
+              @if (publicacoesDetalhe().length) {
+                <header class="mapa-historias-cabecalho">
                   <div>
-                    <p class="rotulo">{{ rotuloStatus(publicacao.status) }}</p>
-                    <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
-                    <p>
-                      Publicada originalmente em
-                      <button class="link-edicao-original" type="button" (click)="abrirDetalheOriginal(publicacao)">
-                        {{ tituloEdicaoOriginal(publicacao) }}
-                      </button>
-                      @if (linkEdicaoOriginal(publicacao)) {
-                        <a class="link-fonte-original" [href]="linkEdicaoOriginal(publicacao)" target="_blank" rel="noreferrer">
-                          {{ rotuloFonteEdicao(publicacao.edicaoOriginal) }}
-                        </a>
-                      }
-                    </p>
-                    @if (publicacao.historia.tituloOriginal) {
-                      <p>Título original: {{ publicacao.historia.tituloOriginal }}</p>
-                    }
-                    @if (publicacao.paginasPublicadas) {
-                      <p>{{ publicacao.paginasPublicadas }} páginas</p>
-                    }
-                    @if (publicacao.historia.descricaoExibicao) {
-                      <p>{{ publicacao.historia.descricaoExibicao }}</p>
+                    <p class="rotulo">Mapa de republicações</p>
+                    <h3>{{ publicacoesDetalhe().length }} história(s) identificada(s)</h3>
+                    <p>Abra uma história para descobrir em quais outras revistas brasileiras ela também foi publicada.</p>
+                  </div>
+                  <span>{{ publicacoesDetalhe().length }}</span>
+                </header>
+              }
+              <div class="lista-historias-editorial">
+                @for (publicacao of publicacoesDetalhe(); track publicacao.id; let ordem = $index) {
+                  <article class="historia-editorial-card" [class.expandida]="historiaExpandida() === publicacao.historia.id">
+                    <div class="historia-editorial-resumo">
+                      <span class="historia-ordem">{{ ordem + 1 }}</span>
+                      <img class="capa-historia-original" [src]="capaPublicacaoOriginal(publicacao) || capaReserva" [alt]="tituloEdicaoOriginal(publicacao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                      <div class="historia-editorial-texto">
+                        <div class="historia-selos">
+                          <span>{{ rotuloStatusCurto(publicacao.status) }}</span>
+                          @if (publicacao.paginasPublicadas) { <span>{{ publicacao.paginasPublicadas }} páginas</span> }
+                        </div>
+                        <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
+                        @if (publicacao.historia.tituloOriginal) { <p class="titulo-original-historia">{{ publicacao.historia.tituloOriginal }}</p> }
+                        @if (publicacao.historia.descricaoExibicao) { <p class="descricao-historia">{{ publicacao.historia.descricaoExibicao }}</p> }
+                        <p class="origem-historia">Publicação original: <button type="button" (click)="abrirDetalheOriginal(publicacao)">{{ tituloEdicaoOriginal(publicacao) }}</button></p>
+                        <button class="botao-republicacoes" type="button" (click)="alternarRepublicacoes(publicacao)" [disabled]="carregandoRepublicacoes() !== null" [attr.aria-expanded]="historiaExpandida() === publicacao.historia.id">
+                          {{ carregandoRepublicacoes() === publicacao.historia.id ? 'Buscando outras edições...' : historiaExpandida() === publicacao.historia.id ? 'Ocultar outras edições' : 'Ver onde mais esta história foi publicada' }}
+                        </button>
+                      </div>
+                    </div>
+                    @if (historiaExpandida() === publicacao.historia.id) {
+                      <section class="republicacoes-historia" aria-live="polite">
+                        <div class="republicacoes-titulo"><strong>Outras edições brasileiras</strong><span>{{ republicacoesHistoria(publicacao.historia.id).length }} resultado(s) no catálogo</span></div>
+                        @if (republicacoesHistoria(publicacao.historia.id).length) {
+                          <div class="grade-republicacoes">
+                            @for (republicacao of republicacoesHistoria(publicacao.historia.id); track republicacao.id) {
+                              <button type="button" class="republicacao-card" (click)="abrirDetalhePorId(republicacao.edicaoPublicada.id)">
+                                <img [src]="republicacao.edicaoPublicada.urlCapa || capaReserva" [alt]="tituloEdicaoPublicada(republicacao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                                <span><strong>{{ tituloEdicaoPublicada(republicacao) }}</strong><small>{{ rotuloStatusCurto(republicacao.status) }}</small></span>
+                              </button>
+                            }
+                          </div>
+                        } @else {
+                          <p class="estado-republicacoes-vazio">Ainda não há outra publicação brasileira vinculada a esta história.</p>
+                        }
+                      </section>
                     }
                     @if (podeEditarCatalogo()) {
-                      <div class="acoes-detalhe-edicao">
-                        <input
-                          class="input-capa-publicacao"
-                          [ngModel]="urlCapaPublicacao(publicacao)"
-                          (ngModelChange)="alterarUrlCapaPublicacao(publicacao, $event)"
-                          [name]="'urlCapaPublicacao' + publicacao.id"
-                          placeholder="URL da capa original"
-                        />
-                        <button class="botao compacto" type="button" (click)="salvarCapaPublicacao(publicacao)" [disabled]="salvandoCapaPublicacao() === publicacao.id">
-                          {{ salvandoCapaPublicacao() === publicacao.id ? 'Salvando...' : 'Salvar capa' }}
-                        </button>
-                        @if (podeExcluirCatalogo()) {
-                          <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">
-                            {{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir publicacao' }}
-                          </button>
-                        }
-                      </div>
+                      <details class="ferramentas-historia-admin"><summary>Ferramentas de catálogo</summary>
+                        <div class="acoes-detalhe-edicao">
+                          <input class="input-capa-publicacao" [ngModel]="urlCapaPublicacao(publicacao)" (ngModelChange)="alterarUrlCapaPublicacao(publicacao, $event)" [name]="'urlCapaPublicacao' + publicacao.id" placeholder="URL da capa original" />
+                          <button class="botao compacto" type="button" (click)="salvarCapaPublicacao(publicacao)" [disabled]="salvandoCapaPublicacao() === publicacao.id">{{ salvandoCapaPublicacao() === publicacao.id ? 'Salvando...' : 'Salvar capa' }}</button>
+                          @if (podeExcluirCatalogo()) { <button class="botao compacto secundario" type="button" (click)="removerPublicacaoDetalhe(publicacao)" [disabled]="removendoPublicacao() === publicacao.id">{{ removendoPublicacao() === publicacao.id ? 'Excluindo...' : 'Excluir vínculo' }}</button> }
+                        </div>
+                      </details>
                     }
-                  </div>
-                </article>
-              } @empty {
-                <p class="texto-suave">Nenhuma publicação brasileira vinculada a esta edição ainda.</p>
-              }
+                  </article>
+                } @empty { <p class="texto-suave">Nenhuma publicação brasileira vinculada a esta edição ainda.</p> }
+              </div>
             </section>
           }
 
@@ -1042,6 +1045,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly historiaExpandida = signal<number | null>(null);
+  readonly carregandoRepublicacoes = signal<number | null>(null);
+  readonly republicacoesPorHistoria = signal<Record<number, PublicacaoHistoria[]>>({});
   readonly linksDetalhe = signal<LinkEdicao[]>([]);
   readonly capasDetalhe = signal<CapaEdicao[]>([]);
   readonly historiaEmFoco = signal<number | null>(null);
@@ -1622,6 +1628,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
+    this.historiaExpandida.set(null);
+    this.carregandoRepublicacoes.set(null);
+    this.republicacoesPorHistoria.set({});
     this.mensagem.set('');
     this.exibindoFormularioConteudo.set(false);
     this.editandoConteudo.set(null);
@@ -1684,6 +1693,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.historiaExpandida.set(null);
+    this.carregandoRepublicacoes.set(null);
+    this.republicacoesPorHistoria.set({});
     this.urlsCapasPublicacoes.set({});
     this.linksDetalhe.set([]);
     this.capasDetalhe.set([]);
@@ -2427,6 +2439,74 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  rotuloStatusCurto(status: string) {
+    const rotulos: Record<string, string> = {
+      COMPLETA: 'Completa',
+      PARCIAL: 'Parcial',
+      CORTADA: 'Cortada',
+      ADAPTADA: 'Adaptada',
+      DESCONHECIDA: 'Status não informado',
+    };
+    return rotulos[status] || status;
+  }
+
+  republicacoesHistoria(historiaId: number) {
+    return this.republicacoesPorHistoria()[historiaId] || [];
+  }
+
+  alternarRepublicacoes(publicacao: PublicacaoHistoria) {
+    const historiaId = publicacao.historia.id;
+    if (this.historiaExpandida() === historiaId) {
+      this.historiaExpandida.set(null);
+      return;
+    }
+
+    if (this.carregandoRepublicacoes() !== null) {
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(this.republicacoesPorHistoria(), historiaId)) {
+      this.historiaExpandida.set(historiaId);
+      return;
+    }
+
+    const edicaoAtualId = this.edicaoDetalhe()?.id;
+    this.carregandoRepublicacoes.set(historiaId);
+    this.api.listarPublicacoesPorHistoria(historiaId).subscribe({
+      next: (publicacoes) => {
+        if (this.edicaoDetalhe()?.id !== edicaoAtualId) {
+          return;
+        }
+        const idsVistos = new Set<number>();
+        const republicacoes = publicacoes
+          .filter((item) => item.edicaoPublicada.id !== edicaoAtualId)
+          .filter((item) => {
+            if (idsVistos.has(item.edicaoPublicada.id)) {
+              return false;
+            }
+            idsVistos.add(item.edicaoPublicada.id);
+            return true;
+          })
+          .sort((a, b) => this.tituloEdicaoPublicada(a).localeCompare(
+            this.tituloEdicaoPublicada(b),
+            'pt-BR',
+            { numeric: true },
+          ));
+
+        this.republicacoesPorHistoria.update((atuais) => ({ ...atuais, [historiaId]: republicacoes }));
+        this.carregandoRepublicacoes.set(null);
+        this.historiaExpandida.set(historiaId);
+      },
+      error: () => {
+        if (this.edicaoDetalhe()?.id !== edicaoAtualId) {
+          return;
+        }
+        this.carregandoRepublicacoes.set(null);
+        this.mensagem.set('Não foi possível consultar as outras edições desta história.');
+      },
+    });
   }
 
   rotuloTipoConteudo(tipo: TipoConteudoEdicao) {
