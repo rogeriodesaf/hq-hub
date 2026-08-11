@@ -147,6 +147,7 @@ def validar_entrada_capas_telegram(dados):
         "backendUrl": backend,
         "origem": origem,
         "urlPaniniInicial": url_panini,
+        "removerForaIntervalo": bool(dados.get("removerForaIntervalo")),
     }
 
 
@@ -321,6 +322,8 @@ def executar_capas_telegram(coleta, entrada):
             "--numero-final", str(entrada["numeroFinal"]),
             "--backend-url", entrada["backendUrl"],
         ]
+        if entrada.get("removerForaIntervalo"):
+            comando.append("--remover-fora-intervalo")
     else:
         comando = [
             sys.executable, "-u", str(COLETOR_CAPAS_TELEGRAM),

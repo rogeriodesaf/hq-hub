@@ -182,6 +182,10 @@ na tela de importação. O assistente local percorre as páginas sequenciais e a
 diretamente a capa de cada edição. A autenticação da sessão aberta no HQ-HUB é usada
 automaticamente; o usuário não precisa informar token no PowerShell.
 
+A opção **Manter somente as edições deste intervalo** remove da série os registros
+que estiverem fora da faixa escolhida. Edições presentes em estantes ou compras pessoais
+são protegidas pelo backend e aparecem como falha para revisão, em vez de serem apagadas.
+
 O comando abaixo fica disponível apenas para uso técnico fora da interface:
 
 ```powershell

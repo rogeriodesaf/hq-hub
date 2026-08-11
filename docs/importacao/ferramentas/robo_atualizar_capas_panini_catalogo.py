@@ -105,8 +105,11 @@ def normalizar(texto):
     return re.sub(r"[^a-z0-9]+", " ", (texto or "").lower()).strip()
 
 
-def listar_edicoes(backend_url, token, serie_id, inicio, fim):
-    edicoes = paginas_api(backend_url, token, "/api/edicoes", {"serieId": serie_id})
+def listar_edicoes(backend_url, token, serie_id):
+    return paginas_api(backend_url, token, "/api/edicoes", {"serieId": serie_id})
+
+
+def indexar_edicoes(edicoes, inicio, fim):
     por_numero = {}
     for edicao in edicoes:
         encontrado = re.fullmatch(r"0*(\d+)", str(edicao.get("numero", "")).strip())
@@ -117,6 +120,32 @@ def listar_edicoes(backend_url, token, serie_id, inicio, fim):
                     raise ValueError(f"A serie possui mais de uma edicao com o numero {numero}.")
                 por_numero[numero] = edicao
     return por_numero
+
+
+def remover_edicao(backend_url, token, edicao_id):
+    requisicao_json(
+        f"{backend_url.rstrip('/')}/api/edicoes/{edicao_id}",
+        token,
+        metodo="DELETE",
+    )
+
+
+def remover_fora_intervalo(backend_url, token, edicoes, inicio, fim):
+    removidas = []
+    falhas = []
+    for edicao in edicoes:
+        encontrado = re.fullmatch(r"0*(\d+)", str(edicao.get("numero", "")).strip())
+        numero = int(encontrado.group(1)) if encontrado else None
+        if numero is not None and inicio <= numero <= fim:
+            continue
+        try:
+            remover_edicao(backend_url, token, edicao["id"])
+            removidas.append(str(edicao.get("numero") or "sem numero"))
+            print(f"[LIMPEZA OK] Edicao {edicao.get('numero') or 'sem numero'} (id={edicao['id']}) removida.")
+        except Exception as erro:
+            falhas.append({"numero": edicao.get("numero"), "id": edicao["id"], "erro": str(erro)})
+            print(f"[LIMPEZA FALHOU] Edicao {edicao.get('numero') or 'sem numero'} (id={edicao['id']}): {erro}")
+    return removidas, falhas
 
 
 def atualizar_capa(backend_url, token, edicao_id, url_capa):
@@ -134,7 +163,8 @@ def executar(args):
         raise ValueError("Configure a variavel de ambiente HQHUB_API_TOKEN antes de iniciar.")
 
     serie = localizar_serie(args.backend_url, token, args.serie_id, args.busca_serie)
-    edicoes = listar_edicoes(args.backend_url, token, serie["id"], args.numero_inicial, args.numero_final)
+    todas_edicoes = listar_edicoes(args.backend_url, token, serie["id"])
+    edicoes = indexar_edicoes(todas_edicoes, args.numero_inicial, args.numero_final)
     padrao_url = re.fullmatch(r"(.+-)(\d+)/?", args.url_inicial.strip())
     if not padrao_url:
         raise ValueError("A URL inicial da Panini deve terminar com o numero da edicao, como '-vol-1'.")
@@ -142,6 +172,14 @@ def executar(args):
     print(f"[Preparacao] Serie: {serie.get('titulo')} (id={serie['id']})")
     print(f"[Preparacao] Intervalo: {args.numero_inicial} a {args.numero_final}")
     print(f"[Preparacao] Edicoes localizadas no catalogo: {len(edicoes)}")
+
+    falhas_limpeza = []
+    if args.remover_fora_intervalo:
+        print("[Limpeza] Removendo edicoes fora do intervalo autorizado...")
+        removidas, falhas_limpeza = remover_fora_intervalo(
+            args.backend_url, token, todas_edicoes, args.numero_inicial, args.numero_final,
+        )
+        print(f"[Limpeza] Removidas: {len(removidas)} | Falhas: {len(falhas_limpeza)}")
 
     sucessos = []
     falhas = []
@@ -191,9 +229,13 @@ def executar(args):
 
     print("\n=== Relatorio final ===")
     print(f"Processadas: {total} | Sucessos: {len(sucessos)} | Ignoradas: {len(ignoradas)} | Falhas: {len(falhas)}")
+    if falhas_limpeza:
+        print(f"Falhas na limpeza: {len(falhas_limpeza)}")
+        for falha in falhas_limpeza:
+            print(f"- Limpeza da edicao {falha['numero']} (id={falha['id']}): {falha['erro']}")
     for falha in falhas:
         print(f"- Numero {falha['numero']}: {falha['erro']}")
-    if falhas:
+    if falhas or falhas_limpeza:
         sys.exit(1)
 
 
@@ -214,6 +256,11 @@ def main():
     parser.add_argument("--intervalo-segundos", type=float, default=0.7)
     parser.add_argument("--tentativas", type=int, default=3)
     parser.add_argument("--somente-sem-capa", action="store_true", help="Nao substitui capas que ja existem.")
+    parser.add_argument(
+        "--remover-fora-intervalo",
+        action="store_true",
+        help="Remove da serie edicoes que nao estejam dentro do intervalo numerico informado.",
+    )
     parser.add_argument("--simular", action="store_true", help="Consulta tudo sem alterar o catalogo.")
     parser.add_argument(
         "--backend-url",

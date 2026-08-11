@@ -349,6 +349,10 @@ interface ColetaCapasTelegramLocal {
               <label class="campo-largo">URL da primeira edição na Panini<input [(ngModel)]="capasPanini.urlInicial" name="paniniUrlInicial" placeholder="https://panini.com.br/...-vol-1" /></label>
               <label>Número inicial<input type="number" min="1" [(ngModel)]="capasPanini.numeroInicial" name="paniniInicio" /></label>
               <label>Número final<input type="number" min="1" [(ngModel)]="capasPanini.numeroFinal" name="paniniFim" /></label>
+              <label class="opcao-checkbox campo-largo">
+                <input type="checkbox" [(ngModel)]="capasPanini.removerForaIntervalo" name="paniniRemoverForaIntervalo" />
+                Manter somente as edições deste intervalo na série selecionada
+              </label>
             </div>
             <section class="assistente-local-guia" [class.online]="assistenteLocalOnline() === true">
               <div class="cabecalho-assistente-local"><div><strong>Assistente local</strong><span>{{ textoStatusAssistenteLocal() }}</span></div></div>
@@ -1600,6 +1604,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     urlInicial: 'https://panini.com.br/a-espada-selvagem-de-conan-vol-1',
     numeroInicial: 1,
     numeroFinal: 75,
+    removerForaIntervalo: true,
   };
   jsonTexto = '';
   rascunho = {
@@ -1907,6 +1912,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
           urlPaniniInicial: this.capasPanini.urlInicial.trim(),
           numeroInicial: Number(this.capasPanini.numeroInicial || 1),
           numeroFinal: Number(this.capasPanini.numeroFinal || 1),
+          removerForaIntervalo: this.capasPanini.removerForaIntervalo,
           tokenHqhub: token,
           backendUrl: 'https://hqhub-backend.onrender.com',
         }),
