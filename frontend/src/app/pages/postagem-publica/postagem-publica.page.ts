@@ -138,6 +138,7 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
     .imagens.multipla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .imagens a:last-child:nth-child(3) { grid-column: 1 / -1; }
     .imagens img { display: block; width: 100%; max-height: 620px; object-fit: cover; }
+    .imagens:not(.multipla) img { width: auto; max-width: 100%; height: auto; max-height: 720px; margin: 0 auto; object-fit: contain; }
     .resumo { display: flex; gap: 20px; align-items: center; padding: 18px 0 4px; border-top: 1px solid var(--borda); margin-top: 20px; }
     .resumo button { margin-left: auto; border: 0; background: transparent; color: #ff871f; font: inherit; font-weight: 800; cursor: pointer; }
     .comentarios { display: grid; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--borda); }

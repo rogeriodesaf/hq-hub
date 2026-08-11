@@ -703,7 +703,13 @@ import { environment } from '../../../environments/environment';
     }
 
     .imagens-postagem:not(.multipla) .imagem-postagem {
-      aspect-ratio: 16 / 10;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 720px;
+      margin: 0 auto;
+      aspect-ratio: auto;
+      object-fit: contain;
     }
 
     .postagem-card header {
