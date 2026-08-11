@@ -293,6 +293,10 @@ interface ColetaCapasTelegramLocal {
                 </div>
               }
               <label>Prefixo dos arquivos<input [(ngModel)]="capasTelegram.consulta" name="telegramConsulta" placeholder="Zagor Mythos" /></label>
+              <label class="opcao-checkbox">
+                <input type="checkbox" [(ngModel)]="capasTelegram.nomeIniciaNumero" name="telegramNomeIniciaNumero" />
+                O arquivo começa somente pelo número (ex.: 001 Título.cbr)
+              </label>
               <label>Grupo<input [(ngModel)]="capasTelegram.grupo" name="telegramGrupo" placeholder="@zagorbr" /></label>
               <label>Número inicial<input type="number" min="1" [(ngModel)]="capasTelegram.numeroInicial" name="telegramInicio" /></label>
               <label>Número final<input type="number" min="1" [(ngModel)]="capasTelegram.numeroFinal" name="telegramFim" /></label>
@@ -1536,7 +1540,13 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   buscaSerieTelegram = 'Zagor';
   numeroEdicaoCapa = '';
   urlCapaManual = '';
-  capasTelegram = { consulta: 'Zagor Mythos', grupo: '@zagorbr', numeroInicial: 1, numeroFinal: 181 as number | null };
+  capasTelegram = {
+    consulta: 'Zagor Mythos',
+    grupo: '@zagorbr',
+    numeroInicial: 1,
+    numeroFinal: 181 as number | null,
+    nomeIniciaNumero: false,
+  };
   jsonTexto = '';
   rascunho = {
     urlGuia: '',
@@ -1805,6 +1815,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         body: JSON.stringify({
           serieId: serie.id,
           consulta: this.capasTelegram.consulta.trim(),
+          nomeIniciaNumero: this.capasTelegram.nomeIniciaNumero,
           grupo: this.capasTelegram.grupo.trim(),
           numeroInicial: Number(this.capasTelegram.numeroInicial || 1),
           numeroFinal: this.capasTelegram.numeroFinal ? Number(this.capasTelegram.numeroFinal) : null,

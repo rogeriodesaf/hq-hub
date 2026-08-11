@@ -6,6 +6,7 @@ import asyncio
 import json
 import os
 import re
+import subprocess
 import tempfile
 import unicodedata
 import uuid
@@ -101,10 +102,53 @@ def extrair_capa_pdf(arquivo, destino):
     return destino
 
 
+def extrair_capa_cbr(arquivo, destino):
+    try:
+        listagem = subprocess.run(
+            ["tar", "-tf", str(arquivo)],
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError) as erro:
+        raise RuntimeError(
+            "Nao foi possivel abrir o CBR. Instale o 7-Zip ou disponibilize uma miniatura no Telegram."
+        ) from erro
+
+    extensoes = (".jpg", ".jpeg", ".png", ".webp")
+    imagens = sorted(
+        (
+            nome.strip() for nome in listagem.stdout.splitlines()
+            if nome.strip()
+            and not nome.startswith("__MACOSX/")
+            and Path(nome).suffix.lower() in extensoes
+        ),
+        key=chave_natural,
+    )
+    if not imagens:
+        raise ValueError("O arquivo CBR nao contem imagens reconhecidas.")
+
+    try:
+        with destino.open("wb") as saida:
+            subprocess.run(
+                ["tar", "-xOf", str(arquivo), imagens[0]],
+                check=True,
+                stdout=saida,
+                stderr=subprocess.PIPE,
+            )
+    except subprocess.CalledProcessError as erro:
+        raise RuntimeError("Nao foi possivel extrair a primeira imagem do CBR.") from erro
+    return destino
+
+
 def extrair_capa_documento(arquivo, pasta):
     extensao = arquivo.suffix.lower()
     if extensao == ".pdf":
         return extrair_capa_pdf(arquivo, pasta / "capa.jpg")
+    if extensao == ".cbr":
+        return extrair_capa_cbr(arquivo, pasta / "capa-extraida")
     if extensao == ".cbz" or zipfile.is_zipfile(arquivo):
         return extrair_capa_cbz(arquivo, pasta / "capa-extraida")
     raise ValueError(f"Formato nao suportado para extracao de capa: {extensao or 'sem extensao'}.")
@@ -250,12 +294,12 @@ async def localizar_capa(client, grupo, consulta, limite):
             # titulo e numero pedidos: "Zagor Mythos 01 ...".
             if tokens_nome[:len(prefixo_esperado)] != prefixo_esperado:
                 continue
-            if mensagem.document and nome_arquivo.lower().endswith((".cbz", ".pdf")):
+            if mensagem.document and nome_arquivo.lower().endswith((".cbz", ".cbr", ".pdf")):
                 print()
                 print(f"      Arquivo selecionado: {nome_arquivo}", flush=True)
                 return mensagem
     print()
-    raise LookupError(f'Nenhum arquivo CBZ/PDF encontrado para "{consulta}" em {grupo}.')
+    raise LookupError(f'Nenhum arquivo CBZ/CBR/PDF encontrado para "{consulta}" em {grupo}.')
 
 
 def atualizar_json(entrada, saida, numero, url, grupo, consulta, mensagem_id):
@@ -318,7 +362,9 @@ async def executar(args):
         for indice, edicao in enumerate(edicoes, start=1):
             numero = edicao["numeroInteiro"]
             consulta = (
-                f"{prefixo} {numero:02d}"
+                f"{numero:0{args.digitos_numero}d}"
+                if args.nome_inicia_numero
+                else f"{prefixo} {numero:02d}"
                 if args.serie_id
                 else args.consulta
             )
@@ -382,6 +428,19 @@ def main():
     parser.add_argument("--serie-id", type=int, help="Processa em sequencia todas as edicoes desta serie.")
     parser.add_argument("--numero-inicial", type=int, default=1, help="Primeiro numero do modo sequencial.")
     parser.add_argument("--numero-final", type=int, help="Ultimo numero do modo sequencial; omitido processa todos.")
+    parser.add_argument(
+        "--nome-inicia-numero",
+        action="store_true",
+        help='Procura arquivos cujo nome inicia somente pelo numero, como "001 Titulo.cbr".',
+    )
+    parser.add_argument(
+        "--digitos-numero",
+        type=int,
+        default=3,
+        choices=range(1, 7),
+        metavar="N",
+        help="Quantidade de digitos no modo --nome-inicia-numero (padrao: 3).",
+    )
     parser.add_argument("--capa-original", action="store_true", help="Ignora a miniatura e extrai a capa do arquivo completo.")
     parser.add_argument(
         "--backend-url",

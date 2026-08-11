@@ -113,10 +113,11 @@ def validar_entrada_capas_telegram(dados):
     inicial = inteiro("numeroInicial", 1, 1, 9999)
     final = inteiro("numeroFinal", None, inicial, 9999)
     consulta = str(dados.get("consulta") or "").strip()
+    nome_inicia_numero = bool(dados.get("nomeIniciaNumero"))
     grupo = str(dados.get("grupo") or "@zagorbr").strip()
     token = str(dados.get("tokenHqhub") or "").strip()
     backend = str(dados.get("backendUrl") or "https://hqhub-backend.onrender.com").strip()
-    if not consulta:
+    if not consulta and not nome_inicia_numero:
         raise ValueError("Informe o prefixo dos arquivos no Telegram.")
     if not re.fullmatch(r"@[A-Za-z0-9_]{5,}", grupo):
         raise ValueError("Informe um grupo publico no formato @nome_do_grupo.")
@@ -130,6 +131,7 @@ def validar_entrada_capas_telegram(dados):
         "numeroInicial": inicial,
         "numeroFinal": final,
         "consulta": consulta,
+        "nomeIniciaNumero": nome_inicia_numero,
         "grupo": grupo,
         "tokenHqhub": token,
         "backendUrl": backend,
@@ -306,6 +308,8 @@ def executar_capas_telegram(coleta, entrada):
         "--backend-url", entrada["backendUrl"],
         "--sessao", str(Path.home() / ".telegram" / ("hqhub" if coleta["robo"] == 1 else "hqhub-worker-2")),
     ]
+    if entrada["nomeIniciaNumero"]:
+        comando.extend(["--nome-inicia-numero", "--digitos-numero", "3"])
     if entrada["numeroFinal"] is not None:
         comando.extend(["--numero-final", str(entrada["numeroFinal"])])
     ambiente = os.environ.copy()
