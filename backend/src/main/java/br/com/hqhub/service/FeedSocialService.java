@@ -262,7 +262,7 @@ public class FeedSocialService {
                 primeiraImagem(postagem, imagens),
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
-                paraCatalogoFeed(postagem.getSerieCatalogo()),
+                paraCatalogoFeed(postagem.getSerieCatalogo(), postagem.getUrlImagem()),
                 listarVideosRelacionados(postagem.getId()),
                 paraCanalParceiro(postagem),
                 curtidaRepository.contarPorPostagem(postagem.getId()),
@@ -363,7 +363,7 @@ public class FeedSocialService {
                 primeiraImagem(postagem, imagens),
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
-                paraCatalogoFeed(postagem.getSerieCatalogo()),
+                paraCatalogoFeed(postagem.getSerieCatalogo(), postagem.getUrlImagem()),
                 listarVideosRelacionados(postagem.getId()),
                 paraCanalParceiro(postagem),
                 postagem.isFixada(),
@@ -399,15 +399,20 @@ public class FeedSocialService {
                 concluida);
     }
 
-    private CatalogoFeedDTO paraCatalogoFeed(Serie serie) {
+    private CatalogoFeedDTO paraCatalogoFeed(Serie serie, String urlCapaImportada) {
         if (serie == null) {
             return null;
         }
 
         long quantidadeEdicoes = edicaoRepository.contarPorSerie(serie.getId());
-        String urlCapa = edicaoRepository.primeiraCapaPorSerie(serie.getId())
-                .map(urlPublicaService::normalizarApiUrl)
-                .orElse(null);
+        boolean capaImportadaInvalida = urlCapaImportada == null
+                || urlCapaImportada.isBlank()
+                || urlCapaImportada.toLowerCase(Locale.ROOT).contains("guiadosquadrinhos.com");
+        String urlCapa = capaImportadaInvalida
+                ? edicaoRepository.primeiraCapaPorSerie(serie.getId())
+                        .map(urlPublicaService::normalizarApiUrl)
+                        .orElse(null)
+                : urlPublicaService.normalizarApiUrl(urlCapaImportada);
 
         return new CatalogoFeedDTO(
                 serie.getId(),

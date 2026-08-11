@@ -412,9 +412,13 @@ public class CompartilhamentoResource {
                     .orElseGet(() -> urlPublicaSegura(postagem.getUrlImagem()));
         }
         if (postagem.getSerieCatalogo() != null) {
+            String capaDoJson = urlPublicaSegura(postagem.getUrlImagem());
+            if (!capaDoJson.equals(urlAbsoluta(IMAGEM_PADRAO))) {
+                return capaDoJson;
+            }
             return edicaoRepository.primeiraCapaPorSerie(postagem.getSerieCatalogo().getId())
                     .map(this::urlPublica)
-                    .orElseGet(() -> urlPublicaSegura(postagem.getUrlImagem()));
+                    .orElse(capaDoJson);
         }
         List<ImagemPostagemFeed> imagens = imagemRepository.listarPorPostagem(postagem.getId());
         if (!imagens.isEmpty()) {
@@ -432,12 +436,12 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=8-" + versao(postagem);
+                + "/imagem.jpg?v=9-" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=11-" + versao(postagem);
+                + "?v=12-" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {
