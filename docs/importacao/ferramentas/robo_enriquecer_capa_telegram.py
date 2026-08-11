@@ -268,7 +268,24 @@ def atualizar_capa_backend(backend_url, token, edicao_id, url_capa):
     )
 
 
-async def localizar_capa(client, grupo, consulta, limite, titulo_esperado=None, nome_inicia_numero=False):
+def titulos_arquivo_edicao(backend_url, token, edicao):
+    titulos = [edicao.get("titulo")]
+    conteudos = requisicao_json(
+        f"{backend_url.rstrip('/')}/api/conteudos-edicoes/edicoes/{edicao['id']}", token,
+    )
+    for conteudo in conteudos or []:
+        historia = conteudo.get("historia") or {}
+        titulos.extend((
+            conteudo.get("tituloUsado"),
+            historia.get("tituloExibicao"),
+            historia.get("tituloPortugues"),
+            historia.get("titulo"),
+            historia.get("tituloOriginal"),
+        ))
+    return list(dict.fromkeys(titulo.strip() for titulo in titulos if titulo and titulo.strip()))
+
+
+async def localizar_capa(client, grupo, consulta, limite, titulos_esperados=None, nome_inicia_numero=False):
     alvo = normalizar(consulta)
     sem_numero = re.sub(r"\s+\d+\s*$", "", alvo).strip()
     numero = alvo.removeprefix(sem_numero).strip()
@@ -289,13 +306,13 @@ async def localizar_capa(client, grupo, consulta, limite, titulo_esperado=None, 
             nome_arquivo = getattr(mensagem.file, "name", None) or ""
             tokens_nome = normalizar(nome_arquivo).split()
             if nome_inicia_numero:
-                titulo_normalizado = normalizar(titulo_esperado)
+                titulos_normalizados = [normalizar(titulo) for titulo in (titulos_esperados or [])]
                 titulo_no_arquivo = " ".join(tokens_nome[1:]).strip()
-                if not titulo_normalizado:
+                if not titulos_normalizados:
                     continue
-                if not (
-                    titulo_normalizado in titulo_no_arquivo
-                    or titulo_no_arquivo in titulo_normalizado
+                if not any(
+                    titulo in titulo_no_arquivo or titulo_no_arquivo in titulo
+                    for titulo in titulos_normalizados
                 ):
                     continue
             # O grupo contem colecoes como "Zagor Extra" que tambem podem
@@ -380,13 +397,20 @@ async def executar(args):
             )
             print(f"\n=== Edicao {indice}/{len(edicoes)}: numero {numero} (id={edicao['id']}) ===", flush=True)
             try:
+                titulos_esperados = (
+                    titulos_arquivo_edicao(args.backend_url, token, edicao)
+                    if args.nome_inicia_numero
+                    else []
+                )
+                if args.nome_inicia_numero:
+                    print(f"[Busca] Titulos aceitos: {', '.join(titulos_esperados) or 'nenhum'}", flush=True)
                 print(f"[Busca] Procurando '{consulta}' no Telegram...", flush=True)
                 mensagem = await localizar_capa(
                     client,
                     args.grupo,
                     consulta,
                     args.limite,
-                    titulo_esperado=edicao.get("titulo"),
+                    titulos_esperados=titulos_esperados,
                     nome_inicia_numero=args.nome_inicia_numero,
                 )
                 with tempfile.TemporaryDirectory(prefix="hqhub-telegram-") as pasta:
