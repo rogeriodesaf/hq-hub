@@ -146,6 +146,17 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/postagens/{id}/v13")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharPostagemV13(
+            @PathParam("id") Long id,
+            @Context UriInfo uriInfo,
+            @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
+        return compartilharPostagem(id, uriInfo, protocoloEncaminhado);
+    }
+
+    @GET
     @Path("/postagens/{id}/imagem")
     @Produces("image/jpeg")
     @Transactional
@@ -158,6 +169,14 @@ public class CompartilhamentoResource {
     @Produces("image/jpeg")
     @Transactional
     public Response imagemPostagemJpeg(@PathParam("id") Long id) {
+        return buscarImagemPostagem(id);
+    }
+
+    @GET
+    @Path("/postagens/{id}/imagem-v10.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemPostagemJpegV10(@PathParam("id") Long id) {
         return buscarImagemPostagem(id);
     }
 
@@ -436,12 +455,12 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem.jpg?v=9-" + versao(postagem);
+                + "/imagem-v10.jpg?v=" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "?v=12-" + versao(postagem);
+                + "/v13?v=" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {
