@@ -30,6 +30,7 @@ interface ColetaGuiaLocal {
 interface ColetaCapasTelegramLocal {
   id: string;
   robo: number;
+  origem?: 'telegram' | 'panini';
   status: StatusColetaLocal;
   mensagem: string;
   edicoesProcessadas: number;
@@ -90,6 +91,10 @@ interface ColetaCapasTelegramLocal {
             <strong>Capas do Telegram</strong>
             <span>Extraia capas de CBZ/PDF pelo assistente local</span>
           </button>
+          <button type="button" [class.ativo]="modoEntrada() === 'panini'" (click)="selecionarModo('panini')">
+            <strong>Capas da Panini</strong>
+            <span>Atualize o catálogo pelas páginas oficiais</span>
+          </button>
         </nav>
 
         <div class="secao-titulo">
@@ -104,6 +109,8 @@ interface ColetaCapasTelegramLocal {
                 Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
               } @else if (modoEntrada() === 'telegram') {
                 Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
+              } @else if (modoEntrada() === 'panini') {
+                Selecione a série e o intervalo. A sua sessão do HQ-HUB autoriza a atualização automaticamente.
               } @else {
                 Pesquise no GCD, escolha a série e gere um JSON revisável antes da importação.
               }
@@ -311,6 +318,48 @@ interface ColetaCapasTelegramLocal {
             @if (coletaCapasTelegram(); as coleta) {
               <section class="andamento-coleta andamento-coleta-local">
                 <div><strong>Robô {{ coleta.robo }} · {{ coleta.mensagem }}</strong><span>{{ coleta.edicoesProcessadas }} de {{ coleta.totalEdicoes }} · {{ coleta.sucessos }} sucessos · {{ coleta.falhas }} falhas</span></div>
+                <progress [value]="coleta.edicoesProcessadas" [max]="coleta.totalEdicoes || 1"></progress>
+                @if (capasTelegramEmAndamento()) { <button class="botao secundario compacto" type="button" (click)="cancelarCapasTelegram()">Interromper</button> }
+                @if (coleta.logs.length) { <details><summary>Atividade do robô</summary><pre>{{ coleta.logs.join('\n') }}</pre></details> }
+              </section>
+            }
+          </section>
+        }
+
+        @if (modoEntrada() === 'panini') {
+          <section class="editor-visual-importacao coleta-guia">
+            <aside class="dica-importacao-colaborador">
+              <strong>Capas oficiais da Panini</strong>
+              <p>Nenhum token precisa ser informado. O robô utiliza com segurança a sessão com que você já entrou no HQ-HUB.</p>
+            </aside>
+            <div class="grade-importacao-visual">
+              <label class="campo-largo">Buscar série no HQ-HUB
+                <input [(ngModel)]="buscaSerieTelegram" name="buscaSeriePanini" placeholder="Ex.: A Espada Selvagem de Conan" (keyup.enter)="buscarSeriesTelegram()" />
+              </label>
+              <button class="botao secundario compacto" type="button" (click)="buscarSeriesTelegram()" [disabled]="buscandoSeriesTelegram()">{{ buscandoSeriesTelegram() ? 'Buscando...' : 'Buscar série' }}</button>
+              @if (seriesTelegram().length) {
+                <div class="campo-largo lista-selecao-serie">
+                  @for (serie of seriesTelegram(); track serie.id) {
+                    <button type="button" [class.ativo]="serieTelegramSelecionada()?.id === serie.id" (click)="selecionarSerieTelegram(serie)">
+                      <strong>{{ serie.titulo }}</strong><span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }} · ID {{ serie.id }}</span>
+                    </button>
+                  }
+                </div>
+              }
+              <label class="campo-largo">URL da primeira edição na Panini<input [(ngModel)]="capasPanini.urlInicial" name="paniniUrlInicial" placeholder="https://panini.com.br/...-vol-1" /></label>
+              <label>Número inicial<input type="number" min="1" [(ngModel)]="capasPanini.numeroInicial" name="paniniInicio" /></label>
+              <label>Número final<input type="number" min="1" [(ngModel)]="capasPanini.numeroFinal" name="paniniFim" /></label>
+            </div>
+            <section class="assistente-local-guia" [class.online]="assistenteLocalOnline() === true">
+              <div class="cabecalho-assistente-local"><div><strong>Assistente local</strong><span>{{ textoStatusAssistenteLocal() }}</span></div></div>
+              <div class="acoes-importacao">
+                <button class="botao secundario compacto" type="button" (click)="verificarAssistenteLocal()">Verificar conexão</button>
+                <button class="botao primario" type="button" (click)="iniciarCapasPanini()" [disabled]="assistenteLocalOnline() !== true || capasTelegramEmAndamento() || !serieTelegramSelecionada()">{{ capasTelegramEmAndamento() ? 'Atualizando capas...' : 'Iniciar capas da Panini' }}</button>
+              </div>
+            </section>
+            @if (coletaCapasTelegram(); as coleta) {
+              <section class="andamento-coleta andamento-coleta-local">
+                <div><strong>{{ coleta.mensagem }}</strong><span>{{ coleta.edicoesProcessadas }} de {{ coleta.totalEdicoes }} · {{ coleta.sucessos }} sucessos · {{ coleta.falhas }} falhas</span></div>
                 <progress [value]="coleta.edicoesProcessadas" [max]="coleta.totalEdicoes || 1"></progress>
                 @if (capasTelegramEmAndamento()) { <button class="botao secundario compacto" type="button" (click)="cancelarCapasTelegram()">Interromper</button> }
                 @if (coleta.logs.length) { <details><summary>Atividade do robô</summary><pre>{{ coleta.logs.join('\n') }}</pre></details> }
@@ -1519,7 +1568,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
   private temporizadorCapasTelegram: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1546,6 +1595,11 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     numeroInicial: 1,
     numeroFinal: 181 as number | null,
     nomeIniciaNumero: false,
+  };
+  capasPanini = {
+    urlInicial: 'https://panini.com.br/a-espada-selvagem-de-conan-vol-1',
+    numeroInicial: 1,
+    numeroFinal: 75,
   };
   jsonTexto = '';
   rascunho = {
@@ -1609,10 +1663,11 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     if (this.modoEntrada() === 'json') return 'JSON do robô';
     if (this.modoEntrada() === 'gcd') return 'Coletar do Grand Comics Database';
     if (this.modoEntrada() === 'telegram') return 'Importar capas do Telegram';
+    if (this.modoEntrada() === 'panini') return 'Importar capas da Panini';
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini') {
     if (modo === this.modoEntrada()) {
       return;
     }
@@ -1625,7 +1680,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     }
     this.modoEntrada.set(modo);
     this.mensagem.set('');
-    if ((modo === 'guia' || modo === 'telegram') && this.assistenteLocalOnline() !== true) {
+    if ((modo === 'guia' || modo === 'telegram' || modo === 'panini') && this.assistenteLocalOnline() !== true) {
       void this.verificarAssistenteLocal(false);
     }
   }
@@ -1633,6 +1688,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   textoStatusAssistenteLocal() {
     if (this.assistenteLocalOnline() === true) {
       if (this.modoEntrada() === 'telegram') return 'Conectado e pronto para executar até dois robôs de capas.';
+      if (this.modoEntrada() === 'panini') return 'Conectado e pronto para atualizar as capas sem pedir token.';
       return 'Pronto para abrir o Chrome e devolver o JSON a esta página.';
     }
     if (this.assistenteLocalOnline() === false) {
@@ -1831,6 +1887,38 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     }
   }
 
+  async iniciarCapasPanini() {
+    const serie = this.serieTelegramSelecionada();
+    const token = this.autenticacao.obterToken();
+    if (!serie || !token) {
+      this.mensagem.set('Selecione uma série e confirme sua sessão no HQ-HUB.');
+      return;
+    }
+    if (this.assistenteLocalOnline() !== true) {
+      await this.verificarAssistenteLocal();
+      if (this.assistenteLocalOnline() !== true) return;
+    }
+    try {
+      const coleta = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>('/capas-telegram', {
+        method: 'POST',
+        body: JSON.stringify({
+          origem: 'panini',
+          serieId: serie.id,
+          urlPaniniInicial: this.capasPanini.urlInicial.trim(),
+          numeroInicial: Number(this.capasPanini.numeroInicial || 1),
+          numeroFinal: Number(this.capasPanini.numeroFinal || 1),
+          tokenHqhub: token,
+          backendUrl: 'https://hqhub-backend.onrender.com',
+        }),
+      }, 15_000);
+      this.coletaCapasTelegram.set(coleta);
+      sessionStorage.setItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE, coleta.id);
+      this.agendarConsultaCapasTelegram();
+    } catch (erro: any) {
+      this.mensagem.set(erro?.message || 'Não foi possível iniciar as capas da Panini.');
+    }
+  }
+
   async cancelarCapasTelegram() {
     const coleta = this.coletaCapasTelegram();
     if (!coleta) return;
@@ -1849,7 +1937,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       if (this.assistenteLocalOnline() !== true) return;
       const coleta = await this.requisicaoAssistenteLocal<ColetaCapasTelegramLocal>(`/capas-telegram/${id}`);
       this.coletaCapasTelegram.set(coleta);
-      this.modoEntrada.set('telegram');
+      this.modoEntrada.set(coleta.origem === 'panini' ? 'panini' : 'telegram');
       this.agendarConsultaCapasTelegram();
     } catch {
       sessionStorage.removeItem(ImportacaoPage.CAPAS_TELEGRAM_LOCAL_STORAGE);

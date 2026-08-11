@@ -175,6 +175,26 @@ python docs/importacao/ferramentas/robo_coletar_capas_panini_sequencial.py `
   --tentativas 2
 ```
 
+## Aplicar capas da Panini diretamente no catálogo
+
+Quando as edições já estiverem cadastradas no HQ-HUB, abra a aba **Capas da Panini**
+na tela de importação. O assistente local percorre as páginas sequenciais e atualiza
+diretamente a capa de cada edição. A autenticação da sessão aberta no HQ-HUB é usada
+automaticamente; o usuário não precisa informar token no PowerShell.
+
+O comando abaixo fica disponível apenas para uso técnico fora da interface:
+
+```powershell
+python docs/importacao/ferramentas/robo_atualizar_capas_panini_catalogo.py `
+  --busca-serie "A Espada Selvagem de Conan" `
+  --url-inicial "https://panini.com.br/a-espada-selvagem-de-conan-vol-1" `
+  --numero-inicial 1 `
+  --numero-final 75
+```
+
+Acrescente `--simular` para conferir todas as associações sem alterar o catálogo, ou
+`--somente-sem-capa` para preservar as edições que já possuem imagem.
+
 Saída: arquivo TXT com uma URL de capa por linha. Se alguma página falhar ou não tiver capa, a linha correspondente é gravada como `null`.
 
 ## Coletar capas da Amazon por URL de produto

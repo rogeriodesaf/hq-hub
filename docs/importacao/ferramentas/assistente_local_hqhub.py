@@ -24,7 +24,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-VERSAO = "1.2.0"
+VERSAO = "1.3.0"
 MAXIMO_ROBOS_TELEGRAM = 2
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
@@ -34,6 +34,7 @@ ORIGENS_PERMITIDAS = {
 }
 COLETOR = Path(__file__).with_name("robo_importador_navegador_interativo.py")
 COLETOR_CAPAS_TELEGRAM = Path(__file__).with_name("robo_enriquecer_capa_telegram.py")
+COLETOR_CAPAS_PANINI = Path(__file__).with_name("robo_atualizar_capas_panini_catalogo.py")
 
 trava = threading.Lock()
 coletas = {}
@@ -115,12 +116,21 @@ def validar_entrada_capas_telegram(dados):
     consulta = str(dados.get("consulta") or "").strip()
     nome_inicia_numero = bool(dados.get("nomeIniciaNumero"))
     grupo = str(dados.get("grupo") or "@zagorbr").strip()
+    origem = str(dados.get("origem") or "telegram").strip().lower()
+    url_panini = str(dados.get("urlPaniniInicial") or "").strip()
     token = str(dados.get("tokenHqhub") or "").strip()
     backend = str(dados.get("backendUrl") or "https://hqhub-backend.onrender.com").strip()
-    if not consulta and not nome_inicia_numero:
-        raise ValueError("Informe o prefixo dos arquivos no Telegram.")
-    if not re.fullmatch(r"@[A-Za-z0-9_]{5,}", grupo):
-        raise ValueError("Informe um grupo publico no formato @nome_do_grupo.")
+    if origem == "panini":
+        endereco_panini = urlparse(url_panini)
+        if endereco_panini.scheme != "https" or (endereco_panini.hostname or "").lower() not in {
+            "panini.com.br", "www.panini.com.br"
+        } or not re.search(r"-\d+/?$", endereco_panini.path):
+            raise ValueError("Informe uma URL da Panini terminada pelo numero da primeira edicao.")
+    else:
+        if not consulta and not nome_inicia_numero:
+            raise ValueError("Informe o prefixo dos arquivos no Telegram.")
+        if not re.fullmatch(r"@[A-Za-z0-9_]{5,}", grupo):
+            raise ValueError("Informe um grupo publico no formato @nome_do_grupo.")
     if not token:
         raise ValueError("A sessao do HQ-HUB nao esta disponivel.")
     host = (urlparse(backend).hostname or "").lower()
@@ -135,6 +145,8 @@ def validar_entrada_capas_telegram(dados):
         "grupo": grupo,
         "tokenHqhub": token,
         "backendUrl": backend,
+        "origem": origem,
+        "urlPaniniInicial": url_panini,
     }
 
 
@@ -142,6 +154,7 @@ def resumo_capas_telegram(coleta):
     return {
         "id": coleta["id"],
         "robo": coleta["robo"],
+        "origem": coleta.get("origem", "telegram"),
         "status": coleta["status"],
         "mensagem": coleta["mensagem"],
         "edicoesProcessadas": coleta["edicoesProcessadas"],
@@ -299,25 +312,35 @@ def atualizar_por_log_telegram(coleta, linha):
 
 
 def executar_capas_telegram(coleta, entrada):
-    comando = [
-        sys.executable, "-u", str(COLETOR_CAPAS_TELEGRAM),
-        "--consulta", entrada["consulta"],
-        "--serie-id", str(entrada["serieId"]),
-        "--numero-inicial", str(entrada["numeroInicial"]),
-        "--grupo", entrada["grupo"],
-        "--backend-url", entrada["backendUrl"],
-        "--sessao", str(Path.home() / ".telegram" / ("hqhub" if coleta["robo"] == 1 else "hqhub-worker-2")),
-    ]
-    if entrada["nomeIniciaNumero"]:
+    if entrada.get("origem") == "panini":
+        comando = [
+            sys.executable, "-u", str(COLETOR_CAPAS_PANINI),
+            "--serie-id", str(entrada["serieId"]),
+            "--url-inicial", entrada["urlPaniniInicial"],
+            "--numero-inicial", str(entrada["numeroInicial"]),
+            "--numero-final", str(entrada["numeroFinal"]),
+            "--backend-url", entrada["backendUrl"],
+        ]
+    else:
+        comando = [
+            sys.executable, "-u", str(COLETOR_CAPAS_TELEGRAM),
+            "--consulta", entrada["consulta"],
+            "--serie-id", str(entrada["serieId"]),
+            "--numero-inicial", str(entrada["numeroInicial"]),
+            "--grupo", entrada["grupo"],
+            "--backend-url", entrada["backendUrl"],
+            "--sessao", str(Path.home() / ".telegram" / ("hqhub" if coleta["robo"] == 1 else "hqhub-worker-2")),
+        ]
+    if entrada.get("origem") != "panini" and entrada["nomeIniciaNumero"]:
         comando.extend(["--nome-inicia-numero", "--digitos-numero", "3"])
-    if entrada["numeroFinal"] is not None:
+    if entrada.get("origem") != "panini" and entrada["numeroFinal"] is not None:
         comando.extend(["--numero-final", str(entrada["numeroFinal"])])
     ambiente = os.environ.copy()
     ambiente["HQHUB_API_TOKEN"] = entrada["tokenHqhub"]
     try:
         with trava:
             coleta["status"] = "COLETANDO"
-            coleta["mensagem"] = "Conectando ao Telegram..."
+            coleta["mensagem"] = "Consultando a Panini..." if entrada.get("origem") == "panini" else "Conectando ao Telegram..."
             coleta["atualizadaEm"] = agora_iso()
         opcoes = {
             "stdout": subprocess.PIPE, "stderr": subprocess.STDOUT,
@@ -497,6 +520,7 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
                 if rota == "/capas-telegram":
                     coleta.update({
                         "robo": robo,
+                        "origem": entrada.get("origem", "telegram"),
                         "serieId": entrada["serieId"],
                         "numeroInicial": entrada["numeroInicial"],
                         "numeroFinalComparacao": entrada["numeroFinal"] if entrada["numeroFinal"] is not None else 9999,
@@ -552,6 +576,8 @@ def main():
         parser.error(f"Coletor interativo não encontrado: {COLETOR}")
     if not COLETOR_CAPAS_TELEGRAM.exists():
         parser.error(f"Coletor de capas do Telegram não encontrado: {COLETOR_CAPAS_TELEGRAM}")
+    if not COLETOR_CAPAS_PANINI.exists():
+        parser.error(f"Coletor de capas da Panini nao encontrado: {COLETOR_CAPAS_PANINI}")
     if args.porta < 1024 or args.porta > 65535:
         parser.error("--porta deve ficar entre 1024 e 65535.")
 
