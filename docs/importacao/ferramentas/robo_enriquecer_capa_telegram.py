@@ -268,7 +268,7 @@ def atualizar_capa_backend(backend_url, token, edicao_id, url_capa):
     )
 
 
-async def localizar_capa(client, grupo, consulta, limite):
+async def localizar_capa(client, grupo, consulta, limite, titulo_esperado=None, nome_inicia_numero=False):
     alvo = normalizar(consulta)
     sem_numero = re.sub(r"\s+\d+\s*$", "", alvo).strip()
     numero = alvo.removeprefix(sem_numero).strip()
@@ -288,6 +288,16 @@ async def localizar_capa(client, grupo, consulta, limite):
             print(f"\r      Resultados inspecionados: {inspecionadas}", end="", flush=True)
             nome_arquivo = getattr(mensagem.file, "name", None) or ""
             tokens_nome = normalizar(nome_arquivo).split()
+            if nome_inicia_numero:
+                titulo_normalizado = normalizar(titulo_esperado)
+                titulo_no_arquivo = " ".join(tokens_nome[1:]).strip()
+                if not titulo_normalizado:
+                    continue
+                if not (
+                    titulo_normalizado in titulo_no_arquivo
+                    or titulo_no_arquivo in titulo_normalizado
+                ):
+                    continue
             # O grupo contem colecoes como "Zagor Extra" que tambem podem
             # mencionar a editora Mythos na legenda. Para impedir falsos
             # positivos, o nome do documento deve comecar exatamente pelo
@@ -371,7 +381,14 @@ async def executar(args):
             print(f"\n=== Edicao {indice}/{len(edicoes)}: numero {numero} (id={edicao['id']}) ===", flush=True)
             try:
                 print(f"[Busca] Procurando '{consulta}' no Telegram...", flush=True)
-                mensagem = await localizar_capa(client, args.grupo, consulta, args.limite)
+                mensagem = await localizar_capa(
+                    client,
+                    args.grupo,
+                    consulta,
+                    args.limite,
+                    titulo_esperado=edicao.get("titulo"),
+                    nome_inicia_numero=args.nome_inicia_numero,
+                )
                 with tempfile.TemporaryDirectory(prefix="hqhub-telegram-") as pasta:
                     capa = None
                     miniaturas = getattr(mensagem.document, "thumbs", None) or []
