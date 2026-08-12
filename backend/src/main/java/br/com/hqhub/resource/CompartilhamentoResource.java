@@ -157,6 +157,17 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/postagens/{id}/v14")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharPostagemV14(
+            @PathParam("id") Long id,
+            @Context UriInfo uriInfo,
+            @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
+        return compartilharPostagem(id, uriInfo, protocoloEncaminhado);
+    }
+
+    @GET
     @Path("/postagens/{id}/imagem")
     @Produces("image/jpeg")
     @Transactional
@@ -177,6 +188,14 @@ public class CompartilhamentoResource {
     @Produces("image/jpeg")
     @Transactional
     public Response imagemPostagemJpegV10(@PathParam("id") Long id) {
+        return buscarImagemPostagem(id);
+    }
+
+    @GET
+    @Path("/postagens/{id}/imagem-v14.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemPostagemJpegV14(@PathParam("id") Long id) {
         return buscarImagemPostagem(id);
     }
 
@@ -286,6 +305,9 @@ public class CompartilhamentoResource {
 
     private Response responderImagem(PostagemFeed postagem) {
         String urlImagem = imagem(postagem);
+        if (ehUrlGuia(urlImagem)) {
+            urlImagem = urlAbsoluta(IMAGEM_PADRAO);
+        }
         try {
             HttpRequest request = HttpRequest.newBuilder(URI.create(urlImagem))
                     .timeout(Duration.ofSeconds(12))
@@ -293,7 +315,9 @@ public class CompartilhamentoResource {
                     .GET()
                     .build();
             HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            if (resposta.statusCode() >= 200 && resposta.statusCode() < 300 && resposta.body().length > 0) {
+            if (resposta.statusCode() >= 200 && resposta.statusCode() < 300
+                    && resposta.body().length > 0
+                    && !ehUrlGuia(resposta.uri().toString())) {
                 byte[] jpeg = criarImagemSocial(resposta.body());
                 return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
@@ -334,7 +358,7 @@ public class CompartilhamentoResource {
             grafico.setColor(new Color(9, 14, 25, 178));
             grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
 
-            int margem = 40;
+            int margem = 12;
             int larguraMaxima = LARGURA_IMAGEM_SOCIAL - (margem * 2);
             int alturaMaxima = ALTURA_IMAGEM_SOCIAL - (margem * 2);
             double escala = Math.min(
@@ -421,23 +445,29 @@ public class CompartilhamentoResource {
     }
 
     private String imagem(PostagemFeed postagem) {
-        String thumbnailVideo = thumbnailPrimeiroVideo(postagem.getId());
-        if (thumbnailVideo != null) {
-            return urlPublica(thumbnailVideo);
-        }
         if (postagem.getItemColecao() != null) {
-            return edicaoRepository.capaPublicaPorEdicao(postagem.getItemColecao().getEdicao().getId())
+            String capa = edicaoRepository.capaPublicaPorEdicao(postagem.getItemColecao().getEdicao().getId())
                     .map(this::urlPublica)
                     .orElseGet(() -> urlPublicaSegura(postagem.getUrlImagem()));
+            if (!capa.equals(urlAbsoluta(IMAGEM_PADRAO))) {
+                return capa;
+            }
         }
         if (postagem.getSerieCatalogo() != null) {
             String capaDoJson = urlPublicaSegura(postagem.getUrlImagem());
             if (!capaDoJson.equals(urlAbsoluta(IMAGEM_PADRAO))) {
                 return capaDoJson;
             }
-            return edicaoRepository.primeiraCapaPorSerie(postagem.getSerieCatalogo().getId())
+            String capa = edicaoRepository.primeiraCapaPorSerie(postagem.getSerieCatalogo().getId())
                     .map(this::urlPublica)
                     .orElse(capaDoJson);
+            if (!capa.equals(urlAbsoluta(IMAGEM_PADRAO))) {
+                return capa;
+            }
+        }
+        String thumbnailVideo = thumbnailPrimeiroVideo(postagem.getId());
+        if (thumbnailVideo != null) {
+            return urlPublica(thumbnailVideo);
         }
         List<ImagemPostagemFeed> imagens = imagemRepository.listarPorPostagem(postagem.getId());
         if (!imagens.isEmpty()) {
@@ -447,7 +477,7 @@ public class CompartilhamentoResource {
     }
 
     private String urlPublicaSegura(String url) {
-        if (url != null && url.toLowerCase(java.util.Locale.ROOT).contains("guiadosquadrinhos.com")) {
+        if (ehUrlGuia(url)) {
             return urlAbsoluta(IMAGEM_PADRAO);
         }
         return urlPublica(url, urlAbsoluta(IMAGEM_PADRAO));
@@ -455,12 +485,12 @@ public class CompartilhamentoResource {
 
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem-v10.jpg?v=" + versao(postagem);
+                + "/imagem-v14.jpg?v=" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/v13?v=" + versao(postagem);
+                + "/v14?v=" + versao(postagem);
     }
 
     private String thumbnailPrimeiroVideo(Long postagemId) {
@@ -595,11 +625,25 @@ public class CompartilhamentoResource {
         if (url == null || url.isBlank()) {
             return fallback;
         }
-        if (url.toLowerCase(java.util.Locale.ROOT).contains("guiadosquadrinhos.com")) {
+        if (ehUrlGuia(url)) {
             return fallback;
         }
         String normalizada = urlPublicaService.normalizarApiUrl(url);
         return urlAbsoluta(normalizada);
+    }
+
+    private boolean ehUrlGuia(String url) {
+        if (url == null || url.isBlank()) {
+            return false;
+        }
+        String normalizada = url.toLowerCase(java.util.Locale.ROOT);
+        try {
+            normalizada = java.net.URLDecoder.decode(normalizada, java.nio.charset.StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException ignored) {
+            // Uma URL malformada continua sendo avaliada em sua forma original.
+        }
+        return normalizada.contains("guiadosquadrinhos.com")
+                || normalizada.contains("guiadosquadrinhos.com.br");
     }
 
     private String urlAbsoluta(String url) {
