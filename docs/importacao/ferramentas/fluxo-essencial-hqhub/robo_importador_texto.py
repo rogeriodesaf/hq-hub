@@ -131,7 +131,7 @@ def html_para_texto(html):
 
 
 def extrair_codigo_colecao(url):
-    encontrado = re.search(r"/([a-z]{2}\d{6})/", url, re.IGNORECASE)
+    encontrado = re.search(r"/([a-z]{2,3}\d{4,6})/", url, re.IGNORECASE)
     return encontrado.group(1) if encontrado else None
 
 
