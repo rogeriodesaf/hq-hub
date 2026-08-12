@@ -1,4 +1,4 @@
-/compartilhar/hq/postagem/:id https://hqhub-backend.onrender.com/api/compartilhar/postagens/:id/v15 200
+/compartilhar/hq/postagem/:id https://hqhub-backend.onrender.com/api/compartilhar/postagens/:id/v16 200
 /api/* https://hqhub-backend.onrender.com/api/:splat 200
 /classificados-compartilhar /classificados-compartilhar.html 200
 /* /index.html 200

@@ -3,8 +3,6 @@ package br.com.hqhub.resource;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -191,6 +189,18 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/postagens/{id}/v16")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharPostagemV16(
+            @PathParam("id") Long id,
+            @QueryParam("contexto") String contexto,
+            @Context UriInfo uriInfo,
+            @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
+        return compartilharPostagemV15(id, contexto, uriInfo, protocoloEncaminhado);
+    }
+
+    @GET
     @Path("/postagens/{id}/imagem")
     @Produces("image/jpeg")
     @Transactional
@@ -232,6 +242,16 @@ public class CompartilhamentoResource {
         return postagemRepository.findByIdOptional(id)
                 .map(postagem -> responderImagem(postagem, ContextoCompartilhamento.de(contexto, postagem)))
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    @GET
+    @Path("/postagens/{id}/imagem-v16.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemPostagemJpegV16(
+            @PathParam("id") Long id,
+            @QueryParam("contexto") String contexto) {
+        return imagemPostagemJpegV15(id, contexto);
     }
 
     @GET
@@ -374,9 +394,7 @@ public class CompartilhamentoResource {
             if (resposta.statusCode() >= 200 && resposta.statusCode() < 300
                     && resposta.body().length > 0
                     && !ehUrlGuia(resposta.uri().toString())) {
-                byte[] jpeg = criarImagemSocial(
-                        resposta.body(),
-                        apresentacao(postagem, primeiroVideo(postagem.getId()), contexto));
+                byte[] jpeg = criarImagemSocial(resposta.body());
                 return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
                         .header("Content-Length", jpeg.length)
@@ -389,9 +407,7 @@ public class CompartilhamentoResource {
         return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
     }
 
-    private byte[] criarImagemSocial(
-            byte[] conteudo,
-            ApresentacaoCompartilhamento apresentacao) throws Exception {
+    private byte[] criarImagemSocial(byte[] conteudo) throws Exception {
         BufferedImage original;
         try (ByteArrayInputStream entrada = new ByteArrayInputStream(conteudo)) {
             original = ImageIO.read(entrada);
@@ -413,62 +429,22 @@ public class CompartilhamentoResource {
             grafico.setColor(new Color(7, 12, 22, 184));
             grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
 
-            int margem = 28;
-            int larguraMaxima = 420;
+            int margem = 8;
+            int larguraMaxima = LARGURA_IMAGEM_SOCIAL - (margem * 2);
             int alturaMaxima = ALTURA_IMAGEM_SOCIAL - (margem * 2);
             double escala = Math.min(
                     (double) larguraMaxima / original.getWidth(),
                     (double) alturaMaxima / original.getHeight());
             int largura = Math.max(1, (int) Math.round(original.getWidth() * escala));
             int altura = Math.max(1, (int) Math.round(original.getHeight() * escala));
-            int x = margem + (larguraMaxima - largura) / 2;
+            int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
             int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
 
-            grafico.setColor(new Color(0, 0, 0, 150));
-            grafico.fillRoundRect(x - 14, y - 14, largura + 28, altura + 28, 22, 22);
+            grafico.setColor(new Color(0, 0, 0, 175));
+            grafico.fillRoundRect(x - 9, y - 5, largura + 18, altura + 10, 12, 12);
             grafico.drawImage(original, x, y, largura, altura, null);
-
-            int textoX = 500;
-            int textoLargura = LARGURA_IMAGEM_SOCIAL - textoX - 46;
-            grafico.setColor(new Color(255, 140, 32));
-            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
-            grafico.drawString(apresentacao.contexto().rotuloImagem(), textoX, 92);
-
-            grafico.setColor(Color.WHITE);
-            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
-            int proximoY = desenharTextoEmLinhas(
-                    grafico,
-                    apresentacao.titulo(),
-                    textoX,
-                    156,
-                    textoLargura,
-                    56,
-                    3);
-
-            if (apresentacao.detalhe() != null && !apresentacao.detalhe().isBlank()) {
-                grafico.setColor(new Color(226, 232, 240));
-                grafico.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
-                desenharTextoEmLinhas(
-                        grafico,
-                        apresentacao.detalhe(),
-                        textoX,
-                        Math.min(proximoY + 18, 390),
-                        textoLargura,
-                        32,
-                        2);
-            }
-
-            grafico.setColor(new Color(255, 140, 32));
-            grafico.fillRoundRect(textoX, 470, 190, 58, 18, 18);
-            grafico.setColor(new Color(20, 24, 33));
-            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-            grafico.drawString("Ver HQ  →", textoX + 26, 508);
-
-            grafico.setColor(new Color(255, 255, 255, 190));
-            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
-            grafico.drawString("HQ-HUB", textoX, 584);
             grafico.setColor(new Color(255, 135, 31));
-            grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 10, LARGURA_IMAGEM_SOCIAL, 10);
+            grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 6, LARGURA_IMAGEM_SOCIAL, 6);
         } finally {
             grafico.dispose();
         }
@@ -516,48 +492,6 @@ public class CompartilhamentoResource {
 
         grafico.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidade));
         grafico.drawImage(original, x, y, largura, altura, null);
-    }
-
-    private int desenharTextoEmLinhas(
-            Graphics2D grafico,
-            String texto,
-            int x,
-            int y,
-            int larguraMaxima,
-            int alturaLinha,
-            int maximoLinhas) {
-        FontMetrics metricas = grafico.getFontMetrics();
-        String[] palavras = (texto == null ? "HQ-HUB" : texto).trim().split("\\s+");
-        StringBuilder linha = new StringBuilder();
-        int linhaAtual = 0;
-        int cursorY = y;
-        for (String palavra : palavras) {
-            String candidata = linha.isEmpty() ? palavra : linha + " " + palavra;
-            if (metricas.stringWidth(candidata) <= larguraMaxima) {
-                linha.setLength(0);
-                linha.append(candidata);
-                continue;
-            }
-            if (!linha.isEmpty()) {
-                grafico.drawString(linha.toString(), x, cursorY);
-                linhaAtual++;
-                cursorY += alturaLinha;
-            }
-            linha.setLength(0);
-            linha.append(palavra);
-            if (linhaAtual >= maximoLinhas - 1) {
-                break;
-            }
-        }
-        if (!linha.isEmpty() && linhaAtual < maximoLinhas) {
-            String ultima = linha.toString();
-            while (metricas.stringWidth(ultima + "…") > larguraMaxima && ultima.contains(" ")) {
-                ultima = ultima.substring(0, ultima.lastIndexOf(' '));
-            }
-            grafico.drawString(ultima, x, cursorY);
-            cursorY += alturaLinha;
-        }
-        return cursorY;
     }
 
     private String htmlNaoEncontrado() {
@@ -701,7 +635,7 @@ public class CompartilhamentoResource {
             return imagemCompartilhamento(postagem, origemApiNormalizada());
         }
         return origemApiNormalizada() + "/api/compartilhar/postagens/" + postagem.getId()
-                + "/imagem-v15.jpg?contexto=" + contexto.parametro()
+                + "/imagem-v16.jpg?contexto=" + contexto.parametro()
                 + "&v=" + versao(postagem);
     }
 
