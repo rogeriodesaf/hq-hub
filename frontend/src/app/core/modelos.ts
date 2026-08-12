@@ -754,6 +754,21 @@ export interface PostagemFeed {
   dataAtualizacao: string;
 }
 
+export interface OrdemLeituraResumo {
+  id: number; slug: string; titulo: string; descricao: string | null; urlCapa: string | null;
+  totalItens: number; itensLidos: number;
+}
+
+export interface ItemOrdemLeitura {
+  id: number; posicao: number; edicaoId: number | null; serieId: number | null;
+  titulo: string; detalhe: string | null; urlCapa: string | null; lido: boolean; vinculadoCatalogo: boolean;
+}
+
+export interface OrdemLeituraDetalhe {
+  id: number; slug: string; titulo: string; descricao: string | null;
+  totalItens: number; itensLidos: number; itens: ItemOrdemLeitura[];
+}
+
 export interface AutorPostagemPublica {
   id: number;
   nome: string;

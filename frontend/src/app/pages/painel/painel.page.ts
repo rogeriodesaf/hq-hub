@@ -47,6 +47,7 @@ import { environment } from '../../../environments/environment';
       <a routerLink="/anuncios"><span>📢</span><strong>Meus anúncios</strong></a>
       <a routerLink="/compras"><span>🛒</span><strong>Compras e desejos</strong></a>
       <a routerLink="/catalogo"><span>🔎</span><strong>Buscar HQ</strong></a>
+      <a routerLink="/ordens-leitura"><span>🧭</span><strong>Ordens de leitura</strong></a>
     </nav>
 
     <section class="feed-layout">

@@ -67,6 +67,9 @@ import {
   TipoPublicacaoHistoria,
   Usuario,
   VolumeComicVine,
+  OrdemLeituraResumo,
+  OrdemLeituraDetalhe,
+  ItemOrdemLeitura,
 } from './modelos';
 
 @Injectable({ providedIn: 'root' })
@@ -75,6 +78,18 @@ export class ApiService {
 
   obterResumoColecao() {
     return this.http.get<ColecaoResumo>('/api/colecao/resumo');
+  }
+
+  listarOrdensLeitura() {
+    return this.http.get<OrdemLeituraResumo[]>('/api/ordens-leitura');
+  }
+
+  obterOrdemLeitura(slug: string) {
+    return this.http.get<OrdemLeituraDetalhe>(`/api/ordens-leitura/${encodeURIComponent(slug)}`);
+  }
+
+  atualizarProgressoOrdem(itemId: number, lido: boolean) {
+    return this.http.put<ItemOrdemLeitura>(`/api/ordens-leitura/itens/${itemId}/progresso`, { lido });
   }
 
   obterConfiguracaoColecao() {

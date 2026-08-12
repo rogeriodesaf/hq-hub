@@ -89,6 +89,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
             </div>
             <nav class="painel-colecionador-links">
               <a routerLink="/colecao"><span>📚</span><strong>Minha Estante</strong></a>
+              <a routerLink="/ordens-leitura"><span>🧭</span><strong>Ordens de leitura</strong></a>
               <a routerLink="/compras"><span>❤️</span><strong>Compras e desejos</strong></a>
               <a routerLink="/anuncios"><span>📢</span><strong>Meus anúncios</strong></a>
               <a routerLink="/mensagens"><span>💬</span><strong>Direct</strong></a>
