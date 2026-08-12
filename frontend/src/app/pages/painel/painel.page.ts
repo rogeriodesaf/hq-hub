@@ -9,6 +9,7 @@ import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import { Anuncio, ColecaoResumo, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 import { RelatedContentComponent } from '../../shared/related-content.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
@@ -1858,7 +1859,8 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    const url = new URL(`/compartilhar/hq/postagem/${postagem.id}`, window.location.origin);
+    const base = environment.apiUrl || window.location.origin;
+    const url = new URL(`/api/compartilhar/postagens/${postagem.id}/v16`, base);
     url.searchParams.set('contexto', postagem.colecaoDestaque ? 'colecao' : 'catalogo');
     const versaoPostagem = new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id;
     url.searchParams.set('v', String(versaoPostagem));
