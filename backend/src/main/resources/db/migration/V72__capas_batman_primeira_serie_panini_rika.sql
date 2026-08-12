@@ -41,8 +41,8 @@ UPDATE edicoes edicao
    AND lower(trim(editora.nome)) = 'panini'
    AND serie.volume = 1
    AND (
-       hqhub_normalizar_titulo_identidade(serie.descricao) LIKE '%1aserie%'
-       OR hqhub_normalizar_titulo_identidade(serie.descricao) LIKE '%primeiraserie%'
+       hqhub_normalizar_titulo_identidade(serie.descricao::TEXT) LIKE '%1aserie%'
+       OR hqhub_normalizar_titulo_identidade(serie.descricao::TEXT) LIKE '%primeiraserie%'
    )
    AND edicao.numero ~ '^0*[0-9]+$'
    AND CAST(edicao.numero AS INTEGER) = capas.numero;
