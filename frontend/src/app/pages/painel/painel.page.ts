@@ -9,7 +9,6 @@ import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import { Anuncio, ColecaoResumo, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 import { RelatedContentComponent } from '../../shared/related-content.component';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
@@ -1706,15 +1705,16 @@ export class PainelPage implements OnInit {
     const titulo = postagem.colecaoDestaque?.titulo
       || postagem.catalogoDestaque?.titulo
       || 'HQ-HUB';
+    const texto = `👀 Olha essa HQ!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?`;
 
     try {
       if (navigator.share) {
-        await navigator.share({ title: titulo, url });
+        await navigator.share({ title: titulo, text: texto, url });
         return;
       }
 
-      await this.copiarTexto(url);
-      this.mensagem.set('Link da postagem copiado. Agora e so colar no WhatsApp ou onde quiser.');
+      await this.copiarTexto(`${texto}\n\n${url}`);
+      this.mensagem.set('Mensagem e link copiados. Agora é só colar no WhatsApp ou onde quiser.');
     } catch (erro) {
       if (erro instanceof DOMException && erro.name === 'AbortError') {
         return;
@@ -1858,8 +1858,8 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    const base = environment.apiUrl || window.location.origin;
-    const url = new URL(`/api/compartilhar/postagens/${postagem.id}/v14`, base);
+    const url = new URL(`/compartilhar/hq/postagem/${postagem.id}`, window.location.origin);
+    url.searchParams.set('contexto', postagem.colecaoDestaque ? 'colecao' : 'catalogo');
     const versaoPostagem = new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id;
     url.searchParams.set('v', String(versaoPostagem));
     return url.toString();

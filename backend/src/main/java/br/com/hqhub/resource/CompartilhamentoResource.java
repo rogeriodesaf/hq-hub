@@ -2,8 +2,9 @@ package br.com.hqhub.resource;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -44,6 +45,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -54,16 +56,13 @@ import jakarta.ws.rs.core.Context;
 public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
-    private static final String DESCRICAO_COMPARTILHAMENTO = "Veja esta HQ no HQ-HUB.";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 630;
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
             "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern YOUTUBE_ID_QUERY = Pattern.compile("[?&]v=([A-Za-z0-9_-]{6,})", Pattern.CASE_INSENSITIVE);
-    private static final Pattern URL_CONTEUDO = Pattern.compile("https?://\\S+", Pattern.CASE_INSENSITIVE);
     private static final int LIMITE_TITULO_COMPARTILHAMENTO = 90;
-    private static final int LIMITE_DESCRICAO_COMPARTILHAMENTO = 180;
 
     private final PostagemFeedRepository postagemRepository;
     private final ImagemPostagemFeedRepository imagemRepository;
@@ -82,6 +81,9 @@ public class CompartilhamentoResource {
 
     @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub-frontend.onrender.com")
     String urlBase;
+
+    @ConfigProperty(name = "hqhub.api-url-publica", defaultValue = "https://hqhub-backend.onrender.com")
+    String apiUrlPublica;
 
     @ConfigProperty(name = "hqhub.compartilhamento.abrir-catalogo", defaultValue = "false")
     boolean abrirCatalogoAoCompartilhar;
@@ -168,6 +170,27 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/postagens/{id}/v15")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharPostagemV15(
+            @PathParam("id") Long id,
+            @QueryParam("contexto") String contexto,
+            @Context UriInfo uriInfo,
+            @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
+        return postagemRepository.findByIdOptional(id)
+                .map(postagem -> Response.ok(htmlPostagem(
+                        postagem,
+                        origemRequisicao(uriInfo, protocoloEncaminhado),
+                        ContextoCompartilhamento.de(contexto, postagem),
+                        true)).build())
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
+                        .entity(htmlNaoEncontrado())
+                        .type(MediaType.TEXT_HTML)
+                        .build());
+    }
+
+    @GET
     @Path("/postagens/{id}/imagem")
     @Produces("image/jpeg")
     @Transactional
@@ -197,6 +220,18 @@ public class CompartilhamentoResource {
     @Transactional
     public Response imagemPostagemJpegV14(@PathParam("id") Long id) {
         return buscarImagemPostagem(id);
+    }
+
+    @GET
+    @Path("/postagens/{id}/imagem-v15.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemPostagemJpegV15(
+            @PathParam("id") Long id,
+            @QueryParam("contexto") String contexto) {
+        return postagemRepository.findByIdOptional(id)
+                .map(postagem -> responderImagem(postagem, ContextoCompartilhamento.de(contexto, postagem)))
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @GET
@@ -239,17 +274,34 @@ public class CompartilhamentoResource {
 
     private Response buscarImagemPostagem(Long id) {
         return postagemRepository.findByIdOptional(id)
-                .map(this::responderImagem)
+                .map(postagem -> responderImagem(postagem, ContextoCompartilhamento.de(null, postagem)))
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
     }
 
     private String htmlPostagem(PostagemFeed postagem, String origemCompartilhamento) {
-        String appUrl = appUrl(postagem);
+        return htmlPostagem(
+                postagem,
+                origemCompartilhamento,
+                ContextoCompartilhamento.de(null, postagem),
+                false);
+    }
+
+    private String htmlPostagem(
+            PostagemFeed postagem,
+            String origemCompartilhamento,
+            ContextoCompartilhamento contexto,
+            boolean urlAmigavel) {
+        String appUrl = urlAmigavel ? appUrlCatalogo(postagem) : appUrl(postagem);
         VideoRelacionadoFeed primeiroVideo = primeiroVideo(postagem.getId());
-        String titulo = tituloCompartilhamento(postagem, primeiroVideo);
-        String descricao = descricaoCompartilhamento(postagem, primeiroVideo);
-        String imagem = imagemCompartilhamento(postagem, origemCompartilhamento);
-        String urlCompartilhamento = urlCompartilhamento(postagem, origemCompartilhamento);
+        ApresentacaoCompartilhamento apresentacao = apresentacao(postagem, primeiroVideo, contexto);
+        String titulo = apresentacao.titulo();
+        String descricao = apresentacao.descricao();
+        String imagem = urlAmigavel
+                ? imagemCompartilhamento(postagem, contexto, true)
+                : imagemCompartilhamento(postagem, origemCompartilhamento);
+        String urlCompartilhamento = urlAmigavel
+                ? urlCompartilhamentoAmigavel(postagem, contexto)
+                : urlCompartilhamento(postagem, origemCompartilhamento);
 
         return """
                 <!doctype html>
@@ -271,10 +323,12 @@ public class CompartilhamentoResource {
                   <meta property="og:image:type" content="image/jpeg">
                   <meta property="og:image:width" content="1200">
                   <meta property="og:image:height" content="630">
+                  <meta property="og:image:alt" content="Capa de %s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
+                  <meta name="twitter:image:alt" content="Capa de %s">
                   <script>window.location.replace(%s);</script>
                 </head>
                 <body>
@@ -295,15 +349,17 @@ public class CompartilhamentoResource {
                 escaparHtml(imagem),
                 escaparHtml(imagem),
                 escaparHtml(titulo),
+                escaparHtml(titulo),
                 escaparHtml(descricao),
                 escaparHtml(imagem),
+                escaparHtml(titulo),
                 literalJavascript(appUrl),
                 escaparHtml(titulo),
                 escaparHtml("Redirecionando para o HQ-HUB..."),
                 escaparHtml(appUrl));
     }
 
-    private Response responderImagem(PostagemFeed postagem) {
+    private Response responderImagem(PostagemFeed postagem, ContextoCompartilhamento contexto) {
         String urlImagem = imagem(postagem);
         if (ehUrlGuia(urlImagem)) {
             urlImagem = urlAbsoluta(IMAGEM_PADRAO);
@@ -318,7 +374,9 @@ public class CompartilhamentoResource {
             if (resposta.statusCode() >= 200 && resposta.statusCode() < 300
                     && resposta.body().length > 0
                     && !ehUrlGuia(resposta.uri().toString())) {
-                byte[] jpeg = criarImagemSocial(resposta.body());
+                byte[] jpeg = criarImagemSocial(
+                        resposta.body(),
+                        apresentacao(postagem, primeiroVideo(postagem.getId()), contexto));
                 return Response.ok(jpeg, "image/jpeg")
                         .header("Cache-Control", "public, max-age=86400")
                         .header("Content-Length", jpeg.length)
@@ -331,7 +389,9 @@ public class CompartilhamentoResource {
         return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
     }
 
-    private byte[] criarImagemSocial(byte[] conteudo) throws Exception {
+    private byte[] criarImagemSocial(
+            byte[] conteudo,
+            ApresentacaoCompartilhamento apresentacao) throws Exception {
         BufferedImage original;
         try (ByteArrayInputStream entrada = new ByteArrayInputStream(conteudo)) {
             original = ImageIO.read(entrada);
@@ -348,30 +408,65 @@ public class CompartilhamentoResource {
         try {
             grafico.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             grafico.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            grafico.setPaint(new GradientPaint(
-                    0, 0, new Color(17, 24, 39),
-                    LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL, new Color(38, 51, 74)));
-            grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
-
-            desenharImagemCobrindo(grafico, original);
+            desenharFundoDesfocado(grafico, original);
             grafico.setComposite(AlphaComposite.SrcOver);
-            grafico.setColor(new Color(9, 14, 25, 178));
+            grafico.setColor(new Color(7, 12, 22, 184));
             grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
 
-            int margem = 12;
-            int larguraMaxima = LARGURA_IMAGEM_SOCIAL - (margem * 2);
+            int margem = 28;
+            int larguraMaxima = 420;
             int alturaMaxima = ALTURA_IMAGEM_SOCIAL - (margem * 2);
             double escala = Math.min(
                     (double) larguraMaxima / original.getWidth(),
                     (double) alturaMaxima / original.getHeight());
             int largura = Math.max(1, (int) Math.round(original.getWidth() * escala));
             int altura = Math.max(1, (int) Math.round(original.getHeight() * escala));
-            int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
+            int x = margem + (larguraMaxima - largura) / 2;
             int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
 
-            grafico.setColor(new Color(0, 0, 0, 105));
-            grafico.fillRoundRect(x - 12, y - 12, largura + 24, altura + 24, 18, 18);
+            grafico.setColor(new Color(0, 0, 0, 150));
+            grafico.fillRoundRect(x - 14, y - 14, largura + 28, altura + 28, 22, 22);
             grafico.drawImage(original, x, y, largura, altura, null);
+
+            int textoX = 500;
+            int textoLargura = LARGURA_IMAGEM_SOCIAL - textoX - 46;
+            grafico.setColor(new Color(255, 140, 32));
+            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+            grafico.drawString(apresentacao.contexto().rotuloImagem(), textoX, 92);
+
+            grafico.setColor(Color.WHITE);
+            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
+            int proximoY = desenharTextoEmLinhas(
+                    grafico,
+                    apresentacao.titulo(),
+                    textoX,
+                    156,
+                    textoLargura,
+                    56,
+                    3);
+
+            if (apresentacao.detalhe() != null && !apresentacao.detalhe().isBlank()) {
+                grafico.setColor(new Color(226, 232, 240));
+                grafico.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+                desenharTextoEmLinhas(
+                        grafico,
+                        apresentacao.detalhe(),
+                        textoX,
+                        Math.min(proximoY + 18, 390),
+                        textoLargura,
+                        32,
+                        2);
+            }
+
+            grafico.setColor(new Color(255, 140, 32));
+            grafico.fillRoundRect(textoX, 470, 190, 58, 18, 18);
+            grafico.setColor(new Color(20, 24, 33));
+            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+            grafico.drawString("Ver HQ  →", textoX + 26, 508);
+
+            grafico.setColor(new Color(255, 255, 255, 190));
+            grafico.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+            grafico.drawString("HQ-HUB", textoX, 584);
             grafico.setColor(new Color(255, 135, 31));
             grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 10, LARGURA_IMAGEM_SOCIAL, 10);
         } finally {
@@ -386,17 +481,83 @@ public class CompartilhamentoResource {
         }
     }
 
-    private void desenharImagemCobrindo(Graphics2D grafico, BufferedImage original) {
+    private void desenharFundoDesfocado(Graphics2D grafico, BufferedImage original) {
+        int larguraMiniatura = 72;
+        int alturaMiniatura = 38;
+        BufferedImage miniatura = new BufferedImage(
+                larguraMiniatura,
+                alturaMiniatura,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D reduzido = miniatura.createGraphics();
+        try {
+            reduzido.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            desenharImagemCobrindo(reduzido, original, larguraMiniatura, alturaMiniatura, 1f);
+        } finally {
+            reduzido.dispose();
+        }
+        grafico.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        grafico.setComposite(AlphaComposite.SrcOver);
+        grafico.drawImage(miniatura, 0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL, null);
+    }
+
+    private void desenharImagemCobrindo(
+            Graphics2D grafico,
+            BufferedImage original,
+            int larguraDestino,
+            int alturaDestino,
+            float opacidade) {
         double escala = Math.max(
-                (double) LARGURA_IMAGEM_SOCIAL / original.getWidth(),
-                (double) ALTURA_IMAGEM_SOCIAL / original.getHeight());
+                (double) larguraDestino / original.getWidth(),
+                (double) alturaDestino / original.getHeight());
         int largura = Math.max(1, (int) Math.round(original.getWidth() * escala));
         int altura = Math.max(1, (int) Math.round(original.getHeight() * escala));
-        int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
-        int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
+        int x = (larguraDestino - largura) / 2;
+        int y = (alturaDestino - altura) / 2;
 
-        grafico.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.32f));
+        grafico.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidade));
         grafico.drawImage(original, x, y, largura, altura, null);
+    }
+
+    private int desenharTextoEmLinhas(
+            Graphics2D grafico,
+            String texto,
+            int x,
+            int y,
+            int larguraMaxima,
+            int alturaLinha,
+            int maximoLinhas) {
+        FontMetrics metricas = grafico.getFontMetrics();
+        String[] palavras = (texto == null ? "HQ-HUB" : texto).trim().split("\\s+");
+        StringBuilder linha = new StringBuilder();
+        int linhaAtual = 0;
+        int cursorY = y;
+        for (String palavra : palavras) {
+            String candidata = linha.isEmpty() ? palavra : linha + " " + palavra;
+            if (metricas.stringWidth(candidata) <= larguraMaxima) {
+                linha.setLength(0);
+                linha.append(candidata);
+                continue;
+            }
+            if (!linha.isEmpty()) {
+                grafico.drawString(linha.toString(), x, cursorY);
+                linhaAtual++;
+                cursorY += alturaLinha;
+            }
+            linha.setLength(0);
+            linha.append(palavra);
+            if (linhaAtual >= maximoLinhas - 1) {
+                break;
+            }
+        }
+        if (!linha.isEmpty() && linhaAtual < maximoLinhas) {
+            String ultima = linha.toString();
+            while (metricas.stringWidth(ultima + "…") > larguraMaxima && ultima.contains(" ")) {
+                ultima = ultima.substring(0, ultima.lastIndexOf(' '));
+            }
+            grafico.drawString(ultima, x, cursorY);
+            cursorY += alturaLinha;
+        }
+        return cursorY;
     }
 
     private String htmlNaoEncontrado() {
@@ -421,13 +582,26 @@ public class CompartilhamentoResource {
 
     private String tituloHq(PostagemFeed postagem) {
         if (postagem.getItemColecao() != null) {
-            return tituloColecao(postagem.getItemColecao());
+            ItemColecao item = postagem.getItemColecao();
+            return tituloEdicao(item.getEdicao());
         }
         if (postagem.getSerieCatalogo() != null) {
             String titulo = postagem.getSerieCatalogo().getTitulo();
             return titulo == null || titulo.isBlank() ? "HQ-HUB" : titulo;
         }
         return "HQ-HUB";
+    }
+
+    private String tituloEdicao(Edicao edicao) {
+        if (edicao == null || edicao.getSerie() == null) {
+            return "HQ-HUB";
+        }
+        String tituloSerie = edicao.getSerie().getTitulo();
+        String numero = edicao.getNumero();
+        if (tituloSerie == null || tituloSerie.isBlank()) {
+            return numero == null || numero.isBlank() ? "HQ-HUB" : "Edição " + numero;
+        }
+        return numero == null || numero.isBlank() ? tituloSerie : tituloSerie + " #" + numero;
     }
 
     private String tituloCompartilhamento(PostagemFeed postagem, VideoRelacionadoFeed video) {
@@ -476,6 +650,37 @@ public class CompartilhamentoResource {
         return urlPublica(postagem.getUrlImagem(), urlAbsoluta(IMAGEM_PADRAO));
     }
 
+    private ApresentacaoCompartilhamento apresentacao(
+            PostagemFeed postagem,
+            VideoRelacionadoFeed video,
+            ContextoCompartilhamento contexto) {
+        String titulo = limitarTexto(tituloCompartilhamento(postagem, video), LIMITE_TITULO_COMPARTILHAMENTO);
+        String detalhe = detalheEditorial(postagem);
+        String descricao = contexto.descricao(detalhe);
+        return new ApresentacaoCompartilhamento(titulo, descricao, detalhe, contexto);
+    }
+
+    private String detalheEditorial(PostagemFeed postagem) {
+        Serie serie = null;
+        if (postagem.getItemColecao() != null && postagem.getItemColecao().getEdicao() != null) {
+            serie = postagem.getItemColecao().getEdicao().getSerie();
+        } else if (postagem.getSerieCatalogo() != null) {
+            serie = postagem.getSerieCatalogo();
+        }
+        if (serie == null) {
+            return "Disponível no HQ-HUB";
+        }
+        String editora = serie.getEditora() == null ? null : serie.getEditora().getNome();
+        String volume = serie.getVolume() == null ? null : "Volume " + serie.getVolume();
+        if (editora != null && !editora.isBlank() && volume != null) {
+            return editora + " · " + volume;
+        }
+        if (editora != null && !editora.isBlank()) {
+            return editora;
+        }
+        return volume == null ? "Disponível no HQ-HUB" : volume;
+    }
+
     private String urlPublicaSegura(String url) {
         if (ehUrlGuia(url)) {
             return urlAbsoluta(IMAGEM_PADRAO);
@@ -486,6 +691,18 @@ public class CompartilhamentoResource {
     private String imagemCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
         return origemCompartilhamento + "/api/compartilhar/postagens/" + postagem.getId()
                 + "/imagem-v14.jpg?v=" + versao(postagem);
+    }
+
+    private String imagemCompartilhamento(
+            PostagemFeed postagem,
+            ContextoCompartilhamento contexto,
+            boolean urlAmigavel) {
+        if (!urlAmigavel) {
+            return imagemCompartilhamento(postagem, origemApiNormalizada());
+        }
+        return origemApiNormalizada() + "/api/compartilhar/postagens/" + postagem.getId()
+                + "/imagem-v15.jpg?contexto=" + contexto.parametro()
+                + "&v=" + versao(postagem);
     }
 
     private String urlCompartilhamento(PostagemFeed postagem, String origemCompartilhamento) {
@@ -526,47 +743,6 @@ public class CompartilhamentoResource {
         }
         Matcher query = YOUTUBE_ID_QUERY.matcher(url);
         return query.find() ? query.group(1) : null;
-    }
-
-    private String primeiraUrlPublica(String... urls) {
-        for (String url : urls) {
-            if (url != null && !url.isBlank()) {
-                return urlPublica(url);
-            }
-        }
-        return urlAbsoluta(IMAGEM_PADRAO);
-    }
-
-    private String tituloColecao(ItemColecao item) {
-        Edicao edicao = item.getEdicao();
-        String tituloSerie = edicao.getSerie().getTitulo();
-        return tituloSerie == null || tituloSerie.isBlank() ? "uma HQ" : tituloSerie;
-    }
-
-    private String descricaoCompartilhamento(PostagemFeed postagem, VideoRelacionadoFeed video) {
-        String conteudo = textoDaPostagem(postagem.getConteudo());
-        if (!conteudo.isBlank()) {
-            return limitarTexto(conteudo, LIMITE_DESCRICAO_COMPARTILHAMENTO);
-        }
-        String nome = nomeAutor(postagem, "um leitor");
-        if (video != null) {
-            return "Assista ao vídeo compartilhado por " + nome + " no HQ-HUB.";
-        }
-        if (postagem.getItemColecao() != null) {
-            return "Veja a coleção compartilhada por " + nome
-                    + " no HQ-HUB, sem precisar criar uma conta.";
-        }
-        return DESCRICAO_COMPARTILHAMENTO;
-    }
-
-    private String textoDaPostagem(String conteudo) {
-        if (conteudo == null || conteudo.isBlank()) {
-            return "";
-        }
-        return URL_CONTEUDO.matcher(conteudo)
-                .replaceAll(" ")
-                .replaceAll("\\s+", " ")
-                .trim();
     }
 
     private String nomeAutor(PostagemFeed postagem, String fallback) {
@@ -632,6 +808,14 @@ public class CompartilhamentoResource {
         return urlAbsoluta(normalizada);
     }
 
+    private String urlCompartilhamentoAmigavel(
+            PostagemFeed postagem,
+            ContextoCompartilhamento contexto) {
+        return baseNormalizada() + "/compartilhar/hq/postagem/" + postagem.getId()
+                + "?contexto=" + contexto.parametro()
+                + "&v=" + versao(postagem);
+    }
+
     private boolean ehUrlGuia(String url) {
         if (url == null || url.isBlank()) {
             return false;
@@ -658,6 +842,13 @@ public class CompartilhamentoResource {
 
     private String baseNormalizada() {
         String base = urlBase == null || urlBase.isBlank() ? "https://hqhub-frontend.onrender.com" : urlBase.trim();
+        return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
+    }
+
+    private String origemApiNormalizada() {
+        String base = apiUrlPublica == null || apiUrlPublica.isBlank()
+                ? "https://hqhub-backend.onrender.com"
+                : apiUrlPublica.trim();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
 
@@ -697,5 +888,63 @@ public class CompartilhamentoResource {
                 .replace("\r", "")
                 .replace("\n", "\\n");
         return "'" + valor + "'";
+    }
+
+    private record ApresentacaoCompartilhamento(
+            String titulo,
+            String descricao,
+            String detalhe,
+            ContextoCompartilhamento contexto) {
+    }
+
+    private enum ContextoCompartilhamento {
+        CATALOGO("catalogo", "NOVA HQ NO HQ-HUB", "Nova HQ no HQ-HUB"),
+        COLECAO("colecao", "NA COLEÇÃO", "Adicionei esta HQ à minha coleção no HQ-HUB"),
+        RECOMENDACAO("recomendacao", "RECOMENDAÇÃO", "Olha essa HQ no HQ-HUB"),
+        PROCURADA("procurada", "HQ PROCURADA", "Alguém tem essa edição?"),
+        GENERICO("hq", "CONFIRA ESTA HQ", "Confira esta HQ no HQ-HUB");
+
+        private final String parametro;
+        private final String rotuloImagem;
+        private final String mensagem;
+
+        ContextoCompartilhamento(String parametro, String rotuloImagem, String mensagem) {
+            this.parametro = parametro;
+            this.rotuloImagem = rotuloImagem;
+            this.mensagem = mensagem;
+        }
+
+        String parametro() {
+            return parametro;
+        }
+
+        String rotuloImagem() {
+            return rotuloImagem;
+        }
+
+        String descricao(String detalhe) {
+            if (detalhe == null || detalhe.isBlank() || "Disponível no HQ-HUB".equals(detalhe)) {
+                return mensagem + ".";
+            }
+            return mensagem + " · " + detalhe + ".";
+        }
+
+        static ContextoCompartilhamento de(String valor, PostagemFeed postagem) {
+            if (valor != null && !valor.isBlank()) {
+                String normalizado = valor.trim().toLowerCase(java.util.Locale.ROOT);
+                for (ContextoCompartilhamento contexto : values()) {
+                    if (contexto.parametro.equals(normalizado)) {
+                        return contexto;
+                    }
+                }
+            }
+            if (postagem != null && postagem.getItemColecao() != null) {
+                return COLECAO;
+            }
+            if (postagem != null && postagem.getSerieCatalogo() != null) {
+                return CATALOGO;
+            }
+            return GENERICO;
+        }
     }
 }
