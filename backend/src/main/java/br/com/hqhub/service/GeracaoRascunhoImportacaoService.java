@@ -34,7 +34,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class GeracaoRascunhoImportacaoService {
 
     private static final String GUIA_BASE = "https://www.guiadosquadrinhos.com";
-    private static final Pattern LINK_EDICAO = Pattern.compile("href=[\"']([^\"']*/edicao/[^\"']+)[\"']", Pattern.CASE_INSENSITIVE);
+    private static final Pattern LINK_EDICAO = Pattern.compile(
+            "((?:(?:https?:)?//(?:www\\.)?guiadosquadrinhos\\.com)?/?edicao/"
+                    + "[A-Za-z0-9%()_.,:;!+~\\-]+/[A-Za-z0-9_\\-]+/\\d+)",
+            Pattern.CASE_INSENSITIVE);
     private static final Pattern HISTORIA = Pattern.compile(
             "<div[^>]+class=[\"']historia[\"'][^>]*>(.*?)</div>(.*?)(?=<div[^>]+class=[\"']historia[\"']|<div class=\"boxpagedcr\"|<a id=\"ampliar_capa\"|</body>)",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
@@ -200,7 +203,11 @@ public class GeracaoRascunhoImportacaoService {
         Set<String> links = new LinkedHashSet<>();
         Matcher matcher = LINK_EDICAO.matcher(html);
         while (matcher.find()) {
-            links.add(resolverUrl(urlBase, matcher.group(1)));
+            String href = matcher.group(1);
+            if (href.regionMatches(true, 0, "edicao/", 0, "edicao/".length())) {
+                href = "/" + href;
+            }
+            links.add(resolverUrl(urlBase, href));
         }
         return links.stream()
                 .sorted((a, b) -> Integer.compare(numeroOrdemUrl(a), numeroOrdemUrl(b)))
