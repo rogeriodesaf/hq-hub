@@ -148,7 +148,11 @@ def extrair_links_galeria(html, url_base):
         return [url_base]
 
     links = [url_base]
-    for href in re.findall(r'href=["\']([^"\']*/edicao/[^"\']+)["\']', html, flags=re.IGNORECASE):
+    for href in re.findall(
+        r'href=["\']([^"\']*/edicao(?:-estrangeira)?/[^"\']+)["\']',
+        html,
+        flags=re.IGNORECASE,
+    ):
         url = urldefrag(urljoin(url_base, unescape(href))).url
         if f"/{codigo}/" in url:
             links.append(url)

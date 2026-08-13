@@ -143,7 +143,7 @@ interface ColetaCapasTelegramLocal {
             <div class="grade-importacao-visual">
               <label class="campo-largo">
                 URL do Guia dos Quadrinhos
-                <small>Página /edicao/ inicial ou /capas/ da série</small>
+                <small>Página /edicao/, /edicao-estrangeira/ ou /capas/ da série</small>
                 <input [(ngModel)]="rascunho.urlGuia" name="coletaUrlGuia" placeholder="https://www.guiadosquadrinhos.com/edicao/..." />
               </label>
               <label>

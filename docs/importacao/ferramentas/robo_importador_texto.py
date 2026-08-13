@@ -176,7 +176,11 @@ def extrair_links_galeria(html, url_base):
 
     url_base = normalizar_url_guia(urldefrag(url_base).url)
     links = [url_base]
-    for href in re.findall(r'href=["\']([^"\']*/edicao/[^"\']+)["\']', html, flags=re.IGNORECASE):
+    for href in re.findall(
+        r'href=["\']([^"\']*/edicao(?:-estrangeira)?/[^"\']+)["\']',
+        html,
+        flags=re.IGNORECASE,
+    ):
         url = normalizar_url_guia(urldefrag(urljoin(url_base, unescape(href))).url)
         if f"/{codigo.lower()}/" in url.lower() and extrair_numero_url_edicao(url) > 0:
             links.append(url)

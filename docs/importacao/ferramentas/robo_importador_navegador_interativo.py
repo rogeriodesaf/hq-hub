@@ -237,7 +237,7 @@ def esperar_pagina_liberada(pagina, timeout_segundos):
                 or "You do not have permission to view this directory or page" in html
             ):
                 raise PermissionError("O Guia retornou HTTP 403.")
-            if re.search(r"/edicao/", html, re.IGNORECASE) and (
+            if re.search(r"/edicao(?:-estrangeira)?/", html, re.IGNORECASE) and (
                 "Publicado em:" in html or "Galeria de capas" in html
             ):
                 return html
@@ -496,8 +496,10 @@ def main():
 
     importador = carregar_importador()
     args.url = importador.normalizar_url_guia(args.url)
-    if "/edicao/" not in args.url:
-        parser.error("--url deve apontar para uma página /edicao/.")
+    if not re.search(r"/edicao(?:-estrangeira)?/", args.url, re.IGNORECASE):
+        parser.error(
+            "--url deve apontar para uma página /edicao/ ou /edicao-estrangeira/."
+        )
     if args.recarregar_a_cada < 0:
         parser.error("--recarregar-a-cada deve ser zero ou um número positivo.")
     if args.pausa_minutos_minima < 0 or args.pausa_minutos_maxima < 0:

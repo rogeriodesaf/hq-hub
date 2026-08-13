@@ -66,10 +66,15 @@ def validar_entrada(dados):
     except ValueError as erro:
         raise ValueError("A URL do Guia é inválida.") from erro
     host = (endereco.hostname or "").lower()
+    rota_edicao = endereco.path.lower()
     if endereco.scheme not in {"http", "https"} or not (
         host == "guiadosquadrinhos.com" or host.endswith(".guiadosquadrinhos.com")
-    ) or "/edicao/" not in endereco.path.lower():
-        raise ValueError("Informe uma URL /edicao/ válida do Guia dos Quadrinhos.")
+    ) or not any(
+        trecho in rota_edicao for trecho in ("/edicao/", "/edicao-estrangeira/")
+    ):
+        raise ValueError(
+            "Informe uma URL /edicao/ ou /edicao-estrangeira/ válida do Guia dos Quadrinhos."
+        )
     if not titulo:
         raise ValueError("Informe o título da série.")
     if not editora:
