@@ -150,7 +150,15 @@ public class GeracaoRascunhoImportacaoService {
 
         if (url.contains("/edicao/")) {
             try {
-                List<String> links = extrairLinksEdicao(buscarHtml(url), url);
+                List<String> links;
+                try {
+                    links = descobrirLinksPelaGaleria(url).orElse(List.of());
+                } catch (IOException erroGaleria) {
+                    links = List.of();
+                }
+                if (links.isEmpty()) {
+                    links = extrairLinksEdicao(buscarHtml(url), url);
+                }
                 if (links.isEmpty()) {
                     avisos.add("A pagina da edicao nao trouxe a galeria completa. Somente a URL informada sera processada.");
                     return List.of(url);
@@ -168,6 +176,24 @@ public class GeracaoRascunhoImportacaoService {
 
         avisos.add("URL do Guia nao reconhecida. Informe uma URL /capas/ ou /edicao/.");
         return List.of();
+    }
+
+    private Optional<List<String>> descobrirLinksPelaGaleria(String urlEdicao)
+            throws IOException, InterruptedException {
+        URI uri = URI.create(urlEdicao);
+        String[] partes = uri.getPath().split("/");
+        if (partes.length < 4 || !"edicao".equalsIgnoreCase(partes[1])) {
+            return Optional.empty();
+        }
+
+        String slugSerie = partes[2].replaceFirst("(?i)-n-\\d+[a-z]?$", "");
+        if (slugSerie.equals(partes[2]) || partes[3].isBlank()) {
+            return Optional.empty();
+        }
+
+        String urlGaleria = GUIA_BASE + "/capas/" + slugSerie + "/" + partes[3];
+        List<String> links = extrairLinksEdicao(buscarHtml(urlGaleria), urlGaleria);
+        return links.isEmpty() ? Optional.empty() : Optional.of(links);
     }
 
     private List<String> extrairLinksEdicao(String html, String urlBase) {
