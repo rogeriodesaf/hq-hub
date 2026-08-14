@@ -82,7 +82,7 @@ public class CompartilhamentoResource {
     @ConfigProperty(name = "hqhub.api-url-publica", defaultValue = "https://hqhub-backend.onrender.com")
     String apiUrlPublica;
 
-    @ConfigProperty(name = "hqhub.url-compartilhamento", defaultValue = "https://hqhub.com.br")
+    @ConfigProperty(name = "hqhub.url-compartilhamento", defaultValue = "https://hqhub-backend.onrender.com/api/compartilhar")
     String urlCompartilhamentoPublica;
 
     @ConfigProperty(name = "hqhub.compartilhamento.abrir-catalogo", defaultValue = "false")
@@ -410,7 +410,7 @@ public class CompartilhamentoResource {
                 LIMITE_TITULO_COMPARTILHAMENTO);
         String descricao = "Confira esta HQ no HQ-HUB";
         String urlPublica = urlHqPublica(postagem.getId());
-        String imagem = urlPublica + "/imagem.jpg";
+        String imagem = origemApiNormalizada() + "/api/compartilhar/hq/" + postagem.getId() + "/imagem.jpg";
         String appUrl = appUrlPublica(postagem);
 
         return """
@@ -837,9 +837,9 @@ public class CompartilhamentoResource {
                     .orElse(null);
         }
         if (edicaoId != null) {
-            return origemCompartilhamentoNormalizada() + "/catalogo?edicaoId=" + edicaoId;
+            return baseNormalizada() + "/catalogo?edicaoId=" + edicaoId;
         }
-        return origemCompartilhamentoNormalizada() + "/postagem/" + postagem.getId();
+        return baseNormalizada() + "/postagem/" + postagem.getId();
     }
 
     private String urlHqPublica(Long postagemId) {
@@ -913,7 +913,7 @@ public class CompartilhamentoResource {
 
     private String origemCompartilhamentoNormalizada() {
         String base = urlCompartilhamentoPublica == null || urlCompartilhamentoPublica.isBlank()
-                ? "https://hqhub.com.br"
+                ? "https://hqhub-backend.onrender.com/api/compartilhar"
                 : urlCompartilhamentoPublica.trim();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
