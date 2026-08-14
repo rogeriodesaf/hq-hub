@@ -156,9 +156,14 @@ def html_para_texto(html):
 
 
 def extrair_codigo_colecao(url):
-    # O Guia usa codigos com duas ou tres letras antes dos algarismos
-    # (por exemplo, ba01101, na011109 e bea0301).
-    encontrado = re.search(r"/([a-z]{2,3}\d{4,6})/", url, re.IGNORECASE)
+    # O Guia usa tanto codigos sem separador (ba01101, na011109 e bea0301)
+    # quanto codigos com hifen (x-011116). O codigo fica imediatamente antes
+    # do ID numerico da edicao na URL.
+    encontrado = re.search(
+        r"/([a-z][a-z0-9-]*\d)/\d+(?:[/?#]|$)",
+        url,
+        re.IGNORECASE,
+    )
     return encontrado.group(1) if encontrado else None
 
 
