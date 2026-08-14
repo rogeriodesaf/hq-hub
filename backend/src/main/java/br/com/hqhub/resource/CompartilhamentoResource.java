@@ -426,12 +426,11 @@ public class CompartilhamentoResource {
             grafico.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             desenharFundoDesfocado(grafico, original);
             grafico.setComposite(AlphaComposite.SrcOver);
-            grafico.setColor(new Color(7, 12, 22, 184));
+            grafico.setColor(new Color(7, 12, 22, 72));
             grafico.fillRect(0, 0, LARGURA_IMAGEM_SOCIAL, ALTURA_IMAGEM_SOCIAL);
 
-            int margem = 8;
-            int larguraMaxima = LARGURA_IMAGEM_SOCIAL - (margem * 2);
-            int alturaMaxima = ALTURA_IMAGEM_SOCIAL - (margem * 2);
+            int larguraMaxima = LARGURA_IMAGEM_SOCIAL;
+            int alturaMaxima = ALTURA_IMAGEM_SOCIAL;
             double escala = Math.min(
                     (double) larguraMaxima / original.getWidth(),
                     (double) alturaMaxima / original.getHeight());
@@ -440,8 +439,6 @@ public class CompartilhamentoResource {
             int x = (LARGURA_IMAGEM_SOCIAL - largura) / 2;
             int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
 
-            grafico.setColor(new Color(0, 0, 0, 175));
-            grafico.fillRoundRect(x - 9, y - 5, largura + 18, altura + 10, 12, 12);
             grafico.drawImage(original, x, y, largura, altura, null);
             grafico.setColor(new Color(255, 135, 31));
             grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 6, LARGURA_IMAGEM_SOCIAL, 6);
@@ -458,8 +455,8 @@ public class CompartilhamentoResource {
     }
 
     private void desenharFundoDesfocado(Graphics2D grafico, BufferedImage original) {
-        int larguraMiniatura = 72;
-        int alturaMiniatura = 38;
+        int larguraMiniatura = 36;
+        int alturaMiniatura = 19;
         BufferedImage miniatura = new BufferedImage(
                 larguraMiniatura,
                 alturaMiniatura,
