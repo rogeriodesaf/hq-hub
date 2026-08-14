@@ -76,12 +76,14 @@ public class CompartilhamentoResource {
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
             .build();
-
     @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub-frontend.onrender.com")
     String urlBase;
 
     @ConfigProperty(name = "hqhub.api-url-publica", defaultValue = "https://hqhub-backend.onrender.com")
     String apiUrlPublica;
+
+    @ConfigProperty(name = "hqhub.url-compartilhamento", defaultValue = "https://hqhub.com.br")
+    String urlCompartilhamentoPublica;
 
     @ConfigProperty(name = "hqhub.compartilhamento.abrir-catalogo", defaultValue = "false")
     boolean abrirCatalogoAoCompartilhar;
@@ -198,6 +200,29 @@ public class CompartilhamentoResource {
             @Context UriInfo uriInfo,
             @HeaderParam("X-Forwarded-Proto") String protocoloEncaminhado) {
         return compartilharPostagemV15(id, contexto, uriInfo, protocoloEncaminhado);
+    }
+
+    @GET
+    @Path("/hq/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharHq(@PathParam("id") Long id) {
+        return postagemRepository.findByIdOptional(id)
+                .map(postagem -> Response.ok(htmlHqPublica(postagem)).build())
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
+                        .entity(htmlNaoEncontrado())
+                        .type(MediaType.TEXT_HTML)
+                        .build());
+    }
+
+    @GET
+    @Path("/hq/{id}/imagem.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemHq(@PathParam("id") Long id) {
+        return postagemRepository.findByIdOptional(id)
+                .map(postagem -> responderImagem(postagem, ContextoCompartilhamento.de(null, postagem)))
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @GET
@@ -379,6 +404,69 @@ public class CompartilhamentoResource {
                 escaparHtml(appUrl));
     }
 
+    private String htmlHqPublica(PostagemFeed postagem) {
+        String titulo = limitarTexto(
+                tituloCompartilhamento(postagem, primeiroVideo(postagem.getId())),
+                LIMITE_TITULO_COMPARTILHAMENTO);
+        String descricao = "Confira esta HQ no HQ-HUB";
+        String urlPublica = urlHqPublica(postagem.getId());
+        String imagem = urlPublica + "/imagem.jpg";
+        String appUrl = appUrlPublica(postagem);
+
+        return """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>%s</title>
+                  <link rel="canonical" href="%s">
+                  <meta name="description" content="%s">
+                  <meta property="og:type" content="website">
+                  <meta property="og:locale" content="pt_BR">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:url" content="%s">
+                  <meta property="og:title" content="%s">
+                  <meta property="og:description" content="%s">
+                  <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="630">
+                  <meta property="og:image:alt" content="Capa de %s">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="%s">
+                  <meta name="twitter:description" content="%s">
+                  <meta name="twitter:image" content="%s">
+                  <script>window.location.replace(%s);</script>
+                </head>
+                <body>
+                  <main>
+                    <h1>%s</h1>
+                    <p>%s</p>
+                    <p><a href="%s">Abrir HQ no HQ-HUB</a></p>
+                  </main>
+                </body>
+                </html>
+                """.formatted(
+                escaparHtml(titulo),
+                escaparHtml(urlPublica),
+                escaparHtml(descricao),
+                escaparHtml(urlPublica),
+                escaparHtml(titulo),
+                escaparHtml(descricao),
+                escaparHtml(imagem),
+                escaparHtml(imagem),
+                escaparHtml(titulo),
+                escaparHtml(titulo),
+                escaparHtml(descricao),
+                escaparHtml(imagem),
+                literalJavascript(appUrl),
+                escaparHtml(titulo),
+                escaparHtml(descricao),
+                escaparHtml(appUrl));
+    }
+
     private Response responderImagem(PostagemFeed postagem, ContextoCompartilhamento contexto) {
         String urlImagem = imagem(postagem);
         if (ehUrlGuia(urlImagem)) {
@@ -440,6 +528,7 @@ public class CompartilhamentoResource {
             int y = (ALTURA_IMAGEM_SOCIAL - altura) / 2;
 
             grafico.drawImage(original, x, y, largura, altura, null);
+            desenharLogoCompartilhamento(grafico);
             grafico.setColor(new Color(255, 135, 31));
             grafico.fillRect(0, ALTURA_IMAGEM_SOCIAL - 6, LARGURA_IMAGEM_SOCIAL, 6);
         } finally {
@@ -452,6 +541,26 @@ public class CompartilhamentoResource {
             }
             return saida.toByteArray();
         }
+    }
+
+    private void desenharLogoCompartilhamento(Graphics2D grafico) {
+        String marca = "HQ-HUB";
+        int largura = 112;
+        int altura = 38;
+        int margem = 14;
+        int x = LARGURA_IMAGEM_SOCIAL - largura - margem;
+        int y = ALTURA_IMAGEM_SOCIAL - altura - margem;
+
+        grafico.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.82f));
+        grafico.setColor(new Color(7, 12, 22));
+        grafico.fillRoundRect(x, y, largura, altura, 14, 14);
+        grafico.setColor(new Color(255, 135, 31));
+        grafico.setFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 20));
+        java.awt.FontMetrics metricas = grafico.getFontMetrics();
+        int textoX = x + (largura - metricas.stringWidth(marca)) / 2;
+        int textoY = y + (altura - metricas.getHeight()) / 2 + metricas.getAscent();
+        grafico.drawString(marca, textoX, textoY);
+        grafico.setComposite(AlphaComposite.SrcOver);
     }
 
     private void desenharFundoDesfocado(Graphics2D grafico, BufferedImage original) {
@@ -718,6 +827,25 @@ public class CompartilhamentoResource {
         return baseNormalizada() + "/postagem/" + postagem.getId();
     }
 
+    private String appUrlPublica(PostagemFeed postagem) {
+        Long edicaoId = null;
+        if (postagem.getItemColecao() != null) {
+            edicaoId = postagem.getItemColecao().getEdicao().getId();
+        } else if (postagem.getSerieCatalogo() != null) {
+            edicaoId = edicaoRepository.primeiraEdicaoPorSerie(postagem.getSerieCatalogo().getId())
+                    .map(Edicao::getId)
+                    .orElse(null);
+        }
+        if (edicaoId != null) {
+            return origemCompartilhamentoNormalizada() + "/catalogo?edicaoId=" + edicaoId;
+        }
+        return origemCompartilhamentoNormalizada() + "/postagem/" + postagem.getId();
+    }
+
+    private String urlHqPublica(Long postagemId) {
+        return origemCompartilhamentoNormalizada() + "/hq/" + postagemId;
+    }
+
     private String versao(PostagemFeed postagem) {
         return postagem.getDataAtualizacao() == null
                 ? String.valueOf(postagem.getId())
@@ -780,6 +908,13 @@ public class CompartilhamentoResource {
         String base = apiUrlPublica == null || apiUrlPublica.isBlank()
                 ? "https://hqhub-backend.onrender.com"
                 : apiUrlPublica.trim();
+        return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
+    }
+
+    private String origemCompartilhamentoNormalizada() {
+        String base = urlCompartilhamentoPublica == null || urlCompartilhamentoPublica.isBlank()
+                ? "https://hqhub.com.br"
+                : urlCompartilhamentoPublica.trim();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
 

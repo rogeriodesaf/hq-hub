@@ -7,6 +7,9 @@ services:
     staticPublishPath: dist/frontend/browser
     routes:
       - type: rewrite
+        source: /hq/*
+        destination: https://hqhub-backend.onrender.com/api/compartilhar/hq/*
+      - type: rewrite
         source: /compartilhar/hq/postagem/*
         destination: https://hqhub-backend.onrender.com/api/compartilhar/postagens/*/v16
       - type: rewrite
