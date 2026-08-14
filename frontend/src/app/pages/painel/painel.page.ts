@@ -1707,15 +1707,15 @@ export class PainelPage implements OnInit {
     const titulo = postagem.colecaoDestaque?.titulo
       || postagem.catalogoDestaque?.titulo
       || 'HQ-HUB';
-    const texto = `👀 Olha essa HQ!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?`;
+    const texto = `👀 Olha essa HQ no HQ-HUB!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?\n\n${url}`;
 
     try {
       if (navigator.share) {
-        await navigator.share({ title: titulo, text: texto, url });
+        await navigator.share({ text: texto });
         return;
       }
 
-      await this.copiarTexto(`${texto}\n\n${url}`);
+      await this.copiarTexto(texto);
       this.mensagem.set('Mensagem e link copiados. Agora é só colar no WhatsApp ou onde quiser.');
     } catch (erro) {
       if (erro instanceof DOMException && erro.name === 'AbortError') {
@@ -1860,12 +1860,7 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    const base = environment.apiUrl || window.location.origin;
-    const url = new URL(`/api/compartilhar/postagens/${postagem.id}/v16`, base);
-    url.searchParams.set('contexto', postagem.colecaoDestaque ? 'colecao' : 'catalogo');
-    const versaoPostagem = new Date(postagem.dataAtualizacao || postagem.dataCriacao).getTime() || postagem.id;
-    url.searchParams.set('v', String(versaoPostagem));
-    return url.toString();
+    return `${environment.compartilhamentoUrl}/hq/${postagem.id}`;
   }
 
   private async copiarTexto(texto: string) {

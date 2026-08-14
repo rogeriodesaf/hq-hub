@@ -13,4 +13,5 @@ function resolverApiUrlRuntime() {
 export const environment = {
   production: false,
   apiUrl: resolverApiUrlRuntime(),
+  compartilhamentoUrl: 'https://hqhub.com.br',
 };
