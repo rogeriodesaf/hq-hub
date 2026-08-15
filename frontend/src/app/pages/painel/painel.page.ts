@@ -1711,6 +1711,11 @@ export class PainelPage implements OnInit {
 
     try {
       if (navigator.share) {
+        const arquivoCapa = await this.arquivoCapaCompartilhamento(postagem);
+        if (arquivoCapa && navigator.canShare?.({ files: [arquivoCapa] })) {
+          await navigator.share({ files: [arquivoCapa], text: texto });
+          return;
+        }
         await navigator.share({ text: texto });
         return;
       }
@@ -1860,7 +1865,26 @@ export class PainelPage implements OnInit {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    return `${environment.compartilhamentoUrl}/hq/${postagem.id}`;
+    return `${environment.compartilhamentoUrl}/hq/${postagem.id}?v=17`;
+  }
+
+  private async arquivoCapaCompartilhamento(postagem: PostagemFeed): Promise<File | null> {
+    try {
+      const resposta = await fetch(
+        `${environment.compartilhamentoUrl}/hq/${postagem.id}/imagem.jpg?v=17`,
+        { mode: 'cors' },
+      );
+      if (!resposta.ok) {
+        return null;
+      }
+      const imagem = await resposta.blob();
+      if (!imagem.type.startsWith('image/')) {
+        return null;
+      }
+      return new File([imagem], `hq-hub-${postagem.id}.jpg`, { type: 'image/jpeg' });
+    } catch {
+      return null;
+    }
   }
 
   private async copiarTexto(texto: string) {

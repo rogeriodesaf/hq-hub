@@ -55,7 +55,7 @@ public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
-    private static final int ALTURA_IMAGEM_SOCIAL = 630;
+    private static final int ALTURA_IMAGEM_SOCIAL = 1600;
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
             "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
             Pattern.CASE_INSENSITIVE);
@@ -367,7 +367,7 @@ public class CompartilhamentoResource {
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
                   <meta property="og:image:width" content="1200">
-                  <meta property="og:image:height" content="630">
+                  <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Capa de %s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
@@ -432,7 +432,7 @@ public class CompartilhamentoResource {
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
                   <meta property="og:image:width" content="1200">
-                  <meta property="og:image:height" content="630">
+                  <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Capa de %s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
