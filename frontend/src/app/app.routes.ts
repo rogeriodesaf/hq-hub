@@ -17,6 +17,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/estante-publica/estante-publica.page').then((m) => m.EstantePublicaPage),
   },
   {
+    path: 'guia-de-leitura/:slug',
+    loadComponent: () => import('./pages/ordens-leitura/ordens-leitura.page').then((m) => m.OrdensLeituraPage),
+  },
+  {
     path: 'colecao-compartilhada/:id',
     loadComponent: () => import('./pages/colecao-compartilhada/colecao-compartilhada.page').then((m) => m.ColecaoCompartilhadaPage),
   },
