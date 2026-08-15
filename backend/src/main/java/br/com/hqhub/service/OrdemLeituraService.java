@@ -48,17 +48,6 @@ public class OrdemLeituraService {
     }
 
     @Transactional
-    public OrdemLeituraDetalheDTO buscarPublica(String slug) {
-        OrdemLeitura ordem = ordens.find("slug = ?1 and publicada = true", slug).firstResultOptional()
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Ordem de leitura nao encontrada."));
-        List<ItemOrdemLeituraDTO> resposta = itens.listar(ordem.getId()).stream()
-                .map(item -> paraDto(item, Set.of()))
-                .toList();
-        return new OrdemLeituraDetalheDTO(ordem.getId(), ordem.getSlug(), ordem.getTitulo(), ordem.getDescricao(),
-                resposta.size(), 0, resposta);
-    }
-
-    @Transactional
     public ItemOrdemLeituraDTO atualizarProgresso(Long itemId, boolean lido) {
         Usuario usuario = usuarioAutenticado.obterUsuario();
         ItemOrdemLeitura item = itens.findByIdOptional(itemId)
