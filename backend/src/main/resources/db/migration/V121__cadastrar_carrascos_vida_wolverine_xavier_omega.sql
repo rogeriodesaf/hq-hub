@@ -50,7 +50,12 @@ WHERE lower(trim(editora.nome)) = lower('Panini')
       SELECT 1
       FROM series existente
       WHERE existente.editora_id = editora.id
-        AND lower(trim(existente.titulo)) = ANY (referencia.aliases_serie)
+        AND hqhub_normalizar_titulo_serie(existente.titulo) = ANY (
+            ARRAY(
+                SELECT hqhub_normalizar_titulo_serie(alias)
+                FROM unnest(referencia.aliases_serie) AS alias
+            )
+        )
         AND coalesce(existente.volume, 1) = referencia.volume
   );
 
@@ -80,14 +85,23 @@ WITH referencias(
     SELECT referencia.*, serie.id AS serie_id,
            row_number() OVER (
                PARTITION BY referencia.id_edicao
-               ORDER BY CASE WHEN lower(trim(serie.titulo)) = lower(referencia.titulo_serie) THEN 0 ELSE 1 END,
+               ORDER BY CASE
+                            WHEN hqhub_normalizar_titulo_serie(serie.titulo) =
+                                 hqhub_normalizar_titulo_serie(referencia.titulo_serie)
+                            THEN 0 ELSE 1
+                        END,
                         serie.id
            ) AS prioridade
     FROM referencias referencia
     JOIN editoras editora ON lower(trim(editora.nome)) = lower('Panini')
     JOIN series serie
       ON serie.editora_id = editora.id
-     AND lower(trim(serie.titulo)) = ANY (referencia.aliases_serie)
+     AND hqhub_normalizar_titulo_serie(serie.titulo) = ANY (
+         ARRAY(
+             SELECT hqhub_normalizar_titulo_serie(alias)
+             FROM unnest(referencia.aliases_serie) AS alias
+         )
+     )
      AND coalesce(serie.volume, 1) = 1
 )
 INSERT INTO edicoes (
@@ -134,7 +148,12 @@ FROM referencias referencia
 JOIN editoras editora ON lower(trim(editora.nome)) = lower('Panini')
 JOIN series serie
   ON serie.editora_id = editora.id
- AND lower(trim(serie.titulo)) = ANY (referencia.aliases_serie)
+ AND hqhub_normalizar_titulo_serie(serie.titulo) = ANY (
+     ARRAY(
+         SELECT hqhub_normalizar_titulo_serie(alias)
+         FROM unnest(referencia.aliases_serie) AS alias
+     )
+ )
  AND coalesce(serie.volume, 1) = 1
 WHERE edicao.serie_id = serie.id
   AND ltrim(substring(edicao.numero FROM '([0-9]+)'), '0') = referencia.numero;
@@ -168,7 +187,12 @@ WITH referencias(titulo_guia, aliases_serie) AS (VALUES
     JOIN editoras editora ON lower(trim(editora.nome)) = lower('Panini')
     JOIN series serie
       ON serie.editora_id = editora.id
-     AND lower(trim(serie.titulo)) = ANY (referencia.aliases_serie)
+     AND hqhub_normalizar_titulo_serie(serie.titulo) = ANY (
+         ARRAY(
+             SELECT hqhub_normalizar_titulo_serie(alias)
+             FROM unnest(referencia.aliases_serie) AS alias
+         )
+     )
      AND coalesce(serie.volume, 1) = 1
     JOIN edicoes edicao
       ON edicao.serie_id = serie.id
