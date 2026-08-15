@@ -1,6 +1,6 @@
 package br.com.hqhub.resource;
 
-import br.com.hqhub.service.OrdemLeituraService;
+import br.com.hqhub.service.OrdemLeituraPublicaService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -11,9 +11,9 @@ import jakarta.ws.rs.core.Response;
 @Path("/publico/ordens-leitura")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrdemLeituraPublicaResource {
-    private final OrdemLeituraService service;
+    private final OrdemLeituraPublicaService service;
 
-    public OrdemLeituraPublicaResource(OrdemLeituraService service) {
+    public OrdemLeituraPublicaResource(OrdemLeituraPublicaService service) {
         this.service = service;
     }
 
