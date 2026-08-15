@@ -88,6 +88,10 @@ export class ApiService {
     return this.http.get<OrdemLeituraDetalhe>(`/api/ordens-leitura/${encodeURIComponent(slug)}`);
   }
 
+  obterOrdemLeituraPublica(slug: string) {
+    return this.http.get<OrdemLeituraDetalhe>(`/api/publico/ordens-leitura/${encodeURIComponent(slug)}`);
+  }
+
   atualizarProgressoOrdem(itemId: number, lido: boolean) {
     return this.http.put<ItemOrdemLeitura>(`/api/ordens-leitura/itens/${itemId}/progresso`, { lido });
   }
