@@ -84,7 +84,7 @@ WITH referencias(posicao, numero) AS (VALUES
     (128, '1'),
     (129, '2')
 ), candidatos AS (
-    SELECT referencia.posicao, edicao.id AS edicao_id, edicao.url_capa
+    SELECT referencia.posicao, referencia.numero, edicao.id AS edicao_id, edicao.url_capa
     FROM referencias referencia
     JOIN edicoes edicao ON trim(edicao.numero) = referencia.numero
     JOIN series serie ON serie.id = edicao.serie_id
