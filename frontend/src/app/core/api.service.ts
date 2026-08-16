@@ -81,19 +81,27 @@ export class ApiService {
   }
 
   listarOrdensLeitura() {
-    return this.http.get<OrdemLeituraResumo[]>('/api/ordens-leitura');
+    return this.http.get<OrdemLeituraResumo[]>('/api/ordens-leitura', { params: this.parametrosSemCache() });
   }
 
   obterOrdemLeitura(slug: string) {
-    return this.http.get<OrdemLeituraDetalhe>(`/api/ordens-leitura/${encodeURIComponent(slug)}`);
+    return this.http.get<OrdemLeituraDetalhe>(`/api/ordens-leitura/${encodeURIComponent(slug)}`, {
+      params: this.parametrosSemCache(),
+    });
   }
 
   obterOrdemLeituraPublica(slug: string) {
-    return this.http.get<OrdemLeituraDetalhe>(`/api/publico/ordens-leitura/${encodeURIComponent(slug)}`);
+    return this.http.get<OrdemLeituraDetalhe>(`/api/publico/ordens-leitura/${encodeURIComponent(slug)}`, {
+      params: this.parametrosSemCache(),
+    });
   }
 
   atualizarProgressoOrdem(itemId: number, lido: boolean) {
     return this.http.put<ItemOrdemLeitura>(`/api/ordens-leitura/itens/${itemId}/progresso`, { lido });
+  }
+
+  private parametrosSemCache() {
+    return new HttpParams().set('_atualizacao', Date.now().toString());
   }
 
   obterConfiguracaoColecao() {
