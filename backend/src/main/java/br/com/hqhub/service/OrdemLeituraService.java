@@ -67,7 +67,7 @@ public class OrdemLeituraService {
         String titulo = edicao == null ? item.getTituloReferencia()
                 : edicao.getSerie().getTitulo() + " #" + edicao.getNumero();
         String capa = edicao != null && edicao.getUrlCapa() != null ? edicao.getUrlCapa() : item.getUrlCapaReferencia();
-        return new ItemOrdemLeituraDTO(item.getId(), item.getPosicao(), edicao == null ? null : edicao.getId(),
+        return new ItemOrdemLeituraDTO(item.getId(), item.getPosicao(), item.getSecao(), edicao == null ? null : edicao.getId(),
                 edicao == null ? null : edicao.getSerie().getId(), titulo, item.getDetalheReferencia(), capa,
                 lidos.contains(item.getId()), edicao != null);
     }

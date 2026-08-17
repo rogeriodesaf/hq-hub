@@ -13,6 +13,7 @@ public class ItemOrdemLeitura {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ordem_leitura_id", nullable = false) private OrdemLeitura ordemLeitura;
     @Column(nullable = false) private Integer posicao;
+    @Column(name = "secao", length = 180) private String secao;
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "edicao_id") private Edicao edicao;
     @Column(name = "titulo_referencia", nullable = false) private String tituloReferencia;
     @Column(name = "detalhe_referencia") private String detalheReferencia;
