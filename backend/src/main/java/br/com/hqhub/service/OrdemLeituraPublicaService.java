@@ -41,6 +41,6 @@ public class OrdemLeituraPublicaService {
         String capa = edicao != null && edicao.getUrlCapa() != null ? edicao.getUrlCapa() : item.getUrlCapaReferencia();
         return new ItemOrdemLeituraDTO(item.getId(), item.getPosicao(), item.getSecao(), edicao == null ? null : edicao.getId(),
                 edicao == null ? null : edicao.getSerie().getId(), titulo, item.getDetalheReferencia(), capa,
-                false, edicao != null);
+                false, edicao != null, item.getStatusIdentificacao(), item.getObservacao(), item.getAnoReferencia());
     }
 }

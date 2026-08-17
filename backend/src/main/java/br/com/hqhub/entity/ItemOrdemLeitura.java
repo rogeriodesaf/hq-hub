@@ -18,4 +18,9 @@ public class ItemOrdemLeitura {
     @Column(name = "titulo_referencia", nullable = false) private String tituloReferencia;
     @Column(name = "detalhe_referencia") private String detalheReferencia;
     @Column(name = "url_capa_referencia", length = 1000) private String urlCapaReferencia;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_identificacao", nullable = false, length = 30)
+    private StatusIdentificacaoItemOrdem statusIdentificacao = StatusIdentificacaoItemOrdem.PENDENTE_REVISAO;
+    @Column(length = 1000) private String observacao;
+    @Column(name = "ano_referencia") private Integer anoReferencia;
 }
