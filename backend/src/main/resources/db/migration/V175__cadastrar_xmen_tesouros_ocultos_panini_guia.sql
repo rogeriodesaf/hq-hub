@@ -94,7 +94,7 @@ SET titulo_referencia = 'X-Men: Tesouros Ocultos (Omnibus)',
     detalhe_referencia = 'V1 #UNICA',
     edicao_id = edicao.id,
     url_capa_referencia = edicao.url_capa,
-    status_vinculo = 'CONFIRMADO'
+    status_identificacao = 'CONFIRMADO'
 FROM edicao_alvo edicao
 JOIN ordens_leitura ordem ON ordem.slug = 'ordem-de-leitura-mutante'
 WHERE item.ordem_leitura_id = ordem.id
