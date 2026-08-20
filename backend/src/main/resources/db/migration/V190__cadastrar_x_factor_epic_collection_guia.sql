@@ -78,7 +78,7 @@ SELECT
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
 FROM serie_alvo serie CROSS JOIN dados dado
-ON CONFLICT (numero, serie_id) DO UPDATE SET
+ON CONFLICT (serie_id, hqhub_normalizar_identidade(numero)) DO UPDATE SET
     titulo = EXCLUDED.titulo,
     descricao = EXCLUDED.descricao,
     nome_volume = EXCLUDED.nome_volume,
