@@ -141,6 +141,13 @@ export class OrdensLeituraPage implements OnInit {
         descricao: 'Junto com o sucesso do filme live-action dos Mutantes nos anos 2000, o renomado roteirista Grant Morrison assumiu os quadrinhos dos mutantes, em uma fase memorável da equipe.'
       };
     }
+    if (titulo === 'Fase Joss Whedon') {
+      return {
+        imagem: '',
+        alt: '',
+        descricao: 'Esta fase trouxe de volta o tom mais heroico dos X-Men, bem como os uniformes coloridos. É uma fase curta, mas muito boa, repleta de aventura e nostalgia.'
+      };
+    }
     return null;
   }
   alternar(item: ItemOrdemLeitura){ this.alterando.set(item.id); this.api.atualizarProgressoOrdem(item.id,!item.lido).subscribe({next:v=>{const o=this.selecionada();if(!o)return;const itens=o.itens.map(i=>i.id===v.id?v:i);this.selecionada.set({...o,itens,itensLidos:itens.filter(i=>i.lido).length});},error:()=>this.alterando.set(null),complete:()=>this.alterando.set(null)}); }
