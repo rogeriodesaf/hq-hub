@@ -6,6 +6,9 @@ services:
     staticPublishPath: dist/frontend/browser
     routes:
       - type: rewrite
+        source: /guia-de-leitura/ordem-de-leitura-mutante
+        destination: /guia-xmen-compartilhar.html
+      - type: rewrite
         source: /api/*
         destination: https://hqhub-backend.onrender.com/api/*
       - type: rewrite

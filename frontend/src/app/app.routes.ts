@@ -21,6 +21,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/ordens-leitura/ordens-leitura.page').then((m) => m.OrdensLeituraPage),
   },
   {
+    path: 'guia-de-leitura-app/:slug',
+    loadComponent: () => import('./pages/ordens-leitura/ordens-leitura.page').then((m) => m.OrdensLeituraPage),
+  },
+  {
     path: 'colecao-compartilhada/:id',
     loadComponent: () => import('./pages/colecao-compartilhada/colecao-compartilhada.page').then((m) => m.ColecaoCompartilhadaPage),
   },
