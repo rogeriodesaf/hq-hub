@@ -148,6 +148,13 @@ export class OrdensLeituraPage implements OnInit {
         descricao: 'Esta fase trouxe de volta o tom mais heroico dos X-Men, bem como os uniformes coloridos. É uma fase curta, mas muito boa, repleta de aventura e nostalgia.'
       };
     }
+    if (titulo === 'Fase da dizimação mutante') {
+      return {
+        imagem: '',
+        alt: '',
+        descricao: 'A partir daqui, entramos com tudo nos eventos da dizimação mutante e na separação dos membros. É uma fase importantíssima para a leitura.'
+      };
+    }
     return null;
   }
   alternar(item: ItemOrdemLeitura){ this.alterando.set(item.id); this.api.atualizarProgressoOrdem(item.id,!item.lido).subscribe({next:v=>{const o=this.selecionada();if(!o)return;const itens=o.itens.map(i=>i.id===v.id?v:i);this.selecionada.set({...o,itens,itensLidos:itens.filter(i=>i.lido).length});},error:()=>this.alterando.set(null),complete:()=>this.alterando.set(null)}); }
