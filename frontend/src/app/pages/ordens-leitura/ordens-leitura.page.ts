@@ -155,6 +155,13 @@ export class OrdensLeituraPage implements OnInit {
         descricao: 'A partir daqui, entramos com tudo nos eventos da dizimação mutante e na separação dos membros. É uma fase importantíssima para a leitura.'
       };
     }
+    if (titulo === 'FABULOSOS X-MEN E NOVÍSSIMOS X-MEN') {
+      return {
+        imagem: '',
+        alt: '',
+        descricao: 'Logo após Vingadores vs. X-Men, as histórias dos X-Men foram ramificadas em duas revistas que se alternavam: Os Fabulosos X-Men e Novíssimos X-Men.'
+      };
+    }
     return null;
   }
   alternar(item: ItemOrdemLeitura){ this.alterando.set(item.id); this.api.atualizarProgressoOrdem(item.id,!item.lido).subscribe({next:v=>{const o=this.selecionada();if(!o)return;const itens=o.itens.map(i=>i.id===v.id?v:i);this.selecionada.set({...o,itens,itensLidos:itens.filter(i=>i.lido).length});},error:()=>this.alterando.set(null),complete:()=>this.alterando.set(null)}); }
