@@ -131,6 +131,43 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/guias/xmen")
+    @Produces(MediaType.TEXT_HTML)
+    public Response compartilharGuiaXMen() {
+        String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/ordem-de-leitura-mutante";
+        String imagem = "https://hqhub-frontend.onrender.com/assets/guia-xmen-compartilhamento.webp?v=2";
+        String html = """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>Ordem de Leitura Mutante | HQ-HUB</title>
+                  <meta name="description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <meta property="og:type" content="website">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:title" content="Ordem de Leitura Mutante">
+                  <meta property="og:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=2">
+                  <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/webp">
+                  <meta property="og:image:width" content="474">
+                  <meta property="og:image:height" content="263">
+                  <meta property="og:image:alt" content="Logotipo dos X-Men">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="Ordem de Leitura Mutante">
+                  <meta name="twitter:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <meta name="twitter:image" content="%s">
+                  <script>window.location.replace('%s');</script>
+                </head>
+                <body><p>Abrindo a <a href="%s">Ordem de Leitura Mutante</a>...</p></body>
+                </html>
+                """.formatted(imagem, imagem, imagem, destino, destino);
+        return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    @GET
     @Path("/postagens/{id}")
     @Produces(MediaType.TEXT_HTML)
     @Transactional

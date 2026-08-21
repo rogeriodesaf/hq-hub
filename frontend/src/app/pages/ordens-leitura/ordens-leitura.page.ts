@@ -171,7 +171,9 @@ export class OrdensLeituraPage implements OnInit {
   alternar(item: ItemOrdemLeitura){ this.alterando.set(item.id); this.api.atualizarProgressoOrdem(item.id,!item.lido).subscribe({next:v=>{const o=this.selecionada();if(!o)return;const itens=o.itens.map(i=>i.id===v.id?v:i);this.selecionada.set({...o,itens,itensLidos:itens.filter(i=>i.lido).length});},error:()=>this.alterando.set(null),complete:()=>this.alterando.set(null)}); }
   async compartilharGuia(){
     const ordem=this.selecionada(); if(!ordem)return;
-    const link=`${window.location.origin}/guia-de-leitura/${ordem.slug}`;
+    const link=ordem.slug === 'ordem-de-leitura-mutante'
+      ? 'https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=2'
+      : `${window.location.origin}/guia-de-leitura/${ordem.slug}`;
     const dados={title:ordem.titulo,text:`Confira o guia de leitura ${ordem.titulo} no HQ-HUB`,url:link};
     try {
       if(navigator.share){await navigator.share(dados);return;}
