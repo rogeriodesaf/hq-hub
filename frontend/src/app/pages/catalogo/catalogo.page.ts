@@ -199,6 +199,12 @@ import {
           </aside>
         }
 
+        @if (exibirNotaTexRgeSegundaEdicao()) {
+          <aside class="aviso-edicoes-anteriores">
+            Continuação do nº 94 da ed. Vecchi (que republicou a HQ só pela metade). A RGE concluiu a aventura chamando esta edição de "nº 94-A".
+          </aside>
+        }
+
         @if (exibirAvisoEdicoesPosterioresTex()) {
           <aside class="aviso-edicoes-anteriores">
             <a
@@ -2501,6 +2507,17 @@ export class CatalogoPage implements OnInit, OnDestroy {
     if (editora.includes('globo')) return 'rge';
     if (editora.includes('rge') || editora.includes('rio grafica')) return 'vecchi';
     return 'globo';
+  }
+
+  exibirNotaTexRgeSegundaEdicao() {
+    const serie = this.serieSelecionada();
+    if (!serie || this.paginaResultados() !== 0 || serie.volume !== 2) {
+      return false;
+    }
+
+    const editora = this.editoraSelecionadaTex();
+    return this.normalizarComparacao(serie.titulo) === 'tex'
+      && (editora.includes('rge') || editora.includes('rio grafica'));
   }
 
   exibirAvisoEdicoesPosterioresTex() {
