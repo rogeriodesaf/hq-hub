@@ -1109,6 +1109,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioItemColecao = this.formularioItemColecaoVazio();
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
+  private sequenciaBuscaResultados = 0;
 
   constructor() {
     effect(() => {
@@ -1165,6 +1166,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   private carregarEdicoesDaSerieImportada(serieId: number) {
+    const sequencia = ++this.sequenciaBuscaResultados;
     this.serieSelecionada.set(null);
     this.busca = '';
     this.seriesConsultadas.set(false);
@@ -1177,6 +1179,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       edicoes: this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId),
     }).subscribe({
       next: ({ serie, edicoes: resposta }) => {
+        if (sequencia !== this.sequenciaBuscaResultados) return;
         this.serieSelecionada.set(serie);
         this.resultadosCatalogo.set({
           ...resposta,
@@ -1187,6 +1190,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.mensagem.set(resposta.itens.length ? 'Edicoes da serie importada carregadas.' : 'Nenhuma edicao encontrada para a serie importada.');
       },
       error: () => {
+        if (sequencia !== this.sequenciaBuscaResultados) return;
         this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
         this.carregandoResultados.set(false);
         this.mensagem.set('Nao foi possivel carregar as edicoes da serie importada agora.');
@@ -2764,6 +2768,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   private buscarResultados(pagina: number, rolarAoResultadoMobile = false) {
+    const sequencia = ++this.sequenciaBuscaResultados;
     const termoBusca = this.busca.trim();
     if (!termoBusca && !this.serieSelecionada()) {
       this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
@@ -2779,6 +2784,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     if (this.serieSelecionada()) {
       this.api.listarEdicoes('', pagina, this.tamanhoResultados, this.serieSelecionada()!.id).subscribe({
         next: (resposta) => {
+          if (sequencia !== this.sequenciaBuscaResultados) return;
           this.resultadosCatalogo.set({
             ...resposta,
             itens: resposta.itens.map((edicao) => this.paraResultadoInterno(edicao)),
@@ -2791,6 +2797,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
           this.mensagem.set(resposta.itens.length ? '' : `Nenhuma edição cadastrada para "${termo}".`);
         },
         error: () => {
+          if (sequencia !== this.sequenciaBuscaResultados) return;
           this.resultadosCatalogo.set({ itens: [], pagina, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
           this.carregandoResultados.set(false);
           this.mensagem.set('Não foi possível carregar as edições desta série agora.');
@@ -2801,6 +2808,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     this.api.pesquisarCatalogo(termo, pagina, this.tamanhoResultados).subscribe({
       next: (resposta) => {
+        if (sequencia !== this.sequenciaBuscaResultados) return;
         this.resultadosCatalogo.set(resposta);
         this.paginaResultados.set(resposta.pagina);
         this.carregandoResultados.set(false);
@@ -2810,6 +2818,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.mensagem.set(resposta.itens.length ? '' : `Nenhum resultado encontrado para "${termo}".`);
       },
       error: () => {
+        if (sequencia !== this.sequenciaBuscaResultados) return;
         this.resultadosCatalogo.set({ itens: [], pagina, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
         this.carregandoResultados.set(false);
         this.mensagem.set('Não foi possível pesquisar no catálogo agora.');
