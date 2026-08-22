@@ -191,11 +191,11 @@ import {
         @if (exibirAvisoEdicoesAnterioresTex()) {
           <aside class="aviso-edicoes-anteriores">
             <a
-              href="https://www.guiadosquadrinhos.com/capas/tex/te005100"
+              [href]="linkEdicoesAnterioresTex()"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Os nÃºmeros anteriores foram publicados pela editora Globo
+              {{ textoEdicoesAnterioresTex() }}
             </a>
           </aside>
         }
@@ -2463,8 +2463,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return false;
     }
 
+    const editora = this.normalizarComparacao(serie.editora?.nome || '');
     return this.normalizarComparacao(serie.titulo) === 'tex'
-      && this.normalizarComparacao(serie.editora?.nome || '').includes('mythos');
+      && (editora.includes('mythos') || editora.includes('globo'));
+  }
+
+  textoEdicoesAnterioresTex() {
+    return this.editoraSelecionadaTex().includes('globo')
+      ? 'Os números anteriores foram publicados pela editora RGE'
+      : 'Os números anteriores foram publicados pela editora Globo';
+  }
+
+  linkEdicoesAnterioresTex() {
+    return this.editoraSelecionadaTex().includes('globo')
+      ? 'https://www.guiadosquadrinhos.com/capas/tex/te002100'
+      : 'https://www.guiadosquadrinhos.com/capas/tex/te005100';
+  }
+
+  private editoraSelecionadaTex() {
+    return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
   }
 
   rotuloStatusCurto(status: string) {
