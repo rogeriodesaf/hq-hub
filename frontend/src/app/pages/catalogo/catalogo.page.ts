@@ -3291,7 +3291,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   private normalizarComparacao(valor: string | null | undefined) {
-    return (valor || '').trim().toLocaleLowerCase('pt-BR');
+    return (valor || '')
+      .trim()
+      .toLocaleLowerCase('pt-BR')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 
   private vinculoOriginalJaExiste(edicaoOriginalId: number, tituloHistoria: string) {
