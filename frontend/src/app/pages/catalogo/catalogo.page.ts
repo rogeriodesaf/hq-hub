@@ -216,6 +216,17 @@ import {
           </aside>
         }
 
+        @if (exibirAvisoTexColecaoGlobo()) {
+          <aside class="aviso-edicoes-anteriores">
+            <a
+              routerLink="/catalogo"
+              [queryParams]="{ colecaoTexColecao: 'globo' }"
+            >
+              A série "Tex Coleção" continuou sendo publicada pela Editora Globo, a partir do nº 2.
+            </a>
+          </aside>
+        }
+
         <div class="grade-mini-capas">
           @for (resultado of resultadosCatalogo().itens; track chaveResultado(resultado)) {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
@@ -1180,6 +1191,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
       const colecaoTex = parametros.get('colecaoTex');
       if (colecaoTex === 'globo' || colecaoTex === 'rge' || colecaoTex === 'vecchi') {
         this.carregarColecaoTexPorEditora(colecaoTex);
+      }
+
+      if (parametros.get('colecaoTexColecao') === 'globo') {
+        this.carregarTexColecaoGlobo();
       }
     });
   }
@@ -2543,6 +2558,17 @@ export class CatalogoPage implements OnInit, OnDestroy {
     return this.editoraSelecionadaTex().includes('vecchi') ? 'rge' : 'globo';
   }
 
+  exibirAvisoTexColecaoGlobo() {
+    const serie = this.serieSelecionada();
+    const totalPaginas = this.resultadosCatalogo().totalPaginas;
+    if (!serie || totalPaginas < 1 || this.paginaResultados() !== totalPaginas - 1) {
+      return false;
+    }
+
+    return this.normalizarComparacao(serie.titulo) === 'tex colecao'
+      && this.normalizarComparacao(serie.editora?.nome || '').includes('vecchi');
+  }
+
   private editoraSelecionadaTex() {
     return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
   }
@@ -2566,6 +2592,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
       this.selecionarSerie(serie);
     } catch {
       this.mensagem.set('Não foi possível abrir a coleção de Tex agora.');
+    }
+  }
+
+  private async carregarTexColecaoGlobo() {
+    try {
+      const resposta = await firstValueFrom(this.api.listarSeries('Tex Coleção', 0, 100));
+      const serie = resposta.itens.find((item) =>
+        this.normalizarComparacao(item.titulo) === 'tex colecao'
+        && this.normalizarComparacao(item.editora?.nome || '').includes('globo'),
+      );
+
+      if (!serie) {
+        this.mensagem.set('A coleção Tex Coleção da Globo ainda não está disponível no catálogo.');
+        return;
+      }
+
+      this.selecionarSerie(serie);
+    } catch {
+      this.mensagem.set('Não foi possível abrir Tex Coleção da Globo agora.');
     }
   }
 
