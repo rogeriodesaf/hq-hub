@@ -11,6 +11,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,12 +27,14 @@ import br.com.hqhub.entity.ImagemPostagemFeed;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.OrdemLeitura;
 import br.com.hqhub.entity.VideoRelacionadoFeed;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
+import br.com.hqhub.repository.OrdemLeituraRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.VideoRelacionadoFeedRepository;
 import br.com.hqhub.service.UrlPublicaService;
@@ -67,6 +71,7 @@ public class CompartilhamentoResource {
     private final VideoRelacionadoFeedRepository videoRelacionadoRepository;
     private final EdicaoRepository edicaoRepository;
     private final ItemColecaoRepository itemColecaoRepository;
+    private final OrdemLeituraRepository ordemLeituraRepository;
     private final UrlPublicaService urlPublicaService;
     private final FeedSocialService feedSocialService;
     private final EdicaoService edicaoService;
@@ -94,6 +99,7 @@ public class CompartilhamentoResource {
             VideoRelacionadoFeedRepository videoRelacionadoRepository,
             EdicaoRepository edicaoRepository,
             ItemColecaoRepository itemColecaoRepository,
+            OrdemLeituraRepository ordemLeituraRepository,
             UrlPublicaService urlPublicaService,
             FeedSocialService feedSocialService,
             EdicaoService edicaoService,
@@ -104,6 +110,7 @@ public class CompartilhamentoResource {
         this.videoRelacionadoRepository = videoRelacionadoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoRepository = itemColecaoRepository;
+        this.ordemLeituraRepository = ordemLeituraRepository;
         this.urlPublicaService = urlPublicaService;
         this.feedSocialService = feedSocialService;
         this.edicaoService = edicaoService;
@@ -165,6 +172,65 @@ public class CompartilhamentoResource {
                 </html>
                 """.formatted(imagem, imagem, imagem, destino, destino);
         return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    @GET
+    @Path("/guias/{slug}")
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response compartilharGuia(@PathParam("slug") String slug) {
+        return ordemLeituraRepository.find("slug = ?1 and publicada = true", slug).firstResultOptional()
+                .map(this::htmlGuia)
+                .map(html -> Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build())
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
+                        .entity(htmlNaoEncontrado())
+                        .type(MediaType.TEXT_HTML_TYPE)
+                        .build());
+    }
+
+    private String htmlGuia(OrdemLeitura guia) {
+        String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
+        String destino = urlBase + "/guia-de-leitura-app/" + slug;
+        String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug;
+        String imagem = guia.getUrlCapa() == null || guia.getUrlCapa().isBlank()
+                ? urlAbsoluta(IMAGEM_PADRAO)
+                : guia.getUrlCapa();
+        String titulo = guia.getTitulo() + " | HQ-HUB";
+        String descricao = guia.getDescricao() == null || guia.getDescricao().isBlank()
+                ? "Confira este guia de leitura no HQ-HUB."
+                : guia.getDescricao();
+
+        return """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>%s</title>
+                  <meta name="description" content="%s">
+                  <meta property="og:type" content="website">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:title" content="%s">
+                  <meta property="og:description" content="%s">
+                  <meta property="og:url" content="%s">
+                  <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:alt" content="Capa do guia %s">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="%s">
+                  <meta name="twitter:description" content="%s">
+                  <meta name="twitter:image" content="%s">
+                  <meta http-equiv="refresh" content="0;url=%s">
+                </head>
+                <body><p>Abrindo <a href="%s">%s</a>...</p></body>
+                </html>
+                """.formatted(
+                escaparHtml(titulo), escaparHtml(descricao), escaparHtml(guia.getTitulo()),
+                escaparHtml(descricao), escaparHtml(compartilhamento), escaparHtml(imagem),
+                escaparHtml(imagem), escaparHtml(guia.getTitulo()), escaparHtml(guia.getTitulo()),
+                escaparHtml(descricao), escaparHtml(imagem), escaparHtml(destino),
+                escaparHtml(destino), escaparHtml(guia.getTitulo()));
     }
 
     @GET
