@@ -175,6 +175,41 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/guias/tex-ordem-publicacao-brasileira")
+    @Produces(MediaType.TEXT_HTML)
+    public Response compartilharGuiaTex() {
+        String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
+        String imagem = "https://res.cloudinary.com/deiktyvyc/image/upload/v1786412030/hqhub/capas/oc4gie4rrlp3psh686zf.webp";
+        String html = """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>Tex — Ordem de Publicação Brasileira | HQ-HUB</title>
+                  <meta name="description" content="Guia das edições brasileiras de Tex, da Vecchi à Mythos, organizado pela ordem de publicação.">
+                  <meta property="og:type" content="website">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:title" content="Tex — Ordem de Publicação Brasileira">
+                  <meta property="og:description" content="Confira as edições brasileiras de Tex na ordem de publicação, da Vecchi à Mythos.">
+                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/tex-ordem-publicacao-brasileira?v=2">
+                  <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/webp">
+                  <meta property="og:image:alt" content="Capa de Tex número 1">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="Tex — Ordem de Publicação Brasileira">
+                  <meta name="twitter:description" content="Confira as edições brasileiras de Tex na ordem de publicação, da Vecchi à Mythos.">
+                  <meta name="twitter:image" content="%s">
+                  <script>window.location.replace('%s');</script>
+                </head>
+                <body><p>Abrindo o <a href="%s">guia brasileiro de Tex</a>...</p></body>
+                </html>
+                """.formatted(imagem, imagem, imagem, destino, destino);
+        return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    @GET
     @Path("/guias/{slug}")
     @Produces(MediaType.TEXT_HTML)
     @Transactional

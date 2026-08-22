@@ -173,7 +173,7 @@ export class OrdensLeituraPage implements OnInit {
     const ordem=this.selecionada(); if(!ordem)return;
     const link=ordem.slug === 'ordem-de-leitura-mutante'
       ? 'https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=2'
-      : `https://hqhub-backend.onrender.com/api/compartilhar/guias/${encodeURIComponent(ordem.slug)}?v=1`;
+      : `https://hqhub-backend.onrender.com/api/compartilhar/guias/${encodeURIComponent(ordem.slug)}?v=2`;
     const dados={title:ordem.titulo,text:`Confira o guia de leitura ${ordem.titulo} no HQ-HUB`,url:link};
     try {
       if(navigator.share){await navigator.share(dados);return;}
