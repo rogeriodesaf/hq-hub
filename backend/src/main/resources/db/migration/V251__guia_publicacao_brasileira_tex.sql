@@ -162,7 +162,7 @@ SELECT
     coalesce(item.titulo, item.rotulo || ' #' || item.numero),
     item.rotulo,
     item.url_capa,
-    'IDENTIFICADO',
+    'CONFIRMADO',
     item.observacao,
     CASE
         WHEN item.data_publicacao IS NOT NULL THEN extract(year FROM item.data_publicacao)::integer
