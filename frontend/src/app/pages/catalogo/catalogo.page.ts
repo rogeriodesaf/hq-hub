@@ -191,9 +191,8 @@ import {
         @if (exibirAvisoEdicoesAnterioresTex()) {
           <aside class="aviso-edicoes-anteriores">
             <a
-              [href]="linkEdicoesAnterioresTex()"
-              target="_blank"
-              rel="noopener noreferrer"
+              routerLink="/catalogo"
+              [queryParams]="{ colecaoTex: colecaoAnteriorTex() }"
             >
               {{ textoEdicoesAnterioresTex() }}
             </a>
@@ -1159,6 +1158,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
     if (Number.isFinite(serieId) && serieId > 0) {
       this.carregarEdicoesDaSerieImportada(serieId);
     }
+
+    this.rota.queryParamMap.subscribe((parametros) => {
+      const colecaoTex = parametros.get('colecaoTex');
+      if (colecaoTex === 'globo' || colecaoTex === 'rge') {
+        this.carregarColecaoTexPorEditora(colecaoTex);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -2474,14 +2480,36 @@ export class CatalogoPage implements OnInit, OnDestroy {
       : 'Os números anteriores foram publicados pela editora Globo';
   }
 
-  linkEdicoesAnterioresTex() {
+  colecaoAnteriorTex() {
     return this.editoraSelecionadaTex().includes('globo')
-      ? 'https://www.guiadosquadrinhos.com/capas/tex/te002100'
-      : 'https://www.guiadosquadrinhos.com/capas/tex/te005100';
+      ? 'rge'
+      : 'globo';
   }
 
   private editoraSelecionadaTex() {
     return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
+  }
+
+  private async carregarColecaoTexPorEditora(colecao: 'globo' | 'rge') {
+    try {
+      const resposta = await firstValueFrom(this.api.listarSeries('Tex', 0, 100));
+      const serie = resposta.itens.find((item) => {
+        if (this.normalizarComparacao(item.titulo) !== 'tex') return false;
+        const editora = this.normalizarComparacao(item.editora?.nome || '');
+        return colecao === 'globo'
+          ? editora.includes('globo')
+          : editora.includes('rge') || editora.includes('rio grafica');
+      });
+
+      if (!serie) {
+        this.mensagem.set('A coleção anterior de Tex ainda não está disponível no catálogo.');
+        return;
+      }
+
+      this.selecionarSerie(serie);
+    } catch {
+      this.mensagem.set('Não foi possível abrir a coleção anterior de Tex agora.');
+    }
   }
 
   rotuloStatusCurto(status: string) {
