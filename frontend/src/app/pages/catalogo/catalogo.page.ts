@@ -188,6 +188,12 @@ import {
           </div>
         </div>
 
+        @if (exibirNotaInicioTexEdicaoHistoricaMythos()) {
+          <aside class="aviso-edicoes-anteriores">
+            Continuação da numeração das edições da Ed. Globo.
+          </aside>
+        }
+
         @if (exibirAvisoEdicoesAnterioresTex()) {
           <aside class="aviso-edicoes-anteriores">
             <a
@@ -2519,6 +2525,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
     const editora = this.normalizarComparacao(serie.editora?.nome || '');
     return this.normalizarComparacao(serie.titulo) === 'tex'
       && (editora.includes('mythos') || editora.includes('globo') || editora.includes('rge') || editora.includes('rio grafica'));
+  }
+
+  exibirNotaInicioTexEdicaoHistoricaMythos() {
+    const serie = this.serieSelecionada();
+    return !!serie
+      && this.paginaResultados() === 0
+      && this.normalizarComparacao(serie.titulo) === 'tex edicao historica'
+      && this.normalizarComparacao(serie.editora?.nome || '').includes('mythos');
   }
 
   textoEdicoesAnterioresTex() {
