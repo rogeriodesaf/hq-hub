@@ -199,6 +199,17 @@ import {
           </aside>
         }
 
+        @if (exibirAvisoEdicoesPosterioresTex()) {
+          <aside class="aviso-edicoes-anteriores">
+            <a
+              routerLink="/catalogo"
+              [queryParams]="{ colecaoTex: colecaoPosteriorTex() }"
+            >
+              {{ textoEdicoesPosterioresTex() }}
+            </a>
+          </aside>
+        }
+
         <div class="grade-mini-capas">
           @for (resultado of resultadosCatalogo().itens; track chaveResultado(resultado)) {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
@@ -2492,6 +2503,29 @@ export class CatalogoPage implements OnInit, OnDestroy {
     return 'globo';
   }
 
+  exibirAvisoEdicoesPosterioresTex() {
+    const serie = this.serieSelecionada();
+    const totalPaginas = this.resultadosCatalogo().totalPaginas;
+    if (!serie || totalPaginas < 1 || this.paginaResultados() !== totalPaginas - 1) {
+      return false;
+    }
+
+    const editora = this.editoraSelecionadaTex();
+    return this.normalizarComparacao(serie.titulo) === 'tex'
+      && (editora.includes('vecchi') || editora.includes('rge') || editora.includes('rio grafica'));
+  }
+
+  textoEdicoesPosterioresTex() {
+    const editora = this.editoraSelecionadaTex();
+    return editora.includes('vecchi')
+      ? 'Os números posteriores foram publicados pela editora RGE'
+      : 'Os números posteriores foram publicados pela Globo';
+  }
+
+  colecaoPosteriorTex() {
+    return this.editoraSelecionadaTex().includes('vecchi') ? 'rge' : 'globo';
+  }
+
   private editoraSelecionadaTex() {
     return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
   }
@@ -2508,13 +2542,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
       });
 
       if (!serie) {
-        this.mensagem.set('A coleção anterior de Tex ainda não está disponível no catálogo.');
+        this.mensagem.set('A coleção de Tex solicitada ainda não está disponível no catálogo.');
         return;
       }
 
       this.selecionarSerie(serie);
     } catch {
-      this.mensagem.set('Não foi possível abrir a coleção anterior de Tex agora.');
+      this.mensagem.set('Não foi possível abrir a coleção de Tex agora.');
     }
   }
 
