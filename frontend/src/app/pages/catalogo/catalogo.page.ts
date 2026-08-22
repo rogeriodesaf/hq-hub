@@ -227,6 +227,20 @@ import {
           </aside>
         }
 
+        @if (exibirNotaInicioTexColecaoGlobo()) {
+          <aside class="aviso-edicoes-anteriores">
+            O número 1 foi publicado pela RGE.<br />
+            Continua em
+            <a
+              routerLink="/catalogo"
+              [queryParams]="{ colecaoTexColecao: 'mythos' }"
+            >
+              Tex Coleção nº 144/Mythos
+            </a>
+            .
+          </aside>
+        }
+
         <div class="grade-mini-capas">
           @for (resultado of resultadosCatalogo().itens; track chaveResultado(resultado)) {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
@@ -1193,8 +1207,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.carregarColecaoTexPorEditora(colecaoTex);
       }
 
-      if (parametros.get('colecaoTexColecao') === 'globo') {
-        this.carregarTexColecaoGlobo();
+      const colecaoTexColecao = parametros.get('colecaoTexColecao');
+      if (colecaoTexColecao === 'globo' || colecaoTexColecao === 'mythos') {
+        this.carregarTexColecaoPorEditora(colecaoTexColecao);
       }
     });
   }
@@ -2569,6 +2584,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
       && this.normalizarComparacao(serie.editora?.nome || '').includes('vecchi');
   }
 
+  exibirNotaInicioTexColecaoGlobo() {
+    const serie = this.serieSelecionada();
+    return !!serie
+      && this.paginaResultados() === 0
+      && this.normalizarComparacao(serie.titulo) === 'tex colecao'
+      && this.normalizarComparacao(serie.editora?.nome || '').includes('globo');
+  }
+
   private editoraSelecionadaTex() {
     return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
   }
@@ -2595,22 +2618,22 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
   }
 
-  private async carregarTexColecaoGlobo() {
+  private async carregarTexColecaoPorEditora(editoraAlvo: 'globo' | 'mythos') {
     try {
       const resposta = await firstValueFrom(this.api.listarSeries('Tex Coleção', 0, 100));
       const serie = resposta.itens.find((item) =>
         this.normalizarComparacao(item.titulo) === 'tex colecao'
-        && this.normalizarComparacao(item.editora?.nome || '').includes('globo'),
+        && this.normalizarComparacao(item.editora?.nome || '').includes(editoraAlvo),
       );
 
       if (!serie) {
-        this.mensagem.set('A coleção Tex Coleção da Globo ainda não está disponível no catálogo.');
+        this.mensagem.set(`A coleção Tex Coleção da ${editoraAlvo} ainda não está disponível no catálogo.`);
         return;
       }
 
       this.selecionarSerie(serie);
     } catch {
-      this.mensagem.set('Não foi possível abrir Tex Coleção da Globo agora.');
+      this.mensagem.set(`Não foi possível abrir Tex Coleção da ${editoraAlvo} agora.`);
     }
   }
 
