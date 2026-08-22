@@ -188,6 +188,18 @@ import {
           </div>
         </div>
 
+        @if (exibirAvisoEdicoesAnterioresTex()) {
+          <aside class="aviso-edicoes-anteriores">
+            <a
+              href="https://www.guiadosquadrinhos.com/capas/tex/te005100"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Os nÃºmeros anteriores foram publicados pela editora Globo
+            </a>
+          </aside>
+        }
+
         <div class="grade-mini-capas">
           @for (resultado of resultadosCatalogo().itens; track chaveResultado(resultado)) {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
@@ -2443,6 +2455,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  exibirAvisoEdicoesAnterioresTex() {
+    const serie = this.serieSelecionada();
+    if (!serie || this.paginaResultados() !== 0) {
+      return false;
+    }
+
+    return this.normalizarComparacao(serie.titulo) === 'tex'
+      && this.normalizarComparacao(serie.editora?.nome || '').includes('mythos');
   }
 
   rotuloStatusCurto(status: string) {
