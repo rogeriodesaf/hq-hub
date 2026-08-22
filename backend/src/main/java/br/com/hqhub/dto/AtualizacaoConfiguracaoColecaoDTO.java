@@ -7,6 +7,9 @@ public record AtualizacaoConfiguracaoColecaoDTO(
         @NotNull(message = "A visibilidade da coleção é obrigatória.")
         VisibilidadeColecao visibilidadeColecao,
 
+        @NotNull(message = "A visibilidade das atividades é obrigatória.")
+        VisibilidadeColecao visibilidadeAtividades,
+
         @NotNull(message = "Informe se o valor da coleção deve ser exibido.")
         Boolean exibirValorColecao) {
 }

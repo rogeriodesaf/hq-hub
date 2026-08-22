@@ -44,6 +44,7 @@ export interface ColecaoResumo {
 export interface ConfiguracaoColecao {
   id: number;
   visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
+  visibilidadeAtividades: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
   exibirValorColecao: boolean;
   dataCriacao: string;
   dataAtualizacao: string;
@@ -741,6 +742,11 @@ export interface PostagemFeed {
   usuario: Usuario;
   conteudo: string;
   urlImagem: string | null;
+  atividadeEstante: {
+    tipo: 'ADICIONOU_COLECAO' | 'MARCOU_COMO_LIDA' | 'ADICIONOU_LISTA_DESEJOS';
+    quantidade: number;
+    edicoes: Array<{ edicaoId: number | null; titulo: string; urlCapa: string | null }>;
+  } | null;
   imagens: ImagemFeed[];
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;

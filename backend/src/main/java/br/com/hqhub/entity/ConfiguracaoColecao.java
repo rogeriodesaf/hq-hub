@@ -40,6 +40,10 @@ public class ConfiguracaoColecao {
     @Column(name = "exibir_valor_colecao", nullable = false)
     private boolean exibirValorColecao = true;
 
+    @Column(name = "visibilidade_atividades", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VisibilidadeColecao visibilidadeAtividades = VisibilidadeColecao.AMIGOS;
+
     @Column(name = "data_criacao", nullable = false)
     @CreationTimestamp
     private LocalDateTime dataCriacao;

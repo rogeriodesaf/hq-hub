@@ -9,11 +9,12 @@ import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import { Anuncio, ColecaoResumo, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
 import { RelatedContentComponent } from '../../shared/related-content.component';
+import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
-  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent, RelatedContentComponent],
+  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent, RelatedContentComponent, AtividadeEstanteCardComponent],
   template: `
     <section class="cabecalho-pagina feed-cabecalho">
       <div>
@@ -230,6 +231,17 @@ import { environment } from '../../../environments/environment';
         <section class="lista-feed">
           @for (postagem of feed(); track postagem.id) {
             <article class="bloco postagem-card" [id]="idPostagem(postagem)" [class.postagem-fixada]="postagem.fixada">
+              @if (postagem.atividadeEstante) {
+                <app-atividade-estante-card
+                  [postagem]="postagem"
+                  [usuarioAtualId]="usuario()?.id || null"
+                  [ocupado]="interagindoId() === postagem.id"
+                  (curtir)="curtir(postagem)"
+                  (comentar)="comentarAtividade(postagem, $event)"
+                  (curtirComentario)="curtirComentario(postagem, $event)"
+                  (removerComentario)="removerComentario(postagem, $event)"
+                ></app-atividade-estante-card>
+              } @else {
               <header class="cabecalho-postagem">
                 <div class="avatar-feed">
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-perfil">
@@ -480,6 +492,7 @@ import { environment } from '../../../environments/environment';
                   Comentar
                 </button>
               </div>
+              }
             </article>
           } @empty {
             <section class="estado-vazio">
@@ -1687,6 +1700,11 @@ export class PainelPage implements OnInit {
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel comentar esta postagem.'),
       complete: () => this.interagindoId.set(null),
     });
+  }
+
+  comentarAtividade(postagem: PostagemFeed, texto: string) {
+    this.comentarios[postagem.id] = texto;
+    this.comentar(postagem);
   }
 
   curtirComentario(postagem: PostagemFeed, comentarioId: number) {

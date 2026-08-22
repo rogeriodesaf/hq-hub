@@ -11,6 +11,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -42,6 +44,14 @@ public class PostagemFeed {
 
     @Column(nullable = false)
     private boolean fixada = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_postagem", nullable = false, length = 40)
+    private TipoPostagemFeed tipoPostagem = TipoPostagemFeed.MANUAL;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_atividade", length = 50)
+    private TipoAtividadeEstante tipoAtividade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_colecao_id")

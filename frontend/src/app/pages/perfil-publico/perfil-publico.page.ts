@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { RelatedContentComponent } from '../../shared/related-content.component';
+import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import {
   Amizade,
@@ -23,7 +24,7 @@ import {
 
 @Component({
   selector: 'app-perfil-publico-page',
-  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent],
+  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent, AtividadeEstanteCardComponent],
   template: `
     @if (carregando()) {
       <div class="estado-carregando">
@@ -118,6 +119,17 @@ import {
             <div class="lista-postagens-publico">
               @for (postagem of postagens(); track postagem.id) {
                 <article class="bloco postagem-card" [id]="'postagem-' + postagem.id">
+                  @if (postagem.atividadeEstante) {
+                    <app-atividade-estante-card
+                      [postagem]="postagem"
+                      [usuarioAtualId]="usuarioAtual()?.id || null"
+                      [ocupado]="interagindoId() === postagem.id"
+                      (curtir)="curtir(postagem)"
+                      (comentar)="comentarAtividade(postagem, $event)"
+                      (curtirComentario)="curtirComentario(postagem, $event)"
+                      (removerComentario)="removerComentario(postagem, $event)"
+                    ></app-atividade-estante-card>
+                  } @else {
                   <header>
                     <div class="avatar-feed">
                       @if (usuario()!.fotoPerfilThumbnailUrl) {
@@ -232,6 +244,7 @@ import {
                       Comentar
                     </button>
                   </div>
+                  }
                 </article>
               }
             </div>
@@ -1237,6 +1250,11 @@ export class PerfilPublicoPage implements OnInit {
       },
       complete: () => this.interagindoId.set(null),
     });
+  }
+
+  comentarAtividade(postagem: PostagemFeed, texto: string) {
+    this.comentarios[postagem.id] = texto;
+    this.comentar(postagem);
   }
 
   removerPostagem(postagem: PostagemFeed) {

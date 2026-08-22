@@ -64,6 +64,7 @@ public class ConfiguracaoColecaoService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         ConfiguracaoColecao configuracao = obterOuCriar(usuario);
         configuracao.setVisibilidadeColecao(dto.visibilidadeColecao());
+        configuracao.setVisibilidadeAtividades(dto.visibilidadeAtividades());
         configuracao.setExibirValorColecao(Boolean.TRUE.equals(dto.exibirValorColecao()));
         return configuracaoColecaoMapper.paraResposta(configuracao);
     }

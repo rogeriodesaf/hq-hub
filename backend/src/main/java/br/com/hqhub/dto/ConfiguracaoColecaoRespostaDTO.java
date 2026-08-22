@@ -7,6 +7,7 @@ import br.com.hqhub.entity.VisibilidadeColecao;
 public record ConfiguracaoColecaoRespostaDTO(
         Long id,
         VisibilidadeColecao visibilidadeColecao,
+        VisibilidadeColecao visibilidadeAtividades,
         boolean exibirValorColecao,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao) {

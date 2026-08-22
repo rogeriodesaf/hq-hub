@@ -1566,7 +1566,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.salvandoItemColecao.set(null);
         this.resultadoParaEstante.set(null);
         this.formularioItemColecao = this.formularioItemColecaoVazio();
-        this.mensagem.set('Edição adicionada à sua estante.');
+        this.mensagem.set('Adicionado à estante');
       },
       error: (erro) => {
         this.salvandoItemColecao.set(null);

@@ -1,6 +1,7 @@
 package br.com.hqhub.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -15,22 +16,27 @@ import br.com.hqhub.dto.ItemColecaoRespostaDTO;
 import br.com.hqhub.dto.ResultadoCadastroSerieItemColecaoDTO;
 import br.com.hqhub.entity.ContribuicaoCatalogo;
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.EdicaoAtividadeEstante;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusContribuicaoCatalogo;
 import br.com.hqhub.entity.TipoContribuicaoCatalogo;
+import br.com.hqhub.entity.TipoAtividadeEstante;
+import br.com.hqhub.entity.TipoPostagemFeed;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.ItemColecaoMapper;
 import br.com.hqhub.repository.ContribuicaoCatalogoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
+import br.com.hqhub.repository.EdicaoAtividadeEstanteRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -44,6 +50,7 @@ public class ItemColecaoService {
     private final ContribuicaoCatalogoRepository contribuicaoCatalogoRepository;
     private final PostagemFeedRepository postagemFeedRepository;
     private final SerieRepository serieRepository;
+    private final EdicaoAtividadeEstanteRepository edicaoAtividadeRepository;
 
     public ItemColecaoService(
             ItemColecaoRepository itemColecaoRepository,
@@ -53,7 +60,8 @@ public class ItemColecaoService {
             EntityManager entityManager,
             ContribuicaoCatalogoRepository contribuicaoCatalogoRepository,
             PostagemFeedRepository postagemFeedRepository,
-            SerieRepository serieRepository) {
+            SerieRepository serieRepository,
+            EdicaoAtividadeEstanteRepository edicaoAtividadeRepository) {
         this.itemColecaoRepository = itemColecaoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoMapper = itemColecaoMapper;
@@ -62,6 +70,7 @@ public class ItemColecaoService {
         this.contribuicaoCatalogoRepository = contribuicaoCatalogoRepository;
         this.postagemFeedRepository = postagemFeedRepository;
         this.serieRepository = serieRepository;
+        this.edicaoAtividadeRepository = edicaoAtividadeRepository;
     }
 
     @Transactional
@@ -106,7 +115,9 @@ public class ItemColecaoService {
                     dto.statusLeitura(),
                     dto.observacoes(),
                     true);
-            itemColecaoRepository.persist(itemColecaoMapper.paraEntidade(itemDto, usuario, edicao));
+            ItemColecao item = itemColecaoMapper.paraEntidade(itemDto, usuario, edicao);
+            itemColecaoRepository.persist(item);
+            publicarItemAdicionadoNaColecao(usuario, item);
             adicionadas++;
         }
 
@@ -119,17 +130,52 @@ public class ItemColecaoService {
     }
 
     private void publicarItemAdicionadoNaColecao(Usuario usuario, ItemColecao item) {
+        entityManager.lock(usuario, LockModeType.PESSIMISTIC_WRITE);
         Edicao edicao = item.getEdicao();
-        String tituloEdicao = edicao.getTitulo() == null || edicao.getTitulo().isBlank()
-                ? edicao.getSerie().getTitulo()
-                : edicao.getTitulo();
+        LocalDateTime agora = LocalDateTime.now();
+        PostagemFeed postagem = postagemFeedRepository.buscarGrupoRecente(
+                usuario.getId(), TipoAtividadeEstante.ADICIONOU_COLECAO, agora.minusMinutes(10))
+                .orElseGet(() -> {
+                    PostagemFeed nova = new PostagemFeed();
+                    nova.setUsuario(usuario);
+                    nova.setItemColecao(item);
+                    nova.setUrlImagem(edicao.getUrlCapa());
+                    nova.setTipoPostagem(TipoPostagemFeed.ATIVIDADE_ESTANTE);
+                    nova.setTipoAtividade(TipoAtividadeEstante.ADICIONOU_COLECAO);
+                    nova.setConteudo("Adicionou à estante.");
+                    postagemFeedRepository.persist(nova);
+                    return nova;
+                });
 
-        PostagemFeed postagem = new PostagemFeed();
-        postagem.setUsuario(usuario);
-        postagem.setItemColecao(item);
-        postagem.setUrlImagem(edicao.getUrlCapa());
-        postagem.setConteudo("Adicionou " + tituloEdicao + " a colecao.");
-        postagemFeedRepository.persist(postagem);
+        if (edicaoAtividadeRepository.existe(postagem.getId(), edicao.getId())) {
+            return;
+        }
+
+        EdicaoAtividadeEstante atividade = new EdicaoAtividadeEstante();
+        atividade.setPostagem(postagem);
+        atividade.setEdicao(edicao);
+        atividade.setItemColecao(item);
+        atividade.setTituloSnapshot(tituloCompleto(edicao));
+        atividade.setUrlCapaSnapshot(edicao.getUrlCapa());
+        edicaoAtividadeRepository.persist(atividade);
+
+        long quantidade = edicaoAtividadeRepository.count("postagem.id", postagem.getId());
+        postagem.setConteudo(quantidade > 1
+                ? "Adicionou " + quantidade + " HQs à estante."
+                : "Adicionou à estante.");
+        postagem.setDataCriacao(agora);
+    }
+
+    private String tituloCompleto(Edicao edicao) {
+        StringBuilder titulo = new StringBuilder(edicao.getSerie().getTitulo());
+        if (edicao.getNumero() != null && !edicao.getNumero().isBlank()) {
+            titulo.append(" #").append(edicao.getNumero().trim());
+        }
+        if (edicao.getTitulo() != null && !edicao.getTitulo().isBlank()
+                && !edicao.getTitulo().trim().equalsIgnoreCase(edicao.getSerie().getTitulo().trim())) {
+            titulo.append(": ").append(edicao.getTitulo().trim());
+        }
+        return titulo.toString();
     }
 
     @Transactional

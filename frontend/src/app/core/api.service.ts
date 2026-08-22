@@ -108,7 +108,11 @@ export class ApiService {
     return this.http.get<ConfiguracaoColecao>('/api/colecao/configuracao');
   }
 
-  atualizarConfiguracaoColecao(dto: { visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA'; exibirValorColecao: boolean }) {
+  atualizarConfiguracaoColecao(dto: {
+    visibilidadeColecao: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
+    visibilidadeAtividades: 'PRIVADA' | 'AMIGOS' | 'PUBLICA';
+    exibirValorColecao: boolean;
+  }) {
     return this.http.put<ConfiguracaoColecao>('/api/colecao/configuracao', dto);
   }
 
@@ -1064,6 +1068,15 @@ export class ApiService {
       ...postagem,
       usuario: this.normalizarUsuario(postagem.usuario),
       urlImagem: this.normalizarUrlMidia(postagem.urlImagem),
+      atividadeEstante: postagem.atividadeEstante
+        ? {
+            ...postagem.atividadeEstante,
+            edicoes: (postagem.atividadeEstante.edicoes || []).map((edicao) => ({
+              ...edicao,
+              urlCapa: this.normalizarUrlMidia(edicao.urlCapa),
+            })),
+          }
+        : null,
       imagens: (postagem.imagens || []).map((imagem) => this.normalizarImagem(imagem)),
       colecaoDestaque: postagem.colecaoDestaque
         ? {

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import br.com.hqhub.dto.AtualizacaoVideosRelacionadosDTO;
+import br.com.hqhub.dto.AtividadeEstanteDTO;
 import br.com.hqhub.dto.AtualizacaoCanalParceiroDTO;
 import br.com.hqhub.dto.CadastroComentarioFeedDTO;
 import br.com.hqhub.dto.CadastroPostagemFeedDTO;
@@ -20,6 +21,7 @@ import br.com.hqhub.dto.CatalogoFeedDTO;
 import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
+import br.com.hqhub.dto.EdicaoAtividadeEstanteDTO;
 import br.com.hqhub.dto.PostagemFeedRespostaDTO;
 import br.com.hqhub.dto.PostagemPublicaDTO;
 import br.com.hqhub.dto.VideoRelacionadoDTO;
@@ -27,12 +29,15 @@ import br.com.hqhub.entity.ComentarioFeed;
 import br.com.hqhub.entity.CurtidaComentarioFeed;
 import br.com.hqhub.entity.CurtidaPostagemFeed;
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.EdicaoAtividadeEstante;
 import br.com.hqhub.entity.ImagemPostagemFeed;
 import br.com.hqhub.entity.ItemColecao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.PerfilUsuario;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusColecaoSerie;
+import br.com.hqhub.entity.TipoPostagemFeed;
+import br.com.hqhub.entity.VisibilidadeColecao;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.entity.VideoRelacionadoFeed;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
@@ -44,9 +49,11 @@ import br.com.hqhub.repository.ComentarioFeedRepository;
 import br.com.hqhub.repository.CurtidaComentarioFeedRepository;
 import br.com.hqhub.repository.CurtidaPostagemFeedRepository;
 import br.com.hqhub.repository.EdicaoRepository;
+import br.com.hqhub.repository.EdicaoAtividadeEstanteRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
+import br.com.hqhub.repository.ConfiguracaoColecaoRepository;
 import br.com.hqhub.repository.VideoRelacionadoFeedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -67,6 +74,8 @@ public class FeedSocialService {
     private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final UsuarioMapper usuarioMapper;
     private final UrlPublicaService urlPublicaService;
+    private final EdicaoAtividadeEstanteRepository edicaoAtividadeRepository;
+    private final ConfiguracaoColecaoRepository configuracaoColecaoRepository;
 
     public FeedSocialService(
             PostagemFeedRepository postagemRepository,
@@ -81,7 +90,9 @@ public class FeedSocialService {
             EdicaoRepository edicaoRepository,
             UsuarioAutenticadoService usuarioAutenticadoService,
             UsuarioMapper usuarioMapper,
-            UrlPublicaService urlPublicaService) {
+            UrlPublicaService urlPublicaService,
+            EdicaoAtividadeEstanteRepository edicaoAtividadeRepository,
+            ConfiguracaoColecaoRepository configuracaoColecaoRepository) {
         this.postagemRepository = postagemRepository;
         this.comentarioRepository = comentarioRepository;
         this.curtidaComentarioRepository = curtidaComentarioRepository;
@@ -95,6 +106,8 @@ public class FeedSocialService {
         this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.usuarioMapper = usuarioMapper;
         this.urlPublicaService = urlPublicaService;
+        this.edicaoAtividadeRepository = edicaoAtividadeRepository;
+        this.configuracaoColecaoRepository = configuracaoColecaoRepository;
     }
 
     @Transactional
@@ -114,7 +127,7 @@ public class FeedSocialService {
         Usuario usuarioAutenticado = usuarioAutenticadoService.obterUsuario();
         int paginaTratada = Math.max(pagina, 0);
         int tamanhoTratado = Math.min(Math.max(tamanho, 1), 50);
-        return postagemRepository.listarPorUsuario(usuarioId, paginaTratada, tamanhoTratado)
+        return postagemRepository.listarPorUsuario(usuarioId, usuarioAutenticado.getId(), paginaTratada, tamanhoTratado)
                 .stream()
                 .map(postagem -> paraResposta(postagem, usuarioAutenticado.getId()))
                 .toList();
@@ -237,6 +250,10 @@ public class FeedSocialService {
     public PostagemPublicaDTO obterPostagemPublica(Long postagemId) {
         PostagemFeed postagem = postagemRepository.findByIdOptional(postagemId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Postagem nao encontrada."));
+        if (postagem.getTipoPostagem() == TipoPostagemFeed.ATIVIDADE_ESTANTE
+                && visibilidadeAtividades(postagem.getUsuario().getId()) != VisibilidadeColecao.PUBLICA) {
+            throw new RecursoNaoEncontradoException("Postagem nao encontrada.");
+        }
 
         List<ImagemFeedDTO> imagens = imagemRepository.listarPorPostagem(postagem.getId())
                 .stream()
@@ -331,7 +348,16 @@ public class FeedSocialService {
             return true;
         }
         Long autorId = postagem.getUsuario().getId();
-        return autorId.equals(usuario.getId()) || amizadeRepository.saoAmigos(usuario.getId(), autorId);
+        if (autorId.equals(usuario.getId())) {
+            return true;
+        }
+        if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE) {
+            return amizadeRepository.saoAmigos(usuario.getId(), autorId);
+        }
+        VisibilidadeColecao visibilidade = visibilidadeAtividades(autorId);
+        return visibilidade == VisibilidadeColecao.PUBLICA
+                || (visibilidade == VisibilidadeColecao.AMIGOS
+                        && amizadeRepository.saoAmigos(usuario.getId(), autorId));
     }
 
     private PostagemFeedRespostaDTO paraResposta(PostagemFeed postagem, Long usuarioId) {
@@ -361,6 +387,7 @@ public class FeedSocialService {
                 usuarioMapper.paraResposta(postagem.getUsuario()),
                 postagem.getConteudo(),
                 primeiraImagem(postagem, imagens),
+                paraAtividadeEstante(postagem),
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo(), postagem.getUrlImagem()),
@@ -372,6 +399,36 @@ public class FeedSocialService {
                 comentarios,
                 postagem.getDataCriacao(),
                 postagem.getDataAtualizacao());
+    }
+
+    private AtividadeEstanteDTO paraAtividadeEstante(PostagemFeed postagem) {
+        if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE) {
+            return null;
+        }
+        List<EdicaoAtividadeEstante> itens = edicaoAtividadeRepository.listarPorPostagem(postagem.getId());
+        List<EdicaoAtividadeEstanteDTO> edicoes = itens.stream()
+                .limit(3)
+                .map(item -> new EdicaoAtividadeEstanteDTO(
+                        item.getEdicao() == null ? null : item.getEdicao().getId(),
+                        item.getTituloSnapshot(),
+                        capaAtividade(item)))
+                .toList();
+        return new AtividadeEstanteDTO(postagem.getTipoAtividade(), itens.size(), edicoes);
+    }
+
+    private String capaAtividade(EdicaoAtividadeEstante item) {
+        if (item.getEdicao() != null) {
+            return edicaoRepository.capaPublicaPorEdicao(item.getEdicao().getId())
+                    .map(urlPublicaService::normalizarApiUrl)
+                    .orElseGet(() -> urlPublicaService.normalizarApiUrl(item.getUrlCapaSnapshot()));
+        }
+        return urlPublicaService.normalizarApiUrl(item.getUrlCapaSnapshot());
+    }
+
+    private VisibilidadeColecao visibilidadeAtividades(Long usuarioId) {
+        return configuracaoColecaoRepository.buscarPorUsuario(usuarioId)
+                .map(configuracao -> configuracao.getVisibilidadeAtividades())
+                .orElse(VisibilidadeColecao.AMIGOS);
     }
 
     private ColecaoFeedDTO paraColecaoFeed(ItemColecao item) {
@@ -551,6 +608,9 @@ public class FeedSocialService {
         boolean administrador = usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR;
         if (!postagem.getUsuario().getId().equals(usuario.getId()) && !administrador) {
             throw new RegraNegocioException("Você não pode alterar os conteúdos relacionados desta postagem.");
+        }
+        if (postagem.getTipoPostagem() == TipoPostagemFeed.ATIVIDADE_ESTANTE) {
+            throw new RegraNegocioException("Atividades automáticas da estante não podem ser editadas.");
         }
         return postagem;
     }

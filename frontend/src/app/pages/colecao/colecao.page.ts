@@ -452,6 +452,19 @@ import {
           </select>
         </label>
 
+        <label>
+          Visibilidade das atividades da estante
+          <select
+            [ngModel]="configuracaoColecao()?.visibilidadeAtividades || 'AMIGOS'"
+            name="visibilidadeAtividades"
+            (ngModelChange)="alterarConfiguracaoEstante({ visibilidadeAtividades: $event })"
+          >
+            <option value="PUBLICA">Público</option>
+            <option value="AMIGOS">Apenas amigos</option>
+            <option value="PRIVADA">Privado</option>
+          </select>
+        </label>
+
         <label class="checkbox-formulario switch-controle">
           <input
             type="checkbox"
@@ -705,7 +718,7 @@ export class ColecaoPage implements OnInit {
     this.mensagem.set('');
   }
 
-  alterarConfiguracaoEstante(patch: Partial<Pick<ConfiguracaoColecao, 'visibilidadeColecao' | 'exibirValorColecao'>>) {
+  alterarConfiguracaoEstante(patch: Partial<Pick<ConfiguracaoColecao, 'visibilidadeColecao' | 'visibilidadeAtividades' | 'exibirValorColecao'>>) {
     const atual = this.configuracaoColecao();
     if (!atual) {
       return;
@@ -714,6 +727,7 @@ export class ColecaoPage implements OnInit {
     this.salvandoConfiguracao.set(true);
     this.api.atualizarConfiguracaoColecao({
       visibilidadeColecao: patch.visibilidadeColecao ?? atual.visibilidadeColecao,
+      visibilidadeAtividades: patch.visibilidadeAtividades ?? atual.visibilidadeAtividades,
       exibirValorColecao: patch.exibirValorColecao ?? atual.exibirValorColecao,
     }).subscribe({
       next: (resposta) => {
@@ -1061,7 +1075,7 @@ export class ColecaoPage implements OnInit {
       .subscribe({
         next: () => {
           this.salvandoItem.set(false);
-          this.mensagem.set('Edição adicionada à sua estante.');
+          this.mensagem.set('Adicionado à estante');
           this.limparFormulario();
           this.carregarEstante();
         },
@@ -1101,7 +1115,7 @@ export class ColecaoPage implements OnInit {
         }),
       );
 
-      this.mensagem.set('Edição importada da Comic Vine e adicionada à sua estante.');
+      this.mensagem.set('Adicionado à estante');
       this.limparFormulario();
       this.carregarEstante();
     } catch (erro) {
@@ -1146,11 +1160,7 @@ export class ColecaoPage implements OnInit {
         revisaoRegistrada = await this.registrarRevisaoCadastroManual(edicao);
       }
 
-      this.mensagem.set(
-        criada && revisaoRegistrada
-          ? 'Nova edição criada, adicionada à sua estante e enviada para revisão do catálogo.'
-          : 'Nova edição criada e adicionada à sua estante.',
-      );
+      this.mensagem.set('Adicionado à estante');
       this.edicaoSelecionada.set(edicao);
       this.exibindoCadastroManual.set(false);
       this.limparFormulario();
@@ -1904,6 +1914,7 @@ export class ColecaoPage implements OnInit {
         this.configuracaoColecao.set({
           id: 0,
           visibilidadeColecao: 'PRIVADA',
+          visibilidadeAtividades: 'AMIGOS',
           exibirValorColecao: true,
           dataCriacao: new Date().toISOString(),
           dataAtualizacao: new Date().toISOString(),

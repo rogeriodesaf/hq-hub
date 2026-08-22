@@ -8,6 +8,7 @@ public record PostagemFeedRespostaDTO(
         UsuarioRespostaDTO usuario,
         String conteudo,
         String urlImagem,
+        AtividadeEstanteDTO atividadeEstante,
         List<ImagemFeedDTO> imagens,
         ColecaoFeedDTO colecaoDestaque,
         CatalogoFeedDTO catalogoDestaque,
