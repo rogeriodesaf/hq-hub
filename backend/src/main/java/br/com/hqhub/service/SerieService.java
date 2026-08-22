@@ -12,6 +12,7 @@ import br.com.hqhub.dto.SerieRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.SerieMapper;
@@ -125,13 +126,15 @@ public class SerieService {
                 .toList();
     }
 
-    public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(String busca, String inicial, int pagina, int tamanho) {
+    public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(
+            String busca, String inicial, int pagina, int tamanho, TipoSerie tipoSerie) {
         int paginaTratada = Math.max(pagina, 0);
         int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
-        long totalItens = serieRepository.contarComBusca(busca, inicial);
+        TipoSerie tipoTratado = tipoSerie == null ? TipoSerie.BRASILEIRA : tipoSerie;
+        long totalItens = serieRepository.contarComBusca(busca, inicial, tipoTratado);
         int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
 
-        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(busca, inicial, paginaTratada, tamanhoTratado)
+        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(busca, inicial, paginaTratada, tamanhoTratado, tipoTratado)
                 .stream()
                 .map(serieMapper::paraResposta)
                 .toList();

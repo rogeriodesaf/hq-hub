@@ -1185,7 +1185,7 @@ export class DescobrirPage {
   }
 
   private buscarVolumesInternos(termoBusca: string) {
-    return this.api.listarSeries(termoBusca, 0, 12).pipe(
+    return this.api.listarSeries(termoBusca, 0, 12, '', 'ESTRANGEIRA').pipe(
       catchError(() => of([] as Serie[])),
       map((resposta) => Array.isArray(resposta) ? resposta : resposta.itens),
       switchMap((series) => {

@@ -32,6 +32,7 @@ import br.com.hqhub.entity.StatusValidacao;
 import br.com.hqhub.entity.TipoConteudoEdicao;
 import br.com.hqhub.entity.TipoLinkEdicao;
 import br.com.hqhub.entity.TipoPublicacaoHistoria;
+import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.ConteudoEdicaoRepository;
@@ -217,6 +218,7 @@ public class ImportacaoCatalogoService {
         serie.setTitulo(limitar(dto.titulo(), 255));
         serie.setDescricao(dto.fase());
         serie.setVolume(dto.volume());
+        serie.setTipoSerie(TipoSerie.BRASILEIRA);
         serie.setEditora(editora);
         serie.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
         serie.setIdExterno(idSerieBrasileira(dto));
@@ -368,6 +370,7 @@ public class ImportacaoCatalogoService {
         Serie serie = new Serie();
         serie.setTitulo(limitar(dto.serieOriginal(), 255));
         serie.setAnoInicio(anoNoTitulo(dto.serieOriginal()));
+        serie.setTipoSerie(TipoSerie.ESTRANGEIRA);
         serie.setEditora(editora);
         serie.setFonteExterna(FONTE_GUIA_DOS_QUADRINHOS);
         serie.setIdExterno(idSerieOriginal(dto.serieOriginal(), editora.getNome()));

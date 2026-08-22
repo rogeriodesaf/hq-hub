@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.TipoSerie;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -77,15 +78,23 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public List<Serie> buscarPaginado(String busca, String inicial, int pagina, int tamanho) {
+        return buscarPaginado(busca, inicial, pagina, tamanho, TipoSerie.BRASILEIRA);
+    }
+
+    public List<Serie> buscarPaginado(String busca, String inicial, int pagina, int tamanho, TipoSerie tipoSerie) {
         if (busca == null || busca.isBlank()) {
-            return find(consultaInicial(inicial, "order by lower(titulo), volume, anoInicio, id"), parametrosInicial(inicial))
+            String filtroInicial = inicialValida(inicial) ? " and lower(titulo) like ?2" : "";
+            Object[] parametros = inicialValida(inicial)
+                    ? new Object[] { tipoSerie, inicial.toLowerCase(Locale.ROOT) + "%" }
+                    : new Object[] { tipoSerie };
+            return find("tipoSerie = ?1" + filtroInicial + " order by lower(titulo), volume, anoInicio, id", parametros)
                     .page(Page.of(pagina, tamanho))
                     .list();
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
         var query = entityManager.createNativeQuery(sqlBusca(inicial, consulta.termos(), false), Serie.class);
-        aplicarParametrosBusca(query, inicial, consulta);
+        aplicarParametrosBusca(query, inicial, consulta, tipoSerie);
         query.setFirstResult(pagina * tamanho);
         query.setMaxResults(tamanho);
         return query.getResultList();
@@ -96,13 +105,20 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public long contarComBusca(String busca, String inicial) {
+        return contarComBusca(busca, inicial, TipoSerie.BRASILEIRA);
+    }
+
+    public long contarComBusca(String busca, String inicial, TipoSerie tipoSerie) {
         if (busca == null || busca.isBlank()) {
-            return count(consultaInicial(inicial, ""), parametrosInicial(inicial));
+            if (inicialValida(inicial)) {
+                return count("tipoSerie = ?1 and lower(titulo) like ?2", tipoSerie, inicial.toLowerCase(Locale.ROOT) + "%");
+            }
+            return count("tipoSerie", tipoSerie);
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
         var query = entityManager.createNativeQuery(sqlBusca(inicial, consulta.termos(), true));
-        aplicarParametrosBusca(query, inicial, consulta);
+        aplicarParametrosBusca(query, inicial, consulta, tipoSerie);
         Number total = (Number) query.getSingleResult();
         return total.longValue();
     }
@@ -114,9 +130,10 @@ public class SerieRepository implements PanacheRepository<Serie> {
 
         return """
                 %s
-                  from series s
+                 from series s
                   join editoras e on e.id = s.editora_id
-                 where (:inicial = '' or lower(s.titulo) like :inicialLike)
+                 where s.tipo_serie = :tipoSerie
+                   and (:inicial = '' or lower(s.titulo) like :inicialLike)
                    and (%s)
                 %s
                 """.formatted(select, busca, ordem);
@@ -141,7 +158,8 @@ public class SerieRepository implements PanacheRepository<Serie> {
         return String.join(" and ", grupos);
     }
 
-    private void aplicarParametrosBusca(jakarta.persistence.Query query, String inicial, ConsultaBusca consulta) {
+    private void aplicarParametrosBusca(jakarta.persistence.Query query, String inicial, ConsultaBusca consulta, TipoSerie tipoSerie) {
+        query.setParameter("tipoSerie", tipoSerie.name());
         query.setParameter("inicial", inicialValida(inicial) ? inicial.toLowerCase(Locale.ROOT) : "");
         query.setParameter("inicialLike", inicialValida(inicial) ? inicial.toLowerCase(Locale.ROOT) + "%" : "");
         if (consulta.termos().isEmpty()) {
@@ -150,18 +168,6 @@ public class SerieRepository implements PanacheRepository<Serie> {
         for (int i = 0; i < consulta.termos().size(); i++) {
             query.setParameter("termo" + i, "%" + consulta.termos().get(i) + "%");
         }
-    }
-
-    private String consultaInicial(String inicial, String ordenacao) {
-        if (!inicialValida(inicial)) {
-            return ordenacao.isBlank() ? "1 = 1" : ordenacao;
-        }
-
-        return "lower(titulo) like ?1 " + ordenacao;
-    }
-
-    private Object[] parametrosInicial(String inicial) {
-        return inicialValida(inicial) ? new Object[] { inicial.toLowerCase(Locale.ROOT) + "%" } : new Object[] {};
     }
 
     private boolean inicialValida(String inicial) {

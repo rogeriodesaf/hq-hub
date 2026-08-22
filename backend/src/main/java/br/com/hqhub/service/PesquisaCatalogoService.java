@@ -1,18 +1,12 @@
 package br.com.hqhub.service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
-import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.FonteResultadoCatalogo;
 import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.dto.ResultadoPesquisaCatalogoDTO;
 import br.com.hqhub.entity.Edicao;
-import br.com.hqhub.exception.RegraNegocioException;
+import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.repository.EdicaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -23,13 +17,9 @@ public class PesquisaCatalogoService {
     private static final int TAMANHO_MAXIMO = 100;
 
     private final EdicaoRepository edicaoRepository;
-    private final IntegracaoExternaService integracaoExternaService;
 
-    public PesquisaCatalogoService(
-            EdicaoRepository edicaoRepository,
-            IntegracaoExternaService integracaoExternaService) {
+    public PesquisaCatalogoService(EdicaoRepository edicaoRepository) {
         this.edicaoRepository = edicaoRepository;
-        this.integracaoExternaService = integracaoExternaService;
     }
 
     @Transactional
@@ -40,43 +30,20 @@ public class PesquisaCatalogoService {
 
         int paginaTratada = tratarPagina(pagina);
         int tamanhoTratado = tratarTamanho(tamanho);
-        long totalInternos = edicaoRepository.contarComBusca(null, termo);
-        if (totalInternos > 0) {
-            int totalPaginasInternas = (int) Math.ceil((double) totalInternos / tamanhoTratado);
-            List<ResultadoPesquisaCatalogoDTO> internos = edicaoRepository
-                    .buscarPaginado(null, termo, paginaTratada, tamanhoTratado)
-                    .stream()
-                    .map(this::paraResultadoInterno)
-                    .toList();
-            return new PaginaRespostaDTO<>(
-                    internos,
-                    paginaTratada,
-                    tamanhoTratado,
-                    totalInternos,
-                    totalPaginasInternas);
-        }
-
-        PaginaRespostaDTO<EdicaoComicVineRespostaDTO> externos = buscarExternos(termo, paginaTratada, tamanhoTratado);
-        List<ResultadoPesquisaCatalogoDTO> resultados = new ArrayList<>();
-        Set<String> chaves = new LinkedHashSet<>();
-        externos.itens().stream()
-                .map(this::paraResultadoExterno)
-                .forEach(resultado -> adicionarResultado(resultados, chaves, resultado));
+        long totalInternos = edicaoRepository.contarComBusca(null, termo, TipoSerie.BRASILEIRA);
+        int totalPaginasInternas = (int) Math.ceil((double) totalInternos / tamanhoTratado);
+        List<ResultadoPesquisaCatalogoDTO> internos = edicaoRepository
+                .buscarPaginado(null, termo, paginaTratada, tamanhoTratado, TipoSerie.BRASILEIRA)
+                .stream()
+                .map(this::paraResultadoInterno)
+                .toList();
 
         return new PaginaRespostaDTO<>(
-                resultados,
+                internos,
                 paginaTratada,
                 tamanhoTratado,
-                externos.totalItens(),
-                externos.totalPaginas());
-    }
-
-    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> buscarExternos(String termo, int pagina, int tamanho) {
-        try {
-            return integracaoExternaService.buscarEdicoesComicVinePorTermo(termo, pagina, tamanho);
-        } catch (RegraNegocioException e) {
-            return new PaginaRespostaDTO<>(List.of(), pagina, tamanho, 0, 0);
-        }
+                totalInternos,
+                totalPaginasInternas);
     }
 
     private ResultadoPesquisaCatalogoDTO paraResultadoInterno(Edicao edicao) {
@@ -94,48 +61,6 @@ public class PesquisaCatalogoService {
                 primeiroValor(edicao.getUrlComicVine(), edicao.getUrlOrigem()));
     }
 
-    private ResultadoPesquisaCatalogoDTO paraResultadoExterno(EdicaoComicVineRespostaDTO edicao) {
-        return new ResultadoPesquisaCatalogoDTO(
-                null,
-                edicao.idExterno(),
-                FonteResultadoCatalogo.COMIC_VINE,
-                primeiroValor(edicao.titulo(), edicao.nomeVolume()),
-                edicao.numero(),
-                edicao.nomeVolume(),
-                null,
-                edicao.urlImagem(),
-                primeiroValor(parseData(edicao.dataVenda()), parseData(edicao.dataCapa())),
-                false,
-                edicao.urlOrigem());
-    }
-
-    private void adicionarResultado(
-            List<ResultadoPesquisaCatalogoDTO> resultados,
-            Set<String> chaves,
-            ResultadoPesquisaCatalogoDTO resultado) {
-        String chave = chaveResultado(resultado);
-        if (chaves.add(chave)) {
-            resultados.add(resultado);
-        }
-    }
-
-    private String chaveResultado(ResultadoPesquisaCatalogoDTO resultado) {
-        if (resultado.fonte() == FonteResultadoCatalogo.HQ_HUB && resultado.id() != null) {
-            return "interno:" + resultado.id();
-        }
-
-        if (resultado.idExterno() != null && !resultado.idExterno().isBlank()) {
-            return "comicvine:" + resultado.idExterno();
-        }
-
-        return "aproximado:" + normalizar(resultado.nomeVolume()) + ":" + normalizar(resultado.numero()) + ":"
-                + normalizar(resultado.titulo());
-    }
-
-    private String normalizar(String valor) {
-        return valor == null ? "" : valor.trim().toLowerCase(Locale.ROOT);
-    }
-
     private int tratarPagina(Integer pagina) {
         return pagina == null || pagina < 0 ? 0 : pagina;
     }
@@ -146,18 +71,6 @@ public class PesquisaCatalogoService {
         }
 
         return Math.min(tamanho, TAMANHO_MAXIMO);
-    }
-
-    private LocalDate parseData(String valor) {
-        if (valor == null || valor.isBlank()) {
-            return null;
-        }
-
-        try {
-            return LocalDate.parse(valor);
-        } catch (RuntimeException e) {
-            return null;
-        }
     }
 
     @SafeVarargs

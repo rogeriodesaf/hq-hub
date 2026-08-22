@@ -210,11 +210,12 @@ export class ApiService {
       .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
-  listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '') {
+  listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '', tipo: 'BRASILEIRA' | 'ESTRANGEIRA' = 'BRASILEIRA') {
     let params = new HttpParams()
       .set('busca', busca)
       .set('pagina', pagina)
-      .set('tamanho', tamanho);
+      .set('tamanho', tamanho)
+      .set('tipo', tipo);
 
     if (inicial) {
       params = params.set('inicial', inicial);

@@ -9,6 +9,7 @@ import br.com.hqhub.dto.MesclagemSeriesDirecionadaDTO;
 import br.com.hqhub.dto.SerieRespostaDTO;
 import br.com.hqhub.service.DeduplicacaoSerieService;
 import br.com.hqhub.service.SerieService;
+import br.com.hqhub.entity.TipoSerie;
 import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -66,13 +67,15 @@ public class SerieResource {
     public Response listarTodos(
             @QueryParam("busca") String busca,
             @QueryParam("inicial") String inicial,
+            @QueryParam("tipo") TipoSerie tipo,
             @QueryParam("pagina") Integer pagina,
             @QueryParam("tamanho") Integer tamanho) {
         PaginaRespostaDTO<SerieRespostaDTO> series = serieService.listarPaginado(
                 busca,
                 inicial,
                 pagina == null ? 0 : pagina,
-                tamanho == null ? 20 : tamanho);
+                tamanho == null ? 20 : tamanho,
+                tipo);
         return Response.ok(series).build();
     }
 

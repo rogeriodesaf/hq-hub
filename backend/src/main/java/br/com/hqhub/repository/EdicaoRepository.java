@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.TipoSerie;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -183,6 +184,10 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
     }
 
     public List<Edicao> buscarPaginado(Long serieId, String busca, int pagina, int tamanho) {
+        return buscarPaginado(serieId, busca, pagina, tamanho, null);
+    }
+
+    public List<Edicao> buscarPaginado(Long serieId, String busca, int pagina, int tamanho, TipoSerie tipoSerie) {
         if (busca == null || busca.isBlank()) {
             if (serieId != null) {
                 return find("serie.id = ?1 order by numero", serieId).page(Page.of(pagina, tamanho)).list();
@@ -191,8 +196,8 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
-        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false), Edicao.class);
-        aplicarParametrosBusca(query, serieId, consulta);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false, tipoSerie), Edicao.class);
+        aplicarParametrosBusca(query, serieId, consulta, tipoSerie);
         query.setFirstResult(pagina * tamanho);
         query.setMaxResults(tamanho);
         return query.getResultList();
@@ -204,24 +209,28 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
-        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false), Edicao.class);
-        aplicarParametrosBusca(query, serieId, consulta);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), false, null), Edicao.class);
+        aplicarParametrosBusca(query, serieId, consulta, null);
         return query.getResultList();
     }
 
     public long contarComBusca(Long serieId, String busca) {
+        return contarComBusca(serieId, busca, null);
+    }
+
+    public long contarComBusca(Long serieId, String busca, TipoSerie tipoSerie) {
         if (busca == null || busca.isBlank()) {
             return serieId == null ? count() : count("serie.id", serieId);
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
-        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), true));
-        aplicarParametrosBusca(query, serieId, consulta);
+        var query = entityManager.createNativeQuery(sqlBusca(serieId, consulta.termos(), true, tipoSerie));
+        aplicarParametrosBusca(query, serieId, consulta, tipoSerie);
         Number total = (Number) query.getSingleResult();
         return total.longValue();
     }
 
-    private String sqlBusca(Long serieId, List<String> termos, boolean contar) {
+    private String sqlBusca(Long serieId, List<String> termos, boolean contar, TipoSerie tipoSerie) {
         String select = contar ? "select count(*)" : "select ed.*";
         String ordem = contar ? "" : """
                  order by lower(s.titulo),
@@ -233,6 +242,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                           ed.id
                 """;
         String filtroSerie = serieId == null ? "" : " and s.id = :serieId";
+        String filtroTipo = tipoSerie == null ? "" : " and s.tipo_serie = :tipoSerie";
         String condicaoBusca = construirCondicaoBusca(termos);
 
         return """
@@ -242,11 +252,13 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                   join editoras e on e.id = s.editora_id
                  where 1 = 1
                    %s
+                   %s
                    and (%s)
                 %s
                 """.formatted(
                 select,
                 filtroSerie,
+                filtroTipo,
                 condicaoBusca,
                 ordem);
     }
@@ -286,9 +298,13 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .replaceAll("[^a-z0-9]+", "");
     }
 
-    private void aplicarParametrosBusca(jakarta.persistence.Query query, Long serieId, ConsultaBusca consulta) {
+    private void aplicarParametrosBusca(
+            jakarta.persistence.Query query, Long serieId, ConsultaBusca consulta, TipoSerie tipoSerie) {
         if (serieId != null) {
             query.setParameter("serieId", serieId);
+        }
+        if (tipoSerie != null) {
+            query.setParameter("tipoSerie", tipoSerie.name());
         }
 
         if (consulta.termos().isEmpty()) {
