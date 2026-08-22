@@ -2577,7 +2577,13 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       const concluidos = acumulado
         ? 'Os lotes anteriores foram salvos e podem ser reenviados com segurança. '
         : '';
-      const detalhe = erro?.error?.mensagem || 'Não foi possível importar o catálogo.';
+      const detalheRecebido = erro?.error?.mensagem
+        || (typeof erro?.error === 'string' ? erro.error.trim() : '')
+        || erro?.message;
+      const statusHttp = erro?.status ? ` (HTTP ${erro.status})` : '';
+      const detalhe = detalheRecebido
+        ? `${detalheRecebido}${statusHttp}`
+        : `Não foi possível importar o catálogo${statusHttp}.`;
       this.mensagem.set(`Falha no lote ${loteAtual} de ${lotes.length}. ${concluidos}${detalhe}`);
     } finally {
       this.importando.set(false);

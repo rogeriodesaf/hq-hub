@@ -4,8 +4,7 @@
     "url": null,
     "urlsProcessadas": [],
     "geradoEm": "2026-08-21T00:00:00",
-    "gerador": "geracao_assistida_compativel_com_robo_importador_navegador_interativo.py",
-    "capasArmazenadasCloudinary": null
+    "gerador": "robo_importador_navegador_interativo.py"
   },
   "serieBrasileira": {
     "titulo": "Tex",
