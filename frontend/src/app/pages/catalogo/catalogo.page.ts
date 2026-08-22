@@ -1161,7 +1161,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     this.rota.queryParamMap.subscribe((parametros) => {
       const colecaoTex = parametros.get('colecaoTex');
-      if (colecaoTex === 'globo' || colecaoTex === 'rge') {
+      if (colecaoTex === 'globo' || colecaoTex === 'rge' || colecaoTex === 'vecchi') {
         this.carregarColecaoTexPorEditora(colecaoTex);
       }
     });
@@ -2471,34 +2471,40 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     const editora = this.normalizarComparacao(serie.editora?.nome || '');
     return this.normalizarComparacao(serie.titulo) === 'tex'
-      && (editora.includes('mythos') || editora.includes('globo'));
+      && (editora.includes('mythos') || editora.includes('globo') || editora.includes('rge') || editora.includes('rio grafica'));
   }
 
   textoEdicoesAnterioresTex() {
-    return this.editoraSelecionadaTex().includes('globo')
-      ? 'Os números anteriores foram publicados pela editora RGE'
-      : 'Os números anteriores foram publicados pela editora Globo';
+    const editora = this.editoraSelecionadaTex();
+    if (editora.includes('globo')) {
+      return 'Os números anteriores foram publicados pela editora RGE';
+    }
+    if (editora.includes('rge') || editora.includes('rio grafica')) {
+      return 'Os números anteriores foram publicados pela editora Vecchi';
+    }
+    return 'Os números anteriores foram publicados pela editora Globo';
   }
 
   colecaoAnteriorTex() {
-    return this.editoraSelecionadaTex().includes('globo')
-      ? 'rge'
-      : 'globo';
+    const editora = this.editoraSelecionadaTex();
+    if (editora.includes('globo')) return 'rge';
+    if (editora.includes('rge') || editora.includes('rio grafica')) return 'vecchi';
+    return 'globo';
   }
 
   private editoraSelecionadaTex() {
     return this.normalizarComparacao(this.serieSelecionada()?.editora?.nome || '');
   }
 
-  private async carregarColecaoTexPorEditora(colecao: 'globo' | 'rge') {
+  private async carregarColecaoTexPorEditora(colecao: 'globo' | 'rge' | 'vecchi') {
     try {
       const resposta = await firstValueFrom(this.api.listarSeries('Tex', 0, 100));
       const serie = resposta.itens.find((item) => {
         if (this.normalizarComparacao(item.titulo) !== 'tex') return false;
         const editora = this.normalizarComparacao(item.editora?.nome || '');
-        return colecao === 'globo'
-          ? editora.includes('globo')
-          : editora.includes('rge') || editora.includes('rio grafica');
+        if (colecao === 'globo') return editora.includes('globo');
+        if (colecao === 'rge') return editora.includes('rge') || editora.includes('rio grafica');
+        return editora.includes('vecchi');
       });
 
       if (!serie) {
