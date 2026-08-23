@@ -175,6 +175,14 @@ import {
           </div>
           <div class="resultado-catalogo-acoes">
             <span>{{ rotuloContadorResultados() }}</span>
+            @if (exibirColecaoPublicaMarvelDeluxe()) {
+              <a
+                class="botao secundario compacto"
+                routerLink="/guia-de-leitura-app/colecao-marvel-deluxe-capa-preta"
+              >
+                Ver coleção Marvel Deluxe completa
+              </a>
+            }
             @if (serieSelecionada() && autenticado() && resultadosCatalogo().totalItens > 0) {
               <button
                 class="botao primario compacto"
@@ -2514,6 +2522,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  exibirColecaoPublicaMarvelDeluxe() {
+    const serie = this.serieSelecionada();
+    return !!serie
+      && this.normalizarComparacao(serie.editora?.nome || '') === 'panini'
+      && this.normalizarComparacao(serie.titulo).startsWith('marvel deluxe:');
   }
 
   exibirAvisoEdicoesAnterioresTex() {
