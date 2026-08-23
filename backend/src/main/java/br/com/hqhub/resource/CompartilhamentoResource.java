@@ -31,6 +31,7 @@ import br.com.hqhub.entity.OrdemLeitura;
 import br.com.hqhub.entity.VideoRelacionadoFeed;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
+import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
@@ -126,6 +127,13 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/catalogo/edicoes/aleatoria")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obterEdicaoAleatoria() {
+        return Response.ok(edicaoService.buscarAleatoriaComCapa()).build();
+    }
+
+    @GET
     @Path("/catalogo/edicoes/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obterDetalheCatalogoPublico(@PathParam("id") Long id) {
@@ -135,6 +143,51 @@ public class CompartilhamentoResource {
                 historiaService.listarConteudosPorEdicao(id),
                 historiaService.listarPublicacoesPorEdicaoPublicada(id),
                 historiaService.listarPublicacoesPorEdicaoOriginal(id))).build();
+    }
+
+    @GET
+    @Path("/catalogo/edicoes/{id}/compartilhar")
+    @Produces(MediaType.TEXT_HTML)
+    public Response compartilharEdicao(@PathParam("id") Long id) {
+        EdicaoRespostaDTO edicao = edicaoService.buscarPorId(id);
+        String serie = edicao.serie() == null ? "HQ" : edicao.serie().titulo();
+        String numero = edicao.numero() == null || edicao.numero().isBlank() ? "" : " #" + edicao.numero();
+        String titulo = serie + numero + " | HQ-HUB";
+        String descricao = edicao.descricaoExibicao() == null || edicao.descricaoExibicao().isBlank()
+                ? "Descubra esta HQ no catálogo do HQ-HUB."
+                : limitarTexto(edicao.descricaoExibicao(), 180);
+        String destino = baseNormalizada() + "/catalogo?edicaoId=" + id;
+        String pagina = origemApiNormalizada() + "/api/compartilhar/catalogo/edicoes/" + id + "/compartilhar";
+        String imagem = edicao.urlCapa() == null || edicao.urlCapa().isBlank()
+                ? baseNormalizada() + IMAGEM_PADRAO
+                : edicao.urlCapa();
+        String html = """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>%s</title>
+                  <meta name="description" content="%s">
+                  <meta property="og:type" content="article">
+                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:title" content="%s">
+                  <meta property="og:description" content="%s">
+                  <meta property="og:url" content="%s">
+                  <meta property="og:image" content="%s">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="%s">
+                  <meta name="twitter:description" content="%s">
+                  <meta name="twitter:image" content="%s">
+                  <script>window.location.replace('%s');</script>
+                </head>
+                <body><p>Abrindo <a href="%s">%s</a>...</p></body>
+                </html>
+                """.formatted(
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(titulo), escaparHtml(descricao),
+                        escaparHtml(pagina), escaparHtml(imagem), escaparHtml(titulo), escaparHtml(descricao),
+                        escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino), escaparHtml(serie + numero));
+        return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
     }
 
     @GET

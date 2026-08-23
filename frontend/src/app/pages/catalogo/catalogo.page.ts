@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LucideBookOpen, LucideSearch } from '@lucide/angular';
+import { LucideBookOpen, LucideSearch, LucideShuffle } from '@lucide/angular';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { environment } from '../../../environments/environment';
 import {
   ConteudoEdicao,
   CapaEdicao,
@@ -26,14 +27,20 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideBookOpen, LucideSearch],
+  imports: [CommonModule, FormsModule, RouterLink, LucideBookOpen, LucideSearch, LucideShuffle],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
         <p class="rotulo">Catálogo</p>
         <h1>Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.</h1>
       </div>
-      <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
+      <div class="acoes-cabecalho-catalogo">
+        <button class="botao primario compacto" type="button" (click)="compartilharEdicaoAleatoria()" [disabled]="compartilhandoAleatoria()">
+          <svg lucideShuffle size="18" aria-hidden="true"></svg>
+          {{ compartilhandoAleatoria() ? 'Sorteando...' : 'Compartilhar HQ aleatória' }}
+        </button>
+        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
+      </div>
     </section>
 
     @if (mensagem()) {
@@ -1122,6 +1129,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly capasComicVineOriginais = signal<Record<number, string>>({});
   readonly carregandoResultados = signal(false);
   readonly carregandoDetalhe = signal(false);
+  readonly compartilhandoAleatoria = signal(false);
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
   readonly removendoEdicao = signal(false);
@@ -2522,6 +2530,41 @@ export class CatalogoPage implements OnInit, OnDestroy {
       DESCONHECIDA: 'Status desconhecido',
     };
     return rotulos[status] || status;
+  }
+
+  async compartilharEdicaoAleatoria() {
+    this.compartilhandoAleatoria.set(true);
+    this.mensagem.set('');
+    try {
+      const edicao = await firstValueFrom(this.api.obterEdicaoAleatoria());
+      const serie = edicao.serie?.titulo || edicao.titulo || 'HQ';
+      const numero = edicao.numero ? ` #${edicao.numero}` : '';
+      const link = `${environment.compartilhamentoUrl}/catalogo/edicoes/${edicao.id}/compartilhar`;
+      const dados = {
+        title: `${serie}${numero}`,
+        text: `Olha a HQ que encontrei aleatoriamente no HQ-HUB: ${serie}${numero}`,
+        url: link,
+      };
+
+      if (this.autenticado()) {
+        this.abrirDetalhePorId(edicao.id);
+      } else {
+        this.abrirDetalhePublico(edicao.id);
+      }
+
+      if (navigator.share) {
+        await navigator.share(dados);
+        return;
+      }
+      await navigator.clipboard.writeText(link);
+      this.mensagem.set('HQ sorteada e link copiado para compartilhar.');
+    } catch (erro) {
+      if (!(erro instanceof DOMException && erro.name === 'AbortError')) {
+        this.mensagem.set('Não foi possível sortear e compartilhar uma HQ agora.');
+      }
+    } finally {
+      this.compartilhandoAleatoria.set(false);
+    }
   }
 
   exibirColecaoPublicaMarvelDeluxe() {
