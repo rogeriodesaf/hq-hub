@@ -195,6 +195,8 @@ public class SerieRepository implements PanacheRepository<Serie> {
             }
         }
 
+        removerQualificadorDeLinha(termos, "marvel", "saga");
+
         while (!termos.isEmpty() && ehArtigo(termos.get(0))) {
             termos.remove(0);
         }
@@ -203,6 +205,15 @@ public class SerieRepository implements PanacheRepository<Serie> {
         }
 
         return String.join("", termos);
+    }
+
+    private void removerQualificadorDeLinha(List<String> termos, String primeiro, String segundo) {
+        for (int indice = termos.size() - 2; indice >= 0; indice--) {
+            if (primeiro.equals(termos.get(indice)) && segundo.equals(termos.get(indice + 1))) {
+                termos.remove(indice + 1);
+                termos.remove(indice);
+            }
+        }
     }
 
     private boolean ehArtigo(String valor) {
