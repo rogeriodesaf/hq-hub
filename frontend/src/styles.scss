@@ -1840,14 +1840,6 @@ body.tema-escuro .sugestoes-assistente {
   margin: 0;
 }
 
-.acoes-cabecalho-catalogo {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 .mapa-historias-cabecalho {
   display: flex;
   align-items: center;
@@ -4616,14 +4608,6 @@ body.bottom-sheet-aberto {
   .cabecalho-pagina h1 {
     font-size: 1.6rem;
     line-height: 1.08;
-  }
-
-  .acoes-cabecalho-catalogo {
-    justify-content: stretch;
-  }
-
-  .acoes-cabecalho-catalogo .botao {
-    width: 100%;
   }
 
   .barra-busca,

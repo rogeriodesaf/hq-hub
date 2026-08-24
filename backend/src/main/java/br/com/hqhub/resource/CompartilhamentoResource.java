@@ -127,13 +127,6 @@ public class CompartilhamentoResource {
     }
 
     @GET
-    @Path("/catalogo/edicoes/aleatoria")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response obterEdicaoAleatoria() {
-        return Response.ok(edicaoService.buscarAleatoriaComCapa()).build();
-    }
-
-    @GET
     @Path("/catalogo/edicoes/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obterDetalheCatalogoPublico(@PathParam("id") Long id) {

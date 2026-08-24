@@ -95,13 +95,6 @@ public class EdicaoService {
     }
 
     @Transactional
-    public EdicaoRespostaDTO buscarAleatoriaComCapa() {
-        return edicaoRepository.buscarAleatoriaComCapa()
-                .map(edicaoMapper::paraResposta)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Nenhuma edição com capa foi encontrada."));
-    }
-
-    @Transactional
     public List<EdicaoRespostaDTO> listarTodos() {
         return edicaoRepository.listAll()
                 .stream()

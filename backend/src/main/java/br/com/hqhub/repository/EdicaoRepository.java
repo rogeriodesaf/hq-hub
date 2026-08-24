@@ -72,22 +72,6 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .findFirst();
     }
 
-    public Optional<Edicao> buscarAleatoriaComCapa() {
-        return entityManager.createNativeQuery("""
-                select edicao.*
-                  from edicoes edicao
-                 where edicao.url_capa is not null
-                   and trim(edicao.url_capa) <> ''
-                   and lower(edicao.url_capa) not like '%guiadosquadrinhos.com%'
-                 order by random()
-                 limit 1
-                """, Edicao.class)
-                .setMaxResults(1)
-                .getResultStream()
-                .map(Edicao.class::cast)
-                .findFirst();
-    }
-
     public Optional<Edicao> primeiraEdicaoPorSerie(Long serieId) {
         return find("serie.id = ?1 order by id", serieId).firstResultOptional();
     }

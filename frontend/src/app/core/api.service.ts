@@ -841,10 +841,6 @@ export class ApiService {
     return this.http.get<DetalheCatalogoPublico>(`/api/compartilhar/catalogo/edicoes/${edicaoId}`);
   }
 
-  obterEdicaoAleatoria() {
-    return this.http.get<Edicao>('/api/compartilhar/catalogo/edicoes/aleatoria');
-  }
-
   atualizarHistoria(id: number, dto: {
     titulo: string;
     tituloOriginal: string | null;

@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { environment } from '../../../environments/environment';
 import {
   Edicao,
   EditoraResumo,
@@ -547,7 +548,7 @@ import {
               </div>
               <div class="linha-capas">
                 @for (edicao of serie.edicoes; track edicao.itemColecaoId) {
-                  <div class="lombada" role="button" tabindex="0" (click)="selecionarEdicaoEstante(edicao)" (keyup.enter)="selecionarEdicaoEstante(edicao)">
+                  <div class="lombada" role="button" tabindex="0" (click)="selecionarEdicaoEstante(edicao, serie.titulo)" (keyup.enter)="selecionarEdicaoEstante(edicao, serie.titulo)">
                     <img
                       [src]="edicao.urlCapa || capaReserva"
                       [alt]="edicao.titulo || edicao.numero"
@@ -581,7 +582,7 @@ import {
             />
             <div>
               <p class="rotulo">Item da sua estante</p>
-              <h2>#{{ edicaoEstanteSelecionada()?.numero }} {{ edicaoEstanteSelecionada()?.titulo || '' }}</h2>
+              <h2>{{ serieEstanteSelecionada() }} #{{ edicaoEstanteSelecionada()?.numero }} {{ edicaoEstanteSelecionada()?.titulo || '' }}</h2>
               <div class="chips">
                 <span>{{ rotuloLeitura(edicaoEstanteSelecionada()?.statusLeitura || '') }}</span>
                 <span>{{ rotuloConservacao(edicaoEstanteSelecionada()?.estadoConservacao || '') }}</span>
@@ -597,6 +598,10 @@ import {
                   {{ atualizandoLeitura() ? 'Atualizando...' : 'Marcar como lida' }}
                 </button>
               }
+              <button class="botao secundario compacto" type="button" (click)="compartilharEdicaoSelecionada()">
+                <svg lucideShare2 size="17" aria-hidden="true"></svg>
+                Compartilhar esta HQ
+              </button>
               <button class="botao perigo compacto" type="button" (click)="removerSelecionadaDaEstante()" [disabled]="removendoItem()">
                 {{ removendoItem() ? 'Removendo...' : 'Remover da estante' }}
               </button>
@@ -633,6 +638,7 @@ export class ColecaoPage implements OnInit {
   readonly seriesSugeridas = signal<Serie[]>([]);
   readonly serieSelecionadaManual = signal<Serie | null>(null);
   readonly edicaoEstanteSelecionada = signal<EstanteEdicao | null>(null);
+  readonly serieEstanteSelecionada = signal('');
   readonly atualizandoLeitura = signal(false);
   readonly removendoItem = signal(false);
   readonly deduplicandoCatalogo = signal(false);
@@ -751,6 +757,30 @@ export class ColecaoPage implements OnInit {
       this.mensagem.set('Link público da estante copiado.');
     } catch {
       this.mensagem.set(`Copie este link: ${link}`);
+    }
+  }
+
+  async compartilharEdicaoSelecionada() {
+    const edicao = this.edicaoEstanteSelecionada();
+    if (!edicao) return;
+
+    const link = `${environment.compartilhamentoUrl}/catalogo/edicoes/${edicao.edicaoId}/compartilhar`;
+    const titulo = `${this.serieEstanteSelecionada() || edicao.titulo || 'HQ'}${edicao.numero ? ` #${edicao.numero}` : ''}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: titulo,
+          text: `Olha esta HQ da minha coleção no HQ-HUB: ${titulo}`,
+          url: link,
+        });
+        return;
+      }
+      await navigator.clipboard.writeText(link);
+      this.mensagem.set('Link desta HQ copiado para compartilhar.');
+    } catch (erro) {
+      if (!(erro instanceof DOMException && erro.name === 'AbortError')) {
+        this.mensagem.set(`Não foi possível compartilhar agora. Copie este link: ${link}`);
+      }
     }
   }
 
@@ -1271,7 +1301,8 @@ export class ColecaoPage implements OnInit {
     return rotulos[status] || status || 'Conservação não informada';
   }
 
-  selecionarEdicaoEstante(edicao: EstanteEdicao) {
+  selecionarEdicaoEstante(edicao: EstanteEdicao, serieTitulo: string) {
+    this.serieEstanteSelecionada.set(serieTitulo);
     this.edicaoEstanteSelecionada.set(edicao);
   }
 
