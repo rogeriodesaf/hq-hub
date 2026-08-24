@@ -22,6 +22,15 @@ SELECT
     CURRENT_TIMESTAMP
 FROM editoras editora
 WHERE hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Panini')
+  AND NOT EXISTS (
+      SELECT 1
+      FROM series existente
+      JOIN editoras editora_existente ON editora_existente.id = existente.editora_id
+      WHERE hqhub_normalizar_titulo_serie(existente.titulo) =
+            hqhub_normalizar_titulo_serie('A Saga do Hulk')
+        AND coalesce(existente.volume, 1) = 1
+        AND hqhub_normalizar_titulo_serie(editora_existente.nome) LIKE 'panini%'
+  )
 ORDER BY editora.id
 LIMIT 1
 ON CONFLICT (editora_id, coalesce(volume, 0), hqhub_normalizar_titulo_serie(titulo))
@@ -46,8 +55,11 @@ WITH capas(numero, data_publicacao, url_capa, url_origem) AS (VALUES
     JOIN editoras editora ON editora.id = serie.editora_id
     WHERE hqhub_normalizar_titulo_serie(serie.titulo) = hqhub_normalizar_titulo_serie('A Saga do Hulk')
       AND coalesce(serie.volume, 1) = 1
-      AND hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Panini')
-    ORDER BY CASE WHEN serie.id_externo = 'a-saga-do-hulk-panini-2025' THEN 0 ELSE 1 END, serie.id
+      AND hqhub_normalizar_titulo_serie(editora.nome) LIKE 'panini%'
+    ORDER BY
+        CASE WHEN serie.id_externo = 'a-saga-do-hulk-panini-2025' THEN 0 ELSE 1 END,
+        (SELECT count(*) FROM edicoes edicao WHERE edicao.serie_id = serie.id) DESC,
+        serie.id
     LIMIT 1
 )
 INSERT INTO edicoes (
