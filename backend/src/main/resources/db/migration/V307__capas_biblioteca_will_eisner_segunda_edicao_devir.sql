@@ -27,12 +27,12 @@ WITH serie_alvo AS (
         ('1', 'Biblioteca Will Eisner: Um Contrato com Deus',
          DATE '2023-10-01',
          'https://lojaeditora.devir.com.br/image/cache/catalog/produtos/DEV111639-400x600.jpg',
-         'DEV111639',
+         'DEV111639-2ED',
          'https://lojaeditora.devir.com.br/DEV111639'),
         ('2', 'Biblioteca Will Eisner: O Milagre da Vida',
          DATE '2023-12-01',
          'https://lojaeditora.devir.com.br/image/cache/catalog/produtos/DEV111640-400x600.jpg',
-         'DEV111640',
+         'DEV111640-2ED',
          'https://lojaeditora.devir.com.br/quadrinhos/DEV111640')
 )
 INSERT INTO edicoes (numero, titulo, descricao, data_publicacao, url_capa, formato,
