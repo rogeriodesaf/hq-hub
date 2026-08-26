@@ -2,6 +2,7 @@ package br.com.hqhub.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import br.com.hqhub.entity.StatusLeitura;
 import br.com.hqhub.entity.ItemColecao;
@@ -29,6 +30,13 @@ public class ItemColecaoRepository implements PanacheRepository<ItemColecao> {
                 usuarioId, serieId)
                 .project(Long.class)
                 .list();
+    }
+
+    public List<ItemColecao> listarPorUsuarioEEdicoes(Long usuarioId, Set<Long> edicoesIds) {
+        if (edicoesIds == null || edicoesIds.isEmpty()) {
+            return List.of();
+        }
+        return find("usuario.id = ?1 and edicao.id in ?2", usuarioId, edicoesIds).list();
     }
 
     public long contarPorUsuarioESerie(Long usuarioId, Long serieId) {

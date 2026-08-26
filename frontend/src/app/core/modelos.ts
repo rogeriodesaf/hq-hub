@@ -768,6 +768,7 @@ export interface OrdemLeituraResumo {
 export interface ItemOrdemLeitura {
   id: number; posicao: number; secao: string | null; edicaoId: number | null; serieId: number | null;
   titulo: string; detalhe: string | null; urlCapa: string | null; lido: boolean; vinculadoCatalogo: boolean;
+  naEstante: boolean; itemColecaoId: number | null;
   statusIdentificacao: 'CONFIRMADO' | 'PENDENTE_REVISAO'; observacao: string | null; ano: number | null;
 }
 

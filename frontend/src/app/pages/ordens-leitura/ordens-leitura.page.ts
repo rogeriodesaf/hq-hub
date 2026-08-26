@@ -35,6 +35,11 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
           <div class="acoes-guia">
             @if (!modoPublico) { <div class="progresso"><strong>{{ selecionada()!.itensLidos }} de {{ selecionada()!.totalItens }}</strong> edições lidas</div> }
             <button class="compartilhar" type="button" (click)="compartilharGuia()">Compartilhar guia</button>
+            @if (!modoPublico && autenticado()) {
+              <button class="acao-selecao" type="button" (click)="alternarModoSelecao()">
+                {{ modoSelecao() ? 'Cancelar seleção' : 'Adicionar edições à estante' }}
+              </button>
+            }
             @if (ehColecaoMarvelDeluxe()) {
               @if (autenticado()) {
                 <button class="adicionar-colecao" type="button" (click)="adicionarColecaoCompleta()" [disabled]="adicionandoColecao()">
@@ -46,6 +51,21 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
             }
           </div>
           @if (mensagem()) { <p class="mensagem">{{ mensagem() }}</p> }
+          @if (feedbackEstante(); as feedback) {
+            <aside class="feedback-estante" role="status" aria-live="polite">
+              <span>{{ feedback.titulo }} foi adicionada à sua estante</span>
+              <button type="button" (click)="desfazerAdicao()" [disabled]="desfazendo()">{{ desfazendo() ? 'Desfazendo...' : 'Desfazer' }}</button>
+            </aside>
+          }
+          @if (modoSelecao()) {
+            <aside class="barra-selecao" aria-live="polite">
+              <strong>{{ edicoesSelecionadas().size }} selecionada(s)</strong>
+              <button type="button" (click)="adicionarSelecionadas()" [disabled]="!edicoesSelecionadas().size || adicionandoSelecionadas()">
+                {{ adicionandoSelecionadas() ? 'Adicionando...' : 'Adicionar selecionadas' }}
+              </button>
+              <button class="cancelar-selecao" type="button" (click)="cancelarSelecao()" [disabled]="adicionandoSelecionadas()">Cancelar</button>
+            </aside>
+          }
           @if (!modoPublico) {
             <nav class="filtros">
               <button [class.ativo]="filtro() === 'todas'" (click)="filtro.set('todas')">Todas</button>
@@ -74,9 +94,16 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
                     }
                     <div class="grade">
                       @for (item of secao.itens; track item.id) {
-                        <article class="item" [class.lido]="item.lido">
+                        <article class="item" [class.lido]="item.lido" [class.na-estante]="item.naEstante" [class.selecionado]="item.edicaoId && edicoesSelecionadas().has(item.edicaoId)">
                           <span class="posicao">{{ item.posicao }}</span>
-                          <div class="capa"><img [src]="item.urlCapa || 'assets/capa-reserva.svg'" [alt]="item.titulo" loading="lazy" /></div>
+                          @if (modoSelecao() && item.edicaoId && !item.naEstante) {
+                            <button class="capa capa-selecao" type="button" (click)="alternarSelecao(item)" [attr.aria-pressed]="edicoesSelecionadas().has(item.edicaoId)" [attr.aria-label]="'Selecionar ' + item.titulo">
+                              <img [src]="item.urlCapa || 'assets/capa-reserva.svg'" [alt]="item.titulo" loading="lazy" />
+                              <span class="marca-selecao" aria-hidden="true">{{ edicoesSelecionadas().has(item.edicaoId) ? '✓' : '+' }}</span>
+                            </button>
+                          } @else {
+                            <div class="capa"><img [src]="item.urlCapa || 'assets/capa-reserva.svg'" [alt]="item.titulo" loading="lazy" /></div>
+                          }
                           <div class="dados"><h3>
                             @if (item.edicaoId) {
                               <a class="link-edicao" [routerLink]="['/catalogo']" [queryParams]="{ edicaoId: item.edicaoId }">{{ item.titulo }}</a>
@@ -87,18 +114,20 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
                             @if (item.observacao) { <p class="observacao-item">{{ item.observacao }}</p> }
                           </div>
                           @if (!modoPublico) {
-                            <button class="marcar" type="button" [disabled]="alterando() === item.id" (click)="alternar(item)">
-                              {{ item.lido ? '✓ Lida' : 'Marcar como lida' }}
-                            </button>
-                          }
-                          @if (ehColecaoMarvelDeluxe() && item.edicaoId) {
-                            @if (autenticado()) {
-                              <button class="adicionar-item" type="button" [disabled]="adicionandoColecao() || adicionandoEdicoes().has(item.edicaoId!)" (click)="adicionarEdicao(item)">
-                                {{ adicionandoEdicoes().has(item.edicaoId!) ? 'Adicionando...' : 'Adicionar à minha estante' }}
+                            <div class="acoes-item">
+                              @if (item.edicaoId && autenticado()) {
+                                <button class="estante-item" type="button" [class.adicionado]="item.naEstante" [disabled]="adicionandoEdicoes().has(item.edicaoId)" (click)="alternarEstante(item)">
+                                  {{ adicionandoEdicoes().has(item.edicaoId) ? 'Aguarde...' : item.naEstante ? '✓ Na estante' : '+ Estante' }}
+                                </button>
+                              } @else if (item.edicaoId) {
+                                <a class="estante-item link-botao" routerLink="/entrar">+ Estante</a>
+                              } @else {
+                                <button class="estante-item" type="button" disabled title="Edição ainda não vinculada ao catálogo">+ Estante</button>
+                              }
+                              <button class="marcar" type="button" [disabled]="alterando() === item.id" (click)="alternar(item)">
+                                {{ alterando() === item.id ? 'Aguarde...' : item.lido ? '✓ Lida' : 'Marcar como lida' }}
                               </button>
-                            } @else {
-                              <a class="adicionar-item link-botao" routerLink="/entrar">Adicionar à minha estante</a>
-                            }
+                            </div>
                           }
                         </article>
                       }
@@ -116,6 +145,7 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
     .secoes-guia{gap:18px}.cabecalho-secao{width:100%;margin:0;padding:14px;border:1px solid var(--borda);border-radius:16px;background:var(--superficie);color:var(--texto);text-align:left;cursor:pointer;transition:border-color .2s ease,transform .2s ease,background .2s ease}.cabecalho-secao:hover,.cabecalho-secao:focus-visible{border-color:#ee7d20;background:var(--superficie-2);transform:translateY(-2px)}.cabecalho-secao>div{flex:1}.indicador-secao{font-size:1.55rem;transition:transform .25s ease}.recolhida .indicador-secao{transform:rotate(-90deg)}.conteudo-secao{padding-top:18px}.conteudo-secao>.corpo-secao{min-height:0;overflow:hidden}.item{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.item:hover,.item:focus-within{transform:translateY(-7px) scale(1.015);border-color:#ee7d20;box-shadow:0 16px 34px #0004}.capa{overflow:hidden}.capa img{transition:transform .4s ease,filter .4s ease}.item:hover .capa img,.item:focus-within .capa img,.item:active .capa img{transform:scale(1.065);filter:saturate(1.12) contrast(1.04)}@media(prefers-reduced-motion:reduce){.cabecalho-secao,.indicador-secao,.item,.capa img{transition:none}}
     .ano-item{margin-top:5px;font-weight:700}.observacao-item{margin-top:7px;font-size:.76rem;line-height:1.45;white-space:pre-line}.link-edicao{color:inherit;text-decoration-color:#ee7d20;text-decoration-thickness:2px;text-underline-offset:3px}.link-edicao:hover,.link-edicao:focus-visible{color:#ee7d20}.adicionar-colecao,.adicionar-item{padding:10px 16px;border:0;border-radius:12px;background:#ee7d20;color:#20150c;font-weight:800;cursor:pointer}.adicionar-colecao:disabled,.adicionar-item:disabled{opacity:.6;cursor:wait}.adicionar-item{margin:0 12px 12px}.link-botao{display:inline-block;text-align:center;text-decoration:none}
     .destaque-secao{display:grid;grid-template-columns:minmax(240px,520px) 1fr;align-items:center;gap:24px;margin-bottom:22px;padding:18px;border:1px solid var(--borda);border-radius:18px;background:var(--superficie)}.destaque-secao.somente-texto{grid-template-columns:1fr}.destaque-secao img{display:block;width:100%;border-radius:12px}.destaque-secao p{font-size:1rem;line-height:1.65;color:var(--texto)}@media(max-width:760px){.destaque-secao{grid-template-columns:1fr;padding:12px;gap:14px}.destaque-secao p{font-size:.92rem}}
+    .acao-selecao{min-height:44px;padding:9px 14px;border:1px solid var(--borda);border-radius:12px;background:var(--superficie);color:var(--texto);font-weight:800;cursor:pointer}.feedback-estante,.barra-selecao{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0;padding:11px 14px;border:1px solid #41a66b66;border-radius:12px;background:#41a66b12}.feedback-estante span{flex:1}.feedback-estante button,.barra-selecao button{min-height:44px;padding:8px 13px;border:0;border-radius:10px;background:#247c4b;color:#fff;font-weight:800;cursor:pointer}.feedback-estante button:disabled,.barra-selecao button:disabled{opacity:.6;cursor:wait}.barra-selecao{position:sticky;z-index:8;top:8px;border-color:#ee7d2066;background:color-mix(in srgb,var(--superficie) 94%,#ee7d20);box-shadow:0 8px 24px #0002}.barra-selecao strong{flex:1}.barra-selecao .cancelar-selecao{background:var(--superficie-2);color:var(--texto)}.acoes-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:7px;margin:0 10px 10px}.acoes-item .marcar,.acoes-item .estante-item{display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;margin:0;padding:8px 6px;border-radius:11px;font-size:.82rem;line-height:1.15;text-align:center;text-decoration:none;white-space:normal}.estante-item{border:1px solid var(--borda);background:var(--superficie-2);color:var(--texto);font-weight:800;cursor:pointer}.estante-item.adicionado{border-color:#41a66b;color:#247c4b;background:#41a66b12}.estante-item:disabled{opacity:.55;cursor:not-allowed}.item.na-estante{box-shadow:inset 0 -3px 0 #41a66b}.capa-selecao{position:relative;width:100%;padding:0;border:0;cursor:pointer}.marca-selecao{position:absolute;right:9px;top:9px;display:grid;place-items:center;width:36px;height:36px;border:2px solid #fff;border-radius:50%;background:#111d;color:#fff;font-size:1.2rem;font-weight:900;box-shadow:0 3px 10px #0005}.item.selecionado{border-color:#ee7d20;box-shadow:0 0 0 3px #ee7d2038}.item.selecionado .marca-selecao{background:#ee7d20;color:#20150c}@media(max-width:420px){.acoes-item{grid-template-columns:1fr;gap:6px;margin:0 8px 8px}.acoes-item .marcar,.acoes-item .estante-item{font-size:.8rem}.barra-selecao{align-items:stretch}.barra-selecao strong{flex-basis:100%}.barra-selecao button{flex:1}}
   `]
 })
 export class OrdensLeituraPage implements OnInit {
@@ -127,6 +157,11 @@ export class OrdensLeituraPage implements OnInit {
   filtro = signal<'todas' | 'lidas' | 'nao-lidas'>('todas'); alterando = signal<number | null>(null); mensagem = signal('');
   secoesAbertas = signal<Set<string>>(new Set());
   adicionandoEdicoes = signal<Set<number>>(new Set());
+  edicoesSelecionadas = signal<Set<number>>(new Set());
+  modoSelecao = signal(false);
+  adicionandoSelecionadas = signal(false);
+  desfazendo = signal(false);
+  feedbackEstante = signal<{titulo:string;edicaoId:number;itemColecaoId:number}|null>(null);
   adicionandoColecao = signal(false);
   modoPublico = false;
   ngOnInit(){
@@ -194,21 +229,70 @@ export class OrdensLeituraPage implements OnInit {
   }
   alternar(item: ItemOrdemLeitura){ this.alterando.set(item.id); this.api.atualizarProgressoOrdem(item.id,!item.lido).subscribe({next:v=>{const o=this.selecionada();if(!o)return;const itens=o.itens.map(i=>i.id===v.id?v:i);this.selecionada.set({...o,itens,itensLidos:itens.filter(i=>i.lido).length});},error:()=>this.alterando.set(null),complete:()=>this.alterando.set(null)}); }
   ehColecaoMarvelDeluxe(){ return this.selecionada()?.slug === 'colecao-marvel-deluxe-capa-preta'; }
-  adicionarEdicao(item: ItemOrdemLeitura){
-    if(!item.edicaoId || !this.autenticado())return;
-    this.adicionandoEdicoes.update(ids=>new Set(ids).add(item.edicaoId!));
-    this.mensagem.set('');
-    this.api.cadastrarItemColecao({
-      edicaoId:item.edicaoId,estadoConservacao:'MUITO_BOM',dataAquisicao:null,
-      precoPago:null,statusLeitura:'NAO_LIDO',observacoes:null
-    }).subscribe({
-      next:()=>this.mensagem.set(`${item.titulo} foi adicionada à sua estante.`),
-      error:erro=>{
-        this.mensagem.set(erro?.error?.mensagem || 'Esta edição já está na sua estante ou não pôde ser adicionada.');
-        this.finalizarAdicaoEdicao(item.edicaoId!);
+  alternarEstante(item: ItemOrdemLeitura){
+    if(!item.edicaoId || !this.autenticado() || this.adicionandoEdicoes().has(item.edicaoId))return;
+    if(item.naEstante){
+      if(!item.itemColecaoId || !window.confirm(`Remover ${item.titulo} da sua estante?`))return;
+      this.removerEdicaoDaEstante(item);
+      return;
+    }
+    this.adicionarEdicao(item);
+  }
+  private adicionarEdicao(item: ItemOrdemLeitura){
+    if(!item.edicaoId)return;
+    const edicaoId=item.edicaoId;
+    this.adicionandoEdicoes.update(ids=>new Set(ids).add(edicaoId));
+    this.mensagem.set('');this.feedbackEstante.set(null);
+    this.api.cadastrarItemColecao(this.dtoEstante(edicaoId)).subscribe({
+      next:itemColecao=>{
+        this.atualizarEstadoEstante(edicaoId,true,itemColecao.id);
+        this.feedbackEstante.set({titulo:item.titulo,edicaoId,itemColecaoId:itemColecao.id});
       },
-      complete:()=>this.finalizarAdicaoEdicao(item.edicaoId!)
+      error:erro=>{this.mensagem.set(erro?.error?.mensagem || 'Não foi possível adicionar esta edição à estante.');this.finalizarAdicaoEdicao(edicaoId);},
+      complete:()=>this.finalizarAdicaoEdicao(edicaoId)
     });
+  }
+  private removerEdicaoDaEstante(item: ItemOrdemLeitura){
+    const edicaoId=item.edicaoId!;const itemColecaoId=item.itemColecaoId!;
+    this.adicionandoEdicoes.update(ids=>new Set(ids).add(edicaoId));
+    this.mensagem.set('');this.feedbackEstante.set(null);
+    this.api.removerItemColecao(itemColecaoId).subscribe({
+      next:()=>this.atualizarEstadoEstante(edicaoId,false,null),
+      error:erro=>{this.mensagem.set(erro?.error?.mensagem || 'Não foi possível remover esta edição da estante.');this.finalizarAdicaoEdicao(edicaoId);},
+      complete:()=>this.finalizarAdicaoEdicao(edicaoId)
+    });
+  }
+  desfazerAdicao(){
+    const feedback=this.feedbackEstante();if(!feedback||this.desfazendo())return;
+    this.desfazendo.set(true);
+    this.api.removerItemColecao(feedback.itemColecaoId).subscribe({
+      next:()=>{this.atualizarEstadoEstante(feedback.edicaoId,false,null);this.feedbackEstante.set(null);},
+      error:erro=>{this.mensagem.set(erro?.error?.mensagem || 'Não foi possível desfazer a adição.');this.desfazendo.set(false);},
+      complete:()=>this.desfazendo.set(false)
+    });
+  }
+  alternarModoSelecao(){this.modoSelecao()?this.cancelarSelecao():this.modoSelecao.set(true);}
+  cancelarSelecao(){if(this.adicionandoSelecionadas())return;this.modoSelecao.set(false);this.edicoesSelecionadas.set(new Set());}
+  alternarSelecao(item:ItemOrdemLeitura){
+    if(!item.edicaoId||item.naEstante)return;
+    this.edicoesSelecionadas.update(ids=>{const atual=new Set(ids);atual.has(item.edicaoId!)?atual.delete(item.edicaoId!):atual.add(item.edicaoId!);return atual;});
+  }
+  async adicionarSelecionadas(){
+    const ids=[...this.edicoesSelecionadas()];if(!ids.length||this.adicionandoSelecionadas())return;
+    if(ids.length>=10&&!window.confirm(`Adicionar ${ids.length} edições à sua estante?`))return;
+    this.adicionandoSelecionadas.set(true);this.mensagem.set('');this.feedbackEstante.set(null);
+    let adicionadas=0;let falhas=0;
+    for(const edicaoId of ids){
+      if(this.itemPorEdicao(edicaoId)?.naEstante)continue;
+      this.adicionandoEdicoes.update(atuais=>new Set(atuais).add(edicaoId));
+      try{
+        const itemColecao=await firstValueFrom(this.api.cadastrarItemColecao(this.dtoEstante(edicaoId)));
+        this.atualizarEstadoEstante(edicaoId,true,itemColecao.id);adicionadas++;
+      }catch{falhas++;}
+      finally{this.finalizarAdicaoEdicao(edicaoId);}
+    }
+    this.adicionandoSelecionadas.set(false);this.cancelarSelecao();
+    this.mensagem.set(falhas?`${adicionadas} edição(ões) adicionada(s). ${falhas} não puderam ser adicionada(s).`:`${adicionadas} edição(ões) adicionada(s) à estante.`);
   }
   async adicionarColecaoCompleta(){
     if(!this.autenticado() || this.adicionandoColecao())return;
@@ -223,6 +307,7 @@ export class OrdensLeituraPage implements OnInit {
       }))));
       const adicionadas=resultados.reduce((total,item)=>total+item.adicionadas,0);
       const existentes=resultados.reduce((total,item)=>total+item.jaExistentes,0);
+      await this.recarregarGuiaSelecionado();
       this.mensagem.set(`${adicionadas} revista(s) adicionada(s) à estante. ${existentes} já existente(s) foram ignorada(s).`);
     }catch{
       this.mensagem.set('Não foi possível adicionar toda a coleção agora. Tente novamente.');
@@ -232,6 +317,17 @@ export class OrdensLeituraPage implements OnInit {
   }
   private finalizarAdicaoEdicao(edicaoId:number){
     this.adicionandoEdicoes.update(ids=>{const atual=new Set(ids);atual.delete(edicaoId);return atual;});
+  }
+  private atualizarEstadoEstante(edicaoId:number,naEstante:boolean,itemColecaoId:number|null){
+    const ordem=this.selecionada();if(!ordem)return;
+    this.selecionada.set({...ordem,itens:ordem.itens.map(item=>item.edicaoId===edicaoId?{...item,naEstante,itemColecaoId}:item)});
+    if(naEstante)this.edicoesSelecionadas.update(ids=>{const atual=new Set(ids);atual.delete(edicaoId);return atual;});
+  }
+  private itemPorEdicao(edicaoId:number){return this.selecionada()?.itens.find(item=>item.edicaoId===edicaoId);}
+  private dtoEstante(edicaoId:number){return {edicaoId,estadoConservacao:'MUITO_BOM',dataAquisicao:null,precoPago:null,statusLeitura:'NAO_LIDO',observacoes:null};}
+  private async recarregarGuiaSelecionado(){
+    const slug=this.selecionada()?.slug;if(!slug||this.modoPublico)return;
+    this.selecionada.set(await firstValueFrom(this.api.obterOrdemLeitura(slug)));
   }
   async compartilharGuia(){
     const ordem=this.selecionada(); if(!ordem)return;
