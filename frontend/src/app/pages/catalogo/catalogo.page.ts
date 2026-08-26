@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LucideArrowLeft, LucideBookOpen, LucideSearch } from '@lucide/angular';
+import { LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2 } from '@lucide/angular';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { CompartilhamentoService } from '../../core/compartilhamento.service';
+import { environment } from '../../../environments/environment';
 import {
   ConteudoEdicao,
   CapaEdicao,
@@ -26,7 +28,7 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch],
+  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
@@ -286,6 +288,11 @@ import {
                 loading="lazy"
                 (error)="usarCapaReserva($event)"
               />
+              @if (resultado.jaCadastrada && resultado.id) {
+                <button class="compartilhar-capa-catalogo" type="button" (click)="compartilharResultado(resultado, $event)" [attr.aria-label]="'Compartilhar ' + tituloResultadoCartao(resultado)" title="Compartilhar edição">
+                  <svg lucideShare2 size="19" aria-hidden="true"></svg>
+                </button>
+              }
               <strong>#{{ resultado.numero || '-' }}</strong>
               <span [title]="tituloResultadoCartao(resultado)">{{ tituloResultadoCartao(resultado) }}</span>
               @if (subtituloResultadoCartao(resultado)) {
@@ -514,6 +521,12 @@ import {
             @if (historicoDetalhes().length) {
               <button class="botao compacto voltar-detalhe" type="button" (click)="voltarDetalheAnterior()">
                 Voltar
+              </button>
+            }
+            @if (edicaoDetalhe()) {
+              <button class="botao secundario compacto compartilhar-edicao-detalhe" type="button" (click)="compartilharEdicaoDetalhe()" [disabled]="compartilhandoEdicao()">
+                <svg lucideShare2 size="18" aria-hidden="true"></svg>
+                {{ compartilhandoEdicao() ? 'Compartilhando...' : 'Compartilhar edição' }}
               </button>
             }
             <button class="fechar-detalhe" type="button" (click)="fecharDetalhe()" aria-label="Fechar detalhes">×</button>
@@ -1119,8 +1132,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private readonly api = inject(ApiService);
   private readonly rota = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly sanitizador = inject(DomSanitizer);
+  private readonly compartilhamento = inject(CompartilhamentoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly letrasIndice = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   readonly sugestoesPesquisa = ['Batman', 'Homem-Aranha', 'X-Men', 'Superman', 'Spawn'];
@@ -1137,6 +1152,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     totalPaginas: 0,
   });
   readonly serieSelecionada = signal<Serie | null>(null);
+  readonly compartilhandoEdicao = signal(false);
   readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
@@ -1211,6 +1227,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private posicaoRolagemAntesDaSerie = 0;
   private serieAbertaId: number | null = null;
   private historicoSerieAtivo = false;
+  private paginaEdicaoPublica = false;
   private estadoResultadosAntesDaSerie: {
     resultados: PaginaResposta<ResultadoPesquisaCatalogo>;
     pagina: number;
@@ -1238,7 +1255,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const edicaoId = Number(this.rota.snapshot.queryParamMap.get('edicaoId'));
+    const edicaoIdRota = Number(this.rota.snapshot.paramMap.get('id'));
+    this.paginaEdicaoPublica = Number.isFinite(edicaoIdRota) && edicaoIdRota > 0;
+    const edicaoId = this.paginaEdicaoPublica
+      ? edicaoIdRota
+      : Number(this.rota.snapshot.queryParamMap.get('edicaoId'));
     if (Number.isFinite(edicaoId) && edicaoId > 0) {
       if (this.autenticado()) {
         this.abrirDetalhePorId(edicaoId);
@@ -1684,6 +1705,36 @@ export class CatalogoPage implements OnInit, OnDestroy {
     return `${resultado.fonte}-${resultado.id || resultado.idExterno || resultado.numero}`;
   }
 
+  compartilharResultado(resultado: ResultadoPesquisaCatalogo, evento: Event) {
+    evento.stopPropagation();
+    if (!resultado.id) return;
+    void this.compartilharEdicao(resultado.id, this.tituloResultadoCartao(resultado));
+  }
+
+  compartilharEdicaoDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao) return;
+    void this.compartilharEdicao(edicao.id, this.tituloEdicao(edicao));
+  }
+
+  private async compartilharEdicao(edicaoId: number, titulo: string) {
+    if (this.compartilhandoEdicao()) return;
+    this.compartilhandoEdicao.set(true);
+    const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=1`;
+    try {
+      const resultado = await this.compartilhamento.compartilhar({
+        title: `${titulo} | HQ-HUB`,
+        text: `Conheça ${titulo} no catálogo do HQ-HUB.`,
+        url,
+      });
+      if (resultado === 'copiado') this.mensagem.set('Link da edição copiado');
+    } catch {
+      this.mensagem.set('Não foi possível compartilhar esta edição agora.');
+    } finally {
+      this.compartilhandoEdicao.set(false);
+    }
+  }
+
   abrirInterna(resultado: ResultadoPesquisaCatalogo) {
     if (!resultado.id) {
       return;
@@ -1855,6 +1906,15 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   fecharDetalhe() {
+    if (this.paginaEdicaoPublica) {
+      const origemInterna = document.referrer.startsWith(window.location.origin);
+      if (origemInterna && window.history.length > 1) {
+        window.history.back();
+      } else {
+        void this.router.navigate(['/catalogo']);
+      }
+      return;
+    }
     this.edicaoDetalhe.set(null);
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);

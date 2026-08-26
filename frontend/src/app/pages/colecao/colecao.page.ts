@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { CompartilhamentoService } from '../../core/compartilhamento.service';
 import { environment } from '../../../environments/environment';
 import {
   Edicao,
@@ -615,6 +616,7 @@ import {
 export class ColecaoPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
+  private readonly compartilhamento = inject(CompartilhamentoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly estante = signal<EstanteEditora[]>([]);
   readonly paginaEstante = signal<PaginaResposta<EstanteEditora>>({
@@ -764,23 +766,17 @@ export class ColecaoPage implements OnInit {
     const edicao = this.edicaoEstanteSelecionada();
     if (!edicao) return;
 
-    const link = `${environment.compartilhamentoUrl}/catalogo/edicoes/${edicao.edicaoId}/compartilhar`;
+    const link = `${environment.compartilhamentoUrl}/edicoes/${edicao.edicaoId}?v=1`;
     const titulo = `${this.serieEstanteSelecionada() || edicao.titulo || 'HQ'}${edicao.numero ? ` #${edicao.numero}` : ''}`;
     try {
-      if (navigator.share) {
-        await navigator.share({
-          title: titulo,
-          text: `Olha esta HQ da minha coleção no HQ-HUB: ${titulo}`,
-          url: link,
-        });
-        return;
-      }
-      await navigator.clipboard.writeText(link);
-      this.mensagem.set('Link desta HQ copiado para compartilhar.');
-    } catch (erro) {
-      if (!(erro instanceof DOMException && erro.name === 'AbortError')) {
-        this.mensagem.set(`Não foi possível compartilhar agora. Copie este link: ${link}`);
-      }
+      const resultado = await this.compartilhamento.compartilhar({
+        title: `${titulo} | HQ-HUB`,
+        text: `Conheça ${titulo} no catálogo do HQ-HUB.`,
+        url: link,
+      });
+      if (resultado === 'copiado') this.mensagem.set('Link da edição copiado');
+    } catch {
+      this.mensagem.set(`Não foi possível compartilhar agora. Copie este link: ${link}`);
     }
   }
 

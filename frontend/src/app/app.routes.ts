@@ -37,6 +37,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/catalogo/catalogo.page').then((m) => m.CatalogoPage),
   },
   {
+    path: 'edicoes/:id',
+    loadComponent: () => import('./pages/catalogo/catalogo.page').then((m) => m.CatalogoPage),
+  },
+  {
     path: 'classificados',
     loadComponent: () => import('./pages/classificados-publicos/classificados-publicos.page').then((m) => m.ClassificadosPublicosPage),
   },

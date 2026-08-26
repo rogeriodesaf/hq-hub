@@ -29,6 +29,7 @@ import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.OrdemLeitura;
 import br.com.hqhub.entity.VideoRelacionadoFeed;
+import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
@@ -142,18 +143,54 @@ public class CompartilhamentoResource {
     @Path("/catalogo/edicoes/{id}/compartilhar")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharEdicao(@PathParam("id") Long id) {
-        EdicaoRespostaDTO edicao = edicaoService.buscarPorId(id);
+        return compartilharEdicaoPublica(id);
+    }
+
+    @GET
+    @Path("/edicoes/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public Response compartilharEdicaoAmigavel(@PathParam("id") Long id) {
+        return compartilharEdicaoPublica(id);
+    }
+
+    @GET
+    @Path("/edicoes/{id}/imagem.jpg")
+    @Produces("image/jpeg")
+    public Response imagemEdicao(@PathParam("id") Long id) {
+        if (id == null || id <= 0) return Response.status(Response.Status.NOT_FOUND).build();
+        try {
+            return responderImagemUrl(edicaoService.buscarPorId(id).urlCapa());
+        } catch (RecursoNaoEncontradoException excecao) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    private Response compartilharEdicaoPublica(Long id) {
+        if (id == null || id <= 0) {
+            return Response.status(Response.Status.NOT_FOUND).entity(htmlEdicaoNaoEncontrada())
+                    .type(MediaType.TEXT_HTML_TYPE).build();
+        }
+        final EdicaoRespostaDTO edicao;
+        try {
+            edicao = edicaoService.buscarPorId(id);
+        } catch (RecursoNaoEncontradoException excecao) {
+            return Response.status(Response.Status.NOT_FOUND).entity(htmlEdicaoNaoEncontrada())
+                    .type(MediaType.TEXT_HTML_TYPE).build();
+        }
         String serie = edicao.serie() == null ? "HQ" : edicao.serie().titulo();
         String numero = edicao.numero() == null || edicao.numero().isBlank() ? "" : " #" + edicao.numero();
         String titulo = serie + numero + " | HQ-HUB";
-        String descricao = edicao.descricaoExibicao() == null || edicao.descricaoExibicao().isBlank()
-                ? "Descubra esta HQ no catálogo do HQ-HUB."
-                : limitarTexto(edicao.descricaoExibicao(), 180);
-        String destino = baseNormalizada() + "/catalogo?edicaoId=" + id;
-        String pagina = origemApiNormalizada() + "/api/compartilhar/catalogo/edicoes/" + id + "/compartilhar";
-        String imagem = edicao.urlCapa() == null || edicao.urlCapa().isBlank()
-                ? baseNormalizada() + IMAGEM_PADRAO
-                : edicao.urlCapa();
+        String editora = edicao.serie() == null || edicao.serie().editora() == null
+                ? "Editora não informada" : edicao.serie().editora().nome();
+        Integer ano = edicao.dataPublicacao() != null ? edicao.dataPublicacao().getYear()
+                : edicao.dataCobertura() != null ? edicao.dataCobertura().getYear() : null;
+        String resumo = edicao.descricaoExibicao() == null || edicao.descricaoExibicao().isBlank()
+                ? "Conheça esta edição no catálogo do HQ-HUB."
+                : limitarTexto(edicao.descricaoExibicao(), 150);
+        String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
+        String destino = baseNormalizada() + "/edicoes/" + id;
+        String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "?v=1";
+        String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "/imagem.jpg?v=1";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -163,11 +200,17 @@ public class CompartilhamentoResource {
                   <title>%s</title>
                   <meta name="description" content="%s">
                   <meta property="og:type" content="article">
+                  <meta property="og:locale" content="pt_BR">
                   <meta property="og:site_name" content="HQ-HUB">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:url" content="%s">
                   <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="1600">
+                  <meta property="og:image:alt" content="Capa de %s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
@@ -178,9 +221,28 @@ public class CompartilhamentoResource {
                 </html>
                 """.formatted(
                         escaparHtml(titulo), escaparHtml(descricao), escaparHtml(titulo), escaparHtml(descricao),
-                        escaparHtml(pagina), escaparHtml(imagem), escaparHtml(titulo), escaparHtml(descricao),
-                        escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino), escaparHtml(serie + numero));
+                        escaparHtml(pagina), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(serie + numero),
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem), escaparHtml(destino),
+                        escaparHtml(destino), escaparHtml(serie + numero));
         return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    private String htmlEdicaoNaoEncontrada() {
+        String destino = baseNormalizada() + "/catalogo";
+        String imagem = urlAbsoluta(IMAGEM_PADRAO);
+        return """
+                <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Edição não encontrada | HQ-HUB</title>
+                <meta name="description" content="Esta edição não existe ou não está mais disponível no catálogo do HQ-HUB.">
+                <meta property="og:type" content="article"><meta property="og:site_name" content="HQ-HUB">
+                <meta property="og:title" content="Edição não encontrada | HQ-HUB">
+                <meta property="og:description" content="Esta edição não existe ou não está mais disponível no catálogo do HQ-HUB.">
+                <meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image">
+                <meta http-equiv="refresh" content="3;url=%s"></head>
+                <body><main><h1>Edição não encontrada</h1><p>Esta edição não existe ou não está mais disponível.</p>
+                <p><a href="%s">Abrir o catálogo do HQ-HUB</a></p></main></body></html>
+                """.formatted(escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino));
     }
 
     @GET
