@@ -185,6 +185,7 @@ public class CompartilhamentoResource {
         Integer ano = edicao.dataPublicacao() != null ? edicao.dataPublicacao().getYear()
                 : edicao.dataCobertura() != null ? edicao.dataCobertura().getYear() : null;
         String resumo = edicao.descricaoExibicao() == null || edicao.descricaoExibicao().isBlank()
+                || edicao.descricaoExibicao().startsWith("Descrição não disponível")
                 ? "Conheça esta edição no catálogo do HQ-HUB."
                 : limitarTexto(edicao.descricaoExibicao(), 150);
         String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
