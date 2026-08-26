@@ -260,6 +260,14 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/guias/tex-ordem-publicacao-brasileira/imagem.jpg")
+    @Produces("image/jpeg")
+    public Response imagemGuiaTex() {
+        return responderImagemUrl(
+                "https://res.cloudinary.com/deiktyvyc/image/upload/v1786412030/hqhub/capas/oc4gie4rrlp3psh686zf.webp");
+    }
+
+    @GET
     @Path("/guias/{slug}")
     @Produces(MediaType.TEXT_HTML)
     @Transactional
