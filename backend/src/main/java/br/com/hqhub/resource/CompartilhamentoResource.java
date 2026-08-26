@@ -188,7 +188,8 @@ public class CompartilhamentoResource {
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaXMen() {
         String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/ordem-de-leitura-mutante";
-        String imagem = "https://hqhub-frontend.onrender.com/assets/guia-xmen-compartilhamento.webp?v=2";
+        String imagem = origemApiNormalizada()
+                + "/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=3";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -201,12 +202,12 @@ public class CompartilhamentoResource {
                   <meta property="og:site_name" content="HQ-HUB">
                   <meta property="og:title" content="Ordem de Leitura Mutante">
                   <meta property="og:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
-                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=2">
+                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=3">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
-                  <meta property="og:image:type" content="image/webp">
-                  <meta property="og:image:width" content="474">
-                  <meta property="og:image:height" content="263">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Logotipo dos X-Men">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="Ordem de Leitura Mutante">
@@ -225,7 +226,8 @@ public class CompartilhamentoResource {
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaTex() {
         String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
-        String imagem = "https://res.cloudinary.com/deiktyvyc/image/upload/v1786412030/hqhub/capas/oc4gie4rrlp3psh686zf.webp";
+        String imagem = origemApiNormalizada()
+                + "/api/compartilhar/guias/tex-ordem-publicacao-brasileira/imagem.jpg?v=3";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -238,10 +240,12 @@ public class CompartilhamentoResource {
                   <meta property="og:site_name" content="HQ-HUB">
                   <meta property="og:title" content="Tex — Ordem de Publicação Brasileira">
                   <meta property="og:description" content="Confira as edições brasileiras de Tex na ordem de publicação, da Vecchi à Mythos.">
-                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/tex-ordem-publicacao-brasileira?v=2">
+                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/tex-ordem-publicacao-brasileira?v=3">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
-                  <meta property="og:image:type" content="image/webp">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Capa de Tex número 1">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="Tex — Ordem de Publicação Brasileira">
@@ -269,13 +273,21 @@ public class CompartilhamentoResource {
                         .build());
     }
 
+    @GET
+    @Path("/guias/{slug}/imagem.jpg")
+    @Produces("image/jpeg")
+    @Transactional
+    public Response imagemGuia(@PathParam("slug") String slug) {
+        return ordemLeituraRepository.find("slug = ?1 and publicada = true", slug).firstResultOptional()
+                .map(guia -> responderImagemUrl(guia.getUrlCapa()))
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
+    }
+
     private String htmlGuia(OrdemLeitura guia) {
         String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
         String destino = urlBase + "/guia-de-leitura-app/" + slug;
-        String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug;
-        String imagem = guia.getUrlCapa() == null || guia.getUrlCapa().isBlank()
-                ? urlAbsoluta(IMAGEM_PADRAO)
-                : guia.getUrlCapa();
+        String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=3";
+        String imagem = apiUrlPublica + "/api/compartilhar/guias/" + slug + "/imagem.jpg?v=3";
         String titulo = guia.getTitulo() + " | HQ-HUB";
         String descricao = guia.getDescricao() == null || guia.getDescricao().isBlank()
                 ? "Confira este guia de leitura no HQ-HUB."
@@ -297,6 +309,8 @@ public class CompartilhamentoResource {
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Capa do guia %s">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="%s">
@@ -652,7 +666,13 @@ public class CompartilhamentoResource {
     }
 
     private Response responderImagem(PostagemFeed postagem, ContextoCompartilhamento contexto) {
-        String urlImagem = imagem(postagem);
+        return responderImagemUrl(imagem(postagem));
+    }
+
+    private Response responderImagemUrl(String urlImagem) {
+        if (urlImagem == null || urlImagem.isBlank()) {
+            urlImagem = urlAbsoluta(IMAGEM_PADRAO);
+        }
         if (ehUrlGuia(urlImagem)) {
             urlImagem = urlAbsoluta(IMAGEM_PADRAO);
         }
