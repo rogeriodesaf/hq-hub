@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LucideBookOpen, LucideSearch } from '@lucide/angular';
+import { LucideArrowLeft, LucideBookOpen, LucideSearch } from '@lucide/angular';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -26,7 +26,7 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideBookOpen, LucideSearch],
+  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
@@ -43,7 +43,7 @@ import {
       </aside>
     }
 
-    <section class="catalogo-layout">
+    <section class="catalogo-layout" [class.modo-edicoes-mobile]="!!serieSelecionada()">
       <article class="bloco catalogo-bloco-series">
         <div class="secao-titulo">
           <div>
@@ -86,7 +86,7 @@ import {
         <div class="lista-linhas">
           @for (serie of series().itens; track serie.id) {
             <div class="linha-serie">
-              <button type="button" [class.ativo]="serieSelecionada()?.id === serie.id" (click)="selecionarSerie(serie)">
+              <button type="button" [attr.data-serie-id]="serie.id" [class.ativo]="serieSelecionada()?.id === serie.id" (click)="selecionarSerie(serie)">
                 <strong>{{ serie.titulo }}</strong>
                 <span>{{ serie.editora?.nome || 'Sem editora' }} · V{{ serie.volume || '-' }}</span>
               </button>
@@ -168,13 +168,35 @@ import {
       </article>
 
       <article class="bloco resultados-catalogo-bloco" #resultadosCatalogoBloco>
-        <div class="secao-titulo">
-          <div>
-            <h2>Resultados da busca</h2>
-            <p class="texto-suave">Clique em uma edição interna para ver capa, histórias e publicações originais.</p>
-          </div>
+        @if (serieSelecionada(); as serieAtual) {
+          <header class="cabecalho-colecao-selecionada">
+            <button class="voltar-colecoes" type="button" (click)="voltarParaColecoes()">
+              <svg lucideArrowLeft size="20" aria-hidden="true"></svg>
+              <span>Voltar para coleções</span>
+            </button>
+            <div class="titulo-colecao-selecionada">
+              <p class="rotulo">Coleção selecionada</p>
+              <h2 #tituloColecao tabindex="-1">{{ serieAtual.titulo }}</h2>
+              <p class="metadados-colecao">
+                <span>{{ serieAtual.editora?.nome || 'Sem editora' }}</span>
+                <span>Volume {{ serieAtual.volume || '-' }}</span>
+                <span>{{ resultadosCatalogo().totalItens === 1 ? '1 edição' : resultadosCatalogo().totalItens + ' edições' }}</span>
+              </p>
+            </div>
+          </header>
+        }
+
+        <div class="secao-titulo" [class.secao-titulo-colecao]="!!serieSelecionada()">
+          @if (!serieSelecionada()) {
+            <div>
+              <h2>Resultados da busca</h2>
+              <p class="texto-suave">Clique em uma edição interna para ver capa, histórias e publicações originais.</p>
+            </div>
+          }
           <div class="resultado-catalogo-acoes">
-            <span>{{ rotuloContadorResultados() }}</span>
+            @if (!serieSelecionada()) {
+              <span>{{ rotuloContadorResultados() }}</span>
+            }
             @if (exibirColecaoPublicaMarvelDeluxe()) {
               <a
                 class="botao secundario compacto"
@@ -332,6 +354,13 @@ import {
         }
       </article>
     </section>
+
+    @if (serieSelecionada() && mostrarVoltarColecoesFlutuante()) {
+      <button class="voltar-colecoes-flutuante" type="button" (click)="voltarParaColecoes()" aria-label="Voltar para a lista de coleções">
+        <svg lucideArrowLeft size="18" aria-hidden="true"></svg>
+        <span>Voltar às coleções</span>
+      </button>
+    }
 
     @if (resultadoParaEstante()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Adicionar edição à estante">
@@ -1085,6 +1114,7 @@ import {
 })
 export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('resultadosCatalogoBloco') private resultadosCatalogoBloco?: ElementRef<HTMLElement>;
+  @ViewChild('tituloColecao') private tituloColecao?: ElementRef<HTMLElement>;
   @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
 
   private readonly api = inject(ApiService);
@@ -1107,6 +1137,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     totalPaginas: 0,
   });
   readonly serieSelecionada = signal<Serie | null>(null);
+  readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
@@ -1177,6 +1208,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
   private sequenciaBuscaResultados = 0;
+  private posicaoRolagemAntesDaSerie = 0;
+  private serieAbertaId: number | null = null;
+  private historicoSerieAtivo = false;
+  private estadoResultadosAntesDaSerie: {
+    resultados: PaginaResposta<ResultadoPesquisaCatalogo>;
+    pagina: number;
+    consultados: boolean;
+  } | null = null;
 
   constructor() {
     effect(() => {
@@ -1278,11 +1317,66 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   selecionarSerie(serie: Serie) {
+    this.serieAbertaId = serie.id;
+    if (!this.serieSelecionada()) {
+      this.posicaoRolagemAntesDaSerie = window.scrollY;
+      this.estadoResultadosAntesDaSerie = {
+        resultados: this.resultadosCatalogo(),
+        pagina: this.paginaResultados(),
+        consultados: this.resultadosConsultados(),
+      };
+      window.history.pushState({ ...(window.history.state || {}), catalogoSerie: serie.id }, '');
+      this.historicoSerieAtivo = true;
+    }
     this.serieSelecionada.set(serie);
     this.resumoCapasSerie.set(null);
-    this.limparPesquisaSeries();
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
+  }
+
+  voltarParaColecoes() {
+    if (!this.serieSelecionada()) return;
+    if (this.historicoSerieAtivo) {
+      window.history.back();
+      return;
+    }
+    this.restaurarListaColecoes();
+  }
+
+  @HostListener('window:popstate')
+  aoVoltarNoHistorico() {
+    if (!this.serieSelecionada()) return;
+    this.historicoSerieAtivo = false;
+    this.restaurarListaColecoes();
+  }
+
+  @HostListener('window:scroll')
+  aoRolarPagina() {
+    if (!this.serieSelecionada() || !this.ehViewportMobile()) {
+      this.mostrarVoltarColecoesFlutuante.set(false);
+      return;
+    }
+    const topoResultados = this.resultadosCatalogoBloco?.nativeElement.offsetTop || 0;
+    this.mostrarVoltarColecoesFlutuante.set(window.scrollY > topoResultados + 260);
+  }
+
+  private restaurarListaColecoes() {
+    this.serieSelecionada.set(null);
+    this.resumoCapasSerie.set(null);
+    this.mostrarVoltarColecoesFlutuante.set(false);
+    if (this.estadoResultadosAntesDaSerie) {
+      this.resultadosCatalogo.set(this.estadoResultadosAntesDaSerie.resultados);
+      this.paginaResultados.set(this.estadoResultadosAntesDaSerie.pagina);
+      this.resultadosConsultados.set(this.estadoResultadosAntesDaSerie.consultados);
+      this.estadoResultadosAntesDaSerie = null;
+    }
+    const posicao = this.posicaoRolagemAntesDaSerie;
+    const serieId = this.serieAbertaId;
+    this.serieAbertaId = null;
+    setTimeout(() => {
+      window.scrollTo({ top: posicao, behavior: 'auto' });
+      document.querySelector<HTMLElement>(`[data-serie-id="${serieId}"]`)?.focus({ preventScroll: true });
+    }, 0);
   }
 
   async preencherCapasSerieSelecionada() {
@@ -3054,6 +3148,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.resultadosCatalogoBloco?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.tituloColecao?.nativeElement.focus({ preventScroll: true });
     }, 50);
   }
 

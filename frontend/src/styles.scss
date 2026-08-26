@@ -644,6 +644,67 @@ img {
   gap: 18px;
 }
 
+.cabecalho-colecao-selecionada {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.voltar-colecoes,
+.voltar-colecoes-flutuante {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  color: var(--texto);
+  background: var(--superficie);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.voltar-colecoes {
+  justify-self: start;
+  padding: 9px 14px;
+}
+
+.voltar-colecoes:hover,
+.voltar-colecoes:focus-visible {
+  border-color: var(--primaria);
+  color: var(--primaria);
+}
+
+.titulo-colecao-selecionada h2 {
+  margin: 4px 0 8px;
+}
+
+.metadados-colecao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.metadados-colecao span + span::before {
+  content: '•';
+  margin-right: 16px;
+  color: var(--primaria);
+}
+
+.secao-titulo-colecao {
+  justify-content: flex-start;
+}
+
+.voltar-colecoes-flutuante {
+  display: none;
+}
+
 .bloco {
   padding: 20px;
 }
@@ -4918,6 +4979,51 @@ body.bottom-sheet-aberto {
 
   .catalogo-layout {
     gap: 12px;
+  }
+
+  .catalogo-layout.modo-edicoes-mobile .catalogo-bloco-series {
+    display: none;
+  }
+
+  .cabecalho-colecao-selecionada {
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+  }
+
+  .voltar-colecoes {
+    width: 100%;
+  }
+
+  .metadados-colecao {
+    display: grid;
+    gap: 4px;
+  }
+
+  .metadados-colecao span + span::before {
+    content: none;
+  }
+
+  .secao-titulo-colecao {
+    display: block;
+  }
+
+  .secao-titulo-colecao .resultado-catalogo-acoes {
+    width: 100%;
+  }
+
+  .voltar-colecoes-flutuante {
+    position: fixed;
+    z-index: 35;
+    right: 14px;
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+    display: inline-flex;
+    width: auto;
+    max-width: calc(100vw - 28px);
+    padding: 9px 13px;
+    color: #fff;
+    background: rgba(21, 25, 31, 0.94);
+    box-shadow: 0 8px 24px rgba(21, 25, 31, 0.24);
   }
 
   .catalogo-bloco-series,
