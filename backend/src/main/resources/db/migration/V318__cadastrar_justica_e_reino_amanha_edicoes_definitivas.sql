@@ -31,6 +31,14 @@ CROSS JOIN LATERAL (
     ORDER BY id
     LIMIT 1
 ) editora
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM series existente
+    WHERE existente.editora_id = editora.id
+      AND coalesce(existente.volume, 0) = 1
+      AND hqhub_normalizar_titulo_serie(existente.titulo) =
+          hqhub_normalizar_titulo_serie(obra.titulo)
+)
 ON CONFLICT (editora_id, coalesce(volume, 0), hqhub_normalizar_titulo_serie(titulo))
 DO UPDATE SET
     descricao = EXCLUDED.descricao,
@@ -63,13 +71,13 @@ WITH obras(
      'reino-do-amanha-edicao-definitiva-panini-unica',
      'https://www.rika.com.br/reino-do-amanha---edicao-definitiva15003992/p')
 ), series_alvo AS (
-    SELECT serie.id, serie.id_externo
+    SELECT serie.id, serie.id_externo, serie.titulo
     FROM series serie
     JOIN editoras editora ON editora.id = serie.editora_id
-    WHERE hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Panini')
-      AND serie.id_externo IN (
-          'justica-edicao-definitiva-panini',
-          'reino-do-amanha-edicao-definitiva-panini'
+    WHERE hqhub_normalizar_titulo_serie(editora.nome) LIKE 'panini%'
+      AND hqhub_normalizar_titulo_serie(serie.titulo) IN (
+          hqhub_normalizar_titulo_serie('Justiça - Edição Definitiva'),
+          hqhub_normalizar_titulo_serie('Reino do Amanhã - Edição Definitiva')
       )
 )
 INSERT INTO edicoes (
@@ -84,7 +92,17 @@ SELECT
     obra.id_edicao, obra.url_origem, serie.id,
     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
 FROM obras obra
-JOIN series_alvo serie ON serie.id_externo = obra.serie_id_externo
+JOIN series_alvo serie
+  ON (
+      obra.serie_id_externo = 'justica-edicao-definitiva-panini'
+      AND hqhub_normalizar_titulo_serie(serie.titulo) =
+          hqhub_normalizar_titulo_serie('Justiça - Edição Definitiva')
+  )
+  OR (
+      obra.serie_id_externo = 'reino-do-amanha-edicao-definitiva-panini'
+      AND hqhub_normalizar_titulo_serie(serie.titulo) =
+          hqhub_normalizar_titulo_serie('Reino do Amanhã - Edição Definitiva')
+  )
 ON CONFLICT (serie_id, hqhub_normalizar_identidade(numero))
 DO UPDATE SET
     titulo = EXCLUDED.titulo,

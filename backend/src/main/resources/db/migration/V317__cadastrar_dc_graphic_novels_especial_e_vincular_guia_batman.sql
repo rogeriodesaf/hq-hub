@@ -22,6 +22,14 @@ SELECT
     CURRENT_TIMESTAMP
 FROM editoras editora
 WHERE hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Eaglemoss')
+  AND NOT EXISTS (
+      SELECT 1
+      FROM series existente
+      WHERE existente.editora_id = editora.id
+        AND coalesce(existente.volume, 0) = 1
+        AND hqhub_normalizar_titulo_serie(existente.titulo) =
+            hqhub_normalizar_titulo_serie('DC Comics - Coleção de Graphic Novels Especial')
+  )
 ORDER BY editora.id
 LIMIT 1
 ON CONFLICT (editora_id, coalesce(volume, 0), hqhub_normalizar_titulo_serie(titulo))
@@ -56,8 +64,10 @@ WITH capas(numero, titulo, nome_volume, paginas, url_capa, url_origem) AS (VALUE
     SELECT serie.id
     FROM series serie
     JOIN editoras editora ON editora.id = serie.editora_id
-    WHERE serie.id_externo = 'dc-comics-graphic-novels-especial-eaglemoss-volume-1'
+    WHERE hqhub_normalizar_titulo_serie(serie.titulo) =
+          hqhub_normalizar_titulo_serie('DC Comics - Coleção de Graphic Novels Especial')
       AND hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Eaglemoss')
+      AND coalesce(serie.volume, 1) = 1
     ORDER BY serie.id
     LIMIT 1
 )
