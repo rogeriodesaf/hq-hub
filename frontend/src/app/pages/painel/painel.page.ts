@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment';
     <section class="cabecalho-pagina feed-cabecalho">
       <div>
         <p class="rotulo">Feed principal</p>
-        <h1>No que a comunidade esta lendo hoje?</h1>
+        <h1>O que a comunidade está lendo hoje?</h1>
       </div>
       <a class="botao primario" routerLink="/amigos">Encontrar amigos</a>
     </section>
