@@ -62,7 +62,7 @@ WITH capas(numero, titulo, nome_volume, paginas, url_capa, url_origem) AS (VALUE
     LIMIT 1
 )
 INSERT INTO edicoes (
-    numero, titulo, descricao, nome_volume, data_publicacao, paginas, formato,
+    numero, titulo, descricao, nome_volume, data_publicacao, quantidade_paginas, formato,
     url_capa, fonte_externa, id_externo, url_origem, serie_id,
     data_criacao, data_atualizacao
 )
@@ -88,7 +88,7 @@ DO UPDATE SET
     titulo = EXCLUDED.titulo,
     descricao = EXCLUDED.descricao,
     nome_volume = EXCLUDED.nome_volume,
-    paginas = coalesce(EXCLUDED.paginas, edicoes.paginas),
+    quantidade_paginas = coalesce(EXCLUDED.quantidade_paginas, edicoes.quantidade_paginas),
     formato = EXCLUDED.formato,
     url_capa = EXCLUDED.url_capa,
     fonte_externa = EXCLUDED.fonte_externa,
