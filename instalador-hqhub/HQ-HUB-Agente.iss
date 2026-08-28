@@ -25,10 +25,10 @@ Source: "dist\agente\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs c
 Name: "{app}\python"
 
 [Icons]
-Name: "{autodesktop}\HQ-HUB - Iniciar agente"; Filename: "{app}\{#AppExeName}"
-Name: "{group}\HQ-HUB - Iniciar agente"; Filename: "{app}\{#AppExeName}"
-Name: "{userstartup}\HQ-HUB - Agente"; Filename: "{app}\{#AppExeName}"
+Name: "{autodesktop}\HQ-HUB - Iniciar agente"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\HQ-HUB-Agente.vbs"""
+Name: "{group}\HQ-HUB - Iniciar agente"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\HQ-HUB-Agente.vbs"""
+Name: "{userstartup}\HQ-HUB - Agente"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\HQ-HUB-Agente.vbs"""
 Name: "{group}\Desinstalar HQ-HUB Agente"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\{#AppExeName}"; Description: "Iniciar o agente HQ-HUB agora"; Flags: postinstall nowait skipifsilent
+Filename: "{sys}\wscript.exe"; Parameters: """{app}\HQ-HUB-Agente.vbs"""; Description: "Iniciar o agente HQ-HUB agora"; Flags: postinstall nowait skipifsilent

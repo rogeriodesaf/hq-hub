@@ -18,4 +18,5 @@ O arquivo será criado em `instalador-hqhub/dist/HQ-HUB-Agente-Setup.exe`.
 O instalador copia os scripts do assistente, cria atalhos e prepara o Python,
 Playwright, Chromium e demais dependências na primeira execução. O computador
 precisa ter conexão com a internet e o Windows Package Manager (`winget`),
-disponível por padrão no Windows 10/11 atualizado.
+disponível por padrão no Windows 10/11 atualizado. A preparação é executada
+em segundo plano, sem abrir uma janela de terminal.

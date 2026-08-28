@@ -8,4 +8,4 @@ if %errorlevel% neq 0 (
 )
 py -3 -m pip install --user "playwright>=1.40,<2" "telethon>=1.36,<2" "pymupdf>=1.24,<2" >nul
 py -3 -m playwright install chromium >nul
-start "HQ-HUB Agente" /min py -3 "%AGENTE%" --porta 8765 --abrir-hqhub
+py -3 "%AGENTE%" --porta 8765 --abrir-hqhub
