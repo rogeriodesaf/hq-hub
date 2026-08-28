@@ -33,6 +33,7 @@ ORIGENS_PERMITIDAS = {
     "http://127.0.0.1:4200",
 }
 COLETOR = Path(__file__).with_name("robo_importador_navegador_interativo.py")
+COLETOR_CAPAS_AUTOMATICAS = Path(__file__).with_name("robo_enriquecer_capas_multiplas_fontes.py")
 COLETOR_CAPAS_TELEGRAM = Path(__file__).with_name("robo_enriquecer_capa_telegram.py")
 COLETOR_CAPAS_PANINI = Path(__file__).with_name("robo_atualizar_capas_panini_catalogo.py")
 
@@ -272,7 +273,25 @@ def executar_coleta(coleta, entrada):
             )
         if not saida.exists():
             raise RuntimeError("O coletor terminou sem gerar o arquivo JSON.")
-        resultado = json.loads(saida.read_text(encoding="utf-8"))
+        # Enriquece o resultado antes de devolvê-lo ao HQ-HUB. O arquivo é
+        # temporário e continua sendo removido ao final desta função.
+        saida_com_capas = pasta / "resultado-com-capas.json"
+        with trava:
+            coleta["mensagem"] = "JSON gerado. Procurando capas em fontes públicas..."
+            coleta["logs"].append("Iniciando busca automática de capas em Panini, Rika, Comix e Amazon.")
+        enriquecimento = subprocess.run(
+            [sys.executable, "-u", str(COLETOR_CAPAS_AUTOMATICAS),
+             "--entrada", str(saida), "--saida", str(saida_com_capas)],
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900,
+        )
+        if enriquecimento.returncode == 0 and saida_com_capas.exists():
+            resultado = json.loads(saida_com_capas.read_text(encoding="utf-8"))
+            with trava:
+                coleta["logs"].append("Busca automática de capas concluída.")
+        else:
+            resultado = json.loads(saida.read_text(encoding="utf-8"))
+            with trava:
+                coleta["logs"].append("Busca automática de capas falhou; JSON original preservado.")
         with trava:
             coleta["resultado"] = resultado
             coleta["paginasProcessadas"] = int(resultado.get("totalEdicoes") or 0)
