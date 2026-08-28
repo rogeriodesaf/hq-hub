@@ -841,6 +841,10 @@ export class ApiService {
     return this.http.get<DetalheCatalogoPublico>(`/api/compartilhar/catalogo/edicoes/${edicaoId}`);
   }
 
+  baixarInstalador() {
+    return this.http.get('/api/instalador', { responseType: 'blob' });
+  }
+
   atualizarHistoria(id: number, dto: {
     titulo: string;
     tituloOriginal: string | null;

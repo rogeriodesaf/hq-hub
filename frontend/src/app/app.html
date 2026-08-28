@@ -76,6 +76,9 @@
           <svg lucideUsers size="20"></svg>
           Colaboradores
         </a>
+        @if (podeRevisarCatalogo()) {
+          <button type="button" class="botao compacto" (click)="baixarInstalador()">Baixar robô</button>
+        }
         <a routerLink="/amigos" routerLinkActive="ativo">
           <span class="nav-icone">
             <svg lucideUsers size="20"></svg>

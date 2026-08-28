@@ -177,6 +177,20 @@ export class App implements OnInit {
     this.notificacoesAbertas.set(false);
   }
 
+  baixarInstalador() {
+    this.api.baixarInstalador().subscribe({
+      next: (arquivo) => {
+        const url = URL.createObjectURL(arquivo);
+        const ancora = document.createElement('a');
+        ancora.href = url;
+        ancora.download = 'HQ-HUB-Agente-Setup.exe';
+        ancora.click();
+        URL.revokeObjectURL(url);
+      },
+      error: () => alert('Não foi possível baixar o instalador do HQ-HUB.'),
+    });
+  }
+
   sair() {
     this.autenticacaoService.sair();
     this.roteador.navigateByUrl('/entrar');
