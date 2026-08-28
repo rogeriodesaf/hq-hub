@@ -67,7 +67,19 @@ def consulta(edicao, serie):
 
 
 def enriquecer(args):
-    entrada = Path(args.entrada)
+    pasta = Path(args.pasta)
+    if args.entrada:
+        entrada = Path(args.entrada)
+    else:
+        candidatos = [
+            caminho for caminho in pasta.rglob("*.json")
+            if not caminho.name.endswith("-com-capas.json")
+            and caminho.name not in {"resultado.json", "relatorio.json"}
+        ]
+        if not candidatos:
+            raise SystemExit(f"Nenhum JSON encontrado em {pasta.resolve()}")
+        entrada = max(candidatos, key=lambda caminho: caminho.stat().st_mtime)
+        print(f"JSON identificado automaticamente: {entrada}")
     dados = json.loads(entrada.read_text(encoding="utf-8"))
     serie = dados.get("serieBrasileira", {})
     relatorio, avisos = [], list(dados.get("avisos") or [])
@@ -100,7 +112,7 @@ def enriquecer(args):
 
     dados["avisos"] = avisos
     dados.setdefault("origem", {})["capasAutomaticas"] = {"fontes": list(FONTES), "resultados": relatorio}
-    saida = Path(args.saida)
+    saida = Path(args.saida) if args.saida else entrada.with_name(f"{entrada.stem}-com-capas.json")
     saida.parent.mkdir(parents=True, exist_ok=True)
     saida.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Arquivo gerado: {saida}")
@@ -108,8 +120,9 @@ def enriquecer(args):
 
 def main():
     parser = argparse.ArgumentParser(description="Encontra capas em múltiplas lojas para um JSON do Guia dos Quadrinhos.")
-    parser.add_argument("--entrada", required=True)
-    parser.add_argument("--saida", required=True)
+    parser.add_argument("--entrada", help="JSON de entrada. Se omitido, usa o JSON mais recente da pasta informada.")
+    parser.add_argument("--saida", help="Arquivo de saída. Se omitido, acrescenta -com-capas ao nome da entrada.")
+    parser.add_argument("--pasta", default="docs/importacao/rascunhos", help="Pasta pesquisada quando --entrada é omitido.")
     parser.add_argument("--substituir", action="store_true", help="Também procura capa para edições já preenchidas.")
     parser.add_argument("--intervalo-segundos", type=float, default=1.0)
     args = parser.parse_args()
