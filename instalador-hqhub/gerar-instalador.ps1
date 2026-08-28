@@ -21,6 +21,7 @@ Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_import
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_importador_texto.py') -Destination $pacote -Force
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_enriquecer_capa_telegram.py') -Destination $pacote -Force
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_atualizar_capas_panini_catalogo.py') -Destination $pacote -Force
+Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_enriquecer_capas_multiplas_fontes.py') -Destination $pacote -Force
 
 $isccPath = if ($inno.Source) { $inno.Source } else { $inno.Path }
 & $isccPath (Join-Path $PSScriptRoot 'HQ-HUB-Agente.iss')
