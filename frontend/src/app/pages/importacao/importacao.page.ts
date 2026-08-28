@@ -50,6 +50,9 @@ interface ColetaCapasTelegramLocal {
         <p class="rotulo">Alimentar catálogo</p>
         <h1>Cadastre HQs pelo formulário ou importe o JSON gerado pelo robô.</h1>
       </div>
+      <button type="button" class="botao secundario" (click)="baixarInstalador()">
+        Baixar instalador do robô
+      </button>
     </section>
 
     <section class="importacao-layout">
@@ -1726,6 +1729,20 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     } finally {
       this.verificandoAssistenteLocal.set(false);
     }
+  }
+
+  baixarInstalador() {
+    this.api.baixarInstalador().subscribe({
+      next: (arquivo) => {
+        const url = URL.createObjectURL(arquivo);
+        const ancora = document.createElement('a');
+        ancora.href = url;
+        ancora.download = 'HQ-HUB-Agente-Setup.exe';
+        ancora.click();
+        URL.revokeObjectURL(url);
+      },
+      error: () => this.mensagem.set('Não foi possível baixar o instalador do robô.'),
+    });
   }
 
   async iniciarColetaGuiaLocal() {
