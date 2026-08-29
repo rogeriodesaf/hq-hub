@@ -492,6 +492,10 @@ def main():
             "e grava a secure_url em edicoes[].urlCapa."
         ),
     )
+    parser.add_argument(
+        "--perfil-persistente",
+        help="Diretorio opcional para reutilizar a sessao verificada do Chrome entre execucoes.",
+    )
     args = parser.parse_args()
 
     importador = carregar_importador()
@@ -517,7 +521,13 @@ def main():
         parser.error(str(erro))
     chrome = encontrar_chrome()
     porta = obter_porta_livre()
-    perfil = Path(tempfile.mkdtemp(prefix="hqhub-guia-chrome-"))
+    perfil_temporario = not bool(args.perfil_persistente)
+    perfil = (
+        Path(args.perfil_persistente).expanduser().resolve()
+        if args.perfil_persistente
+        else Path(tempfile.mkdtemp(prefix="hqhub-guia-chrome-"))
+    )
+    perfil.mkdir(parents=True, exist_ok=True)
     processo = None
 
     try:
@@ -583,7 +593,7 @@ def main():
                 processo.kill()
         pasta_temporaria = Path(tempfile.gettempdir()).resolve()
         perfil_resolvido = perfil.resolve()
-        if perfil_resolvido.parent == pasta_temporaria and perfil_resolvido.name.startswith("hqhub-guia-chrome-"):
+        if perfil_temporario and perfil_resolvido.parent == pasta_temporaria and perfil_resolvido.name.startswith("hqhub-guia-chrome-"):
             shutil.rmtree(perfil_resolvido, ignore_errors=True)
 
 
