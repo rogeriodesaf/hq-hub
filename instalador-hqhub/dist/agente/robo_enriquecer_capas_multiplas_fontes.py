@@ -35,8 +35,8 @@ def limpar(texto):
 def resultados_bing(consulta, dominio):
     html = baixar("https://www.bing.com/search?q=" + quote(f"site:{dominio} {consulta}"))
     encontrados = []
-    for bloco in re.findall(r'<li class="b_algo".*?</li>', html, re.I | re.S):
-        link = re.search(r'<a href="(https?://[^"&]+)', bloco, re.I)
+    for bloco in re.findall(r'<li[^>]+class="[^"]*b_algo[^"]*".*?</li>', html, re.I | re.S):
+        link = re.search(r'<a[^>]+href="(https?://[^"]+)', bloco, re.I)
         titulo = re.search(r'<h2.*?>(.*?)</h2>', bloco, re.I | re.S)
         if link:
             encontrados.append({"url": unescape(link.group(1)), "titulo": limpar(titulo.group(1)) if titulo else ""})
@@ -83,6 +83,7 @@ def enriquecer(args):
     dados = json.loads(entrada.read_text(encoding="utf-8"))
     serie = dados.get("serieBrasileira", {})
     relatorio, avisos = [], list(dados.get("avisos") or [])
+    encontradas = 0
 
     for indice, edicao in enumerate(dados.get("edicoes", []), 1):
         if edicao.get("urlCapa") and not args.substituir:
@@ -97,6 +98,7 @@ def enriquecer(args):
                     capa = extrair_capa(resultado["url"])
                     if capa:
                         edicao["urlCapa"] = capa
+                        encontradas += 1
                         item.update({"status": "encontrada", "fonte": nome, "url": capa,
                                      "urlProduto": resultado["url"], "confianca": "media"})
                         break
@@ -111,7 +113,11 @@ def enriquecer(args):
         print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: {item['status']}")
 
     dados["avisos"] = avisos
-    dados.setdefault("origem", {})["capasAutomaticas"] = {"fontes": list(FONTES), "resultados": relatorio}
+    dados.setdefault("origem", {})["capasAutomaticas"] = {
+        "fontes": list(FONTES), "resultados": relatorio,
+        "capasEncontradas": encontradas,
+        "capasNaoEncontradas": len(dados.get("edicoes", [])) - encontradas,
+    }
     saida = Path(args.saida) if args.saida else entrada.with_name(f"{entrada.stem}-com-capas.json")
     saida.parent.mkdir(parents=True, exist_ok=True)
     saida.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

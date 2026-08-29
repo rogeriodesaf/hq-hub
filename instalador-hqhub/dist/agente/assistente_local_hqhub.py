@@ -279,11 +279,17 @@ def executar_coleta(coleta, entrada):
         with trava:
             coleta["mensagem"] = "JSON gerado. Procurando capas em fontes públicas..."
             coleta["logs"].append("Iniciando busca automática de capas em Panini, Rika, Comix e Amazon.")
-        enriquecimento = subprocess.run(
+        enriquecimento = subprocess.Popen(
             [sys.executable, "-u", str(COLETOR_CAPAS_AUTOMATICAS),
              "--entrada", str(saida), "--saida", str(saida_com_capas)],
-            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, encoding="utf-8", errors="replace", bufsize=1,
         )
+        for linha in enriquecimento.stdout or []:
+            linha = linha.rstrip()
+            if linha:
+                atualizar_por_log(coleta, linha)
+        enriquecimento.wait(timeout=900)
         if enriquecimento.returncode == 0 and saida_com_capas.exists():
             resultado = json.loads(saida_com_capas.read_text(encoding="utf-8"))
             with trava:
