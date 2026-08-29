@@ -1,5 +1,5 @@
 #define AppName "HQ-HUB Agente"
-#define AppVersion "1.0.8"
+#define AppVersion "1.0.9"
 #define AppPublisher "HQ-HUB"
 #define AppExeName "HQ-HUB-Agente.cmd"
 

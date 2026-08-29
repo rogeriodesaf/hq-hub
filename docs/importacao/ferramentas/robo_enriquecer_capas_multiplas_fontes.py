@@ -185,7 +185,10 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             resultado["url"], numero, exigir_volume=nome == "Panini"
         ):
             continue
-        capa = resultado.get("urlCapa") or extrair_capa(resultado["url"])
+        try:
+            capa = resultado.get("urlCapa") or extrair_capa(resultado["url"])
+        except Exception:
+            continue
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
     return nome, None, None, None
@@ -251,6 +254,26 @@ def enriquecer(args):
                 sleep(args.intervalo_segundos)
                 continue
             panini_direta_falhou = True
+            try:
+                resultado_panini = buscar_fonte(
+                    "Panini", "panini.com.br",
+                    "https://panini.com.br/catalogsearch/result/?q={}",
+                    busca_loja, busca, capas_usadas, titulo_busca, numero_busca,
+                )
+            except Exception as erro:
+                resultado_panini = None
+                item.setdefault("erros", []).append(f"Panini: {erro}")
+            if resultado_panini and resultado_panini[1]:
+                _, capa_panini, produto_panini, _ = resultado_panini
+                edicao["urlCapa"] = capa_panini
+                capas_usadas.add(capa_panini)
+                encontradas += 1
+                item.update({"status": "encontrada", "fonte": "Panini", "url": capa_panini,
+                             "urlProduto": produto_panini, "confianca": "alta"})
+                relatorio.append(item)
+                print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: encontrada")
+                sleep(args.intervalo_segundos)
+                continue
         fontes = [
             (nome, dominio, modelo_busca)
             for nome, (dominio, modelo_busca) in FONTES.items()
