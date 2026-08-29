@@ -63,6 +63,15 @@ def produto_compativel_com_numero(url, numero, exigir_volume=False):
     return not exigir_volume
 
 
+def titulo_compativel_com_numero(titulo, numero):
+    numero = str(numero or "").strip()
+    if not numero.isdigit():
+        return True
+    normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
+    encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?)\s*0*(\d+)", normalizado)
+    return bool(encontrados) and int(numero) in {int(item) for item in encontrados}
+
+
 def resultados_bing(consulta, dominio):
     html = baixar("https://www.bing.com/search?q=" + quote(f"site:{dominio} {consulta}"))
     encontrados = []
@@ -79,6 +88,25 @@ def resultados_loja(consulta, dominio, modelo_busca):
     codificado = quote(termo)
     url_busca = modelo_busca.format(codificado, codificado)
     html = baixar(url_busca)
+    if dominio == "amazon.com.br":
+        encontrados = []
+        padrao = re.compile(
+            r'<div[^>]*data-asin="([A-Z0-9]{10})"[^>]*data-component-type="s-search-result"[^>]*>'
+            r'(.*?)(?=<div[^>]*data-asin="[A-Z0-9]{10}"[^>]*data-component-type="s-search-result"|$)',
+            re.I | re.S,
+        )
+        for bloco in padrao.finditer(html):
+            asin, conteudo = bloco.group(1), bloco.group(2)
+            titulo_html = re.search(r'<h2[^>]*>(.*?)</h2>', conteudo, re.I | re.S)
+            imagem = re.search(r'<img[^>]+class="[^"]*s-image[^"]*"[^>]+src="([^"]+)"', conteudo, re.I)
+            if not imagem:
+                imagem = re.search(r'<img[^>]+src="([^"]+)"[^>]+class="[^"]*s-image[^"]*"', conteudo, re.I)
+            encontrados.append({
+                "url": f"https://www.amazon.com.br/dp/{asin}",
+                "titulo": limpar(titulo_html.group(1)) if titulo_html else "",
+                "urlCapa": unescape(imagem.group(1)) if imagem else None,
+            })
+        return encontrados
     candidatos = []
     termos = tokens(termo)
     for href in re.findall(r'href=["\']([^"\']+)', html, re.I):
@@ -151,11 +179,13 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
+        if nome == "Amazon" and not titulo_compativel_com_numero(resultado.get("titulo"), numero):
+            continue
         if not produto_compativel_com_numero(
             resultado["url"], numero, exigir_volume=nome == "Panini"
         ):
             continue
-        capa = extrair_capa(resultado["url"])
+        capa = resultado.get("urlCapa") or extrair_capa(resultado["url"])
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
     return nome, None, None, None
