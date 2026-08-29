@@ -37,7 +37,22 @@ def baixar(url):
 
 
 def limpar(texto):
-    return re.sub(r"\s+", " ", unescape(texto or "")).strip()
+    sem_tags = re.sub(r"<[^>]+>", " ", texto or "")
+    return re.sub(r"\s+", " ", unescape(sem_tags)).strip()
+
+
+def pontuacao_amazon(resultado):
+    """Prioriza livros brasileiros quando a Amazon mistura outras edicoes."""
+    asin = urlparse(resultado.get("url") or "").path.rstrip("/").split("/")[-1]
+    titulo = unicodedata.normalize("NFKD", resultado.get("titulo") or "").encode(
+        "ascii", "ignore"
+    ).decode().lower()
+    pontos = 0
+    if asin.startswith(("65", "85")):
+        pontos += 20
+    if "english edition" in titulo or "kindle edition" in titulo:
+        pontos -= 30
+    return pontos
 
 
 def tokens(texto):
@@ -133,8 +148,16 @@ def resultados_loja(consulta, dominio, modelo_busca):
     return [{"url": url, "titulo": ""} for url in candidatos[:8]]
 
 
-def extrair_capa(url):
+def extrair_produto(url):
     html = baixar(url)
+    titulo = None
+    titulo_meta = re.search(r'<meta[^>]+property=["\']og:title["\'][^>]+content=["\']([^"\']+)', html, re.I)
+    if titulo_meta:
+        titulo = limpar(titulo_meta.group(1))
+    else:
+        titulo_tag = re.search(r'<title[^>]*>(.*?)</title>', html, re.I | re.S)
+        if titulo_tag:
+            titulo = limpar(re.sub(r'<[^>]+>', ' ', titulo_tag.group(1)))
     padroes = [
         r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)',
         r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image',
@@ -145,8 +168,12 @@ def extrair_capa(url):
         if achado:
             imagem = urljoin(url, unescape(achado.group(1)))
             if re.match(r"https?://", imagem):
-                return imagem
-    return None
+                return imagem, titulo
+    return None, titulo
+
+
+def extrair_capa(url):
+    return extrair_produto(url)[0]
 
 
 def consulta(edicao, serie):
@@ -173,6 +200,8 @@ def fonte_aplicavel(nome, edicao, serie):
 
 def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, titulo, numero):
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if nome == "Amazon":
+        resultados.sort(key=pontuacao_amazon, reverse=True)
     if nome == "Panini" and str(numero or "").isdigit():
         url_direta = f"https://panini.com.br/{slug(titulo)}-vol-{int(numero)}"
         resultados.insert(0, {"url": url_direta, "titulo": ""})
@@ -186,9 +215,19 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         ):
             continue
         try:
-            capa = resultado.get("urlCapa") or extrair_capa(resultado["url"])
+            if resultado.get("urlCapa"):
+                capa, titulo_produto = resultado["urlCapa"], resultado.get("titulo")
+            else:
+                capa, titulo_produto = extrair_produto(resultado["url"])
         except Exception:
             continue
+        if nome != "Amazon" and str(numero or "").isdigit():
+            tem_numero_url = bool(re.findall(
+                r"(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)",
+                urlparse(resultado["url"]).path.lower(),
+            ))
+            if not tem_numero_url and not titulo_compativel_com_numero(titulo_produto, numero):
+                continue
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
     return nome, None, None, None
@@ -283,7 +322,7 @@ def enriquecer(args):
         if panini_direta_falhou:
             fontes = [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
         elif oficiais:
-            fontes = oficiais
+            fontes = oficiais + [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
         for nome, _, _ in fontes:
             print(
                 f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
