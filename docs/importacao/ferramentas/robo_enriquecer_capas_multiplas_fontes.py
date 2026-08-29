@@ -108,6 +108,13 @@ def consulta(edicao, serie):
     return f'"{titulo}" "{editora}" "{numero}"'
 
 
+def fonte_aplicavel(nome, edicao, serie):
+    editora = str(edicao.get("editora") or serie.get("editora") or "").lower()
+    if nome == "Panini":
+        return "panini" in editora
+    return True
+
+
 def enriquecer(args):
     pasta = Path(args.pasta)
     if args.entrada:
@@ -139,6 +146,8 @@ def enriquecer(args):
         busca = consulta(edicao, serie)
         busca_loja = edicao.get("tituloChamada") or serie.get("titulo") or busca
         for nome, (dominio, modelo_busca) in FONTES.items():
+            if not fonte_aplicavel(nome, edicao, serie):
+                continue
             print(
                 f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
                 f"{edicao.get('numero')}: consultando {nome}",
