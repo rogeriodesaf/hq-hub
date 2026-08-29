@@ -42,7 +42,10 @@ def limpar(texto):
 
 def tokens(texto):
     base = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode().lower()
-    return {item for item in re.findall(r"[a-z0-9]+", base) if len(item) >= 3 and item not in {"panini", "unica"}}
+    return {
+        item for item in re.findall(r"[a-z0-9]+", base)
+        if (len(item) >= 3 or item.isdigit()) and item not in {"panini", "unica"}
+    }
 
 
 def resultados_bing(consulta, dominio):
@@ -125,13 +128,13 @@ def fonte_aplicavel(nome, edicao, serie):
     return True
 
 
-def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca):
+def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas):
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
         capa = extrair_capa(resultado["url"])
-        if capa:
+        if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
     return nome, None, None, None
 
@@ -155,17 +158,23 @@ def enriquecer(args):
     relatorio, avisos = [], list(dados.get("avisos") or [])
     encontradas = 0
     mantidas = 0
+    capas_usadas = set()
 
     for indice, edicao in enumerate(dados.get("edicoes", []), 1):
         capa_atual = str(edicao.get("urlCapa") or "").strip()
         capa_do_guia = "guiadosquadrinhos.com" in capa_atual.lower()
         if capa_atual and not capa_do_guia and not args.substituir:
             mantidas += 1
+            capas_usadas.add(capa_atual)
             relatorio.append({"numero": edicao.get("numero"), "status": "mantida", "url": edicao["urlCapa"]})
             continue
         item = {"numero": edicao.get("numero"), "status": "nao_encontrada", "fontesConsultadas": []}
         busca = consulta(edicao, serie)
-        busca_loja = edicao.get("tituloChamada") or serie.get("titulo") or busca
+        titulo_busca = edicao.get("tituloChamada") or serie.get("titulo") or busca
+        numero_busca = str(edicao.get("numero") or "").strip()
+        busca_loja = titulo_busca
+        if numero_busca and numero_busca.upper() not in {"UNICA", "ÚNICA"}:
+            busca_loja = f"{titulo_busca} volume {numero_busca}"
         fontes = [
             (nome, dominio, modelo_busca)
             for nome, (dominio, modelo_busca) in FONTES.items()
@@ -184,7 +193,7 @@ def enriquecer(args):
         respostas = {}
         with ThreadPoolExecutor(max_workers=min(6, max(1, len(fontes)))) as executor:
             tarefas = {
-                executor.submit(buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca): nome
+                executor.submit(buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca, capas_usadas): nome
                 for nome, dominio, modelo_busca in fontes
             }
             for tarefa in as_completed(tarefas):
@@ -198,6 +207,7 @@ def enriquecer(args):
             if resposta and resposta[1]:
                 _, capa, url_produto, _ = resposta
                 edicao["urlCapa"] = capa
+                capas_usadas.add(capa)
                 encontradas += 1
                 item.update({"status": "encontrada", "fonte": nome, "url": capa,
                              "urlProduto": url_produto, "confianca": "media"})
