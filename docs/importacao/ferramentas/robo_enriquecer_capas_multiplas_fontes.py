@@ -264,7 +264,12 @@ def enriquecer(args):
             continue
         item = {"numero": edicao.get("numero"), "status": "nao_encontrada", "fontesConsultadas": []}
         busca = consulta(edicao, serie)
-        titulo_busca = edicao.get("tituloChamada") or serie.get("titulo") or busca
+        # As lojas catalogam os volumes pelo nome da serie, enquanto o Guia
+        # costuma preencher tituloChamada com o subtitulo de cada volume. Usar
+        # o subtitulo como termo principal (por exemplo, "Pecados Originais
+        # volume 2") elimina resultados que aparecem para "Gideon Falls
+        # volume 2".
+        titulo_busca = serie.get("titulo") or edicao.get("tituloChamada") or busca
         numero_busca = str(edicao.get("numero") or "").strip()
         busca_loja = titulo_busca
         if numero_busca and numero_busca.upper() not in {"UNICA", "ÚNICA"}:
