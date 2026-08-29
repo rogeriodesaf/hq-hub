@@ -188,7 +188,10 @@ def fonte_aplicavel(nome, edicao, serie):
         "NFKD", str(edicao.get("editora") or serie.get("editora") or "")
     ).encode("ascii", "ignore").decode().lower()
     if nome == "Panini":
-        return "panini" in editora
+        # A Panini tambem comercializa e republica obras cujo cadastro do
+        # Guia aponta outra editora. Consulte-a sempre e deixe a validacao de
+        # serie/volume rejeitar produtos incompatíveis.
+        return True
     if nome == "Pipoca & Nanquim":
         return "pipoca" in editora and "nanquim" in editora
     if nome in {"Mythos", "Loja Mythos"}:
