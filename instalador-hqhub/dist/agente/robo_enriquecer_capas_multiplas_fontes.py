@@ -8,17 +8,18 @@ registrados em origem.capasAutomaticas para revisão humana.
 import argparse
 import json
 import re
+import unicodedata
 from html import unescape
 from pathlib import Path
 from time import sleep
-from urllib.parse import quote, unquote, urljoin
+from urllib.parse import quote, urljoin, urlparse
 from urllib.request import Request, urlopen
 
 FONTES = {
-    "Panini": "panini.com.br",
-    "Rika": "rika.com.br",
-    "Comix": "comix.com.br",
-    "Amazon": "amazon.com.br",
+    "Panini": ("panini.com.br", "https://panini.com.br/catalogsearch/result/?q={}"),
+    "Rika": ("rika.com.br", "https://www.rika.com.br/{}?_q={}&map=ft"),
+    "Comix": ("comix.com.br", "https://www.comix.com.br/catalogsearch/result/?q={}"),
+    "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 
 
@@ -32,6 +33,11 @@ def limpar(texto):
     return re.sub(r"\s+", " ", unescape(texto or "")).strip()
 
 
+def tokens(texto):
+    base = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode().lower()
+    return {item for item in re.findall(r"[a-z0-9]+", base) if len(item) >= 3 and item not in {"panini", "unica"}}
+
+
 def resultados_bing(consulta, dominio):
     html = baixar("https://www.bing.com/search?q=" + quote(f"site:{dominio} {consulta}"))
     encontrados = []
@@ -41,6 +47,37 @@ def resultados_bing(consulta, dominio):
         if link:
             encontrados.append({"url": unescape(link.group(1)), "titulo": limpar(titulo.group(1)) if titulo else ""})
     return encontrados[:3]
+
+
+def resultados_loja(consulta, dominio, modelo_busca):
+    termo = re.sub(r'["“”]', "", consulta)
+    codificado = quote(termo)
+    url_busca = modelo_busca.format(codificado, codificado)
+    html = baixar(url_busca)
+    candidatos = []
+    termos = tokens(termo)
+    for href in re.findall(r'href=["\']([^"\']+)', html, re.I):
+        url = urljoin(url_busca, unescape(href))
+        host = (urlparse(url).hostname or "").lower()
+        rota = (urlparse(url).path or "").lower()
+        if dominio not in host:
+            continue
+        if any(trecho in rota for trecho in (
+            "/catalogsearch/", "/search", "/customer/", "/wishlist/",
+            "/static/", "/media/", "/checkout/", "/account/", "/sales/",
+            "/catalog/category/", "/assinatura", "/clubepanini/",
+        )):
+            continue
+        if re.search(r"\.(?:js|css|png|jpe?g|webp|svg|woff2?)(?:$|\?)", rota):
+            continue
+        if dominio == "amazon.com.br" and "/dp/" not in rota and "/gp/product/" not in rota:
+            continue
+        if rota in {"", "/"}:
+            continue
+        if url not in candidatos:
+            candidatos.append(url)
+    candidatos.sort(key=lambda url: len(termos & tokens(urlparse(url).path)), reverse=True)
+    return [{"url": url, "titulo": ""} for url in candidatos[:8]]
 
 
 def extrair_capa(url):
@@ -84,17 +121,25 @@ def enriquecer(args):
     serie = dados.get("serieBrasileira", {})
     relatorio, avisos = [], list(dados.get("avisos") or [])
     encontradas = 0
+    mantidas = 0
 
     for indice, edicao in enumerate(dados.get("edicoes", []), 1):
-        if edicao.get("urlCapa") and not args.substituir:
+        capa_atual = str(edicao.get("urlCapa") or "").strip()
+        capa_do_guia = "guiadosquadrinhos.com" in capa_atual.lower()
+        if capa_atual and not capa_do_guia and not args.substituir:
+            mantidas += 1
             relatorio.append({"numero": edicao.get("numero"), "status": "mantida", "url": edicao["urlCapa"]})
             continue
         item = {"numero": edicao.get("numero"), "status": "nao_encontrada", "fontesConsultadas": []}
         busca = consulta(edicao, serie)
-        for nome, dominio in FONTES.items():
+        busca_loja = edicao.get("tituloChamada") or serie.get("titulo") or busca
+        for nome, (dominio, modelo_busca) in FONTES.items():
             item["fontesConsultadas"].append(nome)
             try:
-                for resultado in resultados_bing(busca, dominio):
+                resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+                if not resultados:
+                    resultados = resultados_bing(busca, dominio)
+                for resultado in resultados:
                     capa = extrair_capa(resultado["url"])
                     if capa:
                         edicao["urlCapa"] = capa
@@ -116,7 +161,8 @@ def enriquecer(args):
     dados.setdefault("origem", {})["capasAutomaticas"] = {
         "fontes": list(FONTES), "resultados": relatorio,
         "capasEncontradas": encontradas,
-        "capasNaoEncontradas": len(dados.get("edicoes", [])) - encontradas,
+        "capasMantidas": mantidas,
+        "capasNaoEncontradas": len(dados.get("edicoes", [])) - encontradas - mantidas,
     }
     saida = Path(args.saida) if args.saida else entrada.with_name(f"{entrada.stem}-com-capas.json")
     saida.parent.mkdir(parents=True, exist_ok=True)
