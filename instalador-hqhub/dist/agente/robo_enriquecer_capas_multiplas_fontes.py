@@ -134,6 +134,11 @@ def enriquecer(args):
         busca = consulta(edicao, serie)
         busca_loja = edicao.get("tituloChamada") or serie.get("titulo") or busca
         for nome, (dominio, modelo_busca) in FONTES.items():
+            print(
+                f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
+                f"{edicao.get('numero')}: consultando {nome}",
+                flush=True,
+            )
             item["fontesConsultadas"].append(nome)
             try:
                 resultados = resultados_loja(busca_loja, dominio, modelo_busca)

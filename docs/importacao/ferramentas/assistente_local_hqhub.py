@@ -210,6 +210,13 @@ def atualizar_por_log(coleta, linha):
             coleta["mensagem"] = linha
         elif "Arquivo gerado:" in linha:
             coleta["mensagem"] = "JSON gerado. Preparando a devolução ao HQ-HUB..."
+        else:
+            capa = re.search(r"\[CAPA\s+(\d+)/(\d+)\]\s+([^:]+):\s+consultando\s+(.+)", linha, re.IGNORECASE)
+            if capa:
+                coleta["mensagem"] = (
+                    f"Buscando capas: edição {capa.group(1)} de {capa.group(2)} "
+                    f"(número {capa.group(3)}) — {capa.group(4)}."
+                )
 
 
 def executar_coleta(coleta, entrada):

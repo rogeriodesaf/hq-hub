@@ -1839,6 +1839,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       this.jsonTexto = JSON.stringify(coleta.resultado, null, 2);
       this.nomeArquivo.set('rascunho-gerado-pelo-assistente-local.json');
       this.mensagem.set('JSON recebido do Chrome. Revise o conteúdo e clique em “Importar JSON” quando estiver pronto.');
+    } else if (coleta.mensagem.toLowerCase().startsWith('buscando capas:')) {
+      this.mensagem.set(coleta.mensagem);
     } else if (
       coleta.mensagem.toLowerCase().includes('procurando capas')
       || coleta.logs.some((linha) => linha.includes('Iniciando busca automática de capas'))
