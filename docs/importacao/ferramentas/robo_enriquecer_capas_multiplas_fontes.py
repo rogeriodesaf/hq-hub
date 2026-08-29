@@ -48,6 +48,21 @@ def tokens(texto):
     }
 
 
+def slug(texto):
+    base = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode().lower()
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", base)).strip("-")
+
+
+def produto_compativel_com_numero(url, numero, exigir_volume=False):
+    numero = str(numero or "").strip()
+    if not numero.isdigit():
+        return True
+    volumes = re.findall(r"(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)", urlparse(url).path.lower())
+    if volumes:
+        return int(numero) in {int(volume) for volume in volumes}
+    return not exigir_volume
+
+
 def resultados_bing(consulta, dominio):
     html = baixar("https://www.bing.com/search?q=" + quote(f"site:{dominio} {consulta}"))
     encontrados = []
@@ -128,11 +143,18 @@ def fonte_aplicavel(nome, edicao, serie):
     return True
 
 
-def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas):
+def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, titulo, numero):
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if nome == "Panini" and str(numero or "").isdigit():
+        url_direta = f"https://panini.com.br/{slug(titulo)}-vol-{int(numero)}"
+        resultados.insert(0, {"url": url_direta, "titulo": ""})
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
+        if not produto_compativel_com_numero(
+            resultado["url"], numero, exigir_volume=nome == "Panini"
+        ):
+            continue
         capa = extrair_capa(resultado["url"])
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
@@ -175,13 +197,39 @@ def enriquecer(args):
         busca_loja = titulo_busca
         if numero_busca and numero_busca.upper() not in {"UNICA", "ÚNICA"}:
             busca_loja = f"{titulo_busca} volume {numero_busca}"
+        panini_direta_falhou = False
+        if fonte_aplicavel("Panini", edicao, serie) and numero_busca.isdigit():
+            url_direta = f"https://panini.com.br/{slug(titulo_busca)}-vol-{int(numero_busca)}"
+            print(
+                f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
+                f"{edicao.get('numero')}: consultando Panini",
+                flush=True,
+            )
+            item["fontesConsultadas"].append("Panini")
+            try:
+                capa_direta = extrair_capa(url_direta)
+            except Exception:
+                capa_direta = None
+            if capa_direta and capa_direta not in capas_usadas:
+                edicao["urlCapa"] = capa_direta
+                capas_usadas.add(capa_direta)
+                encontradas += 1
+                item.update({"status": "encontrada", "fonte": "Panini", "url": capa_direta,
+                             "urlProduto": url_direta, "confianca": "alta"})
+                relatorio.append(item)
+                print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: encontrada")
+                sleep(args.intervalo_segundos)
+                continue
+            panini_direta_falhou = True
         fontes = [
             (nome, dominio, modelo_busca)
             for nome, (dominio, modelo_busca) in FONTES.items()
             if fonte_aplicavel(nome, edicao, serie)
         ]
         oficiais = [fonte for fonte in fontes if fonte[0] in FONTES_OFICIAIS]
-        if oficiais:
+        if panini_direta_falhou:
+            fontes = [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
+        elif oficiais:
             fontes = oficiais
         for nome, _, _ in fontes:
             print(
@@ -193,7 +241,10 @@ def enriquecer(args):
         respostas = {}
         with ThreadPoolExecutor(max_workers=min(6, max(1, len(fontes)))) as executor:
             tarefas = {
-                executor.submit(buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca, capas_usadas): nome
+                executor.submit(
+                    buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca,
+                    capas_usadas, titulo_busca, numero_busca
+                ): nome
                 for nome, dominio, modelo_busca in fontes
             }
             for tarefa in as_completed(tarefas):
