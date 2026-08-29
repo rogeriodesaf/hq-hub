@@ -296,7 +296,7 @@ def executar_coleta(coleta, entrada):
             linha = linha.rstrip()
             if linha:
                 atualizar_por_log(coleta, linha)
-        enriquecimento.wait(timeout=900)
+        enriquecimento.wait(timeout=1800)
         if enriquecimento.returncode == 0 and saida_com_capas.exists():
             resultado = json.loads(saida_com_capas.read_text(encoding="utf-8"))
             with trava:

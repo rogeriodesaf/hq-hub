@@ -6,6 +6,7 @@ existente, salvo quando --substituir é informado. Os resultados ficam
 registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import re
 import unicodedata
@@ -26,11 +27,12 @@ FONTES = {
     "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
+FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
 
 
 def baixar(url):
     req = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB local cover finder"})
-    with urlopen(req, timeout=25) as resposta:
+    with urlopen(req, timeout=8) as resposta:
         return resposta.read().decode("utf-8", errors="replace")
 
 
@@ -109,10 +111,29 @@ def consulta(edicao, serie):
 
 
 def fonte_aplicavel(nome, edicao, serie):
-    editora = str(edicao.get("editora") or serie.get("editora") or "").lower()
+    editora = unicodedata.normalize(
+        "NFKD", str(edicao.get("editora") or serie.get("editora") or "")
+    ).encode("ascii", "ignore").decode().lower()
     if nome == "Panini":
         return "panini" in editora
+    if nome == "Pipoca & Nanquim":
+        return "pipoca" in editora and "nanquim" in editora
+    if nome in {"Mythos", "Loja Mythos"}:
+        return "mythos" in editora
+    if nome == "Devir":
+        return "devir" in editora
     return True
+
+
+def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca):
+    resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if not resultados:
+        resultados = resultados_bing(busca, dominio)
+    for resultado in resultados:
+        capa = extrair_capa(resultado["url"])
+        if capa:
+            return nome, capa, resultado["url"], None
+    return nome, None, None, None
 
 
 def enriquecer(args):
@@ -145,32 +166,43 @@ def enriquecer(args):
         item = {"numero": edicao.get("numero"), "status": "nao_encontrada", "fontesConsultadas": []}
         busca = consulta(edicao, serie)
         busca_loja = edicao.get("tituloChamada") or serie.get("titulo") or busca
-        for nome, (dominio, modelo_busca) in FONTES.items():
-            if not fonte_aplicavel(nome, edicao, serie):
-                continue
+        fontes = [
+            (nome, dominio, modelo_busca)
+            for nome, (dominio, modelo_busca) in FONTES.items()
+            if fonte_aplicavel(nome, edicao, serie)
+        ]
+        oficiais = [fonte for fonte in fontes if fonte[0] in FONTES_OFICIAIS]
+        if oficiais:
+            fontes = oficiais
+        for nome, _, _ in fontes:
             print(
                 f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
                 f"{edicao.get('numero')}: consultando {nome}",
                 flush=True,
             )
             item["fontesConsultadas"].append(nome)
-            try:
-                resultados = resultados_loja(busca_loja, dominio, modelo_busca)
-                if not resultados:
-                    resultados = resultados_bing(busca, dominio)
-                for resultado in resultados:
-                    capa = extrair_capa(resultado["url"])
-                    if capa:
-                        edicao["urlCapa"] = capa
-                        encontradas += 1
-                        item.update({"status": "encontrada", "fonte": nome, "url": capa,
-                                     "urlProduto": resultado["url"], "confianca": "media"})
-                        break
-                if item["status"] == "encontrada":
-                    break
-            except Exception as erro:
-                item.setdefault("erros", []).append(f"{nome}: {erro}")
-            sleep(args.intervalo_segundos)
+        respostas = {}
+        with ThreadPoolExecutor(max_workers=min(6, max(1, len(fontes)))) as executor:
+            tarefas = {
+                executor.submit(buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca): nome
+                for nome, dominio, modelo_busca in fontes
+            }
+            for tarefa in as_completed(tarefas):
+                nome = tarefas[tarefa]
+                try:
+                    respostas[nome] = tarefa.result()
+                except Exception as erro:
+                    item.setdefault("erros", []).append(f"{nome}: {erro}")
+        for nome, _, _ in fontes:
+            resposta = respostas.get(nome)
+            if resposta and resposta[1]:
+                _, capa, url_produto, _ = resposta
+                edicao["urlCapa"] = capa
+                encontradas += 1
+                item.update({"status": "encontrada", "fonte": nome, "url": capa,
+                             "urlProduto": url_produto, "confianca": "media"})
+                break
+        sleep(args.intervalo_segundos)
         if item["status"] != "encontrada":
             avisos.append(f"Capa não encontrada para edição {edicao.get('numero')}")
         relatorio.append(item)
