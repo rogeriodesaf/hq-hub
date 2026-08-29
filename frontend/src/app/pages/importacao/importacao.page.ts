@@ -1845,7 +1845,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       coleta.mensagem.toLowerCase().includes('procurando capas')
       || coleta.logs.some((linha) => linha.includes('Iniciando busca automática de capas'))
     ) {
-      this.mensagem.set('Iniciando busca automática de capas em Panini, Rika, Comix e Amazon. Aguarde a conclusão antes de importar.');
+      this.mensagem.set('Iniciando busca automática de capas em editoras e lojas especializadas. Aguarde a conclusão antes de importar.');
     }
     this.agendarConsultaColetaLocal();
   }

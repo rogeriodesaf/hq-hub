@@ -285,7 +285,7 @@ def executar_coleta(coleta, entrada):
         saida_com_capas = pasta / "resultado-com-capas.json"
         with trava:
             coleta["mensagem"] = "JSON gerado. Procurando capas em fontes públicas..."
-            coleta["logs"].append("Iniciando busca automática de capas em Panini, Rika, Comix e Amazon.")
+            coleta["logs"].append("Iniciando busca automática de capas em editoras e lojas especializadas.")
         enriquecimento = subprocess.Popen(
             [sys.executable, "-u", str(COLETOR_CAPAS_AUTOMATICAS),
              "--entrada", str(saida), "--saida", str(saida_com_capas)],

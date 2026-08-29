@@ -17,8 +17,13 @@ from urllib.request import Request, urlopen
 
 FONTES = {
     "Panini": ("panini.com.br", "https://panini.com.br/catalogsearch/result/?q={}"),
+    "Pipoca & Nanquim": ("pipocaenanquim.com.br", "https://pipocaenanquim.com.br/catalogsearch/result/?q={}"),
+    "Mythos": ("mythoseditora.com.br", "https://www.mythoseditora.com.br/buscar?q={}"),
+    "Loja Mythos": ("lojamythos.com.br", "https://www.lojamythos.com.br/buscar?q={}"),
+    "Devir": ("lojaeditora.devir.com.br", "https://lojaeditora.devir.com.br/index.php?route=product/search&search={}"),
     "Rika": ("rika.com.br", "https://www.rika.com.br/{}?_q={}&map=ft"),
     "Comix": ("comix.com.br", "https://www.comix.com.br/catalogsearch/result/?q={}"),
+    "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 
