@@ -14,6 +14,7 @@ from html import unescape
 from pathlib import Path
 from time import sleep
 from urllib.parse import quote, urljoin, urlparse
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 FONTES = {
@@ -33,8 +34,20 @@ FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir
 
 def baixar(url):
     req = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB local cover finder"})
-    with urlopen(req, timeout=8) as resposta:
-        return resposta.read().decode("utf-8", errors="replace")
+    ultimo_erro = None
+    for tentativa in range(2):
+        try:
+            with urlopen(req, timeout=12) as resposta:
+                return resposta.read().decode("utf-8", errors="replace")
+        except HTTPError as erro:
+            if erro.code < 500:
+                raise
+            ultimo_erro = erro
+        except Exception as erro:
+            ultimo_erro = erro
+        if tentativa == 0:
+            sleep(0.5)
+    raise ultimo_erro
 
 
 def limpar(texto):
@@ -224,6 +237,14 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if str(numero or "").strip() == "1":
+        # Algumas lojas retornam conjuntos diferentes para "volume 1" e
+        # apenas "1". Combine as duas consultas para reduzir falsos vazios.
+        alternativos = resultados_loja(f"{titulo} 1", dominio, modelo_busca)
+        urls_encontradas = {item.get("url") for item in resultados}
+        resultados.extend(
+            item for item in alternativos if item.get("url") not in urls_encontradas
+        )
     if nome == "Amazon":
         resultados.sort(key=pontuacao_amazon, reverse=True)
     if nome == "Panini" and str(numero or "").isdigit():

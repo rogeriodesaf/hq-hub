@@ -24,7 +24,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-VERSAO = "1.3.3"
+VERSAO = "1.3.4"
 MAXIMO_ROBOS_TELEGRAM = 2
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
