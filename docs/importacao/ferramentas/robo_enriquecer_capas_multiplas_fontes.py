@@ -250,6 +250,13 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Panini" and str(numero or "").isdigit():
         url_direta = f"https://panini.com.br/{slug(titulo)}-vol-{int(numero)}"
         resultados.insert(0, {"url": url_direta, "titulo": ""})
+        if int(numero) == 1:
+            # Especiais e antologias de edição única frequentemente são
+            # cadastrados como nº 1 no Guia, mas não usam "vol-1" na Panini.
+            resultados.insert(1, {
+                "url": f"https://panini.com.br/{slug(titulo)}",
+                "titulo": "",
+            })
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
@@ -258,7 +265,8 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         ):
             continue
         if not produto_compativel_com_numero(
-            resultado["url"], numero, exigir_volume=nome == "Panini"
+            resultado["url"], numero,
+            exigir_volume=nome == "Panini" and str(numero or "").strip() != "1",
         ):
             continue
         try:
