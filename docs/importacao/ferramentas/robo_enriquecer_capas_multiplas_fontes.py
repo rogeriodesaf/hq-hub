@@ -111,6 +111,16 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     return minimo > 0 and len(termos_serie & termos_produto) >= minimo
 
 
+def produto_multiplo(texto):
+    normalizado = unicodedata.normalize(
+        "NFKD", texto or ""
+    ).encode("ascii", "ignore").decode().lower()
+    return bool(
+        re.search(r"\b(?:kit|combo|box)\b", normalizado)
+        or re.search(r"\bvol(?:ume)?s\.?\s*\d+", normalizado)
+    )
+
+
 def resultados_bing(consulta, dominio):
     html = baixar("https://www.bing.com/search?q=" + quote(f"site:{dominio} {consulta}"))
     encontrados = []
@@ -237,6 +247,16 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if nome == "Panini":
+        # Consulte primeiro o campo de pesquisa com o título exato. Isso
+        # encontra especiais como /thor-antologia, que não usam sufixo de
+        # volume apesar de aparecerem como nº 1 no Guia.
+        exatos = resultados_loja(titulo, dominio, modelo_busca)
+        resultados = exatos + [
+            item for item in resultados if item.get("url") not in {
+                exato.get("url") for exato in exatos
+            }
+        ]
     if str(numero or "").strip() == "1":
         # Algumas lojas retornam conjuntos diferentes para "volume 1" e
         # apenas "1". Combine as duas consultas para reduzir falsos vazios.
@@ -249,17 +269,19 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         resultados.sort(key=pontuacao_amazon, reverse=True)
     if nome == "Panini" and str(numero or "").isdigit():
         url_direta = f"https://panini.com.br/{slug(titulo)}-vol-{int(numero)}"
-        resultados.insert(0, {"url": url_direta, "titulo": ""})
+        resultados.append({"url": url_direta, "titulo": ""})
         if int(numero) == 1:
             # Especiais e antologias de edição única frequentemente são
             # cadastrados como nº 1 no Guia, mas não usam "vol-1" na Panini.
-            resultados.insert(1, {
+            resultados.append({
                 "url": f"https://panini.com.br/{slug(titulo)}",
                 "titulo": "",
             })
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
+        if produto_multiplo(f"{resultado.get('titulo') or ''} {resultado['url']}"):
+            continue
         if nome == "Amazon" and not titulo_compativel_com_numero(
             resultado.get("titulo"), numero, titulo
         ):
@@ -275,6 +297,8 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             else:
                 capa, titulo_produto = extrair_produto(resultado["url"])
         except Exception:
+            continue
+        if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
             tem_numero_url = bool(re.findall(
@@ -333,28 +357,12 @@ def enriquecer(args):
             busca_loja = f"{titulo_busca} volume {numero_busca}"
         panini_direta_falhou = False
         if fonte_aplicavel("Panini", edicao, serie) and numero_busca.isdigit():
-            url_direta = f"https://panini.com.br/{slug(titulo_busca)}-vol-{int(numero_busca)}"
             print(
                 f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
                 f"{edicao.get('numero')}: consultando Panini",
                 flush=True,
             )
             item["fontesConsultadas"].append("Panini")
-            try:
-                capa_direta = extrair_capa(url_direta)
-            except Exception:
-                capa_direta = None
-            if capa_direta and capa_direta not in capas_usadas:
-                edicao["urlCapa"] = capa_direta
-                capas_usadas.add(capa_direta)
-                encontradas += 1
-                item.update({"status": "encontrada", "fonte": "Panini", "url": capa_direta,
-                             "urlProduto": url_direta, "confianca": "alta"})
-                relatorio.append(item)
-                print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: encontrada")
-                sleep(args.intervalo_segundos)
-                continue
-            panini_direta_falhou = True
             try:
                 resultado_panini = buscar_fonte(
                     "Panini", "panini.com.br",
@@ -375,6 +383,7 @@ def enriquecer(args):
                 print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: encontrada")
                 sleep(args.intervalo_segundos)
                 continue
+            panini_direta_falhou = True
         fontes = [
             (nome, dominio, modelo_busca)
             for nome, (dominio, modelo_busca) in FONTES.items()
