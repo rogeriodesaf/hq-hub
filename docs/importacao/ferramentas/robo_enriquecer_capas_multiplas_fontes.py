@@ -78,13 +78,23 @@ def produto_compativel_com_numero(url, numero, exigir_volume=False):
     return not exigir_volume
 
 
-def titulo_compativel_com_numero(titulo, numero):
+def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     numero = str(numero or "").strip()
     if not numero.isdigit():
         return True
     normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
     encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?)\s*0*(\d+)", normalizado)
-    return bool(encontrados) and int(numero) in {int(item) for item in encontrados}
+    if encontrados:
+        return int(numero) in {int(item) for item in encontrados}
+    if int(numero) != 1 or not titulo_serie:
+        return False
+    # O primeiro volume muitas vezes e publicado sem "volume 1" no titulo.
+    # Nesse caso, aceite-o somente quando o nome da serie continuar presente.
+    ignorados = {"vol", "volume", "edicao", "serie"}
+    termos_serie = tokens(titulo_serie) - ignorados
+    termos_produto = tokens(titulo) - ignorados
+    minimo = min(2, len(termos_serie))
+    return minimo > 0 and len(termos_serie & termos_produto) >= minimo
 
 
 def resultados_bing(consulta, dominio):
@@ -208,7 +218,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
-        if nome == "Amazon" and not titulo_compativel_com_numero(resultado.get("titulo"), numero):
+        if nome == "Amazon" and not titulo_compativel_com_numero(
+            resultado.get("titulo"), numero, titulo
+        ):
             continue
         if not produto_compativel_com_numero(
             resultado["url"], numero, exigir_volume=nome == "Panini"
@@ -226,7 +238,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
                 r"(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)",
                 urlparse(resultado["url"]).path.lower(),
             ))
-            if not tem_numero_url and not titulo_compativel_com_numero(titulo_produto, numero):
+            if not tem_numero_url and not titulo_compativel_com_numero(
+                titulo_produto, numero, titulo
+            ):
                 continue
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
