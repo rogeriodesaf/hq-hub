@@ -25,6 +25,7 @@ FONTES = {
     "Rika": ("rika.com.br", "https://www.rika.com.br/{}?_q={}&map=ft"),
     "Comix": ("comix.com.br", "https://www.comix.com.br/catalogsearch/result/?q={}"),
     "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
+    "Texas Ranger": ("texasranger.com.br", "https://texasranger.com.br/search/?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -83,7 +84,7 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     if not numero.isdigit():
         return True
     normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
-    encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?)\s*0*(\d+)", normalizado)
+    encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?|#)\s*0*(\d+)", normalizado)
     if encontrados:
         return int(numero) in {int(item) for item in encontrados}
     if int(numero) != 1 or not titulo_serie:
@@ -140,6 +141,10 @@ def resultados_loja(consulta, dominio, modelo_busca):
         rota = (urlparse(url).path or "").lower()
         if dominio not in host:
             continue
+        if dominio == "texasranger.com.br" and (
+            not rota.startswith("/produtos/") or rota == "/produtos/"
+        ):
+            continue
         if any(trecho in rota for trecho in (
             "/catalogsearch/", "/search", "/customer/", "/wishlist/",
             "/static/", "/media/", "/checkout/", "/account/", "/sales/",
@@ -177,6 +182,8 @@ def extrair_produto(url):
         achado = re.search(padrao, html, re.I)
         if achado:
             imagem = urljoin(url, unescape(achado.group(1)))
+            if imagem.startswith("http://"):
+                imagem = "https://" + imagem[len("http://"):]
             if re.match(r"https?://", imagem):
                 return imagem, titulo
     return None, titulo
@@ -205,10 +212,17 @@ def fonte_aplicavel(nome, edicao, serie):
         return "mythos" in editora
     if nome == "Devir":
         return "devir" in editora
+    if nome == "Texas Ranger":
+        licenciador = unicodedata.normalize(
+            "NFKD", str(edicao.get("licenciador") or serie.get("licenciador") or "")
+        ).encode("ascii", "ignore").decode().lower()
+        return "bonelli" in licenciador
     return True
 
 
 def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, titulo, numero):
+    if nome == "Texas Ranger" and str(numero or "").isdigit():
+        busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
     if nome == "Amazon":
         resultados.sort(key=pontuacao_amazon, reverse=True)
