@@ -20,6 +20,8 @@ import {
   LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
+  PublicacaoBrasileiraResumo,
+  PublicacoesBrasileirasEdicaoOriginal,
   ResultadoBackfillComicVine,
   ResultadoPesquisaCatalogo,
   Serie,
@@ -367,6 +369,40 @@ import {
         <svg lucideArrowLeft size="18" aria-hidden="true"></svg>
         <span>Voltar às coleções</span>
       </button>
+    }
+
+    @if (originalPublicacoesAberta()) {
+      <section class="detalhe-edicao modal-publicacoes-brasil" role="dialog" aria-modal="true" aria-labelledby="tituloPublicacoesBrasil" (keydown)="navegarTecladoModalPublicacoes($event)">
+        <div class="detalhe-fundo" (click)="fecharPublicacoesBrasil()"></div>
+        <article class="detalhe-painel publicacoes-brasil-painel" #modalPublicacoesBrasil tabindex="-1">
+          <button class="fechar-detalhe" type="button" (click)="fecharPublicacoesBrasil()" aria-label="Fechar publicações no Brasil">×</button>
+          <header class="publicacoes-brasil-cabecalho">
+            <p class="rotulo">🇧🇷 Publicações no Brasil</p>
+            <h2 id="tituloPublicacoesBrasil">{{ tituloEdicao(originalPublicacoesAberta()!) }}</h2>
+            <p>{{ originalPublicacoesAberta()?.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(originalPublicacoesAberta()) as ano"> · {{ ano }}</span></p>
+          </header>
+          @if (carregandoPublicacoesBrasil()) {
+            <section class="estado-carregando publicacoes-brasil-estado" aria-live="polite"><span></span><p>Carregando publicações brasileiras...</p></section>
+          } @else if (erroPublicacoesBrasil()) {
+            <section class="publicacoes-brasil-estado" role="alert"><p>Não foi possível carregar as outras publicações agora.</p><button class="botao secundario compacto" type="button" (click)="tentarNovamentePublicacoesBrasil()">Tentar novamente</button></section>
+          } @else if (publicacoesBrasil(); as resultado) {
+            <p class="resumo-publicacoes-brasil">Esta edição/história foi publicada no Brasil em {{ resultado.totalPublicacoes }} {{ resultado.totalPublicacoes === 1 ? 'edição' : 'edições' }}.</p>
+            <div class="lista-publicacoes-brasil">
+              @for (publicacao of resultado.publicacoes; track publicacao.id) {
+                <article class="publicacao-brasil-card" [class.edicao-atual]="publicacao.id === edicaoDetalhe()?.id">
+                  <button class="publicacao-brasil-conteudo" type="button" (click)="abrirPublicacaoBrasileira(publicacao)" [disabled]="publicacao.id === edicaoDetalhe()?.id" [attr.aria-label]="publicacao.id === edicaoDetalhe()?.id ? 'Edição atual: ' + publicacao.titulo : 'Abrir ' + publicacao.titulo">
+                    <img [src]="publicacao.capa || capaReserva" [alt]="'Capa de ' + publicacao.titulo + ' #' + publicacao.numero" loading="lazy" (error)="usarCapaReserva($event)" />
+                    <span class="publicacao-brasil-dados"><strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong><small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>@if (publicacao.colecao && publicacao.colecao !== publicacao.titulo) { <small>{{ publicacao.colecao }}</small> }<span class="publicacao-brasil-selos">@if (publicacao.id === edicaoDetalhe()?.id) { <em>✓ Você está nesta edição</em> } @if (publicacao.primeiraPublicacao) { <em>⭐ Primeira publicação no Brasil</em> } @else { <em>Republicação</em> } @if (publicacao.publicacaoCompleta === true) { <em>✓ Publicação completa</em> } @if (publicacao.publicacaoCompleta === false) { <em>◐ Publicação parcial</em> }</span></span>
+                  </button>
+                  @if (publicacao.publicacaoCompleta !== null) { <button class="detalhar-historias-publicacao" type="button" (click)="alternarHistoriasPublicacao(publicacao.id)" [attr.aria-expanded]="publicacaoHistoriasAberta() === publicacao.id">{{ publicacaoHistoriasAberta() === publicacao.id ? 'Ocultar histórias' : 'Ver histórias presentes' }}</button> }
+                  @if (publicacaoHistoriasAberta() === publicacao.id) { <ul class="historias-publicacao-brasil">@for (historia of publicacao.historias; track historia.id) { <li [class.ausente]="!historia.presente">{{ historia.presente ? '✓' : '✕' }} {{ historia.titulo }}</li> }</ul> }
+                  <div class="acao-estante-publicacao">@if (publicacao.naEstante) { <span>✓ Na sua estante</span> } @else { <button type="button" (click)="adicionarPublicacaoBrasileiraNaEstante(publicacao)">+ Adicionar à estante</button> }</div>
+                </article>
+              } @empty { <p class="estado-republicacoes-vazio">Até o momento, não encontramos outras publicações brasileiras desta história no catálogo do HQ-HUB.</p> }
+            </div>
+          }
+        </article>
+      </section>
     }
 
     @if (resultadoParaEstante()) {
@@ -765,6 +801,19 @@ import {
           @if (!carregandoDetalhe() && (publicacoesDetalhe().length || !publicacoesComoOriginal().length)) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
+              @if (publicacoesOriginaisAgrupadas().length) {
+                <section class="publicacoes-originais-edicao" aria-labelledby="tituloPublicacaoOriginal">
+                  <h3 id="tituloPublicacaoOriginal">🌎 Publicação original</h3>
+                  <div class="grade-publicacoes-originais">
+                    @for (grupo of publicacoesOriginaisAgrupadas(); track grupo.edicao.id) {
+                      <article class="publicacao-original-resumo">
+                        <img [src]="grupo.edicao.urlCapa || capaReserva" [alt]="'Capa de ' + tituloEdicao(grupo.edicao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                        <div><h4>{{ tituloEdicao(grupo.edicao) }}</h4><p>{{ grupo.edicao.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(grupo.edicao) as ano"> · {{ ano }}</span></p><small>{{ grupo.quantidadeHistorias }} {{ grupo.quantidadeHistorias === 1 ? 'história relacionada' : 'histórias relacionadas' }}</small><div class="acoes-publicacao-original"><button type="button" (click)="abrirDetalheOriginalAgrupada(grupo.edicao)">Ver edição original →</button><button type="button" (click)="abrirPublicacoesBrasil(grupo.edicao, $event)" [attr.aria-label]="'Ver outras publicações no Brasil de ' + tituloEdicao(grupo.edicao)">🇧🇷 Ver outras publicações no Brasil</button></div></div>
+                      </article>
+                    }
+                  </div>
+                </section>
+              }
               @if (podeEditarCatalogo()) {
                 <section class="painel-formulario vinculo-original-form">
                   <h2>Vincular HQ original</h2>
@@ -1129,6 +1178,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('resultadosCatalogoBloco') private resultadosCatalogoBloco?: ElementRef<HTMLElement>;
   @ViewChild('tituloColecao') private tituloColecao?: ElementRef<HTMLElement>;
   @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
+  @ViewChild('modalPublicacoesBrasil') private modalPublicacoesBrasil?: ElementRef<HTMLElement>;
 
   private readonly api = inject(ApiService);
   private readonly rota = inject(ActivatedRoute);
@@ -1162,6 +1212,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly historiaExpandida = signal<number | null>(null);
   readonly carregandoRepublicacoes = signal<number | null>(null);
   readonly republicacoesPorHistoria = signal<Record<number, PublicacaoHistoria[]>>({});
+  readonly originalPublicacoesAberta = signal<Edicao | null>(null);
+  readonly publicacoesBrasil = signal<PublicacoesBrasileirasEdicaoOriginal | null>(null);
+  readonly carregandoPublicacoesBrasil = signal(false);
+  readonly erroPublicacoesBrasil = signal(false);
+  readonly publicacaoHistoriasAberta = signal<number | null>(null);
   readonly linksDetalhe = signal<LinkEdicao[]>([]);
   readonly capasDetalhe = signal<CapaEdicao[]>([]);
   readonly historiaEmFoco = signal<number | null>(null);
@@ -1228,6 +1283,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private serieAbertaId: number | null = null;
   private historicoSerieAtivo = false;
   private paginaEdicaoPublica = false;
+  private focoAntesDasPublicacoesBrasil: HTMLElement | null = null;
   private estadoResultadosAntesDaSerie: {
     resultados: PaginaResposta<ResultadoPesquisaCatalogo>;
     pagina: number;
@@ -2940,6 +2996,123 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   abrirDetalheOriginal(publicacao: PublicacaoHistoria) {
     this.abrirDetalhePorId(publicacao.edicaoOriginal.id, publicacao.historia.id);
+  }
+
+  publicacoesOriginaisAgrupadas() {
+    const grupos = new Map<number, { edicao: Edicao; historias: Set<number> }>();
+    for (const publicacao of this.publicacoesDetalhe()) {
+      const existente = grupos.get(publicacao.edicaoOriginal.id);
+      if (existente) {
+        existente.historias.add(publicacao.historia.id);
+      } else {
+        grupos.set(publicacao.edicaoOriginal.id, {
+          edicao: publicacao.edicaoOriginal,
+          historias: new Set([publicacao.historia.id]),
+        });
+      }
+    }
+    return [...grupos.values()].map((grupo) => ({
+      edicao: grupo.edicao,
+      quantidadeHistorias: grupo.historias.size,
+    }));
+  }
+
+  anoEdicao(edicao: Edicao | null | undefined) {
+    const data = edicao?.dataPublicacao || edicao?.dataCobertura;
+    return data ? Number(data.slice(0, 4)) : null;
+  }
+
+  abrirDetalheOriginalAgrupada(edicao: Edicao) {
+    this.abrirDetalhePorId(edicao.id);
+  }
+
+  abrirPublicacoesBrasil(edicao: Edicao, evento: Event) {
+    this.focoAntesDasPublicacoesBrasil = evento.currentTarget as HTMLElement;
+    this.originalPublicacoesAberta.set(edicao);
+    this.publicacaoHistoriasAberta.set(null);
+    this.carregarPublicacoesBrasil(edicao.id);
+    setTimeout(() => this.modalPublicacoesBrasil?.nativeElement.focus(), 0);
+  }
+
+  tentarNovamentePublicacoesBrasil() {
+    const original = this.originalPublicacoesAberta();
+    if (original) this.carregarPublicacoesBrasil(original.id);
+  }
+
+  fecharPublicacoesBrasil(restaurarFoco = true) {
+    this.originalPublicacoesAberta.set(null);
+    this.publicacoesBrasil.set(null);
+    this.carregandoPublicacoesBrasil.set(false);
+    this.erroPublicacoesBrasil.set(false);
+    this.publicacaoHistoriasAberta.set(null);
+    if (restaurarFoco) setTimeout(() => this.focoAntesDasPublicacoesBrasil?.focus(), 0);
+  }
+
+  abrirPublicacaoBrasileira(publicacao: PublicacaoBrasileiraResumo) {
+    if (publicacao.id === this.edicaoDetalhe()?.id) return;
+    this.fecharPublicacoesBrasil(false);
+    this.abrirDetalhePorId(publicacao.id);
+  }
+
+  alternarHistoriasPublicacao(edicaoId: number) {
+    this.publicacaoHistoriasAberta.update((atual) => atual === edicaoId ? null : edicaoId);
+  }
+
+  adicionarPublicacaoBrasileiraNaEstante(publicacao: PublicacaoBrasileiraResumo) {
+    this.fecharPublicacoesBrasil(false);
+    this.abrirModalAdicionarNaEstante({
+      id: publicacao.id,
+      idExterno: null,
+      fonte: 'HQ_HUB',
+      titulo: publicacao.titulo,
+      numero: publicacao.numero,
+      nomeVolume: publicacao.colecao,
+      serieVolume: publicacao.volume,
+      urlCapa: publicacao.capa,
+      dataPublicacao: publicacao.ano ? `${publicacao.ano}-01-01` : null,
+      jaCadastrada: true,
+      urlOrigem: null,
+    });
+  }
+
+  navegarTecladoModalPublicacoes(evento: KeyboardEvent) {
+    if (evento.key === 'Escape') {
+      evento.preventDefault();
+      this.fecharPublicacoesBrasil();
+      return;
+    }
+    if (evento.key !== 'Tab') return;
+    const elementos = [...(this.modalPublicacoesBrasil?.nativeElement.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    ) || [])];
+    if (!elementos.length) return;
+    const primeiro = elementos[0];
+    const ultimo = elementos[elementos.length - 1];
+    if (evento.shiftKey && document.activeElement === primeiro) {
+      evento.preventDefault();
+      ultimo.focus();
+    } else if (!evento.shiftKey && document.activeElement === ultimo) {
+      evento.preventDefault();
+      primeiro.focus();
+    }
+  }
+
+  private carregarPublicacoesBrasil(edicaoOriginalId: number) {
+    this.carregandoPublicacoesBrasil.set(true);
+    this.erroPublicacoesBrasil.set(false);
+    this.publicacoesBrasil.set(null);
+    this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId).subscribe({
+      next: (resultado) => {
+        if (this.originalPublicacoesAberta()?.id !== edicaoOriginalId) return;
+        this.publicacoesBrasil.set(resultado);
+        this.carregandoPublicacoesBrasil.set(false);
+      },
+      error: () => {
+        if (this.originalPublicacoesAberta()?.id !== edicaoOriginalId) return;
+        this.carregandoPublicacoesBrasil.set(false);
+        this.erroPublicacoesBrasil.set(true);
+      },
+    });
   }
 
   rotuloFonteEdicao(edicao: Edicao) {

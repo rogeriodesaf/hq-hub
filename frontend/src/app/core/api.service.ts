@@ -51,6 +51,7 @@ import {
   ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
+  PublicacoesBrasileirasEdicaoOriginal,
   ResultadoDeduplicacaoEdicoes,
   ResultadoDeduplicacaoSeries,
   ResultadoPesquisaCatalogo,
@@ -906,6 +907,12 @@ export class ApiService {
 
   listarPublicacoesPorEdicaoOriginal(edicaoId: number) {
     return this.http.get<PublicacaoHistoria[]>(`/api/publicacoes-historias/edicoes-originais/${edicaoId}`);
+  }
+
+  listarPublicacoesBrasileirasDaOriginal(edicaoId: number) {
+    return this.http.get<PublicacoesBrasileirasEdicaoOriginal>(
+      `/api/edicoes-estrangeiras/${edicaoId}/publicacoes-brasileiras`,
+    );
   }
 
   removerPublicacaoHistoria(id: number) {

@@ -4947,6 +4947,190 @@ body.bottom-sheet-aberto {
   }
 }
 
+.publicacoes-originais-edicao {
+  margin: 0 0 1.4rem;
+  padding: 1rem;
+  border: 1px solid var(--cor-borda, #dce3e8);
+  border-radius: 16px;
+  background: var(--cor-superficie-suave, #f7f9fa);
+}
+
+.grade-publicacoes-originais {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.publicacao-original-resumo {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.publicacao-original-resumo > img {
+  width: 76px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.publicacao-original-resumo h4,
+.publicacao-original-resumo p {
+  margin: 0 0 0.3rem;
+}
+
+.acoes-publicacao-original {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.65rem;
+}
+
+.acoes-publicacao-original button,
+.detalhar-historias-publicacao,
+.acao-estante-publicacao button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cor-primaria, #d65e00);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-publicacoes-brasil {
+  z-index: 1200;
+}
+
+.publicacoes-brasil-painel {
+  width: min(680px, calc(100vw - 32px));
+  max-height: min(82vh, 780px);
+  overflow: auto;
+  padding: 1.5rem;
+}
+
+.publicacoes-brasil-cabecalho h2,
+.publicacoes-brasil-cabecalho p,
+.resumo-publicacoes-brasil {
+  margin: 0.25rem 0;
+}
+
+.resumo-publicacoes-brasil {
+  padding: 0.9rem 0;
+}
+
+.publicacoes-brasil-estado {
+  min-height: 180px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.lista-publicacoes-brasil {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.publicacao-brasil-card {
+  overflow: hidden;
+  border: 1px solid var(--cor-borda, #dce3e8);
+  border-radius: 14px;
+  background: var(--cor-superficie, #fff);
+}
+
+.publicacao-brasil-card.edicao-atual {
+  border-color: var(--cor-primaria, #d65e00);
+  box-shadow: 0 0 0 2px rgba(214, 94, 0, 0.12);
+}
+
+.publicacao-brasil-conteudo {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.75rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.publicacao-brasil-conteudo:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.publicacao-brasil-conteudo img {
+  width: 72px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.publicacao-brasil-dados,
+.publicacao-brasil-selos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.publicacao-brasil-selos {
+  align-items: flex-start;
+  margin-top: 0.35rem;
+}
+
+.publicacao-brasil-selos em {
+  padding: 0.16rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(214, 94, 0, 0.1);
+  font-size: 0.76rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.detalhar-historias-publicacao,
+.acao-estante-publicacao {
+  margin: 0 0.75rem 0.65rem;
+}
+
+.historias-publicacao-brasil {
+  margin: 0 0.75rem 0.65rem;
+  padding: 0.65rem 0.85rem;
+  list-style: none;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.historias-publicacao-brasil .ausente {
+  opacity: 0.62;
+}
+
+@media (max-width: 680px) {
+  .publicacoes-brasil-painel {
+    position: fixed;
+    inset: auto 0 0;
+    width: 100%;
+    max-height: 88dvh;
+    margin: 0;
+    border-radius: 22px 22px 0 0;
+    padding: 1.2rem 1rem max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .publicacao-brasil-conteudo {
+    grid-template-columns: 64px 1fr;
+    gap: 0.7rem;
+  }
+
+  .publicacao-brasil-conteudo img {
+    width: 64px;
+  }
+}
+
 @media (max-width: 620px) {
   .app-shell:has(app-catalogo-page) .barra-lateral {
     position: sticky;

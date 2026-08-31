@@ -1,9 +1,13 @@
 package br.com.hqhub.service;
 
 import java.text.Normalizer;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +22,10 @@ import br.com.hqhub.dto.CruzamentoEdicaoRespostaDTO;
 import br.com.hqhub.dto.HistoriaRespostaDTO;
 import br.com.hqhub.dto.ItemHistoriaLoteDTO;
 import br.com.hqhub.dto.PublicacaoHistoriaRespostaDTO;
+import br.com.hqhub.dto.EdicaoOriginalPublicacoesBrasilDTO;
+import br.com.hqhub.dto.HistoriaPublicacaoBrasilDTO;
+import br.com.hqhub.dto.PublicacaoBrasileiraResumoDTO;
+import br.com.hqhub.dto.PublicacoesBrasileirasEdicaoOriginalDTO;
 import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
@@ -33,6 +41,7 @@ import br.com.hqhub.mapper.PublicacaoHistoriaMapper;
 import br.com.hqhub.repository.ConteudoEdicaoRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.HistoriaRepository;
+import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -49,6 +58,8 @@ public class HistoriaService {
     private final ConteudoEdicaoMapper conteudoEdicaoMapper;
     private final PublicacaoHistoriaMapper publicacaoHistoriaMapper;
     private final EdicaoMapper edicaoMapper;
+    private final ItemColecaoRepository itemColecaoRepository;
+    private final UsuarioAutenticadoService usuarioAutenticadoService;
 
     public HistoriaService(
             HistoriaRepository historiaRepository,
@@ -58,7 +69,9 @@ public class HistoriaService {
             HistoriaMapper historiaMapper,
             ConteudoEdicaoMapper conteudoEdicaoMapper,
             PublicacaoHistoriaMapper publicacaoHistoriaMapper,
-            EdicaoMapper edicaoMapper) {
+            EdicaoMapper edicaoMapper,
+            ItemColecaoRepository itemColecaoRepository,
+            UsuarioAutenticadoService usuarioAutenticadoService) {
         this.historiaRepository = historiaRepository;
         this.edicaoRepository = edicaoRepository;
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
@@ -67,6 +80,8 @@ public class HistoriaService {
         this.conteudoEdicaoMapper = conteudoEdicaoMapper;
         this.publicacaoHistoriaMapper = publicacaoHistoriaMapper;
         this.edicaoMapper = edicaoMapper;
+        this.itemColecaoRepository = itemColecaoRepository;
+        this.usuarioAutenticadoService = usuarioAutenticadoService;
     }
 
     @Transactional
@@ -290,6 +305,88 @@ public class HistoriaService {
                 .stream()
                 .map(publicacaoHistoriaMapper::paraResposta)
                 .toList();
+    }
+
+    @Transactional
+    public PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileiras(Long edicaoOriginalId) {
+        Edicao original = buscarEdicaoPorId(edicaoOriginalId);
+        List<PublicacaoHistoria> vinculos = publicacaoHistoriaRepository
+                .listarPublicacoesBrasileirasComDados(edicaoOriginalId);
+        List<ConteudoEdicao> conteudosOriginais = conteudoEdicaoRepository
+                .listarPorEdicaoComHistoria(edicaoOriginalId);
+
+        Map<Long, List<PublicacaoHistoria>> porEdicao = vinculos.stream()
+                .collect(Collectors.groupingBy(
+                        publicacao -> publicacao.getEdicaoPublicada().getId(),
+                        LinkedHashMap::new,
+                        Collectors.toList()));
+        Set<Long> idsEdicoes = porEdicao.keySet();
+        Long usuarioId = usuarioAutenticadoService.obterUsuario().getId();
+        Set<Long> idsNaEstante = itemColecaoRepository.listarPorUsuarioEEdicoes(usuarioId, idsEdicoes).stream()
+                .map(item -> item.getEdicao().getId())
+                .collect(Collectors.toSet());
+        Set<Long> idsHistoriasOriginais = conteudosOriginais.stream()
+                .map(conteudo -> conteudo.getHistoria().getId())
+                .collect(Collectors.toSet());
+        boolean permiteCalcularCompletude = !idsHistoriasOriginais.isEmpty();
+
+        List<Map.Entry<Long, List<PublicacaoHistoria>>> gruposOrdenados = porEdicao.entrySet().stream()
+                .sorted(Comparator.comparing(
+                        entrada -> dataDaEdicao(entrada.getValue().getFirst().getEdicaoPublicada()),
+                        Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
+
+        List<PublicacaoBrasileiraResumoDTO> publicacoes = new java.util.ArrayList<>();
+        for (int indice = 0; indice < gruposOrdenados.size(); indice++) {
+            List<PublicacaoHistoria> grupo = gruposOrdenados.get(indice).getValue();
+            Edicao publicada = grupo.getFirst().getEdicaoPublicada();
+            Set<Long> presentes = grupo.stream()
+                    .map(publicacao -> publicacao.getHistoria().getId())
+                    .collect(Collectors.toSet());
+            List<HistoriaPublicacaoBrasilDTO> historias = permiteCalcularCompletude
+                    ? conteudosOriginais.stream()
+                            .map(conteudo -> new HistoriaPublicacaoBrasilDTO(
+                                    conteudo.getHistoria().getId(),
+                                    conteudo.getHistoria().getTitulo(),
+                                    presentes.contains(conteudo.getHistoria().getId())))
+                            .toList()
+                    : grupo.stream()
+                            .map(PublicacaoHistoria::getHistoria)
+                            .distinct()
+                            .map(historia -> new HistoriaPublicacaoBrasilDTO(
+                                    historia.getId(), historia.getTitulo(), true))
+                            .toList();
+            Boolean completa = permiteCalcularCompletude
+                    ? presentes.containsAll(idsHistoriasOriginais)
+                    : null;
+            publicacoes.add(new PublicacaoBrasileiraResumoDTO(
+                    publicada.getId(), tituloDaEdicao(publicada), publicada.getNumero(),
+                    publicada.getSerie().getVolume(), publicada.getSerie().getEditora().getNome(),
+                    anoDaEdicao(publicada), publicada.getSerie().getTitulo(), publicada.getUrlCapa(),
+                    indice == 0, completa, idsNaEstante.contains(publicada.getId()), presentes.size(), historias));
+        }
+
+        EdicaoOriginalPublicacoesBrasilDTO resumoOriginal = new EdicaoOriginalPublicacoesBrasilDTO(
+                original.getId(), tituloDaEdicao(original), original.getNumero(), original.getSerie().getVolume(),
+                original.getSerie().getEditora().getNome(), anoDaEdicao(original),
+                original.getSerie().getEditora().getPaisOrigem(), original.getUrlCapa());
+        return new PublicacoesBrasileirasEdicaoOriginalDTO(
+                resumoOriginal, publicacoes.size(), conteudosOriginais.size(), publicacoes);
+    }
+
+    private String tituloDaEdicao(Edicao edicao) {
+        return edicao.getTitulo() == null || edicao.getTitulo().isBlank()
+                ? edicao.getSerie().getTitulo()
+                : edicao.getTitulo();
+    }
+
+    private LocalDate dataDaEdicao(Edicao edicao) {
+        return edicao.getDataPublicacao() != null ? edicao.getDataPublicacao() : edicao.getDataCobertura();
+    }
+
+    private Integer anoDaEdicao(Edicao edicao) {
+        LocalDate data = dataDaEdicao(edicao);
+        return data != null ? data.getYear() : edicao.getSerie().getAnoInicio();
     }
 
     @Transactional

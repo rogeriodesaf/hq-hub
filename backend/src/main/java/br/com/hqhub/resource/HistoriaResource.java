@@ -153,6 +153,12 @@ public class HistoriaResource {
         return Response.ok(historiaService.listarPublicacoesPorEdicaoOriginal(edicaoId)).build();
     }
 
+    @GET
+    @Path("/edicoes-estrangeiras/{edicaoId}/publicacoes-brasileiras")
+    public Response listarPublicacoesBrasileiras(@PathParam("edicaoId") Long edicaoId) {
+        return Response.ok(historiaService.listarPublicacoesBrasileiras(edicaoId)).build();
+    }
+
     @DELETE
     @Path("/publicacoes-historias/{id}")
     @RolesAllowed("ADMINISTRADOR")

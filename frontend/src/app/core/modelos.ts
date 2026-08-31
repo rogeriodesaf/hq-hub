@@ -760,6 +760,44 @@ export interface PostagemFeed {
   dataAtualizacao: string;
 }
 
+export interface HistoriaPublicacaoBrasil {
+  id: number;
+  titulo: string;
+  presente: boolean;
+}
+
+export interface PublicacaoBrasileiraResumo {
+  id: number;
+  titulo: string;
+  numero: string;
+  volume: number | null;
+  editora: string;
+  ano: number | null;
+  colecao: string | null;
+  capa: string | null;
+  primeiraPublicacao: boolean;
+  publicacaoCompleta: boolean | null;
+  naEstante: boolean;
+  quantidadeHistorias: number;
+  historias: HistoriaPublicacaoBrasil[];
+}
+
+export interface PublicacoesBrasileirasEdicaoOriginal {
+  edicaoEstrangeira: {
+    id: number;
+    titulo: string;
+    numero: string;
+    volume: number | null;
+    editora: string;
+    ano: number | null;
+    pais: string | null;
+    capa: string | null;
+  };
+  totalPublicacoes: number;
+  totalHistoriasOriginais: number;
+  publicacoes: PublicacaoBrasileiraResumo[];
+}
+
 export interface OrdemLeituraResumo {
   id: number; slug: string; titulo: string; descricao: string | null; urlCapa: string | null;
   totalItens: number; itensLidos: number;
