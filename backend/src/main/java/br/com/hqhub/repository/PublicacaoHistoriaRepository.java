@@ -81,4 +81,21 @@ public class PublicacaoHistoriaRepository implements PanacheRepository<Publicaca
                 .setParameter("edicaoOriginalId", edicaoOriginalId)
                 .getResultList();
     }
+
+    public List<PublicacaoHistoria> listarPorHistoriasDaEdicao(Long edicaoId) {
+        return entityManager.createQuery("""
+                select distinct p
+                  from PublicacaoHistoria p
+                  join fetch p.historia
+                  join fetch p.edicaoPublicada publicada
+                  join fetch publicada.serie serie
+                  join fetch serie.editora
+                 where p.historia.id in (select conteudo.historia.id from ConteudoEdicao conteudo where conteudo.edicao.id = :edicaoId)
+                   and p.edicaoPublicada.id <> :edicaoId
+                   and serie.tipoSerie = br.com.hqhub.entity.TipoSerie.BRASILEIRA
+                 order by coalesce(publicada.dataPublicacao, publicada.dataCobertura) asc, publicada.id asc
+                """, PublicacaoHistoria.class)
+                .setParameter("edicaoId", edicaoId)
+                .getResultList();
+    }
 }

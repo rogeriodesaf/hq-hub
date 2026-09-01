@@ -51,6 +51,7 @@ import {
   ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
+  PublicacaoRelacionadaGuia,
   PublicacoesBrasileirasEdicaoOriginal,
   ResultadoDeduplicacaoEdicoes,
   ResultadoDeduplicacaoSeries,
@@ -95,6 +96,10 @@ export class ApiService {
     return this.http.get<OrdemLeituraDetalhe>(`/api/publico/ordens-leitura/${encodeURIComponent(slug)}`, {
       params: this.parametrosSemCache(),
     });
+  }
+
+  obterPublicacoesRelacionadasGuia(slug: string, itemId: number) {
+    return this.http.get<PublicacaoRelacionadaGuia[]>(`/api/publico/ordens-leitura/${encodeURIComponent(slug)}/itens/${itemId}/publicacoes-relacionadas`);
   }
 
   atualizarProgressoOrdem(itemId: number, lido: boolean) {

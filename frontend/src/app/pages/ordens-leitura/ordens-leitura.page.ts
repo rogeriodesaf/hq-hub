@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
-import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../../core/modelos';
+import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo, PublicacaoRelacionadaGuia } from '../../core/modelos';
 
 @Component({
   selector: 'app-ordens-leitura-page',
@@ -112,6 +112,8 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
                             @if (item.ano) { <p class="ano-item">{{ item.ano }}</p> }
                             @if (item.statusIdentificacao === 'PENDENTE_REVISAO') { <small>Identificação pendente de revisão</small> }
                             @if (item.observacao) { <p class="observacao-item">{{ item.observacao }}</p> }
+                            @if (item.edicaoId) { <button class="publicacoes-guia-botao" type="button" (click)="alternarPublicacoesRelacionadas(item)" [attr.aria-expanded]="publicacoesAbertas().has(item.id)">{{ publicacoesCarregando().has(item.id) ? 'Carregando revistas...' : publicacoesAbertas().has(item.id) ? 'Ocultar outras publicações' : 'Ver outras publicações' }}</button> }
+                            @if (publicacoesAbertas().has(item.id)) { @if (publicacoesErros().has(item.id)) { <button class="publicacoes-guia-erro" type="button" (click)="carregarPublicacoesRelacionadas(item)">Não foi possível carregar. Tentar novamente</button> } @else if (publicacoesRelacionadas().get(item.id); as relacionadas) { @if (relacionadas.length) { <div class="publicacoes-guia-lista"><strong>Também publicada em:</strong>@for (publicacao of relacionadas; track publicacao.id) { <a [routerLink]="['/catalogo']" [queryParams]="{ edicaoId: publicacao.id }"><img [src]="publicacao.urlCapa || 'assets/capa-reserva.svg'" [alt]="publicacao.titulo" loading="lazy" /><span>{{ publicacao.titulo }}<small>{{ publicacao.detalhe || '' }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small></span></a> }</div> } @else { <p class="publicacoes-guia-vazio">Nenhuma outra publicação relacionada encontrada.</p> } } }
                           </div>
                           @if (!modoPublico) {
                             <div class="acoes-item">
@@ -146,6 +148,7 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo } from '../..
     .ano-item{margin-top:5px;font-weight:700}.observacao-item{margin-top:7px;font-size:.76rem;line-height:1.45;white-space:pre-line}.link-edicao{color:inherit;text-decoration-color:#ee7d20;text-decoration-thickness:2px;text-underline-offset:3px}.link-edicao:hover,.link-edicao:focus-visible{color:#ee7d20}.adicionar-colecao,.adicionar-item{padding:10px 16px;border:0;border-radius:12px;background:#ee7d20;color:#20150c;font-weight:800;cursor:pointer}.adicionar-colecao:disabled,.adicionar-item:disabled{opacity:.6;cursor:wait}.adicionar-item{margin:0 12px 12px}.link-botao{display:inline-block;text-align:center;text-decoration:none}
     .destaque-secao{display:grid;grid-template-columns:minmax(240px,520px) 1fr;align-items:center;gap:24px;margin-bottom:22px;padding:18px;border:1px solid var(--borda);border-radius:18px;background:var(--superficie)}.destaque-secao.somente-texto{grid-template-columns:1fr}.destaque-secao img{display:block;width:100%;border-radius:12px}.destaque-secao p{font-size:1rem;line-height:1.65;color:var(--texto)}@media(max-width:760px){.destaque-secao{grid-template-columns:1fr;padding:12px;gap:14px}.destaque-secao p{font-size:.92rem}}
     .acao-selecao{min-height:44px;padding:9px 14px;border:1px solid var(--borda);border-radius:12px;background:var(--superficie);color:var(--texto);font-weight:800;cursor:pointer}.feedback-estante,.barra-selecao{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0;padding:11px 14px;border:1px solid #41a66b66;border-radius:12px;background:#41a66b12}.feedback-estante span{flex:1}.feedback-estante button,.barra-selecao button{min-height:44px;padding:8px 13px;border:0;border-radius:10px;background:#247c4b;color:#fff;font-weight:800;cursor:pointer}.feedback-estante button:disabled,.barra-selecao button:disabled{opacity:.6;cursor:wait}.barra-selecao{position:sticky;z-index:8;top:8px;border-color:#ee7d2066;background:color-mix(in srgb,var(--superficie) 94%,#ee7d20);box-shadow:0 8px 24px #0002}.barra-selecao strong{flex:1}.barra-selecao .cancelar-selecao{background:var(--superficie-2);color:var(--texto)}.acoes-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:7px;margin:0 10px 10px}.acoes-item .marcar,.acoes-item .estante-item{display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;margin:0;padding:8px 6px;border-radius:11px;font-size:.82rem;line-height:1.15;text-align:center;text-decoration:none;white-space:normal}.estante-item{border:1px solid var(--borda);background:var(--superficie-2);color:var(--texto);font-weight:800;cursor:pointer}.estante-item.adicionado{border-color:#41a66b;color:#247c4b;background:#41a66b12}.estante-item:disabled{opacity:.55;cursor:not-allowed}.item.na-estante{box-shadow:inset 0 -3px 0 #41a66b}.capa-selecao{position:relative;width:100%;padding:0;border:0;cursor:pointer}.marca-selecao{position:absolute;right:9px;top:9px;display:grid;place-items:center;width:36px;height:36px;border:2px solid #fff;border-radius:50%;background:#111d;color:#fff;font-size:1.2rem;font-weight:900;box-shadow:0 3px 10px #0005}.item.selecionado{border-color:#ee7d20;box-shadow:0 0 0 3px #ee7d2038}.item.selecionado .marca-selecao{background:#ee7d20;color:#20150c}@media(max-width:420px){.acoes-item{grid-template-columns:1fr;gap:6px;margin:0 8px 8px}.acoes-item .marcar,.acoes-item .estante-item{font-size:.8rem}.barra-selecao{align-items:stretch}.barra-selecao strong{flex-basis:100%}.barra-selecao button{flex:1}}
+    .publicacoes-guia-botao,.publicacoes-guia-erro{margin-top:10px;padding:0;border:0;background:transparent;color:#ee7d20;font:inherit;font-size:.8rem;font-weight:800;text-align:left;cursor:pointer}.publicacoes-guia-erro{color:#b43d32}.publicacoes-guia-lista{display:grid;gap:7px;margin-top:10px;padding:9px;border-radius:10px;background:var(--superficie-2);font-size:.78rem}.publicacoes-guia-lista a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.publicacoes-guia-lista img{width:32px;height:46px;object-fit:cover;border-radius:4px}.publicacoes-guia-lista span{display:grid;gap:2px}.publicacoes-guia-lista small{color:var(--texto-suave)}.publicacoes-guia-vazio{margin-top:10px;font-size:.78rem}
   `]
 })
 export class OrdensLeituraPage implements OnInit {
@@ -162,6 +165,10 @@ export class OrdensLeituraPage implements OnInit {
   adicionandoSelecionadas = signal(false);
   desfazendo = signal(false);
   feedbackEstante = signal<{titulo:string;edicaoId:number;itemColecaoId:number}|null>(null);
+  publicacoesRelacionadas = signal<Map<number, PublicacaoRelacionadaGuia[]>>(new Map());
+  publicacoesAbertas = signal<Set<number>>(new Set());
+  publicacoesCarregando = signal<Set<number>>(new Set());
+  publicacoesErros = signal<Set<number>>(new Set());
   adicionandoColecao = signal(false);
   modoPublico = false;
   ngOnInit(){
@@ -176,6 +183,23 @@ export class OrdensLeituraPage implements OnInit {
   abrir(o: OrdemLeituraResumo){ this.api.obterOrdemLeitura(o.slug).subscribe(v => this.selecionada.set(v)); }
   percentual(o: OrdemLeituraResumo){ return o.totalItens ? o.itensLidos * 100 / o.totalItens : 0; }
   itensFiltrados(){ const o=this.selecionada(); if(!o)return[]; return o.itens.filter(i=>this.filtro()==='todas'||(this.filtro()==='lidas'?i.lido:!i.lido)); }
+  alternarPublicacoesRelacionadas(item: ItemOrdemLeitura){
+    const abertas = new Set(this.publicacoesAbertas());
+    if (abertas.has(item.id)) { abertas.delete(item.id); this.publicacoesAbertas.set(abertas); return; }
+    abertas.add(item.id); this.publicacoesAbertas.set(abertas);
+    if (!this.publicacoesRelacionadas().has(item.id)) this.carregarPublicacoesRelacionadas(item);
+  }
+  carregarPublicacoesRelacionadas(item: ItemOrdemLeitura){
+    if (!item.edicaoId) return;
+    const slug = this.selecionada()?.slug;
+    if (!slug) return;
+    const carregando = new Set(this.publicacoesCarregando()); carregando.add(item.id); this.publicacoesCarregando.set(carregando);
+    const erros = new Set(this.publicacoesErros()); erros.delete(item.id); this.publicacoesErros.set(erros);
+    this.api.obterPublicacoesRelacionadasGuia(slug, item.id).subscribe({
+      next: (publicacoes) => { const mapa = new Map(this.publicacoesRelacionadas()); mapa.set(item.id, publicacoes); this.publicacoesRelacionadas.set(mapa); const atual = new Set(this.publicacoesCarregando()); atual.delete(item.id); this.publicacoesCarregando.set(atual); },
+      error: () => { const atual = new Set(this.publicacoesCarregando()); atual.delete(item.id); this.publicacoesCarregando.set(atual); const falhas = new Set(this.publicacoesErros()); falhas.add(item.id); this.publicacoesErros.set(falhas); },
+    });
+  }
   secoesFiltradas(){
     const ordem = this.selecionada();
     const titulos = [...new Set((ordem?.itens || []).map(item => item.secao || 'Ordem de Leitura Mutante'))];

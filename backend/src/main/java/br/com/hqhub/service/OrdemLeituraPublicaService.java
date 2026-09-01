@@ -3,6 +3,7 @@ package br.com.hqhub.service;
 import java.util.List;
 
 import br.com.hqhub.dto.ItemOrdemLeituraDTO;
+import br.com.hqhub.dto.PublicacaoRelacionadaGuiaDTO;
 import br.com.hqhub.dto.OrdemLeituraDetalheDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemOrdemLeitura;
@@ -10,6 +11,7 @@ import br.com.hqhub.entity.OrdemLeitura;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.repository.ItemOrdemLeituraRepository;
 import br.com.hqhub.repository.OrdemLeituraRepository;
+import br.com.hqhub.repository.PublicacaoHistoriaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -17,10 +19,31 @@ import jakarta.transaction.Transactional;
 public class OrdemLeituraPublicaService {
     private final OrdemLeituraRepository ordens;
     private final ItemOrdemLeituraRepository itens;
+    private final PublicacaoHistoriaRepository publicacoes;
 
-    public OrdemLeituraPublicaService(OrdemLeituraRepository ordens, ItemOrdemLeituraRepository itens) {
+    public OrdemLeituraPublicaService(OrdemLeituraRepository ordens, ItemOrdemLeituraRepository itens,
+            PublicacaoHistoriaRepository publicacoes) {
         this.ordens = ordens;
         this.itens = itens;
+        this.publicacoes = publicacoes;
+    }
+
+    @Transactional
+    public List<PublicacaoRelacionadaGuiaDTO> publicacoesRelacionadas(Long itemId, String slug) {
+        OrdemLeitura ordem = ordens.find("slug = ?1 and publicada = true", slug).firstResultOptional()
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Ordem de leitura nao encontrada."));
+        ItemOrdemLeitura item = itens.find("id = ?1 and ordemLeitura.id = ?2", itemId, ordem.getId())
+                .firstResultOptional().orElseThrow(() -> new RecursoNaoEncontradoException("Item do guia nao encontrado."));
+        if (item.getEdicao() == null) return List.of();
+        return publicacoes.listarPorHistoriasDaEdicao(item.getEdicao().getId()).stream()
+                .collect(java.util.stream.Collectors.toMap(p -> p.getEdicaoPublicada().getId(), p -> p, (a, b) -> a,
+                        java.util.LinkedHashMap::new)).values().stream()
+                .map(p -> {
+                    Edicao edicao = p.getEdicaoPublicada();
+                    java.time.LocalDate data = edicao.getDataPublicacao() != null ? edicao.getDataPublicacao() : edicao.getDataCobertura();
+                    return new PublicacaoRelacionadaGuiaDTO(edicao.getId(), edicao.getSerie().getTitulo() + " #" + edicao.getNumero(),
+                            edicao.getNomeVolume(), edicao.getUrlCapa(), data != null ? data.getYear() : edicao.getSerie().getAnoInicio());
+                }).toList();
     }
 
     @Transactional

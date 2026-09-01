@@ -810,6 +810,10 @@ export interface ItemOrdemLeitura {
   statusIdentificacao: 'CONFIRMADO' | 'PENDENTE_REVISAO'; observacao: string | null; ano: number | null;
 }
 
+export interface PublicacaoRelacionadaGuia {
+  id: number; titulo: string; detalhe: string | null; urlCapa: string | null; ano: number | null;
+}
+
 export interface OrdemLeituraDetalhe {
   id: number; slug: string; titulo: string; descricao: string | null;
   totalItens: number; itensLidos: number; itens: ItemOrdemLeitura[];

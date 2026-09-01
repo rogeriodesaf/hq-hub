@@ -22,4 +22,10 @@ public class OrdemLeituraPublicaResource {
     public Response buscar(@PathParam("slug") String slug) {
         return Response.ok(service.buscarPublica(slug)).build();
     }
+
+    @GET
+    @Path("/{slug}/itens/{itemId}/publicacoes-relacionadas")
+    public Response publicacoesRelacionadas(@PathParam("slug") String slug, @PathParam("itemId") Long itemId) {
+        return Response.ok(service.publicacoesRelacionadas(itemId, slug)).build();
+    }
 }
