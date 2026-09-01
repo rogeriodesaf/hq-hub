@@ -84,7 +84,7 @@ public class PublicacaoHistoriaRepository implements PanacheRepository<Publicaca
 
     public List<PublicacaoHistoria> listarPorHistoriasDaEdicao(Long edicaoId) {
         return entityManager.createQuery("""
-                select distinct p
+                select p
                   from PublicacaoHistoria p
                   join fetch p.historia
                   join fetch p.edicaoPublicada publicada
