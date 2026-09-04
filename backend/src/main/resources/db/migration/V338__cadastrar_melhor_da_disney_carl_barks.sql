@@ -6,7 +6,7 @@ WHERE lower(trim(editora.nome)) = lower('Abril')
   AND NOT EXISTS (SELECT 1 FROM series existente WHERE existente.editora_id = editora.id AND lower(trim(existente.titulo)) = lower('Melhor da Disney, O - As Obras Completas de Carl Barks') AND coalesce(existente.volume, 1) = 1);
 
 WITH referencias(numero, titulo, url_capa, url_origem) AS (VALUES
-+    ('1', 'Melhor da Disney, O - As Obras Completas de Carl Barks #1', 'https://www.papersera.net/vilaxurupita/misc/br_omd_0001a.jpg', 'https://www.papersera.net/vilaxurupita/misc/omd01_20.htm'),
+    ('1', 'Melhor da Disney, O - As Obras Completas de Carl Barks #1', 'https://www.papersera.net/vilaxurupita/misc/br_omd_0001a.jpg', 'https://www.papersera.net/vilaxurupita/misc/omd01_20.htm'),
     ('2', 'Melhor da Disney, O - As Obras Completas de Carl Barks #2', 'https://www.papersera.net/vilaxurupita/misc/br_omd_0002a.jpg', 'https://www.papersera.net/vilaxurupita/misc/omd01_20.htm'),
     ('3', 'Melhor da Disney, O - As Obras Completas de Carl Barks #3', 'https://www.papersera.net/vilaxurupita/misc/br_omd_0003a.jpg', 'https://www.papersera.net/vilaxurupita/misc/omd01_20.htm'),
     ('4', 'Melhor da Disney, O - As Obras Completas de Carl Barks #4', 'https://www.papersera.net/vilaxurupita/misc/br_omd_0004a.jpg', 'https://www.papersera.net/vilaxurupita/misc/omd01_20.htm'),
