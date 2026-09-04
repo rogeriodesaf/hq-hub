@@ -12,7 +12,37 @@ BEGIN
 
     IF canonico IS NULL THEN RETURN; END IF;
 
-    -- Transfere todas as edições das séries duplicadas para a série canônica.
+    -- Preserva na V1 uma capa disponível na edição duplicada antes da remoção.
+    UPDATE edicoes existente
+    SET url_capa = duplicada.url_capa, data_atualizacao = CURRENT_TIMESTAMP
+    FROM edicoes duplicada
+    WHERE existente.serie_id = canonico
+      AND (existente.url_capa IS NULL OR trim(existente.url_capa) = '')
+      AND duplicada.url_capa IS NOT NULL AND trim(duplicada.url_capa) <> ''
+      AND duplicada.serie_id IN (
+          SELECT s.id FROM series s JOIN editoras e ON e.id = s.editora_id
+          WHERE s.id <> canonico
+            AND hqhub_normalizar_titulo_serie(s.titulo) = hqhub_normalizar_titulo_serie('Coleção Carl Barks Definitiva')
+            AND lower(trim(e.nome)) LIKE 'panini%'
+      )
+      AND hqhub_normalizar_identidade(duplicada.numero::text) =
+          hqhub_normalizar_identidade(existente.numero::text);
+
+    -- Remove primeiro as edições duplicadas que já existem na V1. Sem isso,
+    -- a troca de serie_id viola a identidade única (serie, numero).
+    DELETE FROM edicoes duplicada
+    USING edicoes existente
+    WHERE duplicada.serie_id IN (
+        SELECT s.id FROM series s JOIN editoras e ON e.id = s.editora_id
+        WHERE s.id <> canonico
+          AND hqhub_normalizar_titulo_serie(s.titulo) = hqhub_normalizar_titulo_serie('Coleção Carl Barks Definitiva')
+          AND lower(trim(e.nome)) LIKE 'panini%'
+    )
+      AND existente.serie_id = canonico
+      AND hqhub_normalizar_identidade(duplicada.numero::text) =
+          hqhub_normalizar_identidade(existente.numero::text);
+
+    -- Transfere as edições restantes das séries duplicadas para a série canônica.
     UPDATE edicoes ed
     SET serie_id = canonico, data_atualizacao = CURRENT_TIMESTAMP
     WHERE ed.serie_id IN (
