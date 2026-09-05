@@ -8,10 +8,12 @@ import br.com.hqhub.dto.OrdemLeituraDetalheDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.ItemOrdemLeitura;
 import br.com.hqhub.entity.OrdemLeitura;
+import br.com.hqhub.entity.PublicacaoRelacionada;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.repository.ItemOrdemLeituraRepository;
 import br.com.hqhub.repository.OrdemLeituraRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
+import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -20,12 +22,15 @@ public class OrdemLeituraPublicaService {
     private final OrdemLeituraRepository ordens;
     private final ItemOrdemLeituraRepository itens;
     private final PublicacaoHistoriaRepository publicacoes;
+    private final PublicacaoRelacionadaRepository publicacoesRelacionadas;
 
     public OrdemLeituraPublicaService(OrdemLeituraRepository ordens, ItemOrdemLeituraRepository itens,
-            PublicacaoHistoriaRepository publicacoes) {
+            PublicacaoHistoriaRepository publicacoes,
+            PublicacaoRelacionadaRepository publicacoesRelacionadas) {
         this.ordens = ordens;
         this.itens = itens;
         this.publicacoes = publicacoes;
+        this.publicacoesRelacionadas = publicacoesRelacionadas;
     }
 
     @Transactional
@@ -35,15 +40,20 @@ public class OrdemLeituraPublicaService {
         ItemOrdemLeitura item = itens.find("id = ?1 and ordemLeitura.id = ?2", itemId, ordem.getId())
                 .firstResultOptional().orElseThrow(() -> new RecursoNaoEncontradoException("Item do guia nao encontrado."));
         if (item.getEdicao() == null) return List.of();
-        return publicacoes.listarPorHistoriasDaEdicao(item.getEdicao().getId()).stream()
-                .collect(java.util.stream.Collectors.toMap(p -> p.getEdicaoPublicada().getId(), p -> p, (a, b) -> a,
-                        java.util.LinkedHashMap::new)).values().stream()
-                .map(p -> {
-                    Edicao edicao = p.getEdicaoPublicada();
-                    java.time.LocalDate data = edicao.getDataPublicacao() != null ? edicao.getDataPublicacao() : edicao.getDataCobertura();
-                    return new PublicacaoRelacionadaGuiaDTO(edicao.getId(), edicao.getSerie().getTitulo() + " #" + edicao.getNumero(),
-                            edicao.getNomeVolume(), edicao.getUrlCapa(), data != null ? data.getYear() : edicao.getSerie().getAnoInicio());
-                }).toList();
+        java.util.Map<Long, Edicao> relacionadas = new java.util.LinkedHashMap<>();
+        publicacoes.listarPorHistoriasDaEdicao(item.getEdicao().getId())
+                .forEach(p -> relacionadas.putIfAbsent(p.getEdicaoPublicada().getId(), p.getEdicaoPublicada()));
+        publicacoesRelacionadas.listarPorEdicaoOrigem(item.getEdicao().getId()).stream()
+                .map(PublicacaoRelacionada::getEdicaoDestino)
+                .forEach(edicao -> relacionadas.putIfAbsent(edicao.getId(), edicao));
+        return relacionadas.values().stream().map(edicao -> {
+            java.time.LocalDate data = edicao.getDataPublicacao() != null
+                    ? edicao.getDataPublicacao() : edicao.getDataCobertura();
+            return new PublicacaoRelacionadaGuiaDTO(edicao.getId(),
+                    edicao.getSerie().getTitulo() + " #" + edicao.getNumero(),
+                    edicao.getNomeVolume(), edicao.getUrlCapa(),
+                    data != null ? data.getYear() : edicao.getSerie().getAnoInicio());
+        }).toList();
     }
 
     @Transactional
@@ -59,8 +69,9 @@ public class OrdemLeituraPublicaService {
 
     private ItemOrdemLeituraDTO paraDto(ItemOrdemLeitura item) {
         Edicao edicao = item.getEdicao();
-        String titulo = edicao == null ? item.getTituloReferencia()
-                : edicao.getSerie().getTitulo() + " #" + edicao.getNumero();
+        String titulo = item.getTituloReferencia() != null && !item.getTituloReferencia().isBlank()
+                ? item.getTituloReferencia()
+                : edicao == null ? null : edicao.getSerie().getTitulo() + " #" + edicao.getNumero();
         String capa = edicao != null && edicao.getUrlCapa() != null ? edicao.getUrlCapa() : item.getUrlCapaReferencia();
         return new ItemOrdemLeituraDTO(item.getId(), item.getPosicao(), item.getSecao(), edicao == null ? null : edicao.getId(),
                 edicao == null ? null : edicao.getSerie().getId(), titulo, item.getDetalheReferencia(), capa,
