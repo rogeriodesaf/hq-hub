@@ -6,12 +6,14 @@ existente, salvo quando --substituir é informado. Os resultados ficam
 registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, CancelledError
+from functools import lru_cache
 import json
 import re
 import unicodedata
 from html import unescape
 from pathlib import Path
+from threading import Event, local
 from time import sleep
 from urllib.parse import quote, urljoin, urlparse
 from urllib.error import HTTPError
@@ -36,12 +38,27 @@ FONTES = {
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
+CONTEXTO_BUSCA = local()
+
+
+def verificar_cancelamento():
+    cancelamento = getattr(CONTEXTO_BUSCA, "cancelamento", None)
+    if cancelamento is not None and cancelamento.is_set():
+        raise CancelledError()
 
 
 def baixar(url):
+    verificar_cancelamento()
+    return baixar_cached(url)
+
+
+@lru_cache(maxsize=64)
+def baixar_cached(url):
+    # Cache limitado a esta execucao. Erros nao ficam armazenados.
     req = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB local cover finder"})
     ultimo_erro = None
     for tentativa in range(2):
+        verificar_cancelamento()
         try:
             with urlopen(req, timeout=12) as resposta:
                 return resposta.read().decode("utf-8", errors="replace")
@@ -442,6 +459,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if not resultados:
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
+        verificar_cancelamento()
         if produto_multiplo(f"{resultado.get('titulo') or ''} {resultado['url']}"):
             continue
         if nome == "Amazon" and not titulo_compativel_com_numero(
@@ -480,7 +498,48 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     return nome, None, None, None
 
 
+def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, numero, item):
+    """Mantem a prioridade editorial sem esperar fontes posteriores ao acerto."""
+    cancelamento = Event()
+    usadas = frozenset(capas_usadas)
+
+    def executar(fonte):
+        CONTEXTO_BUSCA.cancelamento = cancelamento
+        try:
+            verificar_cancelamento()
+            return buscar_fonte(*fonte, busca_loja, busca, usadas, titulo, numero)
+        finally:
+            CONTEXTO_BUSCA.cancelamento = None
+
+    tarefas = [(fonte[0], executor.submit(executar, fonte)) for fonte in fontes]
+    try:
+        for nome, tarefa in tarefas:
+            try:
+                resposta = tarefa.result()
+            except Exception as erro:
+                item.setdefault("erros", []).append(f"{nome}: {erro}")
+                continue
+            if resposta and resposta[1]:
+                return resposta
+        return None
+    finally:
+        cancelamento.set()
+        for _, tarefa in tarefas:
+            tarefa.cancel()
+
+
 def enriquecer(args):
+    baixar_cached.cache_clear()
+    # O mesmo pool atende todas as edicoes: no maximo seis consultas ativas.
+    # Requisicoes HTTP ja iniciadas respeitam o timeout existente ao encerrar.
+    try:
+        with ThreadPoolExecutor(max_workers=6) as executor:
+            enriquecer_com_executor(args, executor)
+    finally:
+        baixar_cached.cache_clear()
+
+
+def enriquecer_com_executor(args, executor):
     pasta = Path(args.pasta)
     if args.entrada:
         entrada = Path(args.entrada)
@@ -521,44 +580,13 @@ def enriquecer(args):
         busca_loja = titulo_busca
         if numero_busca and numero_busca.upper() not in {"UNICA", "ÚNICA"}:
             busca_loja = f"{titulo_busca} volume {numero_busca}"
-        panini_direta_falhou = False
-        if fonte_aplicavel("Panini", edicao, serie) and numero_busca.isdigit():
-            print(
-                f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
-                f"{edicao.get('numero')}: consultando Panini",
-                flush=True,
-            )
-            item["fontesConsultadas"].append("Panini")
-            try:
-                resultado_panini = buscar_fonte(
-                    "Panini", "panini.com.br",
-                    "https://panini.com.br/catalogsearch/result/?q={}",
-                    busca_loja, busca, capas_usadas, titulo_busca, numero_busca,
-                )
-            except Exception as erro:
-                resultado_panini = None
-                item.setdefault("erros", []).append(f"Panini: {erro}")
-            if resultado_panini and resultado_panini[1]:
-                _, capa_panini, produto_panini, _ = resultado_panini
-                edicao["urlCapa"] = capa_panini
-                capas_usadas.add(capa_panini)
-                encontradas += 1
-                item.update({"status": "encontrada", "fonte": "Panini", "url": capa_panini,
-                             "urlProduto": produto_panini, "confianca": "alta"})
-                relatorio.append(item)
-                print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: encontrada")
-                sleep(args.intervalo_segundos)
-                continue
-            panini_direta_falhou = True
         fontes = [
             (nome, dominio, modelo_busca)
             for nome, (dominio, modelo_busca) in FONTES.items()
             if fonte_aplicavel(nome, edicao, serie)
         ]
         oficiais = [fonte for fonte in fontes if fonte[0] in FONTES_OFICIAIS]
-        if panini_direta_falhou:
-            fontes = [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
-        elif oficiais:
+        if oficiais:
             fontes = oficiais + [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
         for nome, _, _ in fontes:
             print(
@@ -567,31 +595,18 @@ def enriquecer(args):
                 flush=True,
             )
             item["fontesConsultadas"].append(nome)
-        respostas = {}
-        with ThreadPoolExecutor(max_workers=min(6, max(1, len(fontes)))) as executor:
-            tarefas = {
-                executor.submit(
-                    buscar_fonte, nome, dominio, modelo_busca, busca_loja, busca,
-                    capas_usadas, titulo_busca, numero_busca
-                ): nome
-                for nome, dominio, modelo_busca in fontes
-            }
-            for tarefa in as_completed(tarefas):
-                nome = tarefas[tarefa]
-                try:
-                    respostas[nome] = tarefa.result()
-                except Exception as erro:
-                    item.setdefault("erros", []).append(f"{nome}: {erro}")
-        for nome, _, _ in fontes:
-            resposta = respostas.get(nome)
-            if resposta and resposta[1]:
-                _, capa, url_produto, _ = resposta
-                edicao["urlCapa"] = capa
-                capas_usadas.add(capa)
-                encontradas += 1
-                item.update({"status": "encontrada", "fonte": nome, "url": capa,
-                             "urlProduto": url_produto, "confianca": "media"})
-                break
+        resposta = consultar_fontes(
+            executor, fontes, busca_loja, busca, capas_usadas,
+            titulo_busca, numero_busca, item,
+        )
+        if resposta and resposta[1]:
+            nome, capa, url_produto, _ = resposta
+            edicao["urlCapa"] = capa
+            capas_usadas.add(capa)
+            encontradas += 1
+            item.update({"status": "encontrada", "fonte": nome, "url": capa,
+                         "urlProduto": url_produto,
+                         "confianca": "alta" if nome == "Panini" else "media"})
         sleep(args.intervalo_segundos)
         if item["status"] != "encontrada":
             avisos.append(f"Capa não encontrada para edição {edicao.get('numero')}")
