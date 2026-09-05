@@ -27,6 +27,7 @@ FONTES = {
     "Comix": ("comix.com.br", "https://www.comix.com.br/catalogsearch/result/?q={}"),
     "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
     "Texas Ranger": ("texasranger.com.br", "https://texasranger.com.br/search/?q={}"),
+    "Papersera": ("papersera.net", "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -240,10 +241,19 @@ def fonte_aplicavel(nome, edicao, serie):
             "NFKD", str(edicao.get("licenciador") or serie.get("licenciador") or "")
         ).encode("ascii", "ignore").decode().lower()
         return "bonelli" in licenciador
+    if nome == "Papersera":
+        titulo = " ".join(str(valor or "") for valor in (edicao.get("tituloChamada"), serie.get("titulo"))).lower()
+        return "carl barks" in titulo or "melhor da disney" in titulo
     return True
 
 
 def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, titulo, numero):
+    if nome == "Papersera" and str(numero or "").isdigit() and ("carl barks" in titulo.lower() or "melhor da disney" in titulo.lower()):
+        numero_formatado = f"{int(numero):04d}"
+        url_capa = f"https://www.papersera.net/vilaxurupita/misc/br_omd_{numero_formatado}a.jpg"
+        if url_capa not in capas_usadas:
+            return nome, url_capa, "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm" if int(numero) <= 20 else "https://www.papersera.net/vilaxurupita/misc/omd21_40.htm", None
+        return nome, None, None, None
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
