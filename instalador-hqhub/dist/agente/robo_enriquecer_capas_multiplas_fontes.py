@@ -31,6 +31,7 @@ FONTES = {
     "Planeta Gibi": ("planetagibi.com", "https://www.planetagibi.com/busca?q={}"),
     "Quadrikomics": ("quadrikomics.blogspot.com", "https://quadrikomics.blogspot.com/search?q={}"),
     "Lojas Caverna": ("lojascaverna.com.br", "https://www.lojascaverna.com.br/search/?q={}"),
+    "Excelsior Comics": ("excelsiorcomics.com.br", "https://excelsiorcomics.com.br/?s={}&post_type=product"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -102,6 +103,10 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
         return True
     normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
     encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?|#)\s*0*(\d+)", normalizado)
+    if not encontrados:
+        numero_final = re.search(r"(?:^|\s)0*(\d+)\s*$", normalizado)
+        if numero_final:
+            encontrados = [numero_final.group(1)]
     if encontrados:
         return int(numero) in {int(item) for item in encontrados}
     if int(numero) != 1 or not titulo_serie:
@@ -191,6 +196,8 @@ def resultados_loja(consulta, dominio, modelo_busca):
             continue
         if dominio == "lojascaverna.com.br" and not rota.startswith("/produtos/"):
             continue
+        if dominio == "excelsiorcomics.com.br" and not rota.startswith("/produto/"):
+            continue
         if any(trecho in rota for trecho in (
             "/catalogsearch/", "/search", "/customer/", "/wishlist/",
             "/static/", "/media/", "/checkout/", "/account/", "/sales/",
@@ -211,7 +218,7 @@ def resultados_loja(consulta, dominio, modelo_busca):
         numeros_consulta = {int(item) for item in termos if item.isdigit()}
         numeros_rota = {int(item) for item in termos_rota if item.isdigit()}
         return (
-            20 if rota.startswith("/produtos/") else 0,
+            20 if rota.startswith(("/produto/", "/produtos/")) else 0,
             5 if numeros_consulta and numeros_consulta & numeros_rota else 0,
             len(termos & termos_rota),
         )
@@ -385,7 +392,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
-    if nome == "Lojas Caverna" and str(numero or "").isdigit():
+    if nome in {"Lojas Caverna", "Excelsior Comics"} and str(numero or "").isdigit():
         fase = re.findall(r'"([^"]+)"', busca)
         fase = fase[-2] if len(fase) >= 4 else ""
         consultas = [
