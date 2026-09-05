@@ -17,6 +17,10 @@ if (-not $inno) {
 }
 
 New-Item -ItemType Directory -Force -Path $pacote | Out-Null
+$cachePython = Join-Path $pacote '__pycache__'
+if (Test-Path -LiteralPath $cachePython) {
+    Remove-Item -LiteralPath $cachePython -Recurse -Force
+}
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\assistente_local_hqhub.py') -Destination $pacote -Force
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_importador_navegador_interativo.py') -Destination $pacote -Force
 Copy-Item -LiteralPath (Join-Path $raiz 'docs\importacao\ferramentas\robo_importador_texto.py') -Destination $pacote -Force

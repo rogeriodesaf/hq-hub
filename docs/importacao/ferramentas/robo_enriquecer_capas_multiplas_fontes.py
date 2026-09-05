@@ -28,6 +28,7 @@ FONTES = {
     "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
     "Texas Ranger": ("texasranger.com.br", "https://texasranger.com.br/search/?q={}"),
     "Papersera": ("papersera.net", "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm"),
+    "Planeta Gibi": ("planetagibi.com", "https://www.planetagibi.com/busca?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
