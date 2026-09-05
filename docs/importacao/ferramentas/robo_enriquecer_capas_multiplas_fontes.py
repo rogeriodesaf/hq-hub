@@ -29,6 +29,7 @@ FONTES = {
     "Texas Ranger": ("texasranger.com.br", "https://texasranger.com.br/search/?q={}"),
     "Papersera": ("papersera.net", "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm"),
     "Planeta Gibi": ("planetagibi.com", "https://www.planetagibi.com/busca?q={}"),
+    "Quadrikomics": ("quadrikomics.blogspot.com", "https://quadrikomics.blogspot.com/search?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -218,11 +219,103 @@ def extrair_capa(url):
     return extrair_produto(url)[0]
 
 
+def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
+    """Encontra a capa pela galeria de uma postagem do Quadrikomics."""
+    partes_busca = re.findall(r'"([^"]+)"', busca)
+    consulta_site = " ".join(partes_busca[:2]) if len(partes_busca) > 1 else titulo
+    consulta_classificacao = " ".join(partes_busca[:-1]) if len(partes_busca) > 1 else titulo
+    resultados = []
+    try:
+        feed = json.loads(baixar(
+            "https://quadrikomics.blogspot.com/feeds/posts/default?q="
+            + quote(consulta_site) + "&alt=json&max-results=50"
+        ))
+        for entrada in feed.get("feed", {}).get("entry", []):
+            link = next(
+                (item.get("href") for item in entrada.get("link", [])
+                 if item.get("rel") == "alternate"),
+                None,
+            )
+            if link:
+                resultados.append({
+                    "url": link,
+                    "titulo": entrada.get("title", {}).get("$t", ""),
+                })
+        termos_consulta = tokens(consulta_classificacao)
+        consulta_ascii = unicodedata.normalize("NFKD", consulta_classificacao).encode(
+            "ascii", "ignore"
+        ).decode().lower()
+        fase_consulta = re.search(r'\b(\d+)[a]?\s+serie\b', consulta_ascii)
+        def pontuar_resultado(item):
+            pontos = len(termos_consulta & tokens(item.get("titulo")))
+            titulo_ascii = unicodedata.normalize("NFKD", item.get("titulo") or "").encode(
+                "ascii", "ignore"
+            ).decode().lower()
+            fase_resultado = re.search(r'\b(\d+)[a]?\s+serie\b', titulo_ascii)
+            if fase_consulta and fase_resultado and fase_consulta.group(1) == fase_resultado.group(1):
+                pontos += 100
+            return pontos
+        resultados.sort(
+            key=pontuar_resultado,
+            reverse=True,
+        )
+    except Exception:
+        resultados = []
+    if not resultados:
+        resultados = resultados_bing(busca, "quadrikomics.blogspot.com")
+    numero_texto = str(numero or "").strip()
+    if not numero_texto.isdigit():
+        return "Quadrikomics", None, None, None
+    indice = int(numero_texto) - 1
+    termos_titulo = tokens(titulo) - {"volume", "serie", "edicao"}
+    for resultado in resultados:
+        try:
+            html = baixar(resultado["url"])
+        except Exception:
+            continue
+        titulo_pagina = re.search(r'<title[^>]*>(.*?)</title>', html, re.I | re.S)
+        termos_pagina = tokens(limpar(titulo_pagina.group(1))) if titulo_pagina else set()
+        if termos_titulo and not termos_titulo.issubset(termos_pagina):
+            continue
+        corpo = re.search(
+            r'<div[^>]+class=["\'][^"\']*post-body[^"\']*["\'][^>]*>(.*?)'
+            r'<div[^>]+class=["\'][^"\']*post-footer',
+            html,
+            re.I | re.S,
+        )
+        trecho = corpo.group(1) if corpo else html
+        imagens, identificadores = [], set()
+        for imagem in re.findall(r'(?:src|href)=["\'](https?://[^"\']+)', trecho, re.I):
+            imagem = unescape(imagem).replace("&amp;", "&")
+            host = (urlparse(imagem).hostname or "").lower()
+            if "googleusercontent.com" not in host and "blogspot.com" not in host:
+                continue
+            caminho = urlparse(imagem).path
+            identificador = re.search(r'/AVvXs[^/]+', caminho)
+            chave = identificador.group(0) if identificador else re.sub(
+                r'/s\d+(?:-[^/]+)?/', "/", caminho
+            )
+            if chave in identificadores:
+                continue
+            identificadores.add(chave)
+            nome = unescape(caminho.rsplit("/", 1)[-1]).lower()
+            if not re.search(r'bat(?:man)?|(?:^|[+_ -])0*\d{1,3}(?:[+_. -]|$)', nome):
+                continue
+            imagens.append(imagem)
+        if 0 <= indice < len(imagens):
+            capa = imagens[indice]
+            if capa not in capas_usadas:
+                return "Quadrikomics", capa, resultado["url"], None
+    return "Quadrikomics", None, None, None
+
+
 def consulta(edicao, serie):
     numero = edicao.get("numero", "")
     titulo = edicao.get("tituloChamada") or serie.get("titulo") or ""
     editora = edicao.get("editora") or serie.get("editora") or ""
-    return f'"{titulo}" "{editora}" "{numero}"'
+    fase = str(edicao.get("fase") or serie.get("fase") or "").strip()
+    parte_fase = f' "{fase}"' if fase else ""
+    return f'"{titulo}" "{editora}"{parte_fase} "{numero}"'
 
 
 def fonte_aplicavel(nome, edicao, serie):
@@ -249,6 +342,10 @@ def fonte_aplicavel(nome, edicao, serie):
 
 
 def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, titulo, numero):
+    if nome == "Quadrikomics":
+        return buscar_quadrikomics(
+            busca_loja, busca, capas_usadas, titulo, numero
+        )
     if nome == "Papersera" and str(numero or "").isdigit() and ("carl barks" in titulo.lower() or "melhor da disney" in titulo.lower()):
         numero_formatado = f"{int(numero):04d}"
         url_capa = f"https://www.papersera.net/vilaxurupita/misc/br_omd_{numero_formatado}a.jpg"
