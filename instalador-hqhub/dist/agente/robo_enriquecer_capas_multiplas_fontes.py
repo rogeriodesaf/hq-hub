@@ -30,6 +30,7 @@ FONTES = {
     "Papersera": ("papersera.net", "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm"),
     "Planeta Gibi": ("planetagibi.com", "https://www.planetagibi.com/busca?q={}"),
     "Quadrikomics": ("quadrikomics.blogspot.com", "https://quadrikomics.blogspot.com/search?q={}"),
+    "Lojas Caverna": ("lojascaverna.com.br", "https://www.lojascaverna.com.br/search/?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -114,6 +115,23 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     return minimo > 0 and len(termos_serie & termos_produto) >= minimo
 
 
+def titulo_compativel_com_serie_e_fase(titulo_produto, titulo_serie, busca):
+    termos_serie = tokens(titulo_serie) - {"volume", "serie", "edicao"}
+    termos_produto = tokens(titulo_produto)
+    minimo = min(2, len(termos_serie))
+    if minimo and len(termos_serie & termos_produto) < minimo:
+        return False
+    normalizar = lambda valor: unicodedata.normalize("NFKD", valor or "").encode(
+        "ascii", "ignore"
+    ).decode().lower()
+    fase_busca = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(busca))
+    fase_produto = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(titulo_produto))
+    return not (
+        fase_busca and fase_produto
+        and fase_busca.group(1) != fase_produto.group(1)
+    )
+
+
 def produto_multiplo(texto):
     normalizado = unicodedata.normalize(
         "NFKD", texto or ""
@@ -171,6 +189,8 @@ def resultados_loja(consulta, dominio, modelo_busca):
             not rota.startswith("/produtos/") or rota == "/produtos/"
         ):
             continue
+        if dominio == "lojascaverna.com.br" and not rota.startswith("/produtos/"):
+            continue
         if any(trecho in rota for trecho in (
             "/catalogsearch/", "/search", "/customer/", "/wishlist/",
             "/static/", "/media/", "/checkout/", "/account/", "/sales/",
@@ -185,8 +205,18 @@ def resultados_loja(consulta, dominio, modelo_busca):
             continue
         if url not in candidatos:
             candidatos.append(url)
-    candidatos.sort(key=lambda url: len(termos & tokens(urlparse(url).path)), reverse=True)
-    return [{"url": url, "titulo": ""} for url in candidatos[:8]]
+    def pontuar_url(url):
+        rota = urlparse(url).path
+        termos_rota = tokens(rota)
+        numeros_consulta = {int(item) for item in termos if item.isdigit()}
+        numeros_rota = {int(item) for item in termos_rota if item.isdigit()}
+        return (
+            20 if rota.startswith("/produtos/") else 0,
+            5 if numeros_consulta and numeros_consulta & numeros_rota else 0,
+            len(termos & termos_rota),
+        )
+    candidatos.sort(key=pontuar_url, reverse=True)
+    return [{"url": url, "titulo": ""} for url in candidatos[:12]]
 
 
 def extrair_produto(url):
@@ -355,6 +385,22 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
     resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if nome == "Lojas Caverna" and str(numero or "").isdigit():
+        fase = re.findall(r'"([^"]+)"', busca)
+        fase = fase[-2] if len(fase) >= 4 else ""
+        consultas = [
+            f"{titulo} {int(numero)}",
+            f"{titulo} n {int(numero):02d}",
+            f"{titulo} {fase} {int(numero):02d}" if fase else "",
+        ]
+        urls_encontradas = {item.get("url") for item in resultados}
+        for termo in consultas:
+            if not termo:
+                continue
+            for item in resultados_loja(termo, dominio, modelo_busca):
+                if item.get("url") not in urls_encontradas:
+                    resultados.append(item)
+                    urls_encontradas.add(item.get("url"))
     if nome == "Panini":
         # Consulte primeiro o campo de pesquisa com o título exato. Isso
         # encontra especiais como /thor-antologia, que não usam sufixo de
@@ -407,6 +453,10 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         except Exception:
             continue
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
+            continue
+        if titulo_produto and not titulo_compativel_com_serie_e_fase(
+            titulo_produto, titulo, busca
+        ):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
             tem_numero_url = bool(re.findall(
