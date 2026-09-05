@@ -6,6 +6,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -29,6 +30,7 @@ public class DiagnosticoResource {
 
     @GET
     @Path("/capas-batman-abril")
+    @Transactional
     public Map<String, Object> capasBatmanAbril() {
         @SuppressWarnings("unchecked")
         List<Object[]> registros = entityManager.createNativeQuery("""
