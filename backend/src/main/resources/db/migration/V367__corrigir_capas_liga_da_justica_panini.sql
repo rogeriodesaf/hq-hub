@@ -1,5 +1,5 @@
--- Corrige as capas da Liga da Justiça 1ª Série (Panini), edições 1 a 114.
--- As imagens são as capas Panini identificadas no catálogo da Rika.
+﻿-- Corrige as capas da Liga da JustiÃ§a 1Âª SÃ©rie (Panini), ediÃ§Ãµes 1 a 114.
+-- As imagens sÃ£o as capas Panini identificadas no catÃ¡logo da Rika.
 WITH capas(numero, url_capa) AS (
   VALUES
     (1, 'https://rika.vteximg.com.br/arquivos/ids/221832/-herois_panini-liga-justica-001.jpg'),
@@ -120,14 +120,18 @@ WITH capas(numero, url_capa) AS (
 UPDATE edicoes edicao
 SET url_capa = capas.url_capa
 FROM capas
-JOIN series serie ON serie.id = edicao.serie_id
-JOIN editoras editora ON editora.id = serie.editora_id
-WHERE hqhub_normalizar_titulo_serie(editora.nome) LIKE 'panini%'
-  AND coalesce(serie.volume, 1) = 1
-  AND hqhub_normalizar_titulo_serie(serie.titulo) IN (
-    hqhub_normalizar_titulo_serie('Liga da Justiça'),
-    hqhub_normalizar_titulo_serie('Liga da Justiça 1ª Série'),
-    hqhub_normalizar_titulo_serie('Liga da Justiça - 1ª Série')
-  )
+WHERE EXISTS (
+  SELECT 1 FROM series serie
+  JOIN editoras editora ON editora.id = serie.editora_id
+  WHERE serie.id = edicao.serie_id
+    AND hqhub_normalizar_titulo_serie(editora.nome) LIKE 'panini%'
+    AND coalesce(serie.volume, 1) = 1
+    AND hqhub_normalizar_titulo_serie(serie.titulo) IN (
+      hqhub_normalizar_titulo_serie('Liga da Justiça'),
+      hqhub_normalizar_titulo_serie('Liga da Justiça 1ª Série'),
+      hqhub_normalizar_titulo_serie('Liga da Justiça - 1ª Série')
+    )
+)
   AND hqhub_normalizar_identidade(edicao.numero) = hqhub_normalizar_identidade(capas.numero::text);
+
 
