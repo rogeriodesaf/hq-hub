@@ -1,0 +1,48 @@
+{
+  "candidatos": {
+    "7": 0, "9": 0, "10": 0, "14": 0, "15": 2,
+    "16": 2, "17": 3, "18": 5, "20": 1, "21": 8,
+    "22": 0, "23": 0, "24": 0, "25": 0, "27": 0, "28": 0,
+    "40": 0, "41": 5, "42": 0, "43": 4, "44": 0,
+    "70": 0, "73": 0, "76": 0,
+    "77": 1, "79": 2, "80": 0, "81": 1, "82": 0, "83": 0,
+    "85": 0, "87": 2, "88": 0, "90": 0, "91": 0, "92": 6,
+    "93": 0, "96": 0, "99": 0, "101": 0, "102": 0,
+    "103": 6, "104": 0, "105": 1, "107": 0,
+    "110": 0, "113": 2, "120": 0
+  },
+  "complementares": {
+    "12": 2, "66": 3, "69": 6, "89": 0,
+    "100": 0, "108": 8, "112": 1, "115": 0
+  },
+  "cruzadas": {"106": [105, 4]},
+  "paginas": {
+    "5": "https://panini.com.br/mulher-gato-ano-um",
+    "11": "https://panini.com.br/batman-padroes-sombrios-vol-01",
+    "13": "https://panini.com.br/batman-asas-e-devocao",
+    "26": "https://venda.panini.com.br/batman-neve-a-origem-do-senhor-frio",
+    "29": "https://panini.com.br/batman-robin-ano-um-vol-01",
+    "30": "https://panini.com.br/o-asilo-do-coringa",
+    "35": "https://panini.com.br/batman-robin-ano-um-vol-01",
+    "72": "https://www.mundodoscolecionaveis.com.br/produtos/hq-dc-graphic-novels-regular-batman-e-os-foragidos-edicao-134/",
+    "111": "https://panini.com.br/batman-espelho-sombrio",
+    "114": "https://panini.com.br/batman-e-robin-requiem",
+    "117": "https://panini.com.br/batman-mulher-gato-vol-1",
+    "118": "https://www.travessa.com.br/batman-mulher-gato-vol-2/artigo/bf7a2078-727f-42ea-ad85-20970c83893c",
+    "119": "https://panini.com.br/batman-mulher-gato-vol-3"
+  },
+  "imagens": {
+    "65": {"titulo": "Batman: Vigilantes de Gotham, Abril, 21 — O Legado do Demônio, parte 1", "url": "https://www.rika.com.br/batman---vigilantes-de-gotham--2116002933/p", "urlCapa": "https://rika.vteximg.com.br/arquivos/ids/515168/16002933.jpg?v=639086762767130000", "confirmacaoConteudo": "https://my.comics.org/issue/825805/"},
+    "94": {"titulo": "Batman, Panini, primeira série, 90 — A Batalha pelo Capuz", "url": "https://www.rika.com.br/batman---1ª-serie--09015001512/p", "urlCapa": "https://rika.vteximg.com.br/arquivos/ids/221324/-herois_panini-batman-090.jpg?v=635316202118730000", "confirmacaoConteudo": "https://www.comics.org/issue/835147/?display=grid"},
+    "58": {"titulo": "A Saga do Batman, Panini, V1, 30", "url": "https://www.rika.com.br/saga-do-batman--30-15009462/p", "urlCapa": "https://rika.vteximg.com.br/arquivos/ids/452809/https---www.artesequencial.com.br-imagens-herois_panini-saga-do-batman-30.jpg?v=638472595771900000"},
+    "98": {"titulo": "A Lenda do Batman 43: Ruas de Gotham", "url": "https://spider145hqs.com/2022/06/16/a-lenda-do-batman-volumes-41-a-50/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol43_eaglemoss_16062022.jpg"},
+    "8": {"titulo": "A Lenda do Batman 61: Batman e o Monge Louco", "url": "https://spider145hqs.com/2022/06/24/a-lenda-do-batman-volumes-61-a-70/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol61_eaglemoss_24062022.jpg"},
+    "56": {"titulo": "A Lenda do Batman 56: Um Lugar Para Morrer", "url": "https://spider145hqs.com/2022/06/22/a-lenda-do-batman-volumes-51-a-60/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol56_eaglemoss_22062022.jpg"},
+    "74": {"titulo": "A Lenda do Batman 74: Guarda-Costas", "url": "https://spider145hqs.com/2022/06/27/a-lenda-do-batman-volumes-71-a-79/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol74_eaglemoss_27062022.jpg"},
+    "75": {"titulo": "A Lenda do Batman 73: Policial Ferido", "url": "https://spider145hqs.com/2022/06/27/a-lenda-do-batman-volumes-71-a-79/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol73_eaglemoss_27062022.jpg"},
+    "86": {"titulo": "A Lenda do Batman 63: Cara a Cara", "url": "https://spider145hqs.com/2022/06/24/a-lenda-do-batman-volumes-61-a-70/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol63_eaglemoss_24062022.jpg"},
+    "109": {"titulo": "A Lenda do Batman 54: Louco", "url": "https://spider145hqs.com/2022/06/22/a-lenda-do-batman-volumes-51-a-60/", "urlCapa": "https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol54_eaglemoss_22062022.jpg"}
+  },
+  "pendentes": [19, 68, 71, 78, 84, 95, 97, 116],
+  "criterio": "Capa da publicação correspondente; nas sagas divididas, capa da primeira parte como referência visual. Sem criar vínculos de catálogo nem alterar títulos, posições ou imagens existentes. Entradas sem identificação suficiente ficam pendentes."
+}
