@@ -89,6 +89,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/revisao/revisao.page').then((m) => m.RevisaoPage),
       },
       {
+        path: 'colecao/adicionar',
+        loadComponent: () => import('./pages/colecao/colecao.page').then((m) => m.ColecaoPage),
+      },
+      {
         path: 'colecao',
         loadComponent: () => import('./pages/colecao/colecao.page').then((m) => m.ColecaoPage),
       },

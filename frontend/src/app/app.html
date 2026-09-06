@@ -262,9 +262,9 @@
         <svg lucideBookOpen size="20"></svg>
         <span>Catálogo</span>
       </a>
-      <button type="button" class="nav-publicar" [class.ativo]="publicarAberto()" (click)="abrirPublicar()" aria-label="Abrir opções para publicar">
+      <button type="button" class="nav-publicar" routerLink="/colecao/adicionar" aria-label="Adicionar uma edição à estante">
         <span class="nav-publicar-icone"><svg lucidePlus size="24"></svg></span>
-        <span>Publicar</span>
+        <span>Adicionar</span>
       </button>
       <a routerLink="/social" [class.ativo]="socialAtivo()">
         <span class="nav-icone">

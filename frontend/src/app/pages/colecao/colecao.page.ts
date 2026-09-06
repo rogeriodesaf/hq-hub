@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles } from '@lucide/angular';
 import { firstValueFrom } from 'rxjs';
 
@@ -22,15 +23,18 @@ import {
 
 @Component({
   selector: 'app-colecao-page',
-  imports: [CommonModule, FormsModule, LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles],
+  imports: [CommonModule, FormsModule, RouterLink, LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles],
   template: `
     <section class="cabecalho-pagina estante-cabecalho">
       <div>
-        <p class="rotulo">Estante</p>
-        <h1>Suas HQs agrupadas por editora e série.</h1>
+        <p class="rotulo">{{ modoAdicao ? 'Adicionar edição' : 'Estante' }}</p>
+        <h1>{{ modoAdicao ? 'Adicionar à minha estante' : 'Minha estante' }}</h1>
       </div>
+      @if (modoAdicao) { <a class="botao secundario" routerLink="/colecao">Voltar à estante</a> }
+      @else { <a class="botao primario" routerLink="/colecao/adicionar"><svg lucidePlus size="18"></svg> Adicionar HQ</a> }
     </section>
 
+    @if (modoAdicao) {
     <section class="painel-formulario estante-painel-formulario">
       <div class="secao-titulo">
         <div>
@@ -52,6 +56,10 @@ import {
         <div class="barra-busca">
           <input
             [(ngModel)]="buscaEdicao"
+            id="busca-catalogo-estante"
+            name="buscaCatalogoEstante"
+            type="search"
+            autocomplete="off"
             placeholder="Ex.: Batman, X-Men..."
             (ngModelChange)="agendarBuscaEdicoes()"
             (keyup.enter)="buscarEdicoes()"
@@ -102,7 +110,13 @@ import {
           </div>
         }
 
-        <form class="colecao-formulario formulario-accordions" (ngSubmit)="cadastrarNaColecao()">
+        <form class="colecao-formulario formulario-accordions" autocomplete="off" (ngSubmit)="cadastrarNaColecao()">
+          @if (!edicaoSelecionada() && !resultadoSelecionado()) {
+            <div class="instrucao-selecao" role="status">
+              <strong>Pesquise e escolha uma edição</strong>
+              <p>Os detalhes da sua coleção serão liberados depois da seleção.</p>
+            </div>
+          } @else {
           <details class="accordion-formulario" open>
             <summary>Dados da coleção</summary>
             <div class="grade-formulario">
@@ -142,11 +156,11 @@ import {
               </label>
               <label>
                 Data da compra
-                <input type="date" [(ngModel)]="dataAquisicao" name="dataAquisicao" />
+                <input id="data-aquisicao-catalogo" type="date" [(ngModel)]="dataAquisicao" name="dataAquisicao" autocomplete="off" />
               </label>
               <label>
                 Preço (R$)
-                <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" placeholder="Usar preço de capa" />
+                <input id="preco-pago-catalogo" type="number" inputmode="decimal" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPago" autocomplete="off" placeholder="Usar preço de capa" />
               </label>
             </div>
           </details>
@@ -160,14 +174,15 @@ import {
               </label>
             </div>
           </details>
+          }
 
           <button class="botao primario botao-principal-estante" type="submit" [disabled]="salvandoItem() || (!edicaoSelecionada() && !resultadoSelecionado())">
             <svg lucidePlus size="18" aria-hidden="true"></svg>
-            {{ salvandoItem() ? 'Salvando...' : 'Adicionar à estante' }}
+            {{ salvandoItem() ? 'Adicionando…' : ((!edicaoSelecionada() && !resultadoSelecionado()) ? 'Selecione uma edição' : 'Adicionar à minha estante') }}
           </button>
         </form>
       } @else {
-        <form class="colecao-formulario formulario-accordions" (ngSubmit)="cadastrarEdicaoManual()">
+        <form class="colecao-formulario formulario-accordions" autocomplete="off" (ngSubmit)="cadastrarEdicaoManual()">
           <details class="accordion-formulario" open>
             <summary>Dados da coleção</summary>
             <div class="grade-formulario">
@@ -342,12 +357,12 @@ import {
 
           <label>
             Data da compra
-            <input type="date" [(ngModel)]="dataAquisicao" name="dataAquisicaoManual" />
+            <input id="data-aquisicao-manual" type="date" [(ngModel)]="dataAquisicao" name="dataAquisicaoManual" autocomplete="off" />
           </label>
 
           <label>
             Preço (R$)
-            <input type="number" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" placeholder="Usar preço de capa" />
+            <input id="preco-pago-manual" type="number" inputmode="decimal" min="0" step="0.01" [(ngModel)]="precoPago" name="precoPagoManual" autocomplete="off" placeholder="Usar preço de capa" />
           </label>
 
           <label>
@@ -396,7 +411,9 @@ import {
         </aside>
       }
     </section>
+    }
 
+    @if (!modoAdicao) {
     <section class="painel-estante">
       <div class="secao-titulo">
         <div>
@@ -491,7 +508,7 @@ import {
       }
 
       <div class="controles-estante">
-        <input [(ngModel)]="buscaEstante" placeholder="Filtrar por título, editora ou número" (ngModelChange)="agendarBuscaEstante()" />
+        <input id="busca-minha-estante" name="buscaMinhaEstante" type="search" autocomplete="off" [(ngModel)]="buscaEstante" placeholder="Buscar por título, série, editora ou número" (ngModelChange)="agendarBuscaEstante()" />
         <section class="abas-filtro">
           <button type="button" [class.ativo]="filtroLeitura() === 'TODAS'" (click)="alterarFiltroLeitura('TODAS')">
             Todas
@@ -525,8 +542,8 @@ import {
 
     @if (!carregandoEstante() && !estanteFiltrada().length) {
       <section class="estado-vazio">
-        <h2>Nenhuma edição encontrada</h2>
-        <p>Cadastre edições na coleção ou ajuste o filtro de leitura.</p>
+        <h2>Nenhuma HQ encontrada com esses filtros.</h2>
+        <button class="botao compacto" type="button" (click)="buscaEstante=''; alterarFiltroLeitura('TODAS')">Limpar filtros</button>
       </section>
     }
 
@@ -558,9 +575,6 @@ import {
                     />
                     <span>#{{ edicao.numero }}</span>
                     <small [class.lido]="edicao.statusLeitura === 'LIDO'">{{ rotuloLeitura(edicao.statusLeitura) }}</small>
-                    @if (edicao.dataAquisicao) {
-                      <em>Comprado em {{ formatarData(edicao.dataAquisicao) }}</em>
-                    }
                   </div>
                 }
               </div>
@@ -569,6 +583,7 @@ import {
         </article>
       }
     </section>
+    }
 
     @if (edicaoEstanteSelecionada()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição na estante">
@@ -615,9 +630,11 @@ import {
 })
 export class ColecaoPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly router = inject(Router);
   private readonly autenticacao = inject(AutenticacaoService);
   private readonly compartilhamento = inject(CompartilhamentoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
+  readonly modoAdicao = this.router.url.startsWith('/colecao/adicionar');
   readonly estante = signal<EstanteEditora[]>([]);
   readonly paginaEstante = signal<PaginaResposta<EstanteEditora>>({
     itens: [],
