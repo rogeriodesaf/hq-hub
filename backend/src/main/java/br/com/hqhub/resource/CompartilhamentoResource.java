@@ -358,7 +358,9 @@ public class CompartilhamentoResource {
         String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
         String destino = urlBase + "/guia-de-leitura-app/" + slug;
         String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=3";
-        String imagem = apiUrlPublica + "/api/compartilhar/guias/" + slug + "/imagem.jpg?v=3";
+        String imagem = "batman-ordem-cronologica".equalsIgnoreCase(guia.getSlug())
+                ? "https://upload.wikimedia.org/wikipedia/commons/1/1c/Batman_logo.svg"
+                : apiUrlPublica + "/api/compartilhar/guias/" + slug + "/imagem.jpg?v=3";
         String titulo = guia.getTitulo() + " | HQ-HUB";
         String descricao = guia.getDescricao() == null || guia.getDescricao().isBlank()
                 ? "Confira este guia de leitura no HQ-HUB."
