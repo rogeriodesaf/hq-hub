@@ -357,10 +357,12 @@ public class CompartilhamentoResource {
     private String htmlGuia(OrdemLeitura guia) {
         String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
         String destino = urlBase + "/guia-de-leitura-app/" + slug;
-        String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=3";
-        String imagem = "batman-ordem-cronologica".equalsIgnoreCase(guia.getSlug())
-                ? "https://upload.wikimedia.org/wikipedia/commons/1/1c/Batman_logo.svg"
+        String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=4";
+        boolean guiaBatman = "batman-ordem-cronologica".equalsIgnoreCase(guia.getSlug());
+        String imagem = guiaBatman
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Batman_symbol.svg/1280px-Batman_symbol.svg.png"
                 : apiUrlPublica + "/api/compartilhar/guias/" + slug + "/imagem.jpg?v=3";
+        String tipoImagem = guiaBatman ? "image/png" : "image/jpeg";
         String titulo = guia.getTitulo() + " | HQ-HUB";
         String descricao = guia.getDescricao() == null || guia.getDescricao().isBlank()
                 ? "Confira este guia de leitura no HQ-HUB."
@@ -381,7 +383,7 @@ public class CompartilhamentoResource {
                   <meta property="og:url" content="%s">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
-                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:type" content="%s">
                   <meta property="og:image:width" content="1200">
                   <meta property="og:image:height" content="1600">
                   <meta property="og:image:alt" content="Capa do guia %s">
@@ -396,7 +398,7 @@ public class CompartilhamentoResource {
                 """.formatted(
                 escaparHtml(titulo), escaparHtml(descricao), escaparHtml(guia.getTitulo()),
                 escaparHtml(descricao), escaparHtml(compartilhamento), escaparHtml(imagem),
-                escaparHtml(imagem), escaparHtml(guia.getTitulo()), escaparHtml(guia.getTitulo()),
+                escaparHtml(imagem), escaparHtml(tipoImagem), escaparHtml(guia.getTitulo()), escaparHtml(guia.getTitulo()),
                 escaparHtml(descricao), escaparHtml(imagem), escaparHtml(destino),
                 escaparHtml(destino), escaparHtml(guia.getTitulo()));
     }
