@@ -68,6 +68,7 @@ import {
             <svg lucideSearch size="18" aria-hidden="true"></svg>
             {{ carregandoEdicoes() ? 'Buscando...' : 'Buscar edição' }}
           </button>
+          <a class="botao secundario" routerLink="/catalogo">Abrir busca completa do catálogo</a>
         </div>
 
         @if (resultadosEncontrados().length) {
@@ -108,6 +109,13 @@ import {
               </div>
             }
           </div>
+          @if (totalPaginasBuscaEdicoes() > 1) {
+            <nav class="paginacao-catalogo" aria-label="Páginas de resultados">
+              <button class="botao compacto" type="button" (click)="mudarPaginaBuscaEdicoes(-1)" [disabled]="paginaBuscaEdicoes() === 0 || carregandoEdicoes()">Anterior</button>
+              <span>Página {{ paginaBuscaEdicoes() + 1 }} de {{ totalPaginasBuscaEdicoes() }}</span>
+              <button class="botao compacto" type="button" (click)="mudarPaginaBuscaEdicoes(1)" [disabled]="paginaBuscaEdicoes() + 1 >= totalPaginasBuscaEdicoes() || carregandoEdicoes()">Próxima</button>
+            </nav>
+          }
         }
 
         <form class="colecao-formulario formulario-accordions" autocomplete="off" (ngSubmit)="cadastrarNaColecao()">
@@ -650,6 +658,8 @@ export class ColecaoPage implements OnInit {
   readonly edicaoSelecionada = signal<Edicao | null>(null);
   readonly resultadoSelecionado = signal<ResultadoPesquisaCatalogo | null>(null);
   readonly carregandoEdicoes = signal(false);
+  readonly paginaBuscaEdicoes = signal(0);
+  readonly totalPaginasBuscaEdicoes = signal(0);
   readonly salvandoItem = signal(false);
   readonly exibindoCadastroManual = signal(false);
   readonly editorasCache = signal<EditoraResumo[]>([]);
@@ -952,11 +962,14 @@ export class ColecaoPage implements OnInit {
     this.resultadoSelecionado.set(null);
     this.resultadosSelecionadosEmMassa.set([]);
     const termoBuscado = this.buscaEdicao.trim();
+    const pagina = this.paginaBuscaEdicoes();
     this.buscaEdicoesEmAndamento?.unsubscribe();
-    this.buscaEdicoesEmAndamento = this.api.pesquisarCatalogo(termoBuscado, 0, 20, true).subscribe({
+    this.buscaEdicoesEmAndamento = this.api.pesquisarCatalogo(termoBuscado, pagina, 20, true).subscribe({
       next: (resposta) => {
         if (termoBuscado !== this.buscaEdicao.trim()) return;
         this.resultadosEncontrados.set(resposta.itens);
+        this.paginaBuscaEdicoes.set(resposta.pagina);
+        this.totalPaginasBuscaEdicoes.set(resposta.totalPaginas);
         this.carregandoEdicoes.set(false);
         if (!resposta.itens.length) {
           this.mensagem.set('Nenhuma edição encontrada. Use o cadastro manual para criar uma nova.');
@@ -973,6 +986,7 @@ export class ColecaoPage implements OnInit {
   }
 
   agendarBuscaEdicoes() {
+    this.paginaBuscaEdicoes.set(0);
     this.edicaoSelecionada.set(null);
     this.resultadoSelecionado.set(null);
     this.resultadosSelecionadosEmMassa.set([]);
@@ -1322,6 +1336,13 @@ export class ColecaoPage implements OnInit {
   selecionarEdicaoEstante(edicao: EstanteEdicao, serieTitulo: string) {
     this.serieEstanteSelecionada.set(serieTitulo);
     this.edicaoEstanteSelecionada.set(edicao);
+  }
+
+  mudarPaginaBuscaEdicoes(delta: number) {
+    const proxima = this.paginaBuscaEdicoes() + delta;
+    if (proxima < 0 || proxima >= this.totalPaginasBuscaEdicoes()) return;
+    this.paginaBuscaEdicoes.set(proxima);
+    this.buscarEdicoes();
   }
 
   marcarSelecionadaComoLida() {
