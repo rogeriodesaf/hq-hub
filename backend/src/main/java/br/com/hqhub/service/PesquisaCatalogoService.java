@@ -46,6 +46,21 @@ public class PesquisaCatalogoService {
                 totalPaginasInternas);
     }
 
+    @Transactional
+    public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogoRapido(String termo, Integer tamanho) {
+        int tamanhoTratado = tratarTamanho(tamanho);
+        if (termo == null || termo.isBlank()) {
+            return new PaginaRespostaDTO<>(List.of(), 0, tamanhoTratado, 0, 0);
+        }
+
+        List<ResultadoPesquisaCatalogoDTO> itens = edicaoRepository
+                .buscarPaginado(null, termo.trim(), 0, tamanhoTratado, TipoSerie.BRASILEIRA)
+                .stream()
+                .map(this::paraResultadoInterno)
+                .toList();
+        return new PaginaRespostaDTO<>(itens, 0, tamanhoTratado, itens.size(), itens.isEmpty() ? 0 : 1);
+    }
+
     private ResultadoPesquisaCatalogoDTO paraResultadoInterno(Edicao edicao) {
         return new ResultadoPesquisaCatalogoDTO(
                 edicao.getId(),

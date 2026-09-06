@@ -27,7 +27,11 @@ public class CatalogoResource {
     public Response pesquisar(
             @QueryParam("termo") String termo,
             @QueryParam("pagina") Integer pagina,
-            @QueryParam("tamanho") Integer tamanho) {
+            @QueryParam("tamanho") Integer tamanho,
+            @QueryParam("rapido") Boolean rapido) {
+        if (Boolean.TRUE.equals(rapido)) {
+            return Response.ok(pesquisaCatalogoService.pesquisarCatalogoRapido(termo, tamanho)).build();
+        }
         return Response.ok(pesquisaCatalogoService.pesquisarCatalogo(termo, pagina, tamanho)).build();
     }
 }

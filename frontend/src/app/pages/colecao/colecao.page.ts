@@ -3,7 +3,7 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles } from '@lucide/angular';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -635,6 +635,7 @@ export class ColecaoPage implements OnInit {
   private readonly compartilhamento = inject(CompartilhamentoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly modoAdicao = this.router.url.startsWith('/colecao/adicionar');
+  private buscaEdicoesEmAndamento?: Subscription;
   readonly estante = signal<EstanteEditora[]>([]);
   readonly paginaEstante = signal<PaginaResposta<EstanteEditora>>({
     itens: [],
@@ -950,8 +951,11 @@ export class ColecaoPage implements OnInit {
     this.edicaoSelecionada.set(null);
     this.resultadoSelecionado.set(null);
     this.resultadosSelecionadosEmMassa.set([]);
-    this.api.pesquisarCatalogo(this.buscaEdicao, 0, 12).subscribe({
+    const termoBuscado = this.buscaEdicao.trim();
+    this.buscaEdicoesEmAndamento?.unsubscribe();
+    this.buscaEdicoesEmAndamento = this.api.pesquisarCatalogo(termoBuscado, 0, 20, true).subscribe({
       next: (resposta) => {
+        if (termoBuscado !== this.buscaEdicao.trim()) return;
         this.resultadosEncontrados.set(resposta.itens);
         this.carregandoEdicoes.set(false);
         if (!resposta.itens.length) {
@@ -959,6 +963,7 @@ export class ColecaoPage implements OnInit {
         }
       },
       error: () => {
+        if (termoBuscado !== this.buscaEdicao.trim()) return;
         this.resultadosEncontrados.set([]);
         this.resultadosSelecionadosEmMassa.set([]);
         this.carregandoEdicoes.set(false);
@@ -982,7 +987,7 @@ export class ColecaoPage implements OnInit {
       return;
     }
 
-    this.temporizadorBuscaEdicao = setTimeout(() => this.buscarEdicoes(), 450);
+    this.temporizadorBuscaEdicao = setTimeout(() => this.buscarEdicoes(), 220);
   }
 
   selecionarEdicao(edicao: Edicao) {

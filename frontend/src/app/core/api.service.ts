@@ -281,11 +281,12 @@ export class ApiService {
     return this.http.patch<CapaEdicao>(`/api/capas/${capaId}/rejeitar`, {});
   }
 
-  pesquisarCatalogo(termo: string, pagina = 0, tamanho = 20) {
+  pesquisarCatalogo(termo: string, pagina = 0, tamanho = 20, rapido = false) {
     const params = new HttpParams()
       .set('termo', termo)
       .set('pagina', pagina)
-      .set('tamanho', tamanho);
+      .set('tamanho', tamanho)
+      .set('rapido', rapido);
 
     return this.http.get<PaginaResposta<ResultadoPesquisaCatalogo>>('/api/catalogo/pesquisa', { params });
   }
