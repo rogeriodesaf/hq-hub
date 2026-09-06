@@ -105,6 +105,11 @@ def slug(texto):
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", base)).strip("-")
 
 
+def titulo_base_serie(texto):
+    """Remove o marcador editorial (1ª série/V1), preservando o título."""
+    return re.sub(r"\s*(?:\d+\s*[aª]?\s*s[ée]rie|v(?:ol(?:ume)?)?\.?\s*\d+)\b", "", texto or "", flags=re.I).strip()
+
+
 def produto_compativel_com_numero(url, numero, exigir_volume=False):
     numero = str(numero or "").strip()
     if not numero.isdigit():
@@ -461,7 +466,8 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         # Consulte primeiro o campo de pesquisa com o título exato. Isso
         # encontra especiais como /thor-antologia, que não usam sufixo de
         # volume apesar de aparecerem como nº 1 no Guia.
-        exatos = resultados_loja(titulo, dominio, modelo_busca)
+        titulo_panini = titulo_base_serie(titulo)
+        exatos = resultados_loja(titulo_panini, dominio, modelo_busca)
         resultados = exatos + [
             item for item in resultados if item.get("url") not in {
                 exato.get("url") for exato in exatos
@@ -478,13 +484,13 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Amazon":
         resultados.sort(key=pontuacao_amazon, reverse=True)
     if nome == "Panini" and str(numero or "").isdigit():
-        url_direta = f"https://panini.com.br/{slug(titulo)}-vol-{int(numero)}"
+        url_direta = f"https://panini.com.br/{slug(titulo_panini)}-vol-{int(numero)}"
         resultados.append({"url": url_direta, "titulo": ""})
         if int(numero) == 1:
             # Especiais e antologias de edição única frequentemente são
             # cadastrados como nº 1 no Guia, mas não usam "vol-1" na Panini.
             resultados.append({
-                "url": f"https://panini.com.br/{slug(titulo)}",
+                "url": f"https://panini.com.br/{slug(titulo_panini)}",
                 "titulo": "",
             })
     if not resultados:
@@ -511,8 +517,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             continue
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
+        titulo_validacao = titulo_base_serie(titulo) if nome == "Panini" else titulo
         if not titulo_produto or not titulo_compativel_com_serie_e_fase(
-            titulo_produto, titulo, busca
+            titulo_produto, titulo_validacao, busca
         ):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
