@@ -8,6 +8,7 @@ import br.com.hqhub.dto.SerieResumoDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Serie;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.util.Objects;
 
 @ApplicationScoped
 public class EdicaoMapper {
@@ -36,6 +37,11 @@ public class EdicaoMapper {
     }
 
     public void atualizarEntidade(Edicao edicao, AtualizacaoEdicaoDTO dto, Serie serie) {
+        // A traducao anterior nao pode encobrir uma descricao editada manualmente.
+        // Preserve-a quando a atualizacao modificar somente outros campos.
+        if (!Objects.equals(edicao.getDescricao(), dto.descricao())) {
+            edicao.setDescricaoPortugues(null);
+        }
         edicao.setNumero(dto.numero());
         edicao.setTitulo(dto.titulo());
         edicao.setDescricao(dto.descricao());

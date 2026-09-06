@@ -5,6 +5,7 @@ from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from threading import Event
+from time import monotonic
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch, MagicMock
@@ -14,6 +15,28 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PerformanceCapasTest(unittest.TestCase):
+    def test_fonte_lenta_anterior_nao_bloqueia_acerto(self):
+        liberar = Event()
+
+        def buscar(nome, *args):
+            if nome == 'lenta':
+                liberar.wait(2)
+                return nome, None, None, None
+            return nome, 'capa-validada', 'produto', None
+
+        with ThreadPoolExecutor(2) as pool, patch.object(robo, 'buscar_fonte', buscar):
+            try:
+                inicio = monotonic()
+                resposta = robo.consultar_fontes(
+                    pool, [('lenta', '', ''), ('rapida', '', '')],
+                    '', '', set(), 'Batman', '1', {},
+                )
+                self.assertEqual(resposta[1], 'capa-validada')
+                self.assertLess(monotonic() - inicio, 1)
+                self.assertFalse(liberar.is_set())
+            finally:
+                liberar.set()
+
     def tearDown(self):
         robo.baixar_cached.cache_clear()
         robo.CONTEXTO_BUSCA.cancelamento = None

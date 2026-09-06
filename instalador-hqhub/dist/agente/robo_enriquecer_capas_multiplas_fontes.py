@@ -6,7 +6,7 @@ existente, salvo quando --substituir é informado. Os resultados ficam
 registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor, CancelledError
+from concurrent.futures import ThreadPoolExecutor, CancelledError, as_completed
 from functools import lru_cache
 import json
 import re
@@ -52,7 +52,7 @@ def baixar(url):
     return baixar_cached(url)
 
 
-@lru_cache(maxsize=64)
+@lru_cache(maxsize=256)
 def baixar_cached(url):
     # Cache limitado a esta execucao. Erros nao ficam armazenados.
     req = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB local cover finder"})
@@ -120,13 +120,13 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     if not numero.isdigit():
         return True
     normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
-    encontrados = re.findall(r"(?:vol(?:ume)?\.?|n[ºo.]?|#)\s*0*(\d+)", normalizado)
+    encontrados = re.findall(r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*0*(\d+(?:[.,]\d+)?)", normalizado)
     if not encontrados:
         numero_final = re.search(r"(?:^|\s)0*(\d+)\s*$", normalizado)
         if numero_final:
             encontrados = [numero_final.group(1)]
     if encontrados:
-        return int(numero) in {int(item) for item in encontrados}
+        return {float(item.replace(',', '.')) for item in encontrados} == {int(numero)}
     if int(numero) != 1 or not titulo_serie:
         return False
     # O primeiro volume muitas vezes e publicado sem "volume 1" no titulo.
@@ -134,25 +134,25 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     ignorados = {"vol", "volume", "edicao", "serie"}
     termos_serie = tokens(titulo_serie) - ignorados
     termos_produto = tokens(titulo) - ignorados
-    minimo = min(2, len(termos_serie))
-    return minimo > 0 and len(termos_serie & termos_produto) >= minimo
+    return bool(termos_serie) and termos_serie == termos_produto
 
 
 def titulo_compativel_com_serie_e_fase(titulo_produto, titulo_serie, busca):
-    termos_serie = tokens(titulo_serie) - {"volume", "serie", "edicao"}
+    termos_serie = {t for t in tokens(titulo_serie) if not t.isdigit()} - {"volume", "serie", "edicao"}
     termos_produto = tokens(titulo_produto)
-    minimo = min(2, len(termos_serie))
-    if minimo and len(termos_serie & termos_produto) < minimo:
+    if not termos_serie or not termos_serie.issubset(termos_produto):
         return False
     normalizar = lambda valor: unicodedata.normalize("NFKD", valor or "").encode(
         "ascii", "ignore"
     ).decode().lower()
     fase_busca = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(busca))
     fase_produto = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(titulo_produto))
-    return not (
-        fase_busca and fase_produto
-        and fase_busca.group(1) != fase_produto.group(1)
-    )
+    if fase_busca and (not fase_produto or fase_busca.group(1) != fase_produto.group(1)):
+        return False
+    variante = {"variante", "variant"}
+    if termos_produto & variante and not tokens(busca) & variante:
+        return False
+    return True
 
 
 def produto_multiplo(texto):
@@ -206,7 +206,7 @@ def resultados_loja(consulta, dominio, modelo_busca):
         url = urljoin(url_busca, unescape(href))
         host = (urlparse(url).hostname or "").lower()
         rota = (urlparse(url).path or "").lower()
-        if dominio not in host:
+        if host != dominio and not host.endswith('.' + dominio):
             continue
         if dominio == "texasranger.com.br" and (
             not rota.startswith("/produtos/") or rota == "/produtos/"
@@ -274,6 +274,27 @@ def extrair_capa(url):
     return extrair_produto(url)[0]
 
 
+def resultados_rika(titulo):
+    """Reutiliza paginas do catalogo da serie entre edicoes, inclusive variantes."""
+    resultados = []
+    for inicio in range(0, 200, 50):
+        produtos = json.loads(baixar(
+            'https://www.rika.com.br/api/catalog_system/pub/products/search/?ft='
+            + quote(titulo) + f'&_from={inicio}&_to={inicio + 49}'
+        ))
+        if not isinstance(produtos, list):
+            break
+        for produto in produtos:
+            imagens = [imagem.get('imageUrl') for sku in produto.get('items', [])
+                       for imagem in sku.get('images', []) if imagem.get('imageUrl')]
+            if imagens and produto.get('link'):
+                resultados.append({'url': produto['link'], 'titulo': produto.get('productName', ''),
+                                   'urlCapa': imagens[0]})
+        if len(produtos) < 50:
+            break
+    return resultados
+
+
 def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
     """Encontra a capa pela galeria de uma postagem do Quadrikomics."""
     partes_busca = re.findall(r'"([^"]+)"', busca)
@@ -321,7 +342,6 @@ def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
     numero_texto = str(numero or "").strip()
     if not numero_texto.isdigit():
         return "Quadrikomics", None, None, None
-    indice = int(numero_texto) - 1
     termos_titulo = tokens(titulo) - {"volume", "serie", "edicao"}
     for resultado in resultados:
         try:
@@ -356,9 +376,12 @@ def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
             nome = unescape(caminho.rsplit("/", 1)[-1]).lower()
             if not re.search(r'bat(?:man)?|(?:^|[+_ -])0*\d{1,3}(?:[+_. -]|$)', nome):
                 continue
-            imagens.append(imagem)
-        if 0 <= indice < len(imagens):
-            capa = imagens[indice]
+            # Nunca use a posicao da imagem: faltas e variantes deslocam a galeria.
+            numeros = re.findall(r'(?:^|[+_ -])0*(\d+)(?=\.[a-z]+$|[+_ -]|$)', nome)
+            if len(numeros) == 1 and int(numeros[0]) == int(numero_texto):
+                imagens.append(imagem)
+        if len(imagens) == 1:
+            capa = imagens[0]
             if capa not in capas_usadas:
                 return "Quadrikomics", capa, resultado["url"], None
     return "Quadrikomics", None, None, None
@@ -366,7 +389,7 @@ def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
 
 def consulta(edicao, serie):
     numero = edicao.get("numero", "")
-    titulo = edicao.get("tituloChamada") or serie.get("titulo") or ""
+    titulo = serie.get("titulo") or edicao.get("tituloChamada") or ""
     editora = edicao.get("editora") or serie.get("editora") or ""
     fase = str(edicao.get("fase") or serie.get("fase") or "").strip()
     parte_fase = f' "{fase}"' if fase else ""
@@ -392,7 +415,7 @@ def fonte_aplicavel(nome, edicao, serie):
         return "bonelli" in licenciador
     if nome == "Papersera":
         titulo = " ".join(str(valor or "") for valor in (edicao.get("tituloChamada"), serie.get("titulo"))).lower()
-        return "carl barks" in titulo or "melhor da disney" in titulo
+        return "melhor da disney" in titulo and "abril" in editora
     return True
 
 
@@ -401,7 +424,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         return buscar_quadrikomics(
             busca_loja, busca, capas_usadas, titulo, numero
         )
-    if nome == "Papersera" and str(numero or "").isdigit() and ("carl barks" in titulo.lower() or "melhor da disney" in titulo.lower()):
+    if nome == "Papersera" and str(numero or "").isdigit() and 1 <= int(numero) <= 41 and "melhor da disney" in titulo.lower():
         numero_formatado = f"{int(numero):04d}"
         url_capa = f"https://www.papersera.net/vilaxurupita/misc/br_omd_{numero_formatado}a.jpg"
         if url_capa not in capas_usadas:
@@ -409,7 +432,15 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         return nome, None, None, None
     if nome == "Texas Ranger" and str(numero or "").isdigit():
         busca_loja = f"{titulo} {int(numero):03d}"
-    resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    if nome == "Rika":
+        try:
+            resultados = resultados_rika(titulo)
+        except (OSError, ValueError):
+            resultados = []
+        if not resultados:
+            resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    else:
+        resultados = resultados_loja(busca_loja, dominio, modelo_busca)
     if nome in {"Lojas Caverna", "Excelsior Comics", "Sebo RS Raridades"} and str(numero or "").isdigit():
         fase = re.findall(r'"([^"]+)"', busca)
         fase = fase[-2] if len(fase) >= 4 else ""
@@ -436,7 +467,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
                 exato.get("url") for exato in exatos
             }
         ]
-    if str(numero or "").strip() == "1":
+    if str(numero or "").strip() == "1" and nome != "Rika":
         # Algumas lojas retornam conjuntos diferentes para "volume 1" e
         # apenas "1". Combine as duas consultas para reduzir falsos vazios.
         alternativos = resultados_loja(f"{titulo} 1", dominio, modelo_busca)
@@ -468,7 +499,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             continue
         if not produto_compativel_com_numero(
             resultado["url"], numero,
-            exigir_volume=nome == "Panini" and str(numero or "").strip() != "1",
+            exigir_volume=False,
         ):
             continue
         try:
@@ -480,16 +511,12 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             continue
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
-        if titulo_produto and not titulo_compativel_com_serie_e_fase(
+        if not titulo_produto or not titulo_compativel_com_serie_e_fase(
             titulo_produto, titulo, busca
         ):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
-            tem_numero_url = bool(re.findall(
-                r"(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)",
-                urlparse(resultado["url"]).path.lower(),
-            ))
-            if not tem_numero_url and not titulo_compativel_com_numero(
+            if not titulo_compativel_com_numero(
                 titulo_produto, numero, titulo
             ):
                 continue
@@ -499,7 +526,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
 
 
 def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, numero, item):
-    """Mantem a prioridade editorial sem esperar fontes posteriores ao acerto."""
+    """Aceita o primeiro resultado validado sem bloquear por uma loja lenta."""
     cancelamento = Event()
     usadas = frozenset(capas_usadas)
 
@@ -507,13 +534,16 @@ def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, 
         CONTEXTO_BUSCA.cancelamento = cancelamento
         try:
             verificar_cancelamento()
+            item.setdefault("fontesConsultadas", []).append(fonte[0])
+            print(f"[CAPA] {numero}: consultando {fonte[0]}", flush=True)
             return buscar_fonte(*fonte, busca_loja, busca, usadas, titulo, numero)
         finally:
             CONTEXTO_BUSCA.cancelamento = None
 
-    tarefas = [(fonte[0], executor.submit(executar, fonte)) for fonte in fontes]
+    tarefas = {executor.submit(executar, fonte): fonte[0] for fonte in fontes}
     try:
-        for nome, tarefa in tarefas:
+        for tarefa in as_completed(tarefas):
+            nome = tarefas[tarefa]
             try:
                 resposta = tarefa.result()
             except Exception as erro:
@@ -524,7 +554,7 @@ def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, 
         return None
     finally:
         cancelamento.set()
-        for _, tarefa in tarefas:
+        for tarefa in tarefas:
             tarefa.cancel()
 
 
@@ -588,13 +618,6 @@ def enriquecer_com_executor(args, executor):
         oficiais = [fonte for fonte in fontes if fonte[0] in FONTES_OFICIAIS]
         if oficiais:
             fontes = oficiais + [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
-        for nome, _, _ in fontes:
-            print(
-                f"[CAPA {indice}/{len(dados.get('edicoes', []))}] "
-                f"{edicao.get('numero')}: consultando {nome}",
-                flush=True,
-            )
-            item["fontesConsultadas"].append(nome)
         resposta = consultar_fontes(
             executor, fontes, busca_loja, busca, capas_usadas,
             titulo_busca, numero_busca, item,
