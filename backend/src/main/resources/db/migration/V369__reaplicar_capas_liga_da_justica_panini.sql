@@ -52,6 +52,21 @@ WITH capas(numero,url_capa) AS (VALUES
 (50, 'https://rika.vteximg.com.br/arquivos/ids/304605/Liga-da-Justica-2ª-Serie-Panini-50.jpg?v=636656334481900000'),
 (51, 'https://rika.vteximg.com.br/arquivos/ids/304606/Liga-da-Justica-2ª-Serie-Panini-51.jpg?v=636656334497400000'),
 (52, 'https://rika.vteximg.com.br/arquivos/ids/304607/Liga-da-Justica-2ª-Serie-Panini-52.jpg?v=636656334512530000'))
-UPDATE edicoes e SET url_capa=c.url_capa FROM capas c JOIN series s ON s.id=e.serie_id JOIN editoras x ON x.id=s.editora_id WHERE hqhub_normalizar_titulo_serie(x.nome) LIKE 'panini%' AND (coalesce(s.volume,1)=2 OR hqhub_normalizar_titulo_serie(s.titulo) LIKE '%2 serie%') AND hqhub_normalizar_titulo_serie(s.titulo) LIKE '%liga da justica%' AND hqhub_normalizar_identidade(e.numero)=hqhub_normalizar_identidade(c.numero::text);
+UPDATE edicoes e
+SET url_capa = c.url_capa
+FROM capas c
+WHERE hqhub_normalizar_identidade(e.numero) = hqhub_normalizar_identidade(c.numero::text)
+  AND EXISTS (
+    SELECT 1
+    FROM series s
+    JOIN editoras x ON x.id = s.editora_id
+    WHERE s.id = e.serie_id
+      AND hqhub_normalizar_titulo_serie(x.nome) LIKE 'panini%'
+      AND (
+        coalesce(s.volume, 1) = 2
+        OR hqhub_normalizar_titulo_serie(s.titulo) LIKE '%2 serie%'
+      )
+      AND hqhub_normalizar_titulo_serie(s.titulo) LIKE '%liga da justica%'
+  );
 
 
