@@ -31,7 +31,14 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo, PublicacaoRe
       } @else {
         <section class="topo-ordem">
           @if (!modoPublico) { <button class="voltar" type="button" (click)="selecionada.set(null)">← Todas as ordens</button> }
-          <h2>{{ selecionada()!.titulo }}</h2><p>{{ selecionada()!.descricao }}</p>
+          <h2>{{ selecionada()!.titulo }}</h2>
+          @if (selecionada()!.slug === 'batman-ordem-cronologica') {
+            <p class="credito-guia">
+              Lista sugerida por Robson Brandão, do canal
+              <a href="https://www.youtube.com/@NaMinhaEstanteHQs" target="_blank" rel="noopener noreferrer">Na Minha Estante HQ</a>.
+            </p>
+          }
+          <p>{{ selecionada()!.descricao }}</p>
           <div class="acoes-guia">
             @if (!modoPublico) { <div class="progresso"><strong>{{ selecionada()!.itensLidos }} de {{ selecionada()!.totalItens }}</strong> edições lidas</div> }
             <button class="compartilhar" type="button" (click)="compartilharGuia()">Compartilhar guia</button>
