@@ -27,6 +27,11 @@ class PrecisaoCapasTest(unittest.TestCase):
         self.assertFalse(robo.fonte_aplicavel('Papersera', {}, {'titulo': 'Coleção Carl Barks Definitiva', 'editora': 'Panini'}))
         self.assertTrue(robo.fonte_aplicavel('Papersera', {}, {'titulo': 'Melhor da Disney, O', 'editora': 'Abril'}))
 
+    def test_alias_mulher_maravilha_primeira_serie(self):
+        self.assertEqual(robo.alias_catalogo_loja('Rika', 'Mulher-Maravilha 1ª Série'), 'Mulher Maravilha 2017')
+        self.assertEqual(robo.alias_catalogo_loja('Panini', 'Mulher-Maravilha 1ª Série'), 'Mulher-Maravilha 2017')
+        self.assertEqual(robo.alias_catalogo_loja('Rika', 'Mulher-Maravilha 2ª Série'), 'Mulher-Maravilha 2ª Série')
+
     def test_panini_url_sem_vol_e_numero_contraditorio(self):
         resultados = [{'url': 'https://panini.com.br/liga-da-justica-sem-limites-2025-08',
                        'titulo': 'Liga Da Justiça Sem Limites (2025) 08', 'urlCapa': 'https://imagem/08.jpg'}]

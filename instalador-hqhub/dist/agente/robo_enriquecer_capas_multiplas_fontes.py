@@ -110,6 +110,16 @@ def titulo_base_serie(texto):
     return re.sub(r"\s*(?:\d+\s*[aª]?\s*s[ée]rie|v(?:ol(?:ume)?)?\.?\s*\d+)\b", "", texto or "", flags=re.I).strip()
 
 
+def alias_catalogo_loja(nome_fonte, titulo):
+    normalizado = slug(titulo)
+    primeira_serie_mulher_maravilha = bool(re.match(r"mulher-maravilha-1a?-serie(?:-|$)", normalizado))
+    if nome_fonte == "Rika" and primeira_serie_mulher_maravilha:
+        return "Mulher Maravilha 2017"
+    if nome_fonte == "Panini" and primeira_serie_mulher_maravilha:
+        return "Mulher-Maravilha 2017"
+    return titulo_base_serie(titulo) if nome_fonte == "Panini" else titulo
+
+
 def produto_compativel_com_numero(url, numero, exigir_volume=False):
     numero = str(numero or "").strip()
     if not numero.isdigit():
@@ -439,7 +449,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         busca_loja = f"{titulo} {int(numero):03d}"
     if nome == "Rika":
         try:
-            resultados = resultados_rika(titulo)
+            resultados = resultados_rika(alias_catalogo_loja(nome, titulo))
         except (OSError, ValueError):
             resultados = []
         if not resultados:
@@ -466,7 +476,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         # Consulte primeiro o campo de pesquisa com o título exato. Isso
         # encontra especiais como /thor-antologia, que não usam sufixo de
         # volume apesar de aparecerem como nº 1 no Guia.
-        titulo_panini = titulo_base_serie(titulo)
+        titulo_panini = alias_catalogo_loja(nome, titulo)
         exatos = resultados_loja(titulo_panini, dominio, modelo_busca)
         resultados = exatos + [
             item for item in resultados if item.get("url") not in {
@@ -517,8 +527,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             continue
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
-        titulo_validacao = titulo_base_serie(titulo) if nome == "Panini" else titulo
-        busca_validacao = titulo_validacao if nome == "Panini" else busca
+        alias_titulo = alias_catalogo_loja(nome, titulo)
+        titulo_validacao = titulo_base_serie(titulo) if nome in {"Panini", "Rika"} else titulo
+        busca_validacao = titulo_validacao if alias_titulo != titulo else busca
         if not titulo_produto or not titulo_compativel_com_serie_e_fase(
             titulo_produto, titulo_validacao, busca_validacao
         ):
