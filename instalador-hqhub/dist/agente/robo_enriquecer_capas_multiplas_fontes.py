@@ -518,8 +518,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
         titulo_validacao = titulo_base_serie(titulo) if nome == "Panini" else titulo
+        busca_validacao = titulo_validacao if nome == "Panini" else busca
         if not titulo_produto or not titulo_compativel_com_serie_e_fase(
-            titulo_produto, titulo_validacao, busca
+            titulo_produto, titulo_validacao, busca_validacao
         ):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
