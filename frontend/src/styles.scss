@@ -3236,8 +3236,9 @@ body.tema-escuro .estado-republicacoes-vazio {
 
 .grade-mini-capas {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 180px));
   gap: 12px;
+  justify-content: start;
 }
 
 .aviso-edicoes-anteriores {
@@ -3323,6 +3324,8 @@ body.tema-escuro .estado-republicacoes-vazio {
 }
 
 .mini-capa img {
+  object-fit: contain;
+  object-position: center;
   transform-origin: center bottom;
   box-shadow: 0 7px 16px rgba(21, 25, 31, 0.14);
   transition:
@@ -5291,6 +5294,7 @@ body.bottom-sheet-aberto {
   .grade-mini-capas {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 9px;
+    justify-content: stretch;
   }
 
   .compartilhar-capa-catalogo {
