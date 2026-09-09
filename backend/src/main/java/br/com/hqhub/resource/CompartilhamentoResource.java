@@ -60,6 +60,7 @@ import jakarta.ws.rs.core.Context;
 public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
+    private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.webp";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
@@ -252,7 +253,7 @@ public class CompartilhamentoResource {
     public Response compartilharGuiaXMen() {
         String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/ordem-de-leitura-mutante";
         String imagem = origemApiNormalizada()
-                + "/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=3";
+                + "/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -265,7 +266,7 @@ public class CompartilhamentoResource {
                   <meta property="og:site_name" content="HQ-HUB">
                   <meta property="og:title" content="Ordem de Leitura Mutante">
                   <meta property="og:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
-                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=3">
+                  <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=4">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
@@ -282,6 +283,13 @@ public class CompartilhamentoResource {
                 </html>
                 """.formatted(imagem, imagem, imagem, destino, destino);
         return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    @GET
+    @Path("/guias/ordem-de-leitura-mutante/imagem.jpg")
+    @Produces("image/jpeg")
+    public Response imagemGuiaXMen() {
+        return responderImagemUrl(urlAbsoluta(IMAGEM_GUIA_XMEN));
     }
 
     @GET

@@ -55,6 +55,18 @@ class CompartilhamentoResourceTest {
         }
     }
 
+    @Test
+    void usaLogoDosXMenNoCompartilhamentoDoGuiaMutante() {
+        try (Response resposta = recurso.compartilharGuiaXMen()) {
+            String html = resposta.getEntity().toString();
+
+            assertEquals(200, resposta.getStatus());
+            assertTrue(html.contains("/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4"));
+            assertTrue(html.contains("/api/compartilhar/guias/xmen?v=4"));
+            assertTrue(html.contains("og:image:alt\" content=\"Logotipo dos X-Men"));
+        }
+    }
+
     private EdicaoRespostaDTO edicao(Long id, String serie, String numero) {
         return new EdicaoRespostaDTO(id, numero, null, null, null, null,
                 "Conheça esta edição.", null, null, null, LocalDate.of(2021, 5, 1),

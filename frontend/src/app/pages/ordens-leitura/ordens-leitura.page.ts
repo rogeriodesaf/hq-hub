@@ -366,7 +366,7 @@ export class OrdensLeituraPage implements OnInit {
   async compartilharGuia(){
     const ordem=this.selecionada(); if(!ordem)return;
     const link=ordem.slug === 'ordem-de-leitura-mutante'
-      ? 'https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=3'
+      ? 'https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=4'
       : `https://hqhub-backend.onrender.com/api/compartilhar/guias/${encodeURIComponent(ordem.slug)}?v=4`;
     const dados={title:ordem.titulo,text:`Confira o guia de leitura ${ordem.titulo} no HQ-HUB`,url:link};
     try {
