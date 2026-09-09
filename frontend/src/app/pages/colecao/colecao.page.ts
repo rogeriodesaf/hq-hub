@@ -31,7 +31,7 @@ import {
         <h1>{{ modoAdicao ? 'Adicionar à minha estante' : 'Minha estante' }}</h1>
       </div>
       @if (modoAdicao) { <a class="botao secundario" routerLink="/colecao">Voltar à estante</a> }
-      @else { <a class="botao primario" routerLink="/colecao/adicionar"><svg lucidePlus size="18"></svg> Adicionar HQ</a> }
+      @else { <a class="botao primario" routerLink="/catalogo"><svg lucidePlus size="18"></svg> Adicionar HQ</a> }
     </section>
 
     @if (modoAdicao) {
