@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,7 @@ import br.com.hqhub.dto.RespostaAssistenteDTO;
 import br.com.hqhub.dto.ResultadoBuscaConhecimentoDTO;
 import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.entity.Criador;
+import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.repository.CriadorRepository;
 import br.com.hqhub.repository.EdicaoRepository;
@@ -35,6 +37,13 @@ public class AssistenteService {
     private static final Pattern PADRAO_ID = Pattern.compile("\\b(?:id|serieId|sérieId|serie|série)\\s*[:=]?\\s*(\\d+)\\b",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern PADRAO_ANO = Pattern.compile("\\b(20\\d{2}|19\\d{2})\\b");
+    private static final Set<String> TERMOS_PERGUNTA_QUANTIDADE = Set.of(
+            "quantas", "quantos", "quantidade", "total", "edicao", "edicoes", "numero", "numeros",
+            "revista", "revistas", "hq", "hqs", "gibi", "gibis", "volume", "volumes",
+            "cadastrada", "cadastradas", "cadastrado", "cadastrados", "cadastro", "catalogo",
+            "existe", "existem", "tem", "possui", "possuem", "ha", "quero", "saber", "diga",
+            "me", "mostre", "no", "na", "nos", "nas", "do", "da", "dos", "das", "de", "em",
+            "pelo", "pela", "por", "um", "uma", "o", "a", "os", "as", "hqhub", "hub");
     private static final Map<String, String> CONHECIMENTOS_ESSENCIAIS = criarConhecimentosEssenciais();
 
     private final ResumoColecaoService resumoColecaoService;
@@ -80,6 +89,10 @@ public class AssistenteService {
             return responderCompletude(pergunta);
         }
 
+        if (ehPerguntaQuantidadeEdicoes(perguntaNormalizada)) {
+            return responderQuantidadeEdicoesSerie(pergunta);
+        }
+
         if (contemAlguma(perguntaNormalizada, "compra", "compras", "planejada", "planejadas", "mes")) {
             return responderCompras(pergunta, perguntaNormalizada);
         }
@@ -99,10 +112,6 @@ public class AssistenteService {
 
         if (ehPerguntaResumoColecao(perguntaNormalizada)) {
             return responderResumo();
-        }
-
-        if (ehPerguntaQuantidadeEdicoes(perguntaNormalizada)) {
-            return responderQuantidadeEdicoesSerie(pergunta);
         }
 
         try {
@@ -235,26 +244,93 @@ public class AssistenteService {
     }
 
     private RespostaAssistenteDTO responderQuantidadeEdicoesSerie(String pergunta) {
-        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
-        if (serieEncontrada.isEmpty()) {
+        String assunto = extrairAssuntoQuantidade(pergunta);
+        if (assunto.isBlank()) {
             return respostaSerieNaoEncontrada();
         }
 
-        Serie serie = serieEncontrada.get();
-        long totalEdicoes = edicaoRepository.count("serie.id", serie.getId());
-        String volume = serie.getVolume() != null ? " V%d".formatted(serie.getVolume()) : "";
-        String editora = serie.getEditora() != null ? " pela %s".formatted(serie.getEditora().getNome()) : "";
-        String resposta = "%s%s tem %d edicao(oes) cadastrada(s) no catalogo interno%s. Esse total reflete o que ja esta registrado no HQ-HUB."
-                .formatted(serie.getTitulo(), volume, totalEdicoes, editora);
+        List<Edicao> edicoes = edicaoRepository.buscarTodosComBusca(null, assunto);
+        if (edicoes.isEmpty()) {
+            return new RespostaAssistenteDTO(
+                    "Nao encontrei edicoes cadastradas relacionadas a \"%s\" no catalogo do HQ-HUB."
+                            .formatted(assunto),
+                    ORIGEM_NAO_ENCONTRADO,
+                    null);
+        }
 
+        Map<Long, Serie> series = new LinkedHashMap<>();
+        Map<Long, Long> totaisPorSerie = new LinkedHashMap<>();
+        for (Edicao edicao : edicoes) {
+            Serie serie = edicao.getSerie();
+            series.putIfAbsent(serie.getId(), serie);
+            totaisPorSerie.merge(serie.getId(), 1L, Long::sum);
+        }
+
+        List<Map<String, Object>> distribuicao = series.entrySet().stream()
+                .map(entrada -> dadosContagemSerie(entrada.getValue(), totaisPorSerie.get(entrada.getKey())))
+                .toList();
+
+        String resposta;
+        if (distribuicao.size() == 1) {
+            Serie serie = series.values().iterator().next();
+            String volume = serie.getVolume() != null ? " V%d".formatted(serie.getVolume()) : "";
+            String editora = serie.getEditora() != null ? " pela %s".formatted(serie.getEditora().getNome()) : "";
+            String cadastradas = edicoes.size() == 1 ? "cadastrada" : "cadastradas";
+            resposta = "%s%s tem %s %s no HQ-HUB%s."
+                    .formatted(serie.getTitulo(), volume, quantidadeEdicoes(edicoes.size()), cadastradas, editora);
+        } else {
+            String destaques = distribuicao.stream()
+                    .limit(5)
+                    .map(item -> "%s: %s".formatted(item.get("titulo"), item.get("totalEdicoes")))
+                    .reduce((primeiro, proximo) -> primeiro + "; " + proximo)
+                    .orElse("");
+            String quantidadeTitulos = distribuicao.size() == 1
+                    ? "1 título"
+                    : "%d títulos".formatted(distribuicao.size());
+            resposta = "Encontrei %s relacionadas a \"%s\" no HQ-HUB, distribuídas em %s. %s%s"
+                    .formatted(
+                            quantidadeEdicoes(edicoes.size()),
+                            assunto,
+                            quantidadeTitulos,
+                            destaques,
+                            distribuicao.size() > 5 ? "; e mais %d títulos.".formatted(distribuicao.size() - 5) : ".");
+        }
+
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("consulta", assunto);
+        dados.put("totalEdicoes", edicoes.size());
+        dados.put("totalTitulos", distribuicao.size());
+        dados.put("titulos", distribuicao);
+
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    }
+
+    private Map<String, Object> dadosContagemSerie(Serie serie, long totalEdicoes) {
         Map<String, Object> dados = new LinkedHashMap<>();
         dados.put("serieId", serie.getId());
         dados.put("titulo", serie.getTitulo());
         dados.put("volume", serie.getVolume());
         dados.put("editora", serie.getEditora() != null ? serie.getEditora().getNome() : null);
         dados.put("totalEdicoes", totalEdicoes);
+        return dados;
+    }
 
-        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    private String quantidadeEdicoes(int quantidade) {
+        return quantidade == 1 ? "1 edição" : "%d edições".formatted(quantidade);
+    }
+
+    private String extrairAssuntoQuantidade(String pergunta) {
+        StringBuilder assunto = new StringBuilder();
+        for (String token : pergunta.split("[^\\p{L}\\p{N}]+")) {
+            if (token.isBlank() || TERMOS_PERGUNTA_QUANTIDADE.contains(normalizar(token))) {
+                continue;
+            }
+            if (!assunto.isEmpty()) {
+                assunto.append(' ');
+            }
+            assunto.append(token);
+        }
+        return assunto.toString().trim();
     }
 
     private Optional<Serie> localizarSerie(String pergunta) {
@@ -264,9 +340,10 @@ public class AssistenteService {
         }
 
         String perguntaNormalizada = normalizar(pergunta);
-        Optional<Serie> porTitulo = serieRepository.buscarPaginado(null, 0, 200)
+        Optional<Serie> porTitulo = serieRepository.listAll()
                 .stream()
                 .filter(serie -> perguntaNormalizada.contains(normalizar(serie.getTitulo())))
+                .sorted((primeira, segunda) -> Integer.compare(segunda.getTitulo().length(), primeira.getTitulo().length()))
                 .findFirst();
 
         if (porTitulo.isPresent()) {

@@ -270,6 +270,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                     + " or " + expressaoNormalizada("ed.descricao") + " like :termoFallback"
                     + " or " + expressaoNormalizada("ed.nome_volume") + " like :termoFallback"
                     + " or " + expressaoNormalizada("s.titulo") + " like :termoFallback"
+                    + " or lower('v' || coalesce(s.volume::text, '')) like :termoFallback"
                     + " or " + expressaoNormalizada("e.nome") + " like :termoFallback" + ")";
         }
 
@@ -282,6 +283,7 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                     + " or " + expressaoNormalizada("ed.descricao") + " like " + parametro
                     + " or " + expressaoNormalizada("ed.nome_volume") + " like " + parametro
                     + " or " + expressaoNormalizada("s.titulo") + " like " + parametro
+                    + " or lower('v' || coalesce(s.volume::text, '')) like " + parametro
                     + " or " + expressaoNormalizada("e.nome") + " like " + parametro
                     + ")");
         }
