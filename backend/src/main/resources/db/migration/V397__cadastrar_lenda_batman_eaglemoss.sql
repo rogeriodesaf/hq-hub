@@ -31,17 +31,30 @@ SELECT
     CURRENT_TIMESTAMP
 FROM editoras editora
 WHERE hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Eaglemoss')
-ON CONFLICT (editora_id, coalesce(volume, 0), hqhub_normalizar_titulo_serie(titulo))
-DO UPDATE SET
-    descricao = EXCLUDED.descricao,
-    ano_inicio = EXCLUDED.ano_inicio,
-    ano_fim = EXCLUDED.ano_fim,
-    fonte_externa = EXCLUDED.fonte_externa,
-    id_externo = EXCLUDED.id_externo,
-    url_origem = EXCLUDED.url_origem,
-    data_atualizacao = CURRENT_TIMESTAMP;
+  AND NOT EXISTS (
+      SELECT 1
+      FROM series existente
+      WHERE existente.editora_id = editora.id
+        AND coalesce(existente.volume, 0) = 1
+        AND hqhub_normalizar_titulo_serie(existente.titulo) =
+            hqhub_normalizar_titulo_serie('DC Comics - A Lenda do Batman')
+  );
 
-WITH dados(numero, nome_volume, url_capa, url_origem) AS (VALUES
+UPDATE series serie
+SET descricao = 'Coleção brasileira em capa dura dedicada às principais histórias do Batman, publicada em 79 volumes.',
+    ano_inicio = 2018,
+    ano_fim = 2022,
+    url_origem = 'https://www.guiadosquadrinhos.com/edicao/dc-comics-a-lenda-do-batman-n-42/dc12511/157579',
+    data_atualizacao = CURRENT_TIMESTAMP
+FROM editoras editora
+WHERE serie.editora_id = editora.id
+  AND hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie('Eaglemoss')
+  AND hqhub_normalizar_titulo_serie(serie.titulo) =
+      hqhub_normalizar_titulo_serie('DC Comics - A Lenda do Batman')
+  AND coalesce(serie.volume, 1) = 1;
+
+CREATE TEMP TABLE hqhub_lenda_batman_capas ON COMMIT DROP AS
+SELECT * FROM (VALUES
     ('1', 'Batman e Filho', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol01_batmanefilho_eaglemoss_01062022.jpg', 'https://spider145hqs.com/2022/06/01/a-lenda-do-batman-volumes-1-a-10/'),
     ('2', 'Batman: Detetive', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol02_batmandetetive_eaglemoss_01062022.jpg', 'https://spider145hqs.com/2022/06/01/a-lenda-do-batman-volumes-1-a-10/'),
     ('3', 'Portões de Gotham', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol03_portoesdegotham_eaglemoss_01062022.jpg', 'https://spider145hqs.com/2022/06/01/a-lenda-do-batman-volumes-1-a-10/'),
@@ -121,7 +134,38 @@ WITH dados(numero, nome_volume, url_capa, url_origem) AS (VALUES
     ('77', 'Jogos de Guerra - Ato Três: A Última Batalha', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol77_eaglemoss_27062022.jpg', 'https://spider145hqs.com/2022/06/27/a-lenda-do-batman-volumes-71-a-79/'),
     ('78', 'A Luva Negra', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol78_eaglemoss_27062022.jpg', 'https://spider145hqs.com/2022/06/27/a-lenda-do-batman-volumes-71-a-79/'),
     ('79', 'Descanse em Paz', 'https://spider145hqs.com/wp-content/uploads/2022/06/alendadobatman_vol79_eaglemoss_27062022.jpg', 'https://spider145hqs.com/2022/06/27/a-lenda-do-batman-volumes-71-a-79/')
-), serie_alvo AS (
+) AS dados(numero, nome_volume, url_capa, url_origem);
+
+WITH serie_alvo AS (
+    SELECT serie.id
+    FROM series serie
+    JOIN editoras editora ON editora.id = serie.editora_id
+    WHERE hqhub_normalizar_titulo_serie(serie.titulo) =
+          hqhub_normalizar_titulo_serie('DC Comics - A Lenda do Batman')
+      AND hqhub_normalizar_titulo_serie(editora.nome) =
+          hqhub_normalizar_titulo_serie('Eaglemoss')
+      AND coalesce(serie.volume, 1) = 1
+), edicoes_alvo AS (
+    SELECT
+        edicao.id,
+        dado.nome_volume,
+        dado.url_capa,
+        dado.url_origem
+    FROM serie_alvo serie
+    JOIN edicoes edicao ON edicao.serie_id = serie.id
+    JOIN hqhub_lenda_batman_capas dado
+      ON substring(trim(edicao.numero) from '([0-9]+)\s*$')::integer = dado.numero::integer
+    WHERE substring(trim(edicao.numero) from '([0-9]+)\s*$') IS NOT NULL
+)
+UPDATE edicoes edicao
+SET url_capa = alvo.url_capa,
+    nome_volume = coalesce(nullif(trim(edicao.nome_volume), ''), alvo.nome_volume),
+    url_origem = coalesce(nullif(trim(edicao.url_origem), ''), alvo.url_origem),
+    data_atualizacao = CURRENT_TIMESTAMP
+FROM edicoes_alvo alvo
+WHERE edicao.id = alvo.id;
+
+WITH serie_alvo AS (
     SELECT serie.id
     FROM series serie
     JOIN editoras editora ON editora.id = serie.editora_id
@@ -147,7 +191,14 @@ SELECT
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
 FROM serie_alvo serie
-CROSS JOIN dados dado
+CROSS JOIN hqhub_lenda_batman_capas dado
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM edicoes existente
+    WHERE existente.serie_id = serie.id
+      AND substring(trim(existente.numero) from '([0-9]+)\s*$') IS NOT NULL
+      AND substring(trim(existente.numero) from '([0-9]+)\s*$')::integer = dado.numero::integer
+)
 ON CONFLICT (serie_id, hqhub_normalizar_identidade(numero))
 DO UPDATE SET
     titulo = EXCLUDED.titulo,
