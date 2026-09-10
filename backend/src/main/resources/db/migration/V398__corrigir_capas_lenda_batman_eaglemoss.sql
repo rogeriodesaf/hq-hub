@@ -7,7 +7,7 @@
 WITH capas_por_numero AS (
     SELECT DISTINCT ON (numero_numerico)
            numero_numerico,
-           edicao.url_capa
+           capa.url_capa
     FROM (
         SELECT
             edicao.url_capa,
