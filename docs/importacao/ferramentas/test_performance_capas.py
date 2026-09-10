@@ -113,7 +113,7 @@ class PerformanceCapasTest(unittest.TestCase):
             saida = Path(pasta) / 'saida.json'
             entrada.write_text(json.dumps({
                 'serieBrasileira': {'titulo': 'Batman', 'editora': 'Abril'},
-                'edicoes': [{'numero': '1', 'urlCapa': 'existente'}, {'numero': '2'}, {'numero': '3'}],
+                'edicoes': [{'numero': '3'}, {'numero': '1', 'urlCapa': 'existente'}, {'numero': '2'}],
             }), encoding='utf-8')
             args = SimpleNamespace(pasta=pasta, entrada=str(entrada), saida=str(saida),
                                    substituir=False, intervalo_segundos=0)
@@ -122,6 +122,7 @@ class PerformanceCapasTest(unittest.TestCase):
                 robo.enriquecer(args)
             dados = json.loads(saida.read_text(encoding='utf-8'))
             self.assertEqual([e['urlCapa'] for e in dados['edicoes']], ['existente', 'nova-2', 'nova-3'])
+            self.assertEqual([e['numero'] for e in dados['edicoes']], ['1', '2', '3'])
             self.assertEqual(dados['origem']['capasAutomaticas']['capasEncontradas'], 2)
 
 

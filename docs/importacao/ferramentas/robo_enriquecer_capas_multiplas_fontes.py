@@ -553,8 +553,6 @@ def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, 
         CONTEXTO_BUSCA.cancelamento = cancelamento
         try:
             verificar_cancelamento()
-            item.setdefault("fontesConsultadas", []).append(fonte[0])
-            print(f"[CAPA] {numero}: consultando {fonte[0]}", flush=True)
             return buscar_fonte(*fonte, busca_loja, busca, usadas, titulo, numero)
         finally:
             CONTEXTO_BUSCA.cancelamento = None
@@ -603,19 +601,27 @@ def enriquecer_com_executor(args, executor):
         entrada = max(candidatos, key=lambda caminho: caminho.stat().st_mtime)
         print(f"JSON identificado automaticamente: {entrada}")
     dados = json.loads(entrada.read_text(encoding="utf-8"))
+    edicoes = dados.get("edicoes", [])
+    edicoes.sort(key=lambda edicao: (
+        0, int(str(edicao.get("numero") or "").strip())
+    ) if str(edicao.get("numero") or "").strip().isdigit() else (
+        1, str(edicao.get("numero") or "").strip()
+    ))
     serie = dados.get("serieBrasileira", {})
     relatorio, avisos = [], list(dados.get("avisos") or [])
     encontradas = 0
     mantidas = 0
     capas_usadas = set()
 
-    for indice, edicao in enumerate(dados.get("edicoes", []), 1):
+    total_edicoes = len(edicoes)
+    for indice, edicao in enumerate(edicoes, 1):
         capa_atual = str(edicao.get("urlCapa") or "").strip()
         capa_do_guia = "guiadosquadrinhos.com" in capa_atual.lower()
         if capa_atual and not capa_do_guia and not args.substituir:
             mantidas += 1
             capas_usadas.add(capa_atual)
             relatorio.append({"numero": edicao.get("numero"), "status": "mantida", "url": edicao["urlCapa"]})
+            print(f"[{indice}/{total_edicoes}] {edicao.get('numero')}: mantida", flush=True)
             continue
         item = {"numero": edicao.get("numero"), "status": "nao_encontrada", "fontesConsultadas": []}
         busca = consulta(edicao, serie)
@@ -637,6 +643,12 @@ def enriquecer_com_executor(args, executor):
         oficiais = [fonte for fonte in fontes if fonte[0] in FONTES_OFICIAIS]
         if oficiais:
             fontes = oficiais + [fonte for fonte in fontes if fonte[0] not in FONTES_OFICIAIS]
+        item["fontesConsultadas"] = [fonte[0] for fonte in fontes]
+        print(
+            f"[CAPA {indice}/{total_edicoes}] {edicao.get('numero')}: "
+            f"consultando em paralelo: {', '.join(item['fontesConsultadas'])}",
+            flush=True,
+        )
         resposta = consultar_fontes(
             executor, fontes, busca_loja, busca, capas_usadas,
             titulo_busca, numero_busca, item,
@@ -653,7 +665,8 @@ def enriquecer_com_executor(args, executor):
         if item["status"] != "encontrada":
             avisos.append(f"Capa não encontrada para edição {edicao.get('numero')}")
         relatorio.append(item)
-        print(f"[{indice}/{len(dados.get('edicoes', []))}] {edicao.get('numero')}: {item['status']}")
+        detalhe = f" via {item['fonte']}" if item.get("fonte") else ""
+        print(f"[{indice}/{total_edicoes}] {edicao.get('numero')}: {item['status']}{detalhe}", flush=True)
 
     dados["avisos"] = avisos
     dados.setdefault("origem", {})["capasAutomaticas"] = {

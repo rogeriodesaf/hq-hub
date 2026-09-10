@@ -24,7 +24,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-VERSAO = "1.3.13"
+VERSAO = "1.3.14"
 MAXIMO_ROBOS_TELEGRAM = 2
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
@@ -211,7 +211,7 @@ def atualizar_por_log(coleta, linha):
         elif "Arquivo gerado:" in linha:
             coleta["mensagem"] = "JSON gerado. Preparando a devolução ao HQ-HUB..."
         else:
-            capa = re.search(r"\[CAPA\s+(\d+)/(\d+)\]\s+([^:]+):\s+consultando\s+(.+)", linha, re.IGNORECASE)
+            capa = re.search(r"\[CAPA\s+(\d+)/(\d+)\]\s+([^:]+):\s+consultando(?:\s+em\s+paralelo)?:\s+(.+)", linha, re.IGNORECASE)
             if capa:
                 coleta["mensagem"] = (
                     f"Buscando capas: edição {capa.group(1)} de {capa.group(2)} "

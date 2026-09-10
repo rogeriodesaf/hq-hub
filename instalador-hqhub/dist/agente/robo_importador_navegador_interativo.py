@@ -386,31 +386,43 @@ def coletar_paginas(
         if indice < len(urls) - 1 and intervalo > 0:
             sleep(intervalo)
 
-    return "\n\n".join(textos), urls_processadas, capas_processadas, avisos
+    # Preserva a fronteira entre as paginas. Juntar todo o texto fazia
+    # referencias internas (por exemplo, "Batman n. 437") parecerem uma nova
+    # edicao e ainda deslocava a capa capturada para o registro seguinte.
+    return textos, urls_processadas, capas_processadas, avisos
 
 
-def montar_resultado(importador, texto, urls_processadas, capas_processadas, avisos, args):
-    blocos = importador.separar_blocos_edicoes(texto.splitlines(), args.titulo_serie)
+def montar_resultado(importador, textos, urls_processadas, capas_processadas, avisos, args):
     edicoes = []
 
-    if not blocos:
+    if not textos:
         avisos.append(
             "Nenhuma edição foi identificada no conteúdo recebido. "
             "A página pode estar incompleta ou o formato do site pode ter mudado."
         )
 
-    for bloco in blocos:
-        edicao = importador.extrair_edicao(bloco, args.titulo_serie, args.editora)
-        if not edicao["numero"]:
-            avisos.append(f"Bloco ignorado sem número: {bloco[0][:80]}")
+    for indice, texto in enumerate(textos):
+        url = urls_processadas[indice] if indice < len(urls_processadas) else ""
+        numero_esperado = importador.extrair_numero_url_edicao(url)
+        blocos = importador.separar_blocos_edicoes(texto.splitlines(), args.titulo_serie)
+        candidatos = [
+            importador.extrair_edicao(bloco, args.titulo_serie, args.editora)
+            for bloco in blocos
+        ]
+        edicao = next((
+            candidato for candidato in candidatos
+            if re.match(r"\d+", str(candidato.get("numero") or ""))
+            and int(re.match(r"\d+", str(candidato["numero"])).group()) == numero_esperado
+        ), None)
+        if edicao is None:
+            avisos.append(f"Edição esperada nº {numero_esperado} não identificada em: {url}")
             continue
-        if not edicao["historias"] and len(bloco) <= 3:
+        if not edicao["historias"]:
             avisos.append(f"Edição {edicao['numero']} parece incompleta e precisa de revisão.")
         if capas_processadas is not None:
-            indice_capa = len(edicoes)
             edicao["urlCapa"] = (
-                capas_processadas[indice_capa]
-                if indice_capa < len(capas_processadas)
+                capas_processadas[indice]
+                if indice < len(capas_processadas)
                 else None
             )
         edicao.pop("_tituloSerieDetectado", None)
