@@ -7,6 +7,10 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_batman_nao_e_interpretado_como_marcador_de_numero(self):
+        url = 'https://excelsiorcomics.com.br/produto/batman-6a-serie-super-herois-premium-1/'
+        self.assertTrue(robo.produto_compativel_com_numero(url, '1'))
+
     def test_nao_confunde_series_nem_titulos(self):
         validar = robo.titulo_compativel_com_serie_e_fase
         self.assertFalse(validar('Liga da Justiça 1ª Série 07', 'Liga da Justiça 2ª Série', '2ª Série'))

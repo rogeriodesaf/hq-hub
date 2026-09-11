@@ -124,7 +124,10 @@ def produto_compativel_com_numero(url, numero, exigir_volume=False):
     numero = str(numero or "").strip()
     if not numero.isdigit():
         return True
-    volumes = re.findall(r"(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)", urlparse(url).path.lower())
+    volumes = re.findall(
+        r"(?:^|[-_/ ])(?:vol(?:ume)?|n)[-_ ]*0*(\d+)(?:\D|$)",
+        urlparse(url).path.lower(),
+    )
     if volumes:
         return int(numero) in {int(volume) for volume in volumes}
     return not exigir_volume
@@ -459,10 +462,20 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome in {"Lojas Caverna", "Excelsior Comics", "Sebo RS Raridades"} and str(numero or "").isdigit():
         fase = re.findall(r'"([^"]+)"', busca)
         fase = fase[-2] if len(fase) >= 4 else ""
+        titulo_ascii = unicodedata.normalize("NFKD", titulo).encode(
+            "ascii", "ignore"
+        ).decode()
+        marcador_serie = re.search(r"\b(\d+)\s*a?\s+serie\b", titulo_ascii, re.I)
+        titulo_sem_serie = titulo_base_serie(titulo)
         consultas = [
             f"{titulo} {int(numero)}",
             f"{titulo} n {int(numero):02d}",
             f"{titulo} {fase} {int(numero):02d}" if fase else "",
+            # A busca WordPress da Excelsior nao encontra "6ª Série", mas o
+            # proprio catalogo responde a "Batman 6 1". A validacao posterior
+            # ainda exige que titulo, fase e numero sejam exatamente os alvos.
+            f"{titulo_sem_serie} {marcador_serie.group(1)} {int(numero)}"
+            if marcador_serie else "",
         ]
         urls_encontradas = {item.get("url") for item in resultados}
         for termo in consultas:
