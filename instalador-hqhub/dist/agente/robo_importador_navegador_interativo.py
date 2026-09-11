@@ -409,13 +409,25 @@ def montar_resultado(importador, textos, urls_processadas, capas_processadas, av
             importador.extrair_edicao(bloco, args.titulo_serie, args.editora)
             for bloco in blocos
         ]
-        edicao = next((
-            candidato for candidato in candidatos
-            if re.match(r"\d+", str(candidato.get("numero") or ""))
-            and int(re.match(r"\d+", str(candidato["numero"])).group()) == numero_esperado
-        ), None)
+        if numero_esperado > 0:
+            edicao = next((
+                candidato for candidato in candidatos
+                if re.match(r"\d+", str(candidato.get("numero") or ""))
+                and int(re.match(r"\d+", str(candidato["numero"])).group()) == numero_esperado
+            ), None)
+        else:
+            # Encadernados e edicoes unicas nao incluem "-n-N" no slug do
+            # Guia. Nesses casos, o extrator cria o numero sintetico 1 (ou
+            # UNICA), portanto nao existe um numero de URL para confrontar.
+            edicao = next((
+                candidato for candidato in candidatos
+                if str(candidato.get("numero") or "").strip()
+            ), None)
         if edicao is None:
-            avisos.append(f"Edição esperada nº {numero_esperado} não identificada em: {url}")
+            if numero_esperado > 0:
+                avisos.append(f"Edição esperada nº {numero_esperado} não identificada em: {url}")
+            else:
+                avisos.append(f"Edição sem numeração não identificada em: {url}")
             continue
         if not edicao["historias"]:
             avisos.append(f"Edição {edicao['numero']} parece incompleta e precisa de revisão.")
