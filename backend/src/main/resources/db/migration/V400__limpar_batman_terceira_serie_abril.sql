@@ -2,6 +2,40 @@
 -- Batman 3a Serie, Abril, volume 3. Remove referencias internas capturadas
 -- como edicoes (por exemplo, numeros da serie americana) e duplicatas.
 
+-- A importacao que originou esta serie deixou apenas 28 dos 29 numeros
+-- esperados. Recria exclusivamente os numeros ausentes antes de classificar e
+-- excluir o lixo. O NOT EXISTS torna a operacao idempotente e preserva todas
+-- as edicoes validas que ja possuem metadados ou capa.
+WITH serie_alvo AS (
+    SELECT serie.id
+    FROM series serie
+    JOIN editoras editora ON editora.id = serie.editora_id
+    WHERE hqhub_normalizar_titulo_serie(serie.titulo) =
+          hqhub_normalizar_titulo_serie('Batman 3ª Série')
+      AND hqhub_normalizar_titulo_serie(editora.nome) LIKE '%abril%'
+      AND serie.volume = 3
+    ORDER BY serie.id
+    LIMIT 1
+), numeros_esperados AS (
+    SELECT generate_series(1, 29) AS numero
+)
+INSERT INTO edicoes (
+    numero, titulo, serie_id, data_criacao, data_atualizacao
+)
+SELECT numero.numero::text,
+       'Batman 3ª Série #' || numero.numero,
+       serie.id,
+       CURRENT_TIMESTAMP,
+       CURRENT_TIMESTAMP
+FROM serie_alvo serie
+CROSS JOIN numeros_esperados numero
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM edicoes edicao
+    WHERE edicao.serie_id = serie.id
+      AND substring(trim(edicao.numero) from '([0-9]+)\s*$')::integer = numero.numero
+);
+
 CREATE TEMP TABLE hqhub_batman_terceira_serie_abril_classificacao ON COMMIT DROP AS
 SELECT edicao.id,
        substring(trim(edicao.numero) from '([0-9]+)\s*$')::integer AS numero_numerico,
