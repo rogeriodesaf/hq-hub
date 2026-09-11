@@ -36,6 +36,7 @@ FONTES = {
     "Excelsior Comics": ("excelsiorcomics.com.br", "https://excelsiorcomics.com.br/?s={}&post_type=product"),
     "Sebo RS Raridades": ("seborsraridades.com.br", "https://seborsraridades.com.br/?s={}&post_type=product"),
     "Mania de Gibi": ("maniadegibi.com", "https://maniadegibi.com/?s={}&post_type=product"),
+    "Loja Sebo Cultural": ("lojasebocultural.com.br", "https://lojasebocultural.com.br/?s={}&post_type=product"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -237,6 +238,7 @@ def resultados_loja(consulta, dominio, modelo_busca):
             "excelsiorcomics.com.br",
             "seborsraridades.com.br",
             "maniadegibi.com",
+            "lojasebocultural.com.br",
         } and not rota.startswith("/produto/"):
             continue
         if any(trecho in rota for trecho in (
@@ -469,6 +471,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         "Excelsior Comics",
         "Sebo RS Raridades",
         "Mania de Gibi",
+        "Loja Sebo Cultural",
     } and str(numero or "").isdigit():
         fase = re.findall(r'"([^"]+)"', busca)
         fase = fase[-2] if len(fase) >= 4 else ""
