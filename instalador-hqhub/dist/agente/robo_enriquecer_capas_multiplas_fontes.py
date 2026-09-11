@@ -35,6 +35,7 @@ FONTES = {
     "Lojas Caverna": ("lojascaverna.com.br", "https://www.lojascaverna.com.br/search/?q={}"),
     "Excelsior Comics": ("excelsiorcomics.com.br", "https://excelsiorcomics.com.br/?s={}&post_type=product"),
     "Sebo RS Raridades": ("seborsraridades.com.br", "https://seborsraridades.com.br/?s={}&post_type=product"),
+    "Mania de Gibi": ("maniadegibi.com", "https://maniadegibi.com/?s={}&post_type=product"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -232,7 +233,11 @@ def resultados_loja(consulta, dominio, modelo_busca):
             continue
         if dominio == "lojascaverna.com.br" and not rota.startswith("/produtos/"):
             continue
-        if dominio in {"excelsiorcomics.com.br", "seborsraridades.com.br"} and not rota.startswith("/produto/"):
+        if dominio in {
+            "excelsiorcomics.com.br",
+            "seborsraridades.com.br",
+            "maniadegibi.com",
+        } and not rota.startswith("/produto/"):
             continue
         if any(trecho in rota for trecho in (
             "/catalogsearch/", "/search", "/customer/", "/wishlist/",
@@ -459,7 +464,12 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             resultados = resultados_loja(busca_loja, dominio, modelo_busca)
     else:
         resultados = resultados_loja(busca_loja, dominio, modelo_busca)
-    if nome in {"Lojas Caverna", "Excelsior Comics", "Sebo RS Raridades"} and str(numero or "").isdigit():
+    if nome in {
+        "Lojas Caverna",
+        "Excelsior Comics",
+        "Sebo RS Raridades",
+        "Mania de Gibi",
+    } and str(numero or "").isdigit():
         fase = re.findall(r'"([^"]+)"', busca)
         fase = fase[-2] if len(fase) >= 4 else ""
         titulo_ascii = unicodedata.normalize("NFKD", titulo).encode(
