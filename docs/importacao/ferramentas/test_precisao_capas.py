@@ -1,4 +1,5 @@
 """Identidade de capas e reaproveitamento, sem depender de lojas externas."""
+import base64
 import json
 import unittest
 from unittest.mock import patch
@@ -7,6 +8,17 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_bing_desfaz_redirecionamento_e_filtra_dominio(self):
+        destino = 'https://www.comix.com.br/batman-o-retorno-em-quadrinhos.html'
+        codificado = base64.urlsafe_b64encode(destino.encode()).decode().rstrip('=')
+        html = (
+            '<li class="b_algo"><h2>Batman - O Retorno em Quadrinhos</h2>'
+            f'<a href="https://www.bing.com/ck/a?u=a1{codificado}&amp;ntb=1">resultado</a></li>'
+        )
+        with patch.object(robo, 'baixar', return_value=html):
+            resultados = robo.resultados_bing('Batman O Retorno', 'comix.com.br')
+        self.assertEqual(resultados[0]['url'], destino)
+
     def test_batman_nao_e_interpretado_como_marcador_de_numero(self):
         url = 'https://excelsiorcomics.com.br/produto/batman-6a-serie-super-herois-premium-1/'
         self.assertTrue(robo.produto_compativel_com_numero(url, '1'))

@@ -6,6 +6,7 @@ existente, salvo quando --substituir é informado. Os resultados ficam
 registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
+import base64
 from concurrent.futures import ThreadPoolExecutor, CancelledError, as_completed
 from functools import lru_cache
 import json
@@ -15,7 +16,7 @@ from html import unescape
 from pathlib import Path
 from threading import Event, local
 from time import sleep
-from urllib.parse import quote, urljoin, urlparse
+from urllib.parse import parse_qs, quote, urljoin, urlparse
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -193,7 +194,22 @@ def resultados_bing(consulta, dominio):
         link = re.search(r'<a[^>]+href="(https?://[^"]+)', bloco, re.I)
         titulo = re.search(r'<h2.*?>(.*?)</h2>', bloco, re.I | re.S)
         if link:
-            encontrados.append({"url": unescape(link.group(1)), "titulo": limpar(titulo.group(1)) if titulo else ""})
+            url = unescape(link.group(1))
+            partes = urlparse(url)
+            if (partes.hostname or "").lower().endswith("bing.com"):
+                destino = parse_qs(partes.query).get("u", [""])[0]
+                if destino.startswith("a1"):
+                    codificado = destino[2:]
+                    try:
+                        url = base64.urlsafe_b64decode(
+                            codificado + "=" * (-len(codificado) % 4)
+                        ).decode("utf-8")
+                    except (ValueError, UnicodeDecodeError):
+                        continue
+            host = (urlparse(url).hostname or "").lower()
+            if host != dominio and not host.endswith("." + dominio):
+                continue
+            encontrados.append({"url": url, "titulo": limpar(titulo.group(1)) if titulo else ""})
     return encontrados[:3]
 
 
@@ -462,6 +478,16 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Rika":
         try:
             resultados = resultados_rika(alias_catalogo_loja(nome, titulo))
+        except (OSError, ValueError):
+            resultados = []
+        if not resultados:
+            resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+    elif nome == "Comix":
+        # A busca Magento da Comix pode devolver somente categorias mesmo
+        # quando existe uma pagina de produto exata. Priorize o indice externo
+        # e use a busca interna apenas quando ele nao localizar o produto.
+        try:
+            resultados = resultados_bing(busca, dominio)
         except (OSError, ValueError):
             resultados = []
         if not resultados:
