@@ -39,6 +39,7 @@ FONTES = {
     "Mania de Gibi": ("maniadegibi.com", "https://maniadegibi.com/?s={}&post_type=product"),
     "Loja Sebo Cultural": ("lojasebocultural.com.br", "https://lojasebocultural.com.br/?s={}&post_type=product"),
     "Touché Livros": ("touchelivros.com.br", "https://www.touchelivros.com.br/?s={}&post_type=product"),
+    "DC": ("dc.com", "https://www.dc.com/search?q={}"),
     "Amazon": ("amazon.com.br", "https://www.amazon.com.br/s?k={}"),
 }
 FONTES_OFICIAIS = {"Panini", "Pipoca & Nanquim", "Mythos", "Loja Mythos", "Devir"}
@@ -59,7 +60,13 @@ def baixar(url):
 @lru_cache(maxsize=256)
 def baixar_cached(url):
     # Cache limitado a esta execucao. Erros nao ficam armazenados.
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB local cover finder"})
+    req = Request(url, headers={
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/140.0.0.0 Safari/537.36"
+        )
+    })
     ultimo_erro = None
     for tentativa in range(2):
         verificar_cancelamento()
@@ -259,6 +266,8 @@ def resultados_loja(consulta, dominio, modelo_busca):
             "touchelivros.com.br",
         } and not rota.startswith("/produto/"):
             continue
+        if dominio == "dc.com" and not rota.startswith("/comics/"):
+            continue
         if any(trecho in rota for trecho in (
             "/catalogsearch/", "/search", "/customer/", "/wishlist/",
             "/static/", "/media/", "/checkout/", "/account/", "/sales/",
@@ -330,6 +339,18 @@ def extrair_produto(url):
                 imagem = "https://" + imagem[len("http://"):]
             if re.match(r"https?://", imagem):
                 return imagem, titulo
+    termos_titulo = tokens(titulo) - {"dc"}
+    for tag in re.findall(r'<img\b[^>]*>', html, re.I):
+        alt = re.search(r'\balt=["\']([^"\']+)', tag, re.I)
+        src = re.search(r'\bsrc=["\']([^"\']+)', tag, re.I)
+        if not alt or not src or not termos_titulo:
+            continue
+        if termos_titulo != tokens(unescape(alt.group(1))):
+            continue
+        imagem = urljoin(url, unescape(src.group(1)))
+        imagem = re.sub(r"\?w=\d+$", "", imagem)
+        if re.match(r"https?://", imagem):
+            return imagem, titulo
     return None, titulo
 
 

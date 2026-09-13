@@ -8,6 +8,18 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_extrai_capa_principal_da_dc_quando_og_image_esta_vazio(self):
+        html = (
+            '<title>BATMAN/THE SPIRIT #1 | DC</title>'
+            '<meta property="og:image" content="">'
+            '<img src="https://static.dc.com/capa.jpg?w=160" '
+            'alt="BATMAN/THE SPIRIT #1">'
+        )
+        with patch.object(robo, 'baixar', return_value=html):
+            capa, titulo = robo.extrair_produto('https://www.dc.com/comics/exemplo')
+        self.assertEqual(capa, 'https://static.dc.com/capa.jpg')
+        self.assertEqual(titulo, 'BATMAN/THE SPIRIT #1 | DC')
+
     def test_rika_infere_edicao_esgotada_adjacente(self):
         resultados = [{
             'url': 'https://www.rika.com.br/batman-rastro--115000497/p',
