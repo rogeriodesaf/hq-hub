@@ -310,6 +310,26 @@ def extrair_produto(url):
                 imagem = "https://" + imagem[len("http://"):]
             if re.match(r"https?://", imagem):
                 return imagem, titulo
+    for bloco in re.findall(
+        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+        html, re.I | re.S,
+    ):
+        try:
+            dados = json.loads(unescape(bloco))
+        except (TypeError, ValueError):
+            continue
+        if not isinstance(dados, dict) or dados.get("@type") != "Product":
+            continue
+        titulo = limpar(dados.get("name")) or titulo
+        imagem = dados.get("image")
+        if isinstance(imagem, list):
+            imagem = next((item for item in imagem if isinstance(item, str)), None)
+        if isinstance(imagem, str):
+            imagem = urljoin(url, imagem)
+            if imagem.startswith("http://"):
+                imagem = "https://" + imagem[len("http://"):]
+            if re.match(r"https?://", imagem):
+                return imagem, titulo
     return None, titulo
 
 
@@ -336,6 +356,28 @@ def resultados_rika(titulo):
         if len(produtos) < 50:
             break
     return resultados
+
+
+def resultados_rika_adjacentes(resultados, numero):
+    """Infere paginas sequenciais que a API VTEX oculta quando estao esgotadas."""
+    if not str(numero or "").isdigit():
+        return []
+    alvo = int(numero)
+    candidatos = []
+    for resultado in resultados:
+        atual = re.search(r"#\s*0*(\d+)\b", resultado.get("titulo") or "")
+        if not atual or abs(alvo - int(atual.group(1))) > 12:
+            continue
+        partes = re.match(r"^(.*--)(\d+)(\d{8})/p$", resultado.get("url") or "")
+        if not partes or int(partes.group(2)) != int(atual.group(1)):
+            continue
+        referencia = int(partes.group(3)) + alvo - int(atual.group(1))
+        if referencia <= 0:
+            continue
+        url = f"{partes.group(1)}{alvo}{referencia:08d}/p"
+        if url not in {item["url"] for item in candidatos}:
+            candidatos.append({"url": url, "titulo": ""})
+    return candidatos
 
 
 def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
@@ -482,6 +524,11 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             resultados = []
         if not resultados:
             resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+        elif str(numero or "").isdigit() and not any(
+            titulo_compativel_com_numero(item.get("titulo"), numero, titulo)
+            for item in resultados
+        ):
+            resultados.extend(resultados_rika_adjacentes(resultados, numero))
     elif nome == "Comix":
         # A busca Magento da Comix pode devolver somente categorias mesmo
         # quando existe uma pagina de produto exata. Priorize o indice externo

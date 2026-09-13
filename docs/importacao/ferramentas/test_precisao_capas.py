@@ -8,6 +8,28 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_rika_infere_edicao_esgotada_adjacente(self):
+        resultados = [{
+            'url': 'https://www.rika.com.br/batman-rastro--115000497/p',
+            'titulo': 'Batman Rastro # 1',
+        }]
+        derivados = robo.resultados_rika_adjacentes(resultados, '2')
+        self.assertEqual(
+            derivados[0]['url'],
+            'https://www.rika.com.br/batman-rastro--215000498/p',
+        )
+
+    def test_extrai_produto_vtex_por_json_ld(self):
+        html = (
+            '<title>Loja</title><script type="application/ld+json">'
+            '{"@type":"Product","name":"Batman Rastro # 2",'
+            '"image":"https://imagem/rastro-02.jpg"}</script>'
+        )
+        with patch.object(robo, 'baixar', return_value=html):
+            capa, titulo = robo.extrair_produto('https://loja/produto')
+        self.assertEqual(capa, 'https://imagem/rastro-02.jpg')
+        self.assertEqual(titulo, 'Batman Rastro # 2')
+
     def test_bing_desfaz_redirecionamento_e_filtra_dominio(self):
         destino = 'https://www.comix.com.br/batman-o-retorno-em-quadrinhos.html'
         codificado = base64.urlsafe_b64encode(destino.encode()).decode().rstrip('=')
