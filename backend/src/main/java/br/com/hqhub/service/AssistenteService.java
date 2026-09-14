@@ -1,7 +1,12 @@
 package br.com.hqhub.service;
 
 import java.text.Normalizer;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +24,9 @@ import br.com.hqhub.dto.ResultadoBuscaConhecimentoDTO;
 import br.com.hqhub.dto.SerieCompletudeDTO;
 import br.com.hqhub.entity.Criador;
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.PapelCriador;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.repository.CriadorRepository;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.SerieRepository;
@@ -37,9 +44,14 @@ public class AssistenteService {
     private static final Pattern PADRAO_ID = Pattern.compile("\\b(?:id|serieId|sérieId|serie|série)\\s*[:=]?\\s*(\\d+)\\b",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern PADRAO_ANO = Pattern.compile("\\b(20\\d{2}|19\\d{2})\\b");
+    private static final Pattern PADRAO_NUMERO_EDICAO = Pattern.compile(
+            "(?i)(?:\\bedi[cç][aã]o\\s*(?:n[º°o.]\\s*)?|\\bn[º°o.]\\s*|#)\\s*([0-9]+(?:[.,/-][0-9a-z]+)?)");
+    private static final Pattern PADRAO_VOLUME = Pattern.compile("(?i)\\b(?:v|volume)\\s*([0-9]+)\\b");
+    private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final Set<String> TERMOS_PERGUNTA_QUANTIDADE = Set.of(
             "quantas", "quantos", "quantidade", "total", "edicao", "edicoes", "numero", "numeros",
             "revista", "revistas", "hq", "hqs", "gibi", "gibis", "volume", "volumes",
+            "titulo", "titulos", "serie", "series",
             "cadastrada", "cadastradas", "cadastrado", "cadastrados", "cadastro", "catalogo",
             "existe", "existem", "tem", "possui", "possuem", "ha", "quero", "saber", "diga",
             "me", "mostre", "no", "na", "nos", "nas", "do", "da", "dos", "das", "de", "em",
@@ -89,8 +101,32 @@ public class AssistenteService {
             return responderCompletude(pergunta);
         }
 
+        if (ehPerguntaTotaisCatalogo(perguntaNormalizada)) {
+            return responderTotaisCatalogo(pergunta);
+        }
+
         if (ehPerguntaQuantidadeEdicoes(perguntaNormalizada)) {
             return responderQuantidadeEdicoesSerie(pergunta);
+        }
+
+        if (ehPerguntaDataCatalogo(perguntaNormalizada)) {
+            return responderDataCatalogo(pergunta);
+        }
+
+        if (ehPerguntaDetalhesEdicao(perguntaNormalizada)) {
+            return responderDetalhesEdicao(pergunta);
+        }
+
+        if (ehPerguntaCreditosCatalogo(perguntaNormalizada)) {
+            return responderCreditosCatalogo(pergunta, perguntaNormalizada);
+        }
+
+        if (ehPerguntaListagemEdicoes(perguntaNormalizada)) {
+            return responderListagemEdicoes(pergunta);
+        }
+
+        if (ehPerguntaFichaSerie(perguntaNormalizada)) {
+            return responderFichaSerie(pergunta);
         }
 
         if (contemAlguma(perguntaNormalizada, "compra", "compras", "planejada", "planejadas", "mes")) {
@@ -142,7 +178,7 @@ public class AssistenteService {
         }
 
         return new RespostaAssistenteDTO(
-                "Ainda não encontrei uma intenção clara nessa pergunta. Por enquanto consigo responder sobre: resumo da coleção, edições faltantes, completude por série, compras planejadas, criadores, continuidade entre séries e curiosidades sobre quadrinhos (se disponíveis na base editorial).",
+                "Ainda não encontrei uma intenção clara. Posso consultar títulos e edições do catálogo, ano ou data de publicação, créditos de roteiro, arte, desenho, capa e outros papéis, quantidade de títulos, edições faltantes, completude, compras e continuidade entre séries.",
                 ORIGEM_NAO_ENCONTRADO,
                 null);
     }
@@ -243,6 +279,264 @@ public class AssistenteService {
         return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, relacionamentos);
     }
 
+    private RespostaAssistenteDTO responderTotaisCatalogo(String pergunta) {
+        String assunto = extrairAssuntoQuantidade(pergunta);
+        String filtro = assunto.isBlank() ? null : assunto;
+        long totalSeries = serieRepository.contarComBusca(filtro, null, TipoSerie.BRASILEIRA);
+        long totalEdicoes = edicaoRepository.contarComBusca(null, filtro, TipoSerie.BRASILEIRA);
+
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("consulta", filtro);
+        dados.put("totalTitulos", totalSeries);
+        dados.put("totalEdicoes", totalEdicoes);
+        dados.put("tipoCatalogo", TipoSerie.BRASILEIRA.name());
+
+        String resposta = filtro == null
+                ? "O catálogo do HQ-HUB tem %d título(s) nacional(is) e %d edição(ões) cadastrada(s)."
+                        .formatted(totalSeries, totalEdicoes)
+                : "Encontrei %d título(s) e %d edição(ões) relacionados a \"%s\" no catálogo do HQ-HUB."
+                        .formatted(totalSeries, totalEdicoes, assunto);
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    }
+
+    private RespostaAssistenteDTO responderDataCatalogo(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        String numeroEdicao = extrairNumeroEdicao(pergunta);
+        if (numeroEdicao != null) {
+            Optional<Edicao> edicaoEncontrada = edicaoRepository.buscarPorNumeroESerie(numeroEdicao, serie.getId());
+            if (edicaoEncontrada.isEmpty()) {
+                return respostaEdicaoNaoEncontrada(serie, numeroEdicao);
+            }
+
+            Edicao edicao = edicaoEncontrada.get();
+            LocalDate data = edicao.getDataPublicacao() != null
+                    ? edicao.getDataPublicacao()
+                    : edicao.getDataCobertura();
+            String campoUsado = edicao.getDataPublicacao() != null ? "dataPublicacao" : "dataCobertura";
+            if (data == null) {
+                return new RespostaAssistenteDTO(
+                        "A edição nº %s de %s está cadastrada, mas ainda não possui data de publicação."
+                                .formatted(edicao.getNumero(), nomeSerie(serie)),
+                        ORIGEM_BANCO_LOCAL,
+                        Map.of("serieId", serie.getId(), "edicaoId", edicao.getId()));
+            }
+
+            Map<String, Object> dados = new LinkedHashMap<>();
+            dados.put("serieId", serie.getId());
+            dados.put("edicaoId", edicao.getId());
+            dados.put("numero", edicao.getNumero());
+            dados.put("data", data);
+            dados.put("campoUsado", campoUsado);
+            String resposta = "A edição nº %s de %s foi publicada em %s."
+                    .formatted(edicao.getNumero(), nomeSerie(serie), data.format(FORMATO_DATA));
+            return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+        }
+
+        Integer anoInicio = serie.getAnoInicio();
+        Integer anoFim = serie.getAnoFim();
+        if (anoInicio == null) {
+            LocalDate primeiraData = edicaoRepository.buscarTodosComBusca(serie.getId(), null).stream()
+                    .map(edicao -> edicao.getDataPublicacao() != null
+                            ? edicao.getDataPublicacao()
+                            : edicao.getDataCobertura())
+                    .filter(data -> data != null)
+                    .min(LocalDate::compareTo)
+                    .orElse(null);
+            anoInicio = primeiraData != null ? primeiraData.getYear() : null;
+        }
+
+        if (anoInicio == null) {
+            return new RespostaAssistenteDTO(
+                    "%s está cadastrada, mas ainda não possui ano inicial nem datas de publicação nas edições."
+                            .formatted(nomeSerie(serie)),
+                    ORIGEM_BANCO_LOCAL,
+                    Map.of("serieId", serie.getId()));
+        }
+
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("serieId", serie.getId());
+        dados.put("anoInicio", anoInicio);
+        dados.put("anoFim", anoFim);
+        String periodo = anoFim != null && !anoFim.equals(anoInicio)
+                ? "entre %d e %d".formatted(anoInicio, anoFim)
+                : "em %d".formatted(anoInicio);
+        return new RespostaAssistenteDTO(
+                "%s foi publicada %s.".formatted(nomeSerie(serie), periodo),
+                ORIGEM_BANCO_LOCAL,
+                dados);
+    }
+
+    private RespostaAssistenteDTO responderCreditosCatalogo(String pergunta, String perguntaNormalizada) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            if (localizarCriador(pergunta).isPresent()) {
+                return responderCriador(pergunta);
+            }
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        String numeroEdicao = extrairNumeroEdicao(pergunta);
+        List<CreditoEdicaoRespostaDTO> creditos;
+        Edicao edicao = null;
+        if (numeroEdicao != null) {
+            Optional<Edicao> edicaoEncontrada = edicaoRepository.buscarPorNumeroESerie(numeroEdicao, serie.getId());
+            if (edicaoEncontrada.isEmpty()) {
+                return respostaEdicaoNaoEncontrada(serie, numeroEdicao);
+            }
+            edicao = edicaoEncontrada.get();
+            creditos = creditoEdicaoService.listarPorEdicao(edicao.getId());
+        } else {
+            creditos = creditoEdicaoService.listarPorSerie(serie.getId());
+        }
+
+        Set<PapelCriador> papeis = papeisSolicitados(perguntaNormalizada);
+        List<CreditoEdicaoRespostaDTO> creditosFiltrados = creditos.stream()
+                .filter(credito -> papeis.isEmpty() || papeis.contains(credito.papel()))
+                .toList();
+        String alvo = edicao == null
+                ? nomeSerie(serie)
+                : "%s, edição nº %s".formatted(nomeSerie(serie), edicao.getNumero());
+
+        if (creditosFiltrados.isEmpty()) {
+            String tipoCredito = papeis.isEmpty()
+                    ? "créditos"
+                    : papeis.stream().map(this::nomePapel).reduce((a, b) -> a + "/" + b).orElse("créditos");
+            return new RespostaAssistenteDTO(
+                    "%s está cadastrada, mas ainda não possui crédito de %s no catálogo."
+                            .formatted(alvo, tipoCredito),
+                    ORIGEM_BANCO_LOCAL,
+                    List.of());
+        }
+
+        Map<PapelCriador, Set<String>> nomesPorPapel = new LinkedHashMap<>();
+        for (CreditoEdicaoRespostaDTO credito : creditosFiltrados) {
+            if (credito.criador() == null || credito.criador().nome() == null) {
+                continue;
+            }
+            nomesPorPapel.computeIfAbsent(credito.papel(), chave -> new LinkedHashSet<>())
+                    .add(nomeCriador(credito));
+        }
+
+        String resumo = nomesPorPapel.entrySet().stream()
+                .map(entrada -> "%s: %s".formatted(
+                        nomePapel(entrada.getKey()),
+                        String.join(", ", entrada.getValue())))
+                .reduce((a, b) -> a + "; " + b)
+                .orElse("créditos sem nome de criador");
+        String resposta = "Créditos cadastrados para %s — %s.".formatted(alvo, resumo);
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, creditosFiltrados);
+    }
+
+    private RespostaAssistenteDTO responderDetalhesEdicao(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        String numeroEdicao = extrairNumeroEdicao(pergunta);
+        if (numeroEdicao == null) {
+            return new RespostaAssistenteDTO(
+                    "Informe o número da edição que deseja consultar, por exemplo: %s edição nº 1."
+                            .formatted(nomeSerie(serie)),
+                    ORIGEM_NAO_ENCONTRADO,
+                    Map.of("serieId", serie.getId()));
+        }
+
+        Optional<Edicao> edicaoEncontrada = edicaoRepository.buscarPorNumeroESerie(numeroEdicao, serie.getId());
+        if (edicaoEncontrada.isEmpty()) {
+            return respostaEdicaoNaoEncontrada(serie, numeroEdicao);
+        }
+
+        Edicao edicao = edicaoEncontrada.get();
+        String titulo = edicao.getTitulo() == null || edicao.getTitulo().isBlank()
+                ? "sem subtítulo cadastrado"
+                : edicao.getTitulo();
+        String data = edicao.getDataPublicacao() == null
+                ? "data não cadastrada"
+                : edicao.getDataPublicacao().format(FORMATO_DATA);
+        String paginas = edicao.getQuantidadePaginas() == null
+                ? "páginas não cadastradas"
+                : "%d páginas".formatted(edicao.getQuantidadePaginas());
+        String formato = edicao.getFormato() == null || edicao.getFormato().isBlank()
+                ? "formato não cadastrado"
+                : edicao.getFormato();
+        String preco = edicao.getPrecoCapa() == null
+                ? "preço de capa não cadastrado"
+                : "preço de capa R$ %s".formatted(edicao.getPrecoCapa().toPlainString());
+        String capa = edicao.getUrlCapa() == null || edicao.getUrlCapa().isBlank()
+                ? "sem capa cadastrada"
+                : "com capa cadastrada";
+
+        String resposta = "%s, edição nº %s — %s; publicação: %s; %s; %s; %s; %s."
+                .formatted(nomeSerie(serie), edicao.getNumero(), titulo, data, paginas, formato, preco, capa);
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dadosEdicao(edicao));
+    }
+
+    private RespostaAssistenteDTO responderListagemEdicoes(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        List<Edicao> edicoes = edicaoRepository.buscarTodosComBusca(serie.getId(), null).stream()
+                .sorted(Comparator.comparing(Edicao::getNumero, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)))
+                .toList();
+        if (edicoes.isEmpty()) {
+            return new RespostaAssistenteDTO(
+                    "%s está cadastrada, mas ainda não possui edições.".formatted(nomeSerie(serie)),
+                    ORIGEM_BANCO_LOCAL,
+                    List.of());
+        }
+
+        List<Map<String, Object>> dados = edicoes.stream().map(this::dadosEdicao).toList();
+        String numeros = edicoes.stream()
+                .limit(30)
+                .map(Edicao::getNumero)
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+        if (edicoes.size() > 30) {
+            numeros += " e mais %d".formatted(edicoes.size() - 30);
+        }
+        String resposta = "%s possui %s: %s."
+                .formatted(nomeSerie(serie), quantidadeEdicoes(edicoes.size()), numeros);
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    }
+
+    private RespostaAssistenteDTO responderFichaSerie(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerie(pergunta);
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        long totalEdicoes = edicaoRepository.contarPorSerie(serie.getId());
+        Map<String, Object> dados = dadosContagemSerie(serie, totalEdicoes);
+        dados.put("anoInicio", serie.getAnoInicio());
+        dados.put("anoFim", serie.getAnoFim());
+        dados.put("descricao", serie.getDescricao());
+
+        String periodo = serie.getAnoInicio() == null
+                ? "ano inicial não cadastrado"
+                : serie.getAnoFim() != null && !serie.getAnoFim().equals(serie.getAnoInicio())
+                        ? "%d–%d".formatted(serie.getAnoInicio(), serie.getAnoFim())
+                        : String.valueOf(serie.getAnoInicio());
+        String resposta = "%s — editora: %s; período: %s; %s cadastrada(s)."
+                .formatted(
+                        nomeSerie(serie),
+                        serie.getEditora() != null ? serie.getEditora().getNome() : "não cadastrada",
+                        periodo,
+                        quantidadeEdicoes((int) totalEdicoes));
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+    }
+
     private RespostaAssistenteDTO responderQuantidadeEdicoesSerie(String pergunta) {
         String assunto = extrairAssuntoQuantidade(pergunta);
         if (assunto.isBlank()) {
@@ -340,14 +634,45 @@ public class AssistenteService {
         }
 
         String perguntaNormalizada = normalizar(pergunta);
-        Optional<Serie> porTitulo = serieRepository.listAll()
+        List<Serie> candidatas = serieRepository.listAll()
                 .stream()
                 .filter(serie -> perguntaNormalizada.contains(normalizar(serie.getTitulo())))
                 .sorted((primeira, segunda) -> Integer.compare(segunda.getTitulo().length(), primeira.getTitulo().length()))
-                .findFirst();
+                .toList();
 
-        if (porTitulo.isPresent()) {
-            return porTitulo;
+        if (!candidatas.isEmpty()) {
+            int maiorTitulo = normalizar(candidatas.get(0).getTitulo()).length();
+            candidatas = candidatas.stream()
+                    .filter(serie -> normalizar(serie.getTitulo()).length() == maiorTitulo)
+                    .toList();
+
+            List<Serie> brasileiras = candidatas.stream()
+                    .filter(serie -> serie.getTipoSerie() == TipoSerie.BRASILEIRA)
+                    .toList();
+            if (!brasileiras.isEmpty()) {
+                candidatas = brasileiras;
+            }
+
+            Matcher volumeEncontrado = PADRAO_VOLUME.matcher(pergunta);
+            if (volumeEncontrado.find()) {
+                int volume = Integer.parseInt(volumeEncontrado.group(1));
+                List<Serie> peloVolume = candidatas.stream()
+                        .filter(serie -> serie.getVolume() != null && serie.getVolume() == volume)
+                        .toList();
+                if (!peloVolume.isEmpty()) {
+                    candidatas = peloVolume;
+                }
+            }
+
+            List<Serie> pelaEditora = candidatas.stream()
+                    .filter(serie -> serie.getEditora() != null
+                            && perguntaNormalizada.contains(normalizar(serie.getEditora().getNome())))
+                    .toList();
+            if (!pelaEditora.isEmpty()) {
+                candidatas = pelaEditora;
+            }
+
+            return candidatas.stream().findFirst();
         }
 
         return serieRepository.buscarPaginado(pergunta, 0, 5)
@@ -377,6 +702,93 @@ public class AssistenteService {
     private Integer extrairAno(String pergunta) {
         Matcher matcher = PADRAO_ANO.matcher(pergunta);
         return matcher.find() ? Integer.valueOf(matcher.group(1)) : null;
+    }
+
+    private String extrairNumeroEdicao(String pergunta) {
+        Matcher matcher = PADRAO_NUMERO_EDICAO.matcher(pergunta);
+        return matcher.find() ? matcher.group(1) : null;
+    }
+
+    private String nomeSerie(Serie serie) {
+        String volume = serie.getVolume() != null ? " V%d".formatted(serie.getVolume()) : "";
+        String editora = serie.getEditora() != null ? " (%s)".formatted(serie.getEditora().getNome()) : "";
+        return serie.getTitulo() + volume + editora;
+    }
+
+    private RespostaAssistenteDTO respostaEdicaoNaoEncontrada(Serie serie, String numero) {
+        return new RespostaAssistenteDTO(
+                "Não encontrei a edição nº %s em %s.".formatted(numero, nomeSerie(serie)),
+                ORIGEM_NAO_ENCONTRADO,
+                null);
+    }
+
+    private Map<String, Object> dadosEdicao(Edicao edicao) {
+        Map<String, Object> dados = new LinkedHashMap<>();
+        dados.put("id", edicao.getId());
+        dados.put("numero", edicao.getNumero());
+        dados.put("titulo", edicao.getTitulo());
+        dados.put("nomeVolume", edicao.getNomeVolume());
+        dados.put("descricao", edicao.getDescricao());
+        dados.put("dataCobertura", edicao.getDataCobertura());
+        dados.put("dataPublicacao", edicao.getDataPublicacao());
+        dados.put("dataDisponibilidadeLoja", edicao.getDataDisponibilidadeLoja());
+        dados.put("quantidadePaginas", edicao.getQuantidadePaginas());
+        dados.put("precoCapa", edicao.getPrecoCapa());
+        dados.put("formato", edicao.getFormato());
+        dados.put("codigoBarras", edicao.getCodigoBarras());
+        dados.put("urlCapa", edicao.getUrlCapa());
+        return dados;
+    }
+
+    private String nomeCriador(CreditoEdicaoRespostaDTO credito) {
+        String nomeArtistico = credito.criador().nomeArtistico();
+        return nomeArtistico != null && !nomeArtistico.isBlank()
+                ? nomeArtistico
+                : credito.criador().nome();
+    }
+
+    private Set<PapelCriador> papeisSolicitados(String perguntaNormalizada) {
+        Set<PapelCriador> papeis = EnumSet.noneOf(PapelCriador.class);
+        if (contemAlguma(perguntaNormalizada, "autor", "roteir", "escreveu", "escrito por", "texto de")) {
+            papeis.add(PapelCriador.ROTEIRO);
+        }
+        if (contemAlguma(perguntaNormalizada, "desenhou", "desenhista", "ilustrou", "ilustrador")) {
+            papeis.add(PapelCriador.DESENHO);
+            papeis.add(PapelCriador.ARTE);
+        }
+        if (contemAlguma(perguntaNormalizada, "arte final", "arte-final", "arte finalista")) {
+            papeis.add(PapelCriador.ARTE_FINAL);
+        } else if (contemAlguma(perguntaNormalizada, "arte", "artista")) {
+            papeis.add(PapelCriador.ARTE);
+            papeis.add(PapelCriador.DESENHO);
+        }
+        if (contemAlguma(perguntaNormalizada, "capista", "fez a capa", "arte da capa", "creditos de capa")) {
+            papeis.add(PapelCriador.CAPA);
+        }
+        if (contemAlguma(perguntaNormalizada, "colorista", "cores", "coloriu")) {
+            papeis.add(PapelCriador.CORES);
+        }
+        if (contemAlguma(perguntaNormalizada, "letrista", "letras")) {
+            papeis.add(PapelCriador.LETRAS);
+        }
+        if (contemAlguma(perguntaNormalizada, "editor", "editou")) {
+            papeis.add(PapelCriador.EDITOR);
+        }
+        return papeis;
+    }
+
+    private String nomePapel(PapelCriador papel) {
+        return switch (papel) {
+            case ROTEIRO -> "roteiro";
+            case ARTE -> "arte";
+            case DESENHO -> "desenho";
+            case ARTE_FINAL -> "arte-final";
+            case CORES -> "cores";
+            case LETRAS -> "letras";
+            case CAPA -> "capa";
+            case EDITOR -> "edição";
+            case OUTRO -> "outro";
+        };
     }
 
     private Integer extrairMes(String perguntaNormalizada) {
@@ -427,6 +839,96 @@ public class AssistenteService {
                 "total de edicoes",
                 "total de numeros",
                 "total de revistas");
+    }
+
+    private boolean ehPerguntaTotaisCatalogo(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "quantos titulos",
+                "quantas series",
+                "total de titulos",
+                "total de series",
+                "numero de titulos",
+                "numero de series");
+    }
+
+    private boolean ehPerguntaDataCatalogo(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "em que ano",
+                "qual o ano",
+                "quando foi lancad",
+                "quando foi publicad",
+                "quando saiu",
+                "data de publicacao",
+                "data da publicacao",
+                "ano de lancamento",
+                "ano da publicacao");
+    }
+
+    private boolean ehPerguntaCreditosCatalogo(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "quem escreveu",
+                "quem desenhou",
+                "quem ilustrou",
+                "quem fez a arte",
+                "quem fez a capa",
+                "quem coloriu",
+                "quem editou",
+                "quem e o autor",
+                "quem foi o autor",
+                "autor de",
+                "autor da",
+                "autor do",
+                "roteirista de",
+                "roteirista da",
+                "roteirista do",
+                "desenhista de",
+                "desenhista da",
+                "desenhista do",
+                "creditos de",
+                "creditos da",
+                "creditos do");
+    }
+
+    private boolean ehPerguntaDetalhesEdicao(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "detalhes da edicao",
+                "dados da edicao",
+                "ficha da edicao",
+                "informacoes da edicao",
+                "quantas paginas",
+                "numero de paginas",
+                "preco de capa",
+                "qual o preco",
+                "qual formato",
+                "qual o formato",
+                "codigo de barras",
+                "tem capa",
+                "possui capa");
+    }
+
+    private boolean ehPerguntaListagemEdicoes(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "quais edicoes",
+                "liste as edicoes",
+                "listar edicoes",
+                "mostre as edicoes",
+                "quais numeros",
+                "lista de edicoes");
+    }
+
+    private boolean ehPerguntaFichaSerie(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "ficha da serie",
+                "ficha do titulo",
+                "dados da serie",
+                "dados do titulo",
+                "detalhes da serie",
+                "detalhes do titulo",
+                "informacoes da serie",
+                "informacoes do titulo",
+                "qual editora",
+                "quem publicou",
+                "qual o volume da serie");
     }
 
     private boolean ehPerguntaImportacaoGuiaBloqueada(String perguntaNormalizada) {
@@ -519,7 +1021,7 @@ public class AssistenteService {
 
     private RespostaAssistenteDTO responderAjudaSistema() {
         return new RespostaAssistenteDTO(
-                "Posso ajudar com o funcionamento do HQ-HUB. As areas principais sao: Catalogo para series e edicoes cadastradas, Colecao/Estante para o que voce possui, Compras para a wishlist planejada, Amigos e Mensagens para interacao entre colecionadores, Importacao/Revisao para alimentar o catalogo e Assistente para consultar dados da colecao ou curiosidades de quadrinhos. Tente perguntar algo como: como adiciono uma HQ?, como funciona compras?, como importo uma edicao? ou quantas edicoes existem em uma serie?",
+                "Posso ajudar com o funcionamento do HQ-HUB e consultar o catálogo. Exemplos: quantos títulos existem?, em que ano Batman V1 foi lançado?, quem escreveu Batman edição nº 1?, quais edições existem em uma série? e mostre a ficha do título. Também respondo sobre coleção, faltantes, completude, compras, continuidade e importação.",
                 ORIGEM_CONHECIMENTO_ESSENCIAL,
                 null);
     }

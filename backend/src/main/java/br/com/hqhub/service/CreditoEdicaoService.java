@@ -72,6 +72,21 @@ public class CreditoEdicaoService {
     }
 
     @Transactional
+    public List<CreditoEdicaoRespostaDTO> listarPorEdicao(Long edicaoId) {
+        buscarEdicaoPorId(edicaoId);
+        return creditoEdicaoRepository.listarPorEdicao(edicaoId).stream()
+                .map(creditoEdicaoMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
+    public List<CreditoEdicaoRespostaDTO> listarPorSerie(Long serieId) {
+        return creditoEdicaoRepository.listarPorSerie(serieId).stream()
+                .map(creditoEdicaoMapper::paraResposta)
+                .toList();
+    }
+
+    @Transactional
     public void remover(Long id) {
         CreditoEdicao credito = creditoEdicaoRepository.findByIdOptional(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Crédito da edição não encontrado."));

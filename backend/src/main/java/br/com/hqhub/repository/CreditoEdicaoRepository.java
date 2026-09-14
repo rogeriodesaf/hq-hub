@@ -23,4 +23,12 @@ public class CreditoEdicaoRepository implements PanacheRepository<CreditoEdicao>
     public List<CreditoEdicao> listarPorCriadorEPapel(Long criadorId, PapelCriador papel) {
         return list("criador.id = ?1 and papel = ?2", criadorId, papel);
     }
+
+    public List<CreditoEdicao> listarPorEdicao(Long edicaoId) {
+        return list("edicao.id", edicaoId);
+    }
+
+    public List<CreditoEdicao> listarPorSerie(Long serieId) {
+        return list("edicao.serie.id", serieId);
+    }
 }
