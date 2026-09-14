@@ -170,7 +170,7 @@ def extrair_codigo_colecao(url):
 def extrair_numero_url_edicao(url):
     encontrado = re.search(r"-n-(\d+[a-z]?)", url, re.IGNORECASE)
     if not encontrado:
-        return 0
+        return None
     return int(re.sub(r"\D", "", encontrado.group(1)) or "0")
 
 
@@ -187,11 +187,17 @@ def extrair_links_galeria(html, url_base):
         flags=re.IGNORECASE,
     ):
         url = normalizar_url_guia(urldefrag(urljoin(url_base, unescape(href))).url)
-        if f"/{codigo.lower()}/" in url.lower() and extrair_numero_url_edicao(url) > 0:
+        if f"/{codigo.lower()}/" in url.lower() and extrair_numero_url_edicao(url) is not None:
             links.append(url)
 
     links_unicos = list(dict.fromkeys(links))
-    links_ordenados = sorted(links_unicos, key=extrair_numero_url_edicao)
+    links_ordenados = sorted(
+        links_unicos,
+        key=lambda url: (
+            extrair_numero_url_edicao(url) is None,
+            extrair_numero_url_edicao(url) or 0,
+        ),
+    )
 
     # Algumas galerias contêm anúncios com aparência de edição e, em casos
     # pontuais, mais de uma URL para o mesmo número. A importação do catálogo
@@ -201,7 +207,7 @@ def extrair_links_galeria(html, url_base):
     edicoes = []
     for url in links_ordenados:
         numero = extrair_numero_url_edicao(url)
-        if numero <= 0 or numero in numeros_encontrados:
+        if numero is None or numero in numeros_encontrados:
             continue
         numeros_encontrados.add(numero)
         edicoes.append(url)
@@ -217,10 +223,13 @@ def limitar_urls_a_partir_da_inicial(urls, url_inicial, maximo_edicoes):
         indice_inicial = urls.index(url_inicial)
     except ValueError:
         numero_inicial = extrair_numero_url_edicao(url_inicial)
-        indice_inicial = next(
-            (indice for indice, url in enumerate(urls) if extrair_numero_url_edicao(url) >= numero_inicial),
-            0,
-        )
+        indice_inicial = next((
+            indice
+            for indice, url in enumerate(urls)
+            if extrair_numero_url_edicao(url) is not None
+            and numero_inicial is not None
+            and extrair_numero_url_edicao(url) >= numero_inicial
+        ), 0)
 
     return urls[indice_inicial : indice_inicial + maximo_edicoes]
 

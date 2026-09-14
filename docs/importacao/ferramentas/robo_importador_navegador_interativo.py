@@ -452,7 +452,7 @@ def montar_resultado(importador, textos, urls_processadas, capas_processadas, av
             importador.extrair_edicao(bloco, args.titulo_serie, args.editora)
             for bloco in blocos
         ]
-        if numero_esperado > 0:
+        if numero_esperado is not None:
             edicao = next((
                 candidato for candidato in candidatos
                 if re.match(r"\d+", str(candidato.get("numero") or ""))
@@ -467,7 +467,7 @@ def montar_resultado(importador, textos, urls_processadas, capas_processadas, av
                 if str(candidato.get("numero") or "").strip()
             ), None)
         if edicao is None:
-            if numero_esperado > 0:
+            if numero_esperado is not None:
                 avisos.append(f"Edição esperada nº {numero_esperado} não identificada em: {url}")
             else:
                 avisos.append(f"Edição sem numeração não identificada em: {url}")
