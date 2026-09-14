@@ -289,7 +289,50 @@ def esperar_galeria_carregada(pagina, url_inicial, importador, timeout_segundos)
         if len(melhores_urls) > 1 and repeticoes_estaveis >= 2:
             break
 
-    return melhor_html, melhores_urls
+    # O Guia exibe apenas cinco capas por vez em algumas colecoes. Os demais
+    # numeros ficam em controles JavaScript, sem href de edicao no HTML inicial.
+    # Percorremos esses controles e acumulamos os links revelados por cada pagina.
+    seletor_galeria = (
+        '[class*="galer" i] a, [class*="galer" i] button, '
+        '[id*="galer" i] a, [id*="galer" i] button'
+    )
+    html_acumulado = melhor_html
+    numeros_visitados = set()
+
+    for _ in range(100):
+        controles = pagina.locator(seletor_galeria)
+        candidatos = []
+        for indice in range(controles.count()):
+            controle = controles.nth(indice)
+            try:
+                rotulo = controle.inner_text(timeout=1_000).strip()
+            except Exception:
+                continue
+            if rotulo.isdigit() and int(rotulo) > 0:
+                candidatos.append((int(rotulo), indice))
+
+        proximo = next(
+            ((numero, indice) for numero, indice in sorted(set(candidatos))
+             if numero not in numeros_visitados),
+            None,
+        )
+        if not proximo:
+            break
+
+        numero, indice = proximo
+        numeros_visitados.add(numero)
+        try:
+            controles.nth(indice).click(timeout=3_000)
+            pagina.wait_for_timeout(750)
+            html = pagina.content()
+            html_acumulado += "\n" + html
+            urls = importador.extrair_links_galeria(html_acumulado, url_inicial)
+            if len(urls) > len(melhores_urls):
+                melhores_urls = urls
+        except Exception:
+            continue
+
+    return html_acumulado, melhores_urls
 
 
 def coletar_paginas(
