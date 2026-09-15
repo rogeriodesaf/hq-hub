@@ -100,6 +100,35 @@ class PrecisaoCapasTest(unittest.TestCase):
         self.assertTrue(robo.titulo_compativel_com_numero(resultados[1]['titulo'], '56'))
         self.assertFalse(robo.titulo_compativel_com_numero(resultados[1]['titulo'], '11'))
 
+    def test_rika_repete_busca_sem_acentos_quando_api_ignora_termo(self):
+        irrelevante = [{
+            'productName': 'Superalmanaque Marvel # 02',
+            'link': 'https://www.rika.com.br/superalmanaque/p',
+            'items': [{'images': [{'imageUrl': 'https://imagem/marvel.jpg'}]}],
+        }]
+        correto = [{
+            'productName': 'Batman - A Maldição do Cavaleiro Branco # 1',
+            'link': 'https://www.rika.com.br/cavaleiro-branco-1/p',
+            'items': [{'images': [{'imageUrl': 'https://imagem/cavaleiro-1.jpg'}]}],
+        }]
+        with patch.object(
+            robo,
+            'baixar',
+            side_effect=[json.dumps(irrelevante), json.dumps(correto)],
+        ) as baixar:
+            resultados = robo.resultados_rika('Batman: A Maldição do Cavaleiro Branco')
+
+        self.assertEqual(resultados[0]['urlCapa'], 'https://imagem/cavaleiro-1.jpg')
+        self.assertIn('Maldicao', baixar.call_args_list[1].args[0])
+
+    def test_rika_remove_sufixo_minisserie_antes_de_validar_titulo(self):
+        self.assertEqual(
+            robo.titulo_base_serie(
+                'Batman: A Maldição do Cavaleiro Branco — Minissérie'
+            ),
+            'Batman: A Maldição do Cavaleiro Branco',
+        )
+
     def test_panini_encontra_especial_com_subtitulo_omitido(self):
         externo = [{
             'url': 'https://panini.com.br/batman-dylan-dog-dc-bonelli',

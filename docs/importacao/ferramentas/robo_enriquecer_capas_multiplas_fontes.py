@@ -147,7 +147,8 @@ def slug(texto):
 
 def titulo_base_serie(texto):
     """Remove o marcador editorial (1ª série/V1), preservando o título."""
-    return re.sub(r"\s*(?:\d+\s*[aª]?\s*s[ée]rie|v(?:ol(?:ume)?)?\.?\s*\d+)\b", "", texto or "", flags=re.I).strip()
+    base = re.sub(r"\s*(?:\d+\s*[aª]?\s*s[ée]rie|v(?:ol(?:ume)?)?\.?\s*\d+)\b", "", texto or "", flags=re.I).strip()
+    return re.sub(r"\s*(?:[-–—]\s*)?miniss[ée]rie\s*$", "", base, flags=re.I).strip()
 
 
 def alias_catalogo_loja(nome_fonte, titulo):
@@ -468,8 +469,7 @@ def extrair_capa(url):
     return extrair_produto(url)[0]
 
 
-def resultados_rika(titulo):
-    """Reutiliza paginas do catalogo da serie entre edicoes, inclusive variantes."""
+def _resultados_rika_consulta(titulo):
     resultados = []
     for inicio in range(0, 200, 50):
         produtos = json.loads(baixar(
@@ -487,6 +487,27 @@ def resultados_rika(titulo):
         if len(produtos) < 50:
             break
     return resultados
+
+
+def resultados_rika(titulo):
+    """Reutiliza o catalogo e repete sem acentos quando a VTEX ignora a busca."""
+    resultados = _resultados_rika_consulta(titulo)
+    termos_titulo = tokens(titulo) - {"volume", "serie", "edicao", "minisserie"}
+    encontrou_serie = any(
+        termos_titulo and termos_titulo.issubset(tokens(item.get("titulo")))
+        for item in resultados
+    )
+    titulo_ascii = unicodedata.normalize("NFKD", titulo or "").encode(
+        "ascii", "ignore"
+    ).decode()
+    if encontrou_serie or titulo_ascii == titulo:
+        return resultados
+
+    # A API VTEX da Rika pode devolver o catalogo inteiro para termos
+    # acentuados (por exemplo, "Maldição"). A consulta ASCII encontra a série.
+    alternativos = _resultados_rika_consulta(titulo_ascii)
+    urls = {item.get("url") for item in alternativos}
+    return alternativos + [item for item in resultados if item.get("url") not in urls]
 
 
 def resultados_rika_adjacentes(resultados, numero):
