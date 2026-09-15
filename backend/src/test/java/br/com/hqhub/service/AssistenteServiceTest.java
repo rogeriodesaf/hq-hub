@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.hqhub.dto.CriadorRespostaDTO;
 import br.com.hqhub.dto.CreditoEdicaoRespostaDTO;
+import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.RespostaAssistenteDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
@@ -30,6 +31,7 @@ class AssistenteServiceTest {
     private EdicaoRepository edicoes;
     private SerieRepository series;
     private CreditoEdicaoService creditos;
+    private HistoriaService historias;
     private AssistenteService assistente;
 
     @BeforeEach
@@ -37,6 +39,7 @@ class AssistenteServiceTest {
         edicoes = mock(EdicaoRepository.class);
         series = mock(SerieRepository.class);
         creditos = mock(CreditoEdicaoService.class);
+        historias = mock(HistoriaService.class);
         assistente = new AssistenteService(
                 mock(ResumoColecaoService.class),
                 mock(FaltanteService.class),
@@ -44,6 +47,7 @@ class AssistenteServiceTest {
                 creditos,
                 mock(RelacionamentoSerieService.class),
                 mock(ConhecimentoEditorialService.class),
+                historias,
                 series,
                 edicoes,
                 mock(CriadorRepository.class));
@@ -193,6 +197,33 @@ class AssistenteServiceTest {
         assertEquals("BANCO_LOCAL", resposta.origem());
         assertTrue(resposta.resposta().contains("148 páginas"), resposta.resposta());
         assertTrue(resposta.resposta().contains("preço de capa não cadastrado"), resposta.resposta());
+    }
+
+    @Test
+    void listaHistoriasDaEdicaoSemCairNaBiografiaDoPersonagem() {
+        Serie saga = serie(30L, "Saga do Batman, A", "Panini", 3);
+        saga.setTipoSerie(TipoSerie.BRASILEIRA);
+        Edicao primeira = edicao(301L, saga);
+        primeira.setNumero("1");
+        ConteudoEdicaoRespostaDTO primeiroConteudo = mock(ConteudoEdicaoRespostaDTO.class);
+        ConteudoEdicaoRespostaDTO segundoConteudo = mock(ConteudoEdicaoRespostaDTO.class);
+        when(primeiroConteudo.tituloUsado()).thenReturn("A Queda do Morcego");
+        when(segundoConteudo.tituloUsado()).thenReturn("Quem Governa a Noite");
+        when(series.listAll()).thenReturn(List.of(saga));
+        when(edicoes.contarPorSerie(30L)).thenReturn(1L);
+        when(edicoes.buscarPorNumeroESerie("1", 30L)).thenReturn(java.util.Optional.of(primeira));
+        when(historias.listarConteudosPorEdicao(301L))
+                .thenReturn(List.of(primeiroConteudo, segundoConteudo));
+
+        RespostaAssistenteDTO resposta = assistente.responder(
+                "Quais histórias estão presentes na edição 1 da terceira temporada de A Saga do Batman?");
+
+        assertEquals("BANCO_LOCAL", resposta.origem());
+        assertTrue(resposta.resposta().contains("contém 2 histórias"), resposta.resposta());
+        assertTrue(resposta.resposta().contains("A Queda do Morcego"), resposta.resposta());
+        assertTrue(resposta.resposta().contains("Quem Governa a Noite"), resposta.resposta());
+        assertTrue(!resposta.resposta().contains("Bruce Wayne"), resposta.resposta());
+        assertTrue(!resposta.resposta().contains("Tex"), resposta.resposta());
     }
 
     private Serie serie(Long id, String titulo, String nomeEditora, Integer volume) {

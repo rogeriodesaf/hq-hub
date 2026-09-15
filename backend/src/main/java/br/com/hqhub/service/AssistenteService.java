@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import br.com.hqhub.dto.ColecaoResumoDTO;
 import br.com.hqhub.dto.CompraPlanejadaRespostaDTO;
 import br.com.hqhub.dto.CreditoEdicaoRespostaDTO;
+import br.com.hqhub.dto.ConteudoEdicaoRespostaDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.RelacionamentoSerieRespostaDTO;
 import br.com.hqhub.dto.RespostaAssistenteDTO;
@@ -64,6 +65,7 @@ public class AssistenteService {
     private final CreditoEdicaoService creditoEdicaoService;
     private final RelacionamentoSerieService relacionamentoSerieService;
     private final ConhecimentoEditorialService conhecimentoEditorialService;
+    private final HistoriaService historiaService;
     private final SerieRepository serieRepository;
     private final EdicaoRepository edicaoRepository;
     private final CriadorRepository criadorRepository;
@@ -75,6 +77,7 @@ public class AssistenteService {
             CreditoEdicaoService creditoEdicaoService,
             RelacionamentoSerieService relacionamentoSerieService,
             ConhecimentoEditorialService conhecimentoEditorialService,
+            HistoriaService historiaService,
             SerieRepository serieRepository,
             EdicaoRepository edicaoRepository,
             CriadorRepository criadorRepository) {
@@ -84,6 +87,7 @@ public class AssistenteService {
         this.creditoEdicaoService = creditoEdicaoService;
         this.relacionamentoSerieService = relacionamentoSerieService;
         this.conhecimentoEditorialService = conhecimentoEditorialService;
+        this.historiaService = historiaService;
         this.serieRepository = serieRepository;
         this.edicaoRepository = edicaoRepository;
         this.criadorRepository = criadorRepository;
@@ -115,6 +119,10 @@ public class AssistenteService {
 
         if (ehPerguntaDetalhesEdicao(perguntaNormalizada)) {
             return responderDetalhesEdicao(pergunta);
+        }
+
+        if (ehPerguntaHistoriasEdicao(perguntaNormalizada)) {
+            return responderHistoriasEdicao(pergunta);
         }
 
         if (ehPerguntaCreditosCatalogo(perguntaNormalizada)) {
@@ -479,6 +487,59 @@ public class AssistenteService {
         return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dadosEdicao(edicao));
     }
 
+    private RespostaAssistenteDTO responderHistoriasEdicao(String pergunta) {
+        Optional<Serie> serieEncontrada = localizarSerieQualificadaParaContagem(pergunta)
+                .or(() -> localizarSerie(pergunta));
+        if (serieEncontrada.isEmpty()) {
+            return respostaSerieNaoEncontrada();
+        }
+
+        Serie serie = serieEncontrada.get();
+        String numeroEdicao = extrairNumeroEdicao(pergunta);
+        if (numeroEdicao == null) {
+            return new RespostaAssistenteDTO(
+                    "Informe o número da edição para eu listar as histórias de %s."
+                            .formatted(nomeSerie(serie)),
+                    ORIGEM_NAO_ENCONTRADO,
+                    Map.of("serieId", serie.getId()));
+        }
+
+        Optional<Edicao> edicaoEncontrada = edicaoRepository.buscarPorNumeroESerie(numeroEdicao, serie.getId());
+        if (edicaoEncontrada.isEmpty()) {
+            return respostaEdicaoNaoEncontrada(serie, numeroEdicao);
+        }
+
+        Edicao edicao = edicaoEncontrada.get();
+        List<ConteudoEdicaoRespostaDTO> conteudos = historiaService.listarConteudosPorEdicao(edicao.getId());
+        List<String> titulos = conteudos.stream()
+                .map(conteudo -> {
+                    if (conteudo.tituloUsado() != null && !conteudo.tituloUsado().isBlank()) {
+                        return conteudo.tituloUsado();
+                    }
+                    if (conteudo.historia() == null) {
+                        return null;
+                    }
+                    return conteudo.historia().tituloExibicao() != null
+                            && !conteudo.historia().tituloExibicao().isBlank()
+                                    ? conteudo.historia().tituloExibicao()
+                                    : conteudo.historia().titulo();
+                })
+                .filter(java.util.Objects::nonNull)
+                .distinct()
+                .toList();
+
+        String resposta = titulos.isEmpty()
+                ? "%s, edição nº %s, ainda não possui histórias cadastradas no HQ-HUB."
+                        .formatted(nomeSerie(serie), edicao.getNumero())
+                : "%s, edição nº %s, contém %s: %s."
+                        .formatted(
+                                nomeSerie(serie),
+                                edicao.getNumero(),
+                                titulos.size() == 1 ? "1 história" : titulos.size() + " histórias",
+                                String.join("; ", titulos));
+        return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, conteudos);
+    }
+
     private RespostaAssistenteDTO responderListagemEdicoes(String pergunta) {
         Optional<Serie> serieEncontrada = localizarSerie(pergunta);
         if (serieEncontrada.isEmpty()) {
@@ -663,7 +724,7 @@ public class AssistenteService {
             return Integer.valueOf(volumeExplicito.group(1));
         }
 
-        Matcher serieNumerica = Pattern.compile("\\b([0-9]+)(?:a|o)?\\s+serie\\b")
+        Matcher serieNumerica = Pattern.compile("\\b([0-9]+)(?:a|o)?\\s+(?:serie|temporada)\\b")
                 .matcher(perguntaNormalizada);
         if (serieNumerica.find()) {
             return Integer.valueOf(serieNumerica.group(1));
@@ -674,7 +735,8 @@ public class AssistenteService {
                 "sexta", "setima", "oitava", "nona", "decima"
         };
         for (int indice = 0; indice < ordinais.length; indice++) {
-            if (perguntaNormalizada.contains(ordinais[indice] + " serie")) {
+            if (perguntaNormalizada.contains(ordinais[indice] + " serie")
+                    || perguntaNormalizada.contains(ordinais[indice] + " temporada")) {
                 return indice + 1;
             }
         }
@@ -684,9 +746,11 @@ public class AssistenteService {
     private boolean tituloSerieCombinaComPergunta(Serie serie, String perguntaNormalizada, int volume) {
         String titulo = normalizar(serie.getTitulo()).replace("ª", "a").replace("º", "o");
         String ordinalNumerico = volume + "a";
-        return List.of(titulo.split("\\s+")).stream()
+        return List.of(titulo.split("[^\\p{L}\\p{N}]+")).stream()
                 .filter(token -> !token.isBlank())
                 .filter(token -> !"serie".equals(token))
+                .filter(token -> !"temporada".equals(token))
+                .filter(token -> !Set.of("a", "o", "as", "os", "de", "da", "do", "das", "dos").contains(token))
                 .filter(token -> !ordinalNumerico.equals(token))
                 .filter(token -> !token.matches("[0-9]+"))
                 .allMatch(token -> perguntaNormalizada.matches(".*\\b" + Pattern.quote(token) + "\\b.*"));
@@ -993,6 +1057,18 @@ public class AssistenteService {
                 "codigo de barras",
                 "tem capa",
                 "possui capa");
+    }
+
+    private boolean ehPerguntaHistoriasEdicao(String perguntaNormalizada) {
+        return contemAlguma(perguntaNormalizada,
+                "quais historias",
+                "que historias",
+                "historias presentes",
+                "historias estao presentes",
+                "historias contem",
+                "historias tem na edicao",
+                "conteudo da edicao",
+                "sumario da edicao");
     }
 
     private boolean ehPerguntaListagemEdicoes(String perguntaNormalizada) {
