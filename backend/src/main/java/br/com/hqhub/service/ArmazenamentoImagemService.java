@@ -31,7 +31,7 @@ public class ArmazenamentoImagemService {
 
     private static final long LIMITE_CAPA_BYTES = 3L * 1024L * 1024L;
     private static final int LARGURA_CAPA = 800;
-    private static final Set<String> TIPOS_PERMITIDOS = Set.of("image/jpeg", "image/png", "image/webp");
+    private static final Set<String> TIPOS_PERMITIDOS = Set.of("image/jpeg", "image/png", "image/webp", "image/avif");
 
     @ConfigProperty(name = "CLOUDINARY_CLOUD_NAME", defaultValue = "")
     String cloudinaryCloudName;
@@ -66,9 +66,8 @@ public class ArmazenamentoImagemService {
             throw new RegraNegocioException("Informe um arquivo de capa.");
         }
 
-        String tipoMime = normalizarTipo(arquivo.contentType());
         validarExtensao(arquivo.fileName());
-        validarArquivo(arquivo.uploadedFile(), tipoMime);
+        String tipoMime = validarArquivo(arquivo.uploadedFile(), normalizarTipo(arquivo.contentType()));
         return enviarParaCloudinary(arquivo.uploadedFile(), tipoMime);
     }
 
@@ -97,16 +96,17 @@ public class ArmazenamentoImagemService {
             }
 
             String tipoMime = normalizarTipo(resposta.headers().firstValue("content-type").orElse(""));
-            if (!TIPOS_PERMITIDOS.contains(tipoMime)) {
-                tipoMime = detectarTipoPorCabecalho(conteudo);
+            String tipoDetectado = detectarTipoPorCabecalho(conteudo);
+            if (TIPOS_PERMITIDOS.contains(tipoDetectado)) {
+                tipoMime = tipoDetectado;
             }
             if (!TIPOS_PERMITIDOS.contains(tipoMime)) {
-                throw new RegraNegocioException("A URL informada nao retornou uma imagem JPG, PNG ou WEBP valida.");
+                throw new RegraNegocioException("A URL informada nao retornou uma imagem JPG, PNG, WEBP ou AVIF valida.");
             }
 
             temporario = Files.createTempFile("hqhub-capa-", extensao(tipoMime));
             Files.write(temporario, conteudo);
-            validarArquivo(temporario, tipoMime);
+            tipoMime = validarArquivo(temporario, tipoMime);
             return enviarParaCloudinary(temporario, tipoMime);
         } catch (RegraNegocioException e) {
             throw e;
@@ -126,11 +126,12 @@ public class ArmazenamentoImagemService {
         }
     }
 
-    private void validarArquivo(Path arquivo, String tipoMime) {
+    private String validarArquivo(Path arquivo, String tipoMime) {
         if (!cloudinaryAtivo()) {
             throw new RegraNegocioException("Cloudinary nao configurado. Configure CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY e CLOUDINARY_API_SECRET.");
         }
 
+        byte[] conteudo;
         try {
             long tamanho = Files.size(arquivo);
             if (tamanho == 0) {
@@ -139,38 +140,37 @@ public class ArmazenamentoImagemService {
             if (tamanho > LIMITE_CAPA_BYTES) {
                 throw new RegraNegocioException("A imagem deve ter no maximo 3 MB.");
             }
+            conteudo = Files.readAllBytes(arquivo);
         } catch (IOException e) {
             throw new RegraNegocioException("Nao foi possivel ler a imagem enviada.");
         }
 
+        String tipoDetectado = detectarTipoPorCabecalho(conteudo);
+        if (TIPOS_PERMITIDOS.contains(tipoDetectado)) {
+            tipoMime = tipoDetectado;
+        }
         if (!TIPOS_PERMITIDOS.contains(tipoMime)) {
-            throw new RegraNegocioException("Use apenas imagens JPG, PNG ou WEBP.");
+            throw new RegraNegocioException("Use apenas imagens JPG, PNG, WEBP ou AVIF.");
         }
 
-        validarConteudoImagem(arquivo, tipoMime);
+        validarConteudoImagem(arquivo, conteudo, tipoMime);
+        return tipoMime;
     }
 
     private void validarExtensao(String nomeArquivo) {
         String nome = nomeArquivo == null ? "" : nomeArquivo.trim().toLowerCase(Locale.ROOT);
-        if (!nome.endsWith(".jpg") && !nome.endsWith(".jpeg") && !nome.endsWith(".png") && !nome.endsWith(".webp")) {
-            throw new RegraNegocioException("Use apenas arquivos JPG, JPEG, PNG ou WEBP.");
+        if (!nome.endsWith(".jpg") && !nome.endsWith(".jpeg") && !nome.endsWith(".png")
+                && !nome.endsWith(".webp") && !nome.endsWith(".avif")) {
+            throw new RegraNegocioException("Use apenas arquivos JPG, JPEG, PNG, WEBP ou AVIF.");
         }
     }
 
-    private void validarConteudoImagem(Path arquivo, String tipoMime) {
+    private void validarConteudoImagem(Path arquivo, byte[] conteudo, String tipoMime) {
         try {
-            if ("image/webp".equals(tipoMime)) {
-                byte[] cabecalho = Files.readAllBytes(arquivo);
-                if (cabecalho.length < 12
-                        || cabecalho[0] != 'R'
-                        || cabecalho[1] != 'I'
-                        || cabecalho[2] != 'F'
-                        || cabecalho[3] != 'F'
-                        || cabecalho[8] != 'W'
-                        || cabecalho[9] != 'E'
-                        || cabecalho[10] != 'B'
-                        || cabecalho[11] != 'P') {
-                    throw new RegraNegocioException("O arquivo WEBP enviado parece invalido.");
+            if ("image/webp".equals(tipoMime) || "image/avif".equals(tipoMime)) {
+                if (!tipoMime.equals(detectarTipoPorCabecalho(conteudo))) {
+                    String formato = "image/avif".equals(tipoMime) ? "AVIF" : "WEBP";
+                    throw new RegraNegocioException("O arquivo " + formato + " enviado parece invalido.");
                 }
                 return;
             }
@@ -236,7 +236,7 @@ public class ArmazenamentoImagemService {
         }
     }
 
-    private String detectarTipoPorCabecalho(byte[] conteudo) {
+    static String detectarTipoPorCabecalho(byte[] conteudo) {
         if (conteudo.length >= 3
                 && (conteudo[0] & 0xff) == 0xff
                 && (conteudo[1] & 0xff) == 0xd8
@@ -261,7 +261,42 @@ public class ArmazenamentoImagemService {
                 && conteudo[11] == 'P') {
             return "image/webp";
         }
+        if (ehAvif(conteudo)) {
+            return "image/avif";
+        }
         return "";
+    }
+
+    private static boolean ehAvif(byte[] conteudo) {
+        if (conteudo.length < 16
+                || conteudo[4] != 'f'
+                || conteudo[5] != 't'
+                || conteudo[6] != 'y'
+                || conteudo[7] != 'p') {
+            return false;
+        }
+
+        long tamanhoCaixa = ((long) (conteudo[0] & 0xff) << 24)
+                | ((long) (conteudo[1] & 0xff) << 16)
+                | ((long) (conteudo[2] & 0xff) << 8)
+                | (conteudo[3] & 0xffL);
+        int limite = tamanhoCaixa == 0
+                ? conteudo.length
+                : (int) Math.min(tamanhoCaixa, conteudo.length);
+
+        for (int posicao = 8; posicao + 3 < limite; posicao += 4) {
+            if (posicao == 12) {
+                continue; // minor_version nao e uma marca de formato
+            }
+            boolean avif = conteudo[posicao] == 'a'
+                    && conteudo[posicao + 1] == 'v'
+                    && conteudo[posicao + 2] == 'i'
+                    && (conteudo[posicao + 3] == 'f' || conteudo[posicao + 3] == 's');
+            if (avif) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean cloudinaryConfigurado() {
@@ -285,6 +320,7 @@ public class ArmazenamentoImagemService {
         return switch (tipoMime) {
             case "image/png" -> ".png";
             case "image/webp" -> ".webp";
+            case "image/avif" -> ".avif";
             default -> ".jpg";
         };
     }

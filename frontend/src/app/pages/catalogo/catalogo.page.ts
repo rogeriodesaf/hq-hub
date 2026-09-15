@@ -650,7 +650,7 @@ import {
               <div class="grade-formulario">
                 <label>
                   Enviar arquivo
-                  <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarArquivoCapa($event)" />
+                  <input type="file" accept="image/jpeg,image/png,image/webp,image/avif,.avif" (change)="selecionarArquivoCapa($event)" />
                 </label>
                 <label class="campo-largo">
                   Enviar URL de capa
@@ -2101,8 +2101,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
 
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(arquivo.type)) {
-      this.mensagem.set('Use apenas imagens JPG, PNG ou WEBP.');
+    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+    const extensoesPermitidas = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+    const extensao = arquivo.name.split('.').pop()?.toLowerCase() ?? '';
+    if (!tiposPermitidos.includes(arquivo.type) && !extensoesPermitidas.includes(extensao)) {
+      this.mensagem.set('Use apenas imagens JPG, PNG, WEBP ou AVIF.');
       input.value = '';
       return;
     }

@@ -643,14 +643,14 @@ interface ColetaCapasTelegramLocal {
                       <span class="icone-upload-capa" aria-hidden="true">↑</span>
                       <div>
                         <strong>Upload da capa</strong>
-                        <small>Escolha uma imagem do computador ou celular. Aceita JPG, PNG ou WEBP, com no máximo 3 MB.</small>
+                        <small>Escolha uma imagem do computador ou celular. Aceita JPG, PNG, WEBP ou AVIF, com no máximo 3 MB.</small>
                       </div>
                     </div>
                     <label class="botao primario seletor-arquivo botao-upload-capa">
                       {{ capaEmUpload(edicao) ? 'Enviando capa...' : 'Fazer upload da capa' }}
                       <input
                         type="file"
-                        accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                        accept="image/jpeg,image/png,image/webp,image/avif,.jpg,.jpeg,.png,.webp,.avif"
                         (change)="selecionarCapaVisual($event, edicao)"
                         [disabled]="capaEmUpload(edicao)"
                       />
@@ -2091,9 +2091,11 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       return;
     }
 
-    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
-    if (!tiposPermitidos.includes(arquivo.type)) {
-      this.errosCapaVisual.set(edicao, 'Use uma imagem JPG, PNG ou WEBP.');
+    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+    const extensoesPermitidas = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+    const extensao = arquivo.name.split('.').pop()?.toLowerCase() ?? '';
+    if (!tiposPermitidos.includes(arquivo.type) && !extensoesPermitidas.includes(extensao)) {
+      this.errosCapaVisual.set(edicao, 'Use uma imagem JPG, PNG, WEBP ou AVIF.');
       return;
     }
     if (arquivo.size > 3 * 1024 * 1024) {
