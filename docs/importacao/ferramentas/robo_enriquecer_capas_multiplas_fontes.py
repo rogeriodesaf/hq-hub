@@ -28,6 +28,7 @@ FONTES = {
     "Devir": ("lojaeditora.devir.com.br", "https://lojaeditora.devir.com.br/index.php?route=product/search&search={}"),
     "Rika": ("rika.com.br", "https://www.rika.com.br/{}?_q={}&map=ft"),
     "Comix": ("comix.com.br", "https://www.comix.com.br/catalogsearch/result/?q={}"),
+    "Mundos Infinitos": ("mundosinfinitos.com.br", "https://mundosinfinitos.com.br/geek/solucoes/busca.aspx?t={}"),
     "Ponto do Gibi": ("pontodogibi.com.br", "https://pontodogibi.com.br/search?q={}"),
     "Texas Ranger": ("texasranger.com.br", "https://texasranger.com.br/search/?q={}"),
     "Papersera": ("papersera.net", "https://www.papersera.net/vilaxurupita/misc/omd01_20.htm"),
@@ -310,7 +311,51 @@ def resultados_loja(consulta, dominio, modelo_busca):
             len(termos & termos_rota),
         )
     candidatos.sort(key=pontuar_url, reverse=True)
-    return [{"url": url, "titulo": ""} for url in candidatos[:12]]
+    resultados = [{"url": url, "titulo": ""} for url in candidatos[:12]]
+    if dominio == "mundosinfinitos.com.br":
+        # Produtos antigos podem aparecer apenas na navegacao da colecao.
+        # Abra os primeiros produtos encontrados e incorpore os volumes
+        # relacionados, preservando o texto do link para validar o numero.
+        relacionados = []
+        vistos = {item["url"] for item in resultados}
+        produtos = [
+            item for item in resultados
+            if urlparse(item["url"]).path.lower().startswith("/geek/produto/")
+        ][:3]
+        for produto in produtos:
+            try:
+                pagina = baixar(produto["url"])
+            except (OSError, ValueError):
+                continue
+            for ancora in re.finditer(
+                r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
+                pagina, re.I | re.S,
+            ):
+                url_relacionada = urljoin(produto["url"], unescape(ancora.group(1)))
+                partes = urlparse(url_relacionada)
+                url_relacionada = partes._replace(fragment="").geturl()
+                if ((partes.hostname or "").lower() != dominio
+                        or not partes.path.lower().startswith("/geek/produto/")):
+                    continue
+                titulo_relacionado = limpar(ancora.group(2))
+                if url_relacionada in vistos or not titulo_relacionado:
+                    continue
+                relacionados.append({
+                    "url": url_relacionada,
+                    "titulo": titulo_relacionado,
+                })
+                vistos.add(url_relacionada)
+        numeros_consulta = {int(item) for item in termos if item.isdigit()}
+        relacionados.sort(key=lambda item: (
+            bool(numeros_consulta & {
+                int(numero) for numero in tokens(
+                    f'{item["titulo"]} {urlparse(item["url"]).path}'
+                ) if numero.isdigit()
+            }),
+            len(termos & tokens(f'{item["titulo"]} {item["url"]}')),
+        ), reverse=True)
+        resultados = relacionados + resultados
+    return resultados[:12]
 
 
 def extrair_produto(url):
@@ -567,6 +612,17 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             for item in resultados
         ):
             resultados.extend(resultados_rika_adjacentes(resultados, numero))
+    elif nome == "Mundos Infinitos":
+        # A busca da loja interpreta "volume" literalmente e deixa de
+        # mostrar colecoes antigas. O titulo seguido apenas do numero encontra
+        # a colecao, cuja navegacao revela a pagina de cada edicao.
+        termo = f"{titulo} {numero}" if str(numero or "").isdigit() else titulo
+        resultados = resultados_loja(termo, dominio, modelo_busca)
+        colecao = resultados_loja(titulo, dominio, modelo_busca)
+        urls_encontradas = {item.get("url") for item in resultados}
+        resultados.extend(
+            item for item in colecao if item.get("url") not in urls_encontradas
+        )
     elif nome == "Comix":
         # A busca Magento da Comix pode devolver somente categorias mesmo
         # quando existe uma pagina de produto exata. Priorize o indice externo
@@ -688,7 +744,9 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
         alias_titulo = alias_catalogo_loja(nome, titulo)
-        titulo_validacao = titulo_validacao_panini(titulo) if nome == "Panini" else (
+        titulo_validacao = titulo_validacao_panini(titulo) if nome in {
+            "Panini", "Mundos Infinitos"
+        } else (
             titulo_base_serie(titulo) if nome == "Rika" else titulo
         )
         busca_validacao = titulo_validacao if alias_titulo != titulo else busca

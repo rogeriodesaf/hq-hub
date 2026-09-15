@@ -129,6 +129,46 @@ class PrecisaoCapasTest(unittest.TestCase):
             'https://d14d9vp3wdof84.cloudfront.net/image/1/capa/-S897-FWEBP',
         )
 
+    def test_mundos_infinitos_descobre_volume_pela_navegacao_da_colecao(self):
+        busca = (
+            '<a href="/geek/produto/BatmanFortnite-Ponto-Zero-10.aspx">'
+            'Batman/Fortnite: Ponto Zero</a>'
+        )
+        colecao = (
+            '<a href="/geek/produto/BatmanFortnite-Vol-01-11.aspx">'
+            'Batman/Fortnite Vol. 01</a>'
+            '<a href="/geek/produto/BatmanFortnite-Vol-02-12.aspx">'
+            'Batman/Fortnite Vol. 02</a>'
+        )
+        with patch.object(
+            robo, 'baixar', side_effect=lambda url: colecao
+            if '/produto/' in url else busca,
+        ):
+            resultados = robo.resultados_loja(
+                'Batman/Fortnite: Ponto Zero 2',
+                'mundosinfinitos.com.br',
+                'https://mundosinfinitos.com.br/geek/solucoes/busca.aspx?t={}',
+            )
+        self.assertIn('Vol-02', resultados[0]['url'])
+        self.assertIn('Vol. 02', resultados[0]['titulo'])
+
+    def test_mundos_infinitos_aceita_subtitulo_omitido_no_produto(self):
+        resultado = [{
+            'url': 'https://mundosinfinitos.com.br/geek/produto/BatmanFortnite-Vol-04.aspx',
+            'titulo': 'Batman/Fortnite vol. 04',
+        }]
+        capa = 'https://img.assinaja.com/capa-04.png'
+        with patch.object(robo, 'resultados_loja', return_value=resultado), \
+                patch.object(
+                    robo, 'extrair_produto',
+                    return_value=(capa, 'DC | Batman/Fortnite vol. 04'),
+                ):
+            resposta = robo.buscar_fonte(
+                'Mundos Infinitos', 'mundosinfinitos.com.br', '', '', '',
+                set(), 'Batman/Fortnite: Ponto Zero', '4',
+            )
+        self.assertEqual(resposta[1], capa)
+
 
 if __name__ == '__main__':
     unittest.main()
