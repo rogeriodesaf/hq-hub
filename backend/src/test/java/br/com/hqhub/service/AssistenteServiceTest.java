@@ -83,6 +83,28 @@ class AssistenteServiceTest {
     }
 
     @Test
+    void respondeContagemDiretaParaSerieOrdinalEEditora() {
+        Serie alvo = serie(7L, "Batman 1ª Série", "Abril", 1);
+        alvo.setTipoSerie(TipoSerie.BRASILEIRA);
+        Serie outraEditora = serie(8L, "Batman 1ª Série", "Panini", 1);
+        outraEditora.setTipoSerie(TipoSerie.BRASILEIRA);
+        Serie outraSerie = serie(9L, "Batman 2ª Série", "Abril", 2);
+        outraSerie.setTipoSerie(TipoSerie.BRASILEIRA);
+        when(series.listAll()).thenReturn(List.of(alvo, outraEditora, outraSerie));
+        when(edicoes.contarPorSerie(7L)).thenReturn(10L);
+
+        RespostaAssistenteDTO resposta = assistente.responder(
+                "Quantas edições tem a primeira série de Batman pela Abril?");
+
+        assertEquals("BANCO_LOCAL", resposta.origem());
+        assertEquals("Batman 1ª Série V1 (Abril) tem 10 edições cadastradas no HQ-HUB.", resposta.resposta());
+        Map<?, ?> dados = (Map<?, ?>) resposta.dados();
+        assertEquals(10L, dados.get("totalEdicoes"));
+        assertEquals("Abril", dados.get("editora"));
+        verify(edicoes).contarPorSerie(7L);
+    }
+
+    @Test
     void priorizaContagemQuandoAPerguntaUsaQuantosVolumes() {
         Serie serie = serie(1L, "Batman", "Panini", 1);
         when(edicoes.buscarTodosComBusca(null, "Batman")).thenReturn(List.of(edicao(1L, serie)));

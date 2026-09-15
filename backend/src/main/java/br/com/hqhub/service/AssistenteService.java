@@ -538,6 +538,16 @@ public class AssistenteService {
     }
 
     private RespostaAssistenteDTO responderQuantidadeEdicoesSerie(String pergunta) {
+        Optional<Serie> serieQualificada = localizarSerieQualificadaParaContagem(pergunta);
+        if (serieQualificada.isPresent()) {
+            Serie serie = serieQualificada.get();
+            long totalEdicoes = edicaoRepository.contarPorSerie(serie.getId());
+            Map<String, Object> dados = dadosContagemSerie(serie, totalEdicoes);
+            String resposta = "%s tem %s cadastradas no HQ-HUB."
+                    .formatted(nomeSerie(serie), quantidadeEdicoes((int) totalEdicoes));
+            return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
+        }
+
         String assunto = extrairAssuntoQuantidade(pergunta);
         if (assunto.isBlank()) {
             return respostaSerieNaoEncontrada();
@@ -625,6 +635,85 @@ public class AssistenteService {
             assunto.append(token);
         }
         return assunto.toString().trim();
+    }
+
+    private Optional<Serie> localizarSerieQualificadaParaContagem(String pergunta) {
+        String perguntaNormalizada = normalizar(pergunta);
+        Integer volume = extrairVolumeSerie(perguntaNormalizada);
+        if (volume == null) {
+            return Optional.empty();
+        }
+
+        return serieRepository.listAll().stream()
+                .filter(serie -> serie.getVolume() != null && serie.getVolume().equals(volume))
+                .filter(serie -> tituloSerieCombinaComPergunta(serie, perguntaNormalizada, volume))
+                .filter(serie -> serie.getEditora() == null
+                        || !perguntaMencionaAlgumaEditora(perguntaNormalizada)
+                        || perguntaNormalizada.contains(normalizar(serie.getEditora().getNome())))
+                .max(Comparator
+                        .comparingInt((Serie serie) -> pontuarSerieQualificada(serie, perguntaNormalizada, volume))
+                        .thenComparingLong(serie -> edicaoRepository.contarPorSerie(serie.getId()))
+                        .thenComparing(Serie::getId, Comparator.nullsFirst(Long::compareTo)));
+    }
+
+    private Integer extrairVolumeSerie(String perguntaNormalizada) {
+        Matcher volumeExplicito = Pattern.compile("\\b(?:v|volume)\\s*([0-9]+)\\b")
+                .matcher(perguntaNormalizada);
+        if (volumeExplicito.find()) {
+            return Integer.valueOf(volumeExplicito.group(1));
+        }
+
+        Matcher serieNumerica = Pattern.compile("\\b([0-9]+)(?:a|o)?\\s+serie\\b")
+                .matcher(perguntaNormalizada);
+        if (serieNumerica.find()) {
+            return Integer.valueOf(serieNumerica.group(1));
+        }
+
+        String[] ordinais = {
+                "primeira", "segunda", "terceira", "quarta", "quinta",
+                "sexta", "setima", "oitava", "nona", "decima"
+        };
+        for (int indice = 0; indice < ordinais.length; indice++) {
+            if (perguntaNormalizada.contains(ordinais[indice] + " serie")) {
+                return indice + 1;
+            }
+        }
+        return null;
+    }
+
+    private boolean tituloSerieCombinaComPergunta(Serie serie, String perguntaNormalizada, int volume) {
+        String titulo = normalizar(serie.getTitulo()).replace("ª", "a").replace("º", "o");
+        String ordinalNumerico = volume + "a";
+        return List.of(titulo.split("\\s+")).stream()
+                .filter(token -> !token.isBlank())
+                .filter(token -> !"serie".equals(token))
+                .filter(token -> !ordinalNumerico.equals(token))
+                .filter(token -> !token.matches("[0-9]+"))
+                .allMatch(token -> perguntaNormalizada.matches(".*\\b" + Pattern.quote(token) + "\\b.*"));
+    }
+
+    private boolean perguntaMencionaAlgumaEditora(String perguntaNormalizada) {
+        return serieRepository.listAll().stream()
+                .map(Serie::getEditora)
+                .filter(java.util.Objects::nonNull)
+                .map(editora -> normalizar(editora.getNome()))
+                .anyMatch(perguntaNormalizada::contains);
+    }
+
+    private int pontuarSerieQualificada(Serie serie, String perguntaNormalizada, int volume) {
+        int pontos = 0;
+        String titulo = normalizar(serie.getTitulo()).replace("ª", "a").replace("º", "o");
+        if (titulo.matches(".*\\b" + volume + "a?\\s+serie\\b.*")) {
+            pontos += 10;
+        }
+        if (serie.getEditora() != null
+                && perguntaNormalizada.contains(normalizar(serie.getEditora().getNome()))) {
+            pontos += 5;
+        }
+        if (serie.getTipoSerie() == TipoSerie.BRASILEIRA) {
+            pontos += 2;
+        }
+        return pontos;
     }
 
     private Optional<Serie> localizarSerie(String pergunta) {
