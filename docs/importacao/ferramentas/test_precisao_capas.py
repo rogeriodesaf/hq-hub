@@ -100,6 +100,35 @@ class PrecisaoCapasTest(unittest.TestCase):
         self.assertTrue(robo.titulo_compativel_com_numero(resultados[1]['titulo'], '56'))
         self.assertFalse(robo.titulo_compativel_com_numero(resultados[1]['titulo'], '11'))
 
+    def test_panini_encontra_especial_com_subtitulo_omitido(self):
+        externo = [{
+            'url': 'https://panini.com.br/batman-dylan-dog-dc-bonelli',
+            'titulo': 'Batman/Dylan Dog (DC/Bonelli)',
+        }]
+        miniatura = (
+            'https://d14d9vp3wdof84.cloudfront.net/image/589816272436/'
+            'image_qcv28fbhi156d8pqiosf39d97h/-S265-FWEBP'
+        )
+        with patch.object(robo, 'resultados_loja', return_value=[]), \
+                patch.object(robo, 'resultados_bing', return_value=externo), \
+                patch.object(robo, 'extrair_produto', return_value=(miniatura, externo[0]['titulo'])):
+            resposta = robo.buscar_fonte(
+                'Panini', 'panini.com.br', '', '', '', set(),
+                'Batman/Dylan Dog: A Sombra do Morcego', '1',
+            )
+        self.assertEqual(resposta[1], miniatura)
+        self.assertEqual(
+            robo.titulo_validacao_panini('Batman/Dylan Dog: A Sombra do Morcego'),
+            'Batman/Dylan Dog',
+        )
+
+    def test_panini_promove_miniatura_cloudfront(self):
+        miniatura = 'https://d14d9vp3wdof84.cloudfront.net/image/1/capa/-S265-FWEBP'
+        self.assertEqual(
+            robo.capa_maior_panini(miniatura),
+            'https://d14d9vp3wdof84.cloudfront.net/image/1/capa/-S897-FWEBP',
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

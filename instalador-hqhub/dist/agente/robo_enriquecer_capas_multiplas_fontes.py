@@ -131,6 +131,23 @@ def alias_catalogo_loja(nome_fonte, titulo):
     return titulo_base_serie(titulo) if nome_fonte == "Panini" else titulo
 
 
+def titulo_validacao_panini(titulo):
+    """Aceita o nome-base quando a Panini omite o subtitulo do produto."""
+    base = titulo_base_serie(titulo)
+    partes = re.split(r"\s*[:–—]\s*", base, maxsplit=1)
+    if len(partes) == 2 and re.search(r"[/&]", partes[0]) and len(tokens(partes[0])) >= 2:
+        return partes[0]
+    return base
+
+
+def capa_maior_panini(url):
+    """Promove a miniatura do CDN oficial para a maior variante publica."""
+    host = (urlparse(url or "").hostname or "").lower()
+    if host == "d14d9vp3wdof84.cloudfront.net":
+        return re.sub(r"/-S\d+-FWEBP(?:$|\?)", "/-S897-FWEBP", url, flags=re.I)
+    return url
+
+
 def produto_compativel_com_numero(url, numero, exigir_volume=False):
     numero = str(numero or "").strip()
     if not numero.isdigit():
@@ -318,7 +335,7 @@ def extrair_produto(url):
             if imagem.startswith("http://"):
                 imagem = "https://" + imagem[len("http://"):]
             if re.match(r"https?://", imagem):
-                return imagem, titulo
+                return capa_maior_panini(imagem), titulo
     for bloco in re.findall(
         r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
         html, re.I | re.S,
@@ -338,7 +355,7 @@ def extrair_produto(url):
             if imagem.startswith("http://"):
                 imagem = "https://" + imagem[len("http://"):]
             if re.match(r"https?://", imagem):
-                return imagem, titulo
+                return capa_maior_panini(imagem), titulo
     termos_titulo = tokens(titulo) - {"dc"}
     for tag in re.findall(r'<img\b[^>]*>', html, re.I):
         alt = re.search(r'\balt=["\']([^"\']+)', tag, re.I)
@@ -350,7 +367,7 @@ def extrair_produto(url):
         imagem = urljoin(url, unescape(src.group(1)))
         imagem = re.sub(r"\?w=\d+$", "", imagem)
         if re.match(r"https?://", imagem):
-            return imagem, titulo
+            return capa_maior_panini(imagem), titulo
     return None, titulo
 
 
@@ -601,11 +618,31 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         # volume apesar de aparecerem como nº 1 no Guia.
         titulo_panini = alias_catalogo_loja(nome, titulo)
         exatos = resultados_loja(titulo_panini, dominio, modelo_busca)
+        titulo_indice = titulo_validacao_panini(titulo)
+        if titulo_indice != titulo_panini:
+            encontrados_reduzidos = resultados_loja(
+                titulo_indice, dominio, modelo_busca
+            )
+            urls_reduzidas = {
+                item.get("url") for item in encontrados_reduzidos
+            }
+            exatos = encontrados_reduzidos + [
+                item for item in exatos
+                if item.get("url") not in urls_reduzidas
+            ]
         resultados = exatos + [
             item for item in resultados if item.get("url") not in {
                 exato.get("url") for exato in exatos
             }
         ]
+        try:
+            externos = resultados_bing(f'"{titulo_indice}"', dominio)
+        except (OSError, ValueError):
+            externos = []
+        urls_encontradas = {item.get("url") for item in resultados}
+        resultados.extend(
+            item for item in externos if item.get("url") not in urls_encontradas
+        )
     if str(numero or "").strip() == "1" and nome != "Rika":
         # Algumas lojas retornam conjuntos diferentes para "volume 1" e
         # apenas "1". Combine as duas consultas para reduzir falsos vazios.
@@ -651,16 +688,29 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
         alias_titulo = alias_catalogo_loja(nome, titulo)
-        titulo_validacao = titulo_base_serie(titulo) if nome in {"Panini", "Rika"} else titulo
+        titulo_validacao = titulo_validacao_panini(titulo) if nome == "Panini" else (
+            titulo_base_serie(titulo) if nome == "Rika" else titulo
+        )
         busca_validacao = titulo_validacao if alias_titulo != titulo else busca
         if not titulo_produto or not titulo_compativel_com_serie_e_fase(
             titulo_produto, titulo_validacao, busca_validacao
         ):
             continue
         if nome != "Amazon" and str(numero or "").isdigit():
-            if not titulo_compativel_com_numero(
-                titulo_produto, numero, titulo
-            ):
+            numero_compativel = titulo_compativel_com_numero(
+                titulo_produto, numero, titulo_validacao
+            )
+            especial_panini = (
+                nome == "Panini" and int(numero) == 1
+                and titulo_compativel_com_serie_e_fase(
+                    titulo_produto, titulo_validacao, busca_validacao
+                )
+                and not re.search(
+                    r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*\d+",
+                    titulo_produto, re.I,
+                )
+            )
+            if not numero_compativel and not especial_panini:
                 continue
         if capa and capa not in capas_usadas:
             return nome, capa, resultado["url"], None
