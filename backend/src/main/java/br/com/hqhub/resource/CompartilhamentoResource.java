@@ -36,6 +36,7 @@ import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
+import br.com.hqhub.repository.ItemOrdemLeituraRepository;
 import br.com.hqhub.repository.OrdemLeituraRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.VideoRelacionadoFeedRepository;
@@ -74,6 +75,7 @@ public class CompartilhamentoResource {
     private final VideoRelacionadoFeedRepository videoRelacionadoRepository;
     private final EdicaoRepository edicaoRepository;
     private final ItemColecaoRepository itemColecaoRepository;
+    private final ItemOrdemLeituraRepository itemOrdemLeituraRepository;
     private final OrdemLeituraRepository ordemLeituraRepository;
     private final UrlPublicaService urlPublicaService;
     private final FeedSocialService feedSocialService;
@@ -102,6 +104,7 @@ public class CompartilhamentoResource {
             VideoRelacionadoFeedRepository videoRelacionadoRepository,
             EdicaoRepository edicaoRepository,
             ItemColecaoRepository itemColecaoRepository,
+            ItemOrdemLeituraRepository itemOrdemLeituraRepository,
             OrdemLeituraRepository ordemLeituraRepository,
             UrlPublicaService urlPublicaService,
             FeedSocialService feedSocialService,
@@ -113,6 +116,7 @@ public class CompartilhamentoResource {
         this.videoRelacionadoRepository = videoRelacionadoRepository;
         this.edicaoRepository = edicaoRepository;
         this.itemColecaoRepository = itemColecaoRepository;
+        this.itemOrdemLeituraRepository = itemOrdemLeituraRepository;
         this.ordemLeituraRepository = ordemLeituraRepository;
         this.urlPublicaService = urlPublicaService;
         this.feedSocialService = feedSocialService;
@@ -160,10 +164,18 @@ public class CompartilhamentoResource {
     public Response imagemEdicao(@PathParam("id") Long id) {
         if (id == null || id <= 0) return Response.status(Response.Status.NOT_FOUND).build();
         try {
-            return responderImagemUrl(edicaoService.buscarPorId(id).urlCapa());
+            EdicaoRespostaDTO edicao = edicaoService.buscarPorId(id);
+            String capa = capaEdicaoCompartilhamento(id, edicao.urlCapa());
+            return responderImagemUrl(urlPublicaService.normalizarApiUrl(capa));
         } catch (RecursoNaoEncontradoException excecao) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    String capaEdicaoCompartilhamento(Long id, String capaCadastro) {
+        return edicaoRepository.capaPublicaPorEdicao(id)
+                .or(() -> itemOrdemLeituraRepository.capaReferenciaPorEdicao(id))
+                .orElse(capaCadastro);
     }
 
     private Response compartilharEdicaoPublica(Long id) {
@@ -191,8 +203,8 @@ public class CompartilhamentoResource {
                 : limitarTexto(edicao.descricaoExibicao(), 150);
         String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
         String destino = baseNormalizada() + "/edicoes/" + id;
-        String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "?v=1";
-        String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "/imagem.jpg?v=1";
+        String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "?v=2";
+        String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "/imagem.jpg?v=2";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">

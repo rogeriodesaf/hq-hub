@@ -794,7 +794,7 @@ export class ColecaoPage implements OnInit {
     const edicao = this.edicaoEstanteSelecionada();
     if (!edicao) return;
 
-    const link = `${environment.compartilhamentoUrl}/edicoes/${edicao.edicaoId}?v=1`;
+    const link = `${environment.compartilhamentoUrl}/edicoes/${edicao.edicaoId}?v=2`;
     const titulo = `${this.serieEstanteSelecionada() || edicao.titulo || 'HQ'}${edicao.numero ? ` #${edicao.numero}` : ''}`;
     try {
       const resultado = await this.compartilhamento.compartilhar({

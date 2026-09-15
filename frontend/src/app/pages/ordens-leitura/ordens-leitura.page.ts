@@ -4,7 +4,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
+import { CompartilhamentoService } from '../../core/compartilhamento.service';
 import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo, PublicacaoRelacionadaGuia } from '../../core/modelos';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-ordens-leitura-page',
@@ -138,6 +140,9 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo, PublicacaoRe
                               </button>
                             </div>
                           }
+                          @if (item.edicaoId) {
+                            <button class="compartilhar-edicao" type="button" (click)="compartilharEdicao(item)">Compartilhar edição</button>
+                          }
                         </article>
                       }
                     </div>
@@ -159,12 +164,14 @@ import { ItemOrdemLeitura, OrdemLeituraDetalhe, OrdemLeituraResumo, PublicacaoRe
     .destaque-secao{display:grid;grid-template-columns:minmax(240px,520px) 1fr;align-items:center;gap:24px;margin-bottom:22px;padding:18px;border:1px solid var(--borda);border-radius:18px;background:var(--superficie)}.destaque-secao.somente-texto{grid-template-columns:1fr}.destaque-secao img{display:block;width:100%;border-radius:12px}.destaque-secao p{font-size:1rem;line-height:1.65;color:var(--texto)}@media(max-width:760px){.destaque-secao{grid-template-columns:1fr;padding:12px;gap:14px}.destaque-secao p{font-size:.92rem}}
     .acao-selecao{min-height:44px;padding:9px 14px;border:1px solid var(--borda);border-radius:12px;background:var(--superficie);color:var(--texto);font-weight:800;cursor:pointer}.feedback-estante,.barra-selecao{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0;padding:11px 14px;border:1px solid #41a66b66;border-radius:12px;background:#41a66b12}.feedback-estante span{flex:1}.feedback-estante button,.barra-selecao button{min-height:44px;padding:8px 13px;border:0;border-radius:10px;background:#247c4b;color:#fff;font-weight:800;cursor:pointer}.feedback-estante button:disabled,.barra-selecao button:disabled{opacity:.6;cursor:wait}.barra-selecao{position:sticky;z-index:8;top:8px;border-color:#ee7d2066;background:color-mix(in srgb,var(--superficie) 94%,#ee7d20);box-shadow:0 8px 24px #0002}.barra-selecao strong{flex:1}.barra-selecao .cancelar-selecao{background:var(--superficie-2);color:var(--texto)}.acoes-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:7px;margin:0 10px 10px}.acoes-item .marcar,.acoes-item .estante-item{display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;margin:0;padding:8px 6px;border-radius:11px;font-size:.82rem;line-height:1.15;text-align:center;text-decoration:none;white-space:normal}.estante-item{border:1px solid var(--borda);background:var(--superficie-2);color:var(--texto);font-weight:800;cursor:pointer}.estante-item.adicionado{border-color:#41a66b;color:#247c4b;background:#41a66b12}.estante-item:disabled{opacity:.55;cursor:not-allowed}.item.na-estante{box-shadow:inset 0 -3px 0 #41a66b}.capa-selecao{position:relative;width:100%;padding:0;border:0;cursor:pointer}.marca-selecao{position:absolute;right:9px;top:9px;display:grid;place-items:center;width:36px;height:36px;border:2px solid #fff;border-radius:50%;background:#111d;color:#fff;font-size:1.2rem;font-weight:900;box-shadow:0 3px 10px #0005}.item.selecionado{border-color:#ee7d20;box-shadow:0 0 0 3px #ee7d2038}.item.selecionado .marca-selecao{background:#ee7d20;color:#20150c}@media(max-width:420px){.acoes-item{grid-template-columns:1fr;gap:6px;margin:0 8px 8px}.acoes-item .marcar,.acoes-item .estante-item{font-size:.8rem}.barra-selecao{align-items:stretch}.barra-selecao strong{flex-basis:100%}.barra-selecao button{flex:1}}
     .publicacoes-guia-botao,.publicacoes-guia-erro{margin-top:10px;padding:0;border:0;background:transparent;color:#ee7d20;font:inherit;font-size:.8rem;font-weight:800;text-align:left;cursor:pointer}.publicacoes-guia-erro{color:#b43d32}.publicacoes-guia-lista{display:grid;gap:7px;margin-top:10px;padding:9px;border-radius:10px;background:var(--superficie-2);font-size:.78rem}.publicacoes-guia-lista a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.publicacoes-guia-lista img{width:32px;height:46px;object-fit:cover;border-radius:4px}.publicacoes-guia-lista span{display:grid;gap:2px}.publicacoes-guia-lista small{color:var(--texto-suave)}.publicacoes-guia-vazio{margin-top:10px;font-size:.78rem}
+    .compartilhar-edicao{margin:0 10px 10px;padding:9px;border:1px solid var(--borda);border-radius:11px;background:transparent;color:var(--texto-suave);font-weight:800;cursor:pointer}.compartilhar-edicao:hover,.compartilhar-edicao:focus-visible{border-color:#ee7d20;color:#ee7d20}
   `]
 })
 export class OrdensLeituraPage implements OnInit {
   private api = inject(ApiService);
   private rota = inject(ActivatedRoute);
   private autenticacao = inject(AutenticacaoService);
+  private compartilhamento = inject(CompartilhamentoService);
   readonly autenticado = this.autenticacao.autenticado;
   ordens = signal<OrdemLeituraResumo[]>([]); selecionada = signal<OrdemLeituraDetalhe | null>(null);
   filtro = signal<'todas' | 'lidas' | 'nao-lidas'>('todas'); alterando = signal<number | null>(null); mensagem = signal('');
@@ -374,5 +381,14 @@ export class OrdensLeituraPage implements OnInit {
       await navigator.clipboard.writeText(link);
       this.mensagem.set('Link público copiado.');
     } catch(erro){if(!(erro instanceof DOMException&&erro.name==='AbortError'))this.mensagem.set('Não foi possível compartilhar agora.');}
+  }
+  async compartilharEdicao(item:ItemOrdemLeitura){
+    if(!item.edicaoId)return;
+    const link=`${environment.compartilhamentoUrl}/edicoes/${item.edicaoId}?v=2`;
+    const dados={title:item.titulo,text:`Confira ${item.titulo} no HQ-HUB`,url:link};
+    try {
+      const resultado=await this.compartilhamento.compartilhar(dados);
+      if(resultado==='copiado')this.mensagem.set('Link da edição copiado.');
+    } catch{this.mensagem.set('Não foi possível compartilhar agora.');}
   }
 }

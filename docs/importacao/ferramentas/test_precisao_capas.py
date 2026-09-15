@@ -169,6 +169,57 @@ class PrecisaoCapasTest(unittest.TestCase):
             )
         self.assertEqual(resposta[1], capa)
 
+    def test_consulta_recupera_arco_da_descricao(self):
+        busca = robo.consulta(
+            {
+                'numero': '2',
+                'editora': 'Panini',
+                'descricao': 'Batman/Superman n° 2\nArco: Ano dos Vilões\nPersonagens: Batman',
+            },
+            {'titulo': 'Batman/Superman', 'volume': 1},
+        )
+        self.assertIn('"Ano dos Vilões"', busca)
+
+    def test_contexto_impede_confundir_batman_superman(self):
+        busca = '"Batman/Superman" "Panini" "Ano dos Vilões" "2"'
+        self.assertTrue(robo.titulo_compativel_com_serie_e_fase(
+            'Batman / Superman nº 02 | Ano dos Vilões',
+            'Batman/Superman',
+            busca,
+        ))
+        self.assertFalse(robo.titulo_compativel_com_serie_e_fase(
+            'Batman/Superman: Os Melhores do Mundo Vol. 2',
+            'Batman/Superman',
+            busca,
+        ))
+
+    def test_comix_usa_pagina_numerada_direta_antes_da_busca(self):
+        capa = 'https://www.comix.com.br/media/catalog/product/b/a/batman_2.jpg'
+        with patch.object(robo, 'resultados_bing', return_value=[]), \
+                patch.object(robo, 'resultados_loja', return_value=[]), \
+                patch.object(
+                    robo,
+                    'extrair_produto',
+                    return_value=(capa, 'Batman / Superman nº 02 | Ano dos Vilões'),
+                ) as extrair:
+            resposta = robo.buscar_fonte(
+                'Comix', 'comix.com.br', '', '',
+                '"Batman/Superman" "Panini" "Ano dos Vilões" "2"',
+                set(), 'Batman/Superman', '2',
+            )
+        self.assertEqual(resposta[1], capa)
+        extrair.assert_called_once_with(
+            'https://www.comix.com.br/batman-superman-n-02.html'
+        )
+
+    def test_proxy_comix_preserva_caminho_e_consulta(self):
+        url = robo.proxy_comix(
+            'https://www.comix.com.br/catalogsearch/result/?q=Batman%2FSuperman'
+        )
+        self.assertIn('www-comix-com-br.translate.goog/catalogsearch/result/', url)
+        self.assertIn('q=Batman%2FSuperman', url)
+        self.assertIn('_x_tr_sl=pt', url)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -16,7 +16,7 @@ from html import unescape
 from pathlib import Path
 from threading import Event, local
 from time import sleep
-from urllib.parse import parse_qs, quote, urljoin, urlparse
+from urllib.parse import parse_qs, parse_qsl, quote, urlencode, urljoin, urlparse, urlunparse
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -58,6 +58,25 @@ def baixar(url):
     return baixar_cached(url)
 
 
+def proxy_comix(url):
+    """Contorna o bloqueio automatizado da Comix preservando o HTML original."""
+    partes = urlparse(url)
+    host = (partes.hostname or "").lower()
+    if host not in {"comix.com.br", "www.comix.com.br"}:
+        return None
+    consulta = parse_qsl(partes.query, keep_blank_values=True)
+    consulta.extend((
+        ("_x_tr_sl", "pt"),
+        ("_x_tr_tl", "en"),
+        ("_x_tr_hl", "pt-BR"),
+    ))
+    return urlunparse(partes._replace(
+        scheme="https",
+        netloc="www-comix-com-br.translate.goog",
+        query=urlencode(consulta),
+    ))
+
+
 @lru_cache(maxsize=256)
 def baixar_cached(url):
     # Cache limitado a esta execucao. Erros nao ficam armazenados.
@@ -75,6 +94,15 @@ def baixar_cached(url):
             with urlopen(req, timeout=12) as resposta:
                 return resposta.read().decode("utf-8", errors="replace")
         except HTTPError as erro:
+            alternativa = proxy_comix(url) if erro.code == 403 else None
+            if alternativa:
+                try:
+                    cabecalhos = dict(req.header_items())
+                    with urlopen(Request(alternativa, headers=cabecalhos), timeout=18) as resposta:
+                        return resposta.read().decode("utf-8", errors="replace")
+                except Exception as erro_proxy:
+                    ultimo_erro = erro_proxy
+                    continue
             if erro.code < 500:
                 raise
             ultimo_erro = erro
@@ -199,6 +227,17 @@ def titulo_compativel_com_serie_e_fase(titulo_produto, titulo_serie, busca):
     variante = {"variante", "variant"}
     if termos_produto & variante and not tokens(busca) & variante:
         return False
+    # Nomes curtos como Batman/Superman existem em varias colecoes. Use o
+    # contexto editorial para impedir colisao entre arcos e linhas distintas.
+    contextos_distintivos = (
+        {"ano", "viloes"},
+        {"melhores", "mundo"},
+        {"cavaleiros", "trevas", "aco"},
+    )
+    termos_busca = tokens(busca)
+    for contexto in contextos_distintivos:
+        if contexto.issubset(termos_busca) != contexto.issubset(termos_produto):
+            return False
     return True
 
 
@@ -368,6 +407,15 @@ def extrair_produto(url):
         titulo_tag = re.search(r'<title[^>]*>(.*?)</title>', html, re.I | re.S)
         if titulo_tag:
             titulo = limpar(re.sub(r'<[^>]+>', ' ', titulo_tag.group(1)))
+    texto_pagina = limpar(html)
+    arco = re.search(
+        r"(?:Esta edi[cç][aã]o pertence ao arco|This edition belongs to the arc):\s*"
+        r"(.{1,100}?)\s+(?:Tipo de Produto|Product Type)",
+        texto_pagina,
+        re.I,
+    )
+    if titulo and arco:
+        titulo = f"{titulo} | {arco.group(1).strip()}"
     padroes = [
         r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)',
         r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image',
@@ -560,6 +608,11 @@ def consulta(edicao, serie):
     titulo = serie.get("titulo") or edicao.get("tituloChamada") or ""
     editora = edicao.get("editora") or serie.get("editora") or ""
     fase = str(edicao.get("fase") or serie.get("fase") or "").strip()
+    if not fase:
+        descricao = str(edicao.get("descricao") or "")
+        arco = re.search(r"(?:^|\n)\s*Arco:\s*([^\n]+)", descricao, re.I)
+        if arco:
+            fase = arco.group(1).strip()
     parte_fase = f' "{fase}"' if fase else ""
     return f'"{titulo}" "{editora}"{parte_fase} "{numero}"'
 
@@ -633,6 +686,16 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             resultados = []
         if not resultados:
             resultados = resultados_loja(busca_loja, dominio, modelo_busca)
+        if str(numero or "").isdigit():
+            # Muitos produtos da Comix seguem o slug titulo-n-01.html. A
+            # pagina individual confirma numero e arco e evita homonimos.
+            url_direta = (
+                f"https://www.comix.com.br/{slug(titulo_base_serie(titulo))}"
+                f"-n-{int(numero):02d}.html"
+            )
+            resultados = [{"url": url_direta, "titulo": ""}] + [
+                item for item in resultados if item.get("url") != url_direta
+            ]
     else:
         resultados = resultados_loja(busca_loja, dominio, modelo_busca)
     if nome in {
