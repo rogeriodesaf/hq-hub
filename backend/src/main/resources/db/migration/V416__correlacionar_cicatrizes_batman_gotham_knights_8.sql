@@ -32,10 +32,12 @@ JOIN editoras editora ON hqhub_normalizar_titulo_serie(editora.nome) = hqhub_nor
 WHERE NOT EXISTS (
     SELECT 1
     FROM series existente
-    WHERE existente.editora_id = editora.id
-      AND coalesce(existente.volume, 0) = coalesce(dados.volume, 0)
-      AND hqhub_normalizar_titulo_serie(existente.titulo) = hqhub_normalizar_titulo_serie(dados.titulo)
-);
+    WHERE (existente.fonte_externa = dados.fonte_externa AND existente.id_externo = dados.id_externo)
+       OR (existente.editora_id = editora.id
+           AND coalesce(existente.volume, 0) = coalesce(dados.volume, 0)
+           AND hqhub_normalizar_titulo_serie(existente.titulo) = hqhub_normalizar_titulo_serie(dados.titulo))
+)
+ON CONFLICT DO NOTHING;
 
 WITH edicoes_desejadas(numero, titulo, nome_volume, data_publicacao, fonte_externa, id_externo, url_origem,
                        serie_titulo, serie_volume, editora_nome) AS (
@@ -52,12 +54,24 @@ WITH edicoes_desejadas(numero, titulo, nome_volume, data_publicacao, fonte_exter
 ), alvos AS (
     SELECT dados.*, serie.id AS serie_id
     FROM edicoes_desejadas dados
-    JOIN editoras editora
-      ON hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie(dados.editora_nome)
-    JOIN series serie
-      ON serie.editora_id = editora.id
-     AND coalesce(serie.volume, 0) = dados.serie_volume
-     AND hqhub_normalizar_titulo_serie(serie.titulo) = hqhub_normalizar_titulo_serie(dados.serie_titulo)
+    CROSS JOIN LATERAL (
+        SELECT candidata.id
+        FROM series candidata
+        WHERE (dados.fonte_externa = 'COMICVINE'
+               AND candidata.fonte_externa = 'COMICVINE'
+               AND candidata.id_externo = '4050-7207')
+           OR (coalesce(candidata.volume, 0) = dados.serie_volume
+               AND hqhub_normalizar_titulo_serie(candidata.titulo) = hqhub_normalizar_titulo_serie(dados.serie_titulo)
+               AND EXISTS (
+                   SELECT 1 FROM editoras editora
+                   WHERE editora.id = candidata.editora_id
+                     AND hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie(dados.editora_nome)
+               ))
+        ORDER BY
+            (candidata.fonte_externa = 'COMICVINE' AND candidata.id_externo = '4050-7207') DESC,
+            candidata.id
+        LIMIT 1
+    ) serie
 )
 INSERT INTO edicoes (
     numero, titulo, nome_volume, data_publicacao, fonte_externa, id_externo,
