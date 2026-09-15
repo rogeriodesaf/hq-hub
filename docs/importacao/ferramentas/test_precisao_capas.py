@@ -129,6 +129,35 @@ class PrecisaoCapasTest(unittest.TestCase):
             'Batman: A Maldição do Cavaleiro Branco',
         )
 
+    def test_rika_rejeita_edicao_homonima_de_outra_editora(self):
+        busca = '"Batman: As Dez Noites da Besta" "Panini" "1"'
+        self.assertFalse(robo.editora_compativel_com_busca('Abril', busca))
+        self.assertTrue(robo.editora_compativel_com_busca('Panini Books', busca))
+
+    def test_rika_prefere_panini_e_aceita_complemento_outras_historias(self):
+        resultados = [
+            {
+                'url': 'https://www.rika.com.br/dez-noites-abril/p',
+                'titulo': 'Batman - As Dez Noites da Besta',
+                'urlCapa': 'https://imagem/abril.jpg',
+                'editora': 'Abril',
+            },
+            {
+                'url': 'https://www.rika.com.br/dez-noites-panini/p',
+                'titulo': 'Batman - As Dez Noites da Besta e Outras Histórias',
+                'urlCapa': 'https://imagem/panini.jpg',
+                'editora': 'Panini',
+            },
+        ]
+        with patch.object(robo, 'resultados_rika', return_value=resultados):
+            resposta = robo.buscar_fonte(
+                'Rika', 'rika.com.br', '', '',
+                '"Batman: As Dez Noites da Besta" "Panini" "1"',
+                set(), 'Batman: As Dez Noites da Besta', '1',
+            )
+
+        self.assertEqual(resposta[1], 'https://imagem/panini.jpg')
+
     def test_panini_encontra_especial_com_subtitulo_omitido(self):
         externo = [{
             'url': 'https://panini.com.br/batman-dylan-dog-dc-bonelli',

@@ -242,6 +242,22 @@ def titulo_compativel_com_serie_e_fase(titulo_produto, titulo_serie, busca):
     return True
 
 
+def editora_compativel_com_busca(editora_produto, busca):
+    """Confere a marca informada pela loja quando a consulta traz a editora."""
+    if not editora_produto:
+        return True
+    partes = re.findall(r'"([^"]+)"', busca or "")
+    if len(partes) < 2:
+        return True
+    ignorados = {"editora", "comics", "brasil", "books"}
+    termos_editora = lambda valor: set(re.findall(r"[a-z0-9]+", slug(valor).replace("-", " "))) - ignorados
+    esperada = termos_editora(partes[1])
+    encontrada = termos_editora(editora_produto)
+    return not esperada or bool(encontrada) and (
+        esperada.issubset(encontrada) or encontrada.issubset(esperada)
+    )
+
+
 def produto_multiplo(texto):
     normalizado = unicodedata.normalize(
         "NFKD", texto or ""
@@ -483,7 +499,7 @@ def _resultados_rika_consulta(titulo):
                        for imagem in sku.get('images', []) if imagem.get('imageUrl')]
             if imagens and produto.get('link'):
                 resultados.append({'url': produto['link'], 'titulo': produto.get('productName', ''),
-                                   'urlCapa': imagens[0]})
+                                   'urlCapa': imagens[0], 'editora': produto.get('brand')})
         if len(produtos) < 50:
             break
     return resultados
@@ -807,6 +823,10 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
         verificar_cancelamento()
+        if nome == "Rika" and not editora_compativel_com_busca(
+            resultado.get("editora"), busca
+        ):
+            continue
         if produto_multiplo(f"{resultado.get('titulo') or ''} {resultado['url']}"):
             continue
         if nome == "Amazon" and not titulo_compativel_com_numero(
@@ -842,6 +862,15 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             numero_compativel = titulo_compativel_com_numero(
                 titulo_produto, numero, titulo_validacao
             )
+            termos_base = tokens(titulo_validacao) - {"volume", "serie", "edicao"}
+            termos_produto = tokens(titulo_produto) - {"volume", "serie", "edicao"}
+            complemento_editorial_rika = (
+                nome == "Rika" and int(numero) == 1
+                and termos_produto - termos_base <= {"outras", "historias"}
+                and termos_base.issubset(termos_produto)
+                and not re.search(r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*\d+", titulo_produto, re.I)
+            )
+            numero_compativel = numero_compativel or complemento_editorial_rika
             especial_panini = (
                 nome == "Panini" and int(numero) == 1
                 and titulo_compativel_com_serie_e_fase(
