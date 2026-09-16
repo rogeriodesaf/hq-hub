@@ -155,8 +155,9 @@ export class ClassificadosPublicosPage implements OnInit {
 
   async compartilharAnuncio(anuncio: AnuncioPublico) {
     const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
+    const preco = anuncio.preco != null ? ` por ${this.formatarMoeda(anuncio.preco)}` : '';
     try {
-      const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | HQ-HUB`, text: 'Veja este anúncio no HQ-HUB.', url });
+      const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | HQ-HUB`, text: `Estou vendendo esta HQ${preco}. Veja o anúncio no HQ-HUB:`, url });
       if (resultado === 'copiado') this.mensagemCompartilhamento.set('Link do anúncio copiado.');
     } catch {
       this.mensagemCompartilhamento.set('Não foi possível compartilhar este anúncio.');
