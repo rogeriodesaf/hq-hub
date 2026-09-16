@@ -34,7 +34,7 @@ public class AnuncioCompartilhamentoResource {
     public Response compartilhar(@PathParam("id") Long id) {
         if (id == null || id <= 0) return indisponivel();
         try {
-            return Response.ok(html(anuncios.buscarAtivoPublico(id)), MediaType.TEXT_HTML_TYPE)
+            return Response.ok(html(anuncios.buscarAtivoPublico(id)), "text/html; charset=UTF-8")
                     .header("Cache-Control", "no-cache, must-revalidate")
                     .build();
         } catch (RecursoNaoEncontradoException erro) {
@@ -43,7 +43,7 @@ public class AnuncioCompartilhamentoResource {
     }
 
     private Response indisponivel() {
-        return Response.status(Response.Status.NOT_FOUND).type(MediaType.TEXT_HTML_TYPE)
+        return Response.status(Response.Status.NOT_FOUND).type("text/html; charset=UTF-8")
                 .header("Cache-Control", "no-store")
                 .entity("<!doctype html><html lang=\"pt-BR\"><head><meta charset=\"utf-8\">"
                         + "<title>Anúncio indisponível | HQ-HUB</title><meta name=\"robots\" content=\"noindex\">"
