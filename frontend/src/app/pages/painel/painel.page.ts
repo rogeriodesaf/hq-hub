@@ -1300,7 +1300,7 @@ import { environment } from '../../../environments/environment';
       .cabecalho-postagem { grid-template-columns: 40px minmax(0, 1fr) 36px; gap: 9px; }
       .cabecalho-postagem .avatar-feed { width: 40px; height: 40px; }
       .bio-autor { max-width: 100%; }
-      .cartao-colecao-feed { grid-template-columns: 92px minmax(0, 1fr); gap: 11px; }
+      .cartao-colecao-feed { grid-template-columns: 112px minmax(0, 1fr); gap: 11px; }
       .cartao-colecao-feed > img { min-height: 0; }
       .cartao-colecao-feed > div { gap: 6px; padding: 10px 10px 10px 0; }
       .cartao-colecao-feed h3 { font-size: 1rem; }
@@ -1313,6 +1313,8 @@ import { environment } from '../../../environments/environment';
     }
 
     @media (max-width: 360px) {
+      .cartao-colecao-feed { grid-template-columns: 104px minmax(0, 1fr); gap: 9px; }
+      .cartao-colecao-feed > div { padding-right: 8px; }
       .acao-social { gap: 4px; font-size: .7rem; }
       .acao-social span { font-size: 1rem; }
       .contexto-hq { padding: 9px; }
