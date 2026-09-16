@@ -618,6 +618,13 @@ import {
                       </a>
                     }
                   </div>
+                  @if (linksAmazonDetalhe().length) {
+                    <p class="aviso-link-associado">Publicidade · link de associado Amazon. Como associado da Amazon, eu ganho com compras qualificadas.</p>
+                    <button class="botao secundario compacto" type="button" (click)="compartilharEdicaoDetalheParaApoiar()" [disabled]="compartilhandoEdicao()">
+                      <svg lucideShare2 size="17" aria-hidden="true"></svg>
+                      {{ compartilhandoEdicao() ? 'Compartilhando...' : 'Compartilhar e apoiar o HQ-HUB' }}
+                    </button>
+                  }
                 </div>
               }
               @if (edicaoDetalhe() && podeEditarCatalogo()) {
@@ -1779,17 +1786,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
     void this.compartilharEdicao(edicao.id, this.tituloEdicao(edicao));
   }
 
-  private async compartilharEdicao(edicaoId: number, titulo: string) {
+  compartilharEdicaoDetalheParaApoiar() {
+    const edicao = this.edicaoDetalhe();
+    if (!edicao || !this.linksAmazonDetalhe().length) return;
+    void this.compartilharEdicao(edicao.id, this.tituloEdicao(edicao), true);
+  }
+
+  private async compartilharEdicao(edicaoId: number, titulo: string, paraApoiar = false) {
     if (this.compartilhandoEdicao()) return;
     this.compartilhandoEdicao.set(true);
     const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=2`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | HQ-HUB`,
-        text: `Conheça ${titulo} no catálogo do HQ-HUB.`,
+        text: paraApoiar
+          ? `Olha esta HQ no HQ-HUB: ${titulo}. Se você já pretende comprá-la, o link da Amazon na página pode gerar uma comissão que ajuda a manter o projeto. Publicidade · link de associado Amazon.`
+          : `Conheça ${titulo} no catálogo do HQ-HUB.`,
         url,
-      });
-      if (resultado === 'copiado') this.mensagem.set('Link da edição copiado');
+      }, paraApoiar);
+      if (resultado === 'copiado') this.mensagem.set(paraApoiar ? 'Mensagem de apoio copiada para compartilhar' : 'Link da edição copiado');
     } catch {
       this.mensagem.set('Não foi possível compartilhar esta edição agora.');
     } finally {

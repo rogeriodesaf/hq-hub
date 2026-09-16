@@ -29,4 +29,17 @@ describe('CompartilhamentoService', () => {
       .toBeResolvedTo('copiado');
     expect(escrever).toHaveBeenCalledOnceWith('https://hqhub.test/edicoes/2');
   });
+
+  it('copia a mensagem de apoio junto com o link quando solicitado', async () => {
+    Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
+    const escrever = jasmine.createSpy('writeText').and.resolveTo();
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: escrever } });
+
+    await expectAsync(service.compartilhar({
+      title: 'HQ #1',
+      text: 'Apoie o HQ-HUB. Publicidade · link de associado Amazon.',
+      url: 'https://hqhub.test/edicoes/1',
+    }, true)).toBeResolvedTo('copiado');
+    expect(escrever).toHaveBeenCalledOnceWith('Apoie o HQ-HUB. Publicidade · link de associado Amazon.\nhttps://hqhub.test/edicoes/1');
+  });
 });

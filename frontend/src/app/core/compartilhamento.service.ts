@@ -13,7 +13,7 @@ export type ResultadoCompartilhamento = 'compartilhado' | 'copiado' | 'cancelado
 export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
 
-  async compartilhar(dados: DadosCompartilhamento): Promise<ResultadoCompartilhamento> {
+  async compartilhar(dados: DadosCompartilhamento, copiarMensagemCompleta = false): Promise<ResultadoCompartilhamento> {
     const navegador = this.documento.defaultView?.navigator;
     if (navegador?.share) {
       try {
@@ -25,7 +25,7 @@ export class CompartilhamentoService {
       }
     }
 
-    await this.copiar(dados.url);
+    await this.copiar(copiarMensagemCompleta ? `${dados.text}\n${dados.url}` : dados.url);
     return 'copiado';
   }
 

@@ -543,6 +543,13 @@ img {
   gap: 10px;
 }
 
+.aviso-link-associado {
+  margin: 0;
+  color: var(--texto-suave, #667085);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
 .preco-capa-referencia {
   display: flex;
   align-items: baseline;
