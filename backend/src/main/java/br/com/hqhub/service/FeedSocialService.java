@@ -37,6 +37,7 @@ import br.com.hqhub.entity.PerfilUsuario;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusColecaoSerie;
 import br.com.hqhub.entity.TipoPostagemFeed;
+import br.com.hqhub.entity.TipoNotificacaoSocial;
 import br.com.hqhub.entity.VisibilidadeColecao;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.entity.VideoRelacionadoFeed;
@@ -76,6 +77,7 @@ public class FeedSocialService {
     private final UrlPublicaService urlPublicaService;
     private final EdicaoAtividadeEstanteRepository edicaoAtividadeRepository;
     private final ConfiguracaoColecaoRepository configuracaoColecaoRepository;
+    private final NotificacaoSocialService notificacoes;
 
     public FeedSocialService(
             PostagemFeedRepository postagemRepository,
@@ -92,7 +94,8 @@ public class FeedSocialService {
             UsuarioMapper usuarioMapper,
             UrlPublicaService urlPublicaService,
             EdicaoAtividadeEstanteRepository edicaoAtividadeRepository,
-            ConfiguracaoColecaoRepository configuracaoColecaoRepository) {
+            ConfiguracaoColecaoRepository configuracaoColecaoRepository,
+            NotificacaoSocialService notificacoes) {
         this.postagemRepository = postagemRepository;
         this.comentarioRepository = comentarioRepository;
         this.curtidaComentarioRepository = curtidaComentarioRepository;
@@ -108,6 +111,7 @@ public class FeedSocialService {
         this.urlPublicaService = urlPublicaService;
         this.edicaoAtividadeRepository = edicaoAtividadeRepository;
         this.configuracaoColecaoRepository = configuracaoColecaoRepository;
+        this.notificacoes = notificacoes;
     }
 
     @Transactional
@@ -200,15 +204,18 @@ public class FeedSocialService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         PostagemFeed postagem = buscarPostagemVisivel(postagemId, usuario);
 
-        curtidaRepository.buscarPorPostagemEUsuario(postagem.getId(), usuario.getId())
-                .ifPresentOrElse(
-                        curtidaRepository::delete,
-                        () -> {
-                            CurtidaPostagemFeed curtida = new CurtidaPostagemFeed();
-                            curtida.setPostagem(postagem);
-                            curtida.setUsuario(usuario);
-                            curtidaRepository.persist(curtida);
-                        });
+        var existente = curtidaRepository.buscarPorPostagemEUsuario(postagem.getId(), usuario.getId());
+        if (existente.isPresent()) {
+            curtidaRepository.delete(existente.get());
+            notificacoes.removerCurtidaPostagem(postagem.getUsuario(), usuario, postagem);
+        } else {
+            CurtidaPostagemFeed curtida = new CurtidaPostagemFeed();
+            curtida.setPostagem(postagem);
+            curtida.setUsuario(usuario);
+            curtidaRepository.persist(curtida);
+            notificacoes.criar(postagem.getUsuario(), usuario, TipoNotificacaoSocial.CURTIDA_POSTAGEM,
+                    postagem, null, usuario.getNome() + " curtiu sua publicação.");
+        }
 
         return paraResposta(postagem, usuario.getId());
     }
@@ -223,6 +230,8 @@ public class FeedSocialService {
         comentario.setUsuario(usuario);
         comentario.setTexto(dto.texto().trim());
         comentarioRepository.persist(comentario);
+        notificacoes.criar(postagem.getUsuario(), usuario, TipoNotificacaoSocial.COMENTARIO_POSTAGEM,
+                postagem, comentario, usuario.getNome() + " comentou na sua publicação.");
 
         return paraResposta(postagem, usuario.getId());
     }
@@ -233,15 +242,18 @@ public class FeedSocialService {
         PostagemFeed postagem = buscarPostagemVisivel(postagemId, usuario);
         ComentarioFeed comentario = buscarComentarioDaPostagem(postagem, comentarioId);
 
-        curtidaComentarioRepository.buscarPorComentarioEUsuario(comentario.getId(), usuario.getId())
-                .ifPresentOrElse(
-                        curtidaComentarioRepository::delete,
-                        () -> {
-                            CurtidaComentarioFeed curtida = new CurtidaComentarioFeed();
-                            curtida.setComentario(comentario);
-                            curtida.setUsuario(usuario);
-                            curtidaComentarioRepository.persist(curtida);
-                        });
+        var existente = curtidaComentarioRepository.buscarPorComentarioEUsuario(comentario.getId(), usuario.getId());
+        if (existente.isPresent()) {
+            curtidaComentarioRepository.delete(existente.get());
+            notificacoes.removerCurtidaComentario(comentario.getUsuario(), usuario, comentario);
+        } else {
+            CurtidaComentarioFeed curtida = new CurtidaComentarioFeed();
+            curtida.setComentario(comentario);
+            curtida.setUsuario(usuario);
+            curtidaComentarioRepository.persist(curtida);
+            notificacoes.criar(comentario.getUsuario(), usuario, TipoNotificacaoSocial.CURTIDA_COMENTARIO,
+                    postagem, comentario, usuario.getNome() + " curtiu seu comentário.");
+        }
 
         return paraResposta(postagem, usuario.getId());
     }

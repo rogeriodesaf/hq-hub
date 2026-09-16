@@ -772,6 +772,16 @@ export interface HistoriaLeitura {
   dataExpiracao: string;
 }
 
+export interface NotificacaoSocial {
+  id: number;
+  tipo: 'CURTIDA_POSTAGEM' | 'COMENTARIO_POSTAGEM' | 'CURTIDA_COMENTARIO';
+  autor: Usuario;
+  postagemId: number | null;
+  mensagem: string;
+  lida: boolean;
+  dataCriacao: string;
+}
+
 export interface HistoriaPublicacaoBrasil {
   id: number;
   titulo: string;

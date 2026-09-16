@@ -26,7 +26,7 @@ import { AutenticacaoService } from './core/autenticacao.service';
 import { ApiService } from './core/api.service';
 import { AtualizacaoAppService } from './core/atualizacao-app.service';
 import { resolverUrlMidia } from './core/midia-url';
-import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
+import { Amizade, ContribuicaoCatalogo, ConversaDireta, NotificacaoSocial } from './core/modelos';
 import { SeoService } from './core/seo.service';
 
 @Component({
@@ -73,6 +73,7 @@ export class App implements OnInit {
   readonly mensagensNaoLidas = signal(0);
   readonly solicitacoesAmizadePendentes = signal(0);
   readonly alteracoesEstanteAmigos = signal(0);
+  readonly notificacoesSociaisNaoLidas = signal(0);
   readonly notificacoesAbertas = signal(false);
   readonly publicarAberto = signal(false);
   readonly urlAtual = signal('');
@@ -81,11 +82,13 @@ export class App implements OnInit {
   readonly solicitacoesRecebidas = signal<Amizade[]>([]);
   readonly conversasComNaoLidas = signal<ConversaDireta[]>([]);
   readonly alteracoesEstanteRecentes = signal<ContribuicaoCatalogo[]>([]);
+  readonly notificacoesSociais = signal<NotificacaoSocial[]>([]);
   readonly resolverUrlMidia = resolverUrlMidia;
   readonly totalNotificacoes = computed(() =>
     Math.min(
       9,
       this.novidadesFeed() +
+        this.notificacoesSociaisNaoLidas() +
         this.mensagensNaoLidas() +
         this.solicitacoesAmizadePendentes() +
         this.alteracoesEstanteAmigos(),
@@ -105,6 +108,7 @@ export class App implements OnInit {
     this.carregarMensagensNaoLidas();
     this.carregarSolicitacoesAmizadePendentes();
     this.carregarAlteracoesEstanteAmigos();
+    this.carregarContagemNotificacoesSociais();
     window.addEventListener('hqhub-amizades-atualizadas', () => {
       this.carregarSolicitacoesAmizadePendentes();
       if (this.notificacoesAbertas()) {
@@ -123,6 +127,7 @@ export class App implements OnInit {
         this.carregarSolicitacoesAmizadePendentes();
         this.carregarAlteracoesEstanteAmigos();
         this.carregarNovidadesFeed();
+        this.carregarContagemNotificacoesSociais();
       }
     }, 30000);
     this.roteador.events
@@ -175,6 +180,9 @@ export class App implements OnInit {
 
     this.notificacoesAbertas.set(true);
     this.carregarNotificacoes();
+    this.api.marcarNotificacoesSociaisComoLidas().subscribe({
+      next: () => this.notificacoesSociaisNaoLidas.set(0),
+    });
   }
 
   fecharNotificacoes() {
@@ -290,11 +298,23 @@ export class App implements OnInit {
     });
   }
 
+  private carregarContagemNotificacoesSociais() {
+    if (!this.autenticacaoService.autenticado()) {
+      this.notificacoesSociaisNaoLidas.set(0);
+      return;
+    }
+    this.api.contarNotificacoesSociaisNaoLidas().subscribe({
+      next: (resposta) => this.notificacoesSociaisNaoLidas.set(Math.min(resposta.total, 9)),
+      error: () => this.notificacoesSociaisNaoLidas.set(0),
+    });
+  }
+
   private carregarNotificacoes() {
     if (!this.autenticacaoService.autenticado()) {
       this.solicitacoesRecebidas.set([]);
       this.conversasComNaoLidas.set([]);
       this.alteracoesEstanteRecentes.set([]);
+      this.notificacoesSociais.set([]);
       return;
     }
 
@@ -304,17 +324,20 @@ export class App implements OnInit {
       solicitacoes: this.api.listarSolicitacoesRecebidas(),
       conversas: this.api.listarConversasDiretas(),
       alteracoes: this.api.listarAlteracoesEstanteAmigos(vistoEm),
+      sociais: this.api.listarNotificacoesSociais(),
     }).subscribe({
-      next: ({ solicitacoes, conversas, alteracoes }) => {
+      next: ({ solicitacoes, conversas, alteracoes, sociais }) => {
         this.solicitacoesRecebidas.set(solicitacoes);
         this.conversasComNaoLidas.set(conversas.filter((conversa) => conversa.naoLidas > 0));
         this.alteracoesEstanteRecentes.set(alteracoes);
+        this.notificacoesSociais.set(sociais);
         this.carregandoNotificacoes.set(false);
       },
       error: () => {
         this.solicitacoesRecebidas.set([]);
         this.conversasComNaoLidas.set([]);
         this.alteracoesEstanteRecentes.set([]);
+        this.notificacoesSociais.set([]);
         this.carregandoNotificacoes.set(false);
       },
     });

@@ -43,6 +43,7 @@ import {
   ItemColecao,
   LinkEdicao,
   MensagemDireta,
+  NotificacaoSocial,
   PaginaResposta,
   PessoaComicVine,
   PostagemFeed,
@@ -869,6 +870,20 @@ export class ApiService {
 
   removerHistoria(id: number) {
     return this.http.delete<void>(`/api/historias-leitura/${id}`);
+  }
+
+  listarNotificacoesSociais() {
+    return this.http.get<NotificacaoSocial[]>('/api/notificacoes-sociais').pipe(
+      map((itens) => itens.map((item) => ({ ...item, autor: this.normalizarUsuario(item.autor) }))),
+    );
+  }
+
+  contarNotificacoesSociaisNaoLidas() {
+    return this.http.get<{ total: number }>('/api/notificacoes-sociais/nao-lidas');
+  }
+
+  marcarNotificacoesSociaisComoLidas() {
+    return this.http.post<void>('/api/notificacoes-sociais/marcar-lidas', {});
   }
 
   baixarInstalador() {

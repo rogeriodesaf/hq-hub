@@ -168,6 +168,26 @@
           } @else {
             <section class="lista-notificacoes">
               <div class="grupo-notificacoes">
+                <p class="rotulo">Curtidas e comentários</p>
+                @if (notificacoesSociais().length) {
+                  @for (notificacao of notificacoesSociais(); track notificacao.id) {
+                    <article class="notificacao-item" [class.nao-lida]="!notificacao.lida">
+                      <span class="notificacao-icone">{{ notificacao.tipo === 'COMENTARIO_POSTAGEM' ? 'C' : '♥' }}</span>
+                      <div>
+                        <strong>{{ notificacao.autor.nome }}</strong>
+                        <p>{{ notificacao.mensagem }}</p>
+                      </div>
+                      @if (notificacao.postagemId) {
+                        <a [routerLink]="['/postagem', notificacao.postagemId]" class="botao compacto" (click)="fecharNotificacoes()">Ver</a>
+                      }
+                    </article>
+                  }
+                } @else {
+                  <p class="texto-suave">Nenhuma interação nova.</p>
+                }
+              </div>
+
+              <div class="grupo-notificacoes">
                 <p class="rotulo">Solicitações de amizade</p>
                 @if (solicitacoesRecebidas().length) {
                   @for (solicitacao of solicitacoesRecebidas(); track solicitacao.id) {

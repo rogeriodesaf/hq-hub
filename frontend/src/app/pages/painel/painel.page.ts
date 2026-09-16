@@ -48,6 +48,17 @@ import { environment } from '../../../environments/environment';
       }
     </section>
 
+    @if (sugestaoAmigo()) {
+      <article class="bloco sugestao-amigo-card recomendacao-padrao">
+        <div class="avatar-feed">
+          @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" /> }
+          @else { {{ iniciais(sugestaoAmigo()!.nome) }} }
+        </div>
+        <div><p class="rotulo">Perfil recomendado</p><strong>{{ sugestaoAmigo()!.nome }}</strong><small>Conheça quem criou o HQ-HUB.</small>@if (mensagemSugestaoAmigo()) { <small>{{ mensagemSugestaoAmigo() }}</small> }</div>
+        <button class="botao compacto primario" type="button" (click)="adicionarSugestaoAmigo()" [disabled]="enviandoSugestaoAmigo()">{{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}</button>
+      </article>
+    }
+
     <section class="feed-layout">
       <div class="feed-coluna">
         <article class="bloco compositor-feed" id="publicar" [class.aberto]="editorAberto()">
@@ -465,25 +476,6 @@ import { environment } from '../../../environments/environment';
                   <strong>Torne-se apoiador deste projeto</strong>
                   <span>Ajude o HQ-HUB a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
                 </a>
-                @if (sugestaoAmigo()) {
-                  <article class="bloco sugestao-amigo-card">
-                    <div class="avatar-feed">
-                      @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) {
-                        <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" />
-                      } @else {
-                        {{ iniciais(sugestaoAmigo()!.nome) }}
-                      }
-                    </div>
-                    <div>
-                      <p class="rotulo">Sugestão de amigo</p>
-                      <strong>{{ sugestaoAmigo()!.nome }}</strong>
-                      @if (mensagemSugestaoAmigo()) { <small>{{ mensagemSugestaoAmigo() }}</small> }
-                    </div>
-                    <button class="botao compacto primario" type="button" (click)="adicionarSugestaoAmigo()" [disabled]="enviandoSugestaoAmigo()">
-                      {{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}
-                    </button>
-                  </article>
-                }
               </section>
             }
           } @empty {
@@ -870,6 +862,8 @@ import { environment } from '../../../environments/environment';
       object-fit: contain;
       background: var(--superficie-suave);
     }
+
+    .recomendacao-padrao { margin-bottom: 12px; }
 
     .cartao-colecao-feed > div {
       display: grid;
