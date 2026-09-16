@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, Rel
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
+import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
 
 @Component({
   selector: 'app-painel-page',
@@ -32,18 +33,25 @@ import { environment } from '../../../environments/environment';
     </nav>
 
     <section class="historias-faixa" aria-label="Histórias de leitura">
-      <button class="historia-atalho criar" type="button" (click)="abrirCriadorHistoria()">
-        <span class="historia-avatar"><b aria-hidden="true">+</b></span>
-        <small>Sua história</small>
-      </button>
-      @for (historia of historias(); track historia.id) {
-        <button class="historia-atalho" type="button" [class.visualizada]="historia.visualizada" (click)="abrirHistoria(historia)">
+      <div class="historia-propria">
+        <button class="historia-atalho" type="button" [class.criar]="!grupoProprio()" (click)="abrirGrupoProprio()" aria-label="Sua história">
           <span class="historia-avatar">
-            @if (historia.usuario.fotoPerfilThumbnailUrl) {
-              <img [src]="resolverUrlMidia(historia.usuario.fotoPerfilThumbnailUrl)" alt="" />
-            } @else { {{ iniciais(historia.usuario.nome) }} }
+            @if (usuario()?.fotoPerfilThumbnailUrl) {
+              <img [src]="resolverUrlMidia(usuario()?.fotoPerfilThumbnailUrl)" alt="" />
+            } @else { {{ iniciais(usuario()?.nome || 'Você') }} }
           </span>
-          <small>{{ historia.usuario.id === usuario()?.id ? 'Você' : historia.usuario.nome }}</small>
+          <small>Sua história</small>
+        </button>
+        <button class="historia-adicionar" type="button" (click)="abrirCriadorHistoria()" aria-label="Adicionar story à sua história">+</button>
+      </div>
+      @for (grupo of gruposDeOutros(); track grupo.usuario.id) {
+        <button class="historia-atalho" type="button" [class.visualizada]="!grupo.naoVistas" (click)="abrirHistoria(grupo.historias[0])" [attr.aria-label]="'Ver histórias de ' + grupo.usuario.nome">
+          <span class="historia-avatar">
+            @if (grupo.usuario.fotoPerfilThumbnailUrl) {
+              <img [src]="resolverUrlMidia(grupo.usuario.fotoPerfilThumbnailUrl)" alt="" />
+            } @else { {{ iniciais(grupo.usuario.nome) }} }
+          </span>
+          <small>{{ grupo.usuario.nome }}</small>
         </button>
       }
     </section>
@@ -553,9 +561,14 @@ import { environment } from '../../../environments/environment';
 
     @if (historiaAberta(); as historia) {
       <section class="historia-visualizador" role="dialog" aria-modal="true" aria-label="História de leitura">
-        @for (historiaId of [historia.id]; track historiaId) {
-          <div class="historia-progresso"><span [style.animation-play-state]="historiaPausada() ? 'paused' : 'running'"></span></div>
-        }
+        <div class="historia-progressos" aria-label="Progresso dos stories">
+          @for (item of sequenciaHistoria(); track item.id; let indice = $index) {
+            <div class="historia-progresso" [class.concluida]="indice < indiceHistoriaAberta()" [class.atual]="indice === indiceHistoriaAberta()">
+              @if (indice === indiceHistoriaAberta()) { <span [style.animation-play-state]="historiaPausada() ? 'paused' : 'running'"></span> }
+              @else if (indice < indiceHistoriaAberta()) { <span></span> }
+            </div>
+          }
+        </div>
         <header>
           <div class="historia-autor"><span class="avatar-feed">{{ iniciais(historia.usuario.nome) }}</span><strong>{{ historia.usuario.nome }}</strong><small>{{ dataRelativa(historia.dataCriacao) }}</small></div>
           <div>
@@ -564,6 +577,9 @@ import { environment } from '../../../environments/environment';
           </div>
         </header>
         <img class="historia-midia" [src]="historia.urlImagem" [alt]="historia.tituloHq || 'História de leitura'" />
+        @if (temHistoriaAnterior(historia)) {
+          <button class="historia-voltar" type="button" (click)="voltarHistoria()" aria-label="Story anterior">‹</button>
+        }
         @if (temProximaHistoria(historia)) {
           <button class="historia-avancar" type="button" (click)="avancarHistoria()" aria-label="Próximo story">›</button>
         }
@@ -1436,7 +1452,7 @@ import { environment } from '../../../environments/environment';
     }
   `,
 })
-export class PainelPage implements OnInit {
+export class PainelPage implements OnInit, OnDestroy {
   private static readonly EMAIL_SUGESTAO_AMIGO = 'rogeriodesaf@gmail.com';
 
   private readonly api = inject(ApiService);
@@ -1458,7 +1474,14 @@ export class PainelPage implements OnInit {
   readonly editorAberto = signal(false);
   readonly comentariosAbertos = signal<Set<number>>(new Set());
   readonly historias = signal<HistoriaLeitura[]>([]);
+  readonly gruposHistorias = computed(() => agruparHistorias(this.historias(), this.usuario()?.id));
+  readonly grupoProprio = computed(() => this.gruposHistorias().find((grupo) => grupo.usuario.id === this.usuario()?.id));
+  readonly gruposDeOutros = computed(() => this.gruposHistorias().filter((grupo) => grupo.usuario.id !== this.usuario()?.id));
   readonly historiaAberta = signal<HistoriaLeitura | null>(null);
+  readonly sequenciaHistoria = computed(() => this.gruposHistorias()
+    .find((grupo) => grupo.usuario.id === this.historiaAberta()?.usuario.id)?.historias ?? []);
+  readonly indiceHistoriaAberta = computed(() => this.sequenciaHistoria()
+    .findIndex((historia) => historia.id === this.historiaAberta()?.id));
   readonly criadorHistoriaAberto = signal(false);
   readonly previewHistoria = signal<string | null>(null);
   readonly salvandoHistoria = signal(false);
@@ -1470,6 +1493,9 @@ export class PainelPage implements OnInit {
   readonly historiaPausada = signal(false);
   novoComentarioHistoria = '';
   private temporizadorHistoria: ReturnType<typeof setTimeout> | null = null;
+  private inicioTemporizadorHistoria = 0;
+  private tempoRestanteHistoria = 8000;
+  private temporizadorExpiracaoHistorias: ReturnType<typeof setTimeout> | null = null;
   arquivoHistoria: File | null = null;
   textoHistoria = '';
   tituloHqHistoria = '';
@@ -1492,6 +1518,11 @@ export class PainelPage implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.cancelarTemporizadorHistoria();
+    if (this.temporizadorExpiracaoHistorias) clearTimeout(this.temporizadorExpiracaoHistorias);
+  }
+
   abrirEditor() {
     this.editorAberto.set(true);
     window.setTimeout(() => document.getElementById('novo-conteudo-feed')?.focus());
@@ -1504,6 +1535,12 @@ export class PainelPage implements OnInit {
   abrirCriadorHistoria() {
     this.mensagemHistoria.set('');
     this.criadorHistoriaAberto.set(true);
+  }
+
+  abrirGrupoProprio() {
+    const primeira = this.grupoProprio()?.historias[0];
+    if (primeira) this.abrirHistoria(primeira);
+    else this.abrirCriadorHistoria();
   }
 
   fecharCriadorHistoria() {
@@ -1551,7 +1588,8 @@ export class PainelPage implements OnInit {
           urlImagem: imagem.urlImagem,
         }).subscribe({
           next: (historia) => {
-            this.historias.update((atuais) => [historia, ...atuais]);
+            this.historias.update((atuais) => [...atuais, historia]);
+            this.agendarExpiracaoHistorias();
             this.limparFormularioHistoria();
             this.salvandoHistoria.set(false);
             this.criadorHistoriaAberto.set(false);
@@ -1570,11 +1608,12 @@ export class PainelPage implements OnInit {
     this.historiaAberta.set(historia);
     this.comentariosHistoriaAbertos.set(false);
     this.historiaPausada.set(false);
+    this.tempoRestanteHistoria = 8000;
     this.iniciarTemporizadorHistoria();
     if (historia.usuario.id !== this.usuario()?.id && !historia.visualizada) {
       this.api.visualizarHistoria(historia.id).subscribe({
         next: (atualizada) => {
-          this.historiaAberta.set(atualizada);
+          if (this.historiaAberta()?.id === atualizada.id) this.historiaAberta.set(atualizada);
           this.historias.update((itens) => itens.map((item) => item.id === atualizada.id ? atualizada : item));
         },
       });
@@ -1589,18 +1628,26 @@ export class PainelPage implements OnInit {
   }
 
   temProximaHistoria(historia: HistoriaLeitura) {
-    const indice = this.historias().findIndex((item) => item.id === historia.id);
-    return indice >= 0 && indice < this.historias().length - 1;
+    return !!historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === historia.usuario.id), historia.id, 1);
+  }
+
+  temHistoriaAnterior(historia: HistoriaLeitura) {
+    return !!historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === historia.usuario.id), historia.id, -1);
   }
 
   avancarHistoria() {
     const atual = this.historiaAberta();
     if (!atual) return;
-    const historias = this.historias();
-    const indice = historias.findIndex((item) => item.id === atual.id);
-    const proxima = indice >= 0 ? historias[indice + 1] : null;
+    const proxima = historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === atual.usuario.id), atual.id, 1);
     if (proxima) this.abrirHistoria(proxima);
     else this.fecharHistoria();
+  }
+
+  voltarHistoria() {
+    const atual = this.historiaAberta();
+    if (!atual) return;
+    const anterior = historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === atual.usuario.id), atual.id, -1);
+    if (anterior) this.abrirHistoria(anterior);
   }
 
   curtirHistoria(historia: HistoriaLeitura) {
@@ -1611,7 +1658,7 @@ export class PainelPage implements OnInit {
     const aberto = !this.comentariosHistoriaAbertos();
     this.comentariosHistoriaAbertos.set(aberto);
     this.historiaPausada.set(aberto);
-    if (aberto) this.cancelarTemporizadorHistoria(); else this.iniciarTemporizadorHistoria();
+    if (aberto) this.pausarTemporizadorHistoria(); else this.iniciarTemporizadorHistoria();
   }
 
   comentarHistoria(historia: HistoriaLeitura, evento: Event) {
@@ -1630,7 +1677,15 @@ export class PainelPage implements OnInit {
 
   private iniciarTemporizadorHistoria() {
     this.cancelarTemporizadorHistoria();
-    this.temporizadorHistoria = setTimeout(() => this.avancarHistoria(), 8000);
+    this.inicioTemporizadorHistoria = Date.now();
+    this.temporizadorHistoria = setTimeout(() => this.avancarHistoria(), this.tempoRestanteHistoria);
+  }
+
+  private pausarTemporizadorHistoria() {
+    if (this.temporizadorHistoria) {
+      this.tempoRestanteHistoria = Math.max(0, this.tempoRestanteHistoria - (Date.now() - this.inicioTemporizadorHistoria));
+    }
+    this.cancelarTemporizadorHistoria();
   }
 
   private cancelarTemporizadorHistoria() {
@@ -1647,7 +1702,7 @@ export class PainelPage implements OnInit {
     }
     this.visualizacoesAbertas.set(true);
     this.historiaPausada.set(true);
-    this.cancelarTemporizadorHistoria();
+    this.pausarTemporizadorHistoria();
     this.carregandoVisualizacoes.set(true);
     this.api.listarVisualizacoesHistoria(historia.id).subscribe({
       next: (itens) => {
@@ -1665,8 +1720,12 @@ export class PainelPage implements OnInit {
     if (!confirm('Excluir esta história?')) return;
     this.api.removerHistoria(historia.id).subscribe({
       next: () => {
+        const grupo = this.gruposHistorias().find((item) => item.usuario.id === historia.usuario.id);
+        const vizinha = historiaAdjacente(grupo, historia.id, 1) || historiaAdjacente(grupo, historia.id, -1);
         this.historias.update((itens) => itens.filter((item) => item.id !== historia.id));
-        this.fecharHistoria();
+        this.agendarExpiracaoHistorias();
+        if (vizinha) this.abrirHistoria(vizinha);
+        else this.fecharHistoria();
       },
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível excluir a história.'),
     });
@@ -2154,9 +2213,37 @@ export class PainelPage implements OnInit {
 
   private carregarHistorias() {
     this.api.listarHistorias().subscribe({
-      next: (historias) => this.historias.set(historias),
+      next: (historias) => {
+        this.historias.set(historias);
+        this.agendarExpiracaoHistorias();
+      },
       error: () => this.historias.set([]),
     });
+  }
+
+  private agendarExpiracaoHistorias() {
+    if (this.temporizadorExpiracaoHistorias) clearTimeout(this.temporizadorExpiracaoHistorias);
+    const agora = Date.now();
+    const abertas = this.historias();
+    const ativas = abertas.filter((historia) => new Date(historia.dataExpiracao).getTime() > agora);
+    if (ativas.length !== abertas.length) {
+      const atual = this.historiaAberta();
+      this.historias.set(ativas);
+      if (atual && !ativas.some((historia) => historia.id === atual.id)) {
+        const mesmaPessoa = ativas.filter((historia) => historia.usuario.id === atual.usuario.id)
+          .sort((a, b) => new Date(a.dataCriacao).getTime() - new Date(b.dataCriacao).getTime());
+        const proxima = mesmaPessoa.find((historia) => new Date(historia.dataCriacao).getTime() > new Date(atual.dataCriacao).getTime());
+        if (proxima || mesmaPessoa.at(-1)) this.abrirHistoria(proxima || mesmaPessoa.at(-1)!);
+        else this.fecharHistoria();
+      }
+    }
+    const proximaExpiracao = Math.min(...ativas.map((historia) => new Date(historia.dataExpiracao).getTime()));
+    if (Number.isFinite(proximaExpiracao)) {
+      this.temporizadorExpiracaoHistorias = setTimeout(
+        () => this.agendarExpiracaoHistorias(),
+        Math.min(Math.max(proximaExpiracao - Date.now(), 1), 2_147_483_647),
+      );
+    }
   }
 
   private finalizarErroHistoria(mensagem: string) {

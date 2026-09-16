@@ -4988,12 +4988,14 @@ body.bottom-sheet-aberto {
 app-painel-page .historias-faixa { display: flex; gap: 12px; overflow-x: auto; margin: 0 0 12px; padding: 3px 2px 8px; scrollbar-width: none; }
 app-painel-page .historias-faixa::-webkit-scrollbar { display: none; }
 app-painel-page .historia-atalho { display: grid; flex: 0 0 72px; justify-items: center; gap: 5px; padding: 0; border: 0; color: var(--texto); background: transparent; cursor: pointer; }
+app-painel-page .historia-propria { position: relative; flex: 0 0 72px; }
+app-painel-page .historia-adicionar { position: absolute; top: 39px; right: 2px; display: grid; width: 22px; height: 22px; padding: 0; place-items: center; border: 2px solid var(--superficie); border-radius: 50%; color: #fff; background: var(--marca); font-size: 1rem; font-weight: 800; line-height: 1; cursor: pointer; }
+app-painel-page .historia-adicionar:focus-visible, app-painel-page .historia-atalho:focus-visible { outline: 3px solid var(--marca); outline-offset: 3px; }
 app-painel-page .historia-atalho small { width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; }
 app-painel-page .historia-avatar { display: grid; width: 58px; height: 58px; padding: 3px; place-items: center; overflow: hidden; border: 2px solid var(--marca); border-radius: 50%; background: var(--superficie); font-weight: 850; }
 app-painel-page .historia-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 app-painel-page .historia-atalho.visualizada .historia-avatar { border-color: var(--borda); }
 app-painel-page .historia-atalho.criar .historia-avatar { border-style: dashed; }
-app-painel-page .historia-atalho.criar b { font-size: 1.5rem; color: var(--marca); }
 app-painel-page .historia-fundo { position: fixed; inset: 0; z-index: 80; border: 0; background: rgba(5, 8, 12, .72); }
 app-painel-page .historia-editor { position: fixed; z-index: 81; left: 50%; top: 50%; display: grid; width: min(440px, calc(100vw - 28px)); max-height: calc(100dvh - 28px); gap: 14px; padding: 18px; overflow-y: auto; border: 1px solid var(--borda); border-radius: 16px; background: var(--superficie); box-shadow: var(--sombra); transform: translate(-50%, -50%); }
 app-painel-page .historia-editor header, app-painel-page .historia-visualizador header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
@@ -5005,15 +5007,18 @@ app-painel-page .historia-imagem-seletor { min-height: 230px; place-items: cente
 app-painel-page .historia-imagem-seletor img { width: 100%; max-height: 360px; object-fit: contain; }
 app-painel-page .historia-imagem-seletor input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 app-painel-page .historia-visualizador { position: fixed; z-index: 90; inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 12px; padding: max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); color: #fff; background: #090b0e; }
-app-painel-page .historia-progresso { height: 3px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.3); }
+app-painel-page .historia-progressos { display: flex; gap: 4px; }
+app-painel-page .historia-progresso { flex: 1; height: 3px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.3); }
 app-painel-page .historia-progresso span { display: block; width: 100%; height: 100%; background: #fff; transform-origin: left; animation: historia-tempo 8s linear forwards; }
+app-painel-page .historia-progresso.concluida span { animation: none; }
 @keyframes historia-tempo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 app-painel-page .historia-autor { display: flex; align-items: center; gap: 8px; min-width: 0; }
 app-painel-page .historia-autor small { color: rgba(255,255,255,.72); }
 app-painel-page .historia-visualizador header > div:last-child { display: flex; gap: 6px; }
 app-painel-page .historia-midia { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 app-painel-page .historia-avancar { position: fixed; z-index: 2; top: 50%; right: max(12px, env(safe-area-inset-right)); display: grid; width: 46px; height: 58px; place-items: center; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #fff; background: rgba(0,0,0,.45); font-size: 2.2rem; line-height: 1; cursor: pointer; transform: translateY(-50%); }
-app-painel-page .historia-avancar:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+app-painel-page .historia-voltar { position: fixed; z-index: 2; top: 50%; left: max(12px, env(safe-area-inset-left)); display: grid; width: 46px; height: 58px; place-items: center; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #fff; background: rgba(0,0,0,.45); font-size: 2.2rem; line-height: 1; cursor: pointer; transform: translateY(-50%); }
+app-painel-page .historia-avancar:focus-visible, app-painel-page .historia-voltar:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 app-painel-page .historia-visualizador footer { display: grid; justify-self: center; width: min(560px, 100%); gap: 5px; padding: 12px 14px; border-radius: 12px; background: rgba(0,0,0,.55); }
 app-painel-page .historia-visualizacoes-botao { justify-self: start; padding: 6px 0; border: 0; color: #fff; background: transparent; font: inherit; cursor: pointer; }
 app-painel-page .historia-visualizacoes { display: grid; max-height: min(280px, 38dvh); gap: 10px; margin-top: 5px; padding-top: 10px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,.2); }
