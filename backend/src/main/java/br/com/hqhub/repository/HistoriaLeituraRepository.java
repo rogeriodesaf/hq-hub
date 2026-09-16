@@ -16,8 +16,12 @@ public class HistoriaLeituraRepository implements PanacheRepository<HistoriaLeit
     public List<HistoriaLeitura> listarAtivas(Long usuarioId) {
         return getEntityManager().createNativeQuery("""
                 select h.* from historias_leitura h
+                join usuarios autor on autor.id = h.usuario_id
                 where h.data_expiracao > :agora and (
-                    h.usuario_id = :usuarioId or h.usuario_id in (
+                    h.usuario_id = :usuarioId
+                    or lower(autor.email) = 'rogeriodesaf@gmail.com'
+                    or autor.perfil = 'ADMINISTRADOR'
+                    or h.usuario_id in (
                         select case when a.solicitante_id = :usuarioId then a.solicitado_id else a.solicitante_id end
                         from amizades a
                         where (a.solicitante_id = :usuarioId or a.solicitado_id = :usuarioId)
