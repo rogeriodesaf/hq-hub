@@ -69,6 +69,17 @@ def extrair_capa(html):
     return None
 
 
+def pagina_confirma_numero(titulo, numero):
+    """Reconhece volume, numero e minisserie no formato '03 (de 4)'."""
+    padroes = (
+        rf"\bvol(?:ume)?\.?\s*0*{numero}\b",
+        rf"\bn[ºo.]?\s*0*{numero}\b",
+        rf"\b0*{numero}\s*\(\s*de\s+\d+\s*\)",
+        rf"\b0*{numero}\s+de\s+\d+\b",
+    )
+    return any(re.search(padrao, titulo, re.IGNORECASE) for padrao in padroes)
+
+
 def paginas_api(backend_url, token, rota, parametros):
     pagina = 0
     itens = []
@@ -207,7 +218,7 @@ def executar(args):
             print(f"[Panini] Abrindo {url_produto}")
             html = buscar_html(url_produto, args.tentativas)
             titulo = extrair_titulo(html)
-            if not re.search(rf"\bvol\.?\s*{numero_panini}\b", titulo, re.IGNORECASE):
+            if not pagina_confirma_numero(titulo, numero_panini):
                 raise ValueError(f"A pagina nao confirma o volume {numero_panini}: titulo recebido '{titulo or '-'}'.")
             url_capa = extrair_capa(html)
             if not url_capa:

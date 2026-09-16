@@ -196,7 +196,10 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     if not numero.isdigit():
         return True
     normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
-    encontrados = re.findall(r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*0*(\d+(?:[.,]\d+)?)", normalizado)
+    minisserie = re.search(r"\b0*(\d+)\s*\(\s*de\s+\d+\s*\)", normalizado)
+    encontrados = [minisserie.group(1)] if minisserie else re.findall(
+        r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*0*(\d+(?:[.,]\d+)?)", normalizado
+    )
     if not encontrados:
         numero_final = re.search(r"(?:^|\s)0*(\d+)\s*$", normalizado)
         if numero_final:
@@ -437,6 +440,7 @@ def extrair_produto(url):
         r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)',
         r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image',
         r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)',
+        r'<link[^>]+itemprop=["\']image["\'][^>]+href=["\']([^"\']+)',
     ]
     for padrao in padroes:
         achado = re.search(padrao, html, re.I)
@@ -812,6 +816,12 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Panini" and str(numero or "").isdigit():
         url_direta = f"https://panini.com.br/{slug(titulo_panini)}-vol-{int(numero)}"
         resultados.append({"url": url_direta, "titulo": ""})
+        # Minisserias recentes usam slugs como "-03-de-4", nao "-vol-3".
+        for total in range(int(numero), 13):
+            resultados.append({
+                "url": f"https://panini.com.br/{slug(titulo_panini)}-{int(numero):02d}-de-{total}",
+                "titulo": "",
+            })
         if int(numero) == 1:
             # Especiais e antologias de edição única frequentemente são
             # cadastrados como nº 1 no Guia, mas não usam "vol-1" na Panini.
