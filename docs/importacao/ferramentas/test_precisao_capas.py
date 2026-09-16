@@ -8,6 +8,25 @@ import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_panini_ultimo_dia_das_bruxas_usa_alias_e_numero_com_zero(self):
+        titulo = 'Batman: O Longo Dia das Bruxas - O Último Dia das Bruxas'
+        self.assertEqual(robo.alias_catalogo_loja('Panini', titulo), 'Batman: O Último Dia das Bruxas')
+        url_esperada = 'https://panini.com.br/batman-o-ultimo-dia-das-bruxas-11'
+        chamadas = []
+
+        def extrair(url):
+            chamadas.append(url)
+            if url == url_esperada:
+                return 'https://imagem/panini-11.webp', 'Batman: O Último Dia Das Bruxas 11'
+            raise OSError('Página ausente')
+
+        with patch.object(robo, 'resultados_loja', return_value=[]), \
+                patch.object(robo, 'resultados_bing', return_value=[]), \
+                patch.object(robo, 'extrair_produto', side_effect=extrair):
+            resposta = robo.buscar_fonte('Panini', 'panini.com.br', '', '', '', set(), titulo, '11')
+        self.assertIn(url_esperada, chamadas)
+        self.assertEqual(resposta[1], 'https://imagem/panini-11.webp')
+
     def test_extrai_capa_principal_da_dc_quando_og_image_esta_vazio(self):
         html = (
             '<title>BATMAN/THE SPIRIT #1 | DC</title>'

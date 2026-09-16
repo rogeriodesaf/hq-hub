@@ -167,6 +167,10 @@ def titulo_base_serie(texto):
 
 def alias_catalogo_loja(nome_fonte, titulo):
     normalizado = slug(titulo)
+    if nome_fonte == "Panini" and normalizado.startswith(
+        "batman-o-longo-dia-das-bruxas-o-ultimo-dia-das-bruxas"
+    ):
+        return "Batman: O Último Dia das Bruxas"
     primeira_serie_mulher_maravilha = bool(re.match(r"mulher-maravilha-1a?-serie(?:-|$)", normalizado))
     if nome_fonte == "Rika" and primeira_serie_mulher_maravilha:
         return "Mulher Maravilha 2017"
@@ -792,7 +796,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         # volume apesar de aparecerem como nº 1 no Guia.
         titulo_panini = alias_catalogo_loja(nome, titulo)
         exatos = resultados_loja(titulo_panini, dominio, modelo_busca)
-        titulo_indice = titulo_validacao_panini(titulo)
+        titulo_indice = titulo_validacao_panini(titulo_panini)
         if titulo_indice != titulo_panini:
             encontrados_reduzidos = resultados_loja(
                 titulo_indice, dominio, modelo_busca
@@ -830,6 +834,11 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     if nome == "Panini" and str(numero or "").isdigit():
         url_direta = f"https://panini.com.br/{slug(titulo_panini)}-vol-{int(numero)}"
         resultados.append({"url": url_direta, "titulo": ""})
+        if slug(titulo_panini) == "batman-o-ultimo-dia-das-bruxas":
+            resultados.append({
+                "url": f"https://panini.com.br/{slug(titulo_panini)}-{int(numero):02d}",
+                "titulo": "",
+            })
         # Minisserias recentes usam slugs como "-03-de-4", nao "-vol-3".
         for total in range(int(numero), 13):
             resultados.append({
@@ -872,7 +881,7 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         if produto_multiplo(f"{titulo_produto or ''} {resultado['url']}"):
             continue
         alias_titulo = alias_catalogo_loja(nome, titulo)
-        titulo_validacao = titulo_validacao_panini(titulo) if nome in {
+        titulo_validacao = titulo_validacao_panini(alias_titulo) if nome in {
             "Panini", "Mundos Infinitos"
         } else (
             titulo_base_serie(titulo) if nome == "Rika" else titulo
