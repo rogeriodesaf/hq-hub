@@ -4013,6 +4013,45 @@ body.tema-escuro .banner-apoio span {
   margin-bottom: 12px;
 }
 
+.banner-patobah {
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: center;
+  background: linear-gradient(135deg, #090506 0%, #251013 55%, #421b10 100%);
+  border-color: rgba(245, 158, 11, 0.42);
+  color: #fff;
+}
+
+.banner-patobah img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.banner-patobah span {
+  display: grid;
+  gap: 5px;
+}
+
+.banner-patobah strong {
+  color: #ffad16;
+  font-size: 1.15rem;
+}
+
+.banner-patobah small {
+  color: #f8e9d2;
+  line-height: 1.4;
+}
+
+.banner-patobah b {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 7px 11px;
+  border-radius: 7px;
+  background: #f59e0b;
+  color: #211006;
+}
+
 .atalhos-feed a {
   display: flex;
   align-items: center;
@@ -4915,6 +4954,10 @@ body.bottom-sheet-aberto {
 
   .banner-evolukit {
     grid-template-columns: 1fr;
+  }
+
+  .banner-patobah {
+    grid-template-columns: 88px minmax(0, 1fr);
   }
 
   .banner-evolukit span {

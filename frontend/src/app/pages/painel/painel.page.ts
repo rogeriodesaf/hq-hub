@@ -459,6 +459,20 @@ import { environment } from '../../../environments/environment';
             @if (exibirPromocoesApos($index)) {
               <section class="promocoes-feed" aria-label="Publicidade e apoio ao HQ-HUB">
                 <a
+                  class="banner-feed banner-patobah"
+                  href="https://patobah.com.br/"
+                  target="_blank"
+                  rel="sponsored noreferrer"
+                  aria-label="Conheça o Patobah, conteúdo sobre games, tecnologia e entretenimento"
+                >
+                  <img src="assets/logo-patobah.webp" alt="Patobah" loading="lazy" />
+                  <span>
+                    <strong>Gamer, aqui é o seu universo!</strong>
+                    <small>Notícias, análises e conteúdo sobre games, tecnologia e cultura nerd.</small>
+                    <b>Conheça o Patobah</b>
+                  </span>
+                </a>
+                <a
                   class="banner-feed banner-evolukit"
                   href="https://link.amazon/B09ZELm0N"
                   target="_blank"
