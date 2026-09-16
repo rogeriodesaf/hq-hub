@@ -62,6 +62,8 @@ public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
     private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.webp";
+    private static final String URL_FRONTEND_ATUAL = "https://hqhub.space";
+    private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
@@ -1199,7 +1201,10 @@ public class CompartilhamentoResource {
     }
 
     private String baseNormalizada() {
-        String base = urlBase == null || urlBase.isBlank() ? "https://hqhub.space" : urlBase.trim();
+        String base = urlBase == null || urlBase.isBlank() ? URL_FRONTEND_ATUAL : urlBase.trim();
+        if (URL_FRONTEND_LEGADA.equalsIgnoreCase(base) || (URL_FRONTEND_LEGADA + "/").equalsIgnoreCase(base)) {
+            return URL_FRONTEND_ATUAL;
+        }
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
 

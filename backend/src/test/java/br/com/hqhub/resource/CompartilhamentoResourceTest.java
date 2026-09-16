@@ -83,6 +83,18 @@ class CompartilhamentoResourceTest {
         }
     }
 
+    @Test
+    void migraUrlLegadaDoFrontendParaDominioPersonalizado() {
+        recurso.urlBase = "https://hqhub-frontend.onrender.com/";
+
+        try (Response resposta = recurso.compartilharGuiaXMen()) {
+            String html = resposta.getEntity().toString();
+
+            assertTrue(html.contains("https://hqhub.space/guia-de-leitura-app/ordem-de-leitura-mutante"));
+            assertFalse(html.contains("https://hqhub-frontend.onrender.com"));
+        }
+    }
+
     private EdicaoRespostaDTO edicao(Long id, String serie, String numero) {
         return new EdicaoRespostaDTO(id, numero, null, null, null, null,
                 "Conheça esta edição.", null, null, null, LocalDate.of(2021, 5, 1),
