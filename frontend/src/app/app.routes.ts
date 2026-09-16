@@ -90,8 +90,7 @@ export const routes: Routes = [
       },
       {
         path: 'colecao/adicionar',
-        redirectTo: 'catalogo',
-        pathMatch: 'full',
+        loadComponent: () => import('./pages/colecao/colecao.page').then((m) => m.ColecaoPage),
       },
       {
         path: 'colecao',
