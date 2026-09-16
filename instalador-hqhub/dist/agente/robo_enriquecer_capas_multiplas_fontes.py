@@ -7,7 +7,7 @@ registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
 import base64
-from concurrent.futures import ThreadPoolExecutor, CancelledError, as_completed
+from concurrent.futures import ThreadPoolExecutor, CancelledError, TimeoutError as FuturesTimeoutError, as_completed
 from functools import lru_cache
 import json
 import re
@@ -15,7 +15,7 @@ import unicodedata
 from html import unescape
 from pathlib import Path
 from threading import Event, local
-from time import sleep
+from time import monotonic, sleep
 from urllib.parse import parse_qs, parse_qsl, quote, urlencode, urljoin, urlparse, urlunparse
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -51,6 +51,19 @@ def verificar_cancelamento():
     cancelamento = getattr(CONTEXTO_BUSCA, "cancelamento", None)
     if cancelamento is not None and cancelamento.is_set():
         raise CancelledError()
+    prazo = getattr(CONTEXTO_BUSCA, "prazo", None)
+    if prazo is not None and monotonic() >= prazo:
+        raise TimeoutError("Tempo limite da busca desta edição esgotado.")
+
+
+def timeout_requisicao(padrao):
+    prazo = getattr(CONTEXTO_BUSCA, "prazo", None)
+    if prazo is None:
+        return padrao
+    restante = prazo - monotonic()
+    if restante <= 0:
+        raise TimeoutError("Tempo limite da busca desta edição esgotado.")
+    return min(padrao, restante)
 
 
 def baixar(url):
@@ -91,14 +104,14 @@ def baixar_cached(url):
     for tentativa in range(2):
         verificar_cancelamento()
         try:
-            with urlopen(req, timeout=12) as resposta:
+            with urlopen(req, timeout=timeout_requisicao(12)) as resposta:
                 return resposta.read().decode("utf-8", errors="replace")
         except HTTPError as erro:
             alternativa = proxy_comix(url) if erro.code == 403 else None
             if alternativa:
                 try:
                     cabecalhos = dict(req.header_items())
-                    with urlopen(Request(alternativa, headers=cabecalhos), timeout=18) as resposta:
+                    with urlopen(Request(alternativa, headers=cabecalhos), timeout=timeout_requisicao(18)) as resposta:
                         return resposta.read().decode("utf-8", errors="replace")
                 except Exception as erro_proxy:
                     ultimo_erro = erro_proxy
@@ -109,7 +122,8 @@ def baixar_cached(url):
         except Exception as erro:
             ultimo_erro = erro
         if tentativa == 0:
-            sleep(0.5)
+            verificar_cancelamento()
+            sleep(min(0.5, timeout_requisicao(0.5)))
     raise ultimo_erro
 
 
@@ -898,22 +912,25 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
     return nome, None, None, None
 
 
-def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, numero, item):
+def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, numero, item, tempo_limite_segundos=45):
     """Aceita o primeiro resultado validado sem bloquear por uma loja lenta."""
     cancelamento = Event()
     usadas = frozenset(capas_usadas)
+    prazo = monotonic() + tempo_limite_segundos
 
     def executar(fonte):
         CONTEXTO_BUSCA.cancelamento = cancelamento
+        CONTEXTO_BUSCA.prazo = prazo
         try:
             verificar_cancelamento()
             return buscar_fonte(*fonte, busca_loja, busca, usadas, titulo, numero)
         finally:
             CONTEXTO_BUSCA.cancelamento = None
+            CONTEXTO_BUSCA.prazo = None
 
     tarefas = {executor.submit(executar, fonte): fonte[0] for fonte in fontes}
     try:
-        for tarefa in as_completed(tarefas):
+        for tarefa in as_completed(tarefas, timeout=tempo_limite_segundos):
             nome = tarefas[tarefa]
             try:
                 resposta = tarefa.result()
@@ -922,6 +939,9 @@ def consultar_fontes(executor, fontes, busca_loja, busca, capas_usadas, titulo, 
                 continue
             if resposta and resposta[1]:
                 return resposta
+        return None
+    except FuturesTimeoutError:
+        item.setdefault("erros", []).append(f"Tempo limite de {tempo_limite_segundos:g} segundos esgotado para esta edição.")
         return None
     finally:
         cancelamento.set()
@@ -1005,7 +1025,7 @@ def enriquecer_com_executor(args, executor):
         )
         resposta = consultar_fontes(
             executor, fontes, busca_loja, busca, capas_usadas,
-            titulo_busca, numero_busca, item,
+            titulo_busca, numero_busca, item, getattr(args, "tempo_limite_edicao", 45),
         )
         if resposta and resposta[1]:
             nome, capa, url_produto, _ = resposta
@@ -1042,7 +1062,11 @@ def main():
     parser.add_argument("--pasta", default="docs/importacao/rascunhos", help="Pasta pesquisada quando --entrada é omitido.")
     parser.add_argument("--substituir", action="store_true", help="Também procura capa para edições já preenchidas.")
     parser.add_argument("--intervalo-segundos", type=float, default=1.0)
+    parser.add_argument("--tempo-limite-edicao", type=float, default=45,
+                        help="Prazo máximo de busca por edição, em segundos (padrão: 45).")
     args = parser.parse_args()
+    if args.tempo_limite_edicao <= 0:
+        parser.error("--tempo-limite-edicao deve ser maior que zero.")
     enriquecer(args)
 
 

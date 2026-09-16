@@ -40,6 +40,26 @@ class PerformanceCapasTest(unittest.TestCase):
     def tearDown(self):
         robo.baixar_cached.cache_clear()
         robo.CONTEXTO_BUSCA.cancelamento = None
+        robo.CONTEXTO_BUSCA.prazo = None
+
+    def test_edicao_expira_sem_aguardar_fonte_lenta(self):
+        liberar = Event()
+
+        def buscar(nome, *args):
+            liberar.wait(2)
+            return nome, None, None, None
+
+        item = {}
+        with ThreadPoolExecutor(1) as pool, patch.object(robo, 'buscar_fonte', buscar):
+            try:
+                inicio = monotonic()
+                self.assertIsNone(robo.consultar_fontes(
+                    pool, [('lenta', '', '')], '', '', set(), 'Batman', '1', item, 0.05,
+                ))
+                self.assertLess(monotonic() - inicio, 0.5)
+                self.assertIn('Tempo limite', item['erros'][0])
+            finally:
+                liberar.set()
 
     def test_nao_espera_fonte_posterior_e_preserva_prioridade(self):
         iniciou = Event()

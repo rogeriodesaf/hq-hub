@@ -7,7 +7,7 @@ import os
 import re
 import sys
 from html import unescape
-from time import sleep
+from time import monotonic, sleep
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -30,9 +30,13 @@ def requisicao_json(url, token, metodo="GET", dados=None, timeout=60):
         return json.loads(conteudo) if conteudo else None
 
 
-def buscar_html(url, tentativas):
+def buscar_html(url, tentativas, tempo_limite_segundos=45):
     ultimo_erro = None
+    prazo = monotonic() + tempo_limite_segundos
     for tentativa in range(1, tentativas + 1):
+        restante = prazo - monotonic()
+        if restante <= 0:
+            raise TimeoutError(f"Tempo limite de {tempo_limite_segundos:g} segundos esgotado para esta edicao.")
         try:
             requisicao = Request(
                 url,
@@ -41,12 +45,15 @@ def buscar_html(url, tentativas):
                     "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
                 },
             )
-            with urlopen(requisicao, timeout=40) as resposta:
+            with urlopen(requisicao, timeout=min(40, restante)) as resposta:
                 return resposta.read().decode("utf-8", errors="replace")
         except (HTTPError, URLError, TimeoutError) as erro:
             ultimo_erro = erro
             if tentativa < tentativas:
-                sleep(2 * tentativa)
+                restante = prazo - monotonic()
+                if restante <= 0:
+                    raise TimeoutError(f"Tempo limite de {tempo_limite_segundos:g} segundos esgotado para esta edicao.") from erro
+                sleep(min(2 * tentativa, restante))
     raise ultimo_erro
 
 
@@ -216,7 +223,7 @@ def executar(args):
 
         try:
             print(f"[Panini] Abrindo {url_produto}")
-            html = buscar_html(url_produto, args.tentativas)
+            html = buscar_html(url_produto, args.tentativas, args.tempo_limite_edicao)
             titulo = extrair_titulo(html)
             if not pagina_confirma_numero(titulo, numero_panini):
                 raise ValueError(f"A pagina nao confirma o volume {numero_panini}: titulo recebido '{titulo or '-'}'.")
@@ -266,6 +273,8 @@ def main():
     parser.add_argument("--numero-final", type=int, required=True)
     parser.add_argument("--intervalo-segundos", type=float, default=0.7)
     parser.add_argument("--tentativas", type=int, default=3)
+    parser.add_argument("--tempo-limite-edicao", type=float, default=45,
+                        help="Prazo maximo de busca por edicao, em segundos (padrao: 45).")
     parser.add_argument("--somente-sem-capa", action="store_true", help="Nao substitui capas que ja existem.")
     parser.add_argument(
         "--remover-fora-intervalo",
@@ -280,6 +289,8 @@ def main():
     args = parser.parse_args()
     if args.numero_inicial < 1 or args.numero_final < args.numero_inicial:
         parser.error("O intervalo de numeros e invalido.")
+    if args.tentativas < 1 or args.tempo_limite_edicao <= 0:
+        parser.error("--tentativas e --tempo-limite-edicao devem ser maiores que zero.")
     executar(args)
 
 
