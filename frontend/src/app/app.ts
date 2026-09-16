@@ -27,6 +27,7 @@ import { ApiService } from './core/api.service';
 import { AtualizacaoAppService } from './core/atualizacao-app.service';
 import { resolverUrlMidia } from './core/midia-url';
 import { Amizade, ContribuicaoCatalogo, ConversaDireta } from './core/modelos';
+import { SeoService } from './core/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,7 @@ export class App implements OnInit {
   private static readonly CHAVE_FEED_VISTO = 'hqhub.feed.vistoEm';
   private static readonly CHAVE_TEMA = 'hqhub.tema';
   private readonly roteador = inject(Router);
+  private readonly seo = inject(SeoService);
   private readonly api = inject(ApiService);
   readonly atualizacaoApp = inject(AtualizacaoAppService);
   readonly autenticacaoService = inject(AutenticacaoService);
@@ -96,6 +98,7 @@ export class App implements OnInit {
 
   ngOnInit() {
     this.urlAtual.set(this.roteador.url);
+    this.seo.atualizar(this.roteador.url);
     this.carregarTema();
     this.carregarPendenciasCatalogo();
     this.carregarNovidadesFeed();
@@ -126,6 +129,7 @@ export class App implements OnInit {
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
       .subscribe((evento) => {
         this.urlAtual.set(evento.urlAfterRedirects);
+        this.seo.atualizar(evento.urlAfterRedirects);
         if (evento.urlAfterRedirects.startsWith('/painel')) {
           this.marcarNotificacoesComoVistas();
         }
