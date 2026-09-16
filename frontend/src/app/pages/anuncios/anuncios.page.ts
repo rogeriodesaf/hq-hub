@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
+import { CompartilhamentoService } from '../../core/compartilhamento.service';
 import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core/modelos';
 
 @Component({
@@ -145,6 +146,9 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
               <span>{{ rotuloTipo(anuncio.tipoAnuncio) }} · {{ anuncio.status }}</span>
               <div class="acoes-linha">
                 @if (anuncio.status === 'ATIVO') {
+                  <button class="botao compacto" type="button" (click)="compartilharAnuncio(anuncio)">Compartilhar anúncio</button>
+                }
+                @if (anuncio.status === 'ATIVO') {
                   <button class="botao compacto" type="button" (click)="pausar(anuncio)">Pausar</button>
                 } @else if (anuncio.status === 'PAUSADO') {
                   <button class="botao compacto" type="button" (click)="reativar(anuncio)">Reativar</button>
@@ -184,6 +188,7 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
               <span>{{ anuncio.nomeAnunciante }} · {{ anuncio.cidade || 'Cidade nao informada' }}{{ anuncio.estado ? '/' + anuncio.estado : '' }}</span>
               <strong>{{ anuncio.preco ? formatarMoeda(anuncio.preco) : 'Valor a combinar' }}</strong>
               <div class="acoes-linha">
+                <button class="botao compacto" type="button" (click)="compartilharAnuncio(anuncio)">Compartilhar anúncio</button>
                 @if (anuncio.linkContatoWhatsapp) {
                   <button class="botao compacto primario" type="button" (click)="abrirWhatsapp(anuncio.linkContatoWhatsapp)">
                     Chamar no WhatsApp
@@ -206,6 +211,7 @@ import { Anuncio, EstadoConservacao, ItemColecao, TipoAnuncio } from '../../core
 })
 export class AnunciosPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly compartilhamento = inject(CompartilhamentoService);
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly itensColecao = signal<ItemColecao[]>([]);
   readonly itensFiltrados = signal<ItemColecao[]>([]);
@@ -232,12 +238,26 @@ export class AnunciosPage implements OnInit {
   }
 
   async copiarLinkPublico() {
-    const link = `${window.location.origin}/classificados-compartilhar.html`;
+    const link = 'https://hqhub.space/classificados-compartilhar.html';
     try {
       await navigator.clipboard.writeText(link);
       this.mensagemCompartilhamento.set('Link público dos anúncios copiado.');
     } catch {
       this.mensagemCompartilhamento.set(`Copie este link: ${link}`);
+    }
+  }
+
+  async compartilharAnuncio(anuncio: Anuncio) {
+    const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
+    try {
+      const resultado = await this.compartilhamento.compartilhar({
+        title: `${anuncio.tituloEdicao} | HQ-HUB`,
+        text: `Veja este anúncio de ${this.rotuloTipo(anuncio.tipoAnuncio).toLowerCase()} no HQ-HUB.`,
+        url,
+      });
+      if (resultado === 'copiado') this.mensagemCompartilhamento.set('Link do anúncio copiado.');
+    } catch {
+      this.mensagemCompartilhamento.set('Não foi possível compartilhar este anúncio.');
     }
   }
 

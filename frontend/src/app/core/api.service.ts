@@ -835,6 +835,10 @@ export class ApiService {
     return this.http.get<AnuncioPublico[]>('/api/publico/anuncios');
   }
 
+  buscarAnuncioPublico(id: number) {
+    return this.http.get<AnuncioPublico>(`/api/publico/anuncios/${id}`);
+  }
+
   obterEstanteCompartilhada(usuarioId: number) {
     return this.http.get<EstanteCompartilhada>(`/api/publico/estantes/${usuarioId}`);
   }

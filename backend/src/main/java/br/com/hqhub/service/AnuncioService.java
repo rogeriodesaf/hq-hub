@@ -92,23 +92,29 @@ public class AnuncioService {
     public List<AnuncioPublicoDTO> listarAtivosPublicos() {
         return anuncioRepository.listarAtivos()
                 .stream()
-                .map(anuncio -> {
-                    AnuncioRespostaDTO resposta = anuncioMapper.paraResposta(anuncio);
-                    return new AnuncioPublicoDTO(
-                            resposta.id(),
-                            resposta.tituloEdicao(),
-                            resposta.itemColecao().edicao().urlCapa(),
-                            resposta.nomeAnunciante(),
-                            resposta.tipoAnuncio(),
-                            resposta.preco(),
-                            resposta.estadoConservacao(),
-                            resposta.descricao(),
-                            resposta.cidade(),
-                            resposta.estado(),
-                            resposta.linkContatoWhatsapp(),
-                            resposta.dataCriacao());
-                })
+                .map(this::paraPublico)
                 .toList();
+    }
+
+    @Transactional
+    public AnuncioPublicoDTO buscarAtivoPublico(Long id) {
+        Anuncio anuncio = anuncioRepository.findByIdOptional(id)
+                .filter(item -> item.getStatus() == StatusAnuncio.ATIVO)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Anúncio indisponível."));
+        return paraPublico(anuncio);
+    }
+
+    private AnuncioPublicoDTO paraPublico(Anuncio anuncio) {
+        AnuncioRespostaDTO resposta = anuncioMapper.paraResposta(anuncio);
+        String foto = fotoAnuncioRepository.listarPorAnuncio(anuncio.getId()).stream()
+                .map(FotoAnuncio::getUrlImagem)
+                .filter(url -> url != null && !url.isBlank())
+                .findFirst().orElse(null);
+        return new AnuncioPublicoDTO(
+                resposta.id(), resposta.tituloEdicao(), resposta.itemColecao().edicao().urlCapa(), foto,
+                resposta.nomeAnunciante(), resposta.tipoAnuncio(), resposta.preco(), resposta.estadoConservacao(),
+                resposta.descricao(), resposta.cidade(), resposta.estado(), resposta.linkContatoWhatsapp(),
+                resposta.dataCriacao());
     }
 
     @Transactional

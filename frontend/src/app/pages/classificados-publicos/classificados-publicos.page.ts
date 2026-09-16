@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
+import { CompartilhamentoService } from '../../core/compartilhamento.service';
 import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
 
 @Component({
@@ -21,19 +22,46 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
         <a class="botao primario" routerLink="/entrar">Entrar ou criar conta</a>
       </header>
 
+      @if (idSelecionado()) {
+        @if (carregandoDetalhe()) {
+          <section class="estado" role="status">Carregando anúncio...</section>
+        } @else if (anuncioSelecionado(); as anuncio) {
+          <article class="detalhe-anuncio-publico" id="anuncio-selecionado">
+            <img [src]="anuncio.urlFotoExemplar || anuncio.urlCapa || capaReserva" [alt]="'Foto de ' + anuncio.tituloEdicao" (error)="usarReserva($event)" />
+            <div>
+              <p class="rotulo">{{ rotuloTipo(anuncio.tipoAnuncio) }}</p>
+              <h1>{{ anuncio.tituloEdicao }}</h1>
+              @if (anuncio.preco !== null) { <strong>{{ formatarMoeda(anuncio.preco) }}</strong> }
+              @if (anuncio.estadoConservacao) { <p>Conservação: {{ rotuloConservacao(anuncio.estadoConservacao) }}</p> }
+              @if (anuncio.nomeAnunciante) { <p>Anunciante: {{ anuncio.nomeAnunciante }}</p> }
+              @if (anuncio.descricao) { <p>{{ anuncio.descricao }}</p> }
+              <div class="acoes-anuncio-publico">
+                @if (anuncio.linkContatoWhatsapp) { <a class="botao primario compacto" [href]="anuncio.linkContatoWhatsapp" target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp</a> }
+                <button class="botao compacto" type="button" (click)="compartilharAnuncio(anuncio)">Compartilhar anúncio</button>
+                <a class="botao compacto" routerLink="/classificados" [queryParams]="{}">Ver todos</a>
+              </div>
+              @if (mensagemCompartilhamento()) { <p role="status">{{ mensagemCompartilhamento() }}</p> }
+            </div>
+          </article>
+        } @else {
+          <section class="estado"><h2>Anúncio indisponível</h2><p>Este anúncio não está mais ativo.</p><a routerLink="/classificados">Ver classificados</a></section>
+        }
+      }
+
       @if (carregando()) {
         <section class="estado"><h2>Carregando anúncios...</h2></section>
       } @else {
         <section class="grade">
           @for (anuncio of anuncios(); track anuncio.id) {
             <article class="card">
-              <img [src]="anuncio.urlCapa || capaReserva" [alt]="anuncio.tituloEdicao" loading="lazy" (error)="usarReserva($event)" />
+              <img [src]="anuncio.urlFotoExemplar || anuncio.urlCapa || capaReserva" [alt]="anuncio.tituloEdicao" loading="lazy" (error)="usarReserva($event)" />
               <div>
                 <p class="rotulo">{{ rotuloTipo(anuncio.tipoAnuncio) }}</p>
                 <h2>{{ anuncio.tituloEdicao }}</h2>
                 <p class="descricao">{{ anuncio.descricao || 'Edição anunciada por um colecionador do HQ-HUB.' }}</p>
                 <span>{{ anuncio.nomeAnunciante }} · {{ anuncio.cidade || 'Local não informado' }}{{ anuncio.estado ? '/' + anuncio.estado : '' }}</span>
                 <strong>{{ anuncio.preco ? formatarMoeda(anuncio.preco) : 'Valor a combinar' }}</strong>
+                <a class="botao compacto" routerLink="/classificados" [queryParams]="{ anuncioId: anuncio.id }">Ver anúncio</a>
                 @if (anuncio.linkContatoWhatsapp) {
                   <a class="botao primario compacto" [href]="anuncio.linkContatoWhatsapp" target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp</a>
                 } @else {
@@ -69,16 +97,44 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
     .card strong { color: var(--marca-escura); font-size: 1.12rem; }
     .estado, .convite { margin-top: 24px; padding: 32px; border: 1px solid var(--borda); border-radius: 14px; background: var(--superficie); text-align: center; }
     .convite h2, .convite p { margin: 0 0 10px; }
+    .detalhe-anuncio-publico { display: grid; grid-template-columns: minmax(160px, 260px) minmax(0, 1fr); gap: 22px; margin-top: 24px; padding: 20px; border-radius: 14px; background: var(--superficie); color: var(--texto); }
+    .detalhe-anuncio-publico > img { width: 100%; max-height: 390px; object-fit: contain; background: var(--superficie-2); }
+    .detalhe-anuncio-publico h1 { margin: 0 0 12px; font-size: clamp(1.4rem, 3vw, 2rem); }
+    .detalhe-anuncio-publico p { margin: 8px 0; }
+    .detalhe-anuncio-publico strong { font-size: 1.3rem; }
+    .acoes-anuncio-publico { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    @media (max-width: 620px) { .detalhe-anuncio-publico { grid-template-columns: 1fr; } }
     @media (max-width: 720px) { .hero { grid-template-columns: 1fr; } .hero .botao { width: 100%; } }
   `],
 })
 export class ClassificadosPublicosPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly rota = inject(ActivatedRoute);
+  private readonly compartilhamento = inject(CompartilhamentoService);
   readonly anuncios = signal<AnuncioPublico[]>([]);
   readonly carregando = signal(true);
+  readonly idSelecionado = signal<number | null>(null);
+  readonly anuncioSelecionado = signal<AnuncioPublico | null>(null);
+  readonly carregandoDetalhe = signal(false);
+  readonly mensagemCompartilhamento = signal('');
   readonly capaReserva = 'assets/capa-reserva.svg';
 
   ngOnInit() {
+    this.rota.queryParamMap.subscribe((parametros) => {
+      const id = Number(parametros.get('anuncioId'));
+      this.idSelecionado.set(Number.isInteger(id) && id > 0 ? id : null);
+      this.anuncioSelecionado.set(null);
+      if (!this.idSelecionado()) return;
+      this.carregandoDetalhe.set(true);
+      this.api.buscarAnuncioPublico(id).subscribe({
+        next: (anuncio) => {
+          if (this.idSelecionado() !== id) return;
+          this.anuncioSelecionado.set(anuncio);
+          this.carregandoDetalhe.set(false);
+        },
+        error: () => { if (this.idSelecionado() === id) this.carregandoDetalhe.set(false); },
+      });
+    });
     this.api.listarAnunciosPublicos().subscribe({
       next: (anuncios) => { this.anuncios.set(anuncios); this.carregando.set(false); },
       error: () => this.carregando.set(false),
@@ -91,6 +147,20 @@ export class ClassificadosPublicosPage implements OnInit {
 
   formatarMoeda(valor: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+  }
+
+  rotuloConservacao(valor: string) {
+    return valor.replaceAll('_', ' ').toLowerCase();
+  }
+
+  async compartilharAnuncio(anuncio: AnuncioPublico) {
+    const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
+    try {
+      const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | HQ-HUB`, text: 'Veja este anúncio no HQ-HUB.', url });
+      if (resultado === 'copiado') this.mensagemCompartilhamento.set('Link do anúncio copiado.');
+    } catch {
+      this.mensagemCompartilhamento.set('Não foi possível compartilhar este anúncio.');
+    }
   }
 
   usarReserva(evento: Event) {

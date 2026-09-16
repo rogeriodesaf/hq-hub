@@ -374,6 +374,7 @@ export interface AnuncioPublico {
   id: number;
   tituloEdicao: string;
   urlCapa: string | null;
+  urlFotoExemplar: string | null;
   nomeAnunciante: string;
   tipoAnuncio: TipoAnuncio;
   preco: number | null;

@@ -15,6 +15,9 @@ services:
         source: /hq/*
         destination: https://hqhub-backend.onrender.com/api/compartilhar/hq/*
       - type: rewrite
+        source: /classificados/anuncio/*
+        destination: https://hqhub-backend.onrender.com/api/compartilhar/anuncios/*
+      - type: rewrite
         source: /compartilhar/hq/postagem/*
         destination: https://hqhub-backend.onrender.com/api/compartilhar/postagens/*/v16
       - type: rewrite

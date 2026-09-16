@@ -10,6 +10,7 @@ public record AnuncioPublicoDTO(
         Long id,
         String tituloEdicao,
         String urlCapa,
+        String urlFotoExemplar,
         String nomeAnunciante,
         TipoAnuncio tipoAnuncio,
         BigDecimal preco,

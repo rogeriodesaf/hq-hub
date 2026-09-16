@@ -3,6 +3,7 @@ package br.com.hqhub.resource;
 import br.com.hqhub.service.AnuncioService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -20,5 +21,11 @@ public class AnuncioPublicoResource {
     @GET
     public Response listarAtivos() {
         return Response.ok(anuncioService.listarAtivosPublicos()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response buscarAtivo(@PathParam("id") Long id) {
+        return Response.ok(anuncioService.buscarAtivoPublico(id)).build();
     }
 }
