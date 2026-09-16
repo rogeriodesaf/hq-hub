@@ -5012,6 +5012,8 @@ app-painel-page .historia-autor { display: flex; align-items: center; gap: 8px; 
 app-painel-page .historia-autor small { color: rgba(255,255,255,.72); }
 app-painel-page .historia-visualizador header > div:last-child { display: flex; gap: 6px; }
 app-painel-page .historia-midia { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+app-painel-page .historia-avancar { position: fixed; z-index: 2; top: 50%; right: max(12px, env(safe-area-inset-right)); display: grid; width: 46px; height: 58px; place-items: center; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #fff; background: rgba(0,0,0,.45); font-size: 2.2rem; line-height: 1; cursor: pointer; transform: translateY(-50%); }
+app-painel-page .historia-avancar:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 app-painel-page .historia-visualizador footer { display: grid; justify-self: center; width: min(560px, 100%); gap: 5px; padding: 12px 14px; border-radius: 12px; background: rgba(0,0,0,.55); }
 app-painel-page .historia-visualizacoes-botao { justify-self: start; padding: 6px 0; border: 0; color: #fff; background: transparent; font: inherit; cursor: pointer; }
 app-painel-page .historia-visualizacoes { display: grid; max-height: min(280px, 38dvh); gap: 10px; margin-top: 5px; padding-top: 10px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,.2); }

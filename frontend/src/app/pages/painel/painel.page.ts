@@ -553,7 +553,9 @@ import { environment } from '../../../environments/environment';
 
     @if (historiaAberta(); as historia) {
       <section class="historia-visualizador" role="dialog" aria-modal="true" aria-label="História de leitura">
-        <div class="historia-progresso"><span [style.animation-play-state]="historiaPausada() ? 'paused' : 'running'"></span></div>
+        @for (historiaId of [historia.id]; track historiaId) {
+          <div class="historia-progresso"><span [style.animation-play-state]="historiaPausada() ? 'paused' : 'running'"></span></div>
+        }
         <header>
           <div class="historia-autor"><span class="avatar-feed">{{ iniciais(historia.usuario.nome) }}</span><strong>{{ historia.usuario.nome }}</strong><small>{{ dataRelativa(historia.dataCriacao) }}</small></div>
           <div>
@@ -562,6 +564,9 @@ import { environment } from '../../../environments/environment';
           </div>
         </header>
         <img class="historia-midia" [src]="historia.urlImagem" [alt]="historia.tituloHq || 'História de leitura'" />
+        @if (temProximaHistoria(historia)) {
+          <button class="historia-avancar" type="button" (click)="avancarHistoria()" aria-label="Próximo story">›</button>
+        }
         <div class="historia-interacoes">
           <button type="button" (click)="curtirHistoria(historia)" [class.ativa]="historia.curtidaPeloUsuario">♥ {{ historia.totalCurtidas }}</button>
           <button type="button" (click)="alternarComentariosHistoria()">💬 {{ historia.comentarios.length }}</button>
@@ -1583,6 +1588,21 @@ export class PainelPage implements OnInit {
     this.visualizacoesHistoria.set([]);
   }
 
+  temProximaHistoria(historia: HistoriaLeitura) {
+    const indice = this.historias().findIndex((item) => item.id === historia.id);
+    return indice >= 0 && indice < this.historias().length - 1;
+  }
+
+  avancarHistoria() {
+    const atual = this.historiaAberta();
+    if (!atual) return;
+    const historias = this.historias();
+    const indice = historias.findIndex((item) => item.id === atual.id);
+    const proxima = indice >= 0 ? historias[indice + 1] : null;
+    if (proxima) this.abrirHistoria(proxima);
+    else this.fecharHistoria();
+  }
+
   curtirHistoria(historia: HistoriaLeitura) {
     this.api.curtirHistoria(historia.id).subscribe({ next: (atualizada) => this.atualizarHistoriaAberta(atualizada) });
   }
@@ -1610,7 +1630,7 @@ export class PainelPage implements OnInit {
 
   private iniciarTemporizadorHistoria() {
     this.cancelarTemporizadorHistoria();
-    this.temporizadorHistoria = setTimeout(() => this.fecharHistoria(), 8000);
+    this.temporizadorHistoria = setTimeout(() => this.avancarHistoria(), 8000);
   }
 
   private cancelarTemporizadorHistoria() {
