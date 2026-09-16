@@ -9,6 +9,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class HistoriaLeituraRepository implements PanacheRepository<HistoriaLeitura> {
+    public List<HistoriaLeitura> listarExpiradas() {
+        return list("dataExpiracao <= ?1", LocalDateTime.now());
+    }
+
     public List<HistoriaLeitura> listarAtivas(Long usuarioId) {
         return getEntityManager().createNativeQuery("""
                 select h.* from historias_leitura h

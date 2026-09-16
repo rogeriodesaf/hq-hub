@@ -131,6 +131,31 @@ public class FeedMidiaService {
         }
     }
 
+    public void excluirImagemPorUrl(String urlImagem) {
+        if (urlImagem == null || urlImagem.isBlank()) return;
+        if (cloudinaryAtivo()) {
+            excluirImagemCloudinaryPorUrl(urlImagem);
+            return;
+        }
+        try {
+            URI uri = URI.create(urlImagem);
+            String caminho = uri.getPath();
+            String prefixo = "/api/midia/feed/";
+            int indice = caminho.indexOf(prefixo);
+            if (indice < 0) return;
+            String nome = caminho.substring(indice + prefixo.length());
+            if (nome.isBlank() || nome.contains("/") || nome.contains("\\") || nome.contains("..")) return;
+            Files.deleteIfExists(diretorioBase().resolve(nome).normalize());
+            int ponto = nome.lastIndexOf('.');
+            if (ponto > 0) {
+                String thumb = nome.substring(0, ponto) + "-thumb" + nome.substring(ponto);
+                Files.deleteIfExists(diretorioThumbs().resolve(thumb).normalize());
+            }
+        } catch (IOException | IllegalArgumentException e) {
+            // Limpeza em melhor esforço; o registro expirado ainda pode ser removido.
+        }
+    }
+
     private ImagemFeedDTO salvarImagem(FileUpload arquivo, int ordem) {
         Path origem = arquivo.uploadedFile();
         String tipoMime = normalizarTipo(arquivo.contentType());

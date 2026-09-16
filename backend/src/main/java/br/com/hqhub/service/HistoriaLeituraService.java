@@ -14,6 +14,7 @@ import br.com.hqhub.repository.HistoriaLeituraRepository;
 import br.com.hqhub.repository.VisualizacaoHistoriaLeituraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped
 public class HistoriaLeituraService {
@@ -21,18 +22,23 @@ public class HistoriaLeituraService {
     private final VisualizacaoHistoriaLeituraRepository visualizacoes;
     private final UsuarioAutenticadoService autenticacao;
     private final UsuarioMapper usuarioMapper;
+    private final FeedMidiaService midia;
 
     public HistoriaLeituraService(HistoriaLeituraRepository historias,
             VisualizacaoHistoriaLeituraRepository visualizacoes,
             UsuarioAutenticadoService autenticacao,
-            UsuarioMapper usuarioMapper) {
+            UsuarioMapper usuarioMapper,
+            FeedMidiaService midia) {
         this.historias = historias;
         this.visualizacoes = visualizacoes;
         this.autenticacao = autenticacao;
         this.usuarioMapper = usuarioMapper;
+        this.midia = midia;
     }
 
+    @Transactional
     public List<HistoriaLeituraRespostaDTO> listar() {
+        limparExpiradas();
         Usuario usuario = autenticacao.obterUsuario();
         return historias.listarAtivas(usuario.getId()).stream()
                 .map(historia -> paraResposta(historia, usuario.getId()))
@@ -41,6 +47,7 @@ public class HistoriaLeituraService {
 
     @Transactional
     public HistoriaLeituraRespostaDTO criar(CadastroHistoriaLeituraDTO dto) {
+        limparExpiradas();
         Usuario usuario = autenticacao.obterUsuario();
         HistoriaLeitura historia = new HistoriaLeitura();
         historia.setUsuario(usuario);
@@ -78,6 +85,7 @@ public class HistoriaLeituraService {
         if (!historia.getUsuario().getId().equals(usuario.getId())) {
             throw new RegraNegocioException("Você não pode excluir esta história.");
         }
+        midia.excluirImagemPorUrl(historia.getUrlImagem());
         historias.delete(historia);
     }
 
@@ -106,5 +114,14 @@ public class HistoriaLeituraService {
     private String limpar(String valor) {
         if (valor == null || valor.isBlank()) return null;
         return valor.trim();
+    }
+
+    @Scheduled(every = "1h")
+    @Transactional
+    public void limparExpiradas() {
+        for (HistoriaLeitura historia : historias.listarExpiradas()) {
+            midia.excluirImagemPorUrl(historia.getUrlImagem());
+            historias.delete(historia);
+        }
     }
 }

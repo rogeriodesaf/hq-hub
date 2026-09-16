@@ -533,7 +533,7 @@ import { environment } from '../../../environments/environment';
         <header><div><p class="rotulo">24 horas</p><h2 id="titulo-nova-historia">Nova história de leitura</h2></div><button type="button" (click)="fecharCriadorHistoria()" aria-label="Fechar">×</button></header>
         <label class="historia-imagem-seletor">
           @if (previewHistoria()) { <img [src]="previewHistoria()!" alt="Prévia da história" /> }
-          @else { <span>📷</span><strong>Escolher uma imagem</strong><small>JPG, PNG ou WebP · até 2 MB</small> }
+          @else { <span>📷</span><strong>Escolher uma imagem</strong><small>JPG, PNG ou WebP · até 10 MB</small> }
           <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarImagemHistoria($event)" />
         </label>
         <label>HQ relacionada (opcional)<input [(ngModel)]="tituloHqHistoria" maxlength="300" placeholder="Ex.: Batman: Ano Um" /></label>
@@ -1447,19 +1447,27 @@ export class PainelPage implements OnInit {
     this.criadorHistoriaAberto.set(false);
   }
 
-  selecionarImagemHistoria(evento: Event) {
+  async selecionarImagemHistoria(evento: Event) {
     const arquivo = (evento.target as HTMLInputElement).files?.[0] || null;
     if (!arquivo) return;
-    const erro = this.validarImagens([arquivo], false);
-    if (erro) {
-      this.mensagemHistoria.set(erro);
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(arquivo.type)) {
+      this.mensagemHistoria.set('Use apenas imagens JPG, PNG ou WebP.');
       return;
     }
-    const anterior = this.previewHistoria();
-    if (anterior?.startsWith('blob:')) URL.revokeObjectURL(anterior);
-    this.arquivoHistoria = arquivo;
-    this.previewHistoria.set(URL.createObjectURL(arquivo));
-    this.mensagemHistoria.set('');
+    if (arquivo.size > 10 * 1024 * 1024) {
+      this.mensagemHistoria.set('A foto original deve ter no máximo 10 MB.');
+      return;
+    }
+    try {
+      const otimizada = await this.comprimirImagemHistoria(arquivo);
+      const anterior = this.previewHistoria();
+      if (anterior?.startsWith('blob:')) URL.revokeObjectURL(anterior);
+      this.arquivoHistoria = otimizada;
+      this.previewHistoria.set(URL.createObjectURL(otimizada));
+      this.mensagemHistoria.set('');
+    } catch {
+      this.mensagemHistoria.set('Não foi possível preparar esta imagem. Escolha outra foto.');
+    }
   }
 
   publicarHistoria() {
@@ -2019,6 +2027,36 @@ export class PainelPage implements OnInit {
     this.textoHistoria = '';
     this.tituloHqHistoria = '';
     this.mensagemHistoria.set('');
+  }
+
+  private async comprimirImagemHistoria(arquivo: File): Promise<File> {
+    const bitmap = await createImageBitmap(arquivo);
+    try {
+      let escala = Math.min(1, 2048 / Math.max(bitmap.width, bitmap.height));
+      let qualidade = 0.84;
+      let blob: Blob | null = null;
+      for (let tentativa = 0; tentativa < 5; tentativa++) {
+        const largura = Math.max(1, Math.round(bitmap.width * escala));
+        const altura = Math.max(1, Math.round(bitmap.height * escala));
+        const canvas = document.createElement('canvas');
+        canvas.width = largura;
+        canvas.height = altura;
+        const contexto = canvas.getContext('2d');
+        if (!contexto) throw new Error('Canvas indisponível');
+        contexto.fillStyle = '#ffffff';
+        contexto.fillRect(0, 0, largura, altura);
+        contexto.drawImage(bitmap, 0, 0, largura, altura);
+        blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', qualidade));
+        if (blob && blob.size <= 2 * 1024 * 1024) break;
+        escala *= 0.82;
+        qualidade = Math.max(0.62, qualidade - 0.06);
+      }
+      if (!blob || blob.size > 2 * 1024 * 1024) throw new Error('Imagem muito grande');
+      const nomeBase = arquivo.name.replace(/\.[^.]+$/, '') || 'historia';
+      return new File([blob], `${nomeBase}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
+    } finally {
+      bitmap.close();
+    }
   }
 
   private carregarSugestaoAmigo() {
