@@ -1,11 +1,21 @@
 package br.com.hqhub.resource;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.text.NumberFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.imageio.ImageIO;
 
 import br.com.hqhub.dto.AnuncioPublicoDTO;
 import br.com.hqhub.entity.TipoAnuncio;
@@ -22,6 +32,8 @@ import jakarta.ws.rs.core.Response;
 public class AnuncioCompartilhamentoResource {
     private static final String BASE = "https://hqhub.space";
     private static final String IMAGEM_RESERVA = BASE + "/assets/classificados-hqs.jpg?v=2";
+    private static final HttpClient HTTP = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(5)).followRedirects(HttpClient.Redirect.NEVER).build();
     private final AnuncioService anuncios;
 
     public AnuncioCompartilhamentoResource(AnuncioService anuncios) {
@@ -39,6 +51,42 @@ public class AnuncioCompartilhamentoResource {
                     .build();
         } catch (RecursoNaoEncontradoException erro) {
             return indisponivel();
+        }
+    }
+
+    @GET
+    @Path("/{id}/imagem.jpg")
+    @Produces("image/jpeg")
+    public Response imagem(@PathParam("id") Long id) {
+        if (id == null || id <= 0) return Response.status(404).build();
+        try {
+            AnuncioPublicoDTO anuncio = anuncios.buscarAtivoPublico(id);
+            String origem = imagemAbsoluta(anuncio.urlFotoExemplar());
+            if (origem == null) origem = imagemAbsoluta(anuncio.urlCapa());
+            if (origem == null || !imagemExternaPermitida(origem)) return Response.status(404).build();
+            HttpRequest pedido = HttpRequest.newBuilder(URI.create(origem)).timeout(Duration.ofSeconds(8))
+                    .header("Accept", "image/webp,image/jpeg,image/png").GET().build();
+            HttpResponse<InputStream> resposta = HTTP.send(pedido, HttpResponse.BodyHandlers.ofInputStream());
+            byte[] dados;
+            try (InputStream corpo = resposta.body()) {
+                if (resposta.statusCode() != 200) return Response.status(404).build();
+                dados = corpo.readNBytes(5_000_001);
+            }
+            if (dados.length > 5_000_000) return Response.status(404).build();
+            BufferedImage original = ImageIO.read(new ByteArrayInputStream(dados));
+            if (original == null) return Response.status(404).build();
+            BufferedImage rgb = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+            var grafico = rgb.createGraphics();
+            grafico.setColor(java.awt.Color.WHITE);
+            grafico.fillRect(0, 0, rgb.getWidth(), rgb.getHeight());
+            grafico.drawImage(original, 0, 0, null);
+            grafico.dispose();
+            ByteArrayOutputStream jpeg = new ByteArrayOutputStream();
+            if (!ImageIO.write(rgb, "jpeg", jpeg)) return Response.status(404).build();
+            return Response.ok(jpeg.toByteArray(), "image/jpeg")
+                    .header("Cache-Control", "public, max-age=3600").build();
+        } catch (Exception erro) {
+            return Response.status(404).build();
         }
     }
 
@@ -76,6 +124,8 @@ public class AnuncioCompartilhamentoResource {
         if (imagem == null) {
             imagem = IMAGEM_RESERVA;
             textoImagem = "Classificados do HQ-HUB";
+        } else if (imagemExternaPermitida(imagem)) {
+            imagem = url + "/imagem.jpg";
         }
         return """
                 <!doctype html><html lang="pt-BR"><head>
@@ -105,6 +155,14 @@ public class AnuncioCompartilhamentoResource {
             return null;
         }
         return null;
+    }
+
+    private boolean imagemExternaPermitida(String valor) {
+        URI uri = URI.create(valor);
+        String host = uri.getHost();
+        return "https".equalsIgnoreCase(uri.getScheme()) && uri.getPort() == -1 && host != null
+                && (host.equalsIgnoreCase("d14d9vp3wdof84.cloudfront.net")
+                        || host.equalsIgnoreCase("res.cloudinary.com"));
     }
 
     private String modalidade(TipoAnuncio tipo) {

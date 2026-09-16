@@ -49,6 +49,17 @@ class AnuncioCompartilhamentoResourceTest {
     }
 
     @Test
+    void capaWebpUsaImagemJpegDoMesmoDominioNaPrevia() {
+        when(service.buscarAtivoPublico(15L)).thenReturn(anuncio(15L, "X-Men #2", TipoAnuncio.VENDA,
+                null, null, "https://d14d9vp3wdof84.cloudfront.net/image/capa/-S265-FWEBP"));
+        try (Response resposta = recurso.compartilhar(15L)) {
+            String html = resposta.getEntity().toString();
+            assertTrue(html.contains("og:image\" content=\"https://hqhub.space/classificados/anuncio/15/imagem.jpg\""));
+            assertTrue(html.contains("og:image:secure_url\" content=\"https://hqhub.space/classificados/anuncio/15/imagem.jpg\""));
+        }
+    }
+
+    @Test
     void anuncioInativoNaoExibeMetadadosAntigos() {
         when(service.buscarAtivoPublico(99L)).thenThrow(new RecursoNaoEncontradoException("Indisponível"));
         try (Response resposta = recurso.compartilhar(99L)) {
