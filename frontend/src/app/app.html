@@ -154,109 +154,46 @@
 
       @if (notificacoesAbertas()) {
         <div class="painel-notificacoes-backdrop" (click)="fecharNotificacoes()"></div>
-        <aside class="painel-notificacoes" role="dialog" aria-label="Atualizações recentes" (click)="$event.stopPropagation()">
+        <aside class="painel-notificacoes" role="dialog" aria-modal="true" aria-label="Notificações" (click)="$event.stopPropagation()">
           <header class="painel-notificacoes-topo">
-            <div>
-              <p class="rotulo">Atualizações</p>
-              <h2>O que mudou agora</h2>
-            </div>
-            <button type="button" class="botao compacto" (click)="fecharNotificacoes()">Fechar</button>
+            <button type="button" class="voltar-notificacoes" (click)="fecharNotificacoes()" aria-label="Voltar">‹</button>
+            <h2>Notificações</h2>
+            <button type="button" class="marcar-notificacoes" (click)="marcarTodasNotificacoesComoLidas()" [disabled]="marcandoNotificacoes() || !notificacoesSociaisNaoLidas()">Marcar todas como lidas</button>
           </header>
 
           @if (carregandoNotificacoes()) {
-            <p class="texto-suave">Carregando atualizações...</p>
+            <p class="estado-notificacoes" role="status">Carregando notificações...</p>
           } @else {
+            @if (erroNotificacoes()) {
+              <div class="estado-notificacoes" role="alert">Não foi possível atualizar as notificações. <button type="button" (click)="carregarNotificacoes()">Tentar novamente</button></div>
+            }
+            @if (!itensNotificacoes().length && !erroNotificacoes()) { <p class="estado-notificacoes">Nenhuma notificação por enquanto.</p> }
             <section class="lista-notificacoes">
-              <div class="grupo-notificacoes">
-                <p class="rotulo">Curtidas e comentários</p>
-                @if (notificacoesSociais().length) {
-                  @for (notificacao of notificacoesSociais(); track notificacao.id) {
-                    <article class="notificacao-item" [class.nao-lida]="!notificacao.lida">
-                      <span class="notificacao-icone">{{ notificacao.tipo === 'COMENTARIO_POSTAGEM' ? 'C' : '♥' }}</span>
-                      <div>
-                        <strong>{{ notificacao.autor.nome }}</strong>
-                        <p>{{ notificacao.mensagem }}</p>
-                      </div>
-                      @if (notificacao.postagemId) {
-                        <a [routerLink]="['/postagem', notificacao.postagemId]" class="botao compacto" (click)="fecharNotificacoes()">Ver</a>
-                      }
-                    </article>
-                  }
-                } @else {
-                  <p class="texto-suave">Nenhuma interação nova.</p>
+              @for (periodo of periodosNotificacoes; track periodo) {
+                @if (notificacoesDoPeriodo(periodo).length) {
+                  <div class="grupo-notificacoes">
+                    <h3>{{ periodo }}</h3>
+                    @for (item of notificacoesDoPeriodo(periodo); track item.chave) {
+                      <article class="notificacao-item" [class.nao-lida]="!item.lida">
+                        <a class="notificacao-avatar" [routerLink]="['/usuario', item.usuario.id]" (click)="fecharNotificacoes()" [attr.aria-label]="'Ver perfil de ' + item.usuario.nome">
+                          @if (item.usuario.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(item.usuario.fotoPerfilThumbnailUrl)" alt="" /> }
+                          @else { {{ item.usuario.nome.slice(0, 1) }} }
+                        </a>
+                        <button type="button" class="notificacao-conteudo" (click)="abrirItemNotificacao(item)">
+                          <span><strong>{{ item.usuario.nome }}</strong> {{ item.descricao }}</span>
+                          <time [attr.datetime]="item.data">{{ tempoNotificacao(item.data) }}</time>
+                        </button>
+                        @if (item.imagem) {
+                          <button type="button" class="notificacao-miniatura" (click)="abrirItemNotificacao(item)" aria-label="Abrir edição"><img [src]="resolverUrlMidia(item.imagem)" alt="" /></button>
+                        } @else {
+                          <button type="button" class="notificacao-acao" (click)="abrirItemNotificacao(item)" [attr.aria-label]="'Abrir notificação de ' + item.usuario.nome">Ver</button>
+                        }
+                        @if (!item.lida) { <span class="notificacao-ponto" aria-label="Não lida"></span> }
+                      </article>
+                    }
+                  </div>
                 }
-              </div>
-
-              <div class="grupo-notificacoes">
-                <p class="rotulo">Solicitações de amizade</p>
-                @if (solicitacoesRecebidas().length) {
-                  @for (solicitacao of solicitacoesRecebidas(); track solicitacao.id) {
-                    <article class="notificacao-item">
-                      <span class="notificacao-icone">A</span>
-                      <div>
-                        <strong>{{ solicitacao.solicitante.nome }}</strong>
-                        <p>Quer se conectar com você.</p>
-                      </div>
-                      <a
-                        [routerLink]="['/amigos']"
-                        [queryParams]="{ aba: 'recebidas' }"
-                        class="botao compacto"
-                        (click)="fecharNotificacoes()"
-                      >
-                        Ver
-                      </a>
-                    </article>
-                  }
-                } @else {
-                  <p class="texto-suave">Sem solicitações no momento.</p>
-                }
-              </div>
-
-              <div class="grupo-notificacoes">
-                <p class="rotulo">Mensagens diretas</p>
-                @if (conversasComNaoLidas().length) {
-                  @for (conversa of conversasComNaoLidas(); track conversa.usuario.id) {
-                    <article class="notificacao-item">
-                      <span class="notificacao-icone">M</span>
-                      <div>
-                        <strong>{{ conversa.usuario.nome }}</strong>
-                        <p>{{ conversa.ultimaMensagem.texto }}</p>
-                      </div>
-                      <a
-                        [routerLink]="['/mensagens']"
-                        [queryParams]="{ usuarioId: conversa.usuario.id }"
-                        class="botao compacto"
-                        (click)="fecharNotificacoes()"
-                      >
-                        Abrir
-                      </a>
-                    </article>
-                  }
-                } @else {
-                  <p class="texto-suave">Nenhuma mensagem nova.</p>
-                }
-              </div>
-
-              <div class="grupo-notificacoes">
-                <p class="rotulo">Estante de amigos</p>
-                @if (alteracoesEstanteRecentes().length) {
-                  @for (alteracao of alteracoesEstanteRecentes(); track alteracao.id) {
-                    <article class="notificacao-item">
-                      <span class="notificacao-icone">H</span>
-                      <div>
-                        <strong>{{ alteracao.usuario.nome }}</strong>
-                        <p>
-                          Atualizou {{ alteracao.edicao.serie?.titulo || 'uma edição' }} -
-                          {{ alteracao.edicao.titulo || alteracao.edicao.numero }}
-                        </p>
-                      </div>
-                      <a routerLink="/catalogo" class="botao compacto" (click)="fecharNotificacoes()">Ver catálogo</a>
-                    </article>
-                  }
-                } @else {
-                  <p class="texto-suave">Nenhuma alteração recente na estante dos amigos.</p>
-                }
-              </div>
+              }
             </section>
           }
         </aside>

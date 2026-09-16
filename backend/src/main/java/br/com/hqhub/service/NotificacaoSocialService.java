@@ -34,6 +34,11 @@ public class NotificacaoSocialService {
         repository.update("lida = true where destinatario.id = ?1", autenticacao.obterUsuario().getId());
     }
 
+    @Transactional
+    public void marcarComoLida(Long id) {
+        repository.update("lida = true where id = ?1 and destinatario.id = ?2", id, autenticacao.obterUsuario().getId());
+    }
+
     public void criar(Usuario destinatario, Usuario autor, TipoNotificacaoSocial tipo, PostagemFeed postagem, ComentarioFeed comentario, String mensagem) {
         if (destinatario.getId().equals(autor.getId())) return;
         NotificacaoSocial notificacao = new NotificacaoSocial();

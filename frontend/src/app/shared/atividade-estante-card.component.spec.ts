@@ -55,4 +55,19 @@ describe('AtividadeEstanteCardComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.comentarios input')).not.toBeNull();
   });
+
+  it('preserva o comentário até a confirmação e mostra erro de envio', () => {
+    fixture.componentInstance.abrirComentarios();
+    fixture.componentInstance.novoComentario = 'Ótima HQ!';
+    const emitir = spyOn(fixture.componentInstance.comentar, 'emit');
+    fixture.componentInstance.enviarComentario();
+    expect(emitir).toHaveBeenCalledOnceWith('Ótima HQ!');
+    expect(fixture.componentInstance.novoComentario).toBe('Ótima HQ!');
+    fixture.componentRef.setInput('erroComentario', 'Não foi possível comentar.');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[role="alert"]').textContent).toContain('Não foi possível comentar.');
+    fixture.componentRef.setInput('comentarioConfirmado', 1);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.novoComentario).toBe('');
+  });
 });

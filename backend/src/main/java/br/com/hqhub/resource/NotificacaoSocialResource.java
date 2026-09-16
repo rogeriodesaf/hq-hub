@@ -15,4 +15,5 @@ public class NotificacaoSocialResource {
     @GET public Response listar() { return Response.ok(service.listar()).build(); }
     @GET @Path("/nao-lidas") public Response contar() { return Response.ok(java.util.Map.of("total", service.contarNaoLidas())).build(); }
     @POST @Path("/marcar-lidas") public Response marcarLidas() { service.marcarTodasComoLidas(); return Response.noContent().build(); }
+    @POST @Path("/{id}/marcar-lida") public Response marcarLida(@PathParam("id") Long id) { service.marcarComoLida(id); return Response.noContent().build(); }
 }

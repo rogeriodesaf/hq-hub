@@ -210,6 +210,8 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                   [postagem]="postagem"
                   [usuarioAtualId]="usuario()?.id || null"
                   [ocupado]="interagindoId() === postagem.id"
+                  [comentarioConfirmado]="comentariosConfirmados()[postagem.id] || 0"
+                  [erroComentario]="errosComentarios()[postagem.id] || ''"
                   (curtir)="curtir(postagem)"
                   (comentar)="comentarAtividade(postagem, $event)"
                   (curtirComentario)="curtirComentario(postagem, $event)"
@@ -1507,6 +1509,8 @@ export class PainelPage implements OnInit, OnDestroy {
   canaisParceirosEdicao: Record<number, { name: string; url: string }> = {};
   conteudosEdicao: Record<number, string> = {};
   comentarios: Record<number, string> = {};
+  readonly comentariosConfirmados = signal<Record<number, number>>({});
+  readonly errosComentarios = signal<Record<number, string>>({});
 
   ngOnInit() {
     this.carregarFeed();
@@ -2090,12 +2094,19 @@ export class PainelPage implements OnInit, OnDestroy {
     }
 
     this.interagindoId.set(postagem.id);
+    this.errosComentarios.update((erros) => ({ ...erros, [postagem.id]: '' }));
     this.api.comentarPostagem(postagem.id, texto).subscribe({
       next: (atualizada) => {
         this.comentarios[postagem.id] = '';
         this.substituirPostagem(atualizada);
+        this.comentariosConfirmados.update((confirmados) => ({ ...confirmados, [postagem.id]: (confirmados[postagem.id] || 0) + 1 }));
       },
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível comentar esta postagem.'),
+      error: (erro) => {
+        const mensagem = erro?.error?.mensagem || 'Não foi possível comentar esta postagem.';
+        this.mensagem.set(mensagem);
+        this.errosComentarios.update((erros) => ({ ...erros, [postagem.id]: mensagem }));
+        this.interagindoId.set(null);
+      },
       complete: () => this.interagindoId.set(null),
     });
   }

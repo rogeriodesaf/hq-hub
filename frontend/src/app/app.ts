@@ -26,8 +26,21 @@ import { AutenticacaoService } from './core/autenticacao.service';
 import { ApiService } from './core/api.service';
 import { AtualizacaoAppService } from './core/atualizacao-app.service';
 import { resolverUrlMidia } from './core/midia-url';
-import { Amizade, ContribuicaoCatalogo, ConversaDireta, NotificacaoSocial } from './core/modelos';
+import { Amizade, ContribuicaoCatalogo, ConversaDireta, NotificacaoSocial, Usuario } from './core/modelos';
 import { SeoService } from './core/seo.service';
+
+type PeriodoNotificacao = 'Hoje' | 'Ontem' | 'Últimos 7 dias' | 'Anteriores';
+interface ItemNotificacao {
+  chave: string;
+  usuario: Usuario;
+  descricao: string;
+  data: string;
+  destino: string;
+  parametros?: Record<string, number | string>;
+  imagem?: string | null;
+  socialId?: number;
+  lida: boolean;
+}
 
 @Component({
   selector: 'app-root',
@@ -79,10 +92,36 @@ export class App implements OnInit {
   readonly urlAtual = signal('');
   readonly modoEscuro = signal(false);
   readonly carregandoNotificacoes = signal(false);
+  readonly erroNotificacoes = signal(false);
+  readonly marcandoNotificacoes = signal(false);
   readonly solicitacoesRecebidas = signal<Amizade[]>([]);
   readonly conversasComNaoLidas = signal<ConversaDireta[]>([]);
   readonly alteracoesEstanteRecentes = signal<ContribuicaoCatalogo[]>([]);
   readonly notificacoesSociais = signal<NotificacaoSocial[]>([]);
+  readonly periodosNotificacoes: PeriodoNotificacao[] = ['Hoje', 'Ontem', 'Últimos 7 dias', 'Anteriores'];
+  readonly itensNotificacoes = computed<ItemNotificacao[]>(() => [
+    ...this.notificacoesSociais().map((item) => ({
+      chave: `social-${item.id}`, usuario: item.autor,
+      descricao: item.mensagem.startsWith(`${item.autor.nome} `)
+        ? item.mensagem.slice(item.autor.nome.length + 1) : item.mensagem,
+      data: item.dataCriacao, destino: item.postagemId ? `/postagem/${item.postagemId}` : '/painel',
+      socialId: item.id, lida: item.lida,
+    })),
+    ...this.solicitacoesRecebidas().map((item) => ({
+      chave: `amizade-${item.id}`, usuario: item.solicitante, descricao: 'enviou uma solicitação de amizade',
+      data: item.dataSolicitacao, destino: '/amigos', parametros: { aba: 'recebidas' }, lida: false,
+    })),
+    ...this.conversasComNaoLidas().map((item) => ({
+      chave: `mensagem-${item.usuario.id}`, usuario: item.usuario, descricao: 'enviou uma mensagem',
+      data: item.dataUltimaMensagem, destino: '/mensagens', parametros: { usuarioId: item.usuario.id }, lida: false,
+    })),
+    ...this.alteracoesEstanteRecentes().map((item) => ({
+      chave: `estante-${item.id}`, usuario: item.usuario,
+      descricao: `atualizou ${item.edicao.serie?.titulo || 'uma HQ'} ${item.edicao.numero || ''}`.trim(),
+      data: item.dataCriacao, destino: '/catalogo', parametros: { edicaoId: item.edicao.id },
+      imagem: item.edicao.urlCapa, lida: true,
+    })),
+  ].sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()));
   readonly resolverUrlMidia = resolverUrlMidia;
   readonly totalNotificacoes = computed(() =>
     Math.min(
@@ -167,6 +206,7 @@ export class App implements OnInit {
 
   @HostListener('document:keydown.escape')
   aoPressionarEscape() {
+    if (this.notificacoesAbertas()) this.fecharNotificacoes();
     if (this.publicarAberto()) {
       this.fecharPublicar();
     }
@@ -180,8 +220,60 @@ export class App implements OnInit {
 
     this.notificacoesAbertas.set(true);
     this.carregarNotificacoes();
+  }
+
+  notificacoesDoPeriodo(periodo: PeriodoNotificacao) {
+    return this.itensNotificacoes().filter((item) => this.periodoNotificacao(item.data) === periodo);
+  }
+
+  private periodoNotificacao(data: string): PeriodoNotificacao {
+    const dia = new Date(data);
+    if (Number.isNaN(dia.getTime())) return 'Anteriores';
+    const inicioHoje = new Date();
+    inicioHoje.setHours(0, 0, 0, 0);
+    const dias = Math.floor((inicioHoje.getTime() - new Date(dia.getFullYear(), dia.getMonth(), dia.getDate()).getTime()) / 86400000);
+    return dias <= 0 ? 'Hoje' : dias === 1 ? 'Ontem' : dias < 7 ? 'Últimos 7 dias' : 'Anteriores';
+  }
+
+  tempoNotificacao(data: string) {
+    const minutos = Math.max(0, Math.floor((Date.now() - new Date(data).getTime()) / 60000));
+    if (!Number.isFinite(minutos)) return '';
+    if (minutos < 1) return 'agora';
+    if (minutos < 60) return `há ${minutos} min`;
+    if (minutos < 1440) return `há ${Math.floor(minutos / 60)} h`;
+    return `há ${Math.floor(minutos / 1440)} d`;
+  }
+
+  abrirItemNotificacao(item: ItemNotificacao) {
+    if (item.socialId && !item.lida) {
+      this.api.marcarNotificacaoSocialComoLida(item.socialId).subscribe({
+        next: () => {
+          this.notificacoesSociais.update((itens) => itens.map((social) => social.id === item.socialId ? { ...social, lida: true } : social));
+          this.carregarContagemNotificacoesSociais();
+          this.navegarNotificacao(item);
+        },
+        error: () => this.erroNotificacoes.set(true),
+      });
+      return;
+    }
+    this.navegarNotificacao(item);
+  }
+
+  private navegarNotificacao(item: ItemNotificacao) {
+    this.fecharNotificacoes();
+    void this.roteador.navigate([item.destino], { queryParams: item.parametros });
+  }
+
+  marcarTodasNotificacoesComoLidas() {
+    if (this.marcandoNotificacoes()) return;
+    this.marcandoNotificacoes.set(true);
     this.api.marcarNotificacoesSociaisComoLidas().subscribe({
-      next: () => this.notificacoesSociaisNaoLidas.set(0),
+      next: () => {
+        this.notificacoesSociais.update((itens) => itens.map((item) => ({ ...item, lida: true })));
+        this.notificacoesSociaisNaoLidas.set(0);
+        this.marcandoNotificacoes.set(false);
+      },
+      error: () => { this.erroNotificacoes.set(true); this.marcandoNotificacoes.set(false); },
     });
   }
 
@@ -305,11 +397,11 @@ export class App implements OnInit {
     }
     this.api.contarNotificacoesSociaisNaoLidas().subscribe({
       next: (resposta) => this.notificacoesSociaisNaoLidas.set(Math.min(resposta.total, 9)),
-      error: () => this.notificacoesSociaisNaoLidas.set(0),
+      error: () => { if (this.notificacoesAbertas()) this.erroNotificacoes.set(true); },
     });
   }
 
-  private carregarNotificacoes() {
+  carregarNotificacoes() {
     if (!this.autenticacaoService.autenticado()) {
       this.solicitacoesRecebidas.set([]);
       this.conversasComNaoLidas.set([]);
@@ -320,6 +412,7 @@ export class App implements OnInit {
 
     const vistoEm = Number(localStorage.getItem(App.CHAVE_FEED_VISTO) || '0');
     this.carregandoNotificacoes.set(true);
+    this.erroNotificacoes.set(false);
     forkJoin({
       solicitacoes: this.api.listarSolicitacoesRecebidas(),
       conversas: this.api.listarConversasDiretas(),
@@ -334,10 +427,7 @@ export class App implements OnInit {
         this.carregandoNotificacoes.set(false);
       },
       error: () => {
-        this.solicitacoesRecebidas.set([]);
-        this.conversasComNaoLidas.set([]);
-        this.alteracoesEstanteRecentes.set([]);
-        this.notificacoesSociais.set([]);
+        this.erroNotificacoes.set(true);
         this.carregandoNotificacoes.set(false);
       },
     });

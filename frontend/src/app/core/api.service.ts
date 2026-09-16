@@ -908,6 +908,10 @@ export class ApiService {
     return this.http.post<void>('/api/notificacoes-sociais/marcar-lidas', {});
   }
 
+  marcarNotificacaoSocialComoLida(id: number) {
+    return this.http.post<void>(`/api/notificacoes-sociais/${id}/marcar-lida`, {});
+  }
+
   baixarInstalador() {
     return this.http.get('/api/instalador', { responseType: 'blob' });
   }

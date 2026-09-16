@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -83,6 +83,7 @@ import { PostagemFeed } from '../core/modelos';
             <input [id]="'comentario-atividade-' + postagem.id" [(ngModel)]="novoComentario" name="novoComentario" placeholder="Escreva um comentário" autocomplete="off" />
             <button type="submit" [disabled]="ocupado || !novoComentario.trim()">Comentar</button>
           </form>
+          @if (erroComentario) { <p class="erro-comentario" role="alert">{{ erroComentario }}</p> }
         </section>
       }
     </article>
@@ -121,6 +122,7 @@ import { PostagemFeed } from '../core/modelos';
     .comentarios form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
     .comentarios input { min-width: 0; border: 1px solid var(--borda); border-radius: 10px; background: var(--superficie); color: var(--texto); padding: 0 12px; }
     .comentarios form button { padding: 0 14px; background: var(--primaria); color: white; }
+    .erro-comentario { color: var(--erro, #b42318); font-size: .85rem; }
     .fallback { margin: 0; color: var(--texto-suave); }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     @media (max-width: 620px) {
@@ -131,10 +133,12 @@ import { PostagemFeed } from '../core/modelos';
     }
   `],
 })
-export class AtividadeEstanteCardComponent {
+export class AtividadeEstanteCardComponent implements OnChanges {
   @Input({ required: true }) postagem!: PostagemFeed;
   @Input() usuarioAtualId: number | null = null;
   @Input() ocupado = false;
+  @Input() comentarioConfirmado = 0;
+  @Input() erroComentario = '';
   @Output() curtir = new EventEmitter<void>();
   @Output() comentar = new EventEmitter<string>();
   @Output() curtirComentario = new EventEmitter<number>();
@@ -143,6 +147,10 @@ export class AtividadeEstanteCardComponent {
   readonly capaReserva = 'assets/capa-reserva.svg';
   comentariosAbertos = false;
   novoComentario = '';
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['comentarioConfirmado'] && !changes['comentarioConfirmado'].firstChange) this.novoComentario = '';
+  }
 
   rotuloAtividade() {
     switch (this.postagem.atividadeEstante?.tipo) {
@@ -169,8 +177,7 @@ export class AtividadeEstanteCardComponent {
 
   enviarComentario() {
     const texto = this.novoComentario.trim();
-    if (!texto) return;
+    if (!texto || this.ocupado) return;
     this.comentar.emit(texto);
-    this.novoComentario = '';
   }
 }
