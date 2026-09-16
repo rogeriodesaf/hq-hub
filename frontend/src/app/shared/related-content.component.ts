@@ -34,11 +34,9 @@ import { PartnerChannel, RelatedVideo } from '../core/modelos';
             <strong>Conteúdo relacionado</strong>
             <small>Vídeos selecionados para esta publicação</small>
           </div>
-          @if (videosExibidos.length > 1) {
-            <button class="alternador" type="button" (click)="alternarExpansao()" [attr.aria-expanded]="expandido()">
-              {{ expandido() ? 'Ocultar' : 'Ver ' + videosExibidos.length + ' vídeos' }}
-            </button>
-          }
+          <button class="alternador" type="button" (click)="alternarExpansao()" [attr.aria-expanded]="expandido()">
+            {{ expandido() ? 'Ocultar' : videosExibidos.length === 1 ? 'Ver vídeo' : 'Ver ' + videosExibidos.length + ' vídeos' }}
+          </button>
         </div>
 
         @if (expandido()) {
@@ -75,9 +73,8 @@ import { PartnerChannel, RelatedVideo } from '../core/modelos';
       </section>
     } @else if (referenceTitle.trim()) {
       <section class="conteudo-relacionado fallback-youtube" aria-label="Conteúdo relacionado">
-        <div><span class="icone-youtube" aria-hidden="true">▶</span><strong>Conteúdo relacionado</strong></div>
         <a class="buscar-youtube ripple" [href]="urlPesquisa" target="_blank" rel="noopener noreferrer">
-          ▶ Buscar vídeos no YouTube
+          <span class="icone-youtube" aria-hidden="true">▶</span> Buscar no YouTube
         </a>
       </section>
     }
@@ -104,14 +101,14 @@ import { PartnerChannel, RelatedVideo } from '../core/modelos';
     .metadados-video { display: flex; flex-wrap: wrap; gap: 8px; }
     .botao-assistir, .buscar-youtube { position: relative; display: inline-flex; width: fit-content; align-items: center; gap: 6px; overflow: hidden; border-radius: 8px; color: #fff; background: #202124; font-size: .78rem; font-weight: 800; text-decoration: none; transition: background .2s ease, transform .2s ease; }
     .botao-assistir { padding: 8px 10px; }
-    .buscar-youtube { padding: 10px 13px; }
-    .botao-assistir:hover, .buscar-youtube:hover { background: #e52d27; transform: translateY(-1px); }
+    .buscar-youtube { padding: 7px 10px; border: 1px solid var(--borda); color: var(--texto-suave); background: transparent; font-size: .74rem; }
+    .botao-assistir:hover { background: #e52d27; transform: translateY(-1px); }
+    .buscar-youtube:hover { color: var(--texto); background: var(--superficie-2); transform: translateY(-1px); }
     .ripple::after { content: ''; position: absolute; inset: 50%; border-radius: 50%; background: rgba(255,255,255,.35); transform: translate(-50%,-50%) scale(0); opacity: 0; }
     .ripple:active::after { animation: ripple .42s ease-out; }
-    .fallback-youtube { padding: 12px; border: 1px solid var(--borda); border-radius: 12px; background: var(--superficie-2); }
-    .fallback-youtube > div { display: flex; align-items: center; gap: 9px; }
+    .fallback-youtube { display: flex; justify-content: flex-start; padding-top: 8px; border-top: 1px solid var(--borda); }
     .icone-youtube, .selo-youtube { display: inline-grid; place-items: center; color: #fff; background: #e52d27; }
-    .icone-youtube { width: 28px; height: 22px; border-radius: 7px; font-size: .72rem; }
+    .icone-youtube { width: 22px; height: 17px; border-radius: 5px; font-size: .58rem; }
     @keyframes revelar-videos { from { opacity: 0; transform: translateY(-8px) scaleY(.97); } to { opacity: 1; transform: none; } }
     @keyframes ripple { 0% { opacity: .7; transform: translate(-50%,-50%) scale(0); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(8); } }
     @media (max-width: 820px) { .grade-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -124,7 +121,7 @@ export class RelatedContentComponent {
   @Input() partnerChannel: PartnerChannel | null | undefined = null;
   @Input() referenceTitle = '';
 
-  readonly expandido = signal(true);
+  readonly expandido = signal(false);
   readonly thumbnailPadrao = 'assets/youtube-placeholder.svg';
 
   get videosExibidos() { return (this.videos || []).slice(0, 3); }

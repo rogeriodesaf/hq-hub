@@ -6,45 +6,25 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, ColecaoResumo, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
-import { PerfilFeedComponent } from '../../shared/perfil-feed.component';
+import { Anuncio, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-painel-page',
-  imports: [CommonModule, FormsModule, RouterLink, PerfilFeedComponent, RelatedContentComponent, AtividadeEstanteCardComponent],
+  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent, AtividadeEstanteCardComponent],
   template: `
     <section class="cabecalho-pagina feed-cabecalho">
       <div>
-        <p class="rotulo">Feed principal</p>
-        <h1>O que a comunidade está lendo hoje?</h1>
+        <p class="rotulo">Feed</p>
+        <h1>Comunidade</h1>
       </div>
-      <a class="botao primario" routerLink="/amigos">Encontrar amigos</a>
-    </section>
-
-    <section class="metricas feed-metricas">
-      <article>
-        <span>{{ resumo()?.totalItens ?? 0 }}</span>
-        <p>Edicoes na colecao</p>
-      </article>
-      <article>
-        <span>{{ resumo()?.totalSeries ?? 0 }}</span>
-        <p>Series acompanhadas</p>
-      </article>
-      <article>
-        <span>{{ resumo()?.totalEditoras ?? 0 }}</span>
-        <p>Editoras na estante</p>
-      </article>
-      <article>
-        <span>{{ formatarMoeda(resumo()?.valorTotalPago ?? 0) }}</span>
-        <p>Investido na colecao</p>
-      </article>
+      <a class="botao compacto secundario" routerLink="/amigos">Encontrar amigos</a>
     </section>
 
     <nav class="atalhos-feed" aria-label="Atalhos do colecionador">
-      <a routerLink="/colecao"><span>📚</span><strong>Minha Estante</strong></a>
+      <a class="atalho-estante" routerLink="/colecao"><span>📚</span><strong>Minha estante</strong></a>
       <a routerLink="/anuncios"><span>📢</span><strong>Meus anúncios</strong></a>
       <a routerLink="/compras"><span>🛒</span><strong>Compras e desejos</strong></a>
       <a routerLink="/catalogo"><span>🔎</span><strong>Buscar HQ</strong></a>
@@ -53,65 +33,14 @@ import { environment } from '../../../environments/environment';
 
     <section class="feed-layout">
       <div class="feed-coluna">
-        <a
-          class="banner-feed banner-evolukit"
-          href="https://link.amazon/B09ZELm0N"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Adquira sua evolukit"
-        >
-          <img
-            src="https://acdn-us.mitiendanube.com/stores/005/843/311/themes/common/logo-1653308187-1764589351-c5659b892bb2b592b88048f01fe6900f1764589351.png?0"
-            alt=""
-            loading="lazy"
-          />
-          <span>Adquira sua evolukit</span>
-        </a>
-
-        <a class="banner-feed banner-apoio" routerLink="/apoie">
-          <strong>Torne-se apoiador desse projeto</strong>
-          <span>Ajude o HQ-HUB a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
-        </a>
-
-        <app-perfil-feed
-          [usuario]="usuario()"
-          modo="resumo"
-        ></app-perfil-feed>
-
-        <div class="acoes-perfil-feed">
-          <a class="botao compacto secundario" routerLink="/perfil">Editar perfil</a>
-        </div>
-
-        @if (sugestaoAmigo()) {
-          <article class="bloco sugestao-amigo-card">
-            <div class="avatar-feed">
-              @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) {
-                <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" />
-              } @else {
-                {{ iniciais(sugestaoAmigo()!.nome) }}
-              }
-            </div>
-            <div>
-              <p class="rotulo">Sugestao de amigo</p>
-              <strong>{{ sugestaoAmigo()!.nome }}</strong>
-              <span>{{ sugestaoAmigo()!.email }}</span>
-              @if (mensagemSugestaoAmigo()) {
-                <small>{{ mensagemSugestaoAmigo() }}</small>
-              }
-            </div>
-            <button
-              class="botao compacto primario"
-              type="button"
-              (click)="adicionarSugestaoAmigo()"
-              [disabled]="enviandoSugestaoAmigo()"
-            >
-              {{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}
-            </button>
-          </article>
-        }
-
-        <article class="bloco compositor-feed" id="publicar">
-          <div class="compositor-topo">
+        <article class="bloco compositor-feed" id="publicar" [class.aberto]="editorAberto()">
+          <button
+            class="compositor-resumido"
+            type="button"
+            [attr.aria-expanded]="editorAberto()"
+            aria-controls="editor-publicacao-feed"
+            (click)="abrirEditor()"
+          >
             <div class="avatar-feed">
               @if (usuario()?.fotoPerfilThumbnailUrl) {
                 <img [src]="resolverUrlMidia(usuario()?.fotoPerfilThumbnailUrl)" alt="" />
@@ -119,10 +48,15 @@ import { environment } from '../../../environments/environment';
                 {{ iniciais(usuario()?.nome || 'HQ') }}
               }
             </div>
-            <label>No que voce esta pensando?</label>
-          </div>
+            <span>Compartilhe uma leitura…</span>
+          </button>
+
+          @if (editorAberto()) {
+          <div id="editor-publicacao-feed" class="editor-publicacao-feed">
           <div class="compositor-corpo">
+            <label class="sr-only" for="novo-conteudo-feed">Conteúdo da publicação</label>
             <textarea
+              id="novo-conteudo-feed"
               [(ngModel)]="novoConteudo"
               name="novoConteudo"
               rows="4"
@@ -206,16 +140,19 @@ import { environment } from '../../../environments/environment';
                 Destacar canal parceiro
               </button>
             </div>
-            <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
-              {{ publicando() ? 'Publicando...' : 'Publicar' }}
-            </button>
+            <div class="compositor-acoes-finais">
+              <button class="botao compacto secundario" type="button" (click)="fecharEditor()">Recolher</button>
+              <button class="botao primario" type="button" (click)="publicar()" [disabled]="publicando() || !novoConteudo.trim()">
+                {{ publicando() ? 'Publicando...' : 'Publicar' }}
+              </button>
+            </div>
           </div>
 
           @if (previsualizacoes.length) {
             <div class="grade-imagens-feed previa-feed">
               @for (imagem of previsualizacoes; track imagem.url) {
                 <div>
-                  <img [src]="imagem.url" alt="Previa da imagem da postagem" />
+                  <img [src]="imagem.url" alt="Prévia da imagem da postagem" />
                   <button type="button" aria-label="Remover imagem" (click)="removerImagem($index)">x</button>
                 </div>
               }
@@ -225,7 +162,8 @@ import { environment } from '../../../environments/environment';
           @if (mensagem()) {
             <p class="mensagem-erro">{{ mensagem() }}</p>
           }
-
+          </div>
+          }
         </article>
 
         <section class="lista-feed">
@@ -256,9 +194,6 @@ import { environment } from '../../../environments/environment';
                   <a [routerLink]="['/usuario', postagem.usuario.id]" class="link-nome-amigo">
                     <strong>{{ postagem.usuario.nome }}</strong>
                   </a>
-                  @if (postagem.usuario.bio) {
-                    <span class="bio-autor">{{ postagem.usuario.bio }}</span>
-                  }
                   <small class="metadados-postagem">
                     {{ dataRelativa(postagem.dataCriacao) }} <span aria-hidden="true">•</span> Público
                     @if (postagem.fixada) { <span class="selo-fixada">• Fixada</span> }
@@ -301,15 +236,15 @@ import { environment } from '../../../environments/environment';
                     loading="lazy"
                   />
                   <div>
-                    <p class="rotulo">Colecao</p>
+                    <p class="rotulo">Coleção</p>
                     <h3>{{ postagem.colecaoDestaque.titulo }}</h3>
-                    <span>{{ postagem.colecaoDestaque.quantidadeEdicoes }} edicoes - {{ postagem.colecaoDestaque.editora }}</span>
+                    <span>{{ rotuloQuantidadeEdicoes(postagem.colecaoDestaque.quantidadeEdicoes) }} · {{ postagem.colecaoDestaque.editora }}</span>
                     @if (postagem.colecaoDestaque.concluida) {
-                      <strong class="status-colecao concluida">Colecao completa</strong>
+                      <strong class="status-colecao concluida">Coleção completa</strong>
                     } @else {
                       <strong class="status-colecao">Na estante</strong>
                     }
-                    <a class="botao compacto" [routerLink]="['/usuario', postagem.usuario.id]" fragment="estante">Ver colecao</a>
+                    <a class="botao compacto" [routerLink]="['/usuario', postagem.usuario.id]" fragment="estante">Ver coleção</a>
                   </div>
                 </article>
               }
@@ -320,12 +255,12 @@ import { environment } from '../../../environments/environment';
                     <img [src]="urlCapa" [alt]="postagem.catalogoDestaque.titulo" loading="lazy" />
                   }
                   <div>
-                    <p class="rotulo">Catalogo</p>
+                    <p class="rotulo">Catálogo</p>
                     <h3>{{ postagem.catalogoDestaque.titulo }}</h3>
-                    <span>{{ postagem.catalogoDestaque.quantidadeEdicoes }} edicoes - {{ postagem.catalogoDestaque.editora }}</span>
+                    <span>{{ rotuloQuantidadeEdicoes(postagem.catalogoDestaque.quantidadeEdicoes) }} · {{ postagem.catalogoDestaque.editora }}</span>
                     <strong class="status-colecao">Atualizado no acervo</strong>
                     <a class="botao compacto" routerLink="/catalogo" [queryParams]="{ serieId: postagem.catalogoDestaque.serieId }">
-                      Ver no catalogo
+                      Ver no catálogo
                     </a>
                   </div>
                 </article>
@@ -347,14 +282,11 @@ import { environment } from '../../../environments/environment';
               }
 
               @if (postagem.catalogoDestaque || postagem.colecaoDestaque) {
-                <section class="contexto-hq" aria-label="Relacionado a esta HQ">
-                  <strong><span aria-hidden="true">▤</span> Relacionado a esta HQ</strong>
-                  <div>
-                    <span>✓ HQ</span>
-                    @if (postagem.relatedVideos.length) { <span>✓ Vídeo</span> }
-                    @if (editoraRelacionada(postagem)) { <span>✓ {{ editoraRelacionada(postagem) }}</span> }
-                  </div>
-                </section>
+                <div class="marcadores-hq" aria-label="Marcadores da publicação">
+                  <span>HQ</span>
+                  @if (postagem.relatedVideos.length) { <span>Vídeo</span> }
+                  @if (editoraRelacionada(postagem)) { <span>{{ editoraRelacionada(postagem) }}</span> }
+                </div>
               }
 
               <app-related-content
@@ -412,7 +344,7 @@ import { environment } from '../../../environments/environment';
                   <span>{{ postagem.curtidaPeloUsuario ? '♥' : '♡' }}</span>
                   {{ postagem.curtidaPeloUsuario ? 'Curtido' : 'Curtir' }}
                 </button>
-                <button class="acao-social" type="button" (click)="focarComentario(postagem)">
+                <button class="acao-social" type="button" [attr.aria-expanded]="comentarioAberto(postagem.id)" (click)="abrirComentario(postagem)">
                   <span class="icone-acao neutro">💬</span> Comentar
                 </button>
                 <button
@@ -449,7 +381,7 @@ import { environment } from '../../../environments/environment';
                           class="curtir-comentario"
                           type="button"
                           [class.ativo]="comentario.curtidaPeloUsuario"
-                          [attr.aria-label]="comentario.curtidaPeloUsuario ? 'Remover curtida do comentario' : 'Curtir comentario'"
+                          [attr.aria-label]="comentario.curtidaPeloUsuario ? 'Remover curtida do comentário' : 'Curtir comentário'"
                           [attr.aria-pressed]="comentario.curtidaPeloUsuario"
                           (click)="curtirComentario(postagem, comentario.id)"
                           [disabled]="interagindoId() === postagem.id"
@@ -475,6 +407,7 @@ import { environment } from '../../../environments/environment';
                 }
               </section>
 
+              @if (comentarioAberto(postagem.id)) {
               <div class="novo-comentario">
                 <input
                   [id]="'comentario-postagem-' + postagem.id"
@@ -493,11 +426,53 @@ import { environment } from '../../../environments/environment';
                 </button>
               </div>
               }
+              }
             </article>
+            @if (exibirPromocoesApos($index)) {
+              <section class="promocoes-feed" aria-label="Publicidade e apoio ao HQ-HUB">
+                <a
+                  class="banner-feed banner-evolukit"
+                  href="https://link.amazon/B09ZELm0N"
+                  target="_blank"
+                  rel="sponsored noreferrer"
+                  aria-label="Adquira sua evolukit"
+                >
+                  <img
+                    src="https://acdn-us.mitiendanube.com/stores/005/843/311/themes/common/logo-1653308187-1764589351-c5659b892bb2b592b88048f01fe6900f1764589351.png?0"
+                    alt="Evolukit móveis modulados"
+                    loading="lazy"
+                  />
+                  <span>Adquira sua evolukit</span>
+                </a>
+                <a class="banner-feed banner-apoio" routerLink="/apoie">
+                  <strong>Torne-se apoiador deste projeto</strong>
+                  <span>Ajude o HQ-HUB a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
+                </a>
+                @if (sugestaoAmigo()) {
+                  <article class="bloco sugestao-amigo-card">
+                    <div class="avatar-feed">
+                      @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) {
+                        <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" />
+                      } @else {
+                        {{ iniciais(sugestaoAmigo()!.nome) }}
+                      }
+                    </div>
+                    <div>
+                      <p class="rotulo">Sugestão de amigo</p>
+                      <strong>{{ sugestaoAmigo()!.nome }}</strong>
+                      @if (mensagemSugestaoAmigo()) { <small>{{ mensagemSugestaoAmigo() }}</small> }
+                    </div>
+                    <button class="botao compacto primario" type="button" (click)="adicionarSugestaoAmigo()" [disabled]="enviandoSugestaoAmigo()">
+                      {{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}
+                    </button>
+                  </article>
+                }
+              </section>
+            }
           } @empty {
             <section class="estado-vazio">
-              <h2>Seu feed ainda esta quieto</h2>
-              <p>Publique algo ou adicione amigos para acompanhar o que eles estao lendo.</p>
+              <h2>Seu feed ainda está quieto</h2>
+              <p>Publique algo ou adicione amigos para acompanhar o que eles estão lendo.</p>
             </section>
           }
         </section>
@@ -528,7 +503,7 @@ import { environment } from '../../../environments/environment';
         <div class="lista-acoes">
           <a routerLink="/perfil">Meu perfil</a>
           <a routerLink="/colecao">Ver estante</a>
-          <a routerLink="/catalogo">Catalogo interno</a>
+          <a routerLink="/catalogo">Catálogo interno</a>
           <a routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
           <a routerLink="/compras">Planejar compras</a>
         </div>
@@ -537,15 +512,14 @@ import { environment } from '../../../environments/environment';
   `,
   styles: `
     .feed-cabecalho {
-      align-items: end;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
     .feed-cabecalho h1 {
       max-width: 640px;
-    }
-
-    .feed-metricas {
-      margin-bottom: 18px;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1;
     }
 
     .feed-layout {
@@ -564,23 +538,46 @@ import { environment } from '../../../environments/environment';
       gap: 14px;
     }
 
-    .acoes-perfil-feed {
-      display: flex;
-      justify-content: flex-start;
-      margin-top: -4px;
-    }
-
     .compositor-feed {
       padding: 0;
       overflow: hidden;
     }
 
-    .compositor-topo {
+    .compositor-resumido {
       display: grid;
       grid-template-columns: 44px minmax(0, 1fr);
       gap: 12px;
       align-items: center;
-      padding: 16px 16px 10px;
+      width: 100%;
+      min-height: 68px;
+      padding: 11px 14px;
+      border: 0;
+      color: var(--texto);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .compositor-resumido > span {
+      display: flex;
+      min-height: 42px;
+      align-items: center;
+      padding: 0 14px;
+      border: 1px solid var(--borda);
+      border-radius: 999px;
+      color: var(--texto-suave);
+      background: var(--superficie-2);
+      font-size: .92rem;
+    }
+
+    .compositor-resumido:hover > span,
+    .compositor-resumido:focus-visible > span {
+      border-color: color-mix(in srgb, var(--borda) 55%, var(--marca));
+    }
+
+    .editor-publicacao-feed {
+      display: grid;
+      border-top: 1px solid var(--borda);
     }
 
     .compositor-feed label {
@@ -619,6 +616,19 @@ import { environment } from '../../../environments/environment';
       margin-top: 12px;
       padding: 12px 16px 16px;
       border-top: 1px solid var(--borda);
+    }
+
+    .compositor-acoes-finais {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .promocoes-feed {
+      display: grid;
+      gap: 10px;
+      padding: 2px 0;
     }
 
     .acao-upload-feed {
@@ -804,9 +814,10 @@ import { environment } from '../../../environments/environment';
 
     .cartao-colecao-feed > img {
       width: 100%;
-      height: 100%;
-      min-height: 190px;
-      object-fit: cover;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 2 / 3;
+      object-fit: contain;
       background: var(--superficie-suave);
     }
 
@@ -1191,23 +1202,18 @@ import { environment } from '../../../environments/environment';
 
     .imagem-postagem { animation: revelar-imagem .28s ease-out both; }
 
-    .contexto-hq {
-      display: grid;
-      gap: 7px;
-      padding: 10px 12px;
-      border: 1px solid var(--borda);
-      border-radius: var(--feed-raio-interno);
-      background: var(--superficie-2);
+    .marcadores-hq {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
     }
-    .contexto-hq strong { display: flex; gap: 7px; align-items: center; font-size: .83rem; }
-    .contexto-hq strong span { color: var(--marca); }
-    .contexto-hq div { display: flex; flex-wrap: wrap; gap: 6px; }
-    .contexto-hq div span {
-      padding: 4px 7px;
+    .marcadores-hq span {
+      padding: 3px 7px;
+      border: 1px solid var(--borda);
       border-radius: 999px;
       color: var(--texto-suave);
-      background: var(--superficie);
-      font-size: .72rem;
+      background: transparent;
+      font-size: .68rem;
       font-weight: 750;
     }
 
@@ -1288,19 +1294,22 @@ import { environment } from '../../../environments/environment';
     @media (max-width: 600px) {
       :host { --feed-raio-card: 14px; --feed-espaco: 11px; }
       .feed-cabecalho { align-items: start; gap: 10px; }
-      .feed-cabecalho h1 { font-size: clamp(1.35rem, 7vw, 1.75rem); }
-      .feed-metricas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feed-cabecalho h1 { font-size: clamp(1.45rem, 7vw, 1.9rem); }
+      .feed-cabecalho .botao { width: auto; min-height: 38px; }
       .postagem-card { padding: 14px 12px; }
       .cabecalho-postagem { grid-template-columns: 40px minmax(0, 1fr) 36px; gap: 9px; }
       .cabecalho-postagem .avatar-feed { width: 40px; height: 40px; }
       .bio-autor { max-width: 100%; }
       .cartao-colecao-feed { grid-template-columns: 92px minmax(0, 1fr); gap: 11px; }
-      .cartao-colecao-feed > img { min-height: 148px; }
+      .cartao-colecao-feed > img { min-height: 0; }
       .cartao-colecao-feed > div { gap: 6px; padding: 10px 10px 10px 0; }
       .cartao-colecao-feed h3 { font-size: 1rem; }
       .acao-social { padding: 0 4px; font-size: .76rem; }
       .novo-comentario { grid-template-columns: minmax(0, 1fr) auto; }
       .novo-comentario .botao { padding-inline: 10px; }
+      .compositor-rodape { align-items: stretch; flex-direction: column; }
+      .compositor-acoes-finais { justify-content: flex-end; }
+      .compositor-acoes-finais .botao { width: auto; }
     }
 
     @media (max-width: 360px) {
@@ -1325,7 +1334,6 @@ export class PainelPage implements OnInit {
   private readonly autenticacao = inject(AutenticacaoService);
 
   readonly usuario = this.autenticacao.usuario;
-  readonly resumo = signal<ColecaoResumo | null>(null);
   readonly feed = signal<PostagemFeed[]>([]);
   readonly anuncios = signal<Anuncio[]>([]);
   readonly sugestaoAmigo = signal<Usuario | null>(null);
@@ -1338,6 +1346,8 @@ export class PainelPage implements OnInit {
   readonly editandoCanalId = signal<number | null>(null);
   readonly salvandoCanalId = signal<number | null>(null);
   readonly mensagem = signal('');
+  readonly editorAberto = signal(false);
+  readonly comentariosAbertos = signal<Set<number>>(new Set());
   novoConteudo = '';
   imagensSelecionadas: File[] = [];
   previsualizacoes: Array<{ url: string; nome: string }> = [];
@@ -1348,10 +1358,21 @@ export class PainelPage implements OnInit {
   comentarios: Record<number, string> = {};
 
   ngOnInit() {
-    this.carregarResumo();
     this.carregarFeed();
     this.carregarAnuncios();
     this.carregarSugestaoAmigo();
+    if (window.location.hash === '#publicar') {
+      this.abrirEditor();
+    }
+  }
+
+  abrirEditor() {
+    this.editorAberto.set(true);
+    window.setTimeout(() => document.getElementById('novo-conteudo-feed')?.focus());
+  }
+
+  fecharEditor() {
+    this.editorAberto.set(false);
   }
 
   publicar() {
@@ -1464,8 +1485,22 @@ export class PainelPage implements OnInit {
     this.removerPostagem(postagem);
   }
 
-  focarComentario(postagem: PostagemFeed) {
-    document.getElementById(`comentario-postagem-${postagem.id}`)?.focus();
+  abrirComentario(postagem: PostagemFeed) {
+    this.comentariosAbertos.update((abertos) => new Set(abertos).add(postagem.id));
+    window.setTimeout(() => document.getElementById(`comentario-postagem-${postagem.id}`)?.focus());
+  }
+
+  comentarioAberto(postagemId: number) {
+    return this.comentariosAbertos().has(postagemId);
+  }
+
+  exibirPromocoesApos(indice: number) {
+    const total = this.feed().length;
+    return total > 0 && indice === Math.min(1, total - 1);
+  }
+
+  rotuloQuantidadeEdicoes(quantidade: number) {
+    return `${quantidade} ${quantidade === 1 ? 'edição' : 'edições'}`;
   }
 
   conteudoVisivel(postagem: PostagemFeed) {
@@ -1616,10 +1651,11 @@ export class PainelPage implements OnInit {
         this.limparPrevisualizacoes();
         this.previsualizacoes = [];
         this.publicando.set(false);
+        this.editorAberto.set(false);
       },
       error: (erro) => {
         this.publicando.set(false);
-        this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel publicar agora.');
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível publicar agora.');
       },
     });
   }
@@ -1680,7 +1716,7 @@ export class PainelPage implements OnInit {
     this.interagindoId.set(postagem.id);
     this.api.alternarCurtidaPostagem(postagem.id).subscribe({
       next: (atualizada) => this.substituirPostagem(atualizada),
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel curtir esta postagem.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível curtir esta postagem.'),
       complete: () => this.interagindoId.set(null),
     });
   }
@@ -1697,7 +1733,7 @@ export class PainelPage implements OnInit {
         this.comentarios[postagem.id] = '';
         this.substituirPostagem(atualizada);
       },
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel comentar esta postagem.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível comentar esta postagem.'),
       complete: () => this.interagindoId.set(null),
     });
   }
@@ -1712,7 +1748,7 @@ export class PainelPage implements OnInit {
     this.api.alternarCurtidaComentario(postagem.id, comentarioId).subscribe({
       next: (atualizada) => this.substituirPostagem(atualizada),
       error: (erro) => {
-        this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel curtir este comentario.');
+        this.mensagem.set(erro?.error?.mensagem || 'Não foi possível curtir este comentário.');
         this.interagindoId.set(null);
       },
       complete: () => this.interagindoId.set(null),
@@ -1744,7 +1780,7 @@ export class PainelPage implements OnInit {
       if (erro instanceof DOMException && erro.name === 'AbortError') {
         return;
       }
-      this.mensagem.set('Nao foi possivel compartilhar agora. Tente copiar o link manualmente.');
+      this.mensagem.set('Não foi possível compartilhar agora. Tente copiar o link manualmente.');
     } finally {
       this.compartilhandoId.set(null);
     }
@@ -1760,12 +1796,12 @@ export class PainelPage implements OnInit {
     this.mensagemSugestaoAmigo.set('');
     this.api.enviarSolicitacaoAmizade(usuario.id).subscribe({
       next: () => {
-        this.mensagemSugestaoAmigo.set('Solicitacao enviada.');
+        this.mensagemSugestaoAmigo.set('Solicitação enviada.');
         this.sugestaoAmigo.set(null);
         window.dispatchEvent(new Event('hqhub-amizades-atualizadas'));
       },
       error: (erro) => {
-        this.mensagemSugestaoAmigo.set(erro?.error?.mensagem || 'Nao foi possivel enviar a solicitacao.');
+        this.mensagemSugestaoAmigo.set(erro?.error?.mensagem || 'Não foi possível enviar a solicitação.');
       },
       complete: () => this.enviandoSugestaoAmigo.set(false),
     });
@@ -1812,17 +1848,10 @@ export class PainelPage implements OnInit {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
   }
 
-  private carregarResumo() {
-    this.api.obterResumoColecao().subscribe({
-      next: (resumo) => this.resumo.set(resumo),
-      error: () => this.resumo.set({ totalItens: 0, totalSeries: 0, totalEditoras: 0, valorTotalPago: 0 }),
-    });
-  }
-
   private carregarFeed() {
     this.api.listarFeed().subscribe({
       next: (feed) => this.feed.set(feed),
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel carregar o feed.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível carregar o feed.'),
     });
   }
 
@@ -1853,7 +1882,7 @@ export class PainelPage implements OnInit {
     this.interagindoId.set(postagem.id);
     this.api.removerPostagemFeed(postagem.id).subscribe({
       next: () => this.feed.update((feed) => feed.filter((item) => item.id !== postagem.id)),
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel apagar esta postagem.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível apagar esta postagem.'),
       complete: () => this.interagindoId.set(null),
     });
   }
@@ -1862,7 +1891,7 @@ export class PainelPage implements OnInit {
     this.interagindoId.set(postagem.id);
     this.api.removerComentarioFeed(postagem.id, comentarioId).subscribe({
       next: (atualizada) => this.substituirPostagem(atualizada),
-      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Nao foi possivel apagar este comentario.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível apagar este comentário.'),
       complete: () => this.interagindoId.set(null),
     });
   }
@@ -1930,14 +1959,14 @@ export class PainelPage implements OnInit {
     return new Promise((resolve, reject) => {
       this.api.enviarImagensFeed(this.imagensSelecionadas).subscribe({
         next: (imagens) => resolve(imagens),
-        error: (erro) => reject(erro?.error?.mensagem || 'Nao foi possivel enviar as imagens.'),
+        error: (erro) => reject(erro?.error?.mensagem || 'Não foi possível enviar as imagens.'),
       });
     });
   }
 
   private validarImagens(arquivos: File[], excedeuQuantidade: boolean) {
     if (excedeuQuantidade || arquivos.length > 3) {
-      return 'A postagem pode ter no maximo 3 imagens.';
+      return 'A postagem pode ter no máximo 3 imagens.';
     }
 
     const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
@@ -1948,7 +1977,7 @@ export class PainelPage implements OnInit {
 
     const grande = arquivos.find((arquivo) => arquivo.size > 2 * 1024 * 1024);
     if (grande) {
-      return 'Cada imagem deve ter no maximo 2 MB.';
+      return 'Cada imagem deve ter no máximo 2 MB.';
     }
 
     return '';

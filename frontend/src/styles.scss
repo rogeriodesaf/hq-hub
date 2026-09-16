@@ -4008,9 +4008,9 @@ body.tema-escuro .banner-apoio span {
 
 .atalhos-feed {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .atalhos-feed a {
@@ -4018,7 +4018,8 @@ body.tema-escuro .banner-apoio span {
   align-items: center;
   gap: 9px;
   min-width: 0;
-  padding: 11px 13px;
+  min-height: 42px;
+  padding: 8px 10px;
   border: 1px solid var(--borda);
   border-radius: 12px;
   background: var(--superficie);
@@ -4029,6 +4030,11 @@ body.tema-escuro .banner-apoio span {
 
 .atalhos-feed a:hover {
   border-color: rgba(255, 122, 0, 0.45);
+}
+
+.atalhos-feed .atalho-estante {
+  border-color: color-mix(in srgb, var(--borda) 58%, var(--marca));
+  background: color-mix(in srgb, var(--superficie) 92%, var(--marca));
 }
 
 .atalhos-feed span {
@@ -4507,8 +4513,12 @@ body.bottom-sheet-aberto {
   }
 
   .app-shell:has(app-painel-page) .atalhos-superiores {
-    justify-content: flex-end;
+    position: fixed;
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    right: 12px;
+    z-index: 36;
     gap: 8px;
+    margin: 0;
   }
 
   .app-shell:has(app-painel-page) .atalho-tema {
@@ -4517,6 +4527,31 @@ body.bottom-sheet-aberto {
     right: auto;
     z-index: auto;
     box-shadow: none;
+  }
+
+  .app-shell:has(app-painel-page) .barra-lateral {
+    position: sticky;
+    top: 0;
+    z-index: 34;
+    min-height: 60px;
+    padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px;
+  }
+
+  .app-shell:has(app-painel-page) .marca {
+    min-height: 42px;
+  }
+
+  .app-shell:has(app-painel-page) .marca img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .app-shell:has(app-painel-page) .marca strong {
+    font-size: 1rem;
+  }
+
+  .app-shell:has(app-painel-page) .conteudo-app {
+    padding-top: 12px;
   }
 
   .aviso-nova-versao {
@@ -5629,7 +5664,12 @@ app-related-content .visitar-canal:hover {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     overflow: visible;
-    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    border-width: 1px 0 0;
+    border-radius: 16px 16px 0 0;
   }
 
   .navegacao-mobile a,
@@ -5645,6 +5685,21 @@ app-related-content .visitar-canal:hover {
   .navegacao-mobile .nav-publicar {
     overflow: visible;
     color: #fff;
+  }
+
+  .navegacao-mobile a.ativo {
+    color: #fff;
+    background: transparent;
+  }
+
+  .navegacao-mobile a.ativo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 22px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--marca);
   }
 
   .nav-publicar-icone {
@@ -5670,8 +5725,15 @@ app-related-content .visitar-canal:hover {
   }
 
   .atalhos-feed {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-columns: minmax(132px, max-content);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    scrollbar-width: none;
   }
+
+  .atalhos-feed::-webkit-scrollbar { display: none; }
 }
 
 @media (max-width: 420px) {

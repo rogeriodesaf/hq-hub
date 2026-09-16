@@ -59,7 +59,7 @@ import { PostagemFeed } from '../core/modelos';
         <button type="button" [class.ativo]="postagem.curtidaPeloUsuario" [attr.aria-pressed]="postagem.curtidaPeloUsuario" (click)="curtir.emit()" [disabled]="ocupado">
           <span aria-hidden="true">{{ postagem.curtidaPeloUsuario ? '♥' : '♡' }}</span> Curtir
         </button>
-        <button type="button" [attr.aria-expanded]="comentariosAbertos" (click)="comentariosAbertos = !comentariosAbertos">
+        <button type="button" [attr.aria-expanded]="comentariosAbertos" (click)="abrirComentarios()">
           <span aria-hidden="true">💬</span> Comentar
         </button>
       </div>
@@ -99,7 +99,7 @@ import { PostagemFeed } from '../core/modelos';
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
     .edicoes { display: grid; gap: 10px; }
     .edicao { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 14px; align-items: center; color: inherit; text-decoration: none; min-width: 0; }
-    .edicao img { width: 86px; aspect-ratio: 2 / 3; border-radius: 8px; object-fit: cover; background: var(--superficie-2); }
+    .edicao img { width: 86px; aspect-ratio: 2 / 3; border-radius: 8px; object-fit: contain; background: var(--superficie-2); }
     .edicao span { min-width: 0; display: grid; gap: 8px; }
     .edicao strong { overflow-wrap: anywhere; line-height: 1.35; }
     .edicao em, .resumo-grupo a { color: var(--primaria); font-style: normal; font-weight: 700; }
@@ -160,6 +160,11 @@ export class AtividadeEstanteCardComponent {
     if (segundos < 3600) return `há ${Math.floor(segundos / 60)} min`;
     if (segundos < 86400) return `há ${Math.floor(segundos / 3600)} h`;
     return `há ${Math.floor(segundos / 86400)} d`;
+  }
+
+  abrirComentarios() {
+    this.comentariosAbertos = true;
+    window.setTimeout(() => document.getElementById(`comentario-atividade-${this.postagem.id}`)?.focus());
   }
 
   enviarComentario() {

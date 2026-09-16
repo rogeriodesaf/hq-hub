@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 import {
   Edicao,
   EditoraResumo,
+  ColecaoResumo,
   ConfiguracaoColecao,
   EstanteEdicao,
   EstanteEditora,
@@ -446,6 +447,25 @@ import {
         </div>
       </div>
 
+      <div class="metricas-estante metricas-colecao-gerais" aria-label="Resumo da coleção">
+        <article>
+          <span>Edições na coleção</span>
+          <strong>{{ resumoColecao()?.totalItens ?? 0 }}</strong>
+        </article>
+        <article>
+          <span>Séries acompanhadas</span>
+          <strong>{{ resumoColecao()?.totalSeries ?? 0 }}</strong>
+        </article>
+        <article>
+          <span>Editoras na estante</span>
+          <strong>{{ resumoColecao()?.totalEditoras ?? 0 }}</strong>
+        </article>
+        <article>
+          <span>Investido na coleção</span>
+          <strong>{{ (configuracaoColecao()?.exibirValorColecao ?? true) ? formatarMoeda(resumoColecao()?.valorTotalPago ?? 0) : 'Oculto' }}</strong>
+        </article>
+      </div>
+
       <div class="metricas-estante">
         <article>
           <span>Total filtrado</span>
@@ -677,6 +697,7 @@ export class ColecaoPage implements OnInit {
   readonly podeRevisarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly podeAdministrarCatalogo = this.autenticacao.ehAdministrador;
   readonly configuracaoColecao = signal<ConfiguracaoColecao | null>(null);
+  readonly resumoColecao = signal<ColecaoResumo | null>(null);
   readonly salvandoConfiguracao = signal(false);
   readonly mensagem = signal('');
   readonly tipoMensagem = computed<'sucesso' | 'erro' | 'info'>(() => this.classificarMensagem(this.mensagem()));
@@ -747,7 +768,15 @@ export class ColecaoPage implements OnInit {
 
   ngOnInit() {
     this.carregarConfiguracaoColecao();
+    this.carregarResumoColecao();
     this.carregarEstante();
+  }
+
+  private carregarResumoColecao() {
+    this.api.obterResumoColecao().subscribe({
+      next: (resumo) => this.resumoColecao.set(resumo),
+      error: () => this.resumoColecao.set(null),
+    });
   }
 
   fecharMensagem() {
