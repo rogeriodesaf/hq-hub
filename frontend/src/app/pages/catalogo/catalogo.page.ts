@@ -34,10 +34,14 @@ import {
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
-        <p class="rotulo">Catálogo</p>
-        <h1>Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.</h1>
+        <p class="rotulo">{{ modoAdicao() ? 'Adicionar à estante' : 'Catálogo' }}</p>
+        <h1>{{ modoAdicao() ? 'Encontre a edição que deseja adicionar.' : 'Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.' }}</h1>
       </div>
-      <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
+      @if (modoAdicao()) {
+        <a class="botao secundario compacto" routerLink="/colecao">Voltar à estante</a>
+      } @else {
+        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
+      }
     </section>
 
     @if (mensagem()) {
@@ -1192,6 +1196,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly podeEditarCatalogo = this.autenticacao.podeRevisarCatalogo;
   readonly podeExcluirCatalogo = this.autenticacao.ehAdministrador;
   readonly autenticado = this.autenticacao.autenticado;
+  readonly modoAdicao = signal(false);
   readonly editoras = signal<EditoraResumo[]>([]);
   readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
@@ -1332,6 +1337,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
 
     this.rota.queryParamMap.subscribe((parametros) => {
+      this.modoAdicao.set(parametros.get('modo') === 'adicionar');
       const colecaoTex = parametros.get('colecaoTex');
       if (colecaoTex === 'globo' || colecaoTex === 'rge' || colecaoTex === 'vecchi') {
         this.carregarColecaoTexPorEditora(colecaoTex);

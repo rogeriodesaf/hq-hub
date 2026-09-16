@@ -37,25 +37,31 @@ import {
         <a class="botao secundario" routerLink="/painel">Voltar ao feed</a>
       </div>
     } @else {
-      <section class="cabecalho-pagina perfil-publico-cabecalho">
-        <div class="perfil-publico-identidade">
-          <div class="avatar-publico">
-            @if (usuario()!.fotoPerfilUrl) {
-              <img [src]="resolverUrlMidia(usuario()!.fotoPerfilUrl)" [alt]="'Foto de ' + usuario()!.nome" />
-            } @else {
-              {{ iniciais(usuario()!.nome) }}
-            }
-          </div>
-          <div>
-            <h1>{{ usuario()!.nome }}</h1>
-            @if (usuario()!.bio) {
-              <p class="bio-publica">{{ usuario()!.bio }}</p>
-            }
-          </div>
+      <section class="perfil-publico-hero" [class.sem-capa]="!usuario()!.capaPerfilUrl">
+        <div class="capa-perfil-publico">
+          @if (usuario()!.capaPerfilUrl) {
+            <img [src]="resolverUrlMidia(usuario()!.capaPerfilUrl)" [alt]="'Capa do perfil de ' + usuario()!.nome" />
+          }
         </div>
+        <div class="perfil-publico-cabecalho">
+          <div class="perfil-publico-identidade">
+            <div class="avatar-publico">
+              @if (usuario()!.fotoPerfilUrl) {
+                <img [src]="resolverUrlMidia(usuario()!.fotoPerfilUrl)" [alt]="'Foto de ' + usuario()!.nome" />
+              } @else {
+                {{ iniciais(usuario()!.nome) }}
+              }
+            </div>
+            <div>
+              <h1>{{ usuario()!.nome }}</h1>
+              @if (usuario()!.bio) {
+                <p class="bio-publica">{{ usuario()!.bio }}</p>
+              }
+            </div>
+          </div>
 
-        @if (!ehMeuPerfil()) {
-          <div class="acoes-perfil-publico">
+          @if (!ehMeuPerfil()) {
+            <div class="acoes-perfil-publico">
             @if (amizade() === undefined) {
               <span class="texto-suave">Carregando...</span>
             } @else if (amizade() === null) {
@@ -76,8 +82,9 @@ import {
             @if (mensagem()) {
               <p class="mensagem-erro">{{ mensagem() }}</p>
             }
-          </div>
-        }
+            </div>
+          }
+        </div>
       </section>
 
       <!-- Stats da coleção -->
@@ -162,7 +169,7 @@ import {
                         <a [href]="resolverUrlMidia(imagem.urlImagem)" target="_blank" rel="noreferrer">
                           <img
                             class="imagem-postagem"
-                            [src]="resolverUrlMidia(imagem.urlThumbnail)"
+                            [src]="resolverUrlMidia(imagensPostagem(postagem).length === 1 ? imagem.urlImagem : imagem.urlThumbnail)"
                             [alt]="'Imagem de ' + usuario()!.nome"
                             loading="lazy"
                           />
@@ -523,25 +530,50 @@ import {
       text-align: center;
     }
 
+    .perfil-publico-hero {
+      overflow: hidden;
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      background: var(--superficie);
+      box-shadow: var(--sombra);
+    }
+
+    .capa-perfil-publico {
+      height: clamp(180px, 24vw, 300px);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--marca) 78%, #15191f), var(--azul));
+    }
+
+    .capa-perfil-publico img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
     .perfil-publico-cabecalho {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: flex-end;
       flex-wrap: wrap;
       gap: 16px;
+      padding: 0 22px 20px;
     }
 
     .perfil-publico-identidade {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 16px;
+      min-width: 0;
     }
 
     .avatar-publico {
       display: grid;
-      width: 80px;
-      height: 80px;
+      width: 104px;
+      height: 104px;
+      margin-top: -48px;
       place-items: center;
+      border: 4px solid var(--superficie);
       border-radius: 999px;
       overflow: hidden;
       background: var(--azul);
@@ -574,7 +606,7 @@ import {
     .perfil-publico-layout {
       display: grid;
       gap: 18px;
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: minmax(0, 720px) minmax(280px, 1fr);
       align-items: start;
       margin-top: 18px;
     }
@@ -596,9 +628,22 @@ import {
     }
 
     @media (max-width: 600px) {
+      .capa-perfil-publico { height: 150px; }
+
       .perfil-publico-cabecalho {
         flex-direction: column;
         align-items: stretch;
+        padding: 0 14px 16px;
+      }
+
+      .perfil-publico-identidade {
+        align-items: flex-end;
+      }
+
+      .avatar-publico {
+        width: 84px;
+        height: 84px;
+        margin-top: -38px;
       }
 
       .perfil-stats {
@@ -700,7 +745,9 @@ import {
 
     .grade-imagens-feed a {
       position: relative;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
       border-radius: 8px;
       border: 1px solid var(--borda);
@@ -709,7 +756,7 @@ import {
 
     .imagem-postagem {
       width: 100%;
-      height: 100%;
+      height: auto;
       max-height: 520px;
       aspect-ratio: 4 / 3;
       object-fit: cover;
@@ -721,7 +768,12 @@ import {
     }
 
     .imagens-postagem:not(.multipla) .imagem-postagem {
-      aspect-ratio: 16 / 10;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: min(72vh, 720px);
+      aspect-ratio: auto;
+      object-fit: contain;
     }
 
     .barra-postagem {

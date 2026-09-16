@@ -304,7 +304,7 @@
           <button type="button" (click)="fecharPublicar()" aria-label="Fechar">×</button>
         </header>
         <nav class="opcoes-publicar">
-          <a routerLink="/colecao/adicionar" (click)="fecharPublicar()"><span>📚</span><div><strong>Adicionar à estante</strong><small>Pesquise uma edição ou faça o cadastro manual</small></div></a>
+          <a routerLink="/catalogo" [queryParams]="{ modo: 'adicionar' }" (click)="fecharPublicar()"><span>📚</span><div><strong>Adicionar à estante</strong><small>Use a busca completa do catálogo</small></div></a>
           <a routerLink="/catalogo" (click)="fecharPublicar()"><span>🔎</span><div><strong>Buscar no catálogo</strong><small>Explore séries e edições sem iniciar uma adição</small></div></a>
           <a routerLink="/painel" fragment="publicar" (click)="fecharPublicar()"><span>✍️</span><div><strong>Criar publicação</strong><small>Compartilhe textos, fotos ou links do YouTube</small></div></a>
           <a routerLink="/anuncios" (click)="fecharPublicar()"><span>📢</span><div><strong>Anunciar HQ</strong><small>Venda ou troca no Marketplace</small></div></a>
