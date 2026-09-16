@@ -75,17 +75,13 @@ public class AnuncioCompartilhamentoResource {
             if (dados.length > 5_000_000) return Response.status(404).build();
             BufferedImage original = ImageIO.read(new ByteArrayInputStream(dados));
             if (original == null) return Response.status(404).build();
-            double escala = Math.min(1200d / original.getWidth(), 1600d / original.getHeight());
-            escala = Math.max(1d, escala);
-            int largura = (int) Math.round(original.getWidth() * escala);
-            int altura = (int) Math.round(original.getHeight() * escala);
+            int largura = original.getWidth();
+            int altura = original.getHeight();
             BufferedImage rgb = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
             var grafico = rgb.createGraphics();
             grafico.setColor(java.awt.Color.WHITE);
             grafico.fillRect(0, 0, largura, altura);
-            grafico.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION,
-                    java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            grafico.drawImage(original, 0, 0, largura, altura, null);
+            grafico.drawImage(original, 0, 0, null);
             grafico.dispose();
             ByteArrayOutputStream jpeg = new ByteArrayOutputStream();
             if (!ImageIO.write(rgb, "jpeg", jpeg)) return Response.status(404).build();
