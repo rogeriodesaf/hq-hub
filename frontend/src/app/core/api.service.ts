@@ -878,6 +878,18 @@ export class ApiService {
     );
   }
 
+  curtirHistoria(id: number) {
+    return this.http.post<HistoriaLeitura>(`/api/historias-leitura/${id}/curtidas`, {}).pipe(
+      map((historia) => this.normalizarHistoria(historia)),
+    );
+  }
+
+  comentarHistoria(id: number, texto: string) {
+    return this.http.post<HistoriaLeitura>(`/api/historias-leitura/${id}/comentarios`, { texto }).pipe(
+      map((historia) => this.normalizarHistoria(historia)),
+    );
+  }
+
   removerHistoria(id: number) {
     return this.http.delete<void>(`/api/historias-leitura/${id}`);
   }
@@ -1172,6 +1184,10 @@ export class ApiService {
     return {
       ...historia,
       usuario: this.normalizarUsuario(historia.usuario),
+      comentarios: (historia.comentarios || []).map((comentario) => ({
+        ...comentario,
+        usuario: this.normalizarUsuario(comentario.usuario),
+      })),
       urlImagem: this.normalizarUrlMidia(historia.urlImagem) || historia.urlImagem,
     };
   }

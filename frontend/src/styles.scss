@@ -4963,7 +4963,8 @@ app-painel-page .historia-imagem-seletor img { width: 100%; max-height: 360px; o
 app-painel-page .historia-imagem-seletor input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 app-painel-page .historia-visualizador { position: fixed; z-index: 90; inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 12px; padding: max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); color: #fff; background: #090b0e; }
 app-painel-page .historia-progresso { height: 3px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.3); }
-app-painel-page .historia-progresso span { display: block; width: 100%; height: 100%; background: #fff; }
+app-painel-page .historia-progresso span { display: block; width: 100%; height: 100%; background: #fff; transform-origin: left; animation: historia-tempo 8s linear forwards; }
+@keyframes historia-tempo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 app-painel-page .historia-autor { display: flex; align-items: center; gap: 8px; min-width: 0; }
 app-painel-page .historia-autor small { color: rgba(255,255,255,.72); }
 app-painel-page .historia-visualizador header > div:last-child { display: flex; gap: 6px; }
@@ -4976,6 +4977,13 @@ app-painel-page .historia-visualizacoes > div > span:last-child { display: grid;
 app-painel-page .historia-visualizacoes .avatar-feed { width: 36px; height: 36px; flex: 0 0 36px; }
 app-painel-page .historia-visualizacoes .avatar-feed img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 app-painel-page .historia-visualizacoes small { color: rgba(255,255,255,.72); }
+app-painel-page .historia-interacoes { display: flex; justify-content: center; gap: 12px; }
+app-painel-page .historia-interacoes button { padding: 8px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #fff; background: rgba(0,0,0,.5); font: inherit; cursor: pointer; }
+app-painel-page .historia-interacoes button.ativa { color: #ff496c; }
+app-painel-page .historia-comentarios { display: grid; max-height: 34dvh; gap: 8px; padding: 12px; overflow-y: auto; border-radius: 12px; background: rgba(0,0,0,.72); }
+app-painel-page .historia-comentarios p { margin: 0; }
+app-painel-page .historia-comentarios form { display: flex; gap: 8px; }
+app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
 
 @media (max-width: 420px) {
   .conteudo-app {

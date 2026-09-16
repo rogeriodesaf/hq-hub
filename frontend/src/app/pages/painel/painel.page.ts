@@ -539,7 +539,7 @@ import { environment } from '../../../environments/environment';
 
     @if (historiaAberta(); as historia) {
       <section class="historia-visualizador" role="dialog" aria-modal="true" aria-label="História de leitura">
-        <div class="historia-progresso"><span></span></div>
+        <div class="historia-progresso"><span [style.animation-play-state]="historiaPausada() ? 'paused' : 'running'"></span></div>
         <header>
           <div class="historia-autor"><span class="avatar-feed">{{ iniciais(historia.usuario.nome) }}</span><strong>{{ historia.usuario.nome }}</strong><small>{{ dataRelativa(historia.dataCriacao) }}</small></div>
           <div>
@@ -548,6 +548,22 @@ import { environment } from '../../../environments/environment';
           </div>
         </header>
         <img class="historia-midia" [src]="historia.urlImagem" [alt]="historia.tituloHq || 'História de leitura'" />
+        <div class="historia-interacoes">
+          <button type="button" (click)="curtirHistoria(historia)" [class.ativa]="historia.curtidaPeloUsuario">♥ {{ historia.totalCurtidas }}</button>
+          <button type="button" (click)="alternarComentariosHistoria()">💬 {{ historia.comentarios.length }}</button>
+        </div>
+        @if (comentariosHistoriaAbertos()) {
+          <section class="historia-comentarios">
+            @for (comentario of historia.comentarios; track comentario.id) {
+              <p><b>{{ comentario.usuario.nome }}</b> {{ comentario.texto }}</p>
+            }
+            @if (historia.comentarios.length === 0) { <small>Seja o primeiro a comentar.</small> }
+            <form (submit)="comentarHistoria(historia, $event)">
+              <input [(ngModel)]="novoComentarioHistoria" name="comentarioHistoria" maxlength="500" placeholder="Escreva um comentário..." />
+              <button type="submit" [disabled]="!novoComentarioHistoria.trim()">Enviar</button>
+            </form>
+          </section>
+        }
         @if (historia.tituloHq || historia.texto || historia.usuario.id === usuario()?.id) {
           <footer>
             @if (historia.tituloHq) { <strong>{{ historia.tituloHq }}</strong> }
@@ -1431,6 +1447,10 @@ export class PainelPage implements OnInit {
   readonly visualizacoesAbertas = signal(false);
   readonly carregandoVisualizacoes = signal(false);
   readonly visualizacoesHistoria = signal<VisualizacaoHistoriaLeitura[]>([]);
+  readonly comentariosHistoriaAbertos = signal(false);
+  readonly historiaPausada = signal(false);
+  novoComentarioHistoria = '';
+  private temporizadorHistoria: ReturnType<typeof setTimeout> | null = null;
   arquivoHistoria: File | null = null;
   textoHistoria = '';
   tituloHqHistoria = '';
@@ -1529,6 +1549,9 @@ export class PainelPage implements OnInit {
     this.visualizacoesAbertas.set(false);
     this.visualizacoesHistoria.set([]);
     this.historiaAberta.set(historia);
+    this.comentariosHistoriaAbertos.set(false);
+    this.historiaPausada.set(false);
+    this.iniciarTemporizadorHistoria();
     if (historia.usuario.id !== this.usuario()?.id && !historia.visualizada) {
       this.api.visualizarHistoria(historia.id).subscribe({
         next: (atualizada) => {
@@ -1540,17 +1563,57 @@ export class PainelPage implements OnInit {
   }
 
   fecharHistoria() {
+    this.cancelarTemporizadorHistoria();
     this.historiaAberta.set(null);
     this.visualizacoesAbertas.set(false);
     this.visualizacoesHistoria.set([]);
   }
 
+  curtirHistoria(historia: HistoriaLeitura) {
+    this.api.curtirHistoria(historia.id).subscribe({ next: (atualizada) => this.atualizarHistoriaAberta(atualizada) });
+  }
+
+  alternarComentariosHistoria() {
+    const aberto = !this.comentariosHistoriaAbertos();
+    this.comentariosHistoriaAbertos.set(aberto);
+    this.historiaPausada.set(aberto);
+    if (aberto) this.cancelarTemporizadorHistoria(); else this.iniciarTemporizadorHistoria();
+  }
+
+  comentarHistoria(historia: HistoriaLeitura, evento: Event) {
+    evento.preventDefault();
+    const texto = this.novoComentarioHistoria.trim();
+    if (!texto) return;
+    this.api.comentarHistoria(historia.id, texto).subscribe({
+      next: (atualizada) => { this.novoComentarioHistoria = ''; this.atualizarHistoriaAberta(atualizada); },
+    });
+  }
+
+  private atualizarHistoriaAberta(historia: HistoriaLeitura) {
+    this.historiaAberta.set(historia);
+    this.historias.update((itens) => itens.map((item) => item.id === historia.id ? historia : item));
+  }
+
+  private iniciarTemporizadorHistoria() {
+    this.cancelarTemporizadorHistoria();
+    this.temporizadorHistoria = setTimeout(() => this.fecharHistoria(), 8000);
+  }
+
+  private cancelarTemporizadorHistoria() {
+    if (this.temporizadorHistoria) clearTimeout(this.temporizadorHistoria);
+    this.temporizadorHistoria = null;
+  }
+
   alternarVisualizacoes(historia: HistoriaLeitura) {
     if (this.visualizacoesAbertas()) {
       this.visualizacoesAbertas.set(false);
+      this.historiaPausada.set(false);
+      this.iniciarTemporizadorHistoria();
       return;
     }
     this.visualizacoesAbertas.set(true);
+    this.historiaPausada.set(true);
+    this.cancelarTemporizadorHistoria();
     this.carregandoVisualizacoes.set(true);
     this.api.listarVisualizacoesHistoria(historia.id).subscribe({
       next: (itens) => {

@@ -5,14 +5,21 @@ import java.util.List;
 import br.com.hqhub.dto.CadastroHistoriaLeituraDTO;
 import br.com.hqhub.dto.HistoriaLeituraRespostaDTO;
 import br.com.hqhub.dto.VisualizacaoHistoriaLeituraRespostaDTO;
+import br.com.hqhub.dto.CadastroComentarioHistoriaDTO;
+import br.com.hqhub.dto.ComentarioHistoriaLeituraDTO;
 import br.com.hqhub.entity.HistoriaLeitura;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.entity.VisualizacaoHistoriaLeitura;
+import br.com.hqhub.entity.CurtidaHistoriaLeitura;
+import br.com.hqhub.entity.ComentarioHistoriaLeitura;
+import br.com.hqhub.entity.TipoNotificacaoSocial;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.HistoriaLeituraRepository;
 import br.com.hqhub.repository.VisualizacaoHistoriaLeituraRepository;
+import br.com.hqhub.repository.CurtidaHistoriaLeituraRepository;
+import br.com.hqhub.repository.ComentarioHistoriaLeituraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import io.quarkus.scheduler.Scheduled;
@@ -24,17 +31,24 @@ public class HistoriaLeituraService {
     private final UsuarioAutenticadoService autenticacao;
     private final UsuarioMapper usuarioMapper;
     private final FeedMidiaService midia;
+    private final CurtidaHistoriaLeituraRepository curtidas;
+    private final ComentarioHistoriaLeituraRepository comentarios;
+    private final NotificacaoSocialService notificacoes;
 
     public HistoriaLeituraService(HistoriaLeituraRepository historias,
             VisualizacaoHistoriaLeituraRepository visualizacoes,
             UsuarioAutenticadoService autenticacao,
             UsuarioMapper usuarioMapper,
-            FeedMidiaService midia) {
+            FeedMidiaService midia, CurtidaHistoriaLeituraRepository curtidas,
+            ComentarioHistoriaLeituraRepository comentarios, NotificacaoSocialService notificacoes) {
         this.historias = historias;
         this.visualizacoes = visualizacoes;
         this.autenticacao = autenticacao;
         this.usuarioMapper = usuarioMapper;
         this.midia = midia;
+        this.curtidas = curtidas;
+        this.comentarios = comentarios;
+        this.notificacoes = notificacoes;
     }
 
     @Transactional
@@ -105,6 +119,40 @@ public class HistoriaLeituraService {
         historias.delete(historia);
     }
 
+    @Transactional
+    public HistoriaLeituraRespostaDTO alternarCurtida(Long id) {
+        Usuario usuario = autenticacao.obterUsuario();
+        HistoriaLeitura historia = buscarVisivel(id, usuario);
+        var existente = curtidas.buscar(id, usuario.getId());
+        if (existente.isPresent()) curtidas.delete(existente.get());
+        else {
+            CurtidaHistoriaLeitura curtida = new CurtidaHistoriaLeitura();
+            curtida.setHistoria(historia); curtida.setUsuario(usuario); curtidas.persist(curtida);
+            notificacoes.criar(historia.getUsuario(), usuario, TipoNotificacaoSocial.CURTIDA_HISTORIA, null, null,
+                    usuario.getNome() + " curtiu seu story.");
+        }
+        return paraResposta(historia, usuario.getId());
+    }
+
+    @Transactional
+    public HistoriaLeituraRespostaDTO comentar(Long id, CadastroComentarioHistoriaDTO dto) {
+        Usuario usuario = autenticacao.obterUsuario();
+        HistoriaLeitura historia = buscarVisivel(id, usuario);
+        ComentarioHistoriaLeitura comentario = new ComentarioHistoriaLeitura();
+        comentario.setHistoria(historia); comentario.setUsuario(usuario); comentario.setTexto(dto.texto().trim());
+        comentarios.persistAndFlush(comentario);
+        notificacoes.criar(historia.getUsuario(), usuario, TipoNotificacaoSocial.COMENTARIO_HISTORIA, null, null,
+                usuario.getNome() + " comentou no seu story.");
+        return paraResposta(historia, usuario.getId());
+    }
+
+    private HistoriaLeitura buscarVisivel(Long id, Usuario usuario) {
+        HistoriaLeitura historia = buscarAtiva(id);
+        if (historias.listarAtivas(usuario.getId()).stream().noneMatch(item -> item.getId().equals(id)))
+            throw new RecursoNaoEncontradoException("História não encontrada.");
+        return historia;
+    }
+
     private HistoriaLeitura buscarAtiva(Long id) {
         HistoriaLeitura historia = historias.findByIdOptional(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("História não encontrada."));
@@ -123,6 +171,11 @@ public class HistoriaLeituraService {
                 historia.getTituloHq(),
                 visualizacoes.visualizada(historia.getId(), usuarioId),
                 visualizacoes.total(historia.getId()),
+                curtidas.total(historia.getId()),
+                curtidas.buscar(historia.getId(), usuarioId).isPresent(),
+                comentarios.listar(historia.getId()).stream()
+                        .map(item -> new ComentarioHistoriaLeituraDTO(item.getId(), usuarioMapper.paraResposta(item.getUsuario()), item.getTexto(), item.getDataCriacao()))
+                        .toList(),
                 historia.getDataCriacao(),
                 historia.getDataExpiracao());
     }

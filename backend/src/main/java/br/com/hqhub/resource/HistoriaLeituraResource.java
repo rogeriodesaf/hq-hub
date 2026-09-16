@@ -1,6 +1,7 @@
 package br.com.hqhub.resource;
 
 import br.com.hqhub.dto.CadastroHistoriaLeituraDTO;
+import br.com.hqhub.dto.CadastroComentarioHistoriaDTO;
 import br.com.hqhub.service.HistoriaLeituraService;
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
@@ -40,6 +41,12 @@ public class HistoriaLeituraResource {
     public Response listarVisualizacoes(@PathParam("id") Long id) {
         return Response.ok(service.listarVisualizacoes(id)).build();
     }
+
+    @POST @Path("/{id}/curtidas")
+    public Response alternarCurtida(@PathParam("id") Long id) { return Response.ok(service.alternarCurtida(id)).build(); }
+
+    @POST @Path("/{id}/comentarios")
+    public Response comentar(@PathParam("id") Long id, @Valid CadastroComentarioHistoriaDTO dto) { return Response.ok(service.comentar(id, dto)).build(); }
 
     @DELETE
     @Path("/{id}")

@@ -768,8 +768,18 @@ export interface HistoriaLeitura {
   tituloHq: string | null;
   visualizada: boolean;
   totalVisualizacoes: number;
+  totalCurtidas: number;
+  curtidaPeloUsuario: boolean;
+  comentarios: ComentarioHistoriaLeitura[];
   dataCriacao: string;
   dataExpiracao: string;
+}
+
+export interface ComentarioHistoriaLeitura {
+  id: number;
+  usuario: Usuario;
+  texto: string;
+  dataCriacao: string;
 }
 
 export interface VisualizacaoHistoriaLeitura {
@@ -779,7 +789,7 @@ export interface VisualizacaoHistoriaLeitura {
 
 export interface NotificacaoSocial {
   id: number;
-  tipo: 'CURTIDA_POSTAGEM' | 'COMENTARIO_POSTAGEM' | 'CURTIDA_COMENTARIO';
+  tipo: 'CURTIDA_POSTAGEM' | 'COMENTARIO_POSTAGEM' | 'CURTIDA_COMENTARIO' | 'CURTIDA_HISTORIA' | 'COMENTARIO_HISTORIA';
   autor: Usuario;
   postagemId: number | null;
   mensagem: string;

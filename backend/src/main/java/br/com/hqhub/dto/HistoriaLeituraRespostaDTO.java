@@ -1,6 +1,7 @@
 package br.com.hqhub.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record HistoriaLeituraRespostaDTO(
         Long id,
@@ -10,6 +11,9 @@ public record HistoriaLeituraRespostaDTO(
         String tituloHq,
         boolean visualizada,
         long totalVisualizacoes,
+        long totalCurtidas,
+        boolean curtidaPeloUsuario,
+        List<ComentarioHistoriaLeituraDTO> comentarios,
         LocalDateTime dataCriacao,
         LocalDateTime dataExpiracao) {
 }
