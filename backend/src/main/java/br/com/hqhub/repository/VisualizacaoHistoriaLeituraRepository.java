@@ -1,5 +1,7 @@
 package br.com.hqhub.repository;
 
+import java.util.List;
+
 import br.com.hqhub.entity.VisualizacaoHistoriaLeitura;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -11,6 +13,10 @@ public class VisualizacaoHistoriaLeituraRepository implements PanacheRepository<
     }
 
     public long total(Long historiaId) {
-        return count("historia.id = ?1", historiaId);
+        return count("historia.id = ?1 and usuario.id <> historia.usuario.id", historiaId);
+    }
+
+    public List<VisualizacaoHistoriaLeitura> listarPorHistoria(Long historiaId) {
+        return list("historia.id = ?1 and usuario.id <> historia.usuario.id order by dataVisualizacao desc", historiaId);
     }
 }

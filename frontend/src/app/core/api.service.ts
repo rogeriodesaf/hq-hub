@@ -37,6 +37,7 @@ import {
   SerieGcd,
   Historia,
   HistoriaLeitura,
+  VisualizacaoHistoriaLeitura,
   InteracaoItemColecao,
   InteracaoSocialColecao,
   InteracoesColecaoUsuario,
@@ -865,6 +866,15 @@ export class ApiService {
   visualizarHistoria(id: number) {
     return this.http.post<HistoriaLeitura>(`/api/historias-leitura/${id}/visualizacoes`, {}).pipe(
       map((historia) => this.normalizarHistoria(historia)),
+    );
+  }
+
+  listarVisualizacoesHistoria(id: number) {
+    return this.http.get<VisualizacaoHistoriaLeitura[]>(`/api/historias-leitura/${id}/visualizacoes`).pipe(
+      map((visualizacoes) => visualizacoes.map((item) => ({
+        ...item,
+        usuario: this.normalizarUsuario(item.usuario),
+      }))),
     );
   }
 

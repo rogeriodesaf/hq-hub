@@ -35,6 +35,12 @@ public class HistoriaLeituraResource {
         return Response.ok(service.visualizar(id)).build();
     }
 
+    @GET
+    @Path("/{id}/visualizacoes")
+    public Response listarVisualizacoes(@PathParam("id") Long id) {
+        return Response.ok(service.listarVisualizacoes(id)).build();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response remover(@PathParam("id") Long id) {

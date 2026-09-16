@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import br.com.hqhub.dto.CadastroHistoriaLeituraDTO;
 import br.com.hqhub.dto.HistoriaLeituraRespostaDTO;
+import br.com.hqhub.dto.VisualizacaoHistoriaLeituraRespostaDTO;
 import br.com.hqhub.entity.HistoriaLeitura;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.entity.VisualizacaoHistoriaLeitura;
@@ -68,13 +69,28 @@ public class HistoriaLeituraService {
         if (!visivel) {
             throw new RecursoNaoEncontradoException("História não encontrada.");
         }
-        if (!visualizacoes.visualizada(id, usuario.getId())) {
+        if (!historia.getUsuario().getId().equals(usuario.getId())
+                && !visualizacoes.visualizada(id, usuario.getId())) {
             VisualizacaoHistoriaLeitura visualizacao = new VisualizacaoHistoriaLeitura();
             visualizacao.setHistoria(historia);
             visualizacao.setUsuario(usuario);
             visualizacoes.persist(visualizacao);
         }
         return paraResposta(historia, usuario.getId());
+    }
+
+    @Transactional
+    public List<VisualizacaoHistoriaLeituraRespostaDTO> listarVisualizacoes(Long id) {
+        Usuario usuario = autenticacao.obterUsuario();
+        HistoriaLeitura historia = buscarAtiva(id);
+        if (!historia.getUsuario().getId().equals(usuario.getId())) {
+            throw new RecursoNaoEncontradoException("História não encontrada.");
+        }
+        return visualizacoes.listarPorHistoria(id).stream()
+                .map(item -> new VisualizacaoHistoriaLeituraRespostaDTO(
+                        usuarioMapper.paraResposta(item.getUsuario()),
+                        item.getDataVisualizacao()))
+                .toList();
     }
 
     @Transactional

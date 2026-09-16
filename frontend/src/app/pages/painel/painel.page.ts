@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
+import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
@@ -548,7 +548,35 @@ import { environment } from '../../../environments/environment';
           </div>
         </header>
         <img class="historia-midia" [src]="historia.urlImagem" [alt]="historia.tituloHq || 'História de leitura'" />
-        @if (historia.tituloHq || historia.texto) { <footer>@if (historia.tituloHq) { <strong>{{ historia.tituloHq }}</strong> }@if (historia.texto) { <p>{{ historia.texto }}</p> }@if (historia.usuario.id === usuario()?.id) { <small>{{ historia.totalVisualizacoes }} visualizações</small> }</footer> }
+        @if (historia.tituloHq || historia.texto || historia.usuario.id === usuario()?.id) {
+          <footer>
+            @if (historia.tituloHq) { <strong>{{ historia.tituloHq }}</strong> }
+            @if (historia.texto) { <p>{{ historia.texto }}</p> }
+            @if (historia.usuario.id === usuario()?.id) {
+              <button class="historia-visualizacoes-botao" type="button" (click)="alternarVisualizacoes(historia)">
+                👁 {{ historia.totalVisualizacoes }} {{ historia.totalVisualizacoes === 1 ? 'visualização' : 'visualizações' }}
+              </button>
+              @if (visualizacoesAbertas()) {
+                <section class="historia-visualizacoes" aria-label="Quem visualizou">
+                  <strong>Quem visualizou</strong>
+                  @if (carregandoVisualizacoes()) { <small>Carregando...</small> }
+                  @else if (visualizacoesHistoria().length === 0) { <small>Ninguém visualizou ainda.</small> }
+                  @else {
+                    @for (item of visualizacoesHistoria(); track item.usuario.id) {
+                      <div>
+                        <span class="avatar-feed">
+                          @if (item.usuario.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(item.usuario.fotoPerfilThumbnailUrl)" alt="" /> }
+                          @else { {{ iniciais(item.usuario.nome) }} }
+                        </span>
+                        <span><b>{{ item.usuario.nome }}</b><small>{{ dataRelativa(item.dataVisualizacao) }}</small></span>
+                      </div>
+                    }
+                  }
+                </section>
+              }
+            }
+          </footer>
+        }
       </section>
     }
   `,
@@ -1400,6 +1428,9 @@ export class PainelPage implements OnInit {
   readonly previewHistoria = signal<string | null>(null);
   readonly salvandoHistoria = signal(false);
   readonly mensagemHistoria = signal('');
+  readonly visualizacoesAbertas = signal(false);
+  readonly carregandoVisualizacoes = signal(false);
+  readonly visualizacoesHistoria = signal<VisualizacaoHistoriaLeitura[]>([]);
   arquivoHistoria: File | null = null;
   textoHistoria = '';
   tituloHqHistoria = '';
@@ -1495,8 +1526,10 @@ export class PainelPage implements OnInit {
   }
 
   abrirHistoria(historia: HistoriaLeitura) {
+    this.visualizacoesAbertas.set(false);
+    this.visualizacoesHistoria.set([]);
     this.historiaAberta.set(historia);
-    if (!historia.visualizada) {
+    if (historia.usuario.id !== this.usuario()?.id && !historia.visualizada) {
       this.api.visualizarHistoria(historia.id).subscribe({
         next: (atualizada) => {
           this.historiaAberta.set(atualizada);
@@ -1508,6 +1541,27 @@ export class PainelPage implements OnInit {
 
   fecharHistoria() {
     this.historiaAberta.set(null);
+    this.visualizacoesAbertas.set(false);
+    this.visualizacoesHistoria.set([]);
+  }
+
+  alternarVisualizacoes(historia: HistoriaLeitura) {
+    if (this.visualizacoesAbertas()) {
+      this.visualizacoesAbertas.set(false);
+      return;
+    }
+    this.visualizacoesAbertas.set(true);
+    this.carregandoVisualizacoes.set(true);
+    this.api.listarVisualizacoesHistoria(historia.id).subscribe({
+      next: (itens) => {
+        this.visualizacoesHistoria.set(itens);
+        this.carregandoVisualizacoes.set(false);
+      },
+      error: () => {
+        this.visualizacoesHistoria.set([]);
+        this.carregandoVisualizacoes.set(false);
+      },
+    });
   }
 
   removerHistoria(historia: HistoriaLeitura) {

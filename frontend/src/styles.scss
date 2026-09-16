@@ -4969,6 +4969,13 @@ app-painel-page .historia-autor small { color: rgba(255,255,255,.72); }
 app-painel-page .historia-visualizador header > div:last-child { display: flex; gap: 6px; }
 app-painel-page .historia-midia { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 app-painel-page .historia-visualizador footer { display: grid; justify-self: center; width: min(560px, 100%); gap: 5px; padding: 12px 14px; border-radius: 12px; background: rgba(0,0,0,.55); }
+app-painel-page .historia-visualizacoes-botao { justify-self: start; padding: 6px 0; border: 0; color: #fff; background: transparent; font: inherit; cursor: pointer; }
+app-painel-page .historia-visualizacoes { display: grid; max-height: min(280px, 38dvh); gap: 10px; margin-top: 5px; padding-top: 10px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,.2); }
+app-painel-page .historia-visualizacoes > div { display: flex; align-items: center; gap: 9px; }
+app-painel-page .historia-visualizacoes > div > span:last-child { display: grid; }
+app-painel-page .historia-visualizacoes .avatar-feed { width: 36px; height: 36px; flex: 0 0 36px; }
+app-painel-page .historia-visualizacoes .avatar-feed img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+app-painel-page .historia-visualizacoes small { color: rgba(255,255,255,.72); }
 
 @media (max-width: 420px) {
   .conteudo-app {
