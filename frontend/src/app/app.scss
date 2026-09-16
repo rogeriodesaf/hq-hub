@@ -16,3 +16,26 @@
   z-index: 30;
   pointer-events: none;
 }
+
+.rodape-copyright span + span::before {
+  content: ' · ';
+  margin-inline: 5px;
+  color: var(--texto-suave, #9ca3af);
+}
+
+@media (max-width: 980px) {
+  .rodape-copyright {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 8px;
+    padding: 12px 12px calc(78px + env(safe-area-inset-bottom, 0px));
+    font-size: 0.72rem;
+  }
+
+  .rodape-copyright span + span::before {
+    content: '';
+    margin: 0;
+  }
+}
