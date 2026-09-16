@@ -3,7 +3,7 @@ function resolverApiUrlRuntime() {
     return '';
   }
 
-  if (window.location.hostname === 'hqhub-frontend.onrender.com') {
+  if (['hqhub-frontend.onrender.com', 'hqhub.space', 'www.hqhub.space'].includes(window.location.hostname)) {
     return 'https://hqhub-backend.onrender.com';
   }
 

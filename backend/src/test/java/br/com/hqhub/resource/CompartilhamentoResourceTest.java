@@ -79,6 +79,7 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4"));
             assertTrue(html.contains("/api/compartilhar/guias/xmen?v=4"));
             assertTrue(html.contains("og:image:alt\" content=\"Logotipo dos X-Men"));
+            assertTrue(html.contains("https://hqhub.example/guia-de-leitura-app/ordem-de-leitura-mutante"));
         }
     }
 

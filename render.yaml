@@ -5,6 +5,8 @@ services:
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist/frontend/browser
+    domains:
+      - hqhub.space
     routes:
       - type: rewrite
         source: /guia-de-leitura/ordem-de-leitura-mutante

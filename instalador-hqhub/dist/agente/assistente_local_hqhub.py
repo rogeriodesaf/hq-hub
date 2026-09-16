@@ -29,6 +29,8 @@ MAXIMO_ROBOS_TELEGRAM = 2
 TAMANHO_MAXIMO_REQUISICAO = 64 * 1024
 ORIGENS_PERMITIDAS = {
     "https://hqhub-frontend.onrender.com",
+    "https://hqhub.space",
+    "https://www.hqhub.space",
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 }
@@ -638,7 +640,7 @@ def main():
     if args.abrir_hqhub:
         threading.Timer(
             1.0,
-            lambda: webbrowser.open("https://hqhub-frontend.onrender.com/importacao?assistenteLocal=1"),
+            lambda: webbrowser.open("https://hqhub.space/importacao?assistenteLocal=1"),
         ).start()
     try:
         servidor.serve_forever()

@@ -86,7 +86,7 @@ public class CompartilhamentoResource {
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
             .build();
-    @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub-frontend.onrender.com")
+    @ConfigProperty(name = "hqhub.url-base", defaultValue = "https://hqhub.space")
     String urlBase;
 
     @ConfigProperty(name = "hqhub.api-url-publica", defaultValue = "https://hqhub-backend.onrender.com")
@@ -263,7 +263,7 @@ public class CompartilhamentoResource {
     @Path("/guias/xmen")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaXMen() {
-        String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/ordem-de-leitura-mutante";
+        String destino = baseNormalizada() + "/guia-de-leitura-app/ordem-de-leitura-mutante";
         String imagem = origemApiNormalizada()
                 + "/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4";
         String html = """
@@ -308,7 +308,7 @@ public class CompartilhamentoResource {
     @Path("/guias/tex-ordem-publicacao-brasileira")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaTex() {
-        String destino = "https://hqhub-frontend.onrender.com/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
+        String destino = baseNormalizada() + "/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
         String imagem = origemApiNormalizada()
                 + "/api/compartilhar/guias/tex-ordem-publicacao-brasileira/imagem.jpg?v=3";
         String html = """
@@ -1199,7 +1199,7 @@ public class CompartilhamentoResource {
     }
 
     private String baseNormalizada() {
-        String base = urlBase == null || urlBase.isBlank() ? "https://hqhub-frontend.onrender.com" : urlBase.trim();
+        String base = urlBase == null || urlBase.isBlank() ? "https://hqhub.space" : urlBase.trim();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
     }
 
