@@ -36,6 +36,7 @@ import {
   GeracaoRascunhoGcd,
   SerieGcd,
   Historia,
+  HistoriaLeitura,
   InteracaoItemColecao,
   InteracaoSocialColecao,
   InteracoesColecaoUsuario,
@@ -848,6 +849,28 @@ export class ApiService {
     return this.http.get<DetalheCatalogoPublico>(`/api/compartilhar/catalogo/edicoes/${edicaoId}`);
   }
 
+  listarHistorias() {
+    return this.http.get<HistoriaLeitura[]>('/api/historias-leitura').pipe(
+      map((historias) => historias.map((historia) => this.normalizarHistoria(historia))),
+    );
+  }
+
+  criarHistoria(dto: { texto: string | null; urlImagem: string; tituloHq: string | null }) {
+    return this.http.post<HistoriaLeitura>('/api/historias-leitura', dto).pipe(
+      map((historia) => this.normalizarHistoria(historia)),
+    );
+  }
+
+  visualizarHistoria(id: number) {
+    return this.http.post<HistoriaLeitura>(`/api/historias-leitura/${id}/visualizacoes`, {}).pipe(
+      map((historia) => this.normalizarHistoria(historia)),
+    );
+  }
+
+  removerHistoria(id: number) {
+    return this.http.delete<void>(`/api/historias-leitura/${id}`);
+  }
+
   baixarInstalador() {
     return this.http.get('/api/instalador', { responseType: 'blob' });
   }
@@ -1117,6 +1140,14 @@ export class ApiService {
         totalCurtidas: comentario.totalCurtidas || 0,
         curtidaPeloUsuario: comentario.curtidaPeloUsuario || false,
       })),
+    };
+  }
+
+  private normalizarHistoria(historia: HistoriaLeitura): HistoriaLeitura {
+    return {
+      ...historia,
+      usuario: this.normalizarUsuario(historia.usuario),
+      urlImagem: this.normalizarUrlMidia(historia.urlImagem) || historia.urlImagem,
     };
   }
 

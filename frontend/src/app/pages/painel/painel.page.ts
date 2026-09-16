@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
+import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
@@ -30,6 +30,23 @@ import { environment } from '../../../environments/environment';
       <a routerLink="/catalogo"><span>🔎</span><strong>Buscar HQ</strong></a>
       <a routerLink="/ordens-leitura"><span>🧭</span><strong>Ordens de leitura</strong></a>
     </nav>
+
+    <section class="historias-faixa" aria-label="Histórias de leitura">
+      <button class="historia-atalho criar" type="button" (click)="abrirCriadorHistoria()">
+        <span class="historia-avatar"><b aria-hidden="true">+</b></span>
+        <small>Sua história</small>
+      </button>
+      @for (historia of historias(); track historia.id) {
+        <button class="historia-atalho" type="button" [class.visualizada]="historia.visualizada" (click)="abrirHistoria(historia)">
+          <span class="historia-avatar">
+            @if (historia.usuario.fotoPerfilThumbnailUrl) {
+              <img [src]="resolverUrlMidia(historia.usuario.fotoPerfilThumbnailUrl)" alt="" />
+            } @else { {{ iniciais(historia.usuario.nome) }} }
+          </span>
+          <small>{{ historia.usuario.id === usuario()?.id ? 'Você' : historia.usuario.nome }}</small>
+        </button>
+      }
+    </section>
 
     <section class="feed-layout">
       <div class="feed-coluna">
@@ -509,6 +526,39 @@ import { environment } from '../../../environments/environment';
         </div>
       </aside>
     </section>
+
+    @if (criadorHistoriaAberto()) {
+      <button class="historia-fundo" type="button" (click)="fecharCriadorHistoria()" aria-label="Fechar criação de história"></button>
+      <section class="historia-editor" role="dialog" aria-modal="true" aria-labelledby="titulo-nova-historia">
+        <header><div><p class="rotulo">24 horas</p><h2 id="titulo-nova-historia">Nova história de leitura</h2></div><button type="button" (click)="fecharCriadorHistoria()" aria-label="Fechar">×</button></header>
+        <label class="historia-imagem-seletor">
+          @if (previewHistoria()) { <img [src]="previewHistoria()!" alt="Prévia da história" /> }
+          @else { <span>📷</span><strong>Escolher uma imagem</strong><small>JPG, PNG ou WebP · até 2 MB</small> }
+          <input type="file" accept="image/jpeg,image/png,image/webp" (change)="selecionarImagemHistoria($event)" />
+        </label>
+        <label>HQ relacionada (opcional)<input [(ngModel)]="tituloHqHistoria" maxlength="300" placeholder="Ex.: Batman: Ano Um" /></label>
+        <label>Texto (opcional)<textarea [(ngModel)]="textoHistoria" maxlength="280" rows="3" placeholder="O que você está lendo?"></textarea></label>
+        @if (mensagemHistoria()) { <p class="mensagem-erro" role="alert">{{ mensagemHistoria() }}</p> }
+        <button class="botao primario" type="button" (click)="publicarHistoria()" [disabled]="salvandoHistoria() || !arquivoHistoria">
+          {{ salvandoHistoria() ? 'Publicando...' : 'Publicar por 24 horas' }}
+        </button>
+      </section>
+    }
+
+    @if (historiaAberta(); as historia) {
+      <section class="historia-visualizador" role="dialog" aria-modal="true" aria-label="História de leitura">
+        <div class="historia-progresso"><span></span></div>
+        <header>
+          <div class="historia-autor"><span class="avatar-feed">{{ iniciais(historia.usuario.nome) }}</span><strong>{{ historia.usuario.nome }}</strong><small>{{ dataRelativa(historia.dataCriacao) }}</small></div>
+          <div>
+            @if (historia.usuario.id === usuario()?.id) { <button type="button" (click)="removerHistoria(historia)" aria-label="Excluir história">🗑</button> }
+            <button type="button" (click)="fecharHistoria()" aria-label="Fechar história">×</button>
+          </div>
+        </header>
+        <img class="historia-midia" [src]="historia.urlImagem" [alt]="historia.tituloHq || 'História de leitura'" />
+        @if (historia.tituloHq || historia.texto) { <footer>@if (historia.tituloHq) { <strong>{{ historia.tituloHq }}</strong> }@if (historia.texto) { <p>{{ historia.texto }}</p> }@if (historia.usuario.id === usuario()?.id) { <small>{{ historia.totalVisualizacoes }} visualizações</small> }</footer> }
+      </section>
+    }
   `,
   styles: `
     .feed-cabecalho {
@@ -1350,6 +1400,15 @@ export class PainelPage implements OnInit {
   readonly mensagem = signal('');
   readonly editorAberto = signal(false);
   readonly comentariosAbertos = signal<Set<number>>(new Set());
+  readonly historias = signal<HistoriaLeitura[]>([]);
+  readonly historiaAberta = signal<HistoriaLeitura | null>(null);
+  readonly criadorHistoriaAberto = signal(false);
+  readonly previewHistoria = signal<string | null>(null);
+  readonly salvandoHistoria = signal(false);
+  readonly mensagemHistoria = signal('');
+  arquivoHistoria: File | null = null;
+  textoHistoria = '';
+  tituloHqHistoria = '';
   novoConteudo = '';
   imagensSelecionadas: File[] = [];
   previsualizacoes: Array<{ url: string; nome: string }> = [];
@@ -1363,6 +1422,7 @@ export class PainelPage implements OnInit {
     this.carregarFeed();
     this.carregarAnuncios();
     this.carregarSugestaoAmigo();
+    this.carregarHistorias();
     if (window.location.hash === '#publicar') {
       this.abrirEditor();
     }
@@ -1375,6 +1435,88 @@ export class PainelPage implements OnInit {
 
   fecharEditor() {
     this.editorAberto.set(false);
+  }
+
+  abrirCriadorHistoria() {
+    this.mensagemHistoria.set('');
+    this.criadorHistoriaAberto.set(true);
+  }
+
+  fecharCriadorHistoria() {
+    if (this.salvandoHistoria()) return;
+    this.criadorHistoriaAberto.set(false);
+  }
+
+  selecionarImagemHistoria(evento: Event) {
+    const arquivo = (evento.target as HTMLInputElement).files?.[0] || null;
+    if (!arquivo) return;
+    const erro = this.validarImagens([arquivo], false);
+    if (erro) {
+      this.mensagemHistoria.set(erro);
+      return;
+    }
+    const anterior = this.previewHistoria();
+    if (anterior?.startsWith('blob:')) URL.revokeObjectURL(anterior);
+    this.arquivoHistoria = arquivo;
+    this.previewHistoria.set(URL.createObjectURL(arquivo));
+    this.mensagemHistoria.set('');
+  }
+
+  publicarHistoria() {
+    if (!this.arquivoHistoria || this.salvandoHistoria()) return;
+    this.salvandoHistoria.set(true);
+    this.mensagemHistoria.set('');
+    this.api.enviarImagensFeed([this.arquivoHistoria]).subscribe({
+      next: (imagens) => {
+        const imagem = imagens[0];
+        if (!imagem) {
+          this.finalizarErroHistoria('Não foi possível processar a imagem.');
+          return;
+        }
+        this.api.criarHistoria({
+          texto: this.textoHistoria.trim() || null,
+          tituloHq: this.tituloHqHistoria.trim() || null,
+          urlImagem: imagem.urlImagem,
+        }).subscribe({
+          next: (historia) => {
+            this.historias.update((atuais) => [historia, ...atuais]);
+            this.limparFormularioHistoria();
+            this.salvandoHistoria.set(false);
+            this.criadorHistoriaAberto.set(false);
+            this.abrirHistoria(historia);
+          },
+          error: (erro) => this.finalizarErroHistoria(erro?.error?.mensagem || 'Não foi possível publicar a história.'),
+        });
+      },
+      error: (erro) => this.finalizarErroHistoria(erro?.error?.mensagem || 'Não foi possível enviar a imagem.'),
+    });
+  }
+
+  abrirHistoria(historia: HistoriaLeitura) {
+    this.historiaAberta.set(historia);
+    if (!historia.visualizada) {
+      this.api.visualizarHistoria(historia.id).subscribe({
+        next: (atualizada) => {
+          this.historiaAberta.set(atualizada);
+          this.historias.update((itens) => itens.map((item) => item.id === atualizada.id ? atualizada : item));
+        },
+      });
+    }
+  }
+
+  fecharHistoria() {
+    this.historiaAberta.set(null);
+  }
+
+  removerHistoria(historia: HistoriaLeitura) {
+    if (!confirm('Excluir esta história?')) return;
+    this.api.removerHistoria(historia.id).subscribe({
+      next: () => {
+        this.historias.update((itens) => itens.filter((item) => item.id !== historia.id));
+        this.fecharHistoria();
+      },
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível excluir a história.'),
+    });
   }
 
   publicar() {
@@ -1855,6 +1997,28 @@ export class PainelPage implements OnInit {
       next: (feed) => this.feed.set(feed),
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível carregar o feed.'),
     });
+  }
+
+  private carregarHistorias() {
+    this.api.listarHistorias().subscribe({
+      next: (historias) => this.historias.set(historias),
+      error: () => this.historias.set([]),
+    });
+  }
+
+  private finalizarErroHistoria(mensagem: string) {
+    this.salvandoHistoria.set(false);
+    this.mensagemHistoria.set(mensagem);
+  }
+
+  private limparFormularioHistoria() {
+    const preview = this.previewHistoria();
+    if (preview?.startsWith('blob:')) URL.revokeObjectURL(preview);
+    this.previewHistoria.set(null);
+    this.arquivoHistoria = null;
+    this.textoHistoria = '';
+    this.tituloHqHistoria = '';
+    this.mensagemHistoria.set('');
   }
 
   private carregarSugestaoAmigo() {

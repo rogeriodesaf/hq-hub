@@ -4945,6 +4945,34 @@ body.bottom-sheet-aberto {
   }
 }
 
+app-painel-page .historias-faixa { display: flex; gap: 12px; overflow-x: auto; margin: 0 0 12px; padding: 3px 2px 8px; scrollbar-width: none; }
+app-painel-page .historias-faixa::-webkit-scrollbar { display: none; }
+app-painel-page .historia-atalho { display: grid; flex: 0 0 72px; justify-items: center; gap: 5px; padding: 0; border: 0; color: var(--texto); background: transparent; cursor: pointer; }
+app-painel-page .historia-atalho small { width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; }
+app-painel-page .historia-avatar { display: grid; width: 58px; height: 58px; padding: 3px; place-items: center; overflow: hidden; border: 2px solid var(--marca); border-radius: 50%; background: var(--superficie); font-weight: 850; }
+app-painel-page .historia-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+app-painel-page .historia-atalho.visualizada .historia-avatar { border-color: var(--borda); }
+app-painel-page .historia-atalho.criar .historia-avatar { border-style: dashed; }
+app-painel-page .historia-atalho.criar b { font-size: 1.5rem; color: var(--marca); }
+app-painel-page .historia-fundo { position: fixed; inset: 0; z-index: 80; border: 0; background: rgba(5, 8, 12, .72); }
+app-painel-page .historia-editor { position: fixed; z-index: 81; left: 50%; top: 50%; display: grid; width: min(440px, calc(100vw - 28px)); max-height: calc(100dvh - 28px); gap: 14px; padding: 18px; overflow-y: auto; border: 1px solid var(--borda); border-radius: 16px; background: var(--superficie); box-shadow: var(--sombra); transform: translate(-50%, -50%); }
+app-painel-page .historia-editor header, app-painel-page .historia-visualizador header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+app-painel-page .historia-editor header h2, app-painel-page .historia-editor header p, app-painel-page .historia-visualizador footer p { margin: 0; }
+app-painel-page .historia-editor header > button, app-painel-page .historia-visualizador header button { width: 38px; height: 38px; border: 0; border-radius: 50%; color: inherit; background: rgba(255,255,255,.14); font-size: 1.4rem; cursor: pointer; }
+app-painel-page .historia-editor label { display: grid; gap: 6px; font-weight: 750; }
+app-painel-page .historia-editor input, app-painel-page .historia-editor textarea { width: 100%; }
+app-painel-page .historia-imagem-seletor { min-height: 230px; place-items: center; align-content: center; overflow: hidden; border: 1px dashed var(--borda); border-radius: 12px; background: var(--superficie-2); cursor: pointer; text-align: center; }
+app-painel-page .historia-imagem-seletor img { width: 100%; max-height: 360px; object-fit: contain; }
+app-painel-page .historia-imagem-seletor input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+app-painel-page .historia-visualizador { position: fixed; z-index: 90; inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 12px; padding: max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); color: #fff; background: #090b0e; }
+app-painel-page .historia-progresso { height: 3px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.3); }
+app-painel-page .historia-progresso span { display: block; width: 100%; height: 100%; background: #fff; }
+app-painel-page .historia-autor { display: flex; align-items: center; gap: 8px; min-width: 0; }
+app-painel-page .historia-autor small { color: rgba(255,255,255,.72); }
+app-painel-page .historia-visualizador header > div:last-child { display: flex; gap: 6px; }
+app-painel-page .historia-midia { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+app-painel-page .historia-visualizador footer { display: grid; justify-self: center; width: min(560px, 100%); gap: 5px; padding: 12px 14px; border-radius: 12px; background: rgba(0,0,0,.55); }
+
 @media (max-width: 420px) {
   .conteudo-app {
     padding-inline: 10px;

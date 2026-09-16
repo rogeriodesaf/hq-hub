@@ -760,6 +760,18 @@ export interface PostagemFeed {
   dataAtualizacao: string;
 }
 
+export interface HistoriaLeitura {
+  id: number;
+  usuario: Usuario;
+  texto: string | null;
+  urlImagem: string;
+  tituloHq: string | null;
+  visualizada: boolean;
+  totalVisualizacoes: number;
+  dataCriacao: string;
+  dataExpiracao: string;
+}
+
 export interface HistoriaPublicacaoBrasil {
   id: number;
   titulo: string;
