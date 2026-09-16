@@ -38,7 +38,8 @@ describe('PainelPage stories', () => {
           listarUsuarios: () => of([]),
           listarHistorias: () => of([]),
           removerHistoria: () => of(null),
-          visualizarHistoria: (id: number) => of(historia(id, { id: 2, nome: 'Amigo', fotoPerfilThumbnailUrl: null }, id, true)),
+          listarVisualizacoesHistoria: () => of([{ usuario: { id: 2, nome: 'Amigo', fotoPerfilThumbnailUrl: null }, dataVisualizacao: new Date().toISOString() }]),
+          visualizarHistoria: (id: number) => of({ ...fixture.componentInstance.historias().find((item) => item.id === id)!, visualizada: true }),
         } },
       ],
     }).compileComponents();
@@ -47,6 +48,18 @@ describe('PainelPage stories', () => {
   });
 
   afterEach(() => fixture.destroy());
+
+  it('abre o perfil de quem visualizou e fecha o story', () => {
+    fixture.componentInstance.historias.set([historia(1)]);
+    fixture.componentInstance.abrirGrupoProprio();
+    fixture.componentInstance.alternarVisualizacoes(fixture.componentInstance.historias()[0]);
+    fixture.detectChanges();
+    const perfil = fixture.nativeElement.querySelector('.historia-visualizacao-link') as HTMLAnchorElement;
+    expect(perfil.getAttribute('href')).toBe('/usuario/2');
+    expect(perfil.getAttribute('aria-label')).toBe('Ver perfil de Amigo');
+    perfil.click();
+    expect(fixture.componentInstance.historiaAberta()).toBeNull();
+  });
 
   it('agrupa dois stories próprios no mesmo avatar e mantém o + independente', () => {
     fixture.componentInstance.historias.set([historia(2), historia(1)]);
@@ -82,6 +95,27 @@ describe('PainelPage stories', () => {
     fixture.componentInstance.historias.update((itens) => itens.map((item) => ({ ...item, visualizada: true })));
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.historias-faixa .visualizada')).not.toBeNull();
+  });
+
+  it('continua automaticamente no próximo autor e volta ao anterior', () => {
+    const amigo = { id: 2, nome: 'Amigo', fotoPerfilThumbnailUrl: null };
+    const outro = { id: 3, nome: 'Outro', fotoPerfilThumbnailUrl: null };
+    fixture.componentInstance.historias.set([historia(3, amigo), historia(2, amigo), historia(1), historia(4, outro, 0)]);
+    fixture.detectChanges();
+    fixture.componentInstance.abrirGrupoProprio();
+    expect(fixture.componentInstance.historiaAberta()?.id).toBe(1);
+    fixture.componentInstance.avancarHistoria();
+    expect(fixture.componentInstance.historiaAberta()?.id).toBe(2);
+    fixture.componentInstance.avancarHistoria();
+    expect(fixture.componentInstance.historiaAberta()?.id).toBe(3);
+    expect(fixture.componentInstance.temProximaHistoria(fixture.componentInstance.historiaAberta()!)).toBeTrue();
+    fixture.componentInstance.avancarHistoria();
+    expect(fixture.componentInstance.historiaAberta()?.id).toBe(4);
+    fixture.componentInstance.voltarHistoria();
+    expect(fixture.componentInstance.historiaAberta()?.id).toBe(3);
+    fixture.componentInstance.avancarHistoria();
+    fixture.componentInstance.avancarHistoria();
+    expect(fixture.componentInstance.historiaAberta()).toBeNull();
   });
 
   it('remove o grupo vazio após excluir o último story e mantém Sua história', () => {

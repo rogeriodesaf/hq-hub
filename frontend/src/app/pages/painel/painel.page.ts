@@ -614,13 +614,13 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                   @else if (visualizacoesHistoria().length === 0) { <small>Ninguém visualizou ainda.</small> }
                   @else {
                     @for (item of visualizacoesHistoria(); track item.usuario.id) {
-                      <div>
+                      <a class="historia-visualizacao-link" [routerLink]="['/usuario', item.usuario.id]" (click)="fecharHistoria()" [attr.aria-label]="'Ver perfil de ' + item.usuario.nome">
                         <span class="avatar-feed">
                           @if (item.usuario.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(item.usuario.fotoPerfilThumbnailUrl)" alt="" /> }
                           @else { {{ iniciais(item.usuario.nome) }} }
                         </span>
                         <span><b>{{ item.usuario.nome }}</b><small>{{ dataRelativa(item.dataVisualizacao) }}</small></span>
-                      </div>
+                      </a>
                     }
                   }
                 </section>
@@ -1628,17 +1628,17 @@ export class PainelPage implements OnInit, OnDestroy {
   }
 
   temProximaHistoria(historia: HistoriaLeitura) {
-    return !!historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === historia.usuario.id), historia.id, 1);
+    return !!this.historiaVizinha(historia, 1);
   }
 
   temHistoriaAnterior(historia: HistoriaLeitura) {
-    return !!historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === historia.usuario.id), historia.id, -1);
+    return !!this.historiaVizinha(historia, -1);
   }
 
   avancarHistoria() {
     const atual = this.historiaAberta();
     if (!atual) return;
-    const proxima = historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === atual.usuario.id), atual.id, 1);
+    const proxima = this.historiaVizinha(atual, 1);
     if (proxima) this.abrirHistoria(proxima);
     else this.fecharHistoria();
   }
@@ -1646,8 +1646,14 @@ export class PainelPage implements OnInit, OnDestroy {
   voltarHistoria() {
     const atual = this.historiaAberta();
     if (!atual) return;
-    const anterior = historiaAdjacente(this.gruposHistorias().find((grupo) => grupo.usuario.id === atual.usuario.id), atual.id, -1);
+    const anterior = this.historiaVizinha(atual, -1);
     if (anterior) this.abrirHistoria(anterior);
+  }
+
+  private historiaVizinha(historia: HistoriaLeitura, deslocamento: number): HistoriaLeitura | null {
+    const sequencia = this.gruposHistorias().flatMap((grupo) => grupo.historias);
+    const indice = sequencia.findIndex((item) => item.id === historia.id);
+    return indice < 0 ? null : sequencia[indice + deslocamento] ?? null;
   }
 
   curtirHistoria(historia: HistoriaLeitura) {
