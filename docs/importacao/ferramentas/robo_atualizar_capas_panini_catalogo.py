@@ -9,7 +9,7 @@ import sys
 from html import unescape
 from time import monotonic, sleep
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urljoin
 from urllib.request import Request, urlopen
 
 
@@ -85,6 +85,21 @@ def pagina_confirma_numero(titulo, numero):
         rf"\b0*{numero}\s+de\s+\d+\b",
     )
     return any(re.search(padrao, titulo, re.IGNORECASE) for padrao in padroes)
+
+
+def buscar_capa_fallback_excelsior(numero, url_serie, tentativas, prazo):
+    html = buscar_html(url_serie, tentativas, prazo)
+    links = re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html, re.IGNORECASE | re.DOTALL)
+    for href, texto in links:
+        rotulo = unescape(re.sub(r"<[^>]+>", " ", texto))
+        if not (pagina_confirma_numero(rotulo, numero) or re.search(rf"(?:-|/|\s)0*{numero}(?:\D|$)", href)):
+            continue
+        pagina = buscar_html(urljoin(url_serie, unescape(href)), tentativas, prazo)
+        if pagina_confirma_numero(extrair_titulo(pagina), numero):
+            capa = extrair_capa(pagina)
+            if capa:
+                return capa
+    return None
 
 
 def paginas_api(backend_url, token, rota, parametros):
@@ -228,6 +243,8 @@ def executar(args):
             if not pagina_confirma_numero(titulo, numero_panini):
                 raise ValueError(f"A pagina nao confirma o volume {numero_panini}: titulo recebido '{titulo or '-'}'.")
             url_capa = extrair_capa(html)
+            if not url_capa and args.url_fallback_serie:
+                url_capa = buscar_capa_fallback_excelsior(numero, args.url_fallback_serie, args.tentativas, args.tempo_limite_edicao)
             if not url_capa:
                 raise ValueError("Imagem principal nao encontrada na pagina da Panini.")
 
@@ -269,6 +286,8 @@ def main():
         required=True,
         help="Pagina Panini correspondente ao primeiro numero do intervalo.",
     )
+    parser.add_argument("--url-fallback-serie", default="https://excelsiorcomics.com.br/serie/grandes-herois-dc-os-novos-52/",
+                        help="Página alternativa para localizar capas ausentes.")
     parser.add_argument("--numero-inicial", type=int, default=1)
     parser.add_argument("--numero-final", type=int, required=True)
     parser.add_argument("--intervalo-segundos", type=float, default=0.7)
