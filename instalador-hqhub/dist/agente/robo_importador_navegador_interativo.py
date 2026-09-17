@@ -124,6 +124,14 @@ def extrair_url_capa_guia(importador, html, url_pagina):
         if candidatas_da_edicao:
             candidatas = candidatas_da_edicao
 
+    if not candidatas:
+        candidatas = [unescape(valor) for grupo in re.findall(
+            r'''(?:property|name)=["']og:image["'][^>]+content=["']([^"']+)|content=["']([^"']+)["'][^>]+(?:property|name)=["']og:image["']''',
+            html, re.IGNORECASE) for valor in grupo if valor]
+        if not candidatas:
+            candidatas = [unescape(valor) for valor in re.findall(
+                r'''(?:src|data-src|data-original)=["']([^"']+)["']''', html, re.IGNORECASE)
+                if re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)", valor, re.IGNORECASE)]
     url = candidatas[-1] if candidatas else importador.extrair_url_capa(texto)
     if not url:
         return None
