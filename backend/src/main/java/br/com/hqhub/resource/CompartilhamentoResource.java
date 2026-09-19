@@ -33,6 +33,8 @@ import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.dto.PostagemColecaoPublicaDTO;
 import br.com.hqhub.dto.DetalheCatalogoPublicoDTO;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
+import br.com.hqhub.dto.SerieCatalogoPublicaDTO;
+import br.com.hqhub.dto.SerieRespostaDTO;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ImagemPostagemFeedRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
@@ -45,6 +47,7 @@ import br.com.hqhub.service.FeedSocialService;
 import br.com.hqhub.service.EdicaoService;
 import br.com.hqhub.service.LinkEdicaoService;
 import br.com.hqhub.service.HistoriaService;
+import br.com.hqhub.service.SerieService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -82,6 +85,7 @@ public class CompartilhamentoResource {
     private final UrlPublicaService urlPublicaService;
     private final FeedSocialService feedSocialService;
     private final EdicaoService edicaoService;
+    private final SerieService serieService;
     private final LinkEdicaoService linkEdicaoService;
     private final HistoriaService historiaService;
     private final HttpClient httpClient = HttpClient.newBuilder()
@@ -111,6 +115,7 @@ public class CompartilhamentoResource {
             UrlPublicaService urlPublicaService,
             FeedSocialService feedSocialService,
             EdicaoService edicaoService,
+            SerieService serieService,
             LinkEdicaoService linkEdicaoService,
             HistoriaService historiaService) {
         this.postagemRepository = postagemRepository;
@@ -123,6 +128,7 @@ public class CompartilhamentoResource {
         this.urlPublicaService = urlPublicaService;
         this.feedSocialService = feedSocialService;
         this.edicaoService = edicaoService;
+        this.serieService = serieService;
         this.linkEdicaoService = linkEdicaoService;
         this.historiaService = historiaService;
     }
@@ -151,6 +157,108 @@ public class CompartilhamentoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listarPublicacoesBrasileiras(@PathParam("id") Long id) {
         return Response.ok(historiaService.listarPublicacoesBrasileirasPublicas(id)).build();
+    }
+
+    @GET
+    @Path("/catalogo/series/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obterSerieCatalogoPublica(
+            @PathParam("id") Long id,
+            @QueryParam("pagina") Integer pagina,
+            @QueryParam("tamanho") Integer tamanho) {
+        SerieRespostaDTO serie = serieService.buscarPorId(id);
+        return Response.ok(new SerieCatalogoPublicaDTO(
+                serie,
+                edicaoService.listarPaginado(
+                        id,
+                        "",
+                        pagina == null ? 0 : pagina,
+                        tamanho == null ? 24 : tamanho)))
+                .build();
+    }
+
+    @GET
+    @Path("/series/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public Response compartilharSerie(@PathParam("id") Long id) {
+        if (id == null || id <= 0) {
+            return Response.status(Response.Status.NOT_FOUND).entity(htmlSerieNaoEncontrada())
+                    .type(MediaType.TEXT_HTML_TYPE).build();
+        }
+        final SerieRespostaDTO serie;
+        try {
+            serie = serieService.buscarPorId(id);
+        } catch (RecursoNaoEncontradoException excecao) {
+            return Response.status(Response.Status.NOT_FOUND).entity(htmlSerieNaoEncontrada())
+                    .type(MediaType.TEXT_HTML_TYPE).build();
+        }
+
+        long totalEdicoes = edicaoRepository.contarPorSerie(id);
+        String volume = serie.volume() == null ? "" : " · Volume " + serie.volume();
+        String nome = serie.titulo() + volume;
+        String titulo = nome + " | Coleciona HQ";
+        String editora = serie.editora() == null ? "Editora não informada" : serie.editora().nome();
+        String quantidade = totalEdicoes == 1 ? "1 edição" : totalEdicoes + " edições";
+        String descricao = editora + " · " + quantidade
+                + ". Conheça a coleção completa no catálogo do Coleciona HQ.";
+        String destino = baseNormalizada() + "/catalogo?serieId=" + id;
+        String pagina = baseNormalizada() + "/colecao/serie/" + id + "?v=1";
+        String imagem = baseNormalizada() + "/colecao/serie/" + id + "/imagem.jpg?v=1";
+        String html = """
+                <!doctype html>
+                <html lang="pt-BR">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <title>%s</title>
+                  <meta name="description" content="%s">
+                  <link rel="canonical" href="%s">
+                  <meta property="og:type" content="website">
+                  <meta property="og:locale" content="pt_BR">
+                  <meta property="og:site_name" content="Coleciona HQ">
+                  <meta property="og:title" content="%s">
+                  <meta property="og:description" content="%s">
+                  <meta property="og:url" content="%s">
+                  <meta property="og:image" content="%s">
+                  <meta property="og:image:secure_url" content="%s">
+                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:width" content="1200">
+                  <meta property="og:image:height" content="1600">
+                  <meta property="og:image:alt" content="Capa da coleção %s">
+                  <meta name="twitter:card" content="summary_large_image">
+                  <meta name="twitter:title" content="%s">
+                  <meta name="twitter:description" content="%s">
+                  <meta name="twitter:image" content="%s">
+                  <script>window.location.replace('%s');</script>
+                </head>
+                <body><p>Abrindo <a href="%s">%s</a>...</p></body>
+                </html>
+                """.formatted(
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(pagina),
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(pagina),
+                        escaparHtml(imagem), escaparHtml(imagem), escaparHtml(nome),
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem),
+                        escaparHtml(destino), escaparHtml(destino), escaparHtml(nome));
+        return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
+    }
+
+    @GET
+    @Path("/series/{id}/imagem.jpg")
+    @Produces("image/jpeg")
+    public Response imagemSerie(@PathParam("id") Long id) {
+        if (id == null || id <= 0) return Response.status(Response.Status.NOT_FOUND).build();
+        try {
+            serieService.buscarPorId(id);
+            String capa = capaSerieCompartilhamento(id);
+            return responderImagemUrl(urlPublicaService.normalizarApiUrl(capa));
+        } catch (RecursoNaoEncontradoException excecao) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    String capaSerieCompartilhamento(Long id) {
+        return edicaoRepository.primeiraCapaPorSerie(id)
+                .orElse(urlAbsoluta(IMAGEM_PADRAO));
     }
 
     @GET
@@ -264,6 +372,24 @@ public class CompartilhamentoResource {
                 <meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image">
                 <meta http-equiv="refresh" content="3;url=%s"></head>
                 <body><main><h1>Edição não encontrada</h1><p>Esta edição não existe ou não está mais disponível.</p>
+                <p><a href="%s">Abrir o catálogo do Coleciona HQ</a></p></main></body></html>
+                """.formatted(escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino));
+    }
+
+    private String htmlSerieNaoEncontrada() {
+        String destino = baseNormalizada() + "/catalogo";
+        String imagem = urlAbsoluta(IMAGEM_PADRAO);
+        return """
+                <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Coleção não encontrada | Coleciona HQ</title>
+                <meta name="description" content="Esta coleção não existe ou não está mais disponível no catálogo do Coleciona HQ.">
+                <meta property="og:type" content="website"><meta property="og:site_name" content="Coleciona HQ">
+                <meta property="og:title" content="Coleção não encontrada | Coleciona HQ">
+                <meta property="og:description" content="Esta coleção não existe ou não está mais disponível no catálogo do Coleciona HQ.">
+                <meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image">
+                <meta http-equiv="refresh" content="3;url=%s"></head>
+                <body><main><h1>Coleção não encontrada</h1><p>Esta coleção não existe ou não está mais disponível.</p>
                 <p><a href="%s">Abrir o catálogo do Coleciona HQ</a></p></main></body></html>
                 """.formatted(escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino));
     }

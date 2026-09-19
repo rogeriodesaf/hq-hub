@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2 } from '@lucide/angular';
-import { firstValueFrom, forkJoin } from 'rxjs';
+import { firstValueFrom, forkJoin, map } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -221,6 +221,17 @@ import {
                 [disabled]="adicionandoSerieInteira()"
               >
                 Adicionar série inteira à minha estante
+              </button>
+            }
+            @if (serieSelecionada() && resultadosCatalogo().totalItens > 0) {
+              <button
+                class="botao secundario compacto"
+                type="button"
+                (click)="compartilharSerieSelecionada()"
+                [disabled]="compartilhandoSerie()"
+              >
+                <svg lucideShare2 size="18" aria-hidden="true"></svg>
+                {{ compartilhandoSerie() ? 'Compartilhando...' : 'Compartilhar coleção' }}
               </button>
             }
           </div>
@@ -1233,6 +1244,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   });
   readonly serieSelecionada = signal<Serie | null>(null);
   readonly compartilhandoEdicao = signal(false);
+  readonly compartilhandoSerie = signal(false);
   readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
@@ -1358,7 +1370,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
       }
     }
 
-    this.carregarEditoras();
+    if (this.autenticado()) {
+      this.carregarEditoras();
+    }
     const serieId = Number(this.rota.snapshot.queryParamMap.get('serieId'));
     if (Number.isFinite(serieId) && serieId > 0) {
       this.carregarEdicoesDaSerieImportada(serieId);
@@ -1403,10 +1417,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.resultadosConsultados.set(true);
     this.mensagem.set('Carregando edicoes da serie importada...');
 
-    forkJoin({
-      serie: this.api.buscarSeriePorId(serieId),
-      edicoes: this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId),
-    }).subscribe({
+    const carregamento = this.autenticado()
+      ? forkJoin({
+          serie: this.api.buscarSeriePorId(serieId),
+          edicoes: this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId),
+        })
+      : this.api.obterSerieCatalogoPublica(serieId, 0, this.tamanhoResultados);
+
+    carregamento.subscribe({
       next: ({ serie, edicoes: resposta }) => {
         if (sequencia !== this.sequenciaBuscaResultados) return;
         this.serieSelecionada.set(serie);
@@ -1832,6 +1850,27 @@ export class CatalogoPage implements OnInit, OnDestroy {
       this.mensagem.set('Não foi possível compartilhar esta edição agora.');
     } finally {
       this.compartilhandoEdicao.set(false);
+    }
+  }
+
+  async compartilharSerieSelecionada() {
+    const serie = this.serieSelecionada();
+    if (!serie || this.compartilhandoSerie()) return;
+    this.compartilhandoSerie.set(true);
+    const volume = serie.volume ? ` · Volume ${serie.volume}` : '';
+    const titulo = `${serie.titulo}${volume}`;
+    const url = `https://hqhub.space/colecao/serie/${serie.id}?v=1`;
+    try {
+      const resultado = await this.compartilhamento.compartilhar({
+        title: `${titulo} | Coleciona HQ`,
+        text: `Conheça a coleção completa ${titulo} no Coleciona HQ.`,
+        url,
+      });
+      if (resultado === 'copiado') this.mensagem.set('Link da coleção copiado');
+    } catch {
+      this.mensagem.set('Não foi possível compartilhar esta coleção agora.');
+    } finally {
+      this.compartilhandoSerie.set(false);
     }
   }
 
@@ -3434,7 +3473,12 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     const termo = this.serieSelecionada()?.titulo || termoBusca;
     if (this.serieSelecionada()) {
-      this.api.listarEdicoes('', pagina, this.tamanhoResultados, this.serieSelecionada()!.id).subscribe({
+      const serieId = this.serieSelecionada()!.id;
+      const consulta = this.autenticado()
+        ? this.api.listarEdicoes('', pagina, this.tamanhoResultados, serieId)
+        : this.api.obterSerieCatalogoPublica(serieId, pagina, this.tamanhoResultados)
+            .pipe(map((resposta) => resposta.edicoes));
+      consulta.subscribe({
         next: (resposta) => {
           if (sequencia !== this.sequenciaBuscaResultados) return;
           this.resultadosCatalogo.set({

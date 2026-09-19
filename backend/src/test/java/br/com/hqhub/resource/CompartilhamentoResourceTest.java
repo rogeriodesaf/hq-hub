@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,16 +13,19 @@ import org.junit.jupiter.api.Test;
 import br.com.hqhub.dto.EdicaoRespostaDTO;
 import br.com.hqhub.dto.EditoraResumoDTO;
 import br.com.hqhub.dto.SerieResumoDTO;
+import br.com.hqhub.dto.SerieRespostaDTO;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ItemOrdemLeituraRepository;
 import br.com.hqhub.service.EdicaoService;
+import br.com.hqhub.service.SerieService;
 import jakarta.ws.rs.core.Response;
 
 class CompartilhamentoResourceTest {
     private EdicaoService edicoes;
     private EdicaoRepository repositorioEdicoes;
     private ItemOrdemLeituraRepository itensGuia;
+    private SerieService series;
     private CompartilhamentoResource recurso;
 
     @BeforeEach
@@ -28,8 +33,9 @@ class CompartilhamentoResourceTest {
         edicoes = mock(EdicaoService.class);
         repositorioEdicoes = mock(EdicaoRepository.class);
         itensGuia = mock(ItemOrdemLeituraRepository.class);
+        series = mock(SerieService.class);
         recurso = new CompartilhamentoResource(null, null, null, repositorioEdicoes, null, itensGuia, null, null, null,
-                edicoes, null, null);
+                edicoes, series, null, null);
         recurso.urlBase = "https://hqhub.example";
         recurso.apiUrlPublica = "https://api.hqhub.example";
     }
@@ -71,6 +77,42 @@ class CompartilhamentoResourceTest {
     }
 
     @Test
+    void geraMetadadosEAbreCatalogoDaSerieCompleta() {
+        when(series.buscarPorId(7L)).thenReturn(serie(7L, "Biblioteca <Dylan Dog>", 1));
+        when(repositorioEdicoes.contarPorSerie(7L)).thenReturn(2L);
+
+        try (Response resposta = recurso.compartilharSerie(7L)) {
+            String html = resposta.getEntity().toString();
+
+            assertEquals(200, resposta.getStatus());
+            assertTrue(html.contains("og:type\" content=\"website"));
+            assertTrue(html.contains("Biblioteca &lt;Dylan Dog&gt; · Volume 1 | Coleciona HQ"));
+            assertTrue(html.contains("Panini · 2 edições."));
+            assertTrue(html.contains("https://hqhub.example/colecao/serie/7/imagem.jpg?v=1"));
+            assertTrue(html.contains("https://hqhub.example/colecao/serie/7?v=1"));
+            assertTrue(html.contains("https://hqhub.example/catalogo?serieId=7"));
+        }
+    }
+
+    @Test
+    void retornaPaginaPublica404ParaSerieInexistente() {
+        when(series.buscarPorId(999L)).thenThrow(new RecursoNaoEncontradoException("não encontrada"));
+
+        try (Response resposta = recurso.compartilharSerie(999L)) {
+            assertEquals(404, resposta.getStatus());
+            assertTrue(resposta.getEntity().toString().contains("Coleção não encontrada"));
+        }
+    }
+
+    @Test
+    void usaPrimeiraCapaDisponivelDaSerie() {
+        when(repositorioEdicoes.primeiraCapaPorSerie(7L))
+                .thenReturn(Optional.of("https://img.example/dylan-dog.jpg"));
+
+        assertEquals("https://img.example/dylan-dog.jpg", recurso.capaSerieCompartilhamento(7L));
+    }
+
+    @Test
     void usaLogoDosXMenNoCompartilhamentoDoGuiaMutante() {
         try (Response resposta = recurso.compartilharGuiaXMen()) {
             String html = resposta.getEntity().toString();
@@ -101,5 +143,11 @@ class CompartilhamentoResourceTest {
                 "https://img.example/capa.jpg", null, null, null, null, null,
                 null, null, null, null,
                 new SerieResumoDTO(7L, serie, new EditoraResumoDTO(3L, "Panini")), null, null);
+    }
+
+    private SerieRespostaDTO serie(Long id, String titulo, Integer volume) {
+        return new SerieRespostaDTO(id, titulo, null, 2022, null, volume, null,
+                null, null, null, new EditoraResumoDTO(3L, "Panini"),
+                LocalDateTime.now(), LocalDateTime.now());
     }
 }

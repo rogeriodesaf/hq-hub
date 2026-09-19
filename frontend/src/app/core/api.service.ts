@@ -237,6 +237,16 @@ export class ApiService {
     return this.http.get<Serie>(`/api/series/${id}`);
   }
 
+  obterSerieCatalogoPublica(id: number, pagina = 0, tamanho = 24) {
+    const params = new HttpParams()
+      .set('pagina', pagina)
+      .set('tamanho', tamanho);
+    return this.http.get<{ serie: Serie; edicoes: PaginaResposta<Edicao> }>(
+      `/api/compartilhar/catalogo/series/${id}`,
+      { params },
+    );
+  }
+
   listarEdicoes(busca = '', pagina = 0, tamanho = 24, serieId?: number) {
     let params = new HttpParams()
       .set('busca', busca)
