@@ -35,7 +35,7 @@ public class Historia {
     @Column(name = "titulo_portugues")
     private String tituloPortugues;
 
-    @Column(length = 2000)
+    @Column(length = 4000)
     private String descricao;
 
     @Column(name = "descricao_original", length = 4000)

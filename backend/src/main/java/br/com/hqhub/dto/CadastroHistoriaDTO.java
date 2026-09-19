@@ -11,7 +11,7 @@ public record CadastroHistoriaDTO(
 
         String tituloOriginal,
 
-        @Size(max = 2000, message = "Descrição deve ter no máximo 2000 caracteres.")
+        @Size(max = 4000, message = "Descrição deve ter no máximo 4000 caracteres.")
         String descricao,
 
         Integer quantidadePaginas,

@@ -1,0 +1,2 @@
+ALTER TABLE historias
+    ALTER COLUMN descricao TYPE VARCHAR(4000);
