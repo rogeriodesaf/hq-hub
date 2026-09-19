@@ -60,7 +60,7 @@ import jakarta.ws.rs.core.Context;
 @Path("/compartilhar")
 public class CompartilhamentoResource {
 
-    private static final String IMAGEM_PADRAO = "/assets/coleciona-hq-compartilhamento.png?v=1";
+    private static final String IMAGEM_PADRAO = "/assets/coleciona-hq-compartilhamento.png?v=2";
     private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.webp";
     private static final String URL_FRONTEND_ATUAL = "https://hqhub.space";
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";

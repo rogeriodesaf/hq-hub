@@ -14,7 +14,7 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
     <main class="auth-page">
       <section class="auth-visual">
         <div class="auth-marca">
-          <img class="marca-grande" src="assets/icone-coleciona-hq.svg" alt="" />
+          <img class="marca-grande" src="assets/logo-colecionahq.png" alt="" />
           <strong>Coleciona HQ</strong>
         </div>
         <h1>Sua coleção inteira, organizada para caber no bolso.</h1>

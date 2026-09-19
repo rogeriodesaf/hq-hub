@@ -58,7 +58,7 @@ Arquivos principais:
 
 - `public/manifest.webmanifest`
 - `ngsw-config.json`
-- `public/assets/icone-coleciona-hq.svg`
+- `public/assets/logo-colecionahq.png`
 
 ## Telas implementadas
 
