@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coleta capas sequenciais da Panini e atualiza uma serie no catalogo HQ-HUB."""
+"""Coleta capas sequenciais da Panini e atualiza uma serie no catalogo Coleciona HQ."""
 
 import argparse
 import json
@@ -9,11 +9,11 @@ import sys
 from html import unescape
 from time import monotonic, sleep
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urljoin
 from urllib.request import Request, urlopen
 
 
-AGENTE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) HQ-HUB/1.0"
+AGENTE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Coleciona HQ/1.0"
 
 
 def requisicao_json(url, token, metodo="GET", dados=None, timeout=60):
@@ -85,6 +85,21 @@ def pagina_confirma_numero(titulo, numero):
         rf"\b0*{numero}\s+de\s+\d+\b",
     )
     return any(re.search(padrao, titulo, re.IGNORECASE) for padrao in padroes)
+
+
+def buscar_capa_fallback_excelsior(numero, url_serie, tentativas, prazo):
+    html = buscar_html(url_serie, tentativas, prazo)
+    links = re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html, re.IGNORECASE | re.DOTALL)
+    for href, texto in links:
+        rotulo = unescape(re.sub(r"<[^>]+>", " ", texto))
+        if not (pagina_confirma_numero(rotulo, numero) or re.search(rf"(?:-|/|\s)0*{numero}(?:\D|$)", href)):
+            continue
+        pagina = buscar_html(urljoin(url_serie, unescape(href)), tentativas, prazo)
+        if pagina_confirma_numero(extrair_titulo(pagina), numero):
+            capa = extrair_capa(pagina)
+            if capa:
+                return capa
+    return None
 
 
 def paginas_api(backend_url, token, rota, parametros):
@@ -228,6 +243,8 @@ def executar(args):
             if not pagina_confirma_numero(titulo, numero_panini):
                 raise ValueError(f"A pagina nao confirma o volume {numero_panini}: titulo recebido '{titulo or '-'}'.")
             url_capa = extrair_capa(html)
+            if not url_capa and args.url_fallback_serie:
+                url_capa = buscar_capa_fallback_excelsior(numero, args.url_fallback_serie, args.tentativas, args.tempo_limite_edicao)
             if not url_capa:
                 raise ValueError("Imagem principal nao encontrada na pagina da Panini.")
 
@@ -259,16 +276,18 @@ def executar(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Coleta capas sequenciais da Panini e aplica diretamente nas edicoes do HQ-HUB."
+        description="Coleta capas sequenciais da Panini e aplica diretamente nas edicoes do Coleciona HQ."
     )
     grupo_serie = parser.add_mutually_exclusive_group(required=True)
-    grupo_serie.add_argument("--serie-id", type=int, help="ID exato da serie no HQ-HUB.")
-    grupo_serie.add_argument("--busca-serie", help="Titulo exato da serie no HQ-HUB.")
+    grupo_serie.add_argument("--serie-id", type=int, help="ID exato da serie no Coleciona HQ.")
+    grupo_serie.add_argument("--busca-serie", help="Titulo exato da serie no Coleciona HQ.")
     parser.add_argument(
         "--url-inicial",
         required=True,
         help="Pagina Panini correspondente ao primeiro numero do intervalo.",
     )
+    parser.add_argument("--url-fallback-serie", default="https://excelsiorcomics.com.br/serie/grandes-herois-dc-os-novos-52/",
+                        help="Página alternativa para localizar capas ausentes.")
     parser.add_argument("--numero-inicial", type=int, default=1)
     parser.add_argument("--numero-final", type=int, required=True)
     parser.add_argument("--intervalo-segundos", type=float, default=0.7)

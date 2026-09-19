@@ -7,9 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "HQ-HUB API",
+                title = "Coleciona HQ API",
                 version = "1.0.0",
-                description = "API do HQ-HUB para coleções, catálogo, comunidade, classificados e integrações externas."))
+                description = "API do Coleciona HQ para coleções, catálogo, comunidade, classificados e integrações externas."))
 @SecurityScheme(
         securitySchemeName = "jwt",
         type = SecuritySchemeType.HTTP,

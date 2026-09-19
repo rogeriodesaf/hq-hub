@@ -35,7 +35,7 @@ import {
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
         <p class="rotulo">{{ modoAdicao() ? 'Adicionar à estante' : 'Catálogo' }}</p>
-        <h1>{{ modoAdicao() ? 'Encontre a edição que deseja adicionar.' : 'Encontre quadrinhos no acervo do HQ-HUB e na Comic Vine.' }}</h1>
+        <h1>{{ modoAdicao() ? 'Encontre a edição que deseja adicionar.' : 'Encontre quadrinhos no acervo do Coleciona HQ e na Comic Vine.' }}</h1>
       </div>
       @if (modoAdicao()) {
         <a class="botao secundario compacto" routerLink="/colecao">Voltar à estante</a>
@@ -56,7 +56,7 @@ import {
         <div class="secao-titulo">
           <div>
             <h2>Séries internas</h2>
-            <p class="texto-suave">Pesquise primeiro no acervo do HQ-HUB. Se não encontrarmos, a busca poderá continuar na Comic Vine.</p>
+            <p class="texto-suave">Pesquise primeiro no acervo do Coleciona HQ. Se não encontrarmos, a busca poderá continuar na Comic Vine.</p>
           </div>
           @if (seriesConsultadas()) {
             <span>{{ series().totalItens === 1 ? '1 série' : series().totalItens + ' séries' }}</span>
@@ -123,7 +123,7 @@ import {
           } @empty {
             <section class="estado-vazio compacto">
               <h2>Nenhuma série interna cadastrada</h2>
-              <p>Esta área mostra apenas os títulos já salvos no banco do HQ-HUB.</p>
+              <p>Esta área mostra apenas os títulos já salvos no banco do Coleciona HQ.</p>
             </section>
           }
         </div>
@@ -402,7 +402,7 @@ import {
                   @if (publicacaoHistoriasAberta() === publicacao.id) { <ul class="historias-publicacao-brasil">@for (historia of publicacao.historias; track historia.id) { <li [class.ausente]="!historia.presente">{{ historia.presente ? '✓' : '✕' }} {{ historia.titulo }}</li> }</ul> }
                   <div class="acao-estante-publicacao">@if (publicacao.naEstante) { <span>✓ Na sua estante</span> } @else { <button type="button" (click)="adicionarPublicacaoBrasileiraNaEstante(publicacao)">+ Adicionar à estante</button> }</div>
                 </article>
-              } @empty { <p class="estado-republicacoes-vazio">Até o momento, não encontramos outras publicações brasileiras desta história no catálogo do HQ-HUB.</p> }
+              } @empty { <p class="estado-republicacoes-vazio">Até o momento, não encontramos outras publicações brasileiras desta história no catálogo do Coleciona HQ.</p> }
             </div>
           }
         </article>
@@ -622,7 +622,7 @@ import {
                     <p class="aviso-link-associado">Publicidade · link de associado Amazon. Como associado da Amazon, eu ganho com compras qualificadas.</p>
                     <button class="botao secundario compacto" type="button" (click)="compartilharEdicaoDetalheParaApoiar()" [disabled]="compartilhandoEdicao()">
                       <svg lucideShare2 size="17" aria-hidden="true"></svg>
-                      {{ compartilhandoEdicao() ? 'Compartilhando...' : 'Compartilhar e apoiar o HQ-HUB' }}
+                      {{ compartilhandoEdicao() ? 'Compartilhando...' : 'Compartilhar e apoiar o Coleciona HQ' }}
                     </button>
                   }
                 </div>
@@ -1751,7 +1751,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   rotuloFonte(resultado: ResultadoPesquisaCatalogo) {
-    return resultado.fonte === 'HQ_HUB' ? 'Catálogo HQ-HUB' : 'Comic Vine';
+    return resultado.fonte === 'HQ_HUB' ? 'Catálogo Coleciona HQ' : 'Comic Vine';
   }
 
   tituloResultadoCartao(resultado: ResultadoPesquisaCatalogo) {
@@ -1798,10 +1798,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
     const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=2`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
-        title: `${titulo} | HQ-HUB`,
+        title: `${titulo} | Coleciona HQ`,
         text: paraApoiar
-          ? `Olha esta HQ no HQ-HUB: ${titulo}. Se você já pretende comprá-la, o link da Amazon na página pode gerar uma comissão que ajuda a manter o projeto. Publicidade · link de associado Amazon.`
-          : `Conheça ${titulo} no catálogo do HQ-HUB.`,
+          ? `Olha esta HQ no Coleciona HQ: ${titulo}. Se você já pretende comprá-la, o link da Amazon na página pode gerar uma comissão que ajuda a manter o projeto. Publicidade · link de associado Amazon.`
+          : `Conheça ${titulo} no catálogo do Coleciona HQ.`,
         url,
       }, paraApoiar);
       if (resultado === 'copiado') this.mensagem.set(paraApoiar ? 'Mensagem de apoio copiada para compartilhar' : 'Link da edição copiado');

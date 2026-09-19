@@ -1,8 +1,8 @@
-# Base Editorial + Web Scraping (RAG Híbrido) - HQ-HUB Assistente
+# Base Editorial + Web Scraping (RAG Híbrido) - Coleciona HQ Assistente
 
 ## Visão Geral
 
-O assistente agora suporta **RAG (Retrieval-Augmented Generation) híbrido**: além de responder sobre sua coleção pessoal (sistema HQ-HUB), ele também consulta uma **base editorial de conhecimento** sobre quadrinhos que pode ser alimentada manualmente ou via scraping de Comic Vine.
+O assistente agora suporta **RAG (Retrieval-Augmented Generation) híbrido**: além de responder sobre sua coleção pessoal (sistema Coleciona HQ), ele também consulta uma **base editorial de conhecimento** sobre quadrinhos que pode ser alimentada manualmente ou via scraping de Comic Vine.
 
 ## Arquitetura
 
@@ -10,7 +10,7 @@ O assistente agora suporta **RAG (Retrieval-Augmented Generation) híbrido**: al
 Pergunta do Usuário
         ↓
 [Classificação de Intenção]
-        ├→ Sistema HQ-HUB (faltantes, completude, compras, etc.)
+        ├→ Sistema Coleciona HQ (faltantes, completude, compras, etc.)
         │   └→ Consultar banco local
         └→ Conhecimento Editorial (arcos, autores, curiosidades, etc.)
             └→ Buscar em Base Editorial + Web Scraping

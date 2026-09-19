@@ -813,6 +813,22 @@ img {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
+.auth-marca {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: auto;
+}
+
+.auth-marca .marca-grande {
+  margin-bottom: 0;
+}
+
+.auth-marca strong {
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+
 .auth-visual h1 {
   max-width: 850px;
   margin: 0;

@@ -13,7 +13,7 @@ def buscar_html(url, tentativas):
     ultimo_erro = None
     for tentativa in range(1, tentativas + 1):
         try:
-            requisicao = Request(url, headers={"User-Agent": "Mozilla/5.0 HQ-HUB robô de capas"})
+            requisicao = Request(url, headers={"User-Agent": "Mozilla/5.0 Coleciona HQ robô de capas"})
             with urlopen(requisicao, timeout=30) as resposta:
                 return resposta.read().decode("utf-8", errors="replace")
         except (HTTPError, URLError, TimeoutError) as erro:

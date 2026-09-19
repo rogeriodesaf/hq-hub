@@ -224,7 +224,7 @@ public class AnuncioService {
 
         String titulo = anuncio.getItemColecao().getEdicao().getSerie().getTitulo()
                 + " nº " + anuncio.getItemColecao().getEdicao().getNumero();
-        String mensagem = "Olá, vi no HQ-HUB que você está anunciando a HQ " + titulo + ". Ela ainda está disponível?";
+        String mensagem = "Olá, vi no Coleciona HQ que você está anunciando a HQ " + titulo + ". Ela ainda está disponível?";
         String contatoLimpo = numeroWhatsappParaLink(anuncio.getContatoWhatsapp());
         String link = "https://api.whatsapp.com/send?phone=" + contatoLimpo
                 + "&text=" + codificarMensagemWhatsapp(mensagem);

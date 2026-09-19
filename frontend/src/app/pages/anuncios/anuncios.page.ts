@@ -252,8 +252,8 @@ export class AnunciosPage implements OnInit {
     const preco = anuncio.preco != null ? ` por ${this.formatarMoeda(anuncio.preco)}` : '';
     try {
       const resultado = await this.compartilhamento.compartilhar({
-        title: `${anuncio.tituloEdicao} | HQ-HUB`,
-        text: `Estou ${anuncio.tipoAnuncio === 'TROCA' ? 'trocando' : 'vendendo'} esta HQ${preco}. Veja o anúncio no HQ-HUB:`,
+        title: `${anuncio.tituloEdicao} | Coleciona HQ`,
+        text: `Estou ${anuncio.tipoAnuncio === 'TROCA' ? 'trocando' : 'vendendo'} esta HQ${preco}. Veja o anúncio no Coleciona HQ:`,
         url,
       });
       if (resultado === 'copiado') this.mensagemCompartilhamento.set('Link do anúncio copiado.');

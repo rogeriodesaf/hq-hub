@@ -43,7 +43,7 @@ class CompartilhamentoResourceTest {
             assertEquals(200, resposta.getStatus());
             assertTrue(html.contains("og:type\" content=\"article"));
             assertTrue(html.contains("twitter:card\" content=\"summary_large_image"));
-            assertTrue(html.contains("A Saga &lt;Especial&gt; #1&amp;2 | HQ-HUB"));
+            assertTrue(html.contains("A Saga &lt;Especial&gt; #1&amp;2 | Coleciona HQ"));
             assertTrue(html.contains("Panini · 2021."));
             assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42/imagem.jpg?v=2"));
             assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42?v=2"));

@@ -13,7 +13,7 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
   template: `
     <main class="pagina-classificados">
       <header class="hero">
-        <a class="marca" routerLink="/entrar">HQ-HUB</a>
+        <a class="marca" routerLink="/entrar">Coleciona HQ</a>
         <div>
           <p class="rotulo">Mercado de colecionadores</p>
           <h1>Anúncios ativos</h1>
@@ -58,7 +58,7 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
               <div>
                 <p class="rotulo">{{ rotuloTipo(anuncio.tipoAnuncio) }}</p>
                 <h2>{{ anuncio.tituloEdicao }}</h2>
-                <p class="descricao">{{ anuncio.descricao || 'Edição anunciada por um colecionador do HQ-HUB.' }}</p>
+                <p class="descricao">{{ anuncio.descricao || 'Edição anunciada por um colecionador do Coleciona HQ.' }}</p>
                 <span>{{ anuncio.nomeAnunciante }} · {{ anuncio.cidade || 'Local não informado' }}{{ anuncio.estado ? '/' + anuncio.estado : '' }}</span>
                 <strong>{{ anuncio.preco ? formatarMoeda(anuncio.preco) : 'Valor a combinar' }}</strong>
                 <a class="botao compacto" routerLink="/classificados" [queryParams]="{ anuncioId: anuncio.id }">Ver anúncio</a>
@@ -77,8 +77,8 @@ import { AnuncioPublico, TipoAnuncio } from '../../core/modelos';
 
       <footer class="convite">
         <h2>Tem quadrinhos para vender ou trocar?</h2>
-        <p>Crie sua estante no HQ-HUB e publique seus anúncios.</p>
-        <a class="botao primario" routerLink="/entrar">Participar do HQ-HUB</a>
+        <p>Crie sua estante no Coleciona HQ e publique seus anúncios.</p>
+        <a class="botao primario" routerLink="/entrar">Participar do Coleciona HQ</a>
       </footer>
     </main>
   `,
@@ -157,7 +157,7 @@ export class ClassificadosPublicosPage implements OnInit {
     const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
     const preco = anuncio.preco != null ? ` por ${this.formatarMoeda(anuncio.preco)}` : '';
     try {
-      const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | HQ-HUB`, text: `Estou vendendo esta HQ${preco}. Veja o anúncio no HQ-HUB:`, url });
+      const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | Coleciona HQ`, text: `Estou vendendo esta HQ${preco}. Veja o anúncio no Coleciona HQ:`, url });
       if (resultado === 'copiado') this.mensagemCompartilhamento.set('Link do anúncio copiado.');
     } catch {
       this.mensagemCompartilhamento.set('Não foi possível compartilhar este anúncio.');

@@ -1,4 +1,4 @@
-"""Resolve selecao revisada e valida imagens; nao altera o HQ-HUB."""
+"""Resolve selecao revisada e valida imagens; nao altera o Coleciona HQ."""
 import json
 from concurrent.futures import ThreadPoolExecutor
 from urllib.request import Request, urlopen

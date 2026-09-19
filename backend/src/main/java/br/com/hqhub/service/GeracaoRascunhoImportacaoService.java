@@ -122,7 +122,7 @@ public class GeracaoRascunhoImportacaoService {
                         pedido.urlGuia(),
                         urlsProcessadas,
                         LocalDateTime.now().format(DATA_ORIGEM),
-                        "HQ-HUB gerador de rascunho"),
+                        "Coleciona HQ gerador de rascunho"),
                 new SerieBrasileiraImportacaoDTO(
                         pedido.tituloSerie(),
                         pedido.fase(),

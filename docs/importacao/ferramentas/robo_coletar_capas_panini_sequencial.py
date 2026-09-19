@@ -14,7 +14,7 @@ def buscar_html(url, tentativas):
             requisicao = Request(
                 url,
                 headers={
-                    "User-Agent": "Mozilla/5.0 HQ-HUB robo coletor de capas",
+                    "User-Agent": "Mozilla/5.0 Coleciona HQ robo coletor de capas",
                     "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
                 },
             )

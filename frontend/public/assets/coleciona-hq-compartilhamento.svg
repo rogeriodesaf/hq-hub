@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Coleciona HQ</title>
+  <desc id="descricao">Organize, descubra e compartilhe sua coleção de quadrinhos</desc>
+  <rect width="1200" height="630" fill="#15191f"/>
+  <circle cx="1060" cy="90" r="220" fill="#ff7a00" opacity=".16"/>
+  <circle cx="105" cy="590" r="260" fill="#ff7a00" opacity=".1"/>
+  <g transform="translate(92 113) scale(.78)">
+    <rect width="512" height="512" rx="112" fill="#20252c"/>
+    <path d="M92 104c0-18 14-32 32-32h264c18 0 32 14 32 32v246c0 18-14 32-32 32H250l-76 64 16-64h-66c-18 0-32-14-32-32V104Z" fill="#ff7a00"/>
+    <g fill="#f6f2ea" stroke="#15191f" stroke-width="12" stroke-linejoin="round">
+      <path d="M132 146h126v174H132z"/>
+      <path d="M194 122h126v198H194z"/>
+      <path d="M256 150h124v170H256z"/>
+    </g>
+    <path d="M220 172h74M220 208h74M220 244h52" fill="none" stroke="#ff7a00" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <text x="520" y="280" fill="#f6f2ea" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">Coleciona HQ</text>
+  <text x="526" y="350" fill="#ff7a00" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="2">SUA COLEÇÃO VIVE AQUI</text>
+  <text x="526" y="414" fill="#cbd0d6" font-family="Arial, Helvetica, sans-serif" font-size="26">Organize, descubra e compartilhe quadrinhos.</text>
+</svg>

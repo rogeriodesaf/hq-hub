@@ -58,6 +58,6 @@ if (-not $NaoAbrirSite) {
     $argumentos += '--abrir-hqhub'
 }
 
-Write-Host 'Iniciando o assistente local do HQ-HUB...' -ForegroundColor Green
+Write-Host 'Iniciando o assistente local do Coleciona HQ...' -ForegroundColor Green
 Write-Host 'Mantenha esta janela aberta. Para encerrar, pressione Ctrl+C.' -ForegroundColor DarkGray
 & $comandoPython @argumentos

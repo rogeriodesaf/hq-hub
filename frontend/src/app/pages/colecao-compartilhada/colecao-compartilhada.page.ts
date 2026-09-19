@@ -11,7 +11,7 @@ import { PostagemColecaoPublica } from '../../core/modelos';
   template: `
     <main class="pagina-publica">
       <header class="topo">
-        <a class="marca" routerLink="/entrar">HQ-HUB</a>
+        <a class="marca" routerLink="/entrar">Coleciona HQ</a>
         <a class="botao secundario compacto" routerLink="/entrar">Entrar ou criar conta</a>
       </header>
 
@@ -23,7 +23,7 @@ import { PostagemColecaoPublica } from '../../core/modelos';
         <section class="estado">
           <h1>Coleção indisponível</h1>
           <p>Esta postagem não existe mais ou não possui uma coleção compartilhada.</p>
-          <a class="botao primario" routerLink="/entrar">Conhecer o HQ-HUB</a>
+          <a class="botao primario" routerLink="/entrar">Conhecer o Coleciona HQ</a>
         </section>
       } @else {
         <section class="hero">
@@ -65,7 +65,7 @@ import { PostagemColecaoPublica } from '../../core/modelos';
         <section class="convite">
           <h2>Organize também a sua coleção de quadrinhos</h2>
           <p>Cadastre suas HQs, acompanhe leituras e descubra o que falta na sua estante.</p>
-          <a class="botao primario" routerLink="/entrar">Criar minha conta no HQ-HUB</a>
+          <a class="botao primario" routerLink="/entrar">Criar minha conta no Coleciona HQ</a>
         </section>
       }
     </main>

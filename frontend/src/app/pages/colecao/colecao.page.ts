@@ -46,7 +46,7 @@ import {
 
       <div class="controle-segmentado-estante" role="group" aria-label="Forma de cadastro">
         <button type="button" [class.ativo]="!exibindoCadastroManual()" [attr.aria-pressed]="!exibindoCadastroManual()" (click)="exibindoCadastroManual() && alternarCadastroManual()">
-          Catálogo HQ-HUB
+          Catálogo Coleciona HQ
         </button>
         <button type="button" [class.ativo]="exibindoCadastroManual()" [attr.aria-pressed]="exibindoCadastroManual()" (click)="!exibindoCadastroManual() && alternarCadastroManual()">
           Cadastro manual
@@ -827,8 +827,8 @@ export class ColecaoPage implements OnInit {
     const titulo = `${this.serieEstanteSelecionada() || edicao.titulo || 'HQ'}${edicao.numero ? ` #${edicao.numero}` : ''}`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
-        title: `${titulo} | HQ-HUB`,
-        text: `Conheça ${titulo} no catálogo do HQ-HUB.`,
+        title: `${titulo} | Coleciona HQ`,
+        text: `Conheça ${titulo} no catálogo do Coleciona HQ.`,
         url: link,
       });
       if (resultado === 'copiado') this.mensagem.set('Link da edição copiado');

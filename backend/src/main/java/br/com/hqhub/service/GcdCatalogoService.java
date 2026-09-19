@@ -124,7 +124,7 @@ public class GcdCatalogoService {
         int totalHistorias = edicoes.stream().mapToInt(e -> e.historias() == null ? 0 : e.historias().size()).sum();
         return new ImportacaoCatalogoDTO(
                 new OrigemImportacaoCatalogoDTO(null, pedido.apiUrlSerie(), urls,
-                        OffsetDateTime.now().toString(), "HQ-HUB / Grand Comics Database"),
+                        OffsetDateTime.now().toString(), "Coleciona HQ / Grand Comics Database"),
                 new SerieBrasileiraImportacaoDTO(pedido.tituloSerie(), null, editora, pedido.volume()),
                 edicoes.size(), totalHistorias, avisos, edicoes);
     }
@@ -144,7 +144,7 @@ public class GcdCatalogoService {
             validarUrlApi(url, "/api/");
             HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(30))
                     .header("Accept", "application/json")
-                    .header("User-Agent", "HQ-HUB/1.0 (catalog import)");
+                    .header("User-Agent", "Coleciona HQ/1.0 (catalog import)");
             if (autorizacao != null) {
                 requestBuilder.header("Authorization", autorizacao);
             }

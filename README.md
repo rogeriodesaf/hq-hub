@@ -1,12 +1,12 @@
-# HQ-HUB
+# Coleciona HQ
 
-HQ-HUB é um sistema para colecionadores de quadrinhos organizarem suas coleções, controlarem edições faltantes, cadastrarem revistas e colaborarem futuramente com um catálogo brasileiro de HQs.
+Coleciona HQ é um sistema para colecionadores de quadrinhos organizarem suas coleções, controlarem edições faltantes, cadastrarem revistas e colaborarem futuramente com um catálogo brasileiro de HQs.
 
-A visão do produto é crescer além do controle individual de coleção. O HQ-HUB também pode se tornar uma comunidade de colecionadores, permitindo amizades, compartilhamento opcional de coleções e classificados de HQs disponíveis para venda ou troca.
+A visão do produto é crescer além do controle individual de coleção. O Coleciona HQ também pode se tornar uma comunidade de colecionadores, permitindo amizades, compartilhamento opcional de coleções e classificados de HQs disponíveis para venda ou troca.
 
 Ideia central:
 
-> O HQ-HUB ajuda o colecionador a organizar sua coleção, descobrir edições faltantes, compartilhar sua coleção com amigos e encontrar outros colecionadores interessados em vender ou trocar HQs.
+> O Coleciona HQ ajuda o colecionador a organizar sua coleção, descobrir edições faltantes, compartilhar sua coleção com amigos e encontrar outros colecionadores interessados em vender ou trocar HQs.
 
 ## Funcionalidades atuais
 
@@ -31,9 +31,9 @@ Ideia central:
 
 ## Aviso de responsabilidade
 
-O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.
+O Coleciona HQ não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.
 
-O HQ-HUB não será um marketplace nesta fase. Não haverá pagamento dentro da plataforma, carrinho de compras, comissão sobre venda, cálculo de frete ou intermediação financeira.
+O Coleciona HQ não será um marketplace nesta fase. Não haverá pagamento dentro da plataforma, carrinho de compras, comissão sobre venda, cálculo de frete ou intermediação financeira.
 
 ## Documentação
 

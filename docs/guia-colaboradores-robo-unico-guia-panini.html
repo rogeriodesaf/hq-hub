@@ -87,7 +87,7 @@
 <body>
   <header>
     <h1>Guia do colaborador: robo unico Guia + Panini</h1>
-    <p class="sub">Como gerar um JSON pronto para importar no HQ-HUB usando PowerShell.</p>
+    <p class="sub">Como gerar um JSON pronto para importar no Coleciona HQ usando PowerShell.</p>
   </header>
 
   <section>
@@ -96,7 +96,7 @@
     <ol>
       <li>Pega os dados das edicoes no Guia dos Quadrinhos.</li>
       <li>Pega as capas na Panini usando uma sequencia de URLs.</li>
-      <li>Gera um JSON final pronto para colar/importar no HQ-HUB.</li>
+      <li>Gera um JSON final pronto para colar/importar no Coleciona HQ.</li>
     </ol>
     <div class="dica">
       Importante: nao cole as URLs soltas no PowerShell. As URLs entram dentro de um comando completo.
@@ -106,7 +106,7 @@
   <section>
     <h2>Antes de comecar</h2>
     <ul>
-      <li>Use um computador com o projeto HQ-HUB baixado.</li>
+      <li>Use um computador com o projeto Coleciona HQ baixado.</li>
       <li>Abra o PowerShell dentro da pasta do projeto.</li>
       <li>Copie e cole um comando por vez.</li>
       <li>Espere o comando terminar antes de fazer o proximo passo.</li>
@@ -116,11 +116,11 @@
   <section>
     <h2>Passo 1: abrir o PowerShell no lugar certo</h2>
     <p>Abra a pasta do projeto:</p>
-    <div class="bloco"><pre>C:\Users\User\OneDrive\Area de Trabalho\HQ-HUB</pre></div>
+    <div class="bloco"><pre>C:\Users\User\OneDrive\Area de Trabalho\Coleciona HQ</pre></div>
     <p>Clique na barra de endereco da pasta, digite <strong>powershell</strong> e aperte Enter.</p>
     <p>Depois confirme o local com:</p>
     <div class="bloco"><pre>pwd</pre></div>
-    <p>O resultado deve mostrar a pasta HQ-HUB.</p>
+    <p>O resultado deve mostrar a pasta Coleciona HQ.</p>
   </section>
 
   <section>
@@ -166,7 +166,7 @@
         </tr>
         <tr>
           <td>Titulo da serie</td>
-          <td>Nome principal da colecao no HQ-HUB.</td>
+          <td>Nome principal da colecao no Coleciona HQ.</td>
           <td>Saga do Lanterna Verde, A</td>
         </tr>
         <tr>
@@ -234,7 +234,7 @@ Pronto.</pre></div>
         </tr>
         <tr>
           <td>*-com-capas-panini.json</td>
-          <td>JSON final, pronto para importar no HQ-HUB.</td>
+          <td>JSON final, pronto para importar no Coleciona HQ.</td>
         </tr>
       </tbody>
     </table>
@@ -243,9 +243,9 @@ Pronto.</pre></div>
   </section>
 
   <section>
-    <h2>Passo 6: importar no HQ-HUB</h2>
+    <h2>Passo 6: importar no Coleciona HQ</h2>
     <ol>
-      <li>Abra o sistema HQ-HUB.</li>
+      <li>Abra o sistema Coleciona HQ.</li>
       <li>Entre em <strong>Importacao</strong>.</li>
       <li>Clique em <strong>Selecionar JSON</strong>.</li>
       <li>Escolha o arquivo final gerado pelo robo.</li>
@@ -257,7 +257,7 @@ Pronto.</pre></div>
   <section>
     <h2>Quando o arquivo ficar grande demais</h2>
     <div class="alerta">
-      Se o HQ-HUB mostrar <strong>erro interno do servidor</strong> ao importar um JSON muito grande, gere lotes menores.
+      Se o Coleciona HQ mostrar <strong>erro interno do servidor</strong> ao importar um JSON muito grande, gere lotes menores.
     </div>
     <p>A quantidade de edicoes geradas e controlada pelo parametro <strong>--quantidade</strong>.</p>
     <p>Exemplo: para gerar apenas as 3 primeiras edicoes:</p>
@@ -303,7 +303,7 @@ Pronto.</pre></div>
     <h2>Erros comuns</h2>
     <div class="alerta">
       <strong>Erro:</strong> o PowerShell diz que nao encontrou o arquivo do robo.<br />
-      <strong>Solucao:</strong> confirme se voce esta dentro da pasta HQ-HUB usando o comando <code>pwd</code>.
+      <strong>Solucao:</strong> confirme se voce esta dentro da pasta Coleciona HQ usando o comando <code>pwd</code>.
     </div>
     <div class="alerta">
       <strong>Erro:</strong> quantidade de capas diferente da quantidade de edicoes.<br />
@@ -323,7 +323,7 @@ Pronto.</pre></div>
   </section>
 
   <div class="rodape">
-    Guia para colaboradores do HQ-HUB. Fluxo: Guia dos Quadrinhos + capas Panini + JSON final de importacao.
+    Guia para colaboradores do Coleciona HQ. Fluxo: Guia dos Quadrinhos + capas Panini + JSON final de importacao.
   </div>
 </body>
 </html>

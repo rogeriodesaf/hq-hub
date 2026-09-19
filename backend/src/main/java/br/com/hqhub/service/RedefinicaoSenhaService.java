@@ -66,13 +66,13 @@ public class RedefinicaoSenhaService {
 
             String link = urlBase + "/entrar?token=" + token;
             String html = "<p>Ola, <strong>" + usuario.getNome() + "</strong>!</p>"
-                    + "<p>Clique no link abaixo para redefinir sua senha no HQ-HUB. "
+                    + "<p>Clique no link abaixo para redefinir sua senha no Coleciona HQ. "
                     + "O link e valido por <strong>1 hora</strong>.</p>"
                     + "<p><a href=\"" + link + "\">" + link + "</a></p>"
                     + "<p>Se voce nao solicitou a redefinicao, ignore este e-mail.</p>";
 
             try {
-                mailer.send(Mail.withHtml(dto.email(), "Redefinicao de senha - HQ-HUB", html));
+                mailer.send(Mail.withHtml(dto.email(), "Redefinicao de senha - Coleciona HQ", html));
             } catch (RuntimeException excecao) {
                 LOG.errorf(excecao, "Falha ao enviar e-mail de redefinicao de senha para %s.", dto.email());
                 erroEnvio.set("Nao foi possivel enviar o e-mail de redefinicao agora.");

@@ -37,9 +37,9 @@ describe('CompartilhamentoService', () => {
 
     await expectAsync(service.compartilhar({
       title: 'HQ #1',
-      text: 'Apoie o HQ-HUB. Publicidade · link de associado Amazon.',
+      text: 'Apoie o Coleciona HQ. Publicidade · link de associado Amazon.',
       url: 'https://hqhub.test/edicoes/1',
     }, true)).toBeResolvedTo('copiado');
-    expect(escrever).toHaveBeenCalledOnceWith('Apoie o HQ-HUB. Publicidade · link de associado Amazon.\nhttps://hqhub.test/edicoes/1');
+    expect(escrever).toHaveBeenCalledOnceWith('Apoie o Coleciona HQ. Publicidade · link de associado Amazon.\nhttps://hqhub.test/edicoes/1');
   });
 });

@@ -78,7 +78,7 @@ public class ArmazenamentoImagemService {
         try {
             HttpRequest request = HttpRequest.newBuilder(uri)
                     .timeout(Duration.ofSeconds(20))
-                    .header("User-Agent", "HQ-HUB/1.0")
+                    .header("User-Agent", "Coleciona HQ/1.0")
                     .GET()
                     .build();
 

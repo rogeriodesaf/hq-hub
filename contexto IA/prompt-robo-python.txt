@@ -1,7 +1,7 @@
-# CONTEXTO: ROBÔ IMPORTADOR DE QUADRINHOS - HQ-HUB
+# CONTEXTO: ROBÔ IMPORTADOR DE QUADRINHOS - Coleciona HQ
 
 ## PROJETO
-HQ-Hub é um catálogo de histórias em quadrinhos em português. O objetivo é importar dados do site "Guia dos Quadrinhos" (www.guiadosquadrinhos.com) e armazená-los no banco de dados do aplicativo.
+Coleciona HQ é um catálogo de histórias em quadrinhos em português. O objetivo é importar dados do site "Guia dos Quadrinhos" (www.guiadosquadrinhos.com) e armazená-los no banco de dados do aplicativo.
 
 ## ROBÔ PRINCIPAL
 **Arquivo**: docs/importacao/ferramentas/robo_importador_texto.py
@@ -127,7 +127,7 @@ hq-hub/
 ## ESTRUTURA REAL DE PASTAS (ATUALIZADA)
 
 ```
-c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\          ← RAIZ DO PROJETO (rodar comandos aqui)
+c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ\          ← RAIZ DO PROJETO (rodar comandos aqui)
 ├── docs\importacao\ferramentas\
 │   └── fluxo-essencial-hqhub\                           ← pasta dos robôs principais
 │       ├── robo_gerar_importacao_guia_panini.py          ← fluxo completo (guia + panini)
@@ -144,7 +144,7 @@ c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\          ← RAIZ DO PROJETO (r
 ```
 
 **REGRA CRÍTICA**: Todos os comandos devem ser rodados sempre da raiz do projeto:
-`c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB`
+`c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ`
 
 ---
 
@@ -154,7 +154,7 @@ c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\          ← RAIZ DO PROJETO (r
 Usar quando: série tem página no Guia DOS QUADRINHOS e produto no panini.com.br com número na URL.
 
 ```powershell
-cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB"
+cd "c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ"
 
 python docs/importacao/ferramentas/fluxo-essencial-hqhub/robo_gerar_importacao_guia_panini.py `
   --url-guia "https://www.guiadosquadrinhos.com/edicao/saga-da-liga-da-justica-a-1-serie-n-1/sa011131/165824" `
@@ -172,7 +172,7 @@ Usar quando: a URL da Panini não termina em número (ex: panini.com.br/aniquila
 Usar --quantidade 1.
 
 ```powershell
-cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB"
+cd "c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ"
 
 # Apagar arquivos intermediários de tentativas anteriores (se existirem)
 Remove-Item "docs\importacao\rascunhos\marvel-omnibus\aniquilacao-base-guia.json" -ErrorAction SilentlyContinue
@@ -194,7 +194,7 @@ Usar quando: não há produto na Panini ou só se quer o JSON base.
 Rodar de dentro da pasta ferramentas\fluxo-essencial-hqhub.
 
 ```powershell
-cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\docs\importacao\ferramentas\fluxo-essencial-hqhub"
+cd "c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ\docs\importacao\ferramentas\fluxo-essencial-hqhub"
 
 python robo_importador_texto.py `
   --url "https://www.guiadosquadrinhos.com/edicao/marvel-epic-collection-n-1/ep011100/172289" `
@@ -210,7 +210,7 @@ Usar quando: quer baixar a série inteira de uma vez.
 Rodar de dentro da pasta ferramentas\fluxo-essencial-hqhub.
 
 ```powershell
-cd "c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB\docs\importacao\ferramentas\fluxo-essencial-hqhub"
+cd "c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ\docs\importacao\ferramentas\fluxo-essencial-hqhub"
 
 python robo_importador_texto.py `
   --url "https://www.guiadosquadrinhos.com/edicao/marvel-epic-collection-n-1/ep011100/172289" `
@@ -227,7 +227,7 @@ python robo_importador_texto.py `
 ### Erro: "O sistema não pode encontrar o caminho especificado" ou "No such file or directory"
 **Causa**: Comando rodado da pasta errada.
 **Como identificar**: O caminho no erro não bate com a estrutura real. Se o erro aponta para `c:\Users\User\...` e o caminho esperado é relativo ao projeto, o `cd` foi esquecido ou errado.
-**Solução**: Sempre confirmar com `Get-Location` antes de rodar. Garantir que está em `c:\Users\User\OneDrive\Área de Trabalho\HQ-HUB`.
+**Solução**: Sempre confirmar com `Get-Location` antes de rodar. Garantir que está em `c:\Users\User\OneDrive\Área de Trabalho\Coleciona HQ`.
 
 ### Erro: "python : The term 'python' is not recognized"
 **Causa**: Python não está no PATH ou o terminal está fora do ambiente correto.
@@ -283,6 +283,6 @@ python robo_importador_texto.py `
 - Solução: Usar `--organizar-saida-por-serie` para criar nomes únicos + pastas
 
 ---
-Use este contexto sempre que iniciar um novo chat sobre o robô Python ou importações HQ-Hub.
+Use este contexto sempre que iniciar um novo chat sobre o robô Python ou importações Coleciona HQ.
 Inclua detalhes específicos do que você quer fazer (ex: "quero importar 20 edições da série X a partir da edição Y").
 Sempre informe: a URL do Guia dos Quadrinhos, a URL da Panini (se houver) e a pasta de saída desejada.

@@ -75,7 +75,7 @@ interface EdicaoDescoberta {
     <div class="alternador descobrir-fontes">
       <button type="button" [class.ativo]="fontePesquisa() === 'TODAS'" (click)="alterarFonte('TODAS')">Todas</button>
       <button type="button" [class.ativo]="fontePesquisa() === 'COMIC_VINE'" (click)="alterarFonte('COMIC_VINE')">Comic Vine</button>
-      <button type="button" [class.ativo]="fontePesquisa() === 'HQ_HUB'" (click)="alterarFonte('HQ_HUB')">HQ-HUB</button>
+      <button type="button" [class.ativo]="fontePesquisa() === 'HQ_HUB'" (click)="alterarFonte('HQ_HUB')">Coleciona HQ</button>
     </div>
 
     @if (mensagem()) {
@@ -101,7 +101,7 @@ interface EdicaoDescoberta {
         @if (!carregandoVolumes()) {
           <section class="estado-vazio compacto">
             <h2>Nenhum título carregado</h2>
-            <p>Digite um termo e escolha se deseja pesquisar na Comic Vine, no HQ-HUB ou nas duas bases.</p>
+            <p>Digite um termo e escolha se deseja pesquisar na Comic Vine, no Coleciona HQ ou nas duas bases.</p>
           </section>
         }
       }
@@ -361,7 +361,7 @@ interface EdicaoDescoberta {
           <div class="detalhe-cabecalho">
             <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="tituloEdicaoInterna(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
             <div>
-              <p class="rotulo">HQ-HUB · {{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
+              <p class="rotulo">Coleciona HQ · {{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
               <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
               <div class="chips">
                 <span>{{ edicaoDetalhe()?.dataPublicacao || 'data não informada' }}</span>
@@ -672,7 +672,7 @@ export class DescobrirPage {
         },
         error: () => {
           this.carregandoEdicoes.set(false);
-          this.mensagem.set('Não foi possível carregar as edições do HQ-HUB.');
+          this.mensagem.set('Não foi possível carregar as edições do Coleciona HQ.');
           this.rolarParaEdicoes();
         },
       });
@@ -959,11 +959,11 @@ export class DescobrirPage {
   }
 
   rotuloFonteVolume(volume: VolumeDescoberta) {
-    return volume.fonte === 'HQ_HUB' ? 'HQ-HUB' : 'Comic Vine';
+    return volume.fonte === 'HQ_HUB' ? 'Coleciona HQ' : 'Comic Vine';
   }
 
   rotuloFonteEdicao(edicao: EdicaoDescoberta) {
-    return edicao.fonte === 'HQ_HUB' ? 'HQ-HUB' : 'Comic Vine';
+    return edicao.fonte === 'HQ_HUB' ? 'Coleciona HQ' : 'Comic Vine';
   }
 
   tituloEdicaoInterna(edicao: Edicao) {

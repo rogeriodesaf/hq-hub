@@ -93,7 +93,7 @@ def buscar_url(url, tentativas=3):
     requisicao = Request(
         url,
         headers={
-            "User-Agent": "Mozilla/5.0 HQ-HUB importador assistido",
+            "User-Agent": "Mozilla/5.0 Coleciona HQ importador assistido",
             "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
         },
     )
@@ -654,7 +654,7 @@ def resolver_caminho_saida(args, resultado):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Gera JSON de importação do HQ-HUB a partir de texto colado.")
+    parser = argparse.ArgumentParser(description="Gera JSON de importação do Coleciona HQ a partir de texto colado.")
     origem = parser.add_mutually_exclusive_group(required=True)
     origem.add_argument("--entrada", help="Arquivo .txt com o texto copiado da página fonte.")
     origem.add_argument("--url", help="URL de uma página de edição para extração assistida.")

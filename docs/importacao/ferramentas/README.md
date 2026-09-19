@@ -1,6 +1,6 @@
 # Robô importador de textos
 
-Esta pasta contém ferramentas auxiliares para transformar textos copiados de páginas de referência em JSONs no padrão de importação do HQ-HUB.
+Esta pasta contém ferramentas auxiliares para transformar textos copiados de páginas de referência em JSONs no padrão de importação do Coleciona HQ.
 
 ## O que o robô faz agora
 
@@ -177,9 +177,9 @@ python docs/importacao/ferramentas/robo_coletar_capas_panini_sequencial.py `
 
 ## Aplicar capas da Panini diretamente no catálogo
 
-Quando as edições já estiverem cadastradas no HQ-HUB, abra a aba **Capas da Panini**
+Quando as edições já estiverem cadastradas no Coleciona HQ, abra a aba **Capas da Panini**
 na tela de importação. O assistente local percorre as páginas sequenciais e atualiza
-diretamente a capa de cada edição. A autenticação da sessão aberta no HQ-HUB é usada
+diretamente a capa de cada edição. A autenticação da sessão aberta no Coleciona HQ é usada
 automaticamente; o usuário não precisa informar token no PowerShell.
 
 A opção **Manter somente as edições deste intervalo** remove da série os registros

@@ -14,7 +14,7 @@ Critérios de aceite:
 
 ## História: Aceitar Solicitação de Amizade
 
-Como usuário, quero aceitar uma solicitação de amizade para permitir uma relação de amizade dentro do HQ-HUB.
+Como usuário, quero aceitar uma solicitação de amizade para permitir uma relação de amizade dentro do Coleciona HQ.
 
 Critérios de aceite:
 
@@ -45,7 +45,7 @@ Critérios de aceite:
 - Se for `VENDA` ou `VENDA_E_TROCA`, o preço pode ser informado.
 - O usuário deve informar o estado de conservação.
 - O anúncio deve ter status `ATIVO` ao ser criado.
-- O anúncio deve exibir aviso de que o HQ-HUB não intermedeia a negociação.
+- O anúncio deve exibir aviso de que o Coleciona HQ não intermedeia a negociação.
 
 ## História: Contato Externo por WhatsApp
 
@@ -55,6 +55,6 @@ Critérios de aceite:
 
 - O usuário interessado deve clicar em um botão de contato.
 - O sistema deve gerar uma mensagem pré-preenchida.
-- A mensagem deve citar o título da HQ e o HQ-HUB.
+- A mensagem deve citar o título da HQ e o Coleciona HQ.
 - O contato deve acontecer fora da plataforma.
 - O número do WhatsApp só deve aparecer se o anunciante permitir.

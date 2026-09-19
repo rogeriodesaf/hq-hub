@@ -13,7 +13,7 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
   template: `
     <main class="pagina-publica">
       <header class="topo">
-        <a class="marca" routerLink="/entrar">HQ-HUB</a>
+        <a class="marca" routerLink="/entrar">Coleciona HQ</a>
         <a class="botao secundario compacto" routerLink="/entrar">Entrar ou criar conta</a>
       </header>
 
@@ -23,7 +23,7 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
         <section class="estado">
           <h1>Postagem indisponivel</h1>
           <p>Este conteudo nao existe mais ou nao esta disponivel.</p>
-          <a class="botao primario" routerLink="/entrar">Conhecer o HQ-HUB</a>
+          <a class="botao primario" routerLink="/entrar">Conhecer o Coleciona HQ</a>
         </section>
       } @else {
         <article class="postagem">
@@ -109,7 +109,7 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
         </article>
 
         <section class="convite">
-          <h2>Participe da comunidade HQ-HUB</h2>
+          <h2>Participe da comunidade Coleciona HQ</h2>
           <p>Crie sua conta para curtir, comentar e compartilhar suas leituras.</p>
           <a class="botao primario" routerLink="/entrar">Entrar ou criar conta</a>
         </section>

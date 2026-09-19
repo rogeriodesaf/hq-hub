@@ -644,7 +644,7 @@ public class IntegracaoExternaService {
                     .uri(URI.create(url))
                     .timeout(TEMPO_LIMITE_REQUISICAO)
                     .header("Accept", "application/json")
-                    .header("User-Agent", "HQ-HUB/1.0")
+                    .header("User-Agent", "Coleciona HQ/1.0")
                     .GET()
                     .build();
 

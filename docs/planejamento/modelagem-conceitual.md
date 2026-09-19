@@ -94,4 +94,4 @@
 - A visibilidade padrão da coleção deve ser `PRIVADA`.
 - `BloqueioUsuario` deve impedir novas solicitações de amizade e interações futuras entre usuários bloqueados.
 - `FotoAnuncio` permite múltiplas imagens por anúncio, com uma imagem principal.
-- A negociação de anúncios acontece fora do HQ-HUB.
+- A negociação de anúncios acontece fora do Coleciona HQ.

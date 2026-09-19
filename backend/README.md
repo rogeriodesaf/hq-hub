@@ -1,6 +1,6 @@
-# Backend HQ-HUB
+# Backend Coleciona HQ
 
-Backend inicial do HQ-HUB, criado com Quarkus e focado em usuários, autenticação e base inicial do catálogo de quadrinhos.
+Backend inicial do Coleciona HQ, criado com Quarkus e focado em usuários, autenticação e base inicial do catálogo de quadrinhos.
 
 Para visão de produto, roadmap, backlog, personas, histórias de usuário e modelagem conceitual, consulte a documentação principal em `../docs/planejamento`.
 
@@ -417,7 +417,7 @@ Fontes disponíveis:
 - `MARVEL`: requer `HQHUB_MARVEL_CHAVE_PUBLICA` e `HQHUB_MARVEL_CHAVE_PRIVADA`.
 - `COMICVINE`: requer `HQHUB_COMICVINE_CHAVE_API`.
 
-A Comic Vine é usada como fonte externa para edições estrangeiras. A descrição original pode vir em inglês; o HQ-HUB preserva essa descrição em `descricaoOriginal` e também suporta `descricaoPortugues` para curadoria futura. A resposta de detalhe usa `descricaoExibicao`, priorizando português quando houver e caindo para a descrição original quando não houver.
+A Comic Vine é usada como fonte externa para edições estrangeiras. A descrição original pode vir em inglês; o Coleciona HQ preserva essa descrição em `descricaoOriginal` e também suporta `descricaoPortugues` para curadoria futura. A resposta de detalhe usa `descricaoExibicao`, priorizando português quando houver e caindo para a descrição original quando não houver.
 
 O detalhe da edição da Comic Vine retorna volume, número, datas de cobertura e disponibilidade em loja, capa, URL da Comic Vine, ID externo e conteúdos internos quando a API fornece esses dados. A listagem cronológica de edições por volume continua separada e paginada.
 
@@ -498,7 +498,7 @@ GET /anuncios/{id}/contato
 
 Permite criar anúncios vinculados a itens da coleção para venda, troca ou venda e troca. O anúncio deve estar vinculado a uma HQ da coleção do usuário autenticado. O contato por WhatsApp só é retornado quando o anunciante permitir, junto com `linkContatoWhatsapp`.
 
-O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.
+O Coleciona HQ não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.
 
 ### Denúncias e moderação básica
 
@@ -588,4 +588,4 @@ docs/testes-api/anuncios.http
 - Integrações com APIs externas ainda não foram implementadas.
 - Comunidade, amizades, compartilhamento de coleção e classificados de venda/troca já possuem endpoints iniciais.
 - Denúncias de anúncios e usuários já possuem endpoints iniciais.
-- O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam apenas como classificados entre colecionadores.
+- O Coleciona HQ não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam apenas como classificados entre colecionadores.

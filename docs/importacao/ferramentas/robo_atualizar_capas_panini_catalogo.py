@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coleta capas sequenciais da Panini e atualiza uma serie no catalogo HQ-HUB."""
+"""Coleta capas sequenciais da Panini e atualiza uma serie no catalogo Coleciona HQ."""
 
 import argparse
 import json
@@ -13,7 +13,7 @@ from urllib.parse import urlencode, urljoin
 from urllib.request import Request, urlopen
 
 
-AGENTE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) HQ-HUB/1.0"
+AGENTE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Coleciona HQ/1.0"
 
 
 def requisicao_json(url, token, metodo="GET", dados=None, timeout=60):
@@ -276,11 +276,11 @@ def executar(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Coleta capas sequenciais da Panini e aplica diretamente nas edicoes do HQ-HUB."
+        description="Coleta capas sequenciais da Panini e aplica diretamente nas edicoes do Coleciona HQ."
     )
     grupo_serie = parser.add_mutually_exclusive_group(required=True)
-    grupo_serie.add_argument("--serie-id", type=int, help="ID exato da serie no HQ-HUB.")
-    grupo_serie.add_argument("--busca-serie", help="Titulo exato da serie no HQ-HUB.")
+    grupo_serie.add_argument("--serie-id", type=int, help="ID exato da serie no Coleciona HQ.")
+    grupo_serie.add_argument("--busca-serie", help="Titulo exato da serie no Coleciona HQ.")
     parser.add_argument(
         "--url-inicial",
         required=True,

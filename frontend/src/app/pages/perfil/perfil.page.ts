@@ -55,7 +55,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
             <div>
               <p class="rotulo">Perfil</p>
               <h1>{{ usuarioVisualizacao()?.nome || perfilNome || 'Seu perfil' }}</h1>
-              <p>{{ usuarioVisualizacao()?.bio || perfilBio || 'Leio livros e HQs interessantes e sou parte da comunidade HQ-HUB.' }}</p>
+              <p>{{ usuarioVisualizacao()?.bio || perfilBio || 'Leio livros e HQs interessantes e sou parte da comunidade Coleciona HQ.' }}</p>
             </div>
           </div>
 
@@ -83,7 +83,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
           <section class="bloco painel-colecionador" aria-labelledby="titulo-painel-colecionador">
             <div class="painel-colecionador-topo">
               <div>
-                <p class="rotulo">Meu HQ-HUB</p>
+                <p class="rotulo">Meu Coleciona HQ</p>
                 <h2 id="titulo-painel-colecionador">Painel do colecionador</h2>
               </div>
             </div>
@@ -171,7 +171,7 @@ import { Amizade, ColecaoResumo, EstatisticasPublicasColecao, ItemColecao, Usuar
                 <article>
                   <img [src]="item.edicao.urlCapa || 'assets/capa-reserva.svg'" [alt]="tituloItemColecao(item)" loading="lazy" />
                   <strong>{{ tituloItemColecao(item) }}</strong>
-                  <span>{{ item.edicao.serie?.titulo || 'HQ-HUB' }}</span>
+                  <span>{{ item.edicao.serie?.titulo || 'Coleciona HQ' }}</span>
                 </article>
               }
             </div>

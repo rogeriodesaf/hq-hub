@@ -1,4 +1,4 @@
-# FAQ base do Assistente (HQ-HUB)
+# FAQ base do Assistente (Coleciona HQ)
 
 Este arquivo traz 30 perguntas e respostas prontas para orientar o uso do assistente em https://hqhub-frontend.onrender.com/assistente.
 
@@ -53,7 +53,7 @@ Importante:
     Resposta: Retorno o numero de faltantes e a porcentagem atual de conclusao da serie.
 
 14. Pergunta: Me passe percentual de conclusao da serie Z.
-    Resposta: Entrego o percentual de completude com base no que esta catalogado no HQ-HUB.
+    Resposta: Entrego o percentual de completude com base no que esta catalogado no Coleciona HQ.
 
 15. Pergunta: Quero saber o progresso da serie X.
     Resposta: O progresso inclui: possuidas, total previsto, faltantes e percentual.
@@ -113,4 +113,4 @@ Importante:
 
 Use este texto como referencia no assistente para melhorar a orientacao ao usuario:
 
-"Eu respondo com base nos dados cadastrados no HQ-HUB. Posso ajudar com: resumo da colecao, faltantes e completude por serie, compras planejadas por mes/ano, creditos por criador e relacionamento entre series (continuidade/v2/reboot/relancamento). Se eu nao encontrar a serie, informe serieId=NN ou o titulo exato cadastrado."
+"Eu respondo com base nos dados cadastrados no Coleciona HQ. Posso ajudar com: resumo da colecao, faltantes e completude por serie, compras planejadas por mes/ano, creditos por criador e relacionamento entre series (continuidade/v2/reboot/relancamento). Se eu nao encontrar a serie, informe serieId=NN ou o titulo exato cadastrado."

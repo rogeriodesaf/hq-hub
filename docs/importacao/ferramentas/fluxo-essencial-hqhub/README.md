@@ -1,6 +1,6 @@
-# Fluxo essencial de importacao HQ-HUB
+# Fluxo essencial de importacao Coleciona HQ
 
-Esta pasta separa os robos principais para montar um JSON pronto para importar no HQ-HUB.
+Esta pasta separa os robos principais para montar um JSON pronto para importar no Coleciona HQ.
 
 ## Fluxo em um comando
 

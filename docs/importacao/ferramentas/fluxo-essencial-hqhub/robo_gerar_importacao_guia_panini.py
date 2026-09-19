@@ -16,7 +16,7 @@ def buscar_html(url, tentativas):
             requisicao = Request(
                 url,
                 headers={
-                    "User-Agent": "Mozilla/5.0 HQ-HUB robo gerador de importacao",
+                    "User-Agent": "Mozilla/5.0 Coleciona HQ robo gerador de importacao",
                     "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
                 },
             )
@@ -142,7 +142,7 @@ def gerar(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Gera um JSON de importacao HQ-HUB juntando dados do Guia dos Quadrinhos e capas sequenciais da Panini."
+        description="Gera um JSON de importacao Coleciona HQ juntando dados do Guia dos Quadrinhos e capas sequenciais da Panini."
     )
     parser.add_argument("--url-guia", required=True, help="URL /capas/ ou /edicao/ do Guia dos Quadrinhos.")
     parser.add_argument("--url-panini-inicial", required=True, help="Primeira URL da sequencia da Panini.")

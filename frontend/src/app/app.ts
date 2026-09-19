@@ -287,11 +287,11 @@ export class App implements OnInit {
         const url = URL.createObjectURL(arquivo);
         const ancora = document.createElement('a');
         ancora.href = url;
-        ancora.download = 'HQ-HUB-Agente-Setup.exe';
+        ancora.download = 'Coleciona-HQ-Agente-Setup.exe';
         ancora.click();
         URL.revokeObjectURL(url);
       },
-      error: () => alert('Não foi possível baixar o instalador do HQ-HUB.'),
+      error: () => alert('Não foi possível baixar o instalador do Coleciona HQ.'),
     });
   }
 

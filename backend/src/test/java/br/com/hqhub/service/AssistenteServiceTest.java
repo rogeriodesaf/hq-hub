@@ -61,7 +61,7 @@ class AssistenteServiceTest {
                 .thenReturn(List.of(edicao(10L, batman), edicao(11L, batman), edicao(12L, lendas)));
 
         RespostaAssistenteDTO resposta = assistente.responder(
-                "Quantas edições do Batman existem cadastradas no HQ-HUB?");
+                "Quantas edições do Batman existem cadastradas no Coleciona HQ?");
 
         assertEquals("BANCO_LOCAL", resposta.origem());
         assertTrue(resposta.resposta().contains("3 edições"));
@@ -101,7 +101,7 @@ class AssistenteServiceTest {
                 "Quantas edições tem a primeira série de Batman pela Abril?");
 
         assertEquals("BANCO_LOCAL", resposta.origem());
-        assertEquals("Batman 1ª Série V1 (Abril) tem 10 edições cadastradas no HQ-HUB.", resposta.resposta());
+        assertEquals("Batman 1ª Série V1 (Abril) tem 10 edições cadastradas no Coleciona HQ.", resposta.resposta());
         Map<?, ?> dados = (Map<?, ?>) resposta.dados();
         assertEquals(10L, dados.get("totalEdicoes"));
         assertEquals("Abril", dados.get("editora"));

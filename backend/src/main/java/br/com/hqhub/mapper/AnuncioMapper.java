@@ -18,7 +18,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class AnuncioMapper {
 
-    public static final String AVISO_RESPONSABILIDADE = "O HQ-HUB não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.";
+    public static final String AVISO_RESPONSABILIDADE = "O Coleciona HQ não intermedeia pagamentos, entregas, trocas ou negociações. Os anúncios funcionam como classificados entre colecionadores. Toda negociação deve ser combinada diretamente entre os usuários, por canais externos, como WhatsApp. O sistema apenas organiza e divulga os anúncios.";
 
     private final UsuarioMapper usuarioMapper;
     private final ItemColecaoMapper itemColecaoMapper;
@@ -121,7 +121,7 @@ public class AnuncioMapper {
             return null;
         }
 
-        String mensagem = "Olá, vi no HQ-HUB que você está anunciando a HQ "
+        String mensagem = "Olá, vi no Coleciona HQ que você está anunciando a HQ "
                 + tituloEdicao(anuncio)
                 + ". Ela ainda está disponível?";
 

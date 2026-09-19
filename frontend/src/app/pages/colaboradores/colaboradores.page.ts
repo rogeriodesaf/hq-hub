@@ -13,7 +13,7 @@ import { Usuario } from '../../core/modelos';
     <section class="cabecalho-pagina">
       <div>
         <p class="rotulo">Colaboradores</p>
-        <h1>Seja colaborador do HQ-HUB.</h1>
+        <h1>Seja colaborador do Coleciona HQ.</h1>
       </div>
     </section>
 
@@ -58,7 +58,7 @@ import { Usuario } from '../../core/modelos';
       <div>
         <strong>Ajude a aumentar o nosso acervo</strong>
         <p>
-          Seja colaborador do HQ-HUB nos ajudando a cadastrar HQs, revisar informacoes,
+          Seja colaborador do Coleciona HQ nos ajudando a cadastrar HQs, revisar informacoes,
           completar dados de series e deixar o catalogo cada vez mais util para outros colecionadores.
         </p>
         <a
@@ -73,7 +73,7 @@ import { Usuario } from '../../core/modelos';
     </section>
 
     <section class="bloco lista-colaboradores">
-      <h2>Colaboradores do HQ-HUB</h2>
+      <h2>Colaboradores do Coleciona HQ</h2>
       <ul>
         <li *ngFor="let colaborador of colaboradores()">{{ colaborador }}</li>
       </ul>

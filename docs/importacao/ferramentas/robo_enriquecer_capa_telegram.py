@@ -360,7 +360,7 @@ async def executar(args):
     token = variavel_obrigatoria("HQHUB_API_TOKEN")
     prefixo = re.sub(r"\s+0*\d+\s*$", "", args.consulta).strip()
     if args.serie_id:
-        print(f"[Preparacao] Carregando edicoes da serie {args.serie_id} no HQ-Hub...", flush=True)
+        print(f"[Preparacao] Carregando edicoes da serie {args.serie_id} no Coleciona HQ...", flush=True)
         edicoes = listar_edicoes_serie(
             args.backend_url, token, args.serie_id, args.numero_inicial, args.numero_final,
         )
@@ -370,7 +370,7 @@ async def executar(args):
         if args.numero is None:
             raise ValueError("Informe --numero no modo de uma unica edicao.")
         busca_hqhub = args.busca_hqhub or prefixo
-        etapa(1, 7, f"Localizando a edicao {args.numero} no HQ-Hub...")
+        etapa(1, 7, f"Localizando a edicao {args.numero} no Coleciona HQ...")
         edicoes = [
             {"id": args.edicao_id, "numero": str(args.numero), "numeroInteiro": args.numero}
             if args.edicao_id
@@ -437,7 +437,7 @@ async def executar(args):
                         print("[Extracao] Extraindo a primeira pagina...", flush=True)
                         capa = extrair_capa_documento(Path(baixado), Path(pasta))
                     conteudo, mime, extensao = detectar_imagem(capa)
-                    print("[Upload] Enviando a capa ao HQ-Hub...", flush=True)
+                    print("[Upload] Enviando a capa ao Coleciona HQ...", flush=True)
                     url = enviar_backend(conteudo, mime, extensao, args.backend_url, token)
                 print("[Atualizacao] Gravando urlCapa na edicao...", flush=True)
                 atualizar_capa_backend(args.backend_url, token, edicao["id"], url)
@@ -455,7 +455,7 @@ async def executar(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Extrai a capa de um CBZ/PDF do Telegram e atualiza a edicao no HQ-Hub."
+        description="Extrai a capa de um CBZ/PDF do Telegram e atualiza a edicao no Coleciona HQ."
     )
     parser.add_argument("--entrada", help="JSON opcional produzido pelo robo do Guia.")
     parser.add_argument("--saida", help="Novo JSON opcional com a capa atualizada.")
@@ -464,8 +464,8 @@ def main():
     parser.add_argument("--grupo", default="@zagorbr", help="Grupo ou canal de origem.")
     parser.add_argument("--limite", type=int, default=100, help="Resultados a inspecionar.")
     parser.add_argument("--sessao", default=".telegram/hqhub", help="Sessao local Telethon.")
-    parser.add_argument("--busca-hqhub", help="Termo para localizar a serie ja cadastrada no HQ-Hub.")
-    parser.add_argument("--edicao-id", type=int, help="ID da edicao no HQ-Hub; evita a busca automatica.")
+    parser.add_argument("--busca-hqhub", help="Termo para localizar a serie ja cadastrada no Coleciona HQ.")
+    parser.add_argument("--edicao-id", type=int, help="ID da edicao no Coleciona HQ; evita a busca automatica.")
     parser.add_argument("--serie-id", type=int, help="Processa em sequencia todas as edicoes desta serie.")
     parser.add_argument("--numero-inicial", type=int, default=1, help="Primeiro numero do modo sequencial.")
     parser.add_argument("--numero-final", type=int, help="Ultimo numero do modo sequencial; omitido processa todos.")
@@ -486,7 +486,7 @@ def main():
     parser.add_argument(
         "--backend-url",
         default=os.environ.get("HQHUB_API_URL", "http://localhost:8080"),
-        help="URL do backend HQ-Hub (padrao: HQHUB_API_URL ou http://localhost:8080).",
+        help="URL do backend Coleciona HQ (padrao: HQHUB_API_URL ou http://localhost:8080).",
     )
     args = parser.parse_args()
     if bool(args.entrada) != bool(args.saida):

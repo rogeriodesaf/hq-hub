@@ -60,7 +60,7 @@ import jakarta.ws.rs.core.Context;
 @Path("/compartilhar")
 public class CompartilhamentoResource {
 
-    private static final String IMAGEM_PADRAO = "/assets/logo-hqhub.png";
+    private static final String IMAGEM_PADRAO = "/assets/coleciona-hq-compartilhamento.png?v=1";
     private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.webp";
     private static final String URL_FRONTEND_ATUAL = "https://hqhub.space";
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
@@ -194,14 +194,14 @@ public class CompartilhamentoResource {
         }
         String serie = edicao.serie() == null ? "HQ" : edicao.serie().titulo();
         String numero = edicao.numero() == null || edicao.numero().isBlank() ? "" : " #" + edicao.numero();
-        String titulo = serie + numero + " | HQ-HUB";
+        String titulo = serie + numero + " | Coleciona HQ";
         String editora = edicao.serie() == null || edicao.serie().editora() == null
                 ? "Editora não informada" : edicao.serie().editora().nome();
         Integer ano = edicao.dataPublicacao() != null ? edicao.dataPublicacao().getYear()
                 : edicao.dataCobertura() != null ? edicao.dataCobertura().getYear() : null;
         String resumo = edicao.descricaoExibicao() == null || edicao.descricaoExibicao().isBlank()
                 || edicao.descricaoExibicao().startsWith("Descrição não disponível")
-                ? "Conheça esta edição no catálogo do HQ-HUB."
+                ? "Conheça esta edição no catálogo do Coleciona HQ."
                 : limitarTexto(edicao.descricaoExibicao(), 150);
         String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
         String destino = baseNormalizada() + "/edicoes/" + id;
@@ -217,7 +217,7 @@ public class CompartilhamentoResource {
                   <meta name="description" content="%s">
                   <meta property="og:type" content="article">
                   <meta property="og:locale" content="pt_BR">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:url" content="%s">
@@ -249,15 +249,15 @@ public class CompartilhamentoResource {
         return """
                 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <title>Edição não encontrada | HQ-HUB</title>
-                <meta name="description" content="Esta edição não existe ou não está mais disponível no catálogo do HQ-HUB.">
-                <meta property="og:type" content="article"><meta property="og:site_name" content="HQ-HUB">
-                <meta property="og:title" content="Edição não encontrada | HQ-HUB">
-                <meta property="og:description" content="Esta edição não existe ou não está mais disponível no catálogo do HQ-HUB.">
+                <title>Edição não encontrada | Coleciona HQ</title>
+                <meta name="description" content="Esta edição não existe ou não está mais disponível no catálogo do Coleciona HQ.">
+                <meta property="og:type" content="article"><meta property="og:site_name" content="Coleciona HQ">
+                <meta property="og:title" content="Edição não encontrada | Coleciona HQ">
+                <meta property="og:description" content="Esta edição não existe ou não está mais disponível no catálogo do Coleciona HQ.">
                 <meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image">
                 <meta http-equiv="refresh" content="3;url=%s"></head>
                 <body><main><h1>Edição não encontrada</h1><p>Esta edição não existe ou não está mais disponível.</p>
-                <p><a href="%s">Abrir o catálogo do HQ-HUB</a></p></main></body></html>
+                <p><a href="%s">Abrir o catálogo do Coleciona HQ</a></p></main></body></html>
                 """.formatted(escaparHtml(imagem), escaparHtml(destino), escaparHtml(destino));
     }
 
@@ -274,12 +274,12 @@ public class CompartilhamentoResource {
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
-                  <title>Ordem de Leitura Mutante | HQ-HUB</title>
-                  <meta name="description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <title>Ordem de Leitura Mutante | Coleciona HQ</title>
+                  <meta name="description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no Coleciona HQ.">
                   <meta property="og:type" content="website">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:title" content="Ordem de Leitura Mutante">
-                  <meta property="og:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <meta property="og:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no Coleciona HQ.">
                   <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=4">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
@@ -289,7 +289,7 @@ public class CompartilhamentoResource {
                   <meta property="og:image:alt" content="Logotipo dos X-Men">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="Ordem de Leitura Mutante">
-                  <meta name="twitter:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no HQ-HUB.">
+                  <meta name="twitter:description" content="Acompanhe a ordem cronológica dos X-Men e do universo mutante no Coleciona HQ.">
                   <meta name="twitter:image" content="%s">
                   <script>window.location.replace('%s');</script>
                 </head>
@@ -319,10 +319,10 @@ public class CompartilhamentoResource {
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
-                  <title>Tex — Ordem de Publicação Brasileira | HQ-HUB</title>
+                  <title>Tex — Ordem de Publicação Brasileira | Coleciona HQ</title>
                   <meta name="description" content="Guia das edições brasileiras de Tex, da Vecchi à Mythos, organizado pela ordem de publicação.">
                   <meta property="og:type" content="website">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:title" content="Tex — Ordem de Publicação Brasileira">
                   <meta property="og:description" content="Confira as edições brasileiras de Tex na ordem de publicação, da Vecchi à Mythos.">
                   <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/tex-ordem-publicacao-brasileira?v=3">
@@ -385,9 +385,9 @@ public class CompartilhamentoResource {
                 ? "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Batman_symbol.svg/1280px-Batman_symbol.svg.png"
                 : apiUrlPublica + "/api/compartilhar/guias/" + slug + "/imagem.jpg?v=3";
         String tipoImagem = guiaBatman ? "image/png" : "image/jpeg";
-        String titulo = guia.getTitulo() + " | HQ-HUB";
+        String titulo = guia.getTitulo() + " | Coleciona HQ";
         String descricao = guia.getDescricao() == null || guia.getDescricao().isBlank()
-                ? "Confira este guia de leitura no HQ-HUB."
+                ? "Confira este guia de leitura no Coleciona HQ."
                 : guia.getDescricao();
 
         return """
@@ -399,7 +399,7 @@ public class CompartilhamentoResource {
                   <title>%s</title>
                   <meta name="description" content="%s">
                   <meta property="og:type" content="website">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
                   <meta property="og:url" content="%s">
@@ -654,7 +654,7 @@ public class CompartilhamentoResource {
                   <meta name="description" content="%s">
                   <meta property="og:type" content="website">
                   <meta property="og:locale" content="pt_BR">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:url" content="%s">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
@@ -695,7 +695,7 @@ public class CompartilhamentoResource {
                 escaparHtml(titulo),
                 literalJavascript(appUrl),
                 escaparHtml(titulo),
-                escaparHtml("Redirecionando para o HQ-HUB..."),
+                escaparHtml("Redirecionando para o Coleciona HQ..."),
                 escaparHtml(appUrl));
     }
 
@@ -703,7 +703,7 @@ public class CompartilhamentoResource {
         String titulo = limitarTexto(
                 tituloCompartilhamento(postagem, primeiroVideo(postagem.getId())),
                 LIMITE_TITULO_COMPARTILHAMENTO);
-        String descricao = "Confira esta HQ no HQ-HUB";
+        String descricao = "Confira esta HQ no Coleciona HQ";
         String urlPublica = urlHqPublica(postagem.getId());
         String imagem = origemApiNormalizada() + "/api/compartilhar/hq/" + postagem.getId() + "/imagem.jpg";
         String appUrl = appUrlPublica(postagem);
@@ -719,7 +719,7 @@ public class CompartilhamentoResource {
                   <meta name="description" content="%s">
                   <meta property="og:type" content="website">
                   <meta property="og:locale" content="pt_BR">
-                  <meta property="og:site_name" content="HQ-HUB">
+                  <meta property="og:site_name" content="Coleciona HQ">
                   <meta property="og:url" content="%s">
                   <meta property="og:title" content="%s">
                   <meta property="og:description" content="%s">
@@ -739,7 +739,7 @@ public class CompartilhamentoResource {
                   <main>
                     <h1>%s</h1>
                     <p>%s</p>
-                    <p><a href="%s">Abrir HQ no HQ-HUB</a></p>
+                    <p><a href="%s">Abrir HQ no Coleciona HQ</a></p>
                   </main>
                 </body>
                 </html>
@@ -776,7 +776,7 @@ public class CompartilhamentoResource {
         try {
             HttpRequest request = HttpRequest.newBuilder(URI.create(urlImagem))
                     .timeout(Duration.ofSeconds(12))
-                    .header("User-Agent", "HQ-HUB/1.0 image-preview")
+                    .header("User-Agent", "Coleciona HQ/1.0 image-preview")
                     .GET()
                     .build();
             HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
@@ -845,7 +845,7 @@ public class CompartilhamentoResource {
     }
 
     private void desenharLogoCompartilhamento(Graphics2D grafico) {
-        String marca = "HQ-HUB";
+        String marca = "Coleciona HQ";
         int largura = 112;
         int altura = 38;
         int margem = 14;
@@ -908,14 +908,14 @@ public class CompartilhamentoResource {
                 <html lang="pt-BR">
                 <head>
                   <meta charset="utf-8">
-                  <title>Postagem nao encontrada - HQ-HUB</title>
-                  <meta property="og:title" content="Postagem nao encontrada - HQ-HUB">
+                  <title>Postagem nao encontrada - Coleciona HQ</title>
+                  <meta property="og:title" content="Postagem nao encontrada - Coleciona HQ">
                   <meta property="og:description" content="Essa postagem nao esta mais disponivel.">
                   <meta property="og:image" content="%s">
                 </head>
                 <body>
                   <p>Essa postagem nao esta mais disponivel.</p>
-                  <p><a href="%s">Abrir HQ-HUB</a></p>
+                  <p><a href="%s">Abrir Coleciona HQ</a></p>
                 </body>
                 </html>
                 """.formatted(escaparHtml(urlAbsoluta(IMAGEM_PADRAO)), escaparHtml(appUrl));
@@ -928,26 +928,26 @@ public class CompartilhamentoResource {
         }
         if (postagem.getSerieCatalogo() != null) {
             String titulo = postagem.getSerieCatalogo().getTitulo();
-            return titulo == null || titulo.isBlank() ? "HQ-HUB" : titulo;
+            return titulo == null || titulo.isBlank() ? "Coleciona HQ" : titulo;
         }
-        return "HQ-HUB";
+        return "Coleciona HQ";
     }
 
     private String tituloEdicao(Edicao edicao) {
         if (edicao == null || edicao.getSerie() == null) {
-            return "HQ-HUB";
+            return "Coleciona HQ";
         }
         String tituloSerie = edicao.getSerie().getTitulo();
         String numero = edicao.getNumero();
         if (tituloSerie == null || tituloSerie.isBlank()) {
-            return numero == null || numero.isBlank() ? "HQ-HUB" : "Edição " + numero;
+            return numero == null || numero.isBlank() ? "Coleciona HQ" : "Edição " + numero;
         }
         return numero == null || numero.isBlank() ? tituloSerie : tituloSerie + " #" + numero;
     }
 
     private String tituloCompartilhamento(PostagemFeed postagem, VideoRelacionadoFeed video) {
         String tituloHq = tituloHq(postagem);
-        if (!"HQ-HUB".equals(tituloHq)) {
+        if (!"Coleciona HQ".equals(tituloHq)) {
             return tituloHq;
         }
         if (video != null && video.getTitulo() != null && !video.getTitulo().isBlank()
@@ -955,7 +955,7 @@ public class CompartilhamentoResource {
             return limitarTexto(video.getTitulo().trim(), LIMITE_TITULO_COMPARTILHAMENTO);
         }
         String nome = nomeAutor(postagem, "Um leitor");
-        String titulo = video == null ? nome + " no HQ-HUB" : nome + " compartilhou um vídeo no HQ-HUB";
+        String titulo = video == null ? nome + " no Coleciona HQ" : nome + " compartilhou um vídeo no Coleciona HQ";
         return limitarTexto(titulo, LIMITE_TITULO_COMPARTILHAMENTO);
     }
 
@@ -1009,7 +1009,7 @@ public class CompartilhamentoResource {
             serie = postagem.getSerieCatalogo();
         }
         if (serie == null) {
-            return "Disponível no HQ-HUB";
+            return "Disponível no Coleciona HQ";
         }
         String editora = serie.getEditora() == null ? null : serie.getEditora().getNome();
         String volume = serie.getVolume() == null ? null : "Volume " + serie.getVolume();
@@ -1019,7 +1019,7 @@ public class CompartilhamentoResource {
         if (editora != null && !editora.isBlank()) {
             return editora;
         }
-        return volume == null ? "Disponível no HQ-HUB" : volume;
+        return volume == null ? "Disponível no Coleciona HQ" : volume;
     }
 
     private String urlPublicaSegura(String url) {
@@ -1268,11 +1268,11 @@ public class CompartilhamentoResource {
     }
 
     private enum ContextoCompartilhamento {
-        CATALOGO("catalogo", "NOVA HQ NO HQ-HUB", "Nova HQ no HQ-HUB"),
-        COLECAO("colecao", "NA COLEÇÃO", "Adicionei esta HQ à minha coleção no HQ-HUB"),
-        RECOMENDACAO("recomendacao", "RECOMENDAÇÃO", "Olha essa HQ no HQ-HUB"),
+        CATALOGO("catalogo", "NOVA HQ NO COLECIONA HQ", "Nova HQ no Coleciona HQ"),
+        COLECAO("colecao", "NA COLEÇÃO", "Adicionei esta HQ à minha coleção no Coleciona HQ"),
+        RECOMENDACAO("recomendacao", "RECOMENDAÇÃO", "Olha essa HQ no Coleciona HQ"),
         PROCURADA("procurada", "HQ PROCURADA", "Alguém tem essa edição?"),
-        GENERICO("hq", "CONFIRA ESTA HQ", "Confira esta HQ no HQ-HUB");
+        GENERICO("hq", "CONFIRA ESTA HQ", "Confira esta HQ no Coleciona HQ");
 
         private final String parametro;
         private final String rotuloImagem;
@@ -1293,7 +1293,7 @@ public class CompartilhamentoResource {
         }
 
         String descricao(String detalhe) {
-            if (detalhe == null || detalhe.isBlank() || "Disponível no HQ-HUB".equals(detalhe)) {
+            if (detalhe == null || detalhe.isBlank() || "Disponível no Coleciona HQ".equals(detalhe)) {
                 return mensagem + ".";
             }
             return mensagem + " · " + detalhe + ".";

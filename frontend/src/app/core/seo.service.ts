@@ -10,33 +10,33 @@ interface ConfiguracaoSeo {
 }
 
 const URL_BASE = 'https://hqhub.space';
-const TITULO_PADRAO = 'HQ-HUB | Organize sua coleção de quadrinhos';
+const TITULO_PADRAO = 'Coleciona HQ | Organize sua coleção de quadrinhos';
 const DESCRICAO_PADRAO =
-  'Organize sua coleção de quadrinhos, encontre edições, acompanhe sua estante e consulte guias de leitura no HQ-HUB.';
+  'Organize sua coleção de quadrinhos, encontre edições, acompanhe sua estante e consulte guias de leitura no Coleciona HQ.';
 
 const GUIAS: Record<string, Pick<ConfiguracaoSeo, 'titulo' | 'descricao'>> = {
   'ordem-de-leitura-mutante': {
-    titulo: 'Ordem de Leitura dos X-Men | HQ-HUB',
+    titulo: 'Ordem de Leitura dos X-Men | Coleciona HQ',
     descricao: 'Acompanhe a ordem cronológica dos X-Men e do universo mutante com as edições publicadas no Brasil.',
   },
   'batman-ordem-cronologica': {
-    titulo: 'Ordem Cronológica do Batman | HQ-HUB',
+    titulo: 'Ordem Cronológica do Batman | Coleciona HQ',
     descricao: 'Consulte uma ordem cronológica de leitura do Batman, dos primeiros anos de Gotham às fases modernas.',
   },
   'tex-ordem-publicacao-brasileira': {
-    titulo: 'Tex: Ordem de Publicação Brasileira | HQ-HUB',
+    titulo: 'Tex: Ordem de Publicação Brasileira | Coleciona HQ',
     descricao: 'Consulte as coleções e edições brasileiras de Tex em ordem de publicação.',
   },
   'colecao-marvel-deluxe-capa-preta': {
-    titulo: 'Marvel Deluxe: Coleção Completa | HQ-HUB',
+    titulo: 'Marvel Deluxe: Coleção Completa | Coleciona HQ',
     descricao: 'Confira a coleção brasileira Marvel Deluxe da Panini, conhecida pelas capas pretas.',
   },
   'marvel-omnibus': {
-    titulo: 'Marvel Omnibus publicados no Brasil | HQ-HUB',
-    descricao: 'Confira os títulos da linha Marvel Omnibus publicados no Brasil e cadastrados no HQ-HUB.',
+    titulo: 'Marvel Omnibus publicados no Brasil | Coleciona HQ',
+    descricao: 'Confira os títulos da linha Marvel Omnibus publicados no Brasil e cadastrados no Coleciona HQ.',
   },
   'colecao-nova-marvel': {
-    titulo: 'Coleção Nova Marvel: Guia Editorial | HQ-HUB',
+    titulo: 'Coleção Nova Marvel: Guia Editorial | Coleciona HQ',
     descricao: 'Consulte a ordem editorial dos encadernados da Coleção Nova Marvel publicados pela Panini.',
   },
 };
@@ -74,15 +74,15 @@ export class SeoService {
     }
     if (caminho === '/catalogo') {
       return this.publica(
-        'Catálogo de quadrinhos | HQ-HUB',
-        'Pesquise séries, edições e capas de quadrinhos publicados no Brasil no catálogo do HQ-HUB.',
+        'Catálogo de quadrinhos | Coleciona HQ',
+        'Pesquise séries, edições e capas de quadrinhos publicados no Brasil no catálogo do Coleciona HQ.',
         '/catalogo',
       );
     }
     if (caminho === '/classificados') {
       return this.publica(
-        'Classificados de quadrinhos | HQ-HUB',
-        'Encontre quadrinhos anunciados para venda ou troca por colecionadores no HQ-HUB.',
+        'Classificados de quadrinhos | Coleciona HQ',
+        'Encontre quadrinhos anunciados para venda ou troca por colecionadores no Coleciona HQ.',
         '/classificados',
       );
     }
@@ -98,8 +98,8 @@ export class SeoService {
 
     if (/^\/edicoes\/\d+$/.test(caminho)) {
       return this.publica(
-        'Edição de quadrinho | HQ-HUB',
-        'Consulte os dados desta edição de quadrinho no catálogo do HQ-HUB.',
+        'Edição de quadrinho | Coleciona HQ',
+        'Consulte os dados desta edição de quadrinho no catálogo do Coleciona HQ.',
         caminho,
       );
     }

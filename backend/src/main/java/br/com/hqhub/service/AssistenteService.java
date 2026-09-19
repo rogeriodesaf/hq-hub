@@ -300,9 +300,9 @@ public class AssistenteService {
         dados.put("tipoCatalogo", TipoSerie.BRASILEIRA.name());
 
         String resposta = filtro == null
-                ? "O catálogo do HQ-HUB tem %d título(s) nacional(is) e %d edição(ões) cadastrada(s)."
+                ? "O catálogo do Coleciona HQ tem %d título(s) nacional(is) e %d edição(ões) cadastrada(s)."
                         .formatted(totalSeries, totalEdicoes)
-                : "Encontrei %d título(s) e %d edição(ões) relacionados a \"%s\" no catálogo do HQ-HUB."
+                : "Encontrei %d título(s) e %d edição(ões) relacionados a \"%s\" no catálogo do Coleciona HQ."
                         .formatted(totalSeries, totalEdicoes, assunto);
         return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
     }
@@ -529,7 +529,7 @@ public class AssistenteService {
                 .toList();
 
         String resposta = titulos.isEmpty()
-                ? "%s, edição nº %s, ainda não possui histórias cadastradas no HQ-HUB."
+                ? "%s, edição nº %s, ainda não possui histórias cadastradas no Coleciona HQ."
                         .formatted(nomeSerie(serie), edicao.getNumero())
                 : "%s, edição nº %s, contém %s: %s."
                         .formatted(
@@ -604,7 +604,7 @@ public class AssistenteService {
             Serie serie = serieQualificada.get();
             long totalEdicoes = edicaoRepository.contarPorSerie(serie.getId());
             Map<String, Object> dados = dadosContagemSerie(serie, totalEdicoes);
-            String resposta = "%s tem %s cadastradas no HQ-HUB."
+            String resposta = "%s tem %s cadastradas no Coleciona HQ."
                     .formatted(nomeSerie(serie), quantidadeEdicoes((int) totalEdicoes));
             return new RespostaAssistenteDTO(resposta, ORIGEM_BANCO_LOCAL, dados);
         }
@@ -617,7 +617,7 @@ public class AssistenteService {
         List<Edicao> edicoes = edicaoRepository.buscarTodosComBusca(null, assunto);
         if (edicoes.isEmpty()) {
             return new RespostaAssistenteDTO(
-                    "Nao encontrei edicoes cadastradas relacionadas a \"%s\" no catalogo do HQ-HUB."
+                    "Nao encontrei edicoes cadastradas relacionadas a \"%s\" no catalogo do Coleciona HQ."
                             .formatted(assunto),
                     ORIGEM_NAO_ENCONTRADO,
                     null);
@@ -641,7 +641,7 @@ public class AssistenteService {
             String volume = serie.getVolume() != null ? " V%d".formatted(serie.getVolume()) : "";
             String editora = serie.getEditora() != null ? " pela %s".formatted(serie.getEditora().getNome()) : "";
             String cadastradas = edicoes.size() == 1 ? "cadastrada" : "cadastradas";
-            resposta = "%s%s tem %s %s no HQ-HUB%s."
+            resposta = "%s%s tem %s %s no Coleciona HQ%s."
                     .formatted(serie.getTitulo(), volume, quantidadeEdicoes(edicoes.size()), cadastradas, editora);
         } else {
             String destaques = distribuicao.stream()
@@ -652,7 +652,7 @@ public class AssistenteService {
             String quantidadeTitulos = distribuicao.size() == 1
                     ? "1 título"
                     : "%d títulos".formatted(distribuicao.size());
-            resposta = "Encontrei %s relacionadas a \"%s\" no HQ-HUB, distribuídas em %s. %s%s"
+            resposta = "Encontrei %s relacionadas a \"%s\" no Coleciona HQ, distribuídas em %s. %s%s"
                     .formatted(
                             quantidadeEdicoes(edicoes.size()),
                             assunto,
@@ -1130,7 +1130,7 @@ public class AssistenteService {
                 "",
                 "1. Abra a pagina do Guia no navegador.",
                 "2. Use Ctrl+A e Ctrl+C para copiar o conteudo da pagina.",
-                "3. Na raiz do HQ-HUB, crie o TXT:",
+                "3. Na raiz do Coleciona HQ, crie o TXT:",
                 "mkdir docs\\importacao\\rascunhos\\NOME-DA-PASTA",
                 "notepad docs\\importacao\\rascunhos\\NOME-DA-PASTA\\entrada-guia.txt",
                 "",
@@ -1186,7 +1186,7 @@ public class AssistenteService {
 
     private RespostaAssistenteDTO responderAjudaSistema() {
         return new RespostaAssistenteDTO(
-                "Posso ajudar com o funcionamento do HQ-HUB e consultar o catálogo. Exemplos: quantos títulos existem?, em que ano Batman V1 foi lançado?, quem escreveu Batman edição nº 1?, quais edições existem em uma série? e mostre a ficha do título. Também respondo sobre coleção, faltantes, completude, compras, continuidade e importação.",
+                "Posso ajudar com o funcionamento do Coleciona HQ e consultar o catálogo. Exemplos: quantos títulos existem?, em que ano Batman V1 foi lançado?, quem escreveu Batman edição nº 1?, quais edições existem em uma série? e mostre a ficha do título. Também respondo sobre coleção, faltantes, completude, compras, continuidade e importação.",
                 ORIGEM_CONHECIMENTO_ESSENCIAL,
                 null);
     }
@@ -1213,7 +1213,7 @@ public class AssistenteService {
         }
 
         ResultadoBuscaConhecimentoDTO top = resultados.get(0);
-        String resposta = top.conteudo() + "\n\n📌 Fonte: " + (top.fonte() != null ? top.fonte() : "Base Editorial HQ-HUB");
+        String resposta = top.conteudo() + "\n\n📌 Fonte: " + (top.fonte() != null ? top.fonte() : "Base Editorial Coleciona HQ");
         
         if (top.urlFonte() != null && !top.urlFonte().isEmpty()) {
             resposta += " - " + top.urlFonte();

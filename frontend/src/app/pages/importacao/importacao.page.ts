@@ -80,7 +80,7 @@ interface ColetaCapasTelegramLocal {
             (click)="selecionarModo('guia')"
           >
             <strong>Coletar do Guia</strong>
-            <span>Gere, revise e importe o JSON pelo HQ-HUB</span>
+            <span>Gere, revise e importe o JSON pelo Coleciona HQ</span>
           </button>
           <button
             type="button"
@@ -105,7 +105,7 @@ interface ColetaCapasTelegramLocal {
             <h2>{{ tituloModoEntrada() }}</h2>
             <p class="texto-suave">
               @if (modoEntrada() === 'visual') {
-                Preencha a série, as edições e as histórias. O HQ-HUB monta e envia o JSON por você.
+                Preencha a série, as edições e as histórias. O Coleciona HQ monta e envia o JSON por você.
               } @else if (modoEntrada() === 'json') {
                 Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
               } @else if (modoEntrada() === 'guia') {
@@ -113,7 +113,7 @@ interface ColetaCapasTelegramLocal {
               } @else if (modoEntrada() === 'telegram') {
                 Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
               } @else if (modoEntrada() === 'panini') {
-                Selecione a série e o intervalo. A sua sessão do HQ-HUB autoriza a atualização automaticamente.
+                Selecione a série e o intervalo. A sua sessão do Coleciona HQ autoriza a atualização automaticamente.
               } @else {
                 Pesquise no GCD, escolha a série e gere um JSON revisável antes da importação.
               }
@@ -179,7 +179,7 @@ interface ColetaCapasTelegramLocal {
                 </span>
               </div>
               @if (assistenteLocalOnline() !== true) {
-                <p>Abra o PowerShell na pasta do HQ-HUB e mantenha a janela aberta:</p>
+                <p>Abra o PowerShell na pasta do Coleciona HQ e mantenha a janela aberta:</p>
                 <code>powershell -ExecutionPolicy Bypass -File docs/importacao/ferramentas/iniciar_assistente_local.ps1</code>
               }
               <div class="acoes-importacao">
@@ -233,7 +233,7 @@ interface ColetaCapasTelegramLocal {
             }
 
             <details class="alternativa-coleta-servidor">
-              <summary>Usar a coleta pelo servidor do HQ-HUB</summary>
+              <summary>Usar a coleta pelo servidor do Coleciona HQ</summary>
               <p class="texto-suave">Esta alternativa não compartilha a sessão liberada no seu Chrome e pode ser bloqueada pelo Guia.</p>
 
             @if (!coletaGuia()) {
@@ -286,10 +286,10 @@ interface ColetaCapasTelegramLocal {
           <section class="editor-visual-importacao coleta-guia">
             <aside class="dica-importacao-colaborador">
               <strong>Capas pelo seu Telegram</strong>
-              <p>O assistente usa somente a sessão deste computador. CBZ/PDF e capas temporárias são descartados após o envio. Para acelerar, abra uma nova aba do HQ-HUB e envie outra faixa: até dois robôs podem trabalhar ao mesmo tempo.</p>
+              <p>O assistente usa somente a sessão deste computador. CBZ/PDF e capas temporárias são descartados após o envio. Para acelerar, abra uma nova aba do Coleciona HQ e envie outra faixa: até dois robôs podem trabalhar ao mesmo tempo.</p>
             </aside>
             <div class="grade-importacao-visual">
-              <label class="campo-largo">Buscar série no HQ-HUB
+              <label class="campo-largo">Buscar série no Coleciona HQ
                 <input [(ngModel)]="buscaSerieTelegram" name="buscaSerieTelegram" placeholder="Ex.: Zagor" (keyup.enter)="buscarSeriesTelegram()" />
               </label>
               <button class="botao secundario compacto" type="button" (click)="buscarSeriesTelegram()" [disabled]="buscandoSeriesTelegram()">{{ buscandoSeriesTelegram() ? 'Buscando...' : 'Buscar série' }}</button>
@@ -333,10 +333,10 @@ interface ColetaCapasTelegramLocal {
           <section class="editor-visual-importacao coleta-guia">
             <aside class="dica-importacao-colaborador">
               <strong>Capas oficiais da Panini</strong>
-              <p>Nenhum token precisa ser informado. O robô utiliza com segurança a sessão com que você já entrou no HQ-HUB.</p>
+              <p>Nenhum token precisa ser informado. O robô utiliza com segurança a sessão com que você já entrou no Coleciona HQ.</p>
             </aside>
             <div class="grade-importacao-visual">
-              <label class="campo-largo">Buscar série no HQ-HUB
+              <label class="campo-largo">Buscar série no Coleciona HQ
                 <input [(ngModel)]="buscaSerieTelegram" name="buscaSeriePanini" placeholder="Ex.: A Espada Selvagem de Conan" (keyup.enter)="buscarSeriesTelegram()" />
               </label>
               <button class="botao secundario compacto" type="button" (click)="buscarSeriesTelegram()" [disabled]="buscandoSeriesTelegram()">{{ buscandoSeriesTelegram() ? 'Buscando...' : 'Buscar série' }}</button>
@@ -379,7 +379,7 @@ interface ColetaCapasTelegramLocal {
           <section class="editor-visual-importacao coleta-guia">
             <aside class="dica-importacao-colaborador">
               <strong>Busca pelo Grand Comics Database</strong>
-              <p>Pesquise como na busca do GCD, selecione a série correta e o HQ-HUB coletará suas edições e histórias pela API oficial.</p>
+              <p>Pesquise como na busca do GCD, selecione a série correta e o Coleciona HQ coletará suas edições e histórias pela API oficial.</p>
               <p>O resultado será um JSON para revisão. A importação só acontece quando você clicar em <strong>Importar JSON</strong>.</p>
             </aside>
 
@@ -405,7 +405,7 @@ interface ColetaCapasTelegramLocal {
 
               @if (serieGcdSelecionada()) {
                 <div class="grade-importacao-visual">
-                  <label class="campo-largo">Título no HQ-HUB<input [(ngModel)]="rascunhoGcd.tituloSerie" name="gcdTitulo" /></label>
+                  <label class="campo-largo">Título no Coleciona HQ<input [(ngModel)]="rascunhoGcd.tituloSerie" name="gcdTitulo" /></label>
                   <label>Editora<small>Opcional; se vazio, será obtida do GCD</small><input [(ngModel)]="rascunhoGcd.editora" name="gcdEditora" /></label>
                   <label>Volume<input type="number" min="1" [(ngModel)]="rascunhoGcd.volume" name="gcdVolume" /></label>
                   <label>Começar na edição<small>Use 26 para continuar depois do lote 1–25</small><input type="number" min="1" [(ngModel)]="rascunhoGcd.inicio" name="gcdInicio" /></label>
@@ -1737,7 +1737,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         const url = URL.createObjectURL(arquivo);
         const ancora = document.createElement('a');
         ancora.href = url;
-        ancora.download = 'HQ-HUB-Agente-Setup.exe';
+        ancora.download = 'Coleciona-HQ-Agente-Setup.exe';
         ancora.click();
         URL.revokeObjectURL(url);
       },
@@ -1889,7 +1889,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     const serie = this.serieTelegramSelecionada();
     const token = this.autenticacao.obterToken();
     if (!serie || !token) {
-      this.mensagem.set('Selecione uma série e confirme sua sessão no HQ-HUB.');
+      this.mensagem.set('Selecione uma série e confirme sua sessão no Coleciona HQ.');
       return;
     }
     if (this.assistenteLocalOnline() !== true) {
@@ -1922,7 +1922,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     const serie = this.serieTelegramSelecionada();
     const token = this.autenticacao.obterToken();
     if (!serie || !token) {
-      this.mensagem.set('Selecione uma série e confirme sua sessão no HQ-HUB.');
+      this.mensagem.set('Selecione uma série e confirme sua sessão no Coleciona HQ.');
       return;
     }
     if (this.assistenteLocalOnline() !== true) {
@@ -2972,7 +2972,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     }
     if (this.visualImportacao.origem) {
       this.visualImportacao.origem.geradoEm = this.visualImportacao.origem.geradoEm || new Date().toISOString().slice(0, 10);
-      this.visualImportacao.origem.gerador = this.visualImportacao.origem.gerador || 'HQ-HUB formulario visual';
+      this.visualImportacao.origem.gerador = this.visualImportacao.origem.gerador || 'Coleciona HQ formulario visual';
     }
   }
 
@@ -3012,7 +3012,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
         url: '',
         urlsProcessadas: [],
         geradoEm: new Date().toISOString().slice(0, 10),
-        gerador: 'HQ-HUB',
+        gerador: 'Coleciona HQ',
       },
       serieBrasileira: {
         titulo: '',

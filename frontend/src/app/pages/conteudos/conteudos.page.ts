@@ -551,7 +551,7 @@ export class ConteudosPage {
     destino: ReturnType<typeof signal<Edicao[]>>,
   ) {
     if (!termo.trim()) {
-      this.mensagem.set('Informe um termo para buscar edições cadastradas no HQ-HUB.');
+      this.mensagem.set('Informe um termo para buscar edições cadastradas no Coleciona HQ.');
       return;
     }
 

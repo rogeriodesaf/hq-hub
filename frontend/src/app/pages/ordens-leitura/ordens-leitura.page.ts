@@ -15,9 +15,9 @@ import { environment } from '../../../environments/environment';
   template: `
     <main class="pagina">
       <header class="cabecalho">
-        <div><span class="rotulo">GUIAS HQ-HUB</span><h1>Ordens de leitura</h1>
+        <div><span class="rotulo">GUIAS Coleciona HQ</span><h1>Ordens de leitura</h1>
           <p>Acompanhe grandes jornadas na sequência certa e marque seu progresso.</p></div>
-        <a class="botao secundario" [routerLink]="modoPublico ? '/entrar' : '/painel'">{{ modoPublico ? 'Conhecer o HQ-HUB' : 'Voltar' }}</a>
+        <a class="botao secundario" [routerLink]="modoPublico ? '/entrar' : '/painel'">{{ modoPublico ? 'Conhecer o Coleciona HQ' : 'Voltar' }}</a>
       </header>
 
       @if (!selecionada()) {
@@ -375,7 +375,7 @@ export class OrdensLeituraPage implements OnInit {
     const link=ordem.slug === 'ordem-de-leitura-mutante'
       ? 'https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=4'
       : `https://hqhub-backend.onrender.com/api/compartilhar/guias/${encodeURIComponent(ordem.slug)}?v=4`;
-    const dados={title:ordem.titulo,text:`Confira o guia de leitura ${ordem.titulo} no HQ-HUB`,url:link};
+    const dados={title:ordem.titulo,text:`Confira o guia de leitura ${ordem.titulo} no Coleciona HQ`,url:link};
     try {
       if(navigator.share){await navigator.share(dados);return;}
       await navigator.clipboard.writeText(link);
@@ -385,7 +385,7 @@ export class OrdensLeituraPage implements OnInit {
   async compartilharEdicao(item:ItemOrdemLeitura){
     if(!item.edicaoId)return;
     const link=`${environment.compartilhamentoUrl}/edicoes/${item.edicaoId}?v=2`;
-    const dados={title:item.titulo,text:`Confira ${item.titulo} no HQ-HUB`,url:link};
+    const dados={title:item.titulo,text:`Confira ${item.titulo} no Coleciona HQ`,url:link};
     try {
       const resultado=await this.compartilhamento.compartilhar(dados);
       if(resultado==='copiado')this.mensagem.set('Link da edição copiado.');

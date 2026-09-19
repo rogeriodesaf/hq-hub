@@ -85,7 +85,7 @@ def aplicar_urls(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Aplica URLs de capa em ordem nas edições de um JSON de importação do HQ-HUB."
+        description="Aplica URLs de capa em ordem nas edições de um JSON de importação do Coleciona HQ."
     )
     parser.add_argument("--entrada", required=True, help="JSON de entrada com o array 'edicoes'.")
     parser.add_argument("--saida", required=True, help="JSON de saída com urlCapa atualizado.")

@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Criar a base técnica inicial do backend do HQ-HUB, com cadastro, consulta e autenticação de usuários.
+Criar a base técnica inicial do backend do Coleciona HQ, com cadastro, consulta e autenticação de usuários.
 
 ## Escopo
 

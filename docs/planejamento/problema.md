@@ -19,4 +19,4 @@ Além disso, a experiência de comunidade entre colecionadores costuma ficar esp
 
 ## Oportunidade
 
-O HQ-HUB pode conectar organização pessoal, catálogo brasileiro colaborativo, comunidade e classificados simples, mantendo o foco no colecionador e evitando complexidade de marketplace.
+O Coleciona HQ pode conectar organização pessoal, catálogo brasileiro colaborativo, comunidade e classificados simples, mantendo o foco no colecionador e evitando complexidade de marketplace.

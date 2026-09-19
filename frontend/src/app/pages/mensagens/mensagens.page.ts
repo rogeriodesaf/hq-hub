@@ -112,7 +112,7 @@ import { Amizade, ConversaDireta, MensagemDireta, Usuario } from '../../core/mod
             </span>
             <div>
               <h2>{{ destinatario.nome }}</h2>
-              <p>{{ destinatario.bio || 'Leitor no HQ-HUB' }}</p>
+              <p>{{ destinatario.bio || 'Leitor no Coleciona HQ' }}</p>
               <small>Direct privado</small>
             </div>
             <nav class="acoes-chat" aria-label="Ações da conversa">

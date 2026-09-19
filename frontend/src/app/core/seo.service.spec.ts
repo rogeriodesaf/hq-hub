@@ -18,7 +18,7 @@ describe('SeoService', () => {
   it('configura guia público como indexável e canônico', () => {
     service.atualizar('/guia-de-leitura-app/batman-ordem-cronologica');
 
-    expect(title.getTitle()).toBe('Ordem Cronológica do Batman | HQ-HUB');
+    expect(title.getTitle()).toBe('Ordem Cronológica do Batman | Coleciona HQ');
     expect(meta.getTag('name="robots"')?.content).toContain('index, follow');
     expect(document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href).toBe(
       'https://hqhub.space/guia-de-leitura-app/batman-ordem-cronologica',

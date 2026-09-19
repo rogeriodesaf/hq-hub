@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Apoie o HQ-HUB</p>
+        <p class="rotulo">Apoie o Coleciona HQ</p>
         <h1>Torne-se apoiador desse projeto.</h1>
       </div>
       <a class="botao secundario" routerLink="/painel">Voltar ao feed</a>
@@ -16,7 +16,7 @@ import { RouterLink } from '@angular/router';
 
     <section class="bloco apoio-card">
       <p>
-        Agradecemos por considerar fazer uma doacao ao HQ-HUB. Pense em quantas vezes
+        Agradecemos por considerar fazer uma doacao ao Coleciona HQ. Pense em quantas vezes
         voce consultou sua colecao, pesquisou uma edicao, organizou sua estante ou
         encontrou informacoes uteis sobre quadrinhos por aqui.
       </p>
@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
         ajuda: R$10, R$20, R$50 ou qualquer valor com que puder contribuir hoje.
       </p>
       <p>
-        O HQ-HUB existe para aproximar colecionadores, organizar dados de HQs e preservar
+        O Coleciona HQ existe para aproximar colecionadores, organizar dados de HQs e preservar
         informacoes que ficam melhores quando muitas pessoas colaboram. Nao ha contribuicao
         pequena: cada cadastro conta, cada revisao conta, cada doacao conta.
       </p>

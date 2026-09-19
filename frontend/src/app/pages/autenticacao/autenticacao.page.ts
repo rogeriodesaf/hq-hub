@@ -13,7 +13,10 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
   template: `
     <main class="auth-page">
       <section class="auth-visual">
-        <img class="marca-grande" src="assets/logo-hqhub.png" alt="HQ-HUB" />
+        <div class="auth-marca">
+          <img class="marca-grande" src="assets/icone-coleciona-hq.svg" alt="" />
+          <strong>Coleciona HQ</strong>
+        </div>
         <h1>Sua coleção inteira, organizada para caber no bolso.</h1>
         <p>Pesquise edições, acompanhe faltantes, monte sua estante e planeje próximas compras.</p>
         <div class="capas-demo" aria-hidden="true">
@@ -57,7 +60,7 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
             }
 
             <button class="botao primario cheio" type="submit" [disabled]="carregando()">
-              {{ carregando() ? 'Aguarde...' : modo() === 'entrar' ? 'Entrar no HQ-HUB' : 'Criar conta' }}
+              {{ carregando() ? 'Aguarde...' : modo() === 'entrar' ? 'Entrar no Coleciona HQ' : 'Criar conta' }}
             </button>
           </form>
 
@@ -105,7 +108,7 @@ type Modo = 'entrar' | 'cadastrar' | 'redefinir' | 'nova-senha';
 
           @if (!senhaTrocada()) {
             <form [formGroup]="formularioNovaSenha" (ngSubmit)="aplicarNovaSenha()">
-              <p class="texto-suave" style="margin: 0 0 14px">Digite sua nova senha para o HQ-HUB.</p>
+              <p class="texto-suave" style="margin: 0 0 14px">Digite sua nova senha para o Coleciona HQ.</p>
               <label>
                 Nova senha
                 <input formControlName="novaSenha" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres" />

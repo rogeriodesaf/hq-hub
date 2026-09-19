@@ -17,7 +17,7 @@ import java.net.http.HttpResponse;
 public class InstaladorResource {
 
     private static final String URL_INSTALADOR =
-            "https://github.com/rogeriodesaf/hq-hub/raw/main/instalador-hqhub/dist/HQ-HUB-Agente-Setup.exe";
+            "https://github.com/rogeriodesaf/hq-hub/raw/main/instalador-hqhub/dist/Coleciona-HQ-Agente-Setup.exe";
 
     private final UsuarioAutenticadoService usuarioAutenticadoService;
 
@@ -38,7 +38,7 @@ public class InstaladorResource {
             HttpRequest requisicao = HttpRequest.newBuilder(URI.create(URL_INSTALADOR)).GET().build();
             byte[] arquivo = cliente.send(requisicao, HttpResponse.BodyHandlers.ofByteArray()).body();
             return Response.ok(arquivo, MediaType.APPLICATION_OCTET_STREAM)
-                    .header("Content-Disposition", "attachment; filename=HQ-HUB-Agente-Setup.exe")
+                    .header("Content-Disposition", "attachment; filename=Coleciona-HQ-Agente-Setup.exe")
                     .build();
         } catch (Exception excecao) {
             return Response.serverError().entity("Não foi possível preparar o instalador.").build();

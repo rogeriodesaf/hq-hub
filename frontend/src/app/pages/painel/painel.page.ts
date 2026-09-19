@@ -62,7 +62,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
           @if (sugestaoAmigo()!.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(sugestaoAmigo()!.fotoPerfilThumbnailUrl)" alt="" /> }
           @else { {{ iniciais(sugestaoAmigo()!.nome) }} }
         </div>
-        <div><p class="rotulo">Perfil recomendado</p><strong>{{ sugestaoAmigo()!.nome }}</strong><small>Conheça quem criou o HQ-HUB.</small>@if (mensagemSugestaoAmigo()) { <small>{{ mensagemSugestaoAmigo() }}</small> }</div>
+        <div><p class="rotulo">Perfil recomendado</p><strong>{{ sugestaoAmigo()!.nome }}</strong><small>Conheça quem criou o Coleciona HQ.</small>@if (mensagemSugestaoAmigo()) { <small>{{ mensagemSugestaoAmigo() }}</small> }</div>
         <button class="botao compacto primario" type="button" (click)="adicionarSugestaoAmigo()" [disabled]="enviandoSugestaoAmigo()">{{ enviandoSugestaoAmigo() ? 'Enviando...' : 'Adicionar amigo' }}</button>
       </article>
     }
@@ -106,7 +106,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
               <span aria-hidden="true">▶</span>
               <div>
                 <strong>{{ linksYoutubeNoConteudo().length === 1 ? 'Link do YouTube detectado' : linksYoutubeNoConteudo().length + ' links do YouTube detectados' }}</strong>
-                <small>O HQ-HUB criará automaticamente {{ linksYoutubeNoConteudo().length === 1 ? 'um card para o vídeo' : 'cards para os vídeos' }}.</small>
+                <small>O Coleciona HQ criará automaticamente {{ linksYoutubeNoConteudo().length === 1 ? 'um card para o vídeo' : 'cards para os vídeos' }}.</small>
               </div>
             </div>
           }
@@ -467,7 +467,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
               }
             </article>
             @if (exibirPromocoesApos($index)) {
-              <section class="promocoes-feed" aria-label="Publicidade e apoio ao HQ-HUB">
+              <section class="promocoes-feed" aria-label="Publicidade e apoio ao Coleciona HQ">
                 <a
                   class="banner-feed banner-patobah"
                   href="https://patobah.com.br/"
@@ -498,7 +498,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                 </a>
                 <a class="banner-feed banner-apoio" routerLink="/apoie">
                   <strong>Torne-se apoiador deste projeto</strong>
-                  <span>Ajude o HQ-HUB a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
+                  <span>Ajude o Coleciona HQ a crescer como um acervo livre, colaborativo e feito por colecionadores.</span>
                 </a>
               </section>
             }
@@ -2133,8 +2133,8 @@ export class PainelPage implements OnInit, OnDestroy {
     const url = this.urlPostagem(postagem);
     const titulo = postagem.colecaoDestaque?.titulo
       || postagem.catalogoDestaque?.titulo
-      || 'HQ-HUB';
-    const texto = `👀 Olha essa HQ no HQ-HUB!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?\n\n${url}`;
+      || 'Coleciona HQ';
+    const texto = `👀 Olha essa HQ no Coleciona HQ!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?\n\n${url}`;
 
     try {
       if (navigator.share) {

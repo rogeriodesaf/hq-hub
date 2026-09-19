@@ -1,6 +1,6 @@
 {
-  "name": "HQ-HUB",
-  "short_name": "HQ-HUB",
+  "name": "Coleciona HQ",
+  "short_name": "Coleciona HQ",
   "theme_color": "#ff7a00",
   "background_color": "#f6f2ea",
   "display": "standalone",
@@ -10,19 +10,19 @@
   "description": "Organizador de coleções de quadrinhos.",
   "icons": [
     {
-      "src": "assets/icone-hqhub-192.png",
+      "src": "assets/icone-coleciona-hq-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/icone-hqhub-512.png",
+      "src": "assets/icone-coleciona-hq-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/icone-hqhub-maskable-512.png",
+      "src": "assets/icone-coleciona-hq-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

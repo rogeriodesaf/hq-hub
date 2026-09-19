@@ -18,7 +18,7 @@ import { PartnerChannel, RelatedVideo } from '../core/modelos';
         </div>
         <div class="informacoes-canal">
           <small>Canal parceiro</small>
-          <strong>{{ partnerChannel!.name || 'Conteúdo recomendado pelo HQ-HUB' }}</strong>
+          <strong>{{ partnerChannel!.name || 'Conteúdo recomendado pelo Coleciona HQ' }}</strong>
         </div>
         <a class="visitar-canal ripple" [href]="partnerChannel!.url" target="_blank" rel="noopener noreferrer">
           Conhecer canal <span aria-hidden="true">↗</span>

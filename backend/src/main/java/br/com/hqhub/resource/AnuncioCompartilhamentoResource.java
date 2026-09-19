@@ -96,7 +96,7 @@ public class AnuncioCompartilhamentoResource {
         return Response.status(Response.Status.NOT_FOUND).type("text/html; charset=UTF-8")
                 .header("Cache-Control", "no-store")
                 .entity("<!doctype html><html lang=\"pt-BR\"><head><meta charset=\"utf-8\">"
-                        + "<title>Anúncio indisponível | HQ-HUB</title><meta name=\"robots\" content=\"noindex\">"
+                        + "<title>Anúncio indisponível | Coleciona HQ</title><meta name=\"robots\" content=\"noindex\">"
                         + "</head><body><h1>Anúncio indisponível</h1><p>Este anúncio não está mais ativo.</p>"
                         + "<a href=\"https://hqhub.space/classificados\">Ver classificados</a></body></html>")
                 .build();
@@ -107,7 +107,7 @@ public class AnuncioCompartilhamentoResource {
         String destino = BASE + "/classificados?anuncioId=" + anuncio.id();
         String modalidade = modalidade(anuncio.tipoAnuncio());
         String preco = anuncio.preco() == null ? "" : " · " + moeda(anuncio.preco());
-        String titulo = anuncio.tituloEdicao() + " · " + modalidade + preco + " | HQ-HUB";
+        String titulo = anuncio.tituloEdicao() + " · " + modalidade + preco + " | Coleciona HQ";
         List<String> detalhes = new ArrayList<>();
         if (anuncio.estadoConservacao() != null) {
             detalhes.add("Conservação: " + anuncio.estadoConservacao().name().replace('_', ' ').toLowerCase(Locale.forLanguageTag("pt-BR")));
@@ -116,7 +116,7 @@ public class AnuncioCompartilhamentoResource {
             detalhes.add("Anunciante: " + anuncio.nomeAnunciante().trim());
         }
         String descricao = String.join(" · ", detalhes);
-        if (descricao.isBlank()) descricao = "Veja este anúncio nos classificados do HQ-HUB.";
+        if (descricao.isBlank()) descricao = "Veja este anúncio nos classificados do Coleciona HQ.";
         String imagem = imagemAbsoluta(anuncio.urlFotoExemplar());
         String textoImagem = "Foto do exemplar de " + anuncio.tituloEdicao();
         if (imagem == null) {
@@ -125,7 +125,7 @@ public class AnuncioCompartilhamentoResource {
         }
         if (imagem == null) {
             imagem = IMAGEM_RESERVA;
-            textoImagem = "Classificados do HQ-HUB";
+            textoImagem = "Classificados do Coleciona HQ";
         } else if (imagemExternaPermitida(imagem)) {
             imagem = url + "/imagem.jpg";
         }
@@ -134,14 +134,14 @@ public class AnuncioCompartilhamentoResource {
                 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
                 <title>%s</title><meta name="description" content="%s">
                 <link rel="canonical" href="%s"><meta property="og:type" content="product">
-                <meta property="og:site_name" content="HQ-HUB"><meta property="og:title" content="%s">
+                <meta property="og:site_name" content="Coleciona HQ"><meta property="og:title" content="%s">
                 <meta property="og:description" content="%s"><meta property="og:url" content="%s">
                 <meta property="og:image" content="%s"><meta property="og:image:secure_url" content="%s">
                 <meta property="og:image:alt" content="%s">
                 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s">
                 <meta name="twitter:description" content="%s"><meta name="twitter:image" content="%s">
                 <script>window.location.replace(%s);</script>
-                </head><body><p>Abrindo <a href="%s">%s</a> no HQ-HUB...</p></body></html>
+                </head><body><p>Abrindo <a href="%s">%s</a> no Coleciona HQ...</p></body></html>
                 """.formatted(esc(titulo), esc(descricao), esc(url), esc(titulo), esc(descricao), esc(url),
                 esc(imagem), esc(imagem), esc(textoImagem), esc(titulo), esc(descricao), esc(imagem),
                 "'" + destino + "'", esc(destino), esc(anuncio.tituloEdicao()));

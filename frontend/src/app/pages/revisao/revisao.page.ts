@@ -845,7 +845,7 @@ export class RevisaoPage implements OnInit {
         url: this.textoOuNull(form.origemUrl),
         urlsProcessadas: this.textoOuNull(form.origemUrl) ? [form.origemUrl.trim()] : [],
         geradoEm: new Date().toISOString().slice(0, 10),
-        gerador: 'Revisao HQ-HUB',
+        gerador: 'Revisao Coleciona HQ',
       },
       serieBrasileira: {
         titulo: form.serieTitulo.trim(),

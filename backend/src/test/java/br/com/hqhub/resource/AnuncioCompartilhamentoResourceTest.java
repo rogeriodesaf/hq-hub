@@ -41,7 +41,7 @@ class AnuncioCompartilhamentoResourceTest {
         try (Response resposta = recurso.compartilhar(34L)) {
             String html = resposta.getEntity().toString();
             assertEquals(200, resposta.getStatus());
-            assertTrue(html.contains("Superman #3 · Troca | HQ-HUB"));
+            assertTrue(html.contains("Superman #3 · Troca | Coleciona HQ"));
             assertTrue(html.contains("og:image\" content=\"https://img.example/superman.jpg"));
             assertFalse(html.contains("Valor a combinar"));
             assertFalse(html.contains("classificados-hqs.jpg"));
@@ -75,7 +75,7 @@ class AnuncioCompartilhamentoResourceTest {
                 null, null, null));
         try (Response resposta = recurso.compartilhar(56L)) {
             String html = resposta.getEntity().toString();
-            assertTrue(html.contains("Batman #1 · Venda ou troca | HQ-HUB"));
+            assertTrue(html.contains("Batman #1 · Venda ou troca | Coleciona HQ"));
             assertTrue(html.contains("og:image\" content=\"https://hqhub.space/assets/classificados-hqs.jpg?v=2"));
         }
     }

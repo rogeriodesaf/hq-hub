@@ -40,7 +40,7 @@ Funcionalidades:
 
 ## Épico: Comunidade de Colecionadores
 
-Permitir que usuários se conectem com outros colecionadores, criando relações de amizade dentro do HQ-HUB.
+Permitir que usuários se conectem com outros colecionadores, criando relações de amizade dentro do Coleciona HQ.
 
 Funcionalidades:
 
@@ -66,7 +66,7 @@ Funcionalidades:
 
 ## Épico: Classificados de Venda e Troca
 
-Permitir que usuários anunciem HQs de sua coleção como disponíveis para venda ou troca, sem intermediação financeira do HQ-HUB.
+Permitir que usuários anunciem HQs de sua coleção como disponíveis para venda ou troca, sem intermediação financeira do Coleciona HQ.
 
 Funcionalidades:
 

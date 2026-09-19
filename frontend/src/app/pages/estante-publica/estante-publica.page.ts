@@ -11,7 +11,7 @@ import { EstanteCompartilhada } from '../../core/modelos';
   template: `
     <main class="pagina-compartilhada">
       <header class="hero-estante">
-        <a class="marca" routerLink="/entrar">HQ-HUB</a>
+        <a class="marca" routerLink="/entrar">Coleciona HQ</a>
         @if (estante()) {
           <div>
             <p class="rotulo">Coleção virtual de</p>
@@ -35,7 +35,7 @@ import { EstanteCompartilhada } from '../../core/modelos';
         <section class="estado">
           <h2>Estante indisponível</h2>
           <p>Ela não existe ou não está configurada como pública.</p>
-          <a class="botao primario" routerLink="/entrar">Conhecer o HQ-HUB</a>
+          <a class="botao primario" routerLink="/entrar">Conhecer o Coleciona HQ</a>
         </section>
       } @else {
         <section class="estante">
@@ -67,7 +67,7 @@ import { EstanteCompartilhada } from '../../core/modelos';
 
         <section class="convite">
           <h2>Sua coleção também merece uma estante assim.</h2>
-          <p>Organize suas revistas, leituras e edições faltantes gratuitamente no HQ-HUB.</p>
+          <p>Organize suas revistas, leituras e edições faltantes gratuitamente no Coleciona HQ.</p>
           <a class="botao primario" routerLink="/entrar">Criar minha conta</a>
         </section>
       }

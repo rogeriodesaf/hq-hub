@@ -1,6 +1,6 @@
-# HQ-HUB Frontend
+# Coleciona HQ Frontend
 
-Aplicação Angular standalone para o HQ-HUB, com layout responsivo e suporte a PWA.
+Aplicação Angular standalone para o Coleciona HQ, com layout responsivo e suporte a PWA.
 
 ## Requisitos
 
@@ -58,7 +58,7 @@ Arquivos principais:
 
 - `public/manifest.webmanifest`
 - `ngsw-config.json`
-- `public/assets/icone-hqhub.svg`
+- `public/assets/icone-coleciona-hq.svg`
 
 ## Telas implementadas
 

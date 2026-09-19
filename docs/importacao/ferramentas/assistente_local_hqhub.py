@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Ponte local entre o HQ-HUB e o coletor interativo do Guia dos Quadrinhos.
+"""Ponte local entre o Coleciona HQ e o coletor interativo do Guia dos Quadrinhos.
 
-O servidor escuta exclusivamente em 127.0.0.1. O navegador do HQ-HUB cria uma
+O servidor escuta exclusivamente em 127.0.0.1. O navegador do Coleciona HQ cria uma
 coleta, acompanha o processo e recebe o JSON gerado pelo coletor que abre o
 Chrome visível para a verificação humana.
 """
@@ -140,10 +140,10 @@ def validar_entrada_capas_telegram(dados):
         if not re.fullmatch(r"@[A-Za-z0-9_]{5,}", grupo):
             raise ValueError("Informe um grupo publico no formato @nome_do_grupo.")
     if not token:
-        raise ValueError("A sessao do HQ-HUB nao esta disponivel.")
+        raise ValueError("A sessao do Coleciona HQ nao esta disponivel.")
     host = (urlparse(backend).hostname or "").lower()
     if host not in {"hqhub-backend.onrender.com", "localhost", "127.0.0.1"}:
-        raise ValueError("Backend HQ-HUB nao autorizado pelo assistente local.")
+        raise ValueError("Backend Coleciona HQ nao autorizado pelo assistente local.")
     return {
         "serieId": serie_id,
         "numeroInicial": inicial,
@@ -211,7 +211,7 @@ def atualizar_por_log(coleta, linha):
         elif "Pausa automática entre lotes:" in linha:
             coleta["mensagem"] = linha
         elif "Arquivo gerado:" in linha:
-            coleta["mensagem"] = "JSON gerado. Preparando a devolução ao HQ-HUB..."
+            coleta["mensagem"] = "JSON gerado. Preparando a devolução ao Coleciona HQ..."
         else:
             capa = re.search(r"\[CAPA\s+(\d+)/(\d+)\]\s+([^:]+):\s+consultando(?:\s+em\s+paralelo)?:\s+(.+)", linha, re.IGNORECASE)
             if capa:
@@ -282,7 +282,7 @@ def executar_coleta(coleta, entrada):
             )
         if not saida.exists():
             raise RuntimeError("O coletor terminou sem gerar o arquivo JSON.")
-        # Enriquece o resultado antes de devolvê-lo ao HQ-HUB. O arquivo é
+        # Enriquece o resultado antes de devolvê-lo ao Coleciona HQ. O arquivo é
         # temporário e continua sendo removido ao final desta função.
         saida_com_capas = pasta / "resultado-com-capas.json"
         with trava:
@@ -313,7 +313,7 @@ def executar_coleta(coleta, entrada):
             coleta["totalPaginas"] = max(coleta["totalPaginas"], coleta["paginasProcessadas"])
             coleta["avisos"] = list(resultado.get("avisos") or [])
             coleta["status"] = "CONCLUIDA"
-            coleta["mensagem"] = "JSON recebido do Chrome e pronto para revisão no HQ-HUB."
+            coleta["mensagem"] = "JSON recebido do Chrome e pronto para revisão no Coleciona HQ."
             coleta["atualizadaEm"] = agora_iso()
     except Exception as erro:
         with trava:
@@ -610,7 +610,7 @@ class RequisicaoAssistente(BaseHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Assistente local do HQ-HUB para o Guia dos Quadrinhos.")
+    parser = argparse.ArgumentParser(description="Assistente local do Coleciona HQ para o Guia dos Quadrinhos.")
     parser.add_argument("--porta", type=int, default=8765)
     parser.add_argument("--abrir-hqhub", action="store_true")
     args = parser.parse_args()
@@ -633,7 +633,7 @@ def main():
 
     servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), RequisicaoAssistente)
     print("=" * 68)
-    print(f"Assistente local do HQ-HUB {VERSAO}")
+    print(f"Assistente local do Coleciona HQ {VERSAO}")
     print(f"Escutando somente neste computador: http://127.0.0.1:{args.porta}")
     print("Mantenha esta janela aberta durante a coleta. Pressione Ctrl+C para sair.")
     print("=" * 68)
