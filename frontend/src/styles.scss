@@ -4864,7 +4864,7 @@ body.bottom-sheet-aberto {
   }
 
   .lombada {
-    flex-basis: 88px;
+    flex-basis: clamp(116px, 34vw, 140px);
   }
 
   .grade-formulario .campo-largo {
