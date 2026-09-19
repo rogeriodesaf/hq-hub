@@ -144,12 +144,19 @@ def extrair_url_capa_guia(importador, html, url_pagina):
 
 
 def baixar_capa_sessao(contexto, url_capa, url_pagina):
-    resposta = contexto.request.get(
-        url_capa,
-        headers={"Referer": url_pagina},
-        timeout=60_000,
-        fail_on_status_code=False,
-    )
+    resposta = None
+    for tentativa in range(3):
+        resposta = contexto.request.get(
+            url_capa,
+            headers={"Referer": url_pagina},
+            timeout=60_000,
+            fail_on_status_code=False,
+        )
+        if resposta.status != 429:
+            break
+        espera = 5 * (tentativa + 1)
+        print(f"Limite temporario ao baixar a capa. Nova tentativa em {espera}s.")
+        sleep(espera)
     if not resposta.ok:
         raise RuntimeError(f"download da capa retornou HTTP {resposta.status}")
 
@@ -165,7 +172,7 @@ def baixar_capa_sessao(contexto, url_capa, url_pagina):
     return conteudo, tipo, extensao
 
 
-def montar_multipart(campos, nome_arquivo, tipo_mime, conteudo):
+def montar_multipart(campos, nome_arquivo, tipo_mime, conteudo, campo_arquivo="file"):
     limite = f"----hqhub{uuid.uuid4().hex}"
     partes = []
     for nome, valor in campos.items():
@@ -181,7 +188,7 @@ def montar_multipart(campos, nome_arquivo, tipo_mime, conteudo):
         [
             f"--{limite}\r\n".encode(),
             (
-                'Content-Disposition: form-data; name="file"; '
+                f'Content-Disposition: form-data; name="{campo_arquivo}"; '
                 f'filename="{nome_arquivo}"\r\n'
             ).encode(),
             f"Content-Type: {tipo_mime}\r\n\r\n".encode(),
@@ -230,6 +237,74 @@ def enviar_capa_cloudinary(conteudo, tipo_mime, extensao, public_id, config):
     return url
 
 
+def requisicao_hqhub(config, caminho, metodo="GET", corpo=None, content_type=None):
+    cabecalhos = {"Authorization": f"Bearer {config['token']}"}
+    if content_type:
+        cabecalhos["Content-Type"] = content_type
+    requisicao = Request(
+        config["backend_url"].rstrip("/") + caminho,
+        data=corpo,
+        headers=cabecalhos,
+        method=metodo,
+    )
+    with urlopen(requisicao, timeout=120) as resposta:
+        conteudo = resposta.read()
+    return json.loads(conteudo.decode("utf-8")) if conteudo else None
+
+
+def configuracao_hqhub(backend_url, serie_id):
+    token = os.environ.get("HQHUB_API_TOKEN", "").strip()
+    if not token:
+        raise ValueError(
+            "Configure HQHUB_API_TOKEN antes de usar --atualizar-serie-id."
+        )
+    config = {
+        "backend_url": backend_url.rstrip("/"),
+        "token": token,
+        "serie_id": serie_id,
+        "edicoes": {},
+    }
+    resposta = requisicao_hqhub(
+        config,
+        f"/api/edicoes?serieId={serie_id}&pagina=0&tamanho=100",
+    )
+    for edicao in resposta.get("itens", []):
+        config["edicoes"][str(edicao.get("numero") or "").strip()] = edicao
+    if not config["edicoes"]:
+        raise ValueError(f"A série {serie_id} não possui edições no Coleciona HQ.")
+    return config
+
+
+def capa_hqhub_utilizavel(url):
+    valor = str(url or "").lower()
+    return bool(valor) and "guiadosquadrinhos.com" not in valor and "coversoon" not in valor
+
+
+def enviar_capa_hqhub(conteudo, tipo_mime, extensao, edicao_id, config):
+    corpo, limite = montar_multipart(
+        {},
+        f"capa{extensao}",
+        tipo_mime,
+        conteudo,
+        campo_arquivo="arquivo",
+    )
+    capa = requisicao_hqhub(
+        config,
+        f"/api/edicoes/{edicao_id}/capas/upload",
+        metodo="POST",
+        corpo=corpo,
+        content_type=f"multipart/form-data; boundary={limite}",
+    )
+    aprovada = requisicao_hqhub(
+        config,
+        f"/api/capas/{capa['id']}/aprovar",
+        metodo="PATCH",
+        corpo=b"",
+        content_type="application/json",
+    )
+    return aprovada["urlImagem"]
+
+
 def public_id_capa(importador, url_pagina):
     codigo = importador.extrair_codigo_colecao(url_pagina) or "sem-colecao"
     id_guia = re.search(r"/(\d+)/?$", url_pagina)
@@ -242,6 +317,7 @@ def public_id_capa(importador, url_pagina):
 def esperar_pagina_liberada(pagina, timeout_segundos):
     print("Aguardando a página do Guia. Conclua a verificação na janela do Chrome, se ela aparecer.")
     limite = monotonic() + timeout_segundos
+    respostas_vazias = 0
     while monotonic() < limite:
         try:
             html = pagina.content()
@@ -254,6 +330,13 @@ def esperar_pagina_liberada(pagina, timeout_segundos):
                 "Publicado em:" in html or "Galeria de capas" in html
             ):
                 return html
+            texto = re.sub(r"<[^>]+>", "", html).strip()
+            respostas_vazias = respostas_vazias + 1 if texto in {"", "."} else 0
+            if respostas_vazias >= 8:
+                print("O Guia retornou uma pagina vazia. Recarregando a sessao.")
+                pagina.wait_for_timeout(5_000)
+                pagina.reload(wait_until="domcontentloaded", timeout=60_000)
+                respostas_vazias = 0
         except PermissionError:
             raise
         except Exception:
@@ -353,6 +436,7 @@ def coletar_paginas(
     url_inicial,
     importador,
     cloudinary,
+    hqhub,
     timeout_verificacao,
     timeout_galeria,
     intervalo,
@@ -376,7 +460,7 @@ def coletar_paginas(
 
     textos = []
     urls_processadas = []
-    capas_processadas = [] if cloudinary else None
+    capas_processadas = [] if cloudinary or hqhub else None
     avisos = []
     for indice, url in enumerate(urls):
         inicio_novo_lote = bool(
@@ -405,11 +489,20 @@ def coletar_paginas(
                     forcar_recarga=inicio_novo_lote,
                 )
             texto_pagina = importador.html_para_texto(html)
-            url_cloudinary = None
-            if cloudinary:
+            url_armazenada = None
+            numero_edicao = importador.extrair_numero_url_edicao(url)
+            edicao_hqhub = hqhub["edicoes"].get(str(numero_edicao)) if hqhub else None
+            if edicao_hqhub and capa_hqhub_utilizavel(edicao_hqhub.get("urlCapa")):
+                url_armazenada = edicao_hqhub["urlCapa"]
+                print(f"Capa existente preservada: {url_armazenada}")
+            elif cloudinary or hqhub:
                 url_capa = extrair_url_capa_guia(importador, html, url)
                 if not url_capa:
                     avisos.append(f"Capa não encontrada na edição: {url}")
+                elif hqhub and not edicao_hqhub:
+                    avisos.append(
+                        f"Edição nº {numero_edicao} não encontrada na série {hqhub['serie_id']}."
+                    )
                 else:
                     try:
                         conteudo, tipo_mime, extensao = baixar_capa_sessao(
@@ -417,20 +510,29 @@ def coletar_paginas(
                             url_capa,
                             url,
                         )
-                        url_cloudinary = enviar_capa_cloudinary(
-                            conteudo,
-                            tipo_mime,
-                            extensao,
-                            public_id_capa(importador, url),
-                            cloudinary,
-                        )
-                        print(f"Capa armazenada: {url_cloudinary}")
+                        if hqhub:
+                            url_armazenada = enviar_capa_hqhub(
+                                conteudo,
+                                tipo_mime,
+                                extensao,
+                                edicao_hqhub["id"],
+                                hqhub,
+                            )
+                        else:
+                            url_armazenada = enviar_capa_cloudinary(
+                                conteudo,
+                                tipo_mime,
+                                extensao,
+                                public_id_capa(importador, url),
+                                cloudinary,
+                            )
+                        print(f"Capa armazenada: {url_armazenada}")
                     except Exception as erro:
                         avisos.append(f"Não foi possível armazenar a capa de {url}: {erro}")
             textos.append(texto_pagina)
             urls_processadas.append(url)
             if capas_processadas is not None:
-                capas_processadas.append(url_cloudinary)
+                capas_processadas.append(url_armazenada)
         except PermissionError as erro:
             avisos.append(
                 f"Importação interrompida em {url}: {erro} "
@@ -576,6 +678,19 @@ def main():
         "--perfil-persistente",
         help="Diretorio opcional para reutilizar a sessao verificada do Chrome entre execucoes.",
     )
+    parser.add_argument(
+        "--atualizar-serie-id",
+        type=int,
+        help=(
+            "Envia e aprova as capas diretamente na série informada do Coleciona HQ. "
+            "Requer HQHUB_API_TOKEN."
+        ),
+    )
+    parser.add_argument(
+        "--backend-url",
+        default="https://hqhub-backend.onrender.com",
+        help="URL do backend usada com --atualizar-serie-id.",
+    )
     args = parser.parse_args()
 
     importador = carregar_importador()
@@ -595,6 +710,11 @@ def main():
         cloudinary = (
             configuracao_cloudinary()
             if args.armazenar_capas_cloudinary
+            else None
+        )
+        hqhub = (
+            configuracao_hqhub(args.backend_url, args.atualizar_serie_id)
+            if args.atualizar_serie_id
             else None
         )
     except ValueError as erro:
@@ -631,6 +751,7 @@ def main():
                 args.url,
                 importador,
                 cloudinary,
+                hqhub,
                 args.tempo_verificacao,
                 args.tempo_galeria,
                 args.intervalo_segundos,
@@ -656,8 +777,9 @@ def main():
         print(f"Edições: {resultado['totalEdicoes']}")
         print(f"Histórias: {resultado['totalHistorias']}")
         if capas_processadas is not None:
+            destino = "Coleciona HQ" if hqhub else "Cloudinary"
             print(
-                "Capas armazenadas no Cloudinary: "
+                f"Capas armazenadas no {destino}: "
                 f"{resultado['origem']['capasArmazenadasCloudinary']}/{resultado['totalEdicoes']}"
             )
         if resultado["avisos"]:
