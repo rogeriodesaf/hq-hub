@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.hqhub.entity.PostagemFeed;
+import br.com.hqhub.entity.PerfilUsuario;
 import br.com.hqhub.entity.StatusAmizade;
 import br.com.hqhub.entity.TipoAtividadeEstante;
 import br.com.hqhub.entity.TipoPostagemFeed;
@@ -57,6 +58,12 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
     public List<PostagemFeed> listarFeed(Long usuarioId, int pagina, int tamanho) {
         return getEntityManager().createNativeQuery("""
                 select p.* from postagens_feed p where p.sistema = true or p.usuario_id = :usuarioId
+                or exists (
+                    select 1 from usuarios autor
+                    where autor.id = p.usuario_id
+                      and autor.perfil = :administrador
+                      and p.tipo_postagem <> :tipoAtividade
+                )
                 or (
                     p.tipo_postagem <> :tipoAtividade
                     and p.usuario_id in (
@@ -94,6 +101,7 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                 """, PostagemFeed.class)
                 .setParameter("usuarioId", usuarioId)
                 .setParameter("tipoAtividade", TipoPostagemFeed.ATIVIDADE_ESTANTE.name())
+                .setParameter("administrador", PerfilUsuario.ADMINISTRADOR.name())
                 .setParameter("aceita", StatusAmizade.ACEITA.name())
                 .setParameter("publica", VisibilidadeColecao.PUBLICA.name())
                 .setParameter("amigos", VisibilidadeColecao.AMIGOS.name())

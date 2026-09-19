@@ -148,6 +148,9 @@ public class FeedSocialService {
         salvarImagens(postagem, dto.imagens());
         salvarVideosRelacionados(postagem, dto.relatedVideos());
         salvarCanalParceiro(postagem, dto.partnerChannel());
+        if (usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR) {
+            notificacoes.notificarNovaPostagemAdministrativa(usuario, postagem);
+        }
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -361,6 +364,10 @@ public class FeedSocialService {
         }
         Long autorId = postagem.getUsuario().getId();
         if (autorId.equals(usuario.getId())) {
+            return true;
+        }
+        if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE
+                && postagem.getUsuario().getPerfil() == PerfilUsuario.ADMINISTRADOR) {
             return true;
         }
         if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE) {

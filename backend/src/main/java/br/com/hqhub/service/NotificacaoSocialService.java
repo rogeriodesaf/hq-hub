@@ -5,6 +5,7 @@ import br.com.hqhub.dto.NotificacaoSocialDTO;
 import br.com.hqhub.entity.*;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.NotificacaoSocialRepository;
+import br.com.hqhub.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -13,11 +14,17 @@ public class NotificacaoSocialService {
     private final NotificacaoSocialRepository repository;
     private final UsuarioAutenticadoService autenticacao;
     private final UsuarioMapper usuarioMapper;
+    private final UsuarioRepository usuarioRepository;
 
-    public NotificacaoSocialService(NotificacaoSocialRepository repository, UsuarioAutenticadoService autenticacao, UsuarioMapper usuarioMapper) {
+    public NotificacaoSocialService(
+            NotificacaoSocialRepository repository,
+            UsuarioAutenticadoService autenticacao,
+            UsuarioMapper usuarioMapper,
+            UsuarioRepository usuarioRepository) {
         this.repository = repository;
         this.autenticacao = autenticacao;
         this.usuarioMapper = usuarioMapper;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<NotificacaoSocialDTO> listar() {
@@ -49,6 +56,18 @@ public class NotificacaoSocialService {
         notificacao.setComentario(comentario);
         notificacao.setMensagem(mensagem);
         repository.persist(notificacao);
+    }
+
+    public void notificarNovaPostagemAdministrativa(Usuario autor, PostagemFeed postagem) {
+        String mensagem = autor.getNome() + " fez uma nova publicação para a comunidade.";
+        usuarioRepository.listarDestinatariosNotificacaoGlobal(autor.getId())
+                .forEach(destinatario -> criar(
+                        destinatario,
+                        autor,
+                        TipoNotificacaoSocial.NOVA_POSTAGEM_ADMIN,
+                        postagem,
+                        null,
+                        mensagem));
     }
 
     public void removerCurtidaPostagem(Usuario destinatario, Usuario autor, PostagemFeed postagem) {

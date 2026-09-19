@@ -790,7 +790,7 @@ export interface VisualizacaoHistoriaLeitura {
 
 export interface NotificacaoSocial {
   id: number;
-  tipo: 'SISTEMA' | 'CURTIDA_POSTAGEM' | 'COMENTARIO_POSTAGEM' | 'CURTIDA_COMENTARIO' | 'CURTIDA_HISTORIA' | 'COMENTARIO_HISTORIA';
+  tipo: 'SISTEMA' | 'NOVA_POSTAGEM_ADMIN' | 'CURTIDA_POSTAGEM' | 'COMENTARIO_POSTAGEM' | 'CURTIDA_COMENTARIO' | 'CURTIDA_HISTORIA' | 'COMENTARIO_HISTORIA';
   autor: Usuario;
   postagemId: number | null;
   mensagem: string;

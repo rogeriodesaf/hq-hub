@@ -31,4 +31,8 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
                 .page(0, 20)
                 .list();
     }
+
+    public List<Usuario> listarDestinatariosNotificacaoGlobal(Long autorId) {
+        return find("id <> ?1 order by id", autorId).list();
+    }
 }
