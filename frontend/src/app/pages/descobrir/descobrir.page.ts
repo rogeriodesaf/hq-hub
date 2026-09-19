@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -60,13 +61,13 @@ interface EdicaoDescoberta {
   template: `
     <section class="cabecalho-pagina">
       <div>
-        <p class="rotulo">Títulos estrangeiros</p>
-        <h1>Pesquise edições estrangeiras e consulte publicações em ordem cronológica.</h1>
+        <p class="rotulo">Originais e publicações brasileiras</p>
+        <h1>Descubra onde cada material original foi publicado no Brasil.</h1>
       </div>
     </section>
 
     <section class="barra-busca">
-      <input [(ngModel)]="termo" placeholder="Amazing Spider-Man, Batman, Saga do Batman..." (keyup.enter)="buscarVolumes()" />
+      <input [(ngModel)]="termo" placeholder="Pesquise Batman: Gotham Knights, Amazing Spider-Man..." (keyup.enter)="buscarVolumes()" />
       <button class="botao primario" type="button" (click)="buscarVolumes()" [disabled]="carregandoVolumes()">
         {{ carregandoVolumes() ? 'Buscando...' : 'Buscar' }}
       </button>
@@ -179,6 +180,7 @@ interface EdicaoDescoberta {
                   @if (edicao.creditos.length) {
                     <small>{{ listarCreditos(edicao) }}</small>
                   }
+                  <span class="chamada-mapa-brasil">Abrir edição e ver onde saiu no Brasil →</span>
                 </div>
               </article>
             }
@@ -533,6 +535,7 @@ interface EdicaoDescoberta {
 export class DescobrirPage {
   private readonly api = inject(ApiService);
   private readonly sanitizador = inject(DomSanitizer);
+  private readonly router = inject(Router);
 
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly fontePesquisa = signal<FonteDescoberta>('TODAS');
@@ -754,8 +757,7 @@ export class DescobrirPage {
 
   abrirDetalhesEdicao(edicao: EdicaoDescoberta) {
     if (edicao.fonte === 'HQ_HUB' && edicao.idInterno) {
-      this.historicoDetalhes.set([]);
-      this.abrirDetalhePorId(edicao.idInterno);
+      void this.router.navigate(['/edicoes', edicao.idInterno]);
       return;
     }
 

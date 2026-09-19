@@ -309,6 +309,17 @@ public class HistoriaService {
 
     @Transactional
     public PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileiras(Long edicaoOriginalId) {
+        return listarPublicacoesBrasileiras(edicaoOriginalId, usuarioAutenticadoService.obterUsuario().getId());
+    }
+
+    @Transactional
+    public PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileirasPublicas(Long edicaoOriginalId) {
+        return listarPublicacoesBrasileiras(edicaoOriginalId, null);
+    }
+
+    private PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileiras(
+            Long edicaoOriginalId,
+            Long usuarioId) {
         Edicao original = buscarEdicaoPorId(edicaoOriginalId);
         List<PublicacaoHistoria> vinculos = publicacaoHistoriaRepository
                 .listarPublicacoesBrasileirasComDados(edicaoOriginalId);
@@ -321,10 +332,11 @@ public class HistoriaService {
                         LinkedHashMap::new,
                         Collectors.toList()));
         Set<Long> idsEdicoes = porEdicao.keySet();
-        Long usuarioId = usuarioAutenticadoService.obterUsuario().getId();
-        Set<Long> idsNaEstante = itemColecaoRepository.listarPorUsuarioEEdicoes(usuarioId, idsEdicoes).stream()
-                .map(item -> item.getEdicao().getId())
-                .collect(Collectors.toSet());
+        Set<Long> idsNaEstante = usuarioId == null || idsEdicoes.isEmpty()
+                ? Set.of()
+                : itemColecaoRepository.listarPorUsuarioEEdicoes(usuarioId, idsEdicoes).stream()
+                        .map(item -> item.getEdicao().getId())
+                        .collect(Collectors.toSet());
         Set<Long> idsHistoriasOriginais = conteudosOriginais.stream()
                 .map(conteudo -> conteudo.getHistoria().getId())
                 .collect(Collectors.toSet());

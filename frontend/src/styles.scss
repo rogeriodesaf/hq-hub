@@ -5168,6 +5168,174 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
   cursor: pointer;
 }
 
+.mapa-brasil-destaque {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0;
+  padding: clamp(16px, 2.4vw, 24px);
+  border: 2px solid color-mix(in srgb, var(--marca) 38%, var(--borda));
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--marca-suave), var(--superficie) 52%);
+  box-shadow: 0 16px 34px rgba(21, 25, 31, 0.09);
+}
+
+.mapa-brasil-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.mapa-brasil-cabecalho h3,
+.mapa-brasil-cabecalho p {
+  margin: 0;
+}
+
+.mapa-brasil-cabecalho h3 {
+  margin-top: 4px;
+  font-size: clamp(1.28rem, 2.4vw, 1.75rem);
+  line-height: 1.1;
+}
+
+.mapa-brasil-cabecalho p:last-child {
+  max-width: 720px;
+  margin-top: 8px;
+  color: var(--texto-suave);
+  line-height: 1.45;
+}
+
+.mapa-brasil-total {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--marca);
+  color: #15191f;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.mapa-brasil-metricas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mapa-brasil-metricas span {
+  padding: 7px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--superficie) 88%, transparent);
+  color: var(--texto-suave);
+  font-size: 0.82rem;
+}
+
+.mapa-brasil-metricas strong {
+  color: var(--texto);
+}
+
+.mapa-brasil-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.mapa-brasil-card {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 11px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 13px;
+  background: var(--superficie);
+  color: var(--texto);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.mapa-brasil-card:hover,
+.mapa-brasil-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--marca);
+  box-shadow: 0 12px 24px rgba(21, 25, 31, 0.12);
+}
+
+.mapa-brasil-card > img {
+  width: 82px;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  border-radius: 7px;
+  background: #15191f;
+}
+
+.mapa-brasil-card > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mapa-brasil-card strong,
+.mapa-brasil-card small {
+  overflow-wrap: anywhere;
+}
+
+.mapa-brasil-card small {
+  color: var(--texto-suave);
+}
+
+.mapa-brasil-selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.mapa-brasil-selos em {
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: var(--marca-suave);
+  color: var(--marca-escura);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.mapa-brasil-acao {
+  justify-self: start;
+  width: auto;
+}
+
+.mapa-brasil-carregando,
+.mapa-brasil-erro {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto-suave);
+}
+
+.mapa-brasil-carregando span {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--borda);
+  border-top-color: var(--marca);
+  border-radius: 50%;
+  animation: girar 0.85s linear infinite;
+}
+
+.mapa-brasil-originais {
+  margin-top: 0;
+}
+
+.chamada-mapa-brasil {
+  display: block;
+  margin-top: 10px;
+  color: var(--marca-escura);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
 .modal-publicacoes-brasil {
   z-index: 1200;
 }
@@ -5280,6 +5448,38 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
 }
 
 @media (max-width: 680px) {
+  .mapa-brasil-destaque {
+    margin: 14px 0;
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .mapa-brasil-cabecalho {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mapa-brasil-total {
+    justify-self: start;
+  }
+
+  .mapa-brasil-grade {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 2px 2px 8px;
+    scroll-snap-type: x proximity;
+  }
+
+  .mapa-brasil-card {
+    flex: 0 0 min(82vw, 300px);
+    scroll-snap-align: start;
+  }
+
+  .mapa-brasil-acao {
+    width: 100%;
+  }
+
   .publicacoes-brasil-painel {
     position: fixed;
     inset: auto 0 0;

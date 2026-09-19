@@ -855,6 +855,12 @@ export class ApiService {
     return this.http.get<DetalheCatalogoPublico>(`/api/compartilhar/catalogo/edicoes/${edicaoId}`);
   }
 
+  listarPublicacoesBrasileirasDaOriginalPublica(edicaoId: number) {
+    return this.http.get<PublicacoesBrasileirasEdicaoOriginal>(
+      `/api/compartilhar/catalogo/edicoes/${edicaoId}/publicacoes-brasileiras`,
+    );
+  }
+
   listarHistorias() {
     return this.http.get<HistoriaLeitura[]>('/api/historias-leitura').pipe(
       map((historias) => historias.map((historia) => this.normalizarHistoria(historia))),

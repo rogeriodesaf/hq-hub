@@ -147,6 +147,13 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/catalogo/edicoes/{id}/publicacoes-brasileiras")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarPublicacoesBrasileiras(@PathParam("id") Long id) {
+        return Response.ok(historiaService.listarPublicacoesBrasileirasPublicas(id)).build();
+    }
+
+    @GET
     @Path("/catalogo/edicoes/{id}/compartilhar")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharEdicao(@PathParam("id") Long id) {

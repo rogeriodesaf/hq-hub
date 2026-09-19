@@ -40,7 +40,7 @@ import {
       @if (modoAdicao()) {
         <a class="botao secundario compacto" routerLink="/colecao">Voltar à estante</a>
       } @else {
-        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Títulos estrangeiros</a>
+        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Onde saiu no Brasil?</a>
       }
     </section>
 
@@ -809,22 +809,79 @@ import {
             </section>
           }
 
+          @if (!carregandoDetalhe() && publicacoesComoOriginal().length) {
+            <section class="mapa-brasil-destaque" aria-labelledby="tituloMapaBrasil">
+              <header class="mapa-brasil-cabecalho">
+                <div>
+                  <p class="rotulo">Mapa editorial Brasil</p>
+                  <h3 id="tituloMapaBrasil">Onde este material saiu no Brasil?</h3>
+                  <p>Compare as edições brasileiras, descubra a primeira publicação e confira se o conteúdo saiu completo ou parcial.</p>
+                </div>
+                @if (mapaBrasilDetalhe(); as resultado) {
+                  <span class="mapa-brasil-total">{{ resultado.totalPublicacoes }} {{ resultado.totalPublicacoes === 1 ? 'edição' : 'edições' }}</span>
+                }
+              </header>
+              @if (carregandoMapaBrasilDetalhe()) {
+                <div class="mapa-brasil-carregando" aria-live="polite"><span></span> Localizando publicações brasileiras...</div>
+              } @else if (erroMapaBrasilDetalhe()) {
+                <div class="mapa-brasil-erro"><p>Não foi possível montar o mapa editorial agora.</p><button class="botao secundario compacto" type="button" (click)="recarregarMapaBrasilDetalhe()">Tentar novamente</button></div>
+              } @else if (mapaBrasilDetalhe(); as resultado) {
+                <div class="mapa-brasil-metricas">
+                  <span><strong>{{ resultado.totalPublicacoes }}</strong> publicações brasileiras</span>
+                  <span><strong>{{ resultado.totalHistoriasOriginais || publicacoesComoOriginal().length }}</strong> histórias identificadas</span>
+                </div>
+                <div class="mapa-brasil-grade">
+                  @for (publicacao of publicacoesBrasilDestaque(); track publicacao.id) {
+                    <button type="button" class="mapa-brasil-card" (click)="abrirPublicacaoBrasileira(publicacao)">
+                      <img [src]="publicacao.capa || capaReserva" [alt]="'Capa de ' + publicacao.titulo + ' #' + publicacao.numero" loading="lazy" (error)="usarCapaReserva($event)" />
+                      <span>
+                        <strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong>
+                        <small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>
+                        <span class="mapa-brasil-selos">
+                          @if (publicacao.primeiraPublicacao) { <em>Primeira no Brasil</em> } @else { <em>Republicação</em> }
+                          @if (publicacao.publicacaoCompleta === true) { <em>Conteúdo completo</em> }
+                          @if (publicacao.publicacaoCompleta === false) { <em>Conteúdo parcial</em> }
+                          @if (publicacao.naEstante) { <em>Na sua estante</em> }
+                        </span>
+                      </span>
+                    </button>
+                  }
+                </div>
+                <button class="botao primario mapa-brasil-acao" type="button" (click)="abrirPublicacoesBrasil(edicaoDetalhe()!, $event)">Explorar mapa completo e histórias</button>
+              }
+            </section>
+          } @else if (!carregandoDetalhe() && publicacoesOriginaisAgrupadas().length) {
+            <section class="mapa-brasil-destaque" aria-labelledby="tituloMapaBrasilOrigem">
+              <header class="mapa-brasil-cabecalho">
+                <div>
+                  <p class="rotulo">Origem e republicações</p>
+                  <h3 id="tituloMapaBrasilOrigem">De onde veio e onde mais saiu?</h3>
+                  <p>Esta edição brasileira contém material das publicações originais abaixo. Abra o mapa para comparar todas as edições brasileiras relacionadas.</p>
+                </div>
+              </header>
+              <div class="grade-publicacoes-originais mapa-brasil-originais">
+                @for (grupo of publicacoesOriginaisAgrupadas(); track grupo.edicao.id) {
+                  <article class="publicacao-original-resumo">
+                    <img [src]="grupo.edicao.urlCapa || capaReserva" [alt]="'Capa de ' + tituloEdicao(grupo.edicao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                    <div>
+                      <p class="rotulo">Publicação original</p>
+                      <h4>{{ tituloEdicao(grupo.edicao) }}</h4>
+                      <p>{{ grupo.edicao.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(grupo.edicao) as ano"> · {{ ano }}</span></p>
+                      <small>{{ grupo.quantidadeHistorias }} {{ grupo.quantidadeHistorias === 1 ? 'história relacionada' : 'histórias relacionadas' }}</small>
+                      <div class="acoes-publicacao-original">
+                        <button type="button" (click)="abrirDetalheOriginalAgrupada(grupo.edicao)">Ver edição original →</button>
+                        <button type="button" (click)="abrirPublicacoesBrasil(grupo.edicao, $event)">Ver todas as publicações no Brasil</button>
+                      </div>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+          }
+
           @if (!carregandoDetalhe() && (publicacoesDetalhe().length || !publicacoesComoOriginal().length)) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
-              @if (publicacoesOriginaisAgrupadas().length) {
-                <section class="publicacoes-originais-edicao" aria-labelledby="tituloPublicacaoOriginal">
-                  <h3 id="tituloPublicacaoOriginal">🌎 Publicação original</h3>
-                  <div class="grade-publicacoes-originais">
-                    @for (grupo of publicacoesOriginaisAgrupadas(); track grupo.edicao.id) {
-                      <article class="publicacao-original-resumo">
-                        <img [src]="grupo.edicao.urlCapa || capaReserva" [alt]="'Capa de ' + tituloEdicao(grupo.edicao)" loading="lazy" (error)="usarCapaReserva($event)" />
-                        <div><h4>{{ tituloEdicao(grupo.edicao) }}</h4><p>{{ grupo.edicao.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(grupo.edicao) as ano"> · {{ ano }}</span></p><small>{{ grupo.quantidadeHistorias }} {{ grupo.quantidadeHistorias === 1 ? 'história relacionada' : 'histórias relacionadas' }}</small><div class="acoes-publicacao-original"><button type="button" (click)="abrirDetalheOriginalAgrupada(grupo.edicao)">Ver edição original →</button><button type="button" (click)="abrirPublicacoesBrasil(grupo.edicao, $event)" [attr.aria-label]="'Ver outras publicações no Brasil de ' + tituloEdicao(grupo.edicao)">🇧🇷 Ver outras publicações no Brasil</button></div></div>
-                      </article>
-                    }
-                  </div>
-                </section>
-              }
               @if (podeEditarCatalogo()) {
                 <section class="painel-formulario vinculo-original-form">
                   <h2>Vincular HQ original</h2>
@@ -943,45 +1000,6 @@ import {
                   </article>
                 } @empty { <p class="texto-suave">Nenhuma publicação brasileira vinculada a esta edição ainda.</p> }
               </div>
-            </section>
-          }
-
-          @if (!carregandoDetalhe() && (publicacoesComoOriginal().length || !publicacoesDetalhe().length)) {
-            <section class="detalhe-secao">
-              @if (historiaEmFoco()) {
-                <h3>Edições que publicaram esta história</h3>
-              } @else {
-              <h3>Publicações brasileiras desta edição original</h3>
-              }
-              @for (publicacao of publicacoesComoOriginal(); track publicacao.id) {
-                <article class="publicacao-card">
-                  <img
-                    class="capa-publicacao"
-                    [src]="publicacao.edicaoPublicada.urlCapa || publicacao.edicaoOriginal.urlCapa || capaReserva"
-                    [alt]="tituloEdicaoPublicada(publicacao)"
-                    loading="lazy"
-                    (error)="usarCapaReserva($event)"
-                  />
-                  <div>
-                    <p class="rotulo">{{ rotuloStatus(publicacao.status) }}</p>
-                    <h4>{{ publicacao.historia.tituloExibicao || publicacao.historia.titulo }}</h4>
-                    <p>
-                      Publicada no Brasil em
-                      <button class="link-edicao-original" type="button" (click)="abrirDetalhePorId(publicacao.edicaoPublicada.id)">
-                        {{ tituloEdicaoPublicada(publicacao) }}
-                      </button>
-                    </p>
-                    @if (publicacao.paginasPublicadas) {
-                      <p>{{ publicacao.paginasPublicadas }} páginas</p>
-                    }
-                    @if (publicacao.observacoes) {
-                      <p>{{ publicacao.observacoes }}</p>
-                    }
-                  </div>
-                </article>
-              } @empty {
-                <p class="texto-suave">Esta edição original ainda não tem republicações brasileiras vinculadas.</p>
-              }
             </section>
           }
 
@@ -1228,6 +1246,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly publicacoesBrasil = signal<PublicacoesBrasileirasEdicaoOriginal | null>(null);
   readonly carregandoPublicacoesBrasil = signal(false);
   readonly erroPublicacoesBrasil = signal(false);
+  readonly mapaBrasilDetalhe = signal<PublicacoesBrasileirasEdicaoOriginal | null>(null);
+  readonly carregandoMapaBrasilDetalhe = signal(false);
+  readonly erroMapaBrasilDetalhe = signal(false);
   readonly publicacaoHistoriasAberta = signal<number | null>(null);
   readonly linksDetalhe = signal<LinkEdicao[]>([]);
   readonly capasDetalhe = signal<CapaEdicao[]>([]);
@@ -1592,6 +1613,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private abrirDetalhePublico(edicaoId: number) {
     this.carregandoDetalhe.set(true);
+    this.limparMapaBrasilDetalhe();
     this.api.obterDetalheCatalogoPublico(edicaoId).subscribe({
       next: ({ edicao, links, conteudos, publicacoes, publicacoesOriginais }) => {
         this.edicaoDetalhe.set(edicao);
@@ -1600,6 +1622,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.publicacoesDetalhe.set(publicacoes);
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         this.publicacoesComoOriginal.set(publicacoesOriginais);
+        if (publicacoesOriginais.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.capasDetalhe.set([]);
         this.carregandoDetalhe.set(false);
       },
@@ -1933,6 +1956,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
     this.carregandoDetalhe.set(true);
+    this.limparMapaBrasilDetalhe();
     this.historiaExpandida.set(null);
     this.carregandoRepublicacoes.set(null);
     this.republicacoesPorHistoria.set({});
@@ -1962,7 +1986,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
-        this.publicacoesComoOriginal.set(this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId));
+        const publicacoesOriginaisFiltradas = this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId);
+        this.publicacoesComoOriginal.set(publicacoesOriginaisFiltradas);
+        if (publicacoesOriginaisFiltradas.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.linksDetalhe.set(links);
         this.capasDetalhe.set(capas);
         this.historiaEmFoco.set(historiaId);
@@ -1993,6 +2019,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
     this.edicaoDetalhe.set(null);
+    this.limparMapaBrasilDetalhe();
     this.editandoDetalhe.set(false);
     this.salvandoDetalhe.set(false);
     this.removendoEdicao.set(false);
@@ -3047,7 +3074,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   abrirDetalheOriginalAgrupada(edicao: Edicao) {
-    this.abrirDetalhePorId(edicao.id);
+    this.abrirEdicaoRelacionada(edicao.id);
+  }
+
+  publicacoesBrasilDestaque() {
+    return (this.mapaBrasilDetalhe()?.publicacoes || []).slice(0, 6);
+  }
+
+  recarregarMapaBrasilDetalhe() {
+    const edicao = this.edicaoDetalhe();
+    if (edicao) this.carregarMapaBrasilDestaque(edicao.id);
   }
 
   abrirPublicacoesBrasil(edicao: Edicao, evento: Event) {
@@ -3075,7 +3111,21 @@ export class CatalogoPage implements OnInit, OnDestroy {
   abrirPublicacaoBrasileira(publicacao: PublicacaoBrasileiraResumo) {
     if (publicacao.id === this.edicaoDetalhe()?.id) return;
     this.fecharPublicacoesBrasil(false);
-    this.abrirDetalhePorId(publicacao.id);
+    this.abrirEdicaoRelacionada(publicacao.id);
+  }
+
+  private abrirEdicaoRelacionada(edicaoId: number) {
+    if (!this.paginaEdicaoPublica) {
+      this.abrirDetalhePorId(edicaoId);
+      return;
+    }
+    void this.router.navigate(['/edicoes', edicaoId]).then(() => {
+      if (this.autenticado()) {
+        this.abrirDetalhePorId(edicaoId);
+      } else {
+        this.abrirDetalhePublico(edicaoId);
+      }
+    });
   }
 
   alternarHistoriasPublicacao(edicaoId: number) {
@@ -3125,7 +3175,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.carregandoPublicacoesBrasil.set(true);
     this.erroPublicacoesBrasil.set(false);
     this.publicacoesBrasil.set(null);
-    this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId).subscribe({
+    const consulta = this.paginaEdicaoPublica
+      ? this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId)
+      : this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId);
+    consulta.subscribe({
       next: (resultado) => {
         if (this.originalPublicacoesAberta()?.id !== edicaoOriginalId) return;
         this.publicacoesBrasil.set(resultado);
@@ -3137,6 +3190,33 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.erroPublicacoesBrasil.set(true);
       },
     });
+  }
+
+  private carregarMapaBrasilDestaque(edicaoOriginalId: number) {
+    this.carregandoMapaBrasilDetalhe.set(true);
+    this.erroMapaBrasilDetalhe.set(false);
+    this.mapaBrasilDetalhe.set(null);
+    const consulta = this.paginaEdicaoPublica
+      ? this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId)
+      : this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId);
+    consulta.subscribe({
+      next: (resultado) => {
+        if (this.edicaoDetalhe()?.id !== edicaoOriginalId) return;
+        this.mapaBrasilDetalhe.set(resultado);
+        this.carregandoMapaBrasilDetalhe.set(false);
+      },
+      error: () => {
+        if (this.edicaoDetalhe()?.id !== edicaoOriginalId) return;
+        this.carregandoMapaBrasilDetalhe.set(false);
+        this.erroMapaBrasilDetalhe.set(true);
+      },
+    });
+  }
+
+  private limparMapaBrasilDetalhe() {
+    this.mapaBrasilDetalhe.set(null);
+    this.carregandoMapaBrasilDetalhe.set(false);
+    this.erroMapaBrasilDetalhe.set(false);
   }
 
   rotuloFonteEdicao(edicao: Edicao) {
