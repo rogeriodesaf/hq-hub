@@ -202,8 +202,8 @@ public class CompartilhamentoResource {
         String descricao = editora + " · " + quantidade
                 + ". Conheça a coleção completa no catálogo do Coleciona HQ.";
         String destino = baseNormalizada() + "/catalogo?serieId=" + id;
-        String pagina = baseNormalizada() + "/colecao/serie/" + id + "?v=1";
-        String imagem = baseNormalizada() + "/colecao/serie/" + id + "/imagem.jpg?v=1";
+        String pagina = origemCompartilhamentoNormalizada() + "/series/" + id + "?v=2";
+        String imagem = origemCompartilhamentoNormalizada() + "/series/" + id + "/imagem.jpg?v=2";
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">

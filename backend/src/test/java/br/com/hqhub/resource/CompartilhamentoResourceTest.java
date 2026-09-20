@@ -38,6 +38,7 @@ class CompartilhamentoResourceTest {
                 edicoes, series, null, null);
         recurso.urlBase = "https://hqhub.example";
         recurso.apiUrlPublica = "https://api.hqhub.example";
+        recurso.urlCompartilhamentoPublica = "https://share.hqhub.example/api/compartilhar";
     }
 
     @Test
@@ -88,8 +89,8 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("og:type\" content=\"website"));
             assertTrue(html.contains("Biblioteca &lt;Dylan Dog&gt; · Volume 1 | Coleciona HQ"));
             assertTrue(html.contains("Panini · 2 edições."));
-            assertTrue(html.contains("https://hqhub.example/colecao/serie/7/imagem.jpg?v=1"));
-            assertTrue(html.contains("https://hqhub.example/colecao/serie/7?v=1"));
+            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7/imagem.jpg?v=2"));
+            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7?v=2"));
             assertTrue(html.contains("https://hqhub.example/catalogo?serieId=7"));
         }
     }

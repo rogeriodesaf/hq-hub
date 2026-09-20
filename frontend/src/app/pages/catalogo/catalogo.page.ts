@@ -1859,7 +1859,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.compartilhandoSerie.set(true);
     const volume = serie.volume ? ` · Volume ${serie.volume}` : '';
     const titulo = `${serie.titulo}${volume}`;
-    const url = `https://hqhub.space/colecao/serie/${serie.id}?v=1`;
+    const url = `${environment.compartilhamentoUrl}/series/${serie.id}?v=2`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | Coleciona HQ`,
