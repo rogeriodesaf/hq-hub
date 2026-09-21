@@ -10,6 +10,7 @@ public record UsuarioAutenticadoDTO(
         String fotoPerfilThumbnailUrl,
         String capaPerfilUrl,
         String token,
+        String refreshToken,
         String tipoToken,
         long expiraEm,
         String mensagem) {

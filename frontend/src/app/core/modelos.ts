@@ -16,6 +16,7 @@ export interface UsuarioAutenticado {
   fotoPerfilThumbnailUrl: string | null;
   capaPerfilUrl: string | null;
   token: string;
+  refreshToken?: string;
   tipoToken: string;
   expiraEm: number;
   mensagem: string;

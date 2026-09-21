@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, catchError, finalize, map, of, shareReplay, tap } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { normalizarUrlMidia } from './midia-url';
-
 import { Usuario, UsuarioAutenticado } from './modelos';
 
 const CHAVE_USUARIO = 'hqhub.usuario';
@@ -12,11 +10,12 @@ const AUTH_BASE = '/api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AutenticacaoService {
-  private readonly http = injectHttpClient();
+  private readonly http = inject(HttpClient);
   private readonly usuarioAtual = signal<UsuarioAutenticado | null>(this.lerUsuarioSalvo());
+  private renovacaoEmAndamento: Observable<string | null> | null = null;
 
   readonly usuario = this.usuarioAtual.asReadonly();
-  readonly autenticado = computed(() => this.sessaoValida());
+  readonly autenticado = computed(() => !!this.usuarioAtual());
   readonly podeRevisarCatalogo = computed(() => {
     const perfil = this.usuarioAtual()?.perfil;
     return perfil === 'COLABORADOR' || perfil === 'ADMINISTRADOR';
@@ -24,161 +23,139 @@ export class AutenticacaoService {
   readonly ehAdministrador = computed(() => this.usuarioAtual()?.perfil === 'ADMINISTRADOR');
 
   constructor() {
-    console.warn('🔐 AutenticacaoService inicializado');
-    console.warn('🔐 Usuário salvo no localStorage:', this.usuarioAtual());
-    console.warn('🔐 Autenticado?', this.autenticado());
+    window.addEventListener('storage', (evento) => {
+      if (evento.key === CHAVE_USUARIO) this.usuarioAtual.set(this.lerUsuarioSalvo());
+    });
   }
 
-entrar(email: string, senha: string) {
-  return this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/login`, { email, senha }).pipe(
-    tap((usuario) => {
-      console.log('[AUTH] Login recebido:', { email, perfil: usuario.perfil, expiraEm: usuario.expiraEm, tipoToken: usuario.tipoToken });
-      console.log('[AUTH] Token completo:', usuario.token);
-      const usuarioNormalizado: UsuarioAutenticado = {
-        ...usuario,
-        token: this.normalizarToken(usuario.token),
-        fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
-        fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
-        capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
-      };
-      console.log('[AUTH] Token normalizado:', usuarioNormalizado.token);
-      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
-      this.usuarioAtual.set(usuarioNormalizado);
-      console.log('[AUTH] Sessão válida após login?', this.sessaoValida());
-    }),
-  );
-}
+  entrar(email: string, senha: string) {
+    return this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/login`, { email, senha }).pipe(
+      tap((usuario) => this.salvarUsuario(usuario)),
+    );
+  }
 
-cadastrar(nome: string, email: string, senha: string) {
-  return this.http.post('/api/usuarios', { nome, email, senha });
-}
+  cadastrar(nome: string, email: string, senha: string) {
+    return this.http.post('/api/usuarios', { nome, email, senha });
+  }
 
-solicitarRedefinicaoSenha(email: string) {
-  return this.http.post(`${AUTH_BASE}/redefinir-senha/solicitar`, { email });
-}
+  solicitarRedefinicaoSenha(email: string) {
+    return this.http.post(`${AUTH_BASE}/redefinir-senha/solicitar`, { email });
+  }
 
-redefinirSenha(token: string, novaSenha: string) {
-  return this.http.post(`${AUTH_BASE}/redefinir-senha/confirmar`, { token, novaSenha });
-}
+  redefinirSenha(token: string, novaSenha: string) {
+    return this.http.post(`${AUTH_BASE}/redefinir-senha/confirmar`, { token, novaSenha });
+  }
 
   atualizarPerfilLocal(usuario: Usuario) {
     const atual = this.usuarioAtual();
-    if (!atual) {
-      return;
-    }
-
-    const atualizado: UsuarioAutenticado = {
+    if (!atual) return;
+    this.salvarUsuario({
       ...atual,
       nome: usuario.nome,
       email: usuario.email,
       perfil: usuario.perfil,
       bio: usuario.bio,
-      fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
-      fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
-      capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
-    };
-    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(atualizado));
-    this.usuarioAtual.set(atualizado);
+      fotoPerfilUrl: usuario.fotoPerfilUrl,
+      fotoPerfilThumbnailUrl: usuario.fotoPerfilThumbnailUrl,
+      capaPerfilUrl: usuario.capaPerfilUrl,
+    });
   }
 
   sair() {
+    const refreshToken = this.usuarioAtual()?.refreshToken;
+    this.limparSessao();
+    if (refreshToken) {
+      this.http.post(`${AUTH_BASE}/sair`, { refreshToken }).subscribe({ error: () => {} });
+    }
+  }
+
+  obterToken(): string | null {
+    const token = this.normalizarToken(this.usuarioAtual()?.token);
+    return this.tokenValido(token) ? token : null;
+  }
+
+  garantirToken(forcarRenovacao = false): Observable<string | null> {
+    const usuario = this.usuarioAtual();
+    if (!usuario) return of(null);
+    const token = this.normalizarToken(usuario.token);
+    if (!forcarRenovacao && this.tokenValido(token, 60) && usuario.refreshToken) return of(token);
+    if (this.renovacaoEmAndamento) return this.renovacaoEmAndamento;
+
+    const refreshToken = usuario.refreshToken;
+    if (!refreshToken) {
+      this.limparSessao();
+      return of(null);
+    }
+    const chamada = this.http.post<UsuarioAutenticado>(`${AUTH_BASE}/renovar`, { refreshToken });
+    this.renovacaoEmAndamento = chamada.pipe(
+      map((renovado) => {
+        if (this.usuarioAtual()?.refreshToken !== refreshToken) return this.obterToken();
+        this.salvarUsuario(renovado);
+        return this.normalizarToken(renovado.token);
+      }),
+      catchError((erro: unknown) => {
+        const salvo = this.lerUsuarioSalvo();
+        if (salvo?.refreshToken && salvo.refreshToken !== refreshToken &&
+            this.tokenValido(this.normalizarToken(salvo.token))) {
+          this.usuarioAtual.set(salvo);
+          return of(this.normalizarToken(salvo.token));
+        }
+        if (erro instanceof HttpErrorResponse && [400, 401, 403].includes(erro.status)) {
+          this.limparSessao();
+        }
+        return of(null);
+      }),
+      finalize(() => { this.renovacaoEmAndamento = null; }),
+      shareReplay(1),
+    );
+    return this.renovacaoEmAndamento;
+  }
+
+  private salvarUsuario(usuario: UsuarioAutenticado) {
+    const normalizado: UsuarioAutenticado = {
+      ...usuario,
+      token: this.normalizarToken(usuario.token),
+      fotoPerfilUrl: normalizarUrlMidia(usuario.fotoPerfilUrl),
+      fotoPerfilThumbnailUrl: normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
+      capaPerfilUrl: normalizarUrlMidia(usuario.capaPerfilUrl),
+    };
+    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(normalizado));
+    this.usuarioAtual.set(normalizado);
+  }
+
+  private limparSessao() {
     localStorage.removeItem(CHAVE_USUARIO);
     this.usuarioAtual.set(null);
   }
 
-  obterToken() {
-    const token = this.normalizarToken(this.usuarioAtual()?.token);
-    const valida = this.sessaoValida();
-    console.log('[AUTH] obterToken:', { temToken: !!token, sessaoValida: valida });
-    if (!token || !valida) {
-      console.log('[AUTH] Token ou sessão inválidos, fazendo logout');
-      this.sair();
-      return null;
-    }
-
-    return token;
-  }
-
-  private sessaoValida() {
-    const token = this.normalizarToken(this.usuarioAtual()?.token);
-    if (!token) {
-      console.log('[AUTH] sessaoValida: token vazio');
-      return false;
-    }
-
-    const payload = this.lerPayloadToken(token);
-    console.log('[AUTH] sessaoValida - payload:', payload);
-    const exp = payload?.exp ? Number(payload.exp) : NaN;
-    const agora = Math.floor(Date.now() / 1000);
-    console.log('[AUTH] sessaoValida - exp:', exp, 'agora:', agora, 'válido?', exp > agora);
-    if (!Number.isFinite(exp)) {
-      console.log('[AUTH] exp não é número válido');
-      return false;
-    }
-
-    const agoraEmSegundos = Math.floor(Date.now() / 1000);
-    return exp > agoraEmSegundos;
-  }
-
-  private lerPayloadToken(token: string): { exp?: number | string } | null {
-    const partes = token.split('.');
-    if (partes.length < 2) {
-      return null;
-    }
-
+  private tokenValido(token: string, margemSegundos = 0): boolean {
+    if (!token) return false;
     try {
-      const base64Url = partes[1].replace(/-/g, '+').replace(/_/g, '/');
-      const paddingNecessario = (4 - (base64Url.length % 4)) % 4;
-      const base64 = base64Url + '='.repeat(paddingNecessario);
-      const conteudo = atob(base64);
-      return JSON.parse(conteudo) as { exp?: number | string };
+      const payload = token.split('.')[1];
+      if (!payload) return false;
+      const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+      const exp = Number(JSON.parse(atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, '='))).exp);
+      return Number.isFinite(exp) && exp > Math.floor(Date.now() / 1000) + margemSegundos;
     } catch {
-      return null;
+      return false;
     }
   }
 
   private normalizarToken(token: string | null | undefined): string {
-    if (!token) {
-      console.warn('🔐 normalizarToken: token vazio');
-      return '';
-    }
-
-    const normalizado = token.replace(/^Bearer\s+/i, '').trim();
-    console.warn('🔐 normalizarToken:', { original: token.substring(0, 30), normalizado: normalizado.substring(0, 30) });
-    return normalizado;
+    return token?.replace(/^Bearer\s+/i, '').trim() ?? '';
   }
 
   private lerUsuarioSalvo(): UsuarioAutenticado | null {
-    const salvo = localStorage.getItem(CHAVE_USUARIO);
-    console.warn('🔐 lerUsuarioSalvo:', { chaveBuscada: CHAVE_USUARIO, encontrado: !!salvo, conteudo: salvo?.substring(0, 100) });
-    if (!salvo) {
-      console.warn('🔐 Nenhum usuário salvo no localStorage');
-      return null;
-    }
-
     try {
+      const salvo = localStorage.getItem(CHAVE_USUARIO);
+      if (!salvo) return null;
       const usuario = JSON.parse(salvo) as UsuarioAutenticado;
-      const usuarioNormalizado: UsuarioAutenticado = {
-        ...usuario,
-        fotoPerfilUrl: this.normalizarUrlMidia(usuario.fotoPerfilUrl),
-        fotoPerfilThumbnailUrl: this.normalizarUrlMidia(usuario.fotoPerfilThumbnailUrl),
-        capaPerfilUrl: this.normalizarUrlMidia(usuario.capaPerfilUrl),
-      };
-      localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioNormalizado));
-      console.warn('🔐 Usuário recuperado:', { email: usuario.email, perfil: usuario.perfil, temToken: !!usuario.token });
-      return usuarioNormalizado;
-    } catch (erro) {
-      console.error('🔐 Erro ao parsear usuário salvo:', erro);
+      if (usuario?.refreshToken) return usuario;
+      localStorage.removeItem(CHAVE_USUARIO);
+      return null;
+    } catch {
       localStorage.removeItem(CHAVE_USUARIO);
       return null;
     }
   }
-
-  private normalizarUrlMidia(url: string | null | undefined): string | null {
-    return normalizarUrlMidia(url);
-  }
-}
-
-function injectHttpClient() {
-  return inject(HttpClient);
 }

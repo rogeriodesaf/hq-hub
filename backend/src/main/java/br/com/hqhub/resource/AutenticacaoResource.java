@@ -4,6 +4,7 @@ import br.com.hqhub.dto.AutenticacaoUsuarioDTO;
 import br.com.hqhub.dto.RedefinicaoSenhaDTO;
 import br.com.hqhub.dto.SolicitacaoRedefinicaoSenhaDTO;
 import br.com.hqhub.dto.UsuarioAutenticadoDTO;
+import br.com.hqhub.dto.RenovacaoSessaoDTO;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.exception.RespostaErroDTO;
 import br.com.hqhub.service.AutenticacaoService;
@@ -29,7 +30,8 @@ public class AutenticacaoResource {
     private final AutenticacaoService autenticacaoService;
     private final RedefinicaoSenhaService redefinicaoSenhaService;
 
-    public AutenticacaoResource(AutenticacaoService autenticacaoService, RedefinicaoSenhaService redefinicaoSenhaService) {
+    public AutenticacaoResource(AutenticacaoService autenticacaoService,
+            RedefinicaoSenhaService redefinicaoSenhaService) {
         this.autenticacaoService = autenticacaoService;
         this.redefinicaoSenhaService = redefinicaoSenhaService;
     }
@@ -39,6 +41,19 @@ public class AutenticacaoResource {
     public Response autenticar(@Valid AutenticacaoUsuarioDTO dto) {
         UsuarioAutenticadoDTO usuario = autenticacaoService.autenticar(dto);
         return Response.ok(usuario).build();
+    }
+
+    @POST
+    @Path("/renovar")
+    public Response renovar(RenovacaoSessaoDTO dto) {
+        return Response.ok(autenticacaoService.renovar(dto == null ? null : dto.refreshToken())).build();
+    }
+
+    @POST
+    @Path("/sair")
+    public Response sair(RenovacaoSessaoDTO dto) {
+        autenticacaoService.sair(dto == null ? null : dto.refreshToken());
+        return Response.noContent().build();
     }
 
     @POST

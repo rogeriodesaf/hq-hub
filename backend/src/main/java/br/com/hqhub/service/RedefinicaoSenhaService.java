@@ -6,6 +6,7 @@ import br.com.hqhub.entity.TokenRedefinicaoSenha;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.TokenRedefinicaoSenhaRepository;
+import br.com.hqhub.repository.SessaoPersistenteRepository;
 import br.com.hqhub.repository.UsuarioRepository;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.mailer.Mail;
@@ -26,6 +27,7 @@ public class RedefinicaoSenhaService {
 
     private final UsuarioRepository usuarioRepository;
     private final TokenRedefinicaoSenhaRepository tokenRepository;
+    private final SessaoPersistenteRepository sessaoRepository;
     private final Mailer mailer;
     private final String urlBase;
     private final String smtpUsuario;
@@ -34,12 +36,14 @@ public class RedefinicaoSenhaService {
     public RedefinicaoSenhaService(
             UsuarioRepository usuarioRepository,
             TokenRedefinicaoSenhaRepository tokenRepository,
+            SessaoPersistenteRepository sessaoRepository,
             Mailer mailer,
             @ConfigProperty(name = "hqhub.url-base") String urlBase,
             @ConfigProperty(name = "hqhub.smtp.usuario") String smtpUsuario,
             @ConfigProperty(name = "hqhub.smtp.senha") String smtpSenha) {
         this.usuarioRepository = usuarioRepository;
         this.tokenRepository = tokenRepository;
+        this.sessaoRepository = sessaoRepository;
         this.mailer = mailer;
         this.urlBase = urlBase;
         this.smtpUsuario = smtpUsuario;
@@ -94,6 +98,7 @@ public class RedefinicaoSenhaService {
 
         Usuario usuario = entidade.getUsuario();
         usuario.setSenha(BcryptUtil.bcryptHash(dto.novaSenha()));
+        sessaoRepository.revogarPorUsuario(usuario);
         tokenRepository.delete(entidade);
     }
 
