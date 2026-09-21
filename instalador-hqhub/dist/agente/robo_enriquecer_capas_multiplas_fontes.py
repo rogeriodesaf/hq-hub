@@ -7,6 +7,7 @@ registrados em origem.capasAutomaticas para revisão humana.
 """
 import argparse
 import base64
+import gzip
 from concurrent.futures import ThreadPoolExecutor, CancelledError, TimeoutError as FuturesTimeoutError, as_completed
 from functools import lru_cache
 import json
@@ -105,14 +106,20 @@ def baixar_cached(url):
         verificar_cancelamento()
         try:
             with urlopen(req, timeout=timeout_requisicao(12)) as resposta:
-                return resposta.read().decode("utf-8", errors="replace")
+                conteudo = resposta.read()
+                if resposta.headers.get("Content-Encoding", "").lower() == "gzip" or conteudo.startswith(b"\x1f\x8b"):
+                    conteudo = gzip.decompress(conteudo)
+                return conteudo.decode("utf-8", errors="replace")
         except HTTPError as erro:
             alternativa = proxy_comix(url) if erro.code == 403 else None
             if alternativa:
                 try:
                     cabecalhos = dict(req.header_items())
                     with urlopen(Request(alternativa, headers=cabecalhos), timeout=timeout_requisicao(18)) as resposta:
-                        return resposta.read().decode("utf-8", errors="replace")
+                        conteudo = resposta.read()
+                        if resposta.headers.get("Content-Encoding", "").lower() == "gzip" or conteudo.startswith(b"\x1f\x8b"):
+                            conteudo = gzip.decompress(conteudo)
+                        return conteudo.decode("utf-8", errors="replace")
                 except Exception as erro_proxy:
                     ultimo_erro = erro_proxy
                     continue
@@ -558,16 +565,33 @@ def resultados_rika_adjacentes(resultados, numero):
         atual = re.search(r"#\s*0*(\d+)\b", resultado.get("titulo") or "")
         if not atual or abs(alvo - int(atual.group(1))) > 12:
             continue
-        partes = re.match(r"^(.*--)(\d+)(\d{8})/p$", resultado.get("url") or "")
+        partes = re.match(r"^(.*--)(\d+)(-?)(\d{8})/p$", resultado.get("url") or "")
         if not partes or int(partes.group(2)) != int(atual.group(1)):
             continue
-        referencia = int(partes.group(3)) + alvo - int(atual.group(1))
+        referencia = int(partes.group(4)) + alvo - int(atual.group(1))
         if referencia <= 0:
             continue
-        url = f"{partes.group(1)}{alvo}{referencia:08d}/p"
+        url = f"{partes.group(1)}{alvo:0{len(partes.group(2))}d}{partes.group(3)}{referencia:08d}/p"
         if url not in {item["url"] for item in candidatos}:
-            candidatos.append({"url": url, "titulo": ""})
+            candidatos.append({"url": url, "titulo": "", "inferido": True})
     return candidatos
+
+
+def marca_produto_rika(url):
+    """Confirma a editora dos produtos inferidos, ausentes da busca VTEX."""
+    html = baixar(url)
+    for bloco in re.findall(
+        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+        html, re.I | re.S,
+    ):
+        try:
+            dados = json.loads(unescape(bloco))
+        except (TypeError, ValueError):
+            continue
+        if isinstance(dados, dict) and dados.get("@type") == "Product":
+            marca = dados.get("brand")
+            return marca.get("name") if isinstance(marca, dict) else marca
+    return None
 
 
 def buscar_quadrikomics(busca_loja, busca, capas_usadas, titulo, numero):
@@ -717,10 +741,18 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
             resultados = resultados_rika(alias_catalogo_loja(nome, titulo))
         except (OSError, ValueError):
             resultados = []
+        # A VTEX mistura editoras homonimas (ex.: Superman 3a Serie
+        # Panini/Ebal). Uma edicao da outra editora nao deve impedir a
+        # inferencia do produto Panini ausente dos primeiros resultados.
+        resultados = [
+            item for item in resultados
+            if editora_compativel_com_busca(item.get("editora"), busca)
+        ]
         if not resultados:
             resultados = resultados_loja(busca_loja, dominio, modelo_busca)
         elif str(numero or "").isdigit() and not any(
             titulo_compativel_com_numero(item.get("titulo"), numero, titulo)
+            and titulo_compativel_com_serie_e_fase(item.get("titulo"), titulo, busca)
             for item in resultados
         ):
             resultados.extend(resultados_rika_adjacentes(resultados, numero))
@@ -856,10 +888,18 @@ def buscar_fonte(nome, dominio, modelo_busca, busca_loja, busca, capas_usadas, t
         resultados = resultados_bing(busca, dominio)
     for resultado in resultados:
         verificar_cancelamento()
-        if nome == "Rika" and not editora_compativel_com_busca(
-            resultado.get("editora"), busca
-        ):
-            continue
+        if nome == "Rika":
+            try:
+                editora_resultado = (
+                    marca_produto_rika(resultado["url"])
+                    if resultado.get("inferido") else resultado.get("editora")
+                )
+            except Exception:
+                continue
+            if resultado.get("inferido") and not editora_resultado:
+                continue
+            if not editora_compativel_com_busca(editora_resultado, busca):
+                continue
         if produto_multiplo(f"{resultado.get('titulo') or ''} {resultado['url']}"):
             continue
         if nome == "Amazon" and not titulo_compativel_com_numero(
@@ -1032,10 +1072,28 @@ def enriquecer_com_executor(args, executor):
             f"consultando em paralelo: {', '.join(item['fontesConsultadas'])}",
             flush=True,
         )
-        resposta = consultar_fontes(
-            executor, fontes, busca_loja, busca, capas_usadas,
-            titulo_busca, numero_busca, item, getattr(args, "tempo_limite_edicao", 45),
-        )
+        tempo_limite = getattr(args, "tempo_limite_edicao", 45)
+        prazo_edicao = monotonic() + tempo_limite
+        resposta = None
+        # A 3a serie do Superman tem homonimos de outras editoras e fases.
+        # A Rika identifica explicitamente serie, numero e editora; so depois
+        # de esgotar essa verificacao consultamos as fontes menos especificas.
+        editora_busca = str(edicao.get("editora") or serie.get("editora") or "")
+        if (slug(titulo_busca) in {"superman-3a-serie", "superman-3-serie"}
+                and slug(editora_busca).startswith("panini")):
+            rika = [fonte for fonte in fontes if fonte[0] == "Rika"]
+            if rika:
+                resposta = consultar_fontes(
+                    executor, rika, busca_loja, busca, capas_usadas,
+                    titulo_busca, numero_busca, item, min(15, tempo_limite),
+                )
+                fontes = [fonte for fonte in fontes if fonte[0] != "Rika"]
+        restante = prazo_edicao - monotonic()
+        if not resposta and fontes and restante > 0:
+            resposta = consultar_fontes(
+                executor, fontes, busca_loja, busca, capas_usadas,
+                titulo_busca, numero_busca, item, restante,
+            )
         if resposta and resposta[1]:
             nome, capa, url_produto, _ = resposta
             edicao["urlCapa"] = capa

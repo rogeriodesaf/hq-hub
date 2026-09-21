@@ -1,13 +1,62 @@
 """Identidade de capas e reaproveitamento, sem depender de lojas externas."""
 import base64
+import gzip
 import json
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import robo_enriquecer_capas_multiplas_fontes as robo
 
 
 class PrecisaoCapasTest(unittest.TestCase):
+    def test_baixar_descompacta_html_gzip_antes_de_extrair_produto(self):
+        resposta = MagicMock()
+        resposta.__enter__.return_value = resposta
+        resposta.headers = {"Content-Encoding": "gzip"}
+        resposta.read.return_value = gzip.compress(
+            b'<script type="application/ld+json">'
+            b'{"@type":"Product","name":"Superman 3 Serie # 13",'
+            b'"image":"https://imagem/13.jpg"}</script>'
+        )
+        robo.baixar_cached.cache_clear()
+        with patch.object(robo, "urlopen", return_value=resposta):
+            capa, titulo = robo.extrair_produto("https://loja/exemplo-gzip")
+        self.assertEqual(capa, "https://imagem/13.jpg")
+        self.assertEqual(titulo, "Superman 3 Serie # 13")
+
+    def test_rika_infere_serie_panini_sem_aceitar_homonimo_ebal(self):
+        resultados = [
+            {"url": "https://www.rika.com.br/superman---3a-serie--14-15006049/p",
+             "titulo": "Superman - 3ª Série # 14", "editora": "Panini"},
+            {"url": "https://www.rika.com.br/superman-ebal-013/p",
+             "titulo": "Superman - 3ª Série # 013", "editora": "Ebal"},
+        ]
+        consulta = '"Superman 3ª Série" "Panini" "13"'
+        def extrair(url):
+            numero = "13" if "--13-" in url else "14"
+            return f"https://imagem/panini-{numero}.jpg", f"Superman - 3ª Série # {numero}"
+
+        with patch.object(robo, "resultados_rika", return_value=resultados), \
+                patch.object(robo, "marca_produto_rika", return_value="Panini"), \
+                patch.object(robo, "extrair_produto", side_effect=extrair):
+            resposta = robo.buscar_fonte(
+                "Rika", "rika.com.br", "", "", consulta, set(),
+                "Superman 3ª Série", "13",
+            )
+        self.assertEqual(resposta[1], "https://imagem/panini-13.jpg")
+        self.assertEqual(
+            resposta[2],
+            "https://www.rika.com.br/superman---3a-serie--13-15006048/p",
+        )
+        with patch.object(robo, "resultados_rika", return_value=resultados), \
+                patch.object(robo, "marca_produto_rika", return_value="Ebal"), \
+                patch.object(robo, "extrair_produto", side_effect=extrair):
+            rejeitada = robo.buscar_fonte(
+                "Rika", "rika.com.br", "", "", consulta, set(),
+                "Superman 3ª Série", "13",
+            )
+        self.assertIsNone(rejeitada[1])
+
     def test_panini_ultimo_dia_das_bruxas_usa_alias_e_numero_com_zero(self):
         titulo = 'Batman: O Longo Dia das Bruxas - O Último Dia das Bruxas'
         self.assertEqual(robo.alias_catalogo_loja('Panini', titulo), 'Batman: O Último Dia das Bruxas')
