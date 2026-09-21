@@ -125,6 +125,15 @@ class PrecisaoCapasTest(unittest.TestCase):
         url = 'https://excelsiorcomics.com.br/produto/batman-6a-serie-super-herois-premium-1/'
         self.assertTrue(robo.produto_compativel_com_numero(url, '1'))
 
+    def test_numeracao_dupla_da_quinta_serie_superman_usa_numero_local(self):
+        titulo = 'Superman Panini 5a Serie 3 - 61'
+        self.assertTrue(robo.titulo_compativel_com_numero(titulo, '3'))
+        self.assertFalse(robo.titulo_compativel_com_numero(titulo, '61'))
+        self.assertFalse(robo.titulo_compativel_com_numero(titulo, '4'))
+        self.assertFalse(robo.titulo_compativel_com_serie_e_fase(
+            titulo, 'Superman 4a Serie', 'Superman 4a Serie Panini 3'
+        ))
+
     def test_nao_confunde_series_nem_titulos(self):
         validar = robo.titulo_compativel_com_serie_e_fase
         self.assertFalse(validar('Liga da Justiça 1ª Série 07', 'Liga da Justiça 2ª Série', '2ª Série'))

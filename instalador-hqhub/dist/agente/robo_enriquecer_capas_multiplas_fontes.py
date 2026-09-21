@@ -220,7 +220,16 @@ def titulo_compativel_com_numero(titulo, numero, titulo_serie=None):
     numero = str(numero or "").strip()
     if not numero.isdigit():
         return True
-    normalizado = unicodedata.normalize("NFKD", titulo or "").encode("ascii", "ignore").decode().lower()
+    normalizado = unicodedata.normalize("NFKD", titulo or "")
+    normalizado = normalizado.replace("\u2013", "-").replace("\u2014", "-").encode("ascii", "ignore").decode().lower()
+    # A Panini imprime numero local e numeracao legada (ex.: 5a Serie 3 - 61).
+    # O numero da edicao cadastrada e o primeiro; o segundo nao e outra edicao.
+    numeracao_dupla = re.search(
+        r"\b\d+a?\s+serie\s+0*(\d+)\s*[-/]\s*0*(\d+)\b",
+        normalizado,
+    )
+    if numeracao_dupla:
+        return int(numeracao_dupla.group(1)) == int(numero)
     minisserie = re.search(r"\b0*(\d+)\s*\(\s*de\s+\d+\s*\)", normalizado)
     encontrados = [minisserie.group(1)] if minisserie else re.findall(
         r"(?:\bvol(?:ume)?\.?|\bn[ºo.]?|#)\s*0*(\d+(?:[.,]\d+)?)", normalizado
