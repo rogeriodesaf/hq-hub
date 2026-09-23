@@ -136,6 +136,37 @@ public class DeduplicacaoSerieService {
                 List.of(grupo));
     }
 
+    @Transactional
+    public boolean removerSelecionadaSeDuplicada(Long serieId) {
+        Serie descartada = serieRepository.findByIdOptional(serieId)
+                .orElseThrow(() -> new RegraNegocioException("Série não encontrada."));
+        List<Serie> candidatas = serieRepository.buscarTodasPorTituloEEditoraEVolume(
+                        descartada.getTitulo(),
+                        descartada.getEditora().getId(),
+                        descartada.getVolume())
+                .stream()
+                .filter(serie -> !Objects.equals(serie.getId(), descartada.getId()))
+                .toList();
+
+        if (candidatas.isEmpty()) {
+            return false;
+        }
+
+        Serie mantida = escolherMaisCompleta(candidatas);
+        copiarCamposFaltantes(mantida, descartada);
+        mesclarSerie(descartada, mantida);
+        entityManager.flush();
+        return true;
+    }
+
+    @Transactional
+    public void removerDuplicataSelecionada(Long serieId) {
+        if (!removerSelecionadaSeDuplicada(serieId)) {
+            throw new RegraNegocioException(
+                    "Este título não é uma duplicata. Colaboradores só podem excluir títulos duplicados.");
+        }
+    }
+
     private List<List<Serie>> montarGruposDuplicados() {
         Map<String, List<Serie>> candidatos = serieRepository.listAll().stream()
                 .collect(Collectors.groupingBy(this::chaveAmpla, LinkedHashMap::new, Collectors.toList()));
@@ -190,6 +221,7 @@ public class DeduplicacaoSerieService {
         }
 
         moverColecoesSeries(descartada.getId(), mantida.getId());
+        moverPostagensFeed(descartada.getId(), mantida.getId());
         moverRelacionamentosSeries(descartada.getId(), mantida.getId());
         entityManager.remove(entityManager.contains(descartada) ? descartada : entityManager.merge(descartada));
         return new ResultadoMesclagemSerie(edicoesMescladas, referenciasAtualizadas);
@@ -219,6 +251,11 @@ public class DeduplicacaoSerieService {
                    and descartada.usuario_id = mantida.usuario_id
                 """, descartadaId, mantidaId);
         executar("update colecoes_series set serie_id = :mantida where serie_id = :descartada", descartadaId, mantidaId);
+    }
+
+    private void moverPostagensFeed(Long descartadaId, Long mantidaId) {
+        executar("update postagens_feed set serie_catalogo_id = :mantida where serie_catalogo_id = :descartada",
+                descartadaId, mantidaId);
     }
 
     private void moverRelacionamentosSeries(Long descartadaId, Long mantidaId) {

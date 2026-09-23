@@ -114,7 +114,17 @@ public class SerieResource {
     @Path("/{id}")
     @RolesAllowed("ADMINISTRADOR")
     public Response remover(@PathParam("id") Long id) {
-        serieService.remover(id);
+        if (!deduplicacaoSerieService.removerSelecionadaSeDuplicada(id)) {
+            serieService.remover(id);
+        }
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    @Path("/{id}/duplicata")
+    @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
+    public Response removerDuplicata(@PathParam("id") Long id) {
+        deduplicacaoSerieService.removerDuplicataSelecionada(id);
         return Response.noContent().build();
     }
 }

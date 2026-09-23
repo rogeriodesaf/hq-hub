@@ -357,10 +357,8 @@ public class ImportacaoCatalogoService {
             Editora editora,
             ImportacaoCatalogoDTO importacao,
             ContadoresImportacao contadores) {
-        Optional<Serie> existente = serieRepository
-                .find("lower(titulo) = ?1 and editora.id = ?2 and volume is null",
-                        normalizarBusca(dto.serieOriginal()), editora.getId())
-                .firstResultOptional();
+        Optional<Serie> existente = serieRepository.buscarPorTituloEEditoraEVolume(
+                dto.serieOriginal(), editora.getId(), null);
 
         if (existente.isPresent()) {
             contadores.itensReaproveitados++;

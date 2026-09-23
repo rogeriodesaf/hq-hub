@@ -482,6 +482,10 @@ export class ApiService {
     return this.http.delete<void>(`/api/series/${id}`);
   }
 
+  removerSerieDuplicada(id: number) {
+    return this.http.delete<void>(`/api/series/${id}/duplicata`);
+  }
+
   cadastrarEdicao(dto: {
     numero: string;
     titulo: string | null;

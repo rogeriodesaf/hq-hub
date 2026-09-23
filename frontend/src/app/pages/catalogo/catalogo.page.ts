@@ -107,17 +107,15 @@ import {
                 >
                   {{ salvandoSerie() === serie.id ? '...' : 'Editar' }}
                 </button>
-                @if (podeExcluirCatalogo()) {
-                  <button
-                    class="botao perigo compacto botao-remover-serie"
-                    type="button"
-                    (click)="removerSerie(serie)"
-                    [disabled]="removendoSerie() === serie.id"
-                    aria-label="Excluir série"
-                  >
-                    {{ removendoSerie() === serie.id ? '...' : 'Excluir' }}
-                  </button>
-                }
+                <button
+                  class="botao perigo compacto botao-remover-serie"
+                  type="button"
+                  (click)="removerSerie(serie)"
+                  [disabled]="removendoSerie() === serie.id"
+                  aria-label="Excluir série duplicada"
+                >
+                  {{ removendoSerie() === serie.id ? '...' : 'Excluir' }}
+                </button>
               }
             </div>
           } @empty {
@@ -1566,19 +1564,26 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   removerSerie(serie: Serie) {
-    if (!this.podeExcluirCatalogo()) {
+    if (!this.podeEditarCatalogo()) {
       return;
     }
 
     const rotulo = `${serie.titulo} - ${serie.editora?.nome || 'Sem editora'} - V${serie.volume || '-'}`;
-    const confirmar = window.confirm(`Excluir a série "${rotulo}"? Só é possível excluir séries sem edições.`);
+    const confirmar = window.confirm(
+      this.podeExcluirCatalogo()
+        ? `Excluir a série "${rotulo}"? Se ela estiver duplicada, edições e vínculos serão preservados no outro cadastro.`
+        : `Excluir a duplicata "${rotulo}"? Edições e vínculos serão preservados no outro cadastro.`,
+    );
     if (!confirmar) {
       return;
     }
 
     this.removendoSerie.set(serie.id);
     this.mensagem.set('');
-    this.api.removerSerie(serie.id).subscribe({
+    const exclusao = this.podeExcluirCatalogo()
+      ? this.api.removerSerie(serie.id)
+      : this.api.removerSerieDuplicada(serie.id);
+    exclusao.subscribe({
       next: () => {
         this.removendoSerie.set(null);
         if (this.serieSelecionada()?.id === serie.id) {
@@ -1588,9 +1593,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.mensagem.set('Série excluída do catálogo.');
         this.carregarSeriesInternas(this.series().pagina);
       },
-      error: () => {
+      error: (erro: any) => {
         this.removendoSerie.set(null);
-        this.mensagem.set('Não foi possível excluir esta série. Remova as edições dela primeiro.');
+        this.mensagem.set(
+          erro?.error?.mensagem
+            || (this.podeExcluirCatalogo()
+              ? 'Não foi possível excluir esta série.'
+              : 'Este título não possui outra duplicata que possa receber seus dados.'),
+        );
       },
     });
   }

@@ -45,16 +45,30 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public Optional<Serie> buscarPorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
+        return buscarTodasPorTituloEEditoraEVolume(titulo, editoraId, volume).stream().findFirst();
+    }
+
+    public List<Serie> buscarTodasPorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
         if (titulo == null || editoraId == null) {
-            return Optional.empty();
+            return List.of();
         }
 
-        int volumeNormalizado = volume == null ? 0 : volume;
-        String tituloNormalizado = normalizarTituloIdentidade(titulo);
-        return find("editora.id = ?1 and coalesce(volume, 0) = ?2", editoraId, volumeNormalizado)
-                .stream()
-                .filter(serie -> normalizarTituloIdentidade(serie.getTitulo()).equals(tituloNormalizado))
-                .findFirst();
+        // A mesma identidade usada pelo gatilho trg_bloquear_serie_duplicada.
+        // Uma normalizacao apenas em Java pode divergir e tentar inserir uma serie ja existente.
+        return entityManager.createNativeQuery("""
+                        select s.* from series s
+                         where s.editora_id = :editoraId
+                           and coalesce(s.volume, 0) = :volume
+                           and regexp_replace(hqhub_normalizar_titulo_serie(s.titulo), 'marvelsaga', '', 'g')
+                               = regexp_replace(hqhub_normalizar_titulo_serie(:titulo), 'marvelsaga', '', 'g')
+                         order by s.id
+                        """, Serie.class)
+                .setParameter("editoraId", editoraId)
+                .setParameter("volume", volume == null ? 0 : volume)
+                .setParameter("titulo", titulo)
+                .getResultStream()
+                .map(Serie.class::cast)
+                .toList();
     }
 
     public boolean existePorOrigemExterna(String fonteExterna, String idExterno) {
@@ -182,42 +196,6 @@ public class SerieRepository implements PanacheRepository<Serie> {
         return Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-z0-9]+", "");
-    }
-
-    private String normalizarTituloIdentidade(String valor) {
-        String[] bruto = Normalizer.normalize(valor.toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .split("[^a-z0-9]+");
-        List<String> termos = new ArrayList<>();
-        for (String termo : bruto) {
-            if (!termo.isBlank()) {
-                termos.add(termo);
-            }
-        }
-
-        removerQualificadorDeLinha(termos, "marvel", "saga");
-
-        while (!termos.isEmpty() && ehArtigo(termos.get(0))) {
-            termos.remove(0);
-        }
-        while (!termos.isEmpty() && ehArtigo(termos.get(termos.size() - 1))) {
-            termos.remove(termos.size() - 1);
-        }
-
-        return String.join("", termos);
-    }
-
-    private void removerQualificadorDeLinha(List<String> termos, String primeiro, String segundo) {
-        for (int indice = termos.size() - 2; indice >= 0; indice--) {
-            if (primeiro.equals(termos.get(indice)) && segundo.equals(termos.get(indice + 1))) {
-                termos.remove(indice + 1);
-                termos.remove(indice);
-            }
-        }
-    }
-
-    private boolean ehArtigo(String valor) {
-        return "a".equals(valor) || "as".equals(valor) || "o".equals(valor) || "os".equals(valor);
     }
 
     private ConsultaBusca montarConsultaBusca(String busca) {
