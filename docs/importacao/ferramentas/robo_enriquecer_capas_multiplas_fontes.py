@@ -258,9 +258,38 @@ def titulo_compativel_com_serie_e_fase(titulo_produto, titulo_serie, busca):
     normalizar = lambda valor: unicodedata.normalize("NFKD", valor or "").encode(
         "ascii", "ignore"
     ).decode().lower()
+    texto_produto = normalizar(titulo_produto)
+    texto_alvo = normalizar(f"{titulo_serie} {busca}")
     fase_busca = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(busca))
-    fase_produto = re.search(r'\b(\d+)[a]?\s+serie\b', normalizar(titulo_produto))
+    fase_produto = re.search(r'\b(\d+)[a]?\s+serie\b', texto_produto)
     if fase_busca and (not fase_produto or fase_busca.group(1) != fase_produto.group(1)):
+        return False
+
+    # Personagem, ordinal da serie e numero iguais ainda podem apontar para
+    # outra colecao. Prefira deixar a capa vazia a misturar linhas editoriais.
+    identidades_colecao = (
+        {"saga"},
+        {"colecao", "definitiva"},
+        {"colecao", "historica"},
+        {"graphic", "novel"},
+        {"omnibus"},
+        {"essenciais"},
+    )
+    termos_alvo = tokens(texto_alvo)
+    for identidade in identidades_colecao:
+        if identidade.issubset(termos_produto) and not identidade.issubset(termos_alvo):
+            return False
+
+    marcas_editoriais = {"abril", "eaglemoss", "mythos", "panini", "salvat"}
+    marcas_produto = {
+        marca for marca in marcas_editoriais
+        if re.search(rf"\b{re.escape(marca)}\b", texto_produto)
+    }
+    marcas_alvo = {
+        marca for marca in marcas_editoriais
+        if re.search(rf"\b{re.escape(marca)}\b", texto_alvo)
+    }
+    if marcas_produto - marcas_alvo:
         return False
     variante = {"variante", "variant"}
     if termos_produto & variante and not tokens(busca) & variante:

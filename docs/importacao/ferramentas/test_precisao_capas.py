@@ -142,6 +142,26 @@ class PrecisaoCapasTest(unittest.TestCase):
         self.assertTrue(validar('Liga da Justiça 4ª Série 07', 'Liga da Justiça 4ª Série', '"4ª Série" "V2"'))
         self.assertFalse(validar('Liga da Justiça 07 Variante', 'Liga da Justiça', ''))
 
+    def test_homem_aranha_segunda_serie_rejeita_colecoes_homonimas(self):
+        validar = robo.titulo_compativel_com_serie_e_fase
+        busca = '"Homem-Aranha 2ª Série" "Abril" "17"'
+
+        self.assertFalse(validar(
+            'A Saga do Homem-Aranha 2ª Série # 1',
+            'Homem-Aranha 2ª Série',
+            busca,
+        ))
+        self.assertFalse(validar(
+            'Coleção Definitiva do Homem-Aranha Salvat 2ª Série 17',
+            'Homem-Aranha 2ª Série',
+            busca,
+        ))
+        self.assertTrue(validar(
+            'Homem-Aranha 2ª Série (Super-Heróis Premium) # 17',
+            'Homem-Aranha 2ª Série',
+            busca,
+        ))
+
     def test_numero_exato_e_primeiro_especial(self):
         validar = robo.titulo_compativel_com_numero
         self.assertFalse(validar('Batman #23.1', '23', 'Batman'))
