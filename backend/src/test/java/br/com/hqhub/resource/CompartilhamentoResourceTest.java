@@ -18,6 +18,7 @@ import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.ItemOrdemLeituraRepository;
 import br.com.hqhub.service.EdicaoService;
+import br.com.hqhub.service.HistoriaService;
 import br.com.hqhub.service.SerieService;
 import jakarta.ws.rs.core.Response;
 
@@ -26,6 +27,7 @@ class CompartilhamentoResourceTest {
     private EdicaoRepository repositorioEdicoes;
     private ItemOrdemLeituraRepository itensGuia;
     private SerieService series;
+    private HistoriaService historias;
     private CompartilhamentoResource recurso;
 
     @BeforeEach
@@ -34,8 +36,9 @@ class CompartilhamentoResourceTest {
         repositorioEdicoes = mock(EdicaoRepository.class);
         itensGuia = mock(ItemOrdemLeituraRepository.class);
         series = mock(SerieService.class);
+        historias = mock(HistoriaService.class);
         recurso = new CompartilhamentoResource(null, null, null, repositorioEdicoes, null, itensGuia, null, null, null,
-                edicoes, series, null, null);
+                edicoes, series, null, historias);
         recurso.urlBase = "https://hqhub.example";
         recurso.apiUrlPublica = "https://api.hqhub.example";
         recurso.urlCompartilhamentoPublica = "https://share.hqhub.example/api/compartilhar";
@@ -111,6 +114,17 @@ class CompartilhamentoResourceTest {
                 .thenReturn(Optional.of("https://img.example/dylan-dog.jpg"));
 
         assertEquals("https://img.example/dylan-dog.jpg", recurso.capaSerieCompartilhamento(7L));
+    }
+
+    @Test
+    void permiteConsultarPublicacoesDaHistoriaSemAutenticacao() {
+        when(historias.listarPublicacoesPorHistoria(9L)).thenReturn(java.util.List.of());
+
+        try (Response resposta = recurso.listarPublicacoesPorHistoria(9L)) {
+            assertEquals(200, resposta.getStatus());
+            assertEquals(java.util.List.of(), resposta.getEntity());
+        }
+        verify(historias).listarPublicacoesPorHistoria(9L);
     }
 
     @Test

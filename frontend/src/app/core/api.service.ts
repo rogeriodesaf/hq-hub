@@ -875,6 +875,12 @@ export class ApiService {
     );
   }
 
+  listarPublicacoesPorHistoriaPublica(historiaId: number) {
+    return this.http.get<PublicacaoHistoria[]>(
+      `/api/compartilhar/catalogo/historias/${historiaId}/publicacoes`,
+    );
+  }
+
   listarHistorias() {
     return this.http.get<HistoriaLeitura[]>('/api/historias-leitura').pipe(
       map((historias) => historias.map((historia) => this.normalizarHistoria(historia))),

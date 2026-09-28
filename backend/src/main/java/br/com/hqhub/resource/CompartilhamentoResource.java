@@ -160,6 +160,13 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/catalogo/historias/{historiaId}/publicacoes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarPublicacoesPorHistoria(@PathParam("historiaId") Long historiaId) {
+        return Response.ok(historiaService.listarPublicacoesPorHistoria(historiaId)).build();
+    }
+
+    @GET
     @Path("/catalogo/series/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obterSerieCatalogoPublica(

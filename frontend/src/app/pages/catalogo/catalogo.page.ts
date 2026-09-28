@@ -986,7 +986,7 @@ import {
                         @if (republicacoesHistoria(publicacao.historia.id).length) {
                           <div class="grade-republicacoes">
                             @for (republicacao of republicacoesHistoria(publicacao.historia.id); track republicacao.id) {
-                              <button type="button" class="republicacao-card" (click)="abrirDetalhePorId(republicacao.edicaoPublicada.id)">
+                              <button type="button" class="republicacao-card" (click)="abrirEdicaoRelacionada(republicacao.edicaoPublicada.id)">
                                 <img [src]="republicacao.edicaoPublicada.urlCapa || capaReserva" [alt]="tituloEdicaoPublicada(republicacao)" loading="lazy" (error)="usarCapaReserva($event)" />
                                 <span><strong>{{ tituloEdicaoPublicada(republicacao) }}</strong><small>{{ rotuloStatusCurto(republicacao.status) }}</small></span>
                               </button>
@@ -3009,7 +3009,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
     const edicaoAtualId = this.edicaoDetalhe()?.id;
     this.carregandoRepublicacoes.set(historiaId);
-    this.api.listarPublicacoesPorHistoria(historiaId).subscribe({
+    const consulta = this.autenticado()
+      ? this.api.listarPublicacoesPorHistoria(historiaId)
+      : this.api.listarPublicacoesPorHistoriaPublica(historiaId);
+    consulta.subscribe({
       next: (publicacoes) => {
         if (this.edicaoDetalhe()?.id !== edicaoAtualId) {
           return;
@@ -3095,7 +3098,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   abrirDetalheOriginal(publicacao: PublicacaoHistoria) {
-    this.abrirDetalhePorId(publicacao.edicaoOriginal.id, publicacao.historia.id);
+    if (this.autenticado() && !this.paginaEdicaoPublica) {
+      this.abrirDetalhePorId(publicacao.edicaoOriginal.id, publicacao.historia.id);
+      return;
+    }
+    this.abrirEdicaoRelacionada(publicacao.edicaoOriginal.id);
   }
 
   publicacoesOriginaisAgrupadas() {
@@ -3163,8 +3170,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.abrirEdicaoRelacionada(publicacao.id);
   }
 
-  private abrirEdicaoRelacionada(edicaoId: number) {
-    if (!this.paginaEdicaoPublica) {
+  abrirEdicaoRelacionada(edicaoId: number) {
+    if (this.autenticado() && !this.paginaEdicaoPublica) {
       this.abrirDetalhePorId(edicaoId);
       return;
     }
@@ -3224,9 +3231,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.carregandoPublicacoesBrasil.set(true);
     this.erroPublicacoesBrasil.set(false);
     this.publicacoesBrasil.set(null);
-    const consulta = this.paginaEdicaoPublica
-      ? this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId)
-      : this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId);
+    const consulta = this.autenticado()
+      ? this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId)
+      : this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId);
     consulta.subscribe({
       next: (resultado) => {
         if (this.originalPublicacoesAberta()?.id !== edicaoOriginalId) return;
@@ -3245,9 +3252,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.carregandoMapaBrasilDetalhe.set(true);
     this.erroMapaBrasilDetalhe.set(false);
     this.mapaBrasilDetalhe.set(null);
-    const consulta = this.paginaEdicaoPublica
-      ? this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId)
-      : this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId);
+    const consulta = this.autenticado()
+      ? this.api.listarPublicacoesBrasileirasDaOriginal(edicaoOriginalId)
+      : this.api.listarPublicacoesBrasileirasDaOriginalPublica(edicaoOriginalId);
     consulta.subscribe({
       next: (resultado) => {
         if (this.edicaoDetalhe()?.id !== edicaoOriginalId) return;
