@@ -140,10 +140,11 @@ public class DeduplicacaoSerieService {
     public boolean removerSelecionadaSeDuplicada(Long serieId) {
         Serie descartada = serieRepository.findByIdOptional(serieId)
                 .orElseThrow(() -> new RegraNegocioException("Série não encontrada."));
-        List<Serie> candidatas = serieRepository.buscarTodasPorTituloEEditoraEVolume(
-                        descartada.getTitulo(),
-                        descartada.getEditora().getId(),
-                        descartada.getVolume())
+        List<Serie> candidatas = montarGruposDuplicados().stream()
+                .filter(grupo -> grupo.stream()
+                        .anyMatch(serie -> Objects.equals(serie.getId(), descartada.getId())))
+                .findFirst()
+                .orElseGet(List::of)
                 .stream()
                 .filter(serie -> !Objects.equals(serie.getId(), descartada.getId()))
                 .toList();

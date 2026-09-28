@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,11 +35,10 @@ class DeduplicacaoSerieServiceTest {
         Serie mantida = serie(10L);
 
         when(repository.findByIdOptional(20L)).thenReturn(Optional.of(descartada));
-        when(repository.buscarTodasPorTituloEEditoraEVolume("Batman", 3L, 1))
-                .thenReturn(List.of(mantida, descartada));
+        when(repository.listAll()).thenReturn(List.of(mantida, descartada));
         when(entityManager.createQuery(anyString(), org.mockito.ArgumentMatchers.eq(Edicao.class)))
                 .thenReturn(edicoesQuery);
-        when(edicoesQuery.setParameter("serieId", 20L)).thenReturn(edicoesQuery);
+        when(edicoesQuery.setParameter(anyString(), org.mockito.ArgumentMatchers.any())).thenReturn(edicoesQuery);
         when(edicoesQuery.getResultList()).thenReturn(List.of());
         when(entityManager.createNativeQuery(anyString())).thenReturn(nativeQuery);
         when(nativeQuery.setParameter(anyString(), org.mockito.ArgumentMatchers.any())).thenReturn(nativeQuery);
@@ -62,7 +62,7 @@ class DeduplicacaoSerieServiceTest {
         EntityManager entityManager = mock(EntityManager.class);
         Serie unica = serie(20L);
         when(repository.findByIdOptional(20L)).thenReturn(Optional.of(unica));
-        when(repository.buscarTodasPorTituloEEditoraEVolume("Batman", 3L, 1)).thenReturn(List.of(unica));
+        when(repository.listAll()).thenReturn(List.of(unica));
 
         DeduplicacaoSerieService service = new DeduplicacaoSerieService(
                 repository,
@@ -71,6 +71,46 @@ class DeduplicacaoSerieServiceTest {
                 entityManager);
 
         assertFalse(service.removerSelecionadaSeDuplicada(20L));
+        verify(entityManager, never()).remove(org.mockito.ArgumentMatchers.any());
+    }
+
+    @Test
+    void removeDuplicataComArtigoNoTituloEPreservaEdicoesNaSerieMantida() {
+        SerieRepository repository = mock(SerieRepository.class);
+        EntityManager entityManager = mock(EntityManager.class);
+        Query nativeQuery = mock(Query.class);
+        @SuppressWarnings("unchecked")
+        TypedQuery<Edicao> edicoesQuery = mock(TypedQuery.class);
+        Serie mantida = serie(10L);
+        Serie descartada = serie(20L);
+        descartada.setTitulo("O Batman");
+        Edicao edicao = new Edicao();
+        edicao.setId(30L);
+        edicao.setNumero("1");
+        edicao.setSerie(descartada);
+
+        when(repository.findByIdOptional(20L)).thenReturn(Optional.of(descartada));
+        when(repository.listAll()).thenReturn(List.of(mantida, descartada));
+        when(entityManager.createQuery(anyString(), org.mockito.ArgumentMatchers.eq(Edicao.class)))
+                .thenReturn(edicoesQuery);
+        when(edicoesQuery.setParameter(anyString(), org.mockito.ArgumentMatchers.any())).thenReturn(edicoesQuery);
+        when(edicoesQuery.getResultList()).thenReturn(List.of(edicao));
+        when(edicoesQuery.getResultStream()).thenReturn(java.util.stream.Stream.empty());
+        when(entityManager.createNativeQuery(anyString())).thenReturn(nativeQuery);
+        when(nativeQuery.setParameter(anyString(), org.mockito.ArgumentMatchers.any())).thenReturn(nativeQuery);
+        when(nativeQuery.executeUpdate()).thenReturn(0);
+        when(entityManager.contains(descartada)).thenReturn(true);
+
+        DeduplicacaoSerieService service = new DeduplicacaoSerieService(
+                repository,
+                mock(SerieMapper.class),
+                mock(DeduplicacaoEdicaoService.class),
+                entityManager);
+
+        assertTrue(service.removerSelecionadaSeDuplicada(20L));
+        org.junit.jupiter.api.Assertions.assertSame(mantida, edicao.getSerie());
+        verify(entityManager).remove(descartada);
+        verify(entityManager).flush();
     }
 
     private Serie serie(Long id) {
