@@ -149,6 +149,7 @@ public class FeedSocialService {
         salvarVideosRelacionados(postagem, dto.relatedVideos());
         salvarCanalParceiro(postagem, dto.partnerChannel());
         if (usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR) {
+            postagemRepository.flush();
             notificacoes.notificarNovaPostagemAdministrativa(usuario, postagem);
         } else {
             notificacoes.notificarNovaPostagemDeAmigo(usuario, postagem);
@@ -161,6 +162,7 @@ public class FeedSocialService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
         postagem.setConteudo(dto.conteudo().trim());
+        notificarAtualizacaoAdministrativa(postagem);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -169,6 +171,7 @@ public class FeedSocialService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
         postagem.setFixada(!postagem.isFixada());
+        notificarAtualizacaoAdministrativa(postagem);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -181,6 +184,7 @@ public class FeedSocialService {
 
         videoRelacionadoRepository.removerPorPostagem(postagemId);
         salvarVideosRelacionados(postagem, dto.relatedVideos());
+        notificarAtualizacaoAdministrativa(postagem);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -191,6 +195,7 @@ public class FeedSocialService {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
         PostagemFeed postagem = buscarPostagemEditavel(postagemId, usuario);
         salvarCanalParceiro(postagem, dto.partnerChannel());
+        notificarAtualizacaoAdministrativa(postagem);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -201,6 +206,7 @@ public class FeedSocialService {
         postagem.setCanalParceiroNome(null);
         postagem.setCanalParceiroUrl(null);
         postagem.setCanalParceiroThumbnail(null);
+        notificarAtualizacaoAdministrativa(postagem);
         return paraResposta(postagem, usuario.getId());
     }
 
@@ -621,6 +627,13 @@ public class FeedSocialService {
                 postagem.getCanalParceiroNome(),
                 postagem.getCanalParceiroUrl(),
                 postagem.getCanalParceiroThumbnail());
+    }
+
+    private void notificarAtualizacaoAdministrativa(PostagemFeed postagem) {
+        if (postagem.getUsuario().getPerfil() == PerfilUsuario.ADMINISTRADOR
+                && postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE) {
+            notificacoes.notificarAtualizacaoPostagemAdministrativa(postagem);
+        }
     }
 
     private PostagemFeed buscarPostagemEditavel(Long postagemId, Usuario usuario) {

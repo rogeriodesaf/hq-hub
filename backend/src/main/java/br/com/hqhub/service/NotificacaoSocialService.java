@@ -6,7 +6,6 @@ import br.com.hqhub.entity.*;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.NotificacaoSocialRepository;
 import br.com.hqhub.repository.AmizadeRepository;
-import br.com.hqhub.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -15,19 +14,16 @@ public class NotificacaoSocialService {
     private final NotificacaoSocialRepository repository;
     private final UsuarioAutenticadoService autenticacao;
     private final UsuarioMapper usuarioMapper;
-    private final UsuarioRepository usuarioRepository;
     private final AmizadeRepository amizadeRepository;
 
     public NotificacaoSocialService(
             NotificacaoSocialRepository repository,
             UsuarioAutenticadoService autenticacao,
             UsuarioMapper usuarioMapper,
-            UsuarioRepository usuarioRepository,
             AmizadeRepository amizadeRepository) {
         this.repository = repository;
         this.autenticacao = autenticacao;
         this.usuarioMapper = usuarioMapper;
-        this.usuarioRepository = usuarioRepository;
         this.amizadeRepository = amizadeRepository;
     }
 
@@ -68,14 +64,13 @@ public class NotificacaoSocialService {
 
     public void notificarNovaPostagemAdministrativa(Usuario autor, PostagemFeed postagem) {
         String mensagem = autor.getNome() + " fez uma nova publicação para a comunidade.";
-        usuarioRepository.listarDestinatariosNotificacaoGlobal(autor.getId())
-                .forEach(destinatario -> criar(
-                        destinatario,
-                        autor,
-                        TipoNotificacaoSocial.NOVA_POSTAGEM_ADMIN,
-                        postagem,
-                        null,
-                        mensagem));
+        repository.distribuirPostagemAdministrativa(autor.getId(), postagem.getId(), mensagem);
+    }
+
+    public void notificarAtualizacaoPostagemAdministrativa(PostagemFeed postagem) {
+        Usuario autor = postagem.getUsuario();
+        String mensagem = autor.getNome() + " atualizou uma publicação da comunidade.";
+        repository.distribuirPostagemAdministrativa(autor.getId(), postagem.getId(), mensagem);
     }
 
     public void notificarNovaPostagemDeAmigo(Usuario autor, PostagemFeed postagem) {
