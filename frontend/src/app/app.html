@@ -175,7 +175,7 @@
                     <h3>{{ periodo }}</h3>
                     @for (item of notificacoesDoPeriodo(periodo); track item.chave) {
                       <article class="notificacao-item" [class.nao-lida]="!item.lida">
-                        <a class="notificacao-avatar" [routerLink]="['/usuario', item.usuario.id]" (click)="fecharNotificacoes()" [attr.aria-label]="'Ver perfil de ' + item.usuario.nome">
+                        <a class="notificacao-avatar" [routerLink]="['/usuario', item.usuario.id]" (click)="marcarNotificacaoComoVisualizada(item); fecharNotificacoes()" [attr.aria-label]="'Ver perfil de ' + item.usuario.nome">
                           @if (item.usuario.fotoPerfilThumbnailUrl) { <img [src]="resolverUrlMidia(item.usuario.fotoPerfilThumbnailUrl)" alt="" /> }
                           @else { {{ item.usuario.nome.slice(0, 1) }} }
                         </a>

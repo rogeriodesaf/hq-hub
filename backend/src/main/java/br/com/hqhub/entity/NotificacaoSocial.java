@@ -27,6 +27,8 @@ public class NotificacaoSocial {
     private String mensagem;
     @Column(nullable = false)
     private boolean lida;
+    @Column(name = "data_visualizacao")
+    private LocalDateTime dataVisualizacao;
     @CreationTimestamp @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
 }

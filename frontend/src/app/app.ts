@@ -126,11 +126,9 @@ export class App implements OnInit {
   readonly totalNotificacoes = computed(() =>
     Math.min(
       9,
-      this.novidadesFeed() +
-        this.notificacoesSociaisNaoLidas() +
+      this.notificacoesSociaisNaoLidas() +
         this.mensagensNaoLidas() +
-        this.solicitacoesAmizadePendentes() +
-        this.alteracoesEstanteAmigos(),
+        this.solicitacoesAmizadePendentes(),
     ),
   );
   readonly catalogoAtivo = computed(() => this.rotaEm('/catalogo', '/titulos-estrangeiros'));
@@ -257,6 +255,18 @@ export class App implements OnInit {
       return;
     }
     this.navegarNotificacao(item);
+  }
+
+  marcarNotificacaoComoVisualizada(item: ItemNotificacao) {
+    if (!item.socialId || item.lida) return;
+    this.api.marcarNotificacaoSocialComoLida(item.socialId).subscribe({
+      next: () => {
+        this.notificacoesSociais.update((itens) => itens.map((social) =>
+          social.id === item.socialId ? { ...social, lida: true } : social));
+        this.carregarContagemNotificacoesSociais();
+      },
+      error: () => this.erroNotificacoes.set(true),
+    });
   }
 
   private navegarNotificacao(item: ItemNotificacao) {

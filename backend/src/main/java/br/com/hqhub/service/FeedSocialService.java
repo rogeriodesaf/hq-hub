@@ -150,6 +150,8 @@ public class FeedSocialService {
         salvarCanalParceiro(postagem, dto.partnerChannel());
         if (usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR) {
             notificacoes.notificarNovaPostagemAdministrativa(usuario, postagem);
+        } else {
+            notificacoes.notificarNovaPostagemDeAmigo(usuario, postagem);
         }
         return paraResposta(postagem, usuario.getId());
     }

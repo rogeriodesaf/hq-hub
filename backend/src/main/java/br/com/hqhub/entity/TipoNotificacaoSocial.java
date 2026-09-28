@@ -3,6 +3,7 @@ package br.com.hqhub.entity;
 public enum TipoNotificacaoSocial {
     SISTEMA,
     NOVA_POSTAGEM_ADMIN,
+    NOVA_POSTAGEM_AMIGO,
     CURTIDA_POSTAGEM,
     COMENTARIO_POSTAGEM,
     CURTIDA_COMENTARIO,
