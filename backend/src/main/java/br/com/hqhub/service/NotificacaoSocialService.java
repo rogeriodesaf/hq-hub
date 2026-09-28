@@ -1,6 +1,5 @@
 package br.com.hqhub.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import br.com.hqhub.dto.NotificacaoSocialDTO;
 import br.com.hqhub.entity.*;
@@ -8,7 +7,6 @@ import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.NotificacaoSocialRepository;
 import br.com.hqhub.repository.AmizadeRepository;
 import br.com.hqhub.repository.UsuarioRepository;
-import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -35,7 +33,7 @@ public class NotificacaoSocialService {
 
     public List<NotificacaoSocialDTO> listar() {
         Long usuarioId = autenticacao.obterUsuario().getId();
-        return repository.listar(usuarioId, LocalDateTime.now().minusDays(30)).stream().map(this::paraDTO).toList();
+        return repository.listar(usuarioId).stream().map(this::paraDTO).toList();
     }
 
     public long contarNaoLidas() {
@@ -44,14 +42,12 @@ public class NotificacaoSocialService {
 
     @Transactional
     public void marcarTodasComoLidas() {
-        repository.update("lida = true, dataVisualizacao = ?1 where destinatario.id = ?2 and lida = false",
-                LocalDateTime.now(), autenticacao.obterUsuario().getId());
+        repository.delete("destinatario.id", autenticacao.obterUsuario().getId());
     }
 
     @Transactional
     public void marcarComoLida(Long id) {
-        repository.update("lida = true, dataVisualizacao = ?1 where id = ?2 and destinatario.id = ?3 and lida = false",
-                LocalDateTime.now(), id, autenticacao.obterUsuario().getId());
+        repository.delete("id = ?1 and destinatario.id = ?2", id, autenticacao.obterUsuario().getId());
     }
 
     public void criar(Usuario destinatario, Usuario autor, TipoNotificacaoSocial tipo, PostagemFeed postagem, ComentarioFeed comentario, String mensagem) {
@@ -95,12 +91,6 @@ public class NotificacaoSocialService {
                         postagem,
                         null,
                         mensagem));
-    }
-
-    @Scheduled(every = "24h")
-    @Transactional
-    public void removerNotificacoesVisualizadasAntigas() {
-        repository.removerLidasAntesDe(LocalDateTime.now().minusDays(30));
     }
 
     public void removerCurtidaPostagem(Usuario destinatario, Usuario autor, PostagemFeed postagem) {

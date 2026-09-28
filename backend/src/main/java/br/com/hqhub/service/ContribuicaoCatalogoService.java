@@ -95,7 +95,7 @@ public class ContribuicaoCatalogoService {
                         .atZone(java.time.ZoneId.systemDefault())
                         .toLocalDateTime();
 
-        return contribuicaoCatalogoRepository.contarAlteracoesEstantePorUsuarios(amigosIds, desde);
+        return contribuicaoCatalogoRepository.contarAlteracoesEstantePorUsuarios(usuario.getId(), amigosIds, desde);
     }
 
     public List<ContribuicaoCatalogoRespostaDTO> listarAlteracoesEstanteAmigos(Long desdeMillis) {
@@ -109,10 +109,16 @@ public class ContribuicaoCatalogoService {
                         .atZone(java.time.ZoneId.systemDefault())
                         .toLocalDateTime();
 
-        return contribuicaoCatalogoRepository.listarAlteracoesEstantePorUsuarios(amigosIds, desde)
+        return contribuicaoCatalogoRepository.listarAlteracoesEstantePorUsuarios(usuario.getId(), amigosIds, desde)
                 .stream()
                 .map(contribuicaoCatalogoMapper::paraResposta)
                 .toList();
+    }
+
+    @Transactional
+    public void marcarAlteracaoEstanteComoVisualizada(Long contribuicaoId) {
+        Long usuarioId = usuarioAutenticadoService.obterUsuario().getId();
+        contribuicaoCatalogoRepository.marcarAlteracaoEstanteComoVisualizada(usuarioId, contribuicaoId);
     }
 
     @Transactional

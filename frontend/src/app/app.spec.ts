@@ -56,7 +56,7 @@ describe('App', () => {
     app.notificacoesSociais.set([1, 2].map((id) => ({ id, tipo: 'COMENTARIO_POSTAGEM', autor, postagemId: 3, mensagem: 'Alex comentou na sua publicação.', lida: false, dataCriacao: new Date().toISOString() })));
     app.abrirItemNotificacao(app.itensNotificacoes()[0]);
     expect(marcar).toHaveBeenCalledOnceWith(1);
-    expect(app.notificacoesSociais().map((item) => item.lida)).toEqual([true, false]);
+    expect(app.notificacoesSociais().map((item) => item.id)).toEqual([2]);
     expect(navegar).toHaveBeenCalledWith(['/postagem/3'], { queryParams: undefined });
   });
 });

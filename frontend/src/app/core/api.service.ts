@@ -682,6 +682,10 @@ export class ApiService {
     );
   }
 
+  marcarAlteracaoEstanteComoVisualizada(id: number) {
+    return this.http.post<void>(`/api/contribuicoes-catalogo/alteracoes-estante-amigos/${id}/visualizar`, {});
+  }
+
   listarSolicitacoesEnviadas() {
     return this.http.get<Amizade[]>('/api/amizades/solicitacoes/enviadas');
   }

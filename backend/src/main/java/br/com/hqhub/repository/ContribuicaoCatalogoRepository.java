@@ -23,30 +23,70 @@ public class ContribuicaoCatalogoRepository implements PanacheRepository<Contrib
         return count("status", StatusContribuicaoCatalogo.PENDENTE);
     }
 
-    public long contarAlteracoesEstantePorUsuarios(List<Long> usuarioIds, LocalDateTime desde) {
+    public long contarAlteracoesEstantePorUsuarios(Long destinatarioId, List<Long> usuarioIds, LocalDateTime desde) {
         if (usuarioIds == null || usuarioIds.isEmpty()) {
             return 0;
         }
 
-        if (desde == null) {
-            return count("usuario.id in ?1 and fonteExterna = ?2", usuarioIds, "ALTERACAO_ESTANTE");
-        }
-
-        return count("usuario.id in ?1 and fonteExterna = ?2 and dataCriacao > ?3",
-                usuarioIds, "ALTERACAO_ESTANTE", desde);
+        String filtroDesde = desde == null ? "" : " AND c.data_criacao > :desde";
+        String sql = """
+                SELECT COUNT(*) FROM contribuicoes_catalogo c
+                WHERE c.usuario_id IN (:usuarioIds)
+                  AND c.fonte_externa = 'ALTERACAO_ESTANTE'
+                  AND NOT EXISTS (
+                    SELECT 1 FROM visualizacoes_alteracoes_estante v
+                    WHERE v.usuario_id = :destinatarioId AND v.contribuicao_id = c.id
+                  )
+                """ + filtroDesde;
+        var query = getEntityManager().createNativeQuery(sql)
+                .setParameter("usuarioIds", usuarioIds)
+                .setParameter("destinatarioId", destinatarioId);
+        if (desde != null) query.setParameter("desde", desde);
+        Number total = (Number) query.getSingleResult();
+        return total.longValue();
     }
 
-    public List<ContribuicaoCatalogo> listarAlteracoesEstantePorUsuarios(List<Long> usuarioIds, LocalDateTime desde) {
+    public List<ContribuicaoCatalogo> listarAlteracoesEstantePorUsuarios(
+            Long destinatarioId, List<Long> usuarioIds, LocalDateTime desde) {
         if (usuarioIds == null || usuarioIds.isEmpty()) {
             return List.of();
         }
 
-        if (desde == null) {
-            return list("usuario.id in ?1 and fonteExterna = ?2 order by dataCriacao desc",
-                    usuarioIds, "ALTERACAO_ESTANTE");
-        }
+        String filtroDesde = desde == null ? "" : " AND c.data_criacao > :desde";
+        String sql = """
+                SELECT c.* FROM contribuicoes_catalogo c
+                WHERE c.usuario_id IN (:usuarioIds)
+                  AND c.fonte_externa = 'ALTERACAO_ESTANTE'
+                  AND NOT EXISTS (
+                    SELECT 1 FROM visualizacoes_alteracoes_estante v
+                    WHERE v.usuario_id = :destinatarioId AND v.contribuicao_id = c.id
+                  )
+                """ + filtroDesde + " ORDER BY c.data_criacao DESC";
+        var query = getEntityManager().createNativeQuery(sql, ContribuicaoCatalogo.class)
+                .setParameter("usuarioIds", usuarioIds)
+                .setParameter("destinatarioId", destinatarioId);
+        if (desde != null) query.setParameter("desde", desde);
+        return query.getResultList();
+    }
 
-        return list("usuario.id in ?1 and fonteExterna = ?2 and dataCriacao > ?3 order by dataCriacao desc",
-                usuarioIds, "ALTERACAO_ESTANTE", desde);
+    public void marcarAlteracaoEstanteComoVisualizada(Long destinatarioId, Long contribuicaoId) {
+        String sql = """
+                INSERT INTO visualizacoes_alteracoes_estante (usuario_id, contribuicao_id, data_visualizacao)
+                SELECT :destinatarioId, c.id, CURRENT_TIMESTAMP
+                FROM contribuicoes_catalogo c
+                WHERE c.id = :contribuicaoId
+                  AND c.fonte_externa = 'ALTERACAO_ESTANTE'
+                  AND EXISTS (
+                    SELECT 1 FROM amizades a
+                    WHERE a.status = 'ACEITA'
+                      AND ((a.solicitante_id = :destinatarioId AND a.solicitado_id = c.usuario_id)
+                        OR (a.solicitado_id = :destinatarioId AND a.solicitante_id = c.usuario_id))
+                  )
+                ON CONFLICT (usuario_id, contribuicao_id) DO NOTHING
+                """;
+        getEntityManager().createNativeQuery(sql)
+                .setParameter("destinatarioId", destinatarioId)
+                .setParameter("contribuicaoId", contribuicaoId)
+                .executeUpdate();
     }
 }

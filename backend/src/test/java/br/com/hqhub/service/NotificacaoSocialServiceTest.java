@@ -89,18 +89,20 @@ class NotificacaoSocialServiceTest {
     }
 
     @Test
-    void removeSomenteNotificacoesVisualizadasHaMaisDeTrintaDias() {
+    void removeNotificacaoAssimQueForVisualizada() {
         NotificacaoSocialRepository notificacoes = mock(NotificacaoSocialRepository.class);
+        UsuarioAutenticadoService autenticacao = mock(UsuarioAutenticadoService.class);
+        when(autenticacao.obterUsuario()).thenReturn(usuario(7L, "Leitor"));
         NotificacaoSocialService service = new NotificacaoSocialService(
                 notificacoes,
-                mock(UsuarioAutenticadoService.class),
+                autenticacao,
                 mock(UsuarioMapper.class),
                 mock(UsuarioRepository.class),
                 mock(AmizadeRepository.class));
 
-        service.removerNotificacoesVisualizadasAntigas();
+        service.marcarComoLida(12L);
 
-        verify(notificacoes).removerLidasAntesDe(org.mockito.ArgumentMatchers.any());
+        verify(notificacoes).delete("id = ?1 and destinatario.id = ?2", 12L, 7L);
     }
 
     @Test

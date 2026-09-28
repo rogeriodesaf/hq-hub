@@ -73,6 +73,13 @@ public class ContribuicaoCatalogoResource {
     }
 
     @POST
+    @Path("/alteracoes-estante-amigos/{id}/visualizar")
+    public Response marcarAlteracaoEstanteComoVisualizada(@PathParam("id") Long id) {
+        contribuicaoCatalogoService.marcarAlteracaoEstanteComoVisualizada(id);
+        return Response.noContent().build();
+    }
+
+    @POST
     @Path("/{id}/aprovar")
     @RolesAllowed({ "COLABORADOR", "ADMINISTRADOR" })
     public Response aprovar(@PathParam("id") Long id, @Valid RevisaoContribuicaoCatalogoDTO dto) {

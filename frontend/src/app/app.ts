@@ -39,6 +39,7 @@ interface ItemNotificacao {
   parametros?: Record<string, number | string>;
   imagem?: string | null;
   socialId?: number;
+  alteracaoEstanteId?: number;
   lida: boolean;
 }
 
@@ -119,7 +120,7 @@ export class App implements OnInit {
       chave: `estante-${item.id}`, usuario: item.usuario,
       descricao: `atualizou ${item.edicao.serie?.titulo || 'uma HQ'} ${item.edicao.numero || ''}`.trim(),
       data: item.dataCriacao, destino: '/catalogo', parametros: { edicaoId: item.edicao.id },
-      imagem: item.edicao.urlCapa, lida: true,
+      imagem: item.edicao.urlCapa, alteracaoEstanteId: item.id, lida: false,
     })),
   ].sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()));
   readonly resolverUrlMidia = resolverUrlMidia;
@@ -246,8 +247,20 @@ export class App implements OnInit {
     if (item.socialId && !item.lida) {
       this.api.marcarNotificacaoSocialComoLida(item.socialId).subscribe({
         next: () => {
-          this.notificacoesSociais.update((itens) => itens.map((social) => social.id === item.socialId ? { ...social, lida: true } : social));
+          this.notificacoesSociais.update((itens) => itens.filter((social) => social.id !== item.socialId));
           this.carregarContagemNotificacoesSociais();
+          this.navegarNotificacao(item);
+        },
+        error: () => this.erroNotificacoes.set(true),
+      });
+      return;
+    }
+    if (item.alteracaoEstanteId) {
+      this.api.marcarAlteracaoEstanteComoVisualizada(item.alteracaoEstanteId).subscribe({
+        next: () => {
+          this.alteracoesEstanteRecentes.update((itens) =>
+            itens.filter((alteracao) => alteracao.id !== item.alteracaoEstanteId));
+          this.carregarAlteracoesEstanteAmigos();
           this.navegarNotificacao(item);
         },
         error: () => this.erroNotificacoes.set(true),
@@ -258,15 +271,26 @@ export class App implements OnInit {
   }
 
   marcarNotificacaoComoVisualizada(item: ItemNotificacao) {
-    if (!item.socialId || item.lida) return;
-    this.api.marcarNotificacaoSocialComoLida(item.socialId).subscribe({
-      next: () => {
-        this.notificacoesSociais.update((itens) => itens.map((social) =>
-          social.id === item.socialId ? { ...social, lida: true } : social));
-        this.carregarContagemNotificacoesSociais();
-      },
-      error: () => this.erroNotificacoes.set(true),
-    });
+    if (item.socialId && !item.lida) {
+      this.api.marcarNotificacaoSocialComoLida(item.socialId).subscribe({
+        next: () => {
+          this.notificacoesSociais.update((itens) => itens.filter((social) => social.id !== item.socialId));
+          this.carregarContagemNotificacoesSociais();
+        },
+        error: () => this.erroNotificacoes.set(true),
+      });
+      return;
+    }
+    if (item.alteracaoEstanteId) {
+      this.api.marcarAlteracaoEstanteComoVisualizada(item.alteracaoEstanteId).subscribe({
+        next: () => {
+          this.alteracoesEstanteRecentes.update((itens) =>
+            itens.filter((alteracao) => alteracao.id !== item.alteracaoEstanteId));
+          this.carregarAlteracoesEstanteAmigos();
+        },
+        error: () => this.erroNotificacoes.set(true),
+      });
+    }
   }
 
   private navegarNotificacao(item: ItemNotificacao) {
@@ -279,7 +303,7 @@ export class App implements OnInit {
     this.marcandoNotificacoes.set(true);
     this.api.marcarNotificacoesSociaisComoLidas().subscribe({
       next: () => {
-        this.notificacoesSociais.update((itens) => itens.map((item) => ({ ...item, lida: true })));
+        this.notificacoesSociais.set([]);
         this.notificacoesSociaisNaoLidas.set(0);
         this.marcandoNotificacoes.set(false);
       },
