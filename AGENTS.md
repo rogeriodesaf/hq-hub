@@ -8,3 +8,4 @@
 - Para uma coleção completa, confira visualmente o conjunto inteiro e valide que todas as URLs retornam imagem antes de criar a migração.
 - Prefira uma fonte única dedicada à coleção. Quando precisar misturar fontes, registre e valide cada exceção individualmente.
 - Corrija dados já publicados somente em uma nova migração; não altere migrações aplicadas.
+- Toda migração de capas de uma coleção completa deve deixar evidência auditável da identidade editorial e da correspondência número a número (fonte, quantidade esperada e URLs validadas). Uma lista apenas plausível não pode ser publicada.
