@@ -128,13 +128,19 @@ public class SerieService {
 
     public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(
             String busca, String inicial, int pagina, int tamanho, TipoSerie tipoSerie) {
+        return listarPaginado(busca, inicial, null, pagina, tamanho, tipoSerie);
+    }
+
+    public PaginaRespostaDTO<SerieRespostaDTO> listarPaginado(
+            String busca, String inicial, Long editoraId, int pagina, int tamanho, TipoSerie tipoSerie) {
         int paginaTratada = Math.max(pagina, 0);
         int tamanhoTratado = Math.min(Math.max(tamanho, 1), 100);
         TipoSerie tipoTratado = tipoSerie == null ? TipoSerie.BRASILEIRA : tipoSerie;
-        long totalItens = serieRepository.contarComBusca(busca, inicial, tipoTratado);
+        long totalItens = serieRepository.contarComBusca(busca, inicial, tipoTratado, editoraId);
         int totalPaginas = (int) Math.ceil((double) totalItens / tamanhoTratado);
 
-        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(busca, inicial, paginaTratada, tamanhoTratado, tipoTratado)
+        List<SerieRespostaDTO> itens = serieRepository.buscarPaginado(
+                        busca, inicial, paginaTratada, tamanhoTratado, tipoTratado, editoraId)
                 .stream()
                 .map(serieMapper::paraResposta)
                 .toList();

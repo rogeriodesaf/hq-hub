@@ -96,19 +96,33 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public List<Serie> buscarPaginado(String busca, String inicial, int pagina, int tamanho, TipoSerie tipoSerie) {
+        return buscarPaginado(busca, inicial, pagina, tamanho, tipoSerie, null);
+    }
+
+    public List<Serie> buscarPaginado(
+            String busca, String inicial, int pagina, int tamanho, TipoSerie tipoSerie, Long editoraId) {
         if (busca == null || busca.isBlank()) {
-            String filtroInicial = inicialValida(inicial) ? " and lower(titulo) like ?2" : "";
-            Object[] parametros = inicialValida(inicial)
-                    ? new Object[] { tipoSerie, inicial.toLowerCase(Locale.ROOT) + "%" }
-                    : new Object[] { tipoSerie };
-            return find("tipoSerie = ?1" + filtroInicial + " order by lower(titulo), volume, anoInicio, id", parametros)
+            boolean filtrarInicial = inicialValida(inicial);
+            StringBuilder filtro = new StringBuilder("tipoSerie = ?1");
+            List<Object> parametros = new ArrayList<>();
+            parametros.add(tipoSerie);
+            if (editoraId != null) {
+                filtro.append(" and editora.id = ?").append(parametros.size() + 1);
+                parametros.add(editoraId);
+            }
+            if (filtrarInicial) {
+                filtro.append(" and lower(titulo) like ?").append(parametros.size() + 1);
+                parametros.add(inicial.toLowerCase(Locale.ROOT) + "%");
+            }
+            return find(filtro + " order by lower(titulo), volume, anoInicio, id", parametros.toArray())
                     .page(Page.of(pagina, tamanho))
                     .list();
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
-        var query = entityManager.createNativeQuery(sqlBusca(inicial, consulta.termos(), false), Serie.class);
-        aplicarParametrosBusca(query, inicial, consulta, tipoSerie);
+        var query = entityManager.createNativeQuery(
+                sqlBusca(inicial, consulta.termos(), false, editoraId != null), Serie.class);
+        aplicarParametrosBusca(query, inicial, consulta, tipoSerie, editoraId);
         query.setFirstResult(pagina * tamanho);
         query.setMaxResults(tamanho);
         return query.getResultList();
@@ -123,34 +137,50 @@ public class SerieRepository implements PanacheRepository<Serie> {
     }
 
     public long contarComBusca(String busca, String inicial, TipoSerie tipoSerie) {
+        return contarComBusca(busca, inicial, tipoSerie, null);
+    }
+
+    public long contarComBusca(String busca, String inicial, TipoSerie tipoSerie, Long editoraId) {
         if (busca == null || busca.isBlank()) {
-            if (inicialValida(inicial)) {
-                return count("tipoSerie = ?1 and lower(titulo) like ?2", tipoSerie, inicial.toLowerCase(Locale.ROOT) + "%");
+            boolean filtrarInicial = inicialValida(inicial);
+            StringBuilder filtro = new StringBuilder("tipoSerie = ?1");
+            List<Object> parametros = new ArrayList<>();
+            parametros.add(tipoSerie);
+            if (editoraId != null) {
+                filtro.append(" and editora.id = ?").append(parametros.size() + 1);
+                parametros.add(editoraId);
             }
-            return count("tipoSerie", tipoSerie);
+            if (filtrarInicial) {
+                filtro.append(" and lower(titulo) like ?").append(parametros.size() + 1);
+                parametros.add(inicial.toLowerCase(Locale.ROOT) + "%");
+            }
+            return count(filtro.toString(), parametros.toArray());
         }
 
         ConsultaBusca consulta = montarConsultaBusca(busca);
-        var query = entityManager.createNativeQuery(sqlBusca(inicial, consulta.termos(), true));
-        aplicarParametrosBusca(query, inicial, consulta, tipoSerie);
+        var query = entityManager.createNativeQuery(
+                sqlBusca(inicial, consulta.termos(), true, editoraId != null));
+        aplicarParametrosBusca(query, inicial, consulta, tipoSerie, editoraId);
         Number total = (Number) query.getSingleResult();
         return total.longValue();
     }
 
-    private String sqlBusca(String inicial, List<String> termos, boolean contar) {
+    private String sqlBusca(String inicial, List<String> termos, boolean contar, boolean filtrarEditora) {
         String select = contar ? "select count(*)" : "select s.*";
         String ordem = contar ? "" : " order by lower(s.titulo), s.volume, s.ano_inicio, s.id";
         String busca = construirCondicaoBusca(termos);
+        String filtroEditora = filtrarEditora ? " and s.editora_id = :editoraId" : "";
 
         return """
                 %s
                  from series s
                   join editoras e on e.id = s.editora_id
                  where s.tipo_serie = :tipoSerie
+                   %s
                    and (:inicial = '' or lower(s.titulo) like :inicialLike)
                    and (%s)
                 %s
-                """.formatted(select, busca, ordem);
+                """.formatted(select, filtroEditora, busca, ordem);
     }
 
     private String construirCondicaoBusca(List<String> termos) {
@@ -172,8 +202,12 @@ public class SerieRepository implements PanacheRepository<Serie> {
         return String.join(" and ", grupos);
     }
 
-    private void aplicarParametrosBusca(jakarta.persistence.Query query, String inicial, ConsultaBusca consulta, TipoSerie tipoSerie) {
+    private void aplicarParametrosBusca(
+            jakarta.persistence.Query query, String inicial, ConsultaBusca consulta, TipoSerie tipoSerie, Long editoraId) {
         query.setParameter("tipoSerie", tipoSerie.name());
+        if (editoraId != null) {
+            query.setParameter("editoraId", editoraId);
+        }
         query.setParameter("inicial", inicialValida(inicial) ? inicial.toLowerCase(Locale.ROOT) : "");
         query.setParameter("inicialLike", inicialValida(inicial) ? inicial.toLowerCase(Locale.ROOT) + "%" : "");
         if (consulta.termos().isEmpty()) {

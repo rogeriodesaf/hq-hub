@@ -219,7 +219,14 @@ export class ApiService {
       .pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
 
-  listarSeries(busca = '', pagina = 0, tamanho = 12, inicial = '', tipo: 'BRASILEIRA' | 'ESTRANGEIRA' = 'BRASILEIRA') {
+  listarSeries(
+    busca = '',
+    pagina = 0,
+    tamanho = 12,
+    inicial = '',
+    tipo: 'BRASILEIRA' | 'ESTRANGEIRA' = 'BRASILEIRA',
+    editoraId?: number | null,
+  ) {
     let params = new HttpParams()
       .set('busca', busca)
       .set('pagina', pagina)
@@ -228,6 +235,10 @@ export class ApiService {
 
     if (inicial) {
       params = params.set('inicial', inicial);
+    }
+
+    if (editoraId) {
+      params = params.set('editoraId', editoraId);
     }
 
     return this.http.get<PaginaResposta<Serie>>('/api/series', { params });

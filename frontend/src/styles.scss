@@ -1475,6 +1475,78 @@ body.tema-escuro .sugestoes-assistente {
   margin-bottom: 14px;
 }
 
+.seletor-editora-catalogo {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 320px) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--marca) 28%, var(--borda));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--marca-suave) 55%, var(--superficie));
+}
+
+.seletor-editora-introducao {
+  display: grid;
+  gap: 3px;
+}
+
+.seletor-editora-introducao p {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 0.86rem;
+}
+
+.campo-editora-catalogo select {
+  min-height: 48px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.campo-editora-catalogo select:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.editora-selecionada-resumo {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--marca) 22%, var(--borda));
+  color: var(--texto-suave);
+  font-size: 0.86rem;
+}
+
+.editora-selecionada-resumo strong {
+  color: var(--texto);
+}
+
+.editora-selecionada-resumo button {
+  min-height: 36px;
+  border: 0;
+  padding: 4px 8px;
+  color: var(--marca-escura);
+  background: transparent;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.editora-selecionada-resumo button:hover,
+.editora-selecionada-resumo button:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.estado-carregando-series,
+.estado-erro-series {
+  min-height: 150px;
+}
+
 .campo-busca-catalogo {
   position: relative;
   display: flex;
@@ -5626,6 +5698,22 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
   .controles-series {
     gap: 9px;
     margin-bottom: 10px;
+  }
+
+  .seletor-editora-catalogo {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .campo-editora-catalogo,
+  .seletor-editora-catalogo > .botao {
+    width: 100%;
+  }
+
+  .editora-selecionada-resumo {
+    grid-column: 1;
+    align-items: flex-start;
   }
 
   .campo-busca-catalogo,

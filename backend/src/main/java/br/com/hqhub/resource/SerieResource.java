@@ -67,12 +67,14 @@ public class SerieResource {
     public Response listarTodos(
             @QueryParam("busca") String busca,
             @QueryParam("inicial") String inicial,
+            @QueryParam("editoraId") Long editoraId,
             @QueryParam("tipo") TipoSerie tipo,
             @QueryParam("pagina") Integer pagina,
             @QueryParam("tamanho") Integer tamanho) {
         PaginaRespostaDTO<SerieRespostaDTO> series = serieService.listarPaginado(
                 busca,
                 inicial,
+                editoraId,
                 pagina == null ? 0 : pagina,
                 tamanho == null ? 20 : tamanho,
                 tipo);

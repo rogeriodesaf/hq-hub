@@ -52,37 +52,73 @@ import {
     }
 
     <section class="catalogo-layout" [class.modo-edicoes-mobile]="!!serieSelecionada()">
-      <article class="bloco catalogo-bloco-series">
+      <article class="bloco catalogo-bloco-series" [attr.aria-busy]="carregandoSeries()">
         <div class="secao-titulo">
           <div>
-            <h2>Séries internas</h2>
-            <p class="texto-suave">Pesquise primeiro no acervo do Coleciona HQ. Se não encontrarmos, a busca poderá continuar na Comic Vine.</p>
+            <h2>{{ editoraSelecionada() ? 'Títulos de ' + editoraSelecionada()!.nome : 'Títulos do catálogo' }}</h2>
+            <p class="texto-suave">
+              {{ editoraSelecionada()
+                ? 'Todos os títulos cadastrados desta editora, organizados em ordem alfabética.'
+                : 'Escolha uma editora ou pesquise diretamente no acervo do Coleciona HQ.' }}
+            </p>
           </div>
           @if (seriesConsultadas()) {
-            <span>{{ series().totalItens === 1 ? '1 série' : series().totalItens + ' séries' }}</span>
+            <span aria-live="polite">{{ series().totalItens === 1 ? '1 título' : series().totalItens + ' títulos' }}</span>
           }
         </div>
 
         <div class="controles-series">
+          @if (autenticado()) {
+            <section class="seletor-editora-catalogo" aria-labelledby="rotulo-editora-catalogo">
+              <div class="seletor-editora-introducao">
+                <span class="rotulo" id="rotulo-editora-catalogo">Explorar por editora</span>
+                <p>Selecione uma editora para ver somente os títulos publicados por ela.</p>
+              </div>
+              <label class="campo-editora-catalogo">
+                <span class="sr-only">Selecionar editora</span>
+                <select
+                  [ngModel]="editoraSelecionadaId()"
+                  (ngModelChange)="selecionarEditora($event)"
+                  [disabled]="carregandoEditoras()"
+                  aria-describedby="ajuda-editora-catalogo"
+                >
+                  <option [ngValue]="null">{{ carregandoEditoras() ? 'Carregando editoras...' : erroEditoras() ? 'Editoras indisponíveis' : 'Todas as editoras' }}</option>
+                  @for (editora of editoras(); track editora.id) {
+                    <option [ngValue]="editora.id">{{ editora.nome }}</option>
+                  }
+                </select>
+              </label>
+              <span class="sr-only" id="ajuda-editora-catalogo">A lista de títulos será atualizada ao escolher uma editora.</span>
+              @if (erroEditoras()) {
+                <button class="botao secundario compacto" type="button" (click)="carregarEditoras()">Tentar novamente</button>
+              }
+              @if (editoraSelecionada(); as editoraAtual) {
+                <div class="editora-selecionada-resumo" aria-live="polite">
+                  <span>Exibindo todos os títulos de <strong>{{ editoraAtual.nome }}</strong></span>
+                  <button type="button" (click)="limparFiltroEditora()">Limpar filtro</button>
+                </div>
+              }
+            </section>
+          }
           <label class="campo-busca-catalogo">
-            <span class="sr-only">Pesquisar quadrinhos</span>
+            <span class="sr-only">Pesquisar títulos{{ editoraSelecionada() ? ' de ' + editoraSelecionada()!.nome : '' }}</span>
             <svg lucideSearch size="19" aria-hidden="true"></svg>
             <input
               [(ngModel)]="buscaSeries"
-              placeholder="Pesquise Batman, X-Men, Spawn..."
+              [placeholder]="editoraSelecionada() ? 'Buscar nos títulos desta editora...' : 'Pesquise Batman, X-Men, Spawn...'"
               (keyup.enter)="buscarCatalogoCompleto()"
             />
           </label>
-          <button class="botao primario compacto botao-busca-catalogo" type="button" (click)="buscarCatalogoCompleto()" aria-label="Buscar no catálogo">
+          <button class="botao primario compacto botao-busca-catalogo" type="button" (click)="buscarCatalogoCompleto()" [disabled]="carregandoSeries()" aria-label="Buscar no catálogo">
             <svg lucideSearch size="18" aria-hidden="true"></svg>
-            Buscar
+            {{ carregandoSeries() ? 'Buscando...' : 'Buscar' }}
           </button>
           <div class="filtro-alfabetico-catalogo">
             <span class="rotulo-indice">Filtrar por letra</span>
-            <div class="indice-alfabetico" aria-label="Filtro alfabético de séries">
-              <button type="button" [class.ativo]="inicialSeries() === '' && seriesConsultadas()" (click)="alterarInicialSeries('')" aria-label="Mostrar todas as letras">Todas</button>
+            <div class="indice-alfabetico" aria-label="Filtro alfabético de títulos">
+              <button type="button" [class.ativo]="inicialSeries() === '' && seriesConsultadas()" (click)="alterarInicialSeries('')" [disabled]="carregandoSeries()" aria-label="Mostrar todas as letras">Todas</button>
               @for (letra of letrasIndice; track letra) {
-                <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)" [attr.aria-label]="'Filtrar séries pela letra ' + letra">
+                <button type="button" [class.ativo]="inicialSeries() === letra" (click)="alterarInicialSeries(letra)" [disabled]="carregandoSeries()" [attr.aria-label]="'Filtrar séries pela letra ' + letra">
                   {{ letra }}
                 </button>
               }
@@ -90,7 +126,18 @@ import {
           </div>
         </div>
 
-        @if (seriesConsultadas()) {
+        @if (carregandoSeries()) {
+          <section class="estado-carregando estado-carregando-series" aria-live="polite">
+            <span></span>
+            <p>Carregando títulos{{ editoraSelecionada() ? ' de ' + editoraSelecionada()!.nome : '' }}...</p>
+          </section>
+        } @else if (erroSeries()) {
+          <section class="estado-vazio compacto estado-erro-series" role="alert">
+            <h2>Não foi possível carregar os títulos</h2>
+            <p>Verifique sua conexão e tente novamente.</p>
+            <button class="botao secundario compacto" type="button" (click)="recarregarSeries()">Tentar novamente</button>
+          </section>
+        } @else if (seriesConsultadas()) {
         <div class="lista-linhas">
           @for (serie of series().itens; track serie.id) {
             <div class="linha-serie">
@@ -120,8 +167,11 @@ import {
             </div>
           } @empty {
             <section class="estado-vazio compacto">
-              <h2>Nenhuma série interna cadastrada</h2>
-              <p>Esta área mostra apenas os títulos já salvos no banco do Coleciona HQ.</p>
+              <h2>{{ editoraSelecionada() ? 'Nenhum título encontrado nesta editora' : 'Nenhum título interno cadastrado' }}</h2>
+              <p>{{ buscaSeries ? 'Tente outro termo ou remova os filtros aplicados.' : 'Esta área mostra apenas os títulos já salvos no Coleciona HQ.' }}</p>
+              @if (editoraSelecionada()) {
+                <button class="botao secundario compacto" type="button" (click)="limparFiltroEditora()">Ver todas as editoras</button>
+              }
             </section>
           }
         </div>
@@ -157,7 +207,7 @@ import {
 
         @if (seriesConsultadas() && series().totalPaginas > 1) {
           <div class="paginacao catalogo-paginacao">
-            <button class="botao secundario compacto" type="button" (click)="paginaAnteriorSeries()" [disabled]="series().pagina === 0">
+            <button class="botao secundario compacto" type="button" (click)="paginaAnteriorSeries()" [disabled]="carregandoSeries() || series().pagina === 0">
               Anterior
             </button>
             <span>Página {{ series().pagina + 1 }} de {{ series().totalPaginas }}</span>
@@ -165,7 +215,7 @@ import {
               class="botao secundario compacto"
               type="button"
               (click)="proximaPaginaSeries()"
-              [disabled]="series().pagina + 1 >= series().totalPaginas"
+              [disabled]="carregandoSeries() || series().pagina + 1 >= series().totalPaginas"
             >
               Próxima
             </button>
@@ -1232,7 +1282,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly autenticado = this.autenticacao.autenticado;
   readonly modoAdicao = signal(false);
   readonly editoras = signal<EditoraResumo[]>([]);
-  readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 12, totalItens: 0, totalPaginas: 0 });
+  readonly carregandoEditoras = signal(false);
+  readonly erroEditoras = signal(false);
+  readonly editoraSelecionadaId = signal<number | null>(null);
+  readonly editoraSelecionada = computed(() =>
+    this.editoras().find((editora) => editora.id === this.editoraSelecionadaId()) || null,
+  );
+  readonly series = signal<PaginaResposta<Serie>>({ itens: [], pagina: 0, tamanho: 24, totalItens: 0, totalPaginas: 0 });
   readonly resultadosCatalogo = signal<PaginaResposta<ResultadoPesquisaCatalogo>>({
     itens: [],
     pagina: 0,
@@ -1266,6 +1322,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly detalheComicVineInterno = signal<EdicaoComicVine | null>(null);
   readonly capasComicVineOriginais = signal<Record<number, string>>({});
   readonly carregandoResultados = signal(false);
+  readonly carregandoSeries = signal(false);
+  readonly erroSeries = signal(false);
   readonly carregandoDetalhe = signal(false);
   readonly editandoDetalhe = signal(false);
   readonly salvandoDetalhe = signal(false);
@@ -1306,7 +1364,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly paginaResultados = signal(0);
   readonly inicialSeries = signal('');
   readonly tamanhoResultados = 20;
-  readonly tamanhoSeries = 12;
+  readonly tamanhoSeries = 24;
   readonly editandoSerie = signal(false);
   readonly serieEmEdicao = signal<Serie | null>(null);
   busca = '';
@@ -1322,6 +1380,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
   private sequenciaBuscaResultados = 0;
+  private sequenciaBuscaSeries = 0;
   private posicaoRolagemAntesDaSerie = 0;
   private serieAbertaId: number | null = null;
   private historicoSerieAtivo = false;
@@ -1369,7 +1428,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
 
     if (this.autenticado()) {
-      this.carregarEditoras();
+      const editoraIdInicial = Number(this.rota.snapshot.queryParamMap.get('editoraId'));
+      this.carregarEditoras(Number.isFinite(editoraIdInicial) && editoraIdInicial > 0 ? editoraIdInicial : null);
     }
     const serieId = Number(this.rota.snapshot.queryParamMap.get('serieId'));
     if (Number.isFinite(serieId) && serieId > 0) {
@@ -1664,6 +1724,12 @@ export class CatalogoPage implements OnInit, OnDestroy {
   buscarCatalogoCompleto() {
     const termo = this.buscaSeries.trim();
     this.buscarSeriesInternas();
+    if (this.editoraSelecionada()) {
+      this.busca = '';
+      this.resultadosConsultados.set(false);
+      this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
+      return;
+    }
     if (!termo) {
       return;
     }
@@ -1823,6 +1889,44 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   chaveResultado(resultado: ResultadoPesquisaCatalogo) {
     return `${resultado.fonte}-${resultado.id || resultado.idExterno || resultado.numero}`;
+  }
+
+  selecionarEditora(valor: number | string | null, atualizarUrl = true) {
+    const id = valor === null || valor === '' ? null : Number(valor);
+    const editoraId = id !== null && Number.isFinite(id) ? id : null;
+    if (this.editoraSelecionadaId() === editoraId && this.seriesConsultadas()) {
+      return;
+    }
+
+    this.editoraSelecionadaId.set(editoraId);
+    this.buscaSeries = '';
+    this.busca = '';
+    this.inicialSeries.set('');
+    this.serieSelecionada.set(null);
+    this.serieAbertaId = null;
+    this.historicoSerieAtivo = false;
+    this.estadoResultadosAntesDaSerie = null;
+    this.mostrarVoltarColecoesFlutuante.set(false);
+    this.resultadosConsultados.set(false);
+    this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
+    this.carregarSeriesInternas(0);
+
+    if (atualizarUrl) {
+      void this.router.navigate([], {
+        relativeTo: this.rota,
+        queryParams: { editoraId },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    }
+  }
+
+  limparFiltroEditora() {
+    this.selecionarEditora(null);
+  }
+
+  recarregarSeries() {
+    this.carregarSeriesInternas(this.series().pagina);
   }
 
   compartilharResultado(resultado: ResultadoPesquisaCatalogo, evento: Event) {
@@ -3427,14 +3531,28 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   private carregarSeriesInternas(pagina = this.series().pagina) {
-    this.api.listarSeries(this.buscaSeries, pagina, this.tamanhoSeries, this.inicialSeries()).subscribe({
+    const sequencia = ++this.sequenciaBuscaSeries;
+    this.carregandoSeries.set(true);
+    this.erroSeries.set(false);
+    this.api.listarSeries(
+      this.buscaSeries,
+      pagina,
+      this.tamanhoSeries,
+      this.inicialSeries(),
+      'BRASILEIRA',
+      this.editoraSelecionadaId(),
+    ).subscribe({
       next: (resposta) => {
+        if (sequencia !== this.sequenciaBuscaSeries) return;
         this.series.set(resposta);
         this.seriesConsultadas.set(true);
+        this.carregandoSeries.set(false);
       },
       error: () => {
+        if (sequencia !== this.sequenciaBuscaSeries) return;
         this.seriesConsultadas.set(true);
-        this.mensagem.set('Não foi possível carregar as séries internas agora.');
+        this.carregandoSeries.set(false);
+        this.erroSeries.set(true);
       },
     });
   }
@@ -3447,14 +3565,28 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.series.set({ itens: [], pagina: 0, tamanho: this.tamanhoSeries, totalItens: 0, totalPaginas: 0 });
   }
 
-  private carregarEditoras() {
+  carregarEditoras(editoraIdInicial: number | null = null) {
     if (this.editoras().length) {
+      if (editoraIdInicial && this.editoras().some((editora) => editora.id === editoraIdInicial)) {
+        this.selecionarEditora(editoraIdInicial, false);
+      }
       return;
     }
 
+    this.carregandoEditoras.set(true);
+    this.erroEditoras.set(false);
     this.api.listarEditoras().subscribe({
-      next: (editoras) => this.editoras.set(editoras),
-      error: () => undefined,
+      next: (editoras) => {
+        this.editoras.set([...editoras].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')));
+        this.carregandoEditoras.set(false);
+        if (editoraIdInicial && editoras.some((editora) => editora.id === editoraIdInicial)) {
+          this.selecionarEditora(editoraIdInicial, false);
+        }
+      },
+      error: () => {
+        this.carregandoEditoras.set(false);
+        this.erroEditoras.set(true);
+      },
     });
   }
 

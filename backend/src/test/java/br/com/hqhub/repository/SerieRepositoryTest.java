@@ -15,10 +15,33 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.TipoSerie;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 class SerieRepositoryTest {
+
+    @Test
+    void filtraBuscaPaginadaPelaEditoraSelecionada() {
+        EntityManager entityManager = mock(EntityManager.class);
+        Query query = mock(Query.class);
+        Serie serie = new Serie();
+        ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
+
+        when(entityManager.createNativeQuery(anyString(), eq(Serie.class))).thenReturn(query);
+        when(query.setParameter(anyString(), org.mockito.ArgumentMatchers.any())).thenReturn(query);
+        when(query.getResultList()).thenReturn(List.of(serie));
+
+        SerieRepository repository = new SerieRepository(entityManager);
+        List<Serie> resultado = repository.buscarPaginado(
+                "Batman", "B", 0, 24, TipoSerie.BRASILEIRA, 7L);
+
+        assertEquals(List.of(serie), resultado);
+        verify(entityManager).createNativeQuery(sql.capture(), eq(Serie.class));
+        assertTrue(sql.getValue().contains("s.editora_id = :editoraId"));
+        verify(query).setParameter("editoraId", 7L);
+        verify(query).setParameter("tipoSerie", "BRASILEIRA");
+    }
 
     @Test
     void buscaSeriePelaMesmaIdentidadeDoGatilhoDeDuplicidade() {
