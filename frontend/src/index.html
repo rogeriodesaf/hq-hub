@@ -41,6 +41,14 @@
   </script>
 </head>
 <body>
+  <script>
+    (() => {
+      const slug = new URLSearchParams(window.location.search).get('guia');
+      if (window.location.pathname === '/' && slug && /^[a-z0-9-]+$/.test(slug)) {
+        window.history.replaceState(null, '', `/guia-de-leitura-app/${encodeURIComponent(slug)}`);
+      }
+    })();
+  </script>
   <app-root></app-root>
   <noscript>Ative o JavaScript para usar o Coleciona HQ.</noscript>
 </body>

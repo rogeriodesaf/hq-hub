@@ -138,7 +138,7 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("og:image:height\" content=\"630"));
             assertTrue(html.contains("/api/compartilhar/guias/xmen?v=4"));
             assertTrue(html.contains("og:image:alt\" content=\"Logotipo dos X-Men"));
-            assertTrue(html.contains("https://hqhub.example/guia-de-leitura-app/ordem-de-leitura-mutante"));
+            assertTrue(html.contains("https://hqhub.example/?guia=ordem-de-leitura-mutante"));
         }
     }
 
@@ -159,7 +159,7 @@ class CompartilhamentoResourceTest {
         try (Response resposta = recurso.compartilharGuiaXMen()) {
             String html = resposta.getEntity().toString();
 
-            assertTrue(html.contains("https://hqhub.space/guia-de-leitura-app/ordem-de-leitura-mutante"));
+            assertTrue(html.contains("https://hqhub.space/?guia=ordem-de-leitura-mutante"));
             assertFalse(html.contains("https://hqhub-frontend.onrender.com"));
         }
     }

@@ -405,7 +405,7 @@ public class CompartilhamentoResource {
     @Path("/guias/xmen")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaXMen() {
-        String destino = baseNormalizada() + "/guia-de-leitura-app/ordem-de-leitura-mutante";
+        String destino = baseNormalizada() + "/?guia=ordem-de-leitura-mutante";
         String imagem = urlAbsoluta(IMAGEM_GUIA_XMEN);
         String html = """
                 <!doctype html>
@@ -449,7 +449,7 @@ public class CompartilhamentoResource {
     @Path("/guias/tex-ordem-publicacao-brasileira")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaTex() {
-        String destino = baseNormalizada() + "/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
+        String destino = baseNormalizada() + "/?guia=tex-ordem-publicacao-brasileira";
         String imagem = origemApiNormalizada()
                 + "/api/compartilhar/guias/tex-ordem-publicacao-brasileira/imagem.jpg?v=3";
         String html = """
@@ -517,7 +517,7 @@ public class CompartilhamentoResource {
 
     private String htmlGuia(OrdemLeitura guia) {
         String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
-        String destino = urlBase + "/guia-de-leitura-app/" + slug;
+        String destino = baseNormalizada() + "/?guia=" + slug;
         String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=4";
         boolean guiaBatman = "batman-ordem-cronologica".equalsIgnoreCase(guia.getSlug());
         String imagem = guiaBatman
