@@ -64,7 +64,7 @@ import jakarta.ws.rs.core.Context;
 public class CompartilhamentoResource {
 
     private static final String IMAGEM_PADRAO = "/assets/coleciona-hq-compartilhamento.png?v=2";
-    private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.webp";
+    private static final String IMAGEM_GUIA_XMEN = "/assets/guia-xmen-compartilhamento.png?v=2";
     private static final String URL_FRONTEND_ATUAL = "https://hqhub.space";
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
@@ -406,8 +406,7 @@ public class CompartilhamentoResource {
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaXMen() {
         String destino = baseNormalizada() + "/guia-de-leitura-app/ordem-de-leitura-mutante";
-        String imagem = origemApiNormalizada()
-                + "/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4";
+        String imagem = urlAbsoluta(IMAGEM_GUIA_XMEN);
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -423,9 +422,9 @@ public class CompartilhamentoResource {
                   <meta property="og:url" content="https://hqhub-backend.onrender.com/api/compartilhar/guias/xmen?v=4">
                   <meta property="og:image" content="%s">
                   <meta property="og:image:secure_url" content="%s">
-                  <meta property="og:image:type" content="image/jpeg">
+                  <meta property="og:image:type" content="image/png">
                   <meta property="og:image:width" content="1200">
-                  <meta property="og:image:height" content="1600">
+                  <meta property="og:image:height" content="630">
                   <meta property="og:image:alt" content="Logotipo dos X-Men">
                   <meta name="twitter:card" content="summary_large_image">
                   <meta name="twitter:title" content="Ordem de Leitura Mutante">
@@ -443,7 +442,7 @@ public class CompartilhamentoResource {
     @Path("/guias/ordem-de-leitura-mutante/imagem.jpg")
     @Produces("image/jpeg")
     public Response imagemGuiaXMen() {
-        return responderImagemUrl(urlAbsoluta(IMAGEM_GUIA_XMEN));
+        return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_GUIA_XMEN))).build();
     }
 
     @GET

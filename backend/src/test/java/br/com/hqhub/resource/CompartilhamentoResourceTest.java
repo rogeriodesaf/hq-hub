@@ -133,10 +133,22 @@ class CompartilhamentoResourceTest {
             String html = resposta.getEntity().toString();
 
             assertEquals(200, resposta.getStatus());
-            assertTrue(html.contains("/api/compartilhar/guias/ordem-de-leitura-mutante/imagem.jpg?v=4"));
+            assertTrue(html.contains("https://hqhub.example/assets/guia-xmen-compartilhamento.png?v=2"));
+            assertTrue(html.contains("og:image:type\" content=\"image/png"));
+            assertTrue(html.contains("og:image:height\" content=\"630"));
             assertTrue(html.contains("/api/compartilhar/guias/xmen?v=4"));
             assertTrue(html.contains("og:image:alt\" content=\"Logotipo dos X-Men"));
             assertTrue(html.contains("https://hqhub.example/guia-de-leitura-app/ordem-de-leitura-mutante"));
+        }
+    }
+
+    @Test
+    void redirecionaImagemDoGuiaMutanteSemProxyCircular() {
+        try (Response resposta = recurso.imagemGuiaXMen()) {
+            assertEquals(307, resposta.getStatus());
+            assertEquals(
+                    "https://hqhub.example/assets/guia-xmen-compartilhamento.png?v=2",
+                    resposta.getLocation().toString());
         }
     }
 
