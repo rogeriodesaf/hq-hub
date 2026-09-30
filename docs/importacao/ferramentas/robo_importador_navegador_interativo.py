@@ -18,6 +18,7 @@ import socket
 import subprocess
 import tempfile
 import time
+import unicodedata
 import uuid
 from datetime import datetime
 from html import unescape
@@ -280,6 +281,53 @@ def capa_hqhub_utilizavel(url):
     return bool(valor) and "guiadosquadrinhos.com" not in valor and "coversoon" not in valor
 
 
+def normalizar_identidade(valor, remover_editora=False):
+    """Normaliza a identidade editorial sem aceitar coincidencias parciais."""
+    texto = unicodedata.normalize("NFKD", str(valor or ""))
+    texto = "".join(caractere for caractere in texto if not unicodedata.combining(caractere))
+    texto = re.sub(r"[^a-z0-9]+", " ", texto.lower()).strip()
+    if texto.endswith(" a"):
+        # O Guia usa frequentemente "Saga de Tex Willer, A" no cabecalho.
+        texto = "a " + texto[:-2].strip()
+    if remover_editora:
+        texto = re.sub(r"\beditora\b", " ", texto)
+        texto = re.sub(r"\s+", " ", texto).strip()
+    return texto
+
+
+def validar_identidade_pagina(importador, texto_pagina, url, url_inicial, titulo, editora):
+    codigo_esperado = importador.extrair_codigo_colecao(url_inicial)
+    codigo_encontrado = importador.extrair_codigo_colecao(url)
+    if codigo_esperado and codigo_encontrado != codigo_esperado:
+        return False, f"colecao {codigo_encontrado or 'nao identificada'} difere de {codigo_esperado}"
+
+    numero_esperado = importador.extrair_numero_url_edicao(url)
+    blocos = importador.separar_blocos_edicoes(texto_pagina.splitlines(), titulo)
+    candidatos = [importador.extrair_edicao(bloco, titulo, editora) for bloco in blocos]
+    if numero_esperado is not None:
+        candidatos = [
+            candidato for candidato in candidatos
+            if re.match(r"\d+", str(candidato.get("numero") or ""))
+            and int(re.match(r"\d+", str(candidato["numero"])).group()) == numero_esperado
+        ]
+    if not candidatos:
+        return False, f"edicao nº {numero_esperado or '?'} nao identificada na pagina"
+
+    titulo_esperado = normalizar_identidade(titulo)
+    editora_esperada = normalizar_identidade(editora, remover_editora=True)
+    for candidato in candidatos:
+        titulo_encontrado = normalizar_identidade(candidato.get("_tituloSerieDetectado"))
+        editora_encontrada = normalizar_identidade(candidato.get("editora"), remover_editora=True)
+        if titulo_encontrado == titulo_esperado and editora_encontrada == editora_esperada:
+            return True, None
+
+    identidades = ", ".join(
+        f"{candidato.get('_tituloSerieDetectado')} / {candidato.get('editora')}"
+        for candidato in candidatos
+    )
+    return False, f"identidade encontrada ({identidades}) difere de {titulo} / {editora}"
+
+
 def enviar_capa_hqhub(conteudo, tipo_mime, extensao, edicao_id, config):
     corpo, limite = montar_multipart(
         {},
@@ -444,6 +492,8 @@ def coletar_paginas(
     recarregar_a_cada,
     pausa_minutos_minima,
     pausa_minutos_maxima,
+    titulo_serie,
+    editora,
 ):
     abrir_edicao(pagina, url_inicial, timeout_verificacao)
     html_inicial, urls = esperar_galeria_carregada(
@@ -489,6 +539,12 @@ def coletar_paginas(
                     forcar_recarga=inicio_novo_lote,
                 )
             texto_pagina = importador.html_para_texto(html)
+            identidade_valida, motivo = validar_identidade_pagina(
+                importador, texto_pagina, url, url_inicial, titulo_serie, editora
+            )
+            if not identidade_valida:
+                avisos.append(f"Pagina rejeitada antes de importar capa: {url} ({motivo}).")
+                continue
             url_armazenada = None
             numero_edicao = importador.extrair_numero_url_edicao(url)
             edicao_hqhub = hqhub["edicoes"].get(str(numero_edicao)) if hqhub else None
@@ -759,6 +815,8 @@ def main():
                 args.recarregar_a_cada,
                 args.pausa_minutos_minima,
                 args.pausa_minutos_maxima,
+                args.titulo_serie,
+                args.editora,
             )
             resultado = montar_resultado(
                 importador,
