@@ -69,6 +69,9 @@ public class CompartilhamentoResource {
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
+    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "3";
+    private static final String USER_AGENT_IMAGEM = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
             "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
             Pattern.CASE_INSENSITIVE);
@@ -338,8 +341,10 @@ public class CompartilhamentoResource {
                 : limitarTexto(edicao.descricaoExibicao(), 150);
         String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
         String destino = baseNormalizada() + "/edicoes/" + id;
-        String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "?v=2";
-        String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id + "/imagem.jpg?v=2";
+        String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id
+                + "?v=" + VERSAO_COMPARTILHAMENTO_EDICAO;
+        String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id
+                + "/imagem.jpg?v=" + VERSAO_COMPARTILHAMENTO_EDICAO;
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -926,7 +931,9 @@ public class CompartilhamentoResource {
         try {
             HttpRequest request = HttpRequest.newBuilder(URI.create(urlImagem))
                     .timeout(Duration.ofSeconds(12))
-                    .header("User-Agent", "Coleciona HQ/1.0 image-preview")
+                    .header("User-Agent", USER_AGENT_IMAGEM)
+                    .header("Accept", "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8")
+                    .header("Accept-Language", "pt-BR,pt;q=0.9,en;q=0.8")
                     .GET()
                     .build();
             HttpResponse<byte[]> resposta = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());

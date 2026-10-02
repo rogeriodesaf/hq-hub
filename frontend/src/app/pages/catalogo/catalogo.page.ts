@@ -1961,7 +1961,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private async compartilharEdicao(edicaoId: number, titulo: string, paraApoiar = false) {
     if (this.compartilhandoEdicao()) return;
     this.compartilhandoEdicao.set(true);
-    const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=2`;
+    const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=3`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | Coleciona HQ`,
