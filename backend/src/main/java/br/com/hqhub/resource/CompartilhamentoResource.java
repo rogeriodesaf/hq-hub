@@ -153,6 +153,17 @@ public class CompartilhamentoResource {
     }
 
     @GET
+    @Path("/catalogo/comicvine/publicacoes-brasileiras")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarPublicacoesComicVine(
+            @QueryParam("idEdicao") String idEdicao,
+            @QueryParam("idVolume") String idVolume,
+            @QueryParam("numero") String numero) {
+        var resultado = historiaService.listarPublicacoesComicVine(idEdicao, idVolume, numero);
+        return resultado == null ? Response.noContent().build() : Response.ok(resultado).build();
+    }
+
+    @GET
     @Path("/catalogo/edicoes/{id}/publicacoes-brasileiras")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listarPublicacoesBrasileiras(@PathParam("id") Long id) {

@@ -300,9 +300,9 @@ public class HistoriaService {
 
     @Transactional
     public List<PublicacaoHistoriaRespostaDTO> listarPublicacoesPorEdicaoOriginal(Long edicaoOriginalId) {
-        buscarEdicaoPorId(edicaoOriginalId);
-        return publicacaoHistoriaRepository.listarPorEdicaoOriginal(edicaoOriginalId)
-                .stream()
+        Edicao original = edicaoRepository.resolverOriginalComVinculos(buscarEdicaoPorId(edicaoOriginalId));
+        return edicaoRepository.listarIdsOriginaisCorrespondentes(original).stream()
+                .flatMap(id -> publicacaoHistoriaRepository.listarPorEdicaoOriginal(id).stream())
                 .map(publicacaoHistoriaMapper::paraResposta)
                 .toList();
     }
@@ -317,14 +317,22 @@ public class HistoriaService {
         return listarPublicacoesBrasileiras(edicaoOriginalId, null);
     }
 
+    @Transactional
+    public PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesComicVine(
+            String idEdicao, String idVolume, String numero) {
+        return edicaoRepository.buscarCorrespondenteComicVine(idEdicao, idVolume, numero)
+                .map(edicao -> listarPublicacoesBrasileiras(edicao.getId(), null))
+                .orElse(null);
+    }
+
     private PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileiras(
             Long edicaoOriginalId,
             Long usuarioId) {
-        Edicao original = buscarEdicaoPorId(edicaoOriginalId);
+        Edicao original = edicaoRepository.resolverOriginalComVinculos(buscarEdicaoPorId(edicaoOriginalId));
         List<PublicacaoHistoria> vinculos = publicacaoHistoriaRepository
-                .listarPublicacoesBrasileirasComDados(edicaoOriginalId);
+                .listarPublicacoesBrasileirasComDados(edicaoRepository.listarIdsOriginaisCorrespondentes(original));
         List<ConteudoEdicao> conteudosOriginais = conteudoEdicaoRepository
-                .listarPorEdicaoComHistoria(edicaoOriginalId);
+                .listarPorEdicaoComHistoria(original.getId());
 
         Map<Long, List<PublicacaoHistoria>> porEdicao = vinculos.stream()
                 .collect(Collectors.groupingBy(
@@ -371,6 +379,10 @@ public class HistoriaService {
             Boolean completa = permiteCalcularCompletude
                     ? presentes.containsAll(idsHistoriasOriginais)
                     : null;
+            if (Boolean.TRUE.equals(completa)
+                    && grupo.stream().anyMatch(p -> p.getStatus() != StatusPublicacaoHistoria.COMPLETA)) {
+                completa = null; // Presença de histórias não comprova ausência de cortes/adaptações.
+            }
             publicacoes.add(new PublicacaoBrasileiraResumoDTO(
                     publicada.getId(), tituloDaEdicao(publicada), publicada.getNumero(),
                     publicada.getSerie().getVolume(), publicada.getSerie().getEditora().getNome(),

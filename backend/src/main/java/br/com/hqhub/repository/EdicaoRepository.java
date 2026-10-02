@@ -109,8 +109,83 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
             return Optional.empty();
         }
 
+        if ("COMICVINE".equals(fonteExterna)) {
+            return buscarCorrespondenteComicVine(idExterno, null, null);
+        }
         return find("fonteExterna = ?1 and idExterno = ?2", fonteExterna, idExterno)
                 .firstResultOptional();
+    }
+
+    public Optional<Edicao> buscarCorrespondenteComicVine(String idEdicao, String idVolume, String numero) {
+        if (idEdicao == null && (idVolume == null || numero == null)) return Optional.empty();
+        // Fallback apenas para identidades editoriais previamente verificadas na migração.
+        // O ano da publicação da edição não é o ano de início da coleção.
+        return entityManager.createNativeQuery("""
+                select e.* from edicoes e join series s on s.id = e.serie_id
+                where e.id_comic_vine in (:idEdicao, :idCanonico)
+                   or (e.fonte_externa = 'COMICVINE' and e.id_externo in (:idEdicao, :idCanonico))
+                   or (hqhub_normalizar_identidade(e.numero) = hqhub_normalizar_identidade(:numero)
+                       and exists (
+                           select 1 from correspondencias_series_externas c
+                           join editoras editora on editora.id = s.editora_id
+                           where c.fonte_externa = 'COMICVINE' and c.id_volume = :idVolume
+                             and s.tipo_serie = 'ESTRANGEIRA'
+                             and hqhub_normalizar_titulo_serie(s.titulo) = hqhub_normalizar_titulo_serie(c.titulo_catalogo)
+                             and hqhub_normalizar_titulo_serie(editora.nome) = hqhub_normalizar_titulo_serie(c.editora)
+                             and s.ano_inicio = c.ano_inicio))
+                order by (select count(*) from publicacoes_historias p
+                          where p.edicao_original_id = e.id) desc, e.id
+                """, Edicao.class)
+                .setParameter("idEdicao", idEdicao == null ? "" : idEdicao.replaceFirst("^4000-", ""))
+                .setParameter("idCanonico", idEdicao == null ? "" : "4000-" + idEdicao.replaceFirst("^4000-", ""))
+                .setParameter("idVolume", idVolume == null ? "" : idVolume.replaceFirst("^4050-", ""))
+                .setParameter("numero", numero == null ? "" : numero)
+                .setMaxResults(1).getResultStream().map(Edicao.class::cast).findFirst();
+    }
+
+    public Edicao resolverOriginalComVinculos(Edicao original) {
+        var serie = original.getSerie();
+        if (serie.getTipoSerie() != TipoSerie.ESTRANGEIRA) return original;
+        List<?> volumes = entityManager.createNativeQuery("""
+                select id_volume from correspondencias_series_externas
+                 where fonte_externa = 'COMICVINE'
+                   and hqhub_normalizar_titulo_serie(titulo_catalogo) = hqhub_normalizar_titulo_serie(:titulo)
+                   and hqhub_normalizar_titulo_serie(editora) = hqhub_normalizar_titulo_serie(:editora)
+                   and ano_inicio = :ano
+                """)
+                .setParameter("titulo", serie.getTitulo())
+                .setParameter("editora", serie.getEditora().getNome())
+                .setParameter("ano", serie.getAnoInicio() == null ? -1 : serie.getAnoInicio())
+                .getResultList();
+        return volumes.stream().map(Object::toString).findFirst()
+                .flatMap(id -> buscarCorrespondenteComicVine(null, id, original.getNumero())).orElse(original);
+    }
+
+    public List<Long> listarIdsOriginaisCorrespondentes(Edicao original) {
+        var serie = original.getSerie();
+        if (serie.getTipoSerie() != TipoSerie.ESTRANGEIRA) return List.of(original.getId());
+        var ids = entityManager.createNativeQuery("""
+                select distinct e.id from edicoes e join series s on s.id = e.serie_id
+                join editoras editora on editora.id = s.editora_id
+                join correspondencias_series_externas c
+                  on c.fonte_externa = 'COMICVINE'
+                 and hqhub_normalizar_titulo_serie(c.titulo_catalogo) = hqhub_normalizar_titulo_serie(s.titulo)
+                 and hqhub_normalizar_titulo_serie(c.editora) = hqhub_normalizar_titulo_serie(editora.nome)
+                 and c.ano_inicio = s.ano_inicio
+                where s.tipo_serie = 'ESTRANGEIRA'
+                  and hqhub_normalizar_identidade(e.numero) = hqhub_normalizar_identidade(:numero)
+                  and c.id_volume in (
+                      select id_volume from correspondencias_series_externas
+                       where fonte_externa = 'COMICVINE'
+                         and hqhub_normalizar_titulo_serie(titulo_catalogo) = hqhub_normalizar_titulo_serie(:titulo)
+                         and hqhub_normalizar_titulo_serie(editora) = hqhub_normalizar_titulo_serie(:editora)
+                         and ano_inicio = :ano)
+                """)
+                .setParameter("numero", original.getNumero()).setParameter("titulo", serie.getTitulo())
+                .setParameter("editora", serie.getEditora().getNome())
+                .setParameter("ano", serie.getAnoInicio() == null ? -1 : serie.getAnoInicio())
+                .getResultStream().map(id -> ((Number) id).longValue()).toList();
+        return ids.isEmpty() ? List.of(original.getId()) : ids;
     }
 
     public List<Edicao> listarCandidatasCapaComicVine(

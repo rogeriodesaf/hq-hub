@@ -449,15 +449,15 @@ import {
           } @else if (erroPublicacoesBrasil()) {
             <section class="publicacoes-brasil-estado" role="alert"><p>Não foi possível carregar as outras publicações agora.</p><button class="botao secundario compacto" type="button" (click)="tentarNovamentePublicacoesBrasil()">Tentar novamente</button></section>
           } @else if (publicacoesBrasil(); as resultado) {
-            <p class="resumo-publicacoes-brasil">Esta edição/história foi publicada no Brasil em {{ resultado.totalPublicacoes }} {{ resultado.totalPublicacoes === 1 ? 'edição' : 'edições' }}.</p>
+            <p class="resumo-publicacoes-brasil">Identificamos material desta edição original em {{ resultado.totalPublicacoes }} {{ resultado.totalPublicacoes === 1 ? 'edição brasileira' : 'edições brasileiras' }}.</p>
             <div class="lista-publicacoes-brasil">
               @for (publicacao of resultado.publicacoes; track publicacao.id) {
                 <article class="publicacao-brasil-card" [class.edicao-atual]="publicacao.id === edicaoDetalhe()?.id">
                   <button class="publicacao-brasil-conteudo" type="button" (click)="abrirPublicacaoBrasileira(publicacao)" [disabled]="publicacao.id === edicaoDetalhe()?.id" [attr.aria-label]="publicacao.id === edicaoDetalhe()?.id ? 'Edição atual: ' + publicacao.titulo : 'Abrir ' + publicacao.titulo">
                     <img [src]="publicacao.capa || capaReserva" [alt]="'Capa de ' + publicacao.titulo + ' #' + publicacao.numero" loading="lazy" (error)="usarCapaReserva($event)" />
-                    <span class="publicacao-brasil-dados"><strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong><small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>@if (publicacao.colecao && publicacao.colecao !== publicacao.titulo) { <small>{{ publicacao.colecao }}</small> }<span class="publicacao-brasil-selos">@if (publicacao.id === edicaoDetalhe()?.id) { <em>✓ Você está nesta edição</em> } @if (publicacao.primeiraPublicacao) { <em>⭐ Primeira publicação no Brasil</em> } @else { <em>Republicação</em> } @if (publicacao.publicacaoCompleta === true) { <em>✓ Publicação completa</em> } @if (publicacao.publicacaoCompleta === false) { <em>◐ Publicação parcial</em> }</span></span>
+                    <span class="publicacao-brasil-dados"><strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong><small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>@if (publicacao.colecao && publicacao.colecao !== publicacao.titulo) { <small>{{ publicacao.colecao }}</small> }<span class="publicacao-brasil-selos">@if (publicacao.id === edicaoDetalhe()?.id) { <em>✓ Você está nesta edição</em> } @if (publicacao.primeiraPublicacao) { <em>Primeira identificada no Brasil</em> } @else { <em>Republicação</em> } @if (publicacao.publicacaoCompleta === true) { <em>✓ Publicação completa</em> } @if (publicacao.publicacaoCompleta === false) { <em>◐ Publicação parcial</em> }</span></span>
                   </button>
-                  @if (publicacao.publicacaoCompleta !== null) { <button class="detalhar-historias-publicacao" type="button" (click)="alternarHistoriasPublicacao(publicacao.id)" [attr.aria-expanded]="publicacaoHistoriasAberta() === publicacao.id">{{ publicacaoHistoriasAberta() === publicacao.id ? 'Ocultar histórias' : 'Ver histórias presentes' }}</button> }
+                  @if (publicacao.historias.length) { <button class="detalhar-historias-publicacao" type="button" (click)="alternarHistoriasPublicacao(publicacao.id)" [attr.aria-expanded]="publicacaoHistoriasAberta() === publicacao.id">{{ publicacaoHistoriasAberta() === publicacao.id ? 'Ocultar histórias' : 'Ver histórias presentes' }}</button> }
                   @if (publicacaoHistoriasAberta() === publicacao.id) { <ul class="historias-publicacao-brasil">@for (historia of publicacao.historias; track historia.id) { <li [class.ausente]="!historia.presente">{{ historia.presente ? '✓' : '✕' }} {{ historia.titulo }}</li> }</ul> }
                   <div class="acao-estante-publicacao">@if (publicacao.naEstante) { <span>✓ Na sua estante</span> } @else { <button type="button" (click)="adicionarPublicacaoBrasileiraNaEstante(publicacao)">+ Adicionar à estante</button> }</div>
                 </article>
@@ -637,6 +637,15 @@ import {
             <div>
               <p class="rotulo">{{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
               <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
+              @if (!carregandoDetalhe()) {
+                <button class="botao secundario compacto chamada-mapa-brasil" type="button" (click)="irParaPublicacoesBrasil()">
+                  @if (mapaBrasilDetalhe(); as mapa) {
+                    {{ mapa.totalPublicacoes ? '🇧🇷 Publicado no Brasil em ' + mapa.totalPublicacoes + ' edições →' : '🇧🇷 Consultar publicações no Brasil →' }}
+                  } @else {
+                    🇧🇷 {{ publicacoesOriginaisAgrupadas().length ? 'Ver origem e publicações no Brasil →' : 'Consultar publicações no Brasil →' }}
+                  }
+                </button>
+              }
               <div class="chips">
                 <span>{{ edicaoDetalhe()?.dataPublicacao || 'data não informada' }}</span>
                 @if (edicaoDetalhe()?.quantidadePaginas) {
@@ -868,11 +877,11 @@ import {
             </section>
           }
 
-          @if (!carregandoDetalhe() && publicacoesComoOriginal().length) {
-            <section class="mapa-brasil-destaque" aria-labelledby="tituloMapaBrasil">
+          @if (!carregandoDetalhe() && !publicacoesOriginaisAgrupadas().length) {
+            <section class="mapa-brasil-destaque" #mapaBrasilSecao tabindex="-1" aria-labelledby="tituloMapaBrasil">
               <header class="mapa-brasil-cabecalho">
                 <div>
-                  <p class="rotulo">Mapa editorial Brasil</p>
+                  <p class="rotulo">Publicado no Brasil</p>
                   <h3 id="tituloMapaBrasil">Onde este material saiu no Brasil?</h3>
                   <p>Compare as edições brasileiras, descubra a primeira publicação e confira se o conteúdo saiu completo ou parcial.</p>
                 </div>
@@ -885,10 +894,10 @@ import {
               } @else if (erroMapaBrasilDetalhe()) {
                 <div class="mapa-brasil-erro"><p>Não foi possível montar o mapa editorial agora.</p><button class="botao secundario compacto" type="button" (click)="recarregarMapaBrasilDetalhe()">Tentar novamente</button></div>
               } @else if (mapaBrasilDetalhe(); as resultado) {
-                <div class="mapa-brasil-metricas">
-                  <span><strong>{{ resultado.totalPublicacoes }}</strong> publicações brasileiras</span>
-                  <span><strong>{{ resultado.totalHistoriasOriginais || publicacoesComoOriginal().length }}</strong> histórias identificadas</span>
-                </div>
+                @if (!resultado.totalPublicacoes) {
+                  <p>Ainda não identificamos publicações brasileiras desta edição. O catálogo pode estar incompleto; isso não significa que o material nunca saiu no Brasil.</p>
+                  <a class="botao secundario compacto" routerLink="/colaboradores">Informação incompleta? Saiba como contribuir →</a>
+                }
                 <div class="mapa-brasil-grade">
                   @for (publicacao of publicacoesBrasilDestaque(); track publicacao.id) {
                     <button type="button" class="mapa-brasil-card" (click)="abrirPublicacaoBrasileira(publicacao)">
@@ -897,7 +906,7 @@ import {
                         <strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong>
                         <small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>
                         <span class="mapa-brasil-selos">
-                          @if (publicacao.primeiraPublicacao) { <em>Primeira no Brasil</em> } @else { <em>Republicação</em> }
+                          @if (publicacao.primeiraPublicacao) { <em>Primeira identificada no Brasil</em> } @else { <em>Republicação</em> }
                           @if (publicacao.publicacaoCompleta === true) { <em>Conteúdo completo</em> }
                           @if (publicacao.publicacaoCompleta === false) { <em>Conteúdo parcial</em> }
                           @if (publicacao.naEstante) { <em>Na sua estante</em> }
@@ -906,11 +915,13 @@ import {
                     </button>
                   }
                 </div>
-                <button class="botao primario mapa-brasil-acao" type="button" (click)="abrirPublicacoesBrasil(edicaoDetalhe()!, $event)">Explorar mapa completo e histórias</button>
+                @if (resultado.totalPublicacoes) {
+                  <button class="botao primario mapa-brasil-acao" type="button" (click)="abrirPublicacoesBrasil(edicaoDetalhe()!, $event)">Ver todas as publicações e histórias →</button>
+                }
               }
             </section>
           } @else if (!carregandoDetalhe() && publicacoesOriginaisAgrupadas().length) {
-            <section class="mapa-brasil-destaque" aria-labelledby="tituloMapaBrasilOrigem">
+            <section class="mapa-brasil-destaque" #mapaBrasilSecao tabindex="-1" aria-labelledby="tituloMapaBrasilOrigem">
               <header class="mapa-brasil-cabecalho">
                 <div>
                   <p class="rotulo">Origem e republicações</p>
@@ -938,7 +949,7 @@ import {
             </section>
           }
 
-          @if (!carregandoDetalhe() && (publicacoesDetalhe().length || !publicacoesComoOriginal().length)) {
+          @if (!carregandoDetalhe() && (publicacoesDetalhe().length || (!publicacoesComoOriginal().length && !mapaBrasilDetalhe()?.totalPublicacoes))) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
               @if (podeEditarCatalogo()) {
@@ -1710,7 +1721,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.publicacoesDetalhe.set(publicacoes);
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         this.publicacoesComoOriginal.set(publicacoesOriginais);
-        if (publicacoesOriginais.length) this.carregarMapaBrasilDestaque(edicao.id);
+        if (!publicacoes.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.capasDetalhe.set([]);
         this.carregandoDetalhe.set(false);
       },
@@ -2141,7 +2152,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         const publicacoesOriginaisFiltradas = this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId);
         this.publicacoesComoOriginal.set(publicacoesOriginaisFiltradas);
-        if (publicacoesOriginaisFiltradas.length) this.carregarMapaBrasilDestaque(edicao.id);
+        if (!publicacoes.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.linksDetalhe.set(links);
         this.capasDetalhe.set(capas);
         this.historiaEmFoco.set(historiaId);
@@ -3239,6 +3250,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   publicacoesBrasilDestaque() {
     return (this.mapaBrasilDetalhe()?.publicacoes || []).slice(0, 6);
+  }
+
+  @ViewChild('mapaBrasilSecao') private mapaBrasilSecao?: ElementRef<HTMLElement>;
+
+  irParaPublicacoesBrasil() {
+    const secao = this.mapaBrasilSecao?.nativeElement;
+    secao?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    secao?.focus({ preventScroll: true });
   }
 
   recarregarMapaBrasilDetalhe() {

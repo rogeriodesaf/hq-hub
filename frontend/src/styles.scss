@@ -5241,6 +5241,7 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
 }
 
 .mapa-brasil-destaque {
+  scroll-margin-block-start: 90px;
   display: grid;
   gap: 16px;
   margin: 20px 0;

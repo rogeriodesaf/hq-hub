@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -17,6 +17,7 @@ import {
   PessoaComicVine,
   PublicacaoHistoria,
   PublicacaoRelacionada,
+  PublicacoesBrasileirasEdicaoOriginal,
   Serie,
   VolumeComicVine,
 } from '../../core/modelos';
@@ -57,7 +58,7 @@ interface EdicaoDescoberta {
 
 @Component({
   selector: 'app-descobrir-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -208,6 +209,9 @@ interface EdicaoDescoberta {
             <div>
               <p class="rotulo">Comic Vine · {{ edicaoSelecionada()?.nomeVolume }}</p>
               <h2>#{{ edicaoSelecionada()?.numero }} {{ edicaoSelecionada()?.titulo || '' }}</h2>
+              <button class="botao secundario compacto chamada-mapa-brasil" type="button" (click)="mapaComicVine.scrollIntoView({ behavior: 'smooth', block: 'start' }); mapaComicVine.focus()">
+                🇧🇷 {{ mapaBrasil()?.totalPublicacoes ? 'Publicado no Brasil em ' + mapaBrasil()!.totalPublicacoes + ' edições →' : 'Consultar publicações no Brasil →' }}
+              </button>
               <div class="chips">
                 <span>Data de capa: {{ edicaoSelecionada()?.dataCapa || 'não informada' }}</span>
                 <span>Data de venda: {{ edicaoSelecionada()?.dataVenda || 'não informada' }}</span>
@@ -219,6 +223,37 @@ interface EdicaoDescoberta {
               }
             </div>
           </div>
+
+          <section class="mapa-brasil-destaque" #mapaComicVine tabindex="-1" aria-labelledby="tituloMapaComicVine">
+            <header class="mapa-brasil-cabecalho">
+              <div><p class="rotulo">Publicado no Brasil</p><h3 id="tituloMapaComicVine">Onde este material saiu no Brasil?</h3></div>
+              @if (mapaBrasil(); as mapa) { <span class="mapa-brasil-total">{{ mapa.totalPublicacoes }} edições identificadas</span> }
+            </header>
+            @if (carregandoMapaBrasil()) {
+              <p aria-live="polite">Localizando publicações brasileiras...</p>
+            } @else if (erroMapaBrasil()) {
+              <p role="alert">Não foi possível consultar as publicações brasileiras agora.</p>
+              <button class="botao secundario compacto" type="button" (click)="carregarMapaBrasilComicVine(edicaoSelecionada()!)">Tentar novamente</button>
+            } @else if (mapaBrasil()?.totalPublicacoes) {
+              <div class="mapa-brasil-grade">
+                @for (publicacao of mapaBrasil()!.publicacoes.slice(0, 6); track publicacao.id) {
+                  <button class="mapa-brasil-card" type="button" (click)="abrirPublicacaoBrasil(publicacao.id)">
+                    <img [src]="publicacao.capa || capaReserva" [alt]="'Capa de ' + publicacao.titulo + ' #' + publicacao.numero" loading="lazy" (error)="usarCapaReserva($event)" />
+                    <span><strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong><small>{{ publicacao.editora }} · {{ publicacao.ano || 'Ano não informado' }}</small>
+                      <span class="mapa-brasil-selos">
+                        <em>{{ publicacao.primeiraPublicacao ? 'Primeira identificada no Brasil' : 'Republicação' }}</em>
+                        @if (publicacao.publicacaoCompleta !== null) { <em>{{ publicacao.publicacaoCompleta ? 'Conteúdo completo' : 'Conteúdo parcial' }}</em> }
+                      </span>
+                    </span>
+                  </button>
+                }
+              </div>
+              <button class="botao primario mapa-brasil-acao" type="button" (click)="abrirPublicacaoBrasil(mapaBrasil()!.edicaoEstrangeira.id)">Ver todas as publicações e histórias →</button>
+            } @else {
+              <p>Ainda não identificamos publicações brasileiras desta edição. O catálogo pode estar incompleto; isso não significa que o material nunca saiu no Brasil.</p>
+              <a class="botao secundario compacto" routerLink="/colaboradores">Informação incompleta? Saiba como contribuir →</a>
+            }
+          </section>
 
           <section class="detalhe-secao">
             <h3>Descrição</h3>
@@ -312,8 +347,9 @@ interface EdicaoDescoberta {
             </div>
           </section>
 
+          @if (carregandoPublicacoes() || publicacoesRelacionadas().length) {
           <section class="detalhe-secao">
-            <h3>Republicações e publicações brasileiras</h3>
+            <h3>Outras relações editoriais</h3>
             @if (carregandoPublicacoes()) {
               <p class="texto-suave">Consultando republicações cadastradas...</p>
             } @else {
@@ -337,12 +373,13 @@ interface EdicaoDescoberta {
                 </article>
               } @empty {
                 <section class="estado-vazio compacto">
-                  <h2>Nenhuma republicação cadastrada ainda</h2>
+                  <h2>Nenhuma outra relação editorial cadastrada</h2>
                   <p>Quando esta edição for importada ou vinculada ao catálogo brasileiro, as republicações aparecerão aqui.</p>
                 </section>
               }
             }
           </section>
+          }
         </article>
       </section>
     }
@@ -553,6 +590,9 @@ export class DescobrirPage {
   readonly carregandoVolumes = signal(false);
   readonly carregandoEdicoes = signal(false);
   readonly edicaoSelecionada = signal<EdicaoComicVine | null>(null);
+  readonly mapaBrasil = signal<PublicacoesBrasileirasEdicaoOriginal | null>(null);
+  readonly carregandoMapaBrasil = signal(false);
+  readonly erroMapaBrasil = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
@@ -766,6 +806,7 @@ export class DescobrirPage {
     }
 
     this.edicaoSelecionada.set(this.paraEdicaoComicVineDetalhe(edicao));
+    this.carregarMapaBrasilComicVine(this.edicaoSelecionada()!);
     this.publicacoesRelacionadas.set([]);
     this.carregandoPublicacoes.set(true);
     this.itemColecaoSelecionado.set(null);
@@ -777,6 +818,7 @@ export class DescobrirPage {
 
     this.api.buscarDetalheEdicaoComicVine(edicao.idExterno).subscribe({
       next: (detalhe) => {
+        if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
         this.edicaoSelecionada.set(detalhe);
         this.dataInflacao = detalhe.dataVenda || detalhe.dataCapa || this.dataInflacao;
       },
@@ -849,9 +891,34 @@ export class DescobrirPage {
 
   fecharDetalhesEdicao() {
     this.edicaoSelecionada.set(null);
+    this.mapaBrasil.set(null);
+    this.carregandoMapaBrasil.set(false);
+    this.erroMapaBrasil.set(false);
     this.publicacoesRelacionadas.set([]);
     this.itemColecaoSelecionado.set(null);
     this.calculoInflacao.set(null);
+  }
+
+  carregarMapaBrasilComicVine(edicao: EdicaoComicVine) {
+    this.mapaBrasil.set(null);
+    this.carregandoMapaBrasil.set(true);
+    this.erroMapaBrasil.set(false);
+    this.api.listarPublicacoesBrasileirasComicVine(edicao.idExterno, edicao.idVolume, edicao.numero).subscribe({
+      next: (mapa) => {
+        if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
+        this.mapaBrasil.set(mapa);
+        this.carregandoMapaBrasil.set(false);
+      },
+      error: () => {
+        if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
+        this.erroMapaBrasil.set(true);
+        this.carregandoMapaBrasil.set(false);
+      },
+    });
+  }
+
+  abrirPublicacaoBrasil(edicaoId: number) {
+    void this.router.navigate(['/edicoes', edicaoId]);
   }
 
   fecharDetalheInterno() {

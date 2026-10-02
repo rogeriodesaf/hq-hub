@@ -323,6 +323,14 @@ public class ImportacaoCatalogoService {
             PublicacaoOriginalImportacaoDTO dto,
             ImportacaoCatalogoDTO importacao,
             ContadoresImportacao contadores) {
+        if (dto.idComicVine() != null && !dto.idComicVine().isBlank()) {
+            Optional<Edicao> canonica = edicaoRepository.buscarPorOrigemExterna("COMICVINE", dto.idComicVine());
+            if (canonica.isPresent()) {
+                atualizarDadosComicVineOriginal(canonica.get(), dto);
+                contadores.itensReaproveitados++;
+                return canonica.get();
+            }
+        }
         Editora editora = obterOuCriarEditora(editoraOriginal(dto), contadores);
         Serie serie = obterOuCriarSerieOriginal(dto, editora, importacao, contadores);
         String idExterno = idEdicaoOriginal(dto);

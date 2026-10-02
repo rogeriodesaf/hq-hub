@@ -890,6 +890,13 @@ export class ApiService {
     );
   }
 
+  listarPublicacoesBrasileirasComicVine(idEdicao: string, idVolume: string | null, numero: string | null) {
+    return this.http.get<PublicacoesBrasileirasEdicaoOriginal | null>(
+      '/api/compartilhar/catalogo/comicvine/publicacoes-brasileiras',
+      { params: { idEdicao, ...(idVolume ? { idVolume } : {}), ...(numero ? { numero } : {}) } },
+    );
+  }
+
   listarPublicacoesPorHistoriaPublica(historiaId: number) {
     return this.http.get<PublicacaoHistoria[]>(
       `/api/compartilhar/catalogo/historias/${historiaId}/publicacoes`,

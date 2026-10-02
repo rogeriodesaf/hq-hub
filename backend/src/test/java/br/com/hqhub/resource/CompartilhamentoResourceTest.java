@@ -45,6 +45,15 @@ class CompartilhamentoResourceTest {
     }
 
     @Test
+    void comicVineSemCorrespondenciaNaoAfirmaQueNuncaSaiuNoBrasil() {
+        when(historias.listarPublicacoesComicVine("123", "2127", "280")).thenReturn(null);
+        try (Response resposta = recurso.listarPublicacoesComicVine("123", "2127", "280")) {
+            assertEquals(204, resposta.getStatus());
+        }
+        verify(historias).listarPublicacoesComicVine("123", "2127", "280");
+    }
+
+    @Test
     void geraMetadadosDinamicosEscapadosParaEdicao() {
         when(edicoes.buscarPorId(42L)).thenReturn(edicao(42L, "A Saga <Especial>", "1&2"));
 
