@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
+import { PaginacaoComponent } from '../../shared/paginacao.component';
 import {
   CalculoInflacao,
   ConteudoEdicao,
@@ -58,7 +59,7 @@ interface EdicaoDescoberta {
 
 @Component({
   selector: 'app-descobrir-page',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PaginacaoComponent],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -116,15 +117,13 @@ interface EdicaoDescoberta {
             <p class="rotulo">{{ rotuloFonteVolume(volumeSelecionado()!) }}</p>
             <h2>{{ volumeSelecionado()?.titulo }}</h2>
           </div>
-          <div class="paginacao">
-            <button class="botao icone-texto" type="button" [disabled]="paginaEdicoes() === 0 || carregandoEdicoes()" (click)="mudarPagina(-1)">
-              Anterior
-            </button>
-            <span>Página {{ paginaEdicoes() + 1 }} de {{ edicoes()?.totalPaginas || 1 }}</span>
-            <button class="botao icone-texto" type="button" [disabled]="carregandoEdicoes() || paginaEdicoes() + 1 >= (edicoes()?.totalPaginas || 1)" (click)="mudarPagina(1)">
-              Próxima
-            </button>
-          </div>
+          <app-paginacao
+            [paginaAtual]="paginaEdicoes()"
+            [totalPaginas]="edicoes()?.totalPaginas || 1"
+            [carregando]="carregandoEdicoes()"
+            rotulo="Páginas de edições do volume"
+            (paginaChange)="irParaPaginaEdicoes($event)"
+          />
         </div>
 
         @if (volumeSelecionado()?.fonte === 'COMIC_VINE') {
@@ -689,8 +688,10 @@ export class DescobrirPage {
     this.carregarEdicoes();
   }
 
-  mudarPagina(delta: number) {
-    this.paginaEdicoes.update((pagina) => Math.max(0, pagina + delta));
+  irParaPaginaEdicoes(pagina: number) {
+    const totalPaginas = this.edicoes()?.totalPaginas || 1;
+    if (pagina < 0 || pagina >= totalPaginas) return;
+    this.paginaEdicoes.set(pagina);
     this.carregarEdicoes();
   }
 

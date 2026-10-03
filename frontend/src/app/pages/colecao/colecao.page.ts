@@ -8,6 +8,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { CompartilhamentoService } from '../../core/compartilhamento.service';
+import { PaginacaoComponent } from '../../shared/paginacao.component';
 import {
   Edicao,
   EditoraResumo,
@@ -23,7 +24,7 @@ import {
 
 @Component({
   selector: 'app-colecao-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles],
+  imports: [CommonModule, FormsModule, RouterLink, LucideDownload, LucidePlus, LucideSearch, LucideShare2, LucideSparkles, PaginacaoComponent],
   template: `
     <section class="cabecalho-pagina estante-cabecalho">
       <div>
@@ -110,11 +111,14 @@ import {
             }
           </div>
           @if (totalPaginasBuscaEdicoes() > 1) {
-            <nav class="paginacao-catalogo" aria-label="Páginas de resultados">
-              <button class="botao compacto" type="button" (click)="mudarPaginaBuscaEdicoes(-1)" [disabled]="paginaBuscaEdicoes() === 0 || carregandoEdicoes()">Anterior</button>
-              <span>Página {{ paginaBuscaEdicoes() + 1 }} de {{ totalPaginasBuscaEdicoes() }}</span>
-              <button class="botao compacto" type="button" (click)="mudarPaginaBuscaEdicoes(1)" [disabled]="paginaBuscaEdicoes() + 1 >= totalPaginasBuscaEdicoes() || carregandoEdicoes()">Próxima</button>
-            </nav>
+            <app-paginacao
+              class="paginacao-catalogo"
+              [paginaAtual]="paginaBuscaEdicoes()"
+              [totalPaginas]="totalPaginasBuscaEdicoes()"
+              [carregando]="carregandoEdicoes()"
+              rotulo="Páginas dos resultados da busca"
+              (paginaChange)="irParaPaginaBuscaEdicoes($event)"
+            />
           }
         }
 
@@ -550,20 +554,14 @@ import {
       </div>
 
       @if (paginaEstante().totalPaginas > 1) {
-        <div class="paginacao-estante">
-          <button class="botao compacto" type="button" [disabled]="carregandoEstante() || paginaEstante().pagina === 0" (click)="mudarPaginaEstante(-1)">
-            Anterior
-          </button>
-          <span>Página {{ paginaEstante().pagina + 1 }} de {{ paginaEstante().totalPaginas }}</span>
-          <button
-            class="botao compacto"
-            type="button"
-            [disabled]="carregandoEstante() || paginaEstante().pagina + 1 >= paginaEstante().totalPaginas"
-            (click)="mudarPaginaEstante(1)"
-          >
-            Próxima
-          </button>
-        </div>
+        <app-paginacao
+          class="paginacao-estante"
+          [paginaAtual]="paginaEstante().pagina"
+          [totalPaginas]="paginaEstante().totalPaginas"
+          [carregando]="carregandoEstante()"
+          rotulo="Páginas da estante"
+          (paginaChange)="irParaPaginaEstante($event)"
+        />
       }
     </section>
 
@@ -849,14 +847,9 @@ export class ColecaoPage implements OnInit {
     this.carregarEstante(0);
   }
 
-  mudarPaginaEstante(delta: number) {
-    const paginaAtual = this.paginaEstante().pagina;
-    const proximaPagina = paginaAtual + delta;
-    if (proximaPagina < 0 || proximaPagina >= this.paginaEstante().totalPaginas) {
-      return;
-    }
-
-    this.carregarEstante(proximaPagina);
+  irParaPaginaEstante(pagina: number) {
+    if (pagina < 0 || pagina >= this.paginaEstante().totalPaginas) return;
+    this.carregarEstante(pagina);
   }
 
   alternarCadastroManual() {
@@ -1366,10 +1359,9 @@ export class ColecaoPage implements OnInit {
     this.edicaoEstanteSelecionada.set(edicao);
   }
 
-  mudarPaginaBuscaEdicoes(delta: number) {
-    const proxima = this.paginaBuscaEdicoes() + delta;
-    if (proxima < 0 || proxima >= this.totalPaginasBuscaEdicoes()) return;
-    this.paginaBuscaEdicoes.set(proxima);
+  irParaPaginaBuscaEdicoes(pagina: number) {
+    if (pagina < 0 || pagina >= this.totalPaginasBuscaEdicoes()) return;
+    this.paginaBuscaEdicoes.set(pagina);
     this.buscarEdicoes();
   }
 

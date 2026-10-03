@@ -10,6 +10,7 @@ import { firstValueFrom, forkJoin, map } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { CompartilhamentoService } from '../../core/compartilhamento.service';
+import { PaginacaoComponent } from '../../shared/paginacao.component';
 import { environment } from '../../../environments/environment';
 import {
   ConteudoEdicao,
@@ -30,7 +31,7 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2],
+  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2, PaginacaoComponent],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
@@ -206,20 +207,14 @@ import {
         }
 
         @if (seriesConsultadas() && series().totalPaginas > 1) {
-          <div class="paginacao catalogo-paginacao">
-            <button class="botao secundario compacto" type="button" (click)="paginaAnteriorSeries()" [disabled]="carregandoSeries() || series().pagina === 0">
-              Anterior
-            </button>
-            <span>Página {{ series().pagina + 1 }} de {{ series().totalPaginas }}</span>
-            <button
-              class="botao secundario compacto"
-              type="button"
-              (click)="proximaPaginaSeries()"
-              [disabled]="carregandoSeries() || series().pagina + 1 >= series().totalPaginas"
-            >
-              Próxima
-            </button>
-          </div>
+          <app-paginacao
+            class="catalogo-paginacao"
+            [paginaAtual]="series().pagina"
+            [totalPaginas]="series().totalPaginas"
+            [carregando]="carregandoSeries()"
+            rotulo="Páginas de coleções"
+            (paginaChange)="irParaPaginaSeries($event)"
+          />
         }
       </article>
 
@@ -409,20 +404,14 @@ import {
         </div>
 
         @if (resultadosCatalogo().totalPaginas > 1) {
-          <div class="paginacao catalogo-paginacao">
-            <button class="botao secundario compacto" type="button" (click)="paginaAnterior()" [disabled]="paginaResultados() === 0">
-              Anterior
-            </button>
-            <span>Página {{ paginaResultados() + 1 }} de {{ resultadosCatalogo().totalPaginas }}</span>
-            <button
-              class="botao secundario compacto"
-              type="button"
-              (click)="proximaPagina()"
-              [disabled]="paginaResultados() + 1 >= resultadosCatalogo().totalPaginas"
-            >
-              Próxima
-            </button>
-          </div>
+          <app-paginacao
+            class="catalogo-paginacao"
+            [paginaAtual]="paginaResultados()"
+            [totalPaginas]="resultadosCatalogo().totalPaginas"
+            [carregando]="carregandoResultados()"
+            rotulo="Páginas de edições"
+            (paginaChange)="irParaPaginaResultados($event)"
+          />
         }
       </article>
     </section>
@@ -1876,28 +1865,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.carregarSeriesInternas(0);
   }
 
-  paginaAnteriorSeries() {
-    if (this.series().pagina > 0) {
-      this.carregarSeriesInternas(this.series().pagina - 1);
-    }
+  irParaPaginaSeries(pagina: number) {
+    if (pagina < 0 || pagina >= this.series().totalPaginas) return;
+    this.carregarSeriesInternas(pagina);
   }
 
-  proximaPaginaSeries() {
-    if (this.series().pagina + 1 < this.series().totalPaginas) {
-      this.carregarSeriesInternas(this.series().pagina + 1);
-    }
-  }
-
-  paginaAnterior() {
-    if (this.paginaResultados() > 0) {
-      this.buscarResultados(this.paginaResultados() - 1, true);
-    }
-  }
-
-  proximaPagina() {
-    if (this.paginaResultados() + 1 < this.resultadosCatalogo().totalPaginas) {
-      this.buscarResultados(this.paginaResultados() + 1, true);
-    }
+  irParaPaginaResultados(pagina: number) {
+    if (pagina < 0 || pagina >= this.resultadosCatalogo().totalPaginas) return;
+    this.buscarResultados(pagina, true);
   }
 
   rotuloFonte(resultado: ResultadoPesquisaCatalogo) {

@@ -7,6 +7,7 @@ import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
+import { PaginacaoComponent } from '../../shared/paginacao.component';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
 import {
   Amizade,
@@ -24,7 +25,7 @@ import {
 
 @Component({
   selector: 'app-perfil-publico-page',
-  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent, AtividadeEstanteCardComponent],
+  imports: [CommonModule, FormsModule, RouterLink, RelatedContentComponent, AtividadeEstanteCardComponent, PaginacaoComponent],
   template: `
     @if (carregando()) {
       <div class="estado-carregando">
@@ -493,23 +494,14 @@ import {
               }
 
               @if (estantePagina() && estantePagina()!.totalPaginas > 1) {
-                <div class="paginacao-estante">
-                  <button
-                    class="botao compacto secundario"
-                    type="button"
-                    [disabled]="paginaEstante() === 0"
-                    (click)="irParaPagina(paginaEstante() - 1)"
-                  >← Anterior</button>
-
-                  <span>{{ paginaEstante() + 1 }} / {{ estantePagina()!.totalPaginas }}</span>
-
-                  <button
-                    class="botao compacto secundario"
-                    type="button"
-                    [disabled]="paginaEstante() >= estantePagina()!.totalPaginas - 1"
-                    (click)="irParaPagina(paginaEstante() + 1)"
-                  >Próxima →</button>
-                </div>
+                <app-paginacao
+                  class="paginacao-estante"
+                  [paginaAtual]="paginaEstante()"
+                  [totalPaginas]="estantePagina()!.totalPaginas"
+                  [carregando]="carregandoEstante()"
+                  rotulo="Páginas da estante pública"
+                  (paginaChange)="irParaPagina($event)"
+                />
               }
             } @else {
               <p class="texto-suave">Estante não disponível.</p>
