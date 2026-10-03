@@ -8,7 +8,6 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { CompartilhamentoService } from '../../core/compartilhamento.service';
-import { environment } from '../../../environments/environment';
 import {
   Edicao,
   EditoraResumo,
@@ -823,12 +822,12 @@ export class ColecaoPage implements OnInit {
     const edicao = this.edicaoEstanteSelecionada();
     if (!edicao) return;
 
-    const link = `${environment.compartilhamentoUrl}/edicoes/${edicao.edicaoId}?v=3`;
+    const link = this.compartilhamento.urlEdicao(edicao.edicaoId);
     const titulo = `${this.serieEstanteSelecionada() || edicao.titulo || 'HQ'}${edicao.numero ? ` #${edicao.numero}` : ''}`;
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | Coleciona HQ`,
-        text: `Conheça ${titulo} no catálogo do Coleciona HQ.`,
+        text: 'Veja no Coleciona HQ.',
         url: link,
       });
       if (resultado === 'copiado') this.mensagem.set('Link da edição copiado');

@@ -10,6 +10,10 @@ describe('CompartilhamentoService', () => {
     service = TestBed.inject(CompartilhamentoService);
   });
 
+  it('gera o link publico curto de uma edicao', () => {
+    expect(service.urlEdicao(42)).toBe('https://hqhub.space/e/42?v=3');
+  });
+
   it('usa Web Share API quando disponível', async () => {
     const compartilhar = jasmine.createSpy('share').and.resolveTo();
     Object.defineProperty(navigator, 'share', { configurable: true, value: compartilhar });

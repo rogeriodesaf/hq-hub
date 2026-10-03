@@ -384,8 +384,8 @@ export class OrdensLeituraPage implements OnInit {
   }
   async compartilharEdicao(item:ItemOrdemLeitura){
     if(!item.edicaoId)return;
-    const link=`${environment.compartilhamentoUrl}/edicoes/${item.edicaoId}?v=3`;
-    const dados={title:item.titulo,text:`Confira ${item.titulo} no Coleciona HQ`,url:link};
+    const link=this.compartilhamento.urlEdicao(item.edicaoId);
+    const dados={title:`${item.titulo} | Coleciona HQ`,text:'Veja no Coleciona HQ.',url:link};
     try {
       const resultado=await this.compartilhamento.compartilhar(dados);
       if(resultado==='copiado')this.mensagem.set('Link da edição copiado.');

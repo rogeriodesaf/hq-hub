@@ -13,5 +13,6 @@ function resolverApiUrlRuntime() {
 export const environment = {
   production: false,
   apiUrl: resolverApiUrlRuntime(),
+  publicUrl: 'https://hqhub.space',
   compartilhamentoUrl: 'https://hqhub-backend.onrender.com/api/compartilhar',
 };

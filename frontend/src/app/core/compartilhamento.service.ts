@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 
+import { environment } from '../../environments/environment';
+
 export interface DadosCompartilhamento {
   title: string;
   text: string;
@@ -12,6 +14,10 @@ export type ResultadoCompartilhamento = 'compartilhado' | 'copiado' | 'cancelado
 @Injectable({ providedIn: 'root' })
 export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
+
+  urlEdicao(edicaoId: number): string {
+    return `${environment.publicUrl}/e/${edicaoId}?v=3`;
+  }
 
   async compartilhar(dados: DadosCompartilhamento, copiarMensagemCompleta = false): Promise<ResultadoCompartilhamento> {
     const navegador = this.documento.defaultView?.navigator;

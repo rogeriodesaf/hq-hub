@@ -2134,7 +2134,7 @@ export class PainelPage implements OnInit, OnDestroy {
     const titulo = postagem.colecaoDestaque?.titulo
       || postagem.catalogoDestaque?.titulo
       || 'Coleciona HQ';
-    const texto = `👀 Olha essa HQ no Coleciona HQ!\n\n📚 ${titulo}\n\nQuem aí tem essa edição na coleção?\n\n${url}`;
+    const texto = `📚 ${titulo}\n${url}`;
 
     try {
       if (navigator.share) {
@@ -2365,7 +2365,7 @@ export class PainelPage implements OnInit, OnDestroy {
   }
 
   private urlPostagem(postagem: PostagemFeed) {
-    return `${environment.compartilhamentoUrl}/hq/${postagem.id}?v=17`;
+    return `${environment.publicUrl}/hq/${postagem.id}?v=17`;
   }
 
   private async arquivoCapaCompartilhamento(postagem: PostagemFeed): Promise<File | null> {

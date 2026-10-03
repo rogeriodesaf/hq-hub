@@ -613,7 +613,7 @@ import {
     }
 
     @if (exibirPainelDetalhe()) {
-      <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
+      <section class="detalhe-edicao" [class.pagina-edicao-publica]="paginaEdicaoPublica" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
         <div class="detalhe-fundo" (click)="fecharDetalhe()"></div>
         <article class="detalhe-painel detalhe-painel-catalogo" #detalhePainel>
           <header class="detalhe-acoes-topo">
@@ -633,7 +633,16 @@ import {
 
           @if (edicaoDetalhe()) {
           <div class="detalhe-cabecalho">
-            <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="edicaoDetalhe() ? tituloEdicao(edicaoDetalhe()!) : 'Edicao'" (error)="usarCapaReserva($event)" />
+            <button
+              #botaoAmpliarCapa
+              class="botao-ampliar-capa"
+              type="button"
+              (click)="ampliarCapaEdicao()"
+              [attr.aria-label]="'Ampliar capa de ' + tituloEdicao(edicaoDetalhe()!)"
+            >
+              <img [src]="capaEdicaoDetalhe() || capaReserva" [alt]="tituloEdicao(edicaoDetalhe()!)" (error)="usarCapaReserva($event)" />
+              <span aria-hidden="true">Ampliar capa</span>
+            </button>
             <div>
               <p class="rotulo">{{ edicaoDetalhe()?.serie?.editora?.nome || 'Editora não informada' }}</p>
               <h2>{{ edicaoDetalhe()?.serie?.titulo }} #{{ edicaoDetalhe()?.numero }}</h2>
@@ -1271,6 +1280,16 @@ import {
         </article>
       </section>
     }
+
+    @if (capaAmpliada()) {
+      <section class="visualizador-capa" role="dialog" aria-modal="true" [attr.aria-label]="edicaoDetalhe() ? 'Capa ampliada de ' + tituloEdicao(edicaoDetalhe()!) : 'Capa ampliada'" (click)="fecharCapaAmpliada()">
+        <button #botaoFecharCapa class="fechar-capa-ampliada" type="button" (click)="fecharCapaAmpliada(); $event.stopPropagation()" aria-label="Fechar capa ampliada">×</button>
+        <figure (click)="$event.stopPropagation()">
+          <img [src]="capaAmpliada()!" [alt]="edicaoDetalhe() ? 'Capa de ' + tituloEdicao(edicaoDetalhe()!) : 'Capa da edição'" (error)="usarCapaReserva($event)" />
+          <figcaption>Toque fora da capa ou use × para fechar</figcaption>
+        </figure>
+      </section>
+    }
   `,
 })
 export class CatalogoPage implements OnInit, OnDestroy {
@@ -1278,6 +1297,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('tituloColecao') private tituloColecao?: ElementRef<HTMLElement>;
   @ViewChild('detalhePainel') private detalhePainel?: ElementRef<HTMLElement>;
   @ViewChild('modalPublicacoesBrasil') private modalPublicacoesBrasil?: ElementRef<HTMLElement>;
+  @ViewChild('botaoAmpliarCapa') private botaoAmpliarCapa?: ElementRef<HTMLButtonElement>;
+  @ViewChild('botaoFecharCapa') private botaoFecharCapa?: ElementRef<HTMLButtonElement>;
 
   private readonly api = inject(ApiService);
   private readonly rota = inject(ActivatedRoute);
@@ -1312,6 +1333,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly compartilhandoSerie = signal(false);
   readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
+  readonly capaAmpliada = signal<string | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
@@ -1395,7 +1417,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private posicaoRolagemAntesDaSerie = 0;
   private serieAbertaId: number | null = null;
   private historicoSerieAtivo = false;
-  private paginaEdicaoPublica = false;
+  paginaEdicaoPublica = false;
   private focoAntesDasPublicacoesBrasil: HTMLElement | null = null;
   private estadoResultadosAntesDaSerie: {
     resultados: PaginaResposta<ResultadoPesquisaCatalogo>;
@@ -1961,13 +1983,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private async compartilharEdicao(edicaoId: number, titulo: string, paraApoiar = false) {
     if (this.compartilhandoEdicao()) return;
     this.compartilhandoEdicao.set(true);
-    const url = `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=3`;
+    const url = this.compartilhamento.urlEdicao(edicaoId);
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | Coleciona HQ`,
         text: paraApoiar
-          ? `Olha esta HQ no Coleciona HQ: ${titulo}. Se você já pretende comprá-la, o link da Amazon na página pode gerar uma comissão que ajuda a manter o projeto. Publicidade · link de associado Amazon.`
-          : `Conheça ${titulo} no catálogo do Coleciona HQ.`,
+          ? 'Apoie o Coleciona HQ pelo link da Amazon. Publicidade · link de associado.'
+          : 'Veja no Coleciona HQ.',
         url,
       }, paraApoiar);
       if (resultado === 'copiado') this.mensagem.set(paraApoiar ? 'Mensagem de apoio copiada para compartilhar' : 'Link da edição copiado');
@@ -2891,6 +2913,25 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   capaEdicaoDetalhe() {
     return this.edicaoDetalhe()?.urlCapa || this.detalheComicVineInterno()?.urlImagem || null;
+  }
+
+  ampliarCapaEdicao() {
+    this.capaAmpliada.set(this.capaEdicaoDetalhe() || this.capaReserva);
+    setTimeout(() => this.botaoFecharCapa?.nativeElement.focus(), 0);
+  }
+
+  fecharCapaAmpliada() {
+    if (!this.capaAmpliada()) return;
+    this.capaAmpliada.set(null);
+    setTimeout(() => this.botaoAmpliarCapa?.nativeElement.focus(), 0);
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  aoPressionarEscapeNaCapa(evento: Event) {
+    if (!this.capaAmpliada()) return;
+    evento.preventDefault();
+    evento.stopPropagation();
+    this.fecharCapaAmpliada();
   }
 
   capaPublicacaoOriginal(publicacao: PublicacaoHistoria) {

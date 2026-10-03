@@ -1733,14 +1733,126 @@ body.tema-escuro .sugestoes-assistente {
   width: min(1080px, calc(100vw - 24px));
 }
 
+.pagina-edicao-publica {
+  z-index: 100;
+}
+
+.pagina-edicao-publica .detalhe-painel-catalogo {
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pagina-edicao-publica .detalhe-painel-catalogo > *,
+.pagina-edicao-publica .detalhe-cabecalho > div {
+  min-width: 0;
+}
+
+.pagina-edicao-publica .detalhe-cabecalho h2,
+.pagina-edicao-publica .detalhe-cabecalho p,
+.pagina-edicao-publica .detalhe-secao,
+.pagina-edicao-publica .detalhe-secao a {
+  overflow-wrap: anywhere;
+}
+
 .detalhe-painel-catalogo > .detalhe-cabecalho {
   grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
   gap: clamp(22px, 3vw, 40px);
 }
 
-.detalhe-painel-catalogo > .detalhe-cabecalho > img {
+.detalhe-painel-catalogo > .detalhe-cabecalho > .botao-ampliar-capa {
+  max-height: calc(100vh - 72px);
+}
+
+.detalhe-painel-catalogo > .detalhe-cabecalho > .botao-ampliar-capa img {
   max-height: calc(100vh - 72px);
   object-fit: contain;
+}
+
+.botao-ampliar-capa {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  align-self: start;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: #15191f;
+  cursor: zoom-in;
+  text-align: left;
+}
+
+.botao-ampliar-capa:focus-visible {
+  outline: 3px solid var(--marca);
+  outline-offset: 3px;
+}
+
+.botao-ampliar-capa span {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(21, 25, 31, 0.82);
+  font-size: 0.76rem;
+  font-weight: 850;
+  pointer-events: none;
+}
+
+.visualizador-capa {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: max(64px, calc(env(safe-area-inset-top, 0px) + 56px)) max(16px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(8, 10, 13, 0.94);
+  cursor: zoom-out;
+}
+
+.visualizador-capa figure {
+  display: grid;
+  max-width: 100%;
+  max-height: 100%;
+  gap: 10px;
+  place-items: center;
+  margin: 0;
+  cursor: default;
+}
+
+.visualizador-capa img {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 130px);
+  border-radius: 6px;
+  object-fit: contain;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+
+.visualizador-capa figcaption {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.fechar-capa-ampliada {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+  z-index: 1;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(21, 25, 31, 0.88);
+  cursor: pointer;
+  font-size: 1.6rem;
 }
 
 .detalhe-acoes-topo {
@@ -5028,11 +5140,41 @@ body.bottom-sheet-aberto {
     grid-template-columns: 1fr;
   }
 
-  .detalhe-painel-catalogo > .detalhe-cabecalho > img {
+  .detalhe-painel-catalogo > .detalhe-cabecalho > .botao-ampliar-capa {
     width: min(280px, 78vw);
     max-width: none;
-    max-height: 56vh;
     justify-self: center;
+  }
+
+  .detalhe-painel-catalogo > .detalhe-cabecalho > .botao-ampliar-capa img {
+    width: 100%;
+    max-width: none;
+    max-height: 56vh;
+  }
+
+  .pagina-edicao-publica .detalhe-painel-catalogo {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px));
+  }
+
+  .app-shell:has(app-catalogo-page) .pagina-edicao-publica .detalhe-acoes-topo {
+    top: 0;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 2px 0 8px;
+    background: linear-gradient(180deg, var(--fundo) 72%, transparent);
+  }
+
+  .pagina-edicao-publica .detalhe-cabecalho h2 {
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+    line-height: 1.05;
+  }
+
+  .pagina-edicao-publica .detalhe-secao {
+    padding: 13px;
   }
 
   .publicacao-card {
