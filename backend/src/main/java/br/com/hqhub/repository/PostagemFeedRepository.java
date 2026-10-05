@@ -20,7 +20,11 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
         return getEntityManager().createNativeQuery("""
                 select p.* from postagens_feed p where p.usuario_id = :perfilId
                 and (
-                    p.tipo_postagem <> :tipoAtividade
+                    exists (
+                        select 1 from usuarios autor
+                        where autor.id = p.usuario_id and autor.perfil = :administrador
+                    )
+                    or p.tipo_postagem <> :tipoAtividade
                     or p.usuario_id = :visitanteId
                     or exists (
                         select 1 from configuracoes_colecao c
@@ -47,6 +51,7 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                 .setParameter("perfilId", perfilId)
                 .setParameter("visitanteId", visitanteId)
                 .setParameter("tipoAtividade", TipoPostagemFeed.ATIVIDADE_ESTANTE.name())
+                .setParameter("administrador", PerfilUsuario.ADMINISTRADOR.name())
                 .setParameter("publica", VisibilidadeColecao.PUBLICA.name())
                 .setParameter("amigos", VisibilidadeColecao.AMIGOS.name())
                 .setParameter("aceita", StatusAmizade.ACEITA.name())
@@ -62,7 +67,6 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                     select 1 from usuarios autor
                     where autor.id = p.usuario_id
                       and autor.perfil = :administrador
-                      and p.tipo_postagem <> :tipoAtividade
                 )
                 or (
                     p.tipo_postagem <> :tipoAtividade

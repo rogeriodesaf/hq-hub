@@ -374,8 +374,7 @@ public class FeedSocialService {
         if (autorId.equals(usuario.getId())) {
             return true;
         }
-        if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE
-                && postagem.getUsuario().getPerfil() == PerfilUsuario.ADMINISTRADOR) {
+        if (postagem.getUsuario().getPerfil() == PerfilUsuario.ADMINISTRADOR) {
             return true;
         }
         if (postagem.getTipoPostagem() != TipoPostagemFeed.ATIVIDADE_ESTANTE) {

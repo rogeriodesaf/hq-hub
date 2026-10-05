@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
-import { HistoriaLeitura } from '../../core/modelos';
+import { HistoriaLeitura, Usuario } from '../../core/modelos';
 import { PainelPage } from './painel.page';
 
 describe('PainelPage stories', () => {
@@ -36,6 +36,7 @@ describe('PainelPage stories', () => {
           listarFeed: () => of([]),
           listarAnuncios: () => of([]),
           listarUsuarios: () => of([]),
+          obterRelacionamentoAmizade: () => of(null),
           listarHistorias: () => of([]),
           removerHistoria: () => of(null),
           listarVisualizacoesHistoria: () => of([{ usuario: { id: 2, nome: 'Amigo', fotoPerfilThumbnailUrl: null }, dataVisualizacao: new Date().toISOString() }]),
@@ -59,6 +60,30 @@ describe('PainelPage stories', () => {
     expect(perfil.getAttribute('aria-label')).toBe('Ver perfil de Amigo');
     perfil.click();
     expect(fixture.componentInstance.historiaAberta()).toBeNull();
+  });
+
+  it('recomenda a conta oficial para quem ainda nao possui relacionamento', () => {
+    const api = TestBed.inject(ApiService);
+    const contaOficial: Usuario = {
+      id: 99,
+      nome: 'Rogerio',
+      email: 'rogeriodesaf@gmail.com',
+      perfil: 'ADMINISTRADOR',
+      bio: null,
+      fotoPerfilUrl: null,
+      fotoPerfilThumbnailUrl: null,
+      capaPerfilUrl: null,
+      dataCriacao: new Date().toISOString(),
+      dataAtualizacao: new Date().toISOString(),
+    };
+    spyOn(api, 'listarUsuarios').and.returnValue(of([contaOficial]));
+    spyOn(api, 'obterRelacionamentoAmizade').and.returnValue(of(null));
+
+    (fixture.componentInstance as any).carregarSugestaoAmigo();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.sugestaoAmigo()?.email).toBe('rogeriodesaf@gmail.com');
+    expect(fixture.nativeElement.querySelector('.sugestao-amigo-card')).not.toBeNull();
   });
 
   it('agrupa dois stories próprios no mesmo avatar e mantém o + independente', () => {
