@@ -10,7 +10,7 @@ DO $$
 DECLARE
     serie_alvo_id BIGINT;
     quantidade INTEGER;
-    numeros_invalidos INTEGER;
+    numeros_duplicados INTEGER;
 BEGIN
     SELECT count(*), min(serie.id)
       INTO quantidade, serie_alvo_id
@@ -33,21 +33,25 @@ BEGIN
             'Magali/Globo V1: esperada uma serie alvo, encontradas %', quantidade;
     END IF;
 
+    -- O catalogo pode conter apenas parte das 403 edicoes. Valida as edicoes
+    -- presentes sem impedir a migracao por numeros que ainda nao foram
+    -- cadastrados.
     SELECT count(*)
-      INTO numeros_invalidos
-      FROM generate_series(1, 403) esperado(numero)
-     WHERE (
-         SELECT count(*)
-           FROM edicoes edicao
-          WHERE edicao.serie_id = serie_alvo_id
-            AND trim(edicao.numero) ~ '^0*[0-9]+$'
-            AND trim(edicao.numero)::integer = esperado.numero
-     ) <> 1;
+      INTO numeros_duplicados
+      FROM (
+          SELECT trim(edicao.numero)::integer
+            FROM edicoes edicao
+           WHERE edicao.serie_id = serie_alvo_id
+             AND trim(edicao.numero) ~ '^0*[0-9]+$'
+             AND trim(edicao.numero)::integer BETWEEN 1 AND 403
+           GROUP BY trim(edicao.numero)::integer
+          HAVING count(*) > 1
+      ) duplicados;
 
-    IF numeros_invalidos <> 0 THEN
+    IF numeros_duplicados <> 0 THEN
         RAISE EXCEPTION
-            'Magali/Globo V1: % numeros entre 1 e 403 estao ausentes ou duplicados; nenhuma capa foi alterada',
-            numeros_invalidos;
+            'Magali/Globo V1: existem % numeros duplicados entre 1 e 403; nenhuma capa foi alterada',
+            numeros_duplicados;
     END IF;
 
     SELECT count(*)
