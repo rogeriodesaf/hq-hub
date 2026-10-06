@@ -16,7 +16,7 @@ export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
 
   urlEdicao(edicaoId: number): string {
-    return `${environment.publicUrl}/e/${edicaoId}?v=3`;
+    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=4`;
   }
 
   async compartilhar(dados: DadosCompartilhamento, copiarMensagemCompleta = false): Promise<ResultadoCompartilhamento> {
