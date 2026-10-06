@@ -46,4 +46,18 @@ describe('CompartilhamentoService', () => {
     }, true)).toBeResolvedTo('copiado');
     expect(escrever).toHaveBeenCalledOnceWith('Apoie o Coleciona HQ. Publicidade · link de associado Amazon.\nhttps://hqhub.test/edicoes/1');
   });
+
+  it('copia a mensagem de apoio quando o compartilhamento nativo falha', async () => {
+    const compartilhar = jasmine.createSpy('share').and.rejectWith(new Error('compartilhamento bloqueado'));
+    const escrever = jasmine.createSpy('writeText').and.resolveTo();
+    Object.defineProperty(navigator, 'share', { configurable: true, value: compartilhar });
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: escrever } });
+
+    await expectAsync(service.compartilhar({
+      title: 'HQ #1',
+      text: 'Apoie o Coleciona HQ.',
+      url: 'https://hqhub.test/edicoes/1',
+    }, true)).toBeResolvedTo('copiado');
+    expect(escrever).toHaveBeenCalledOnceWith('Apoie o Coleciona HQ.\nhttps://hqhub.test/edicoes/1');
+  });
 });

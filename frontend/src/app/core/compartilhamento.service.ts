@@ -27,7 +27,10 @@ export class CompartilhamentoService {
         return 'compartilhado';
       } catch (erro) {
         if (erro instanceof DOMException && erro.name === 'AbortError') return 'cancelado';
-        throw erro;
+        // Alguns navegadores expõem navigator.share, mas bloqueiam a folha
+        // nativa. Nesse caso, o usuário ainda recebe o link pela área de cópia.
+        await this.copiar(copiarMensagemCompleta ? `${dados.text}\n${dados.url}` : dados.url);
+        return 'copiado';
       }
     }
 
