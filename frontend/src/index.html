@@ -43,6 +43,12 @@
 <body>
   <script>
     (() => {
+      if (window.location.hash.startsWith('#/')) {
+        const destino = window.location.hash.slice(1);
+        if (destino.startsWith('/') && !destino.startsWith('//')) {
+          window.history.replaceState(null, '', destino);
+        }
+      }
       const slug = new URLSearchParams(window.location.search).get('guia');
       if (window.location.pathname === '/' && slug && /^[a-z0-9-]+$/.test(slug)) {
         window.history.replaceState(null, '', `/guia-de-leitura-app/${encodeURIComponent(slug)}`);

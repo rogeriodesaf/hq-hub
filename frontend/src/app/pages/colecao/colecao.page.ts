@@ -32,7 +32,12 @@ import {
         <h1>{{ modoAdicao ? 'Adicionar à minha estante' : 'Minha estante' }}</h1>
       </div>
       @if (modoAdicao) { <a class="botao secundario" routerLink="/colecao">Voltar à estante</a> }
-      @else { <a class="botao primario" routerLink="/catalogo" [queryParams]="{ modo: 'adicionar' }"><svg lucidePlus size="18"></svg> Adicionar HQ</a> }
+      @else {
+        <div class="acoes-cabecalho-estante">
+          <a class="botao secundario" routerLink="/colecao/adicionar" [queryParams]="{ cadastro: 'manual' }">Cadastro manual</a>
+          <a class="botao primario" routerLink="/catalogo" [queryParams]="{ modo: 'adicionar' }"><svg lucidePlus size="18"></svg> Adicionar HQ</a>
+        </div>
+      }
     </section>
 
     @if (modoAdicao) {
@@ -764,6 +769,9 @@ export class ColecaoPage implements OnInit {
   private temporizadorBuscaEstante: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit() {
+    if (this.modoAdicao && this.router.url.includes('cadastro=manual')) {
+      this.exibindoCadastroManual.set(true);
+    }
     this.carregarConfiguracaoColecao();
     this.carregarResumoColecao();
     this.carregarEstante();
@@ -807,7 +815,7 @@ export class ColecaoPage implements OnInit {
   async copiarLinkEstantePublica() {
     const usuarioId = this.autenticacao.usuario()?.id;
     if (!usuarioId) return;
-    const link = `${window.location.origin}/compartilhar-estante/${usuarioId}`;
+    const link = `${window.location.origin}/#/compartilhar-estante/${usuarioId}`;
     try {
       await navigator.clipboard.writeText(link);
       this.mensagem.set('Link público da estante copiado.');

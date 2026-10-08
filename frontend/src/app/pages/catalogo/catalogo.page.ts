@@ -2018,7 +2018,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.compartilhandoSerie.set(true);
     const volume = serie.volume ? ` · Volume ${serie.volume}` : '';
     const titulo = `${serie.titulo}${volume}`;
-    const url = `${environment.compartilhamentoUrl}/series/${serie.id}?v=2`;
+    const url = this.compartilhamento.urlSerie(serie.id);
     try {
       const resultado = await this.compartilhamento.compartilhar({
         title: `${titulo} | Coleciona HQ`,

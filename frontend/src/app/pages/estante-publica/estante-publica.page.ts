@@ -125,7 +125,7 @@ export class EstantePublicaPage implements OnInit {
 
   async copiarLink() {
     const usuarioId = this.rota.snapshot.paramMap.get('id');
-    const link = `${window.location.origin}/compartilhar-estante/${usuarioId}`;
+    const link = `${window.location.origin}/#/compartilhar-estante/${usuarioId}`;
     await navigator.clipboard.writeText(link);
     this.mensagem.set('Link copiado.');
   }

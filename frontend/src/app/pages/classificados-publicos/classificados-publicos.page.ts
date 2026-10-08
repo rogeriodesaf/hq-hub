@@ -154,7 +154,7 @@ export class ClassificadosPublicosPage implements OnInit {
   }
 
   async compartilharAnuncio(anuncio: AnuncioPublico) {
-    const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
+    const url = this.compartilhamento.urlAnuncio(anuncio.id);
     const preco = anuncio.preco != null ? ` por ${this.formatarMoeda(anuncio.preco)}` : '';
     try {
       const resultado = await this.compartilhamento.compartilhar({ title: `${anuncio.tituloEdicao} | Coleciona HQ`, text: `Estou vendendo esta HQ${preco}. Veja o anúncio no Coleciona HQ:`, url });

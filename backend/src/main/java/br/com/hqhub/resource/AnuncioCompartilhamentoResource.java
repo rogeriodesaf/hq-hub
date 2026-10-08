@@ -98,13 +98,13 @@ public class AnuncioCompartilhamentoResource {
                 .entity("<!doctype html><html lang=\"pt-BR\"><head><meta charset=\"utf-8\">"
                         + "<title>Anúncio indisponível | Coleciona HQ</title><meta name=\"robots\" content=\"noindex\">"
                         + "</head><body><h1>Anúncio indisponível</h1><p>Este anúncio não está mais ativo.</p>"
-                        + "<a href=\"https://hqhub.space/classificados\">Ver classificados</a></body></html>")
+                        + "<a href=\"https://hqhub.space/#/classificados\">Ver classificados</a></body></html>")
                 .build();
     }
 
     private String html(AnuncioPublicoDTO anuncio) {
         String url = BASE + "/classificados/anuncio/" + anuncio.id();
-        String destino = BASE + "/classificados?anuncioId=" + anuncio.id();
+        String destino = BASE + "/#/classificados?anuncioId=" + anuncio.id();
         String modalidade = modalidade(anuncio.tipoAnuncio());
         String preco = anuncio.preco() == null ? "" : " · " + moeda(anuncio.preco());
         String titulo = anuncio.tituloEdicao() + " · " + modalidade + preco + " | Coleciona HQ";

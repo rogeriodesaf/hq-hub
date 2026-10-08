@@ -14,6 +14,12 @@ describe('CompartilhamentoService', () => {
     expect(service.urlEdicao(42)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/edicoes/42?v=4');
   });
 
+  it('gera links pelo backend sem depender das rotas profundas do host estatico', () => {
+    expect(service.urlSerie(7)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/series/7?v=2');
+    expect(service.urlPostagem(9)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/hq/9?v=17');
+    expect(service.urlAnuncio(11)).toMatch(/^https:\/\/hqhub-backend\.onrender\.com\/api\/compartilhar\/anuncios\/11\?v=\d+$/);
+  });
+
   it('usa Web Share API quando disponível', async () => {
     const compartilhar = jasmine.createSpy('share').and.resolveTo();
     Object.defineProperty(navigator, 'share', { configurable: true, value: compartilhar });

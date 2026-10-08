@@ -222,7 +222,7 @@ public class CompartilhamentoResource {
         String quantidade = totalEdicoes == 1 ? "1 edição" : totalEdicoes + " edições";
         String descricao = editora + " · " + quantidade
                 + ". Conheça a coleção completa no catálogo do Coleciona HQ.";
-        String destino = baseNormalizada() + "/catalogo?serieId=" + id;
+        String destino = baseNormalizada() + "/#/catalogo?serieId=" + id;
         String pagina = origemCompartilhamentoNormalizada() + "/series/" + id + "?v=2";
         String imagem = origemCompartilhamentoNormalizada() + "/series/" + id + "/imagem.jpg?v=2";
         String html = """
@@ -340,7 +340,7 @@ public class CompartilhamentoResource {
                 ? "Conheça esta edição no catálogo do Coleciona HQ."
                 : limitarTexto(edicao.descricaoExibicao(), 150);
         String descricao = editora + (ano == null ? "" : " · " + ano) + ". " + resumo;
-        String destino = baseNormalizada() + "/edicoes/" + id;
+        String destino = baseNormalizada() + "/#/edicoes/" + id;
         String pagina = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id
                 + "?v=" + VERSAO_COMPARTILHAMENTO_EDICAO;
         String imagem = origemApiNormalizada() + "/api/compartilhar/edicoes/" + id
@@ -382,7 +382,7 @@ public class CompartilhamentoResource {
     }
 
     private String htmlEdicaoNaoEncontrada() {
-        String destino = baseNormalizada() + "/catalogo";
+        String destino = baseNormalizada() + "/#/catalogo";
         String imagem = urlAbsoluta(IMAGEM_PADRAO);
         return """
                 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
@@ -400,7 +400,7 @@ public class CompartilhamentoResource {
     }
 
     private String htmlSerieNaoEncontrada() {
-        String destino = baseNormalizada() + "/catalogo";
+        String destino = baseNormalizada() + "/#/catalogo";
         String imagem = urlAbsoluta(IMAGEM_PADRAO);
         return """
                 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
@@ -421,7 +421,7 @@ public class CompartilhamentoResource {
     @Path("/guias/xmen")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaXMen() {
-        String destino = baseNormalizada() + "/?guia=ordem-de-leitura-mutante";
+        String destino = baseNormalizada() + "/#/guia-de-leitura-app/ordem-de-leitura-mutante";
         String imagem = urlAbsoluta(IMAGEM_GUIA_XMEN);
         String html = """
                 <!doctype html>
@@ -465,7 +465,7 @@ public class CompartilhamentoResource {
     @Path("/guias/tex-ordem-publicacao-brasileira")
     @Produces(MediaType.TEXT_HTML)
     public Response compartilharGuiaTex() {
-        String destino = baseNormalizada() + "/?guia=tex-ordem-publicacao-brasileira";
+        String destino = baseNormalizada() + "/#/guia-de-leitura-app/tex-ordem-publicacao-brasileira";
         String imagem = origemApiNormalizada()
                 + "/api/compartilhar/guias/tex-ordem-publicacao-brasileira/imagem.jpg?v=3";
         String html = """
@@ -533,7 +533,7 @@ public class CompartilhamentoResource {
 
     private String htmlGuia(OrdemLeitura guia) {
         String slug = URLEncoder.encode(guia.getSlug(), StandardCharsets.UTF_8).replace("+", "%20");
-        String destino = baseNormalizada() + "/?guia=" + slug;
+        String destino = baseNormalizada() + "/#/guia-de-leitura-app/" + slug;
         String compartilhamento = apiUrlPublica + "/api/compartilhar/guias/" + slug + "?v=4";
         boolean guiaBatman = "batman-ordem-cronologica".equalsIgnoreCase(guia.getSlug());
         String imagem = guiaBatman
@@ -1059,7 +1059,7 @@ public class CompartilhamentoResource {
     }
 
     private String htmlNaoEncontrado() {
-        String appUrl = baseNormalizada() + "/painel";
+        String appUrl = baseNormalizada() + "/#/painel";
         return """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -1264,7 +1264,7 @@ public class CompartilhamentoResource {
 
     private String appUrl(PostagemFeed postagem) {
         if (!abrirCatalogoAoCompartilhar) {
-            return baseNormalizada() + "/postagem/" + postagem.getId();
+            return baseNormalizada() + "/#/postagem/" + postagem.getId();
         }
 
         return appUrlCatalogo(postagem);
@@ -1280,9 +1280,9 @@ public class CompartilhamentoResource {
                     .orElse(null);
         }
         if (edicaoId != null) {
-            return baseNormalizada() + "/catalogo?edicaoId=" + edicaoId;
+            return baseNormalizada() + "/#/catalogo?edicaoId=" + edicaoId;
         }
-        return baseNormalizada() + "/postagem/" + postagem.getId();
+        return baseNormalizada() + "/#/postagem/" + postagem.getId();
     }
 
     private String appUrlPublica(PostagemFeed postagem) {
@@ -1295,9 +1295,9 @@ public class CompartilhamentoResource {
                     .orElse(null);
         }
         if (edicaoId != null) {
-            return baseNormalizada() + "/catalogo?edicaoId=" + edicaoId;
+            return baseNormalizada() + "/#/catalogo?edicaoId=" + edicaoId;
         }
-        return baseNormalizada() + "/postagem/" + postagem.getId();
+        return baseNormalizada() + "/#/postagem/" + postagem.getId();
     }
 
     private String urlHqPublica(Long postagemId) {

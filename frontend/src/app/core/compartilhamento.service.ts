@@ -19,6 +19,18 @@ export class CompartilhamentoService {
     return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=4`;
   }
 
+  urlSerie(serieId: number): string {
+    return `${environment.compartilhamentoUrl}/series/${serieId}?v=2`;
+  }
+
+  urlPostagem(postagemId: number): string {
+    return `${environment.compartilhamentoUrl}/hq/${postagemId}?v=17`;
+  }
+
+  urlAnuncio(anuncioId: number): string {
+    return `${environment.compartilhamentoUrl}/anuncios/${anuncioId}?v=${Date.now()}`;
+  }
+
   async compartilhar(dados: DadosCompartilhamento, copiarMensagemCompleta = false): Promise<ResultadoCompartilhamento> {
     const navegador = this.documento.defaultView?.navigator;
     if (navegador?.share) {

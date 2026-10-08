@@ -560,6 +560,14 @@ img {
   gap: 10px;
 }
 
+.acoes-cabecalho-estante {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .aviso-link-associado {
   margin: 0;
   color: var(--texto-suave, #667085);

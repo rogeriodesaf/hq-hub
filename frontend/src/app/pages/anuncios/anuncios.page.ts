@@ -248,7 +248,7 @@ export class AnunciosPage implements OnInit {
   }
 
   async compartilharAnuncio(anuncio: Anuncio) {
-    const url = `https://hqhub.space/classificados/anuncio/${anuncio.id}?v=${Date.now()}`;
+    const url = this.compartilhamento.urlAnuncio(anuncio.id);
     const preco = anuncio.preco != null ? ` por ${this.formatarMoeda(anuncio.preco)}` : '';
     try {
       const resultado = await this.compartilhamento.compartilhar({

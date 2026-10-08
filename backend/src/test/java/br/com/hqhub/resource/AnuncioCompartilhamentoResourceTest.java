@@ -30,6 +30,7 @@ class AnuncioCompartilhamentoResourceTest {
             assertTrue(html.contains("og:image\" content=\"https://img.example/exemplar.jpg"));
             assertTrue(html.contains("Conservação: muito bom · Anunciante: Ana"));
             assertTrue(html.contains("rel=\"canonical\" href=\"https://hqhub.space/classificados/anuncio/12"));
+            assertTrue(html.contains("https://hqhub.space/#/classificados?anuncioId=12"));
             assertTrue(html.indexOf("og:title") < html.indexOf("<script>"));
         }
     }
