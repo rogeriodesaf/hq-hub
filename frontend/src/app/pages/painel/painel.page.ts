@@ -2131,10 +2131,11 @@ export class PainelPage implements OnInit, OnDestroy {
   async compartilhar(postagem: PostagemFeed) {
     this.compartilhandoId.set(postagem.id);
     const url = this.urlPostagem(postagem);
-    const titulo = postagem.colecaoDestaque?.titulo
-      || postagem.catalogoDestaque?.titulo
-      || 'Coleciona HQ';
-    const texto = `📚 ${titulo}\n${url}`;
+    const titulo = postagem.colecaoDestaque?.titulo || postagem.catalogoDestaque?.titulo;
+    const conteudo = postagem.conteudo?.trim();
+    const texto = conteudo
+      ? `${conteudo}\n\n${url}`
+      : `📚 ${titulo || 'Coleciona HQ'}\n${url}`;
 
     try {
       if (navigator.share) {
