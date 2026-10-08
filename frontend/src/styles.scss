@@ -668,6 +668,41 @@ img {
   gap: 18px;
 }
 
+.contadores-catalogo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px)) minmax(220px, 1fr);
+  align-items: stretch;
+  gap: 12px;
+  margin: -4px 0 18px;
+}
+
+.contadores-catalogo article {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  background: var(--superficie);
+  box-shadow: var(--sombra);
+}
+
+.contadores-catalogo strong {
+  color: var(--primaria);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1;
+}
+
+.contadores-catalogo span,
+.contadores-catalogo p {
+  color: var(--texto-suave);
+}
+
+.contadores-catalogo p {
+  align-self: center;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 .cabecalho-colecao-selecionada {
   display: grid;
   gap: 18px;
@@ -5772,6 +5807,25 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
     max-width: 100%;
     font-size: clamp(1.45rem, 7vw, 1.75rem);
     line-height: 1.08;
+  }
+
+  .contadores-catalogo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .contadores-catalogo article {
+    padding: 12px;
+  }
+
+  .contadores-catalogo strong {
+    font-size: clamp(1.3rem, 7vw, 1.7rem);
+  }
+
+  .contadores-catalogo p {
+    grid-column: 1 / -1;
+    text-align: center;
   }
 
   .catalogo-layout {

@@ -387,6 +387,11 @@ export interface AnuncioPublico {
   dataCriacao: string;
 }
 
+export interface EstatisticasCatalogo {
+  totalTitulos: number;
+  totalEdicoes: number;
+}
+
 export interface CadastroAnuncio {
   itemColecaoId: number;
   tipoAnuncio: TipoAnuncio;

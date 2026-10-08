@@ -31,6 +31,7 @@ import {
   EstanteCompartilhada,
   PostagemColecaoPublica,
   EstatisticasPublicasColecao,
+  EstatisticasCatalogo,
   GeracaoRascunhoImportacao,
   ColetaGuia,
   GeracaoRascunhoGcd,
@@ -246,6 +247,10 @@ export class ApiService {
 
   buscarSeriePorId(id: number) {
     return this.http.get<Serie>(`/api/series/${id}`);
+  }
+
+  obterEstatisticasCatalogo() {
+    return this.http.get<EstatisticasCatalogo>('/api/catalogo-publico/estatisticas');
   }
 
   obterSerieCatalogoPublica(id: number, pagina = 0, tamanho = 24) {

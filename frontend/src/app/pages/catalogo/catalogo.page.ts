@@ -18,6 +18,7 @@ import {
   Edicao,
   EdicaoComicVine,
   EditoraResumo,
+  EstatisticasCatalogo,
   LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
@@ -43,6 +44,18 @@ import {
       } @else {
         <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Onde saiu no Brasil?</a>
       }
+    </section>
+
+    <section class="contadores-catalogo" aria-label="Tamanho atual do catálogo" aria-live="polite">
+      <article>
+        <strong>{{ estatisticasCatalogo() ? formatarQuantidade(estatisticasCatalogo()!.totalTitulos) : '—' }}</strong>
+        <span>títulos cadastrados</span>
+      </article>
+      <article>
+        <strong>{{ estatisticasCatalogo() ? formatarQuantidade(estatisticasCatalogo()!.totalEdicoes) : '—' }}</strong>
+        <span>edições cadastradas</span>
+      </article>
+      <p>Atualização automática conforme o catálogo cresce.</p>
     </section>
 
     @if (mensagem()) {
@@ -1303,6 +1316,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly autenticado = this.autenticacao.autenticado;
   readonly modoAdicao = signal(false);
   readonly editoras = signal<EditoraResumo[]>([]);
+  readonly estatisticasCatalogo = signal<EstatisticasCatalogo | null>(null);
   readonly carregandoEditoras = signal(false);
   readonly erroEditoras = signal(false);
   readonly editoraSelecionadaId = signal<number | null>(null);
@@ -1401,6 +1415,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioItemColecao = this.formularioItemColecaoVazio();
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
+  private temporizadorEstatisticas: ReturnType<typeof setInterval> | null = null;
   private sequenciaBuscaResultados = 0;
   private sequenciaBuscaSeries = 0;
   private posicaoRolagemAntesDaSerie = 0;
@@ -1435,6 +1450,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.carregarEstatisticasCatalogo();
+    this.temporizadorEstatisticas = setInterval(() => this.carregarEstatisticasCatalogo(), 60_000);
+
     const edicaoIdRota = Number(this.rota.snapshot.paramMap.get('id'));
     this.paginaEdicaoPublica = Number.isFinite(edicaoIdRota) && edicaoIdRota > 0;
     const edicaoId = this.paginaEdicaoPublica
@@ -1476,6 +1494,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
     if (this.temporizadorMensagem) {
       clearTimeout(this.temporizadorMensagem);
       this.temporizadorMensagem = null;
+    }
+    if (this.temporizadorEstatisticas) {
+      clearInterval(this.temporizadorEstatisticas);
+      this.temporizadorEstatisticas = null;
     }
   }
 
@@ -1927,6 +1949,21 @@ export class CatalogoPage implements OnInit, OnDestroy {
         replaceUrl: true,
       });
     }
+  }
+
+  formatarQuantidade(valor: number) {
+    return valor.toLocaleString('pt-BR');
+  }
+
+  private carregarEstatisticasCatalogo() {
+    this.api.obterEstatisticasCatalogo().subscribe({
+      next: (estatisticas) => {
+        const atuais = this.estatisticasCatalogo();
+        if (atuais?.totalTitulos !== estatisticas.totalTitulos || atuais.totalEdicoes !== estatisticas.totalEdicoes) {
+          this.estatisticasCatalogo.set(estatisticas);
+        }
+      },
+    });
   }
 
   limparFiltroEditora() {
