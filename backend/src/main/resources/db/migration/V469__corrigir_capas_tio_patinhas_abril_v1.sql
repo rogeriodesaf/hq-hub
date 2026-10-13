@@ -32,9 +32,10 @@ BEGIN
     END IF;
 
     IF quantidade > 1 THEN
-        RAISE EXCEPTION
-            'Tio Patinhas/Abril V1: esperada uma serie alvo, encontradas %',
-            quantidade;
+        -- Ha bases legadas com mais de um cadastro usando exatamente este
+        -- titulo. Sem uma identidade inequivoca, esta migracao nao escolhe uma
+        -- serie por posicao; a consolidacao posterior trata o cadastro canonico.
+        RETURN;
     END IF;
 
     SELECT count(*)
@@ -73,7 +74,7 @@ $$;
 WITH capas(numero) AS (
     SELECT numero
       FROM generate_series(1, 637) AS sequencia(numero)
-), serie_alvo AS (
+), series_candidatas AS (
     SELECT serie.id
       FROM series serie
       JOIN editoras editora ON editora.id = serie.editora_id
@@ -82,6 +83,10 @@ WITH capas(numero) AS (
        AND hqhub_normalizar_titulo_serie(serie.titulo) =
            hqhub_normalizar_titulo_serie('Tio Patinhas')
        AND coalesce(serie.volume, 1) = 1
+), serie_alvo AS (
+    SELECT min(id) AS id
+      FROM series_candidatas
+    HAVING count(*) = 1
 )
 UPDATE edicoes edicao
    SET url_capa =
@@ -109,7 +114,7 @@ UPDATE edicoes edicao
    );
 
 -- Mantem eventuais guias de leitura sincronizados com as capas corrigidas.
-WITH serie_alvo AS (
+WITH series_candidatas AS (
     SELECT serie.id
       FROM series serie
       JOIN editoras editora ON editora.id = serie.editora_id
@@ -118,6 +123,10 @@ WITH serie_alvo AS (
        AND hqhub_normalizar_titulo_serie(serie.titulo) =
            hqhub_normalizar_titulo_serie('Tio Patinhas')
        AND coalesce(serie.volume, 1) = 1
+), serie_alvo AS (
+    SELECT min(id) AS id
+      FROM series_candidatas
+    HAVING count(*) = 1
 )
 UPDATE itens_ordem_leitura item
    SET url_capa_referencia = edicao.url_capa
