@@ -9,6 +9,9 @@ services:
       - hqhub.space
     routes:
       - type: rewrite
+        source: /sitemap.xml
+        destination: https://hqhub-backend.onrender.com/api/catalogo-publico/sitemap.xml
+      - type: rewrite
         source: /guia-de-leitura/ordem-de-leitura-mutante
         destination: /guia-xmen-compartilhar.html
       - type: rewrite

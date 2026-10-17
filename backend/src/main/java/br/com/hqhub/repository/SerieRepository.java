@@ -34,6 +34,11 @@ public class SerieRepository implements PanacheRepository<Serie> {
         this.entityManager = entityManager;
     }
 
+    public List<Long> listarIdsParaSitemap() {
+        return entityManager.createQuery("select s.id from Serie s order by s.id", Long.class)
+                .getResultList();
+    }
+
     public boolean existePorTituloEEditoraEVolume(String titulo, Long editoraId, Integer volume) {
         return buscarPorTituloEEditoraEVolume(titulo, editoraId, volume).isPresent();
     }

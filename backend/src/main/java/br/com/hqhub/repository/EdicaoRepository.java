@@ -34,6 +34,11 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
         this.entityManager = entityManager;
     }
 
+    public List<Long> listarIdsParaSitemap() {
+        return entityManager.createQuery("select e.id from Edicao e order by e.id", Long.class)
+                .getResultList();
+    }
+
     public boolean existePorNumeroESerie(String numero, Long serieId) {
         return buscarPorNumeroESerie(numero, serieId).isPresent();
     }

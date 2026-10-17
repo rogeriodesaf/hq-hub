@@ -11,13 +11,13 @@ describe('CompartilhamentoService', () => {
   });
 
   it('gera o link publico curto de uma edicao', () => {
-    expect(service.urlEdicao(42)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/edicoes/42?v=4');
+    expect(service.urlEdicao(42)).toBe('https://hqhub.space/e/42?origem=compartilhamento');
   });
 
-  it('gera links pelo backend sem depender das rotas profundas do host estatico', () => {
-    expect(service.urlSerie(7)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/series/7?v=2');
-    expect(service.urlPostagem(9)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/hq/9?v=17');
-    expect(service.urlAnuncio(11)).toMatch(/^https:\/\/hqhub-backend\.onrender\.com\/api\/compartilhar\/anuncios\/11\?v=\d+$/);
+  it('gera links compartilháveis no domínio público', () => {
+    expect(service.urlSerie(7)).toBe('https://hqhub.space/colecao/serie/7?origem=compartilhamento');
+    expect(service.urlPostagem(9)).toBe('https://hqhub.space/hq/9?origem=compartilhamento');
+    expect(service.urlAnuncio(11)).toMatch(/^https:\/\/hqhub\.space\/classificados\/anuncio\/11\?origem=compartilhamento&v=\d+$/);
   });
 
   it('usa Web Share API quando disponível', async () => {
