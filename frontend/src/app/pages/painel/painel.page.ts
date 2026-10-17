@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, ResultadoPesquisaCatalogo, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
+import { Anuncio, Edicao, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Serie, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
@@ -156,19 +156,28 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                     {{ buscandoLancamento() ? 'Buscando...' : 'Buscar edição' }}
                   </button>
                 </div>
-                @if (resultadosLancamento().length) {
+                @if (resultadosTitulosLancamento().length) {
+                  <div class="resultados-lancamento titulos-lancamento">
+                    @for (serie of resultadosTitulosLancamento(); track serie.id) {
+                      <button type="button" class="titulo-lancamento" [class.selecionada]="tituloLancamentoSelecionado()?.id === serie.id" (click)="selecionarTituloLancamento(serie)">
+                        <span><strong>{{ serie.titulo }}</strong><small>{{ serie.editora?.nome || 'Editora não informada' }}<ng-container *ngIf="serie.volume"> · volume {{ serie.volume }}</ng-container></small></span>
+                      </button>
+                    }
+                  </div>
+                }
+                @if (tituloLancamentoSelecionado() && resultadosLancamento().length) {
                   <div class="resultados-lancamento">
                     @for (edicao of resultadosLancamento(); track edicao.id) {
                       <button type="button" [class.selecionada]="edicaoLancamento()?.id === edicao.id" (click)="selecionarEdicaoLancamento(edicao)">
                         <img [src]="edicao.urlCapa || 'assets/capa-reserva.svg'" alt="" />
-                        <span><strong>{{ edicao.nomeVolume || edicao.titulo }} #{{ edicao.numero }}</strong><small>{{ edicao.titulo || 'Edição do catálogo' }}</small></span>
+                        <span><strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong><small>{{ edicao.titulo || edicao.serie?.editora?.nome || 'Edição do catálogo' }}</small></span>
                       </button>
                     }
                   </div>
                 }
                 @if (edicaoLancamento(); as edicao) {
                   <div class="lancamento-selecionado">
-                    <span>Edição selecionada: <strong>{{ edicao.nomeVolume || edicao.titulo }} #{{ edicao.numero }}</strong></span>
+                    <span>Edição selecionada: <strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong></span>
                     <label>Data do lançamento <input type="date" [(ngModel)]="dataLancamento" name="dataLancamento" /></label>
                   </div>
                 }
@@ -1546,8 +1555,10 @@ export class PainelPage implements OnInit, OnDestroy {
   readonly editorAberto = signal(false);
   readonly modoLancamento = signal(false);
   readonly buscandoLancamento = signal(false);
-  readonly resultadosLancamento = signal<ResultadoPesquisaCatalogo[]>([]);
-  readonly edicaoLancamento = signal<ResultadoPesquisaCatalogo | null>(null);
+  readonly resultadosTitulosLancamento = signal<Serie[]>([]);
+  readonly tituloLancamentoSelecionado = signal<Serie | null>(null);
+  readonly resultadosLancamento = signal<Edicao[]>([]);
+  readonly edicaoLancamento = signal<Edicao | null>(null);
   readonly adicionandoLancamentoId = signal<number | null>(null);
   readonly comentariosAbertos = signal<Set<number>>(new Set());
   readonly historias = signal<HistoriaLeitura[]>([]);
@@ -1619,6 +1630,8 @@ export class PainelPage implements OnInit, OnDestroy {
     this.modoLancamento.update((ativo) => !ativo);
     if (!this.modoLancamento()) {
       this.edicaoLancamento.set(null);
+      this.tituloLancamentoSelecionado.set(null);
+      this.resultadosTitulosLancamento.set([]);
       this.resultadosLancamento.set([]);
       this.buscaLancamento = '';
       this.dataLancamento = '';
@@ -1630,13 +1643,17 @@ export class PainelPage implements OnInit, OnDestroy {
     if (!busca || this.buscandoLancamento()) return;
     this.buscandoLancamento.set(true);
     this.mensagem.set('');
-    this.api.pesquisarCatalogo(busca, 0, 24, true).subscribe({
+    this.tituloLancamentoSelecionado.set(null);
+    this.edicaoLancamento.set(null);
+    this.resultadosLancamento.set([]);
+    this.api.listarSeries(busca, 0, 24, '', 'BRASILEIRA').subscribe({
       next: (pagina) => {
-        this.resultadosLancamento.set(pagina.itens.filter((edicao) => edicao.fonte === 'HQ_HUB' && edicao.id !== null));
+        this.resultadosTitulosLancamento.set(pagina.itens);
         this.buscandoLancamento.set(false);
         if (!pagina.itens.length) this.mensagem.set(`Nenhum resultado encontrado para "${busca}".`);
       },
       error: () => {
+        this.resultadosTitulosLancamento.set([]);
         this.resultadosLancamento.set([]);
         this.buscandoLancamento.set(false);
         this.mensagem.set('Não foi possível pesquisar no catálogo agora.');
@@ -1644,9 +1661,27 @@ export class PainelPage implements OnInit, OnDestroy {
     });
   }
 
-  selecionarEdicaoLancamento(edicao: ResultadoPesquisaCatalogo) {
+  selecionarTituloLancamento(serie: Serie) {
+    this.tituloLancamentoSelecionado.set(serie);
+    this.edicaoLancamento.set(null);
+    this.resultadosLancamento.set([]);
+    this.buscandoLancamento.set(true);
+    this.api.listarEdicoes('', 0, 100, serie.id).subscribe({
+      next: (pagina) => {
+        this.resultadosLancamento.set(pagina.itens);
+        this.buscandoLancamento.set(false);
+        if (!pagina.itens.length) this.mensagem.set(`Nenhuma edição cadastrada para "${serie.titulo}".`);
+      },
+      error: () => {
+        this.buscandoLancamento.set(false);
+        this.mensagem.set('Não foi possível carregar as edições deste título.');
+      },
+    });
+  }
+
+  selecionarEdicaoLancamento(edicao: Edicao) {
     this.edicaoLancamento.set(edicao);
-    this.dataLancamento = edicao.dataPublicacao || '';
+    this.dataLancamento = edicao.dataDisponibilidadeLoja || edicao.dataPublicacao || '';
   }
 
   dispensarLancamento(postagemId: number) {
@@ -1918,7 +1953,7 @@ export class PainelPage implements OnInit, OnDestroy {
         videosRelacionados,
         partnerChannel,
         this.modoLancamento() && this.edicaoLancamento()
-          ? { edicaoId: this.edicaoLancamento()!.id!, dataLancamento: this.dataLancamento || null }
+          ? { edicaoId: this.edicaoLancamento()!.id, dataLancamento: this.dataLancamento || null }
           : null,
       ))
       .catch((mensagem) => {
@@ -2171,6 +2206,8 @@ export class PainelPage implements OnInit, OnDestroy {
         this.canalParceiroFormulario = null;
         this.modoLancamento.set(false);
         this.edicaoLancamento.set(null);
+        this.tituloLancamentoSelecionado.set(null);
+        this.resultadosTitulosLancamento.set([]);
         this.resultadosLancamento.set([]);
         this.buscaLancamento = '';
         this.dataLancamento = '';

@@ -5416,6 +5416,7 @@ app-painel-page .busca-lancamento { display: grid; grid-template-columns: minmax
 app-painel-page .resultados-lancamento { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 7px; max-height: 210px; overflow-y: auto; }
 app-painel-page .resultados-lancamento button { display: grid; grid-template-columns: 42px 1fr; gap: 8px; align-items: center; padding: 6px; border: 1px solid var(--borda); border-radius: 9px; background: var(--superficie); color: var(--texto); text-align: left; cursor: pointer; }
 app-painel-page .resultados-lancamento button.selecionada { border-color: var(--marca); box-shadow: inset 0 0 0 1px var(--marca); }
+app-painel-page .titulos-lancamento button.titulo-lancamento { grid-template-columns: 1fr; min-height: 58px; padding: 10px 12px; }
 app-painel-page .resultados-lancamento img { width: 42px; height: 58px; border-radius: 5px; object-fit: cover; }
 app-painel-page .resultados-lancamento span { display: grid; gap: 3px; }
 app-painel-page .resultados-lancamento small { color: var(--texto-suave); }
