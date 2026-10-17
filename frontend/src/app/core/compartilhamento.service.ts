@@ -16,19 +16,19 @@ export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
 
   urlEdicao(edicaoId: number): string {
-    return `${environment.publicUrl}/e/${edicaoId}?origem=compartilhamento`;
+    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=5`;
   }
 
   urlSerie(serieId: number): string {
-    return `${environment.publicUrl}/colecao/serie/${serieId}?origem=compartilhamento`;
+    return `${environment.compartilhamentoUrl}/series/${serieId}?v=3`;
   }
 
   urlPostagem(postagemId: number): string {
-    return `${environment.publicUrl}/hq/${postagemId}?origem=compartilhamento`;
+    return `${environment.compartilhamentoUrl}/hq/${postagemId}?v=18`;
   }
 
   urlAnuncio(anuncioId: number): string {
-    return `${environment.publicUrl}/classificados/anuncio/${anuncioId}?origem=compartilhamento&v=${Date.now()}`;
+    return `${environment.compartilhamentoUrl}/anuncios/${anuncioId}?v=${Date.now()}`;
   }
 
   async compartilhar(dados: DadosCompartilhamento, copiarMensagemCompleta = false): Promise<ResultadoCompartilhamento> {
