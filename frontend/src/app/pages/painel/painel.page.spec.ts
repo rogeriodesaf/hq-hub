@@ -35,7 +35,7 @@ describe('PainelPage stories', () => {
         { provide: ApiService, useValue: {
           listarFeed: () => of([]),
           listarLancamentosFeed: () => of([]),
-          listarEdicoes: () => of({ itens: [], pagina: 0, tamanho: 24, totalItens: 0, totalPaginas: 0 }),
+          pesquisarCatalogo: () => of({ itens: [], pagina: 0, tamanho: 24, totalItens: 0, totalPaginas: 0 }),
           listarAnuncios: () => of([]),
           listarUsuarios: () => of([]),
           obterRelacionamentoAmizade: () => of(null),
@@ -156,22 +156,22 @@ describe('PainelPage stories', () => {
     expect(fixture.nativeElement.querySelector('.historias-faixa').textContent).toContain('Sua história');
   });
 
-  it('busca lançamentos por partes do título e prioriza a correspondência completa', () => {
+  it('usa a mesma pesquisa rápida do catálogo para buscar lançamentos', () => {
     const api = TestBed.inject(ApiService);
-    const homemAranha = { id: 10, numero: '1', titulo: null, serie: { titulo: 'O Espetacular Homem-Aranha' } } as any;
-    const homemAnimal = { id: 11, numero: '2', titulo: null, serie: { titulo: 'Homem-Animal' } } as any;
-    const pagina = (itens: any[]) => of({ itens, pagina: 0, tamanho: 24, totalItens: itens.length, totalPaginas: 1 });
-    spyOn(api, 'listarEdicoes').and.callFake((busca: string) => {
-      if (busca === 'homem aranha') return pagina([homemAranha]);
-      if (busca === 'homem') return pagina([homemAnimal, homemAranha]);
-      return pagina([homemAranha]);
-    });
+    const homemAranha = {
+      id: 10, idExterno: null, fonte: 'HQ_HUB', titulo: 'O Espetacular Homem-Aranha', numero: '1',
+      nomeVolume: 'O Espetacular Homem-Aranha', serieVolume: 1, urlCapa: null,
+      dataPublicacao: '2026-10-17', jaCadastrada: true, urlOrigem: null,
+    } as const;
+    spyOn(api, 'pesquisarCatalogo').and.returnValue(of({
+      itens: [homemAranha], pagina: 0, tamanho: 24, totalItens: 1, totalPaginas: 1,
+    }));
 
     fixture.componentInstance.buscaLancamento = 'homem aranha';
     fixture.componentInstance.buscarEdicoesLancamento();
 
-    expect(api.listarEdicoes).toHaveBeenCalledTimes(3);
-    expect(fixture.componentInstance.resultadosLancamento().map((edicao) => edicao.id)).toEqual([10, 11]);
+    expect(api.pesquisarCatalogo).toHaveBeenCalledOnceWith('homem aranha', 0, 24, true);
+    expect(fixture.componentInstance.resultadosLancamento().map((edicao) => edicao.id)).toEqual([10]);
     expect(fixture.componentInstance.buscandoLancamento()).toBeFalse();
   });
 });

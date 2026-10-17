@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { catchError, finalize, forkJoin, of } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, Edicao, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
+import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, ResultadoPesquisaCatalogo, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
@@ -162,14 +161,14 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                     @for (edicao of resultadosLancamento(); track edicao.id) {
                       <button type="button" [class.selecionada]="edicaoLancamento()?.id === edicao.id" (click)="selecionarEdicaoLancamento(edicao)">
                         <img [src]="edicao.urlCapa || 'assets/capa-reserva.svg'" alt="" />
-                        <span><strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong><small>{{ edicao.serie?.editora?.nome || 'Editora não informada' }}</small></span>
+                        <span><strong>{{ edicao.nomeVolume || edicao.titulo }} #{{ edicao.numero }}</strong><small>{{ edicao.titulo || 'Edição do catálogo' }}</small></span>
                       </button>
                     }
                   </div>
                 }
                 @if (edicaoLancamento(); as edicao) {
                   <div class="lancamento-selecionado">
-                    <span>Edição selecionada: <strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong></span>
+                    <span>Edição selecionada: <strong>{{ edicao.nomeVolume || edicao.titulo }} #{{ edicao.numero }}</strong></span>
                     <label>Data do lançamento <input type="date" [(ngModel)]="dataLancamento" name="dataLancamento" /></label>
                   </div>
                 }
@@ -1547,8 +1546,8 @@ export class PainelPage implements OnInit, OnDestroy {
   readonly editorAberto = signal(false);
   readonly modoLancamento = signal(false);
   readonly buscandoLancamento = signal(false);
-  readonly resultadosLancamento = signal<Edicao[]>([]);
-  readonly edicaoLancamento = signal<Edicao | null>(null);
+  readonly resultadosLancamento = signal<ResultadoPesquisaCatalogo[]>([]);
+  readonly edicaoLancamento = signal<ResultadoPesquisaCatalogo | null>(null);
   readonly adicionandoLancamentoId = signal<number | null>(null);
   readonly comentariosAbertos = signal<Set<number>>(new Set());
   readonly historias = signal<HistoriaLeitura[]>([]);
@@ -1629,50 +1628,25 @@ export class PainelPage implements OnInit, OnDestroy {
   buscarEdicoesLancamento() {
     const busca = this.buscaLancamento.trim();
     if (!busca || this.buscandoLancamento()) return;
-
-    const termos = this.termosBuscaLancamento(busca);
-    const consultas = [...new Set([busca, ...termos])];
     this.buscandoLancamento.set(true);
     this.mensagem.set('');
-
-    forkJoin(consultas.map((consulta) => this.api.listarEdicoes(consulta, 0, 24).pipe(
-      catchError(() => of({ itens: [], pagina: 0, tamanho: 24, totalItens: 0, totalPaginas: 0 })),
-    )))
-      .pipe(finalize(() => this.buscandoLancamento.set(false)))
-      .subscribe((paginas) => {
-        const edicoes = paginas.flatMap((pagina) => pagina.itens);
-        const unicas = [...new Map(edicoes.map((edicao) => [edicao.id, edicao])).values()];
-        const resultado = unicas
-          .filter((edicao) => this.pontuarEdicaoLancamento(edicao, busca, termos) > 0)
-          .sort((a, b) => this.pontuarEdicaoLancamento(b, busca, termos) - this.pontuarEdicaoLancamento(a, busca, termos))
-          .slice(0, 24);
-
-        this.resultadosLancamento.set(resultado);
-        if (!resultado.length) {
-          this.mensagem.set('Nenhuma edição relacionada foi encontrada. Tente uma parte diferente do título.');
-        }
-      });
+    this.api.pesquisarCatalogo(busca, 0, 24, true).subscribe({
+      next: (pagina) => {
+        this.resultadosLancamento.set(pagina.itens.filter((edicao) => edicao.fonte === 'HQ_HUB' && edicao.id !== null));
+        this.buscandoLancamento.set(false);
+        if (!pagina.itens.length) this.mensagem.set(`Nenhum resultado encontrado para "${busca}".`);
+      },
+      error: () => {
+        this.resultadosLancamento.set([]);
+        this.buscandoLancamento.set(false);
+        this.mensagem.set('Não foi possível pesquisar no catálogo agora.');
+      },
+    });
   }
 
-  private termosBuscaLancamento(busca: string) {
-    return this.normalizarBuscaLancamento(busca)
-      .split(/\s+/)
-      .filter((termo) => termo.length >= 2 && !['a', 'o', 'as', 'os', 'de', 'da', 'do', 'das', 'dos', 'e'].includes(termo));
-  }
-
-  private pontuarEdicaoLancamento(edicao: Edicao, busca: string, termos: string[]) {
-    const titulo = this.normalizarBuscaLancamento(`${edicao.serie?.titulo || ''} ${edicao.titulo || ''} ${edicao.numero || ''}`);
-    const frase = this.normalizarBuscaLancamento(busca);
-    return (titulo.includes(frase) ? 100 : 0) + termos.filter((termo) => titulo.includes(termo)).length * 10;
-  }
-
-  private normalizarBuscaLancamento(valor: string) {
-    return valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-  }
-
-  selecionarEdicaoLancamento(edicao: Edicao) {
+  selecionarEdicaoLancamento(edicao: ResultadoPesquisaCatalogo) {
     this.edicaoLancamento.set(edicao);
-    this.dataLancamento = edicao.dataDisponibilidadeLoja || edicao.dataPublicacao || '';
+    this.dataLancamento = edicao.dataPublicacao || '';
   }
 
   dispensarLancamento(postagemId: number) {
@@ -1944,7 +1918,7 @@ export class PainelPage implements OnInit, OnDestroy {
         videosRelacionados,
         partnerChannel,
         this.modoLancamento() && this.edicaoLancamento()
-          ? { edicaoId: this.edicaoLancamento()!.id, dataLancamento: this.dataLancamento || null }
+          ? { edicaoId: this.edicaoLancamento()!.id!, dataLancamento: this.dataLancamento || null }
           : null,
       ))
       .catch((mensagem) => {
