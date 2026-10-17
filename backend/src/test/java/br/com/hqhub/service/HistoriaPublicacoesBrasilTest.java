@@ -19,6 +19,26 @@ class HistoriaPublicacoesBrasilTest {
         assertEquals(Boolean.TRUE, consultar(StatusPublicacaoHistoria.COMPLETA).publicacoes().getFirst().publicacaoCompleta());
     }
 
+    @Test
+    void estimaQuantosVolumesFaltamParaColecaoAlcancarEdicaoOriginal() {
+        PublicacaoHistoriaRepository publicacoes = mock(PublicacaoHistoriaRepository.class);
+        when(publicacoes.listarMarcosColecoesPorVolumeComicVine("2127")).thenReturn(List.of(
+                marco(17L, "279", LocalDate.of(2026, 7, 1), 279),
+                marco(17L, "280", LocalDate.of(2026, 7, 1), 280),
+                marco(18L, "281", LocalDate.of(2026, 9, 1), 281),
+                marco(18L, "282", LocalDate.of(2026, 9, 1), 282)));
+        HistoriaService service = new HistoriaService(null, null, null, publicacoes, null, null, null, null, null, null);
+
+        var resultado = service.calcularProgressoColecoesComicVine("2127", "293");
+        var saga = resultado.colecoes().getFirst();
+
+        assertEquals("282", saga.ultimaEdicaoOriginalNumero());
+        assertEquals(11, saga.edicoesOriginaisAteAlvo());
+        assertEquals(6, saga.volumesEstimadosAteAlvo());
+        assertFalse(saga.alvoPublicado());
+        assertNotNull(saga.previsaoEstimada());
+    }
+
     private br.com.hqhub.dto.PublicacoesBrasileirasEdicaoOriginalDTO consultar(StatusPublicacaoHistoria status) {
         EdicaoRepository edicoes = mock(EdicaoRepository.class);
         PublicacaoHistoriaRepository publicacoes = mock(PublicacaoHistoriaRepository.class);
@@ -48,5 +68,12 @@ class HistoriaPublicacoesBrasilTest {
         Edicao edicao = new Edicao(); edicao.setId(id); edicao.setSerie(serie); edicao.setNumero("280");
         edicao.setDataPublicacao(LocalDate.of(1986, 9, 1));
         return edicao;
+    }
+
+    private PublicacaoHistoriaRepository.MarcoColecaoOriginal marco(
+            Long edicaoBrasileiraId, String numeroOriginal, LocalDate data, double numeroOriginalNumerico) {
+        return new PublicacaoHistoriaRepository.MarcoColecaoOriginal(
+                10L, "A Saga do Homem-Aranha", 2, "Panini", edicaoBrasileiraId,
+                edicaoBrasileiraId.toString(), data, numeroOriginal, numeroOriginalNumerico);
     }
 }

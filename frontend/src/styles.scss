@@ -1481,6 +1481,21 @@ body.tema-escuro .sugestoes-assistente {
   margin-top: 28px;
 }
 
+.ir-edicao-direta {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) auto minmax(220px, 1fr);
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--superficie);
+}
+
+.ir-edicao-direta label { margin: 0; }
+.ir-edicao-direta small { align-self: center; color: var(--texto-suave); line-height: 1.4; }
+
 .secao-titulo {
   display: flex;
   align-items: center;
@@ -5437,6 +5452,82 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
   box-shadow: 0 16px 34px rgba(21, 25, 31, 0.09);
 }
 
+.progresso-colecoes {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0;
+  padding: clamp(16px, 2.4vw, 24px);
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--superficie) 92%, var(--marca-suave));
+}
+
+.progresso-colecoes-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.progresso-colecao-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 13px;
+  background: var(--superficie);
+}
+
+.progresso-colecao-card.alvo-publicado {
+  border-color: color-mix(in srgb, #248a4b 65%, var(--borda));
+  box-shadow: inset 4px 0 #248a4b;
+}
+
+.progresso-colecao-card p { margin: 0; color: var(--texto-suave); line-height: 1.4; }
+.progresso-colecao-card p strong, .progresso-colecao-topo strong { color: var(--texto); }
+
+.progresso-colecao-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.progresso-colecao-topo > div { display: grid; gap: 3px; }
+.progresso-colecao-topo small { color: var(--texto-suave); }
+
+.selo-confianca {
+  align-self: start;
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: var(--superficie-2);
+  color: var(--texto-suave);
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.progresso-trilho {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--superficie-2);
+}
+
+.progresso-trilho span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--marca), #248a4b);
+}
+
+.progresso-resultado {
+  padding-top: 7px;
+  border-top: 1px solid var(--borda);
+}
+
+.progresso-resultado.positivo { color: #248a4b; font-weight: 750; }
+.aviso-estimativa { margin: 0; color: var(--texto-suave); font-size: .82rem; line-height: 1.45; }
+
 .mapa-brasil-cabecalho {
   display: flex;
   align-items: flex-start;
@@ -5706,6 +5797,8 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
 }
 
 @media (max-width: 680px) {
+  .ir-edicao-direta { grid-template-columns: 1fr; align-items: stretch; }
+
   .mapa-brasil-destaque {
     margin: 14px 0;
     padding: 15px;
@@ -5728,6 +5821,11 @@ app-painel-page .historia-comentarios input { flex: 1; min-width: 0; }
     padding: 2px 2px 8px;
     scroll-snap-type: x proximity;
   }
+
+  .progresso-colecoes { margin: 14px 0; padding: 15px; border-radius: 15px; }
+  .progresso-colecoes-grade { grid-template-columns: 1fr; }
+  .progresso-colecao-topo { display: grid; }
+  .selo-confianca { justify-self: start; }
 
   .mapa-brasil-card {
     flex: 0 0 min(82vw, 300px);

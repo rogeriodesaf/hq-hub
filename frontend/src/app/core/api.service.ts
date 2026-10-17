@@ -55,6 +55,7 @@ import {
   ImagemFeed,
   PublicacaoRelacionada,
   PublicacaoHistoria,
+  ProgressoColecoesOriginal,
   PublicacaoRelacionadaGuia,
   PublicacoesBrasileirasEdicaoOriginal,
   ResultadoDeduplicacaoEdicoes,
@@ -900,6 +901,12 @@ export class ApiService {
       '/api/compartilhar/catalogo/comicvine/publicacoes-brasileiras',
       { params: { idEdicao, ...(idVolume ? { idVolume } : {}), ...(numero ? { numero } : {}) } },
     );
+  }
+
+  calcularProgressoColecoesComicVine(idVolume: string, numeroAlvo: string) {
+    return this.http.get<ProgressoColecoesOriginal>('/api/edicoes-estrangeiras/progresso-colecoes', {
+      params: { idVolume, numeroAlvo },
+    });
   }
 
   listarPublicacoesPorHistoriaPublica(historiaId: number) {

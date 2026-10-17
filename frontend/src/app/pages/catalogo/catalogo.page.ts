@@ -42,7 +42,7 @@ import {
       @if (modoAdicao()) {
         <a class="botao secundario compacto" routerLink="/colecao">Voltar à estante</a>
       } @else {
-        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Onde saiu no Brasil?</a>
+        <a class="botao secundario compacto" routerLink="/titulos-estrangeiros">Catálogo estrangeiro</a>
       }
     </section>
 

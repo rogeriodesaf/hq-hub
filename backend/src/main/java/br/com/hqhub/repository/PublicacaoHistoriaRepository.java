@@ -2,6 +2,7 @@ package br.com.hqhub.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
 
 import br.com.hqhub.entity.PublicacaoHistoria;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -10,6 +11,18 @@ import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
 public class PublicacaoHistoriaRepository implements PanacheRepository<PublicacaoHistoria> {
+
+    public record MarcoColecaoOriginal(
+            Long serieId,
+            String titulo,
+            Integer volume,
+            String editora,
+            Long edicaoBrasileiraId,
+            String edicaoBrasileiraNumero,
+            LocalDate dataPublicacaoBrasileira,
+            String edicaoOriginalNumero,
+            double edicaoOriginalNumerica) {
+    }
 
     private final EntityManager entityManager;
 
@@ -97,5 +110,71 @@ public class PublicacaoHistoriaRepository implements PanacheRepository<Publicaca
                 """, PublicacaoHistoria.class)
                 .setParameter("edicaoId", edicaoId)
                 .getResultList();
+    }
+
+    public List<MarcoColecaoOriginal> listarMarcosColecoesPorVolumeComicVine(String idVolume) {
+        String volumeNormalizado = idVolume == null ? "" : idVolume.replaceFirst("^4050-", "");
+        List<?> linhas = entityManager.createNativeQuery("""
+                with series_originais as (
+                    select distinct serie.id
+                      from series serie
+                      join editoras editora on editora.id = serie.editora_id
+                     where serie.tipo_serie = 'ESTRANGEIRA'
+                       and (
+                           (upper(coalesce(serie.fonte_externa, '')) = 'COMICVINE'
+                            and regexp_replace(coalesce(serie.id_externo, ''), '^4050-', '') = :idVolume)
+                           or exists (
+                               select 1
+                                 from correspondencias_series_externas correspondencia
+                                where correspondencia.fonte_externa = 'COMICVINE'
+                                  and regexp_replace(correspondencia.id_volume, '^4050-', '') = :idVolume
+                                  and hqhub_normalizar_titulo_serie(correspondencia.titulo_catalogo) = hqhub_normalizar_titulo_serie(serie.titulo)
+                                  and hqhub_normalizar_titulo_serie(correspondencia.editora) = hqhub_normalizar_titulo_serie(editora.nome)
+                                  and correspondencia.ano_inicio = serie.ano_inicio
+                           )
+                       )
+                )
+                select distinct
+                       serie_brasileira.id,
+                       serie_brasileira.titulo,
+                       serie_brasileira.volume,
+                       editora_brasileira.nome,
+                       edicao_brasileira.id,
+                       edicao_brasileira.numero,
+                       coalesce(edicao_brasileira.data_publicacao, edicao_brasileira.data_cobertura),
+                       edicao_original.numero,
+                       cast(substring(edicao_original.numero from '^[0-9]+') as double precision)
+                  from publicacoes_historias publicacao
+                  join edicoes edicao_original on edicao_original.id = publicacao.edicao_original_id
+                  join edicoes edicao_brasileira on edicao_brasileira.id = publicacao.edicao_publicada_id
+                  join series serie_brasileira on serie_brasileira.id = edicao_brasileira.serie_id
+                  join editoras editora_brasileira on editora_brasileira.id = serie_brasileira.editora_id
+                 where edicao_original.serie_id in (select id from series_originais)
+                   and serie_brasileira.tipo_serie = 'BRASILEIRA'
+                   and edicao_brasileira.id <> edicao_original.id
+                   and edicao_original.numero ~ '^[0-9]'
+                 order by serie_brasileira.titulo, serie_brasileira.volume,
+                          coalesce(edicao_brasileira.data_publicacao, edicao_brasileira.data_cobertura),
+                          edicao_brasileira.id, 9
+                """)
+                .setParameter("idVolume", volumeNormalizado)
+                .getResultList();
+
+        return linhas.stream().map(linha -> {
+            Object[] valores = (Object[]) linha;
+            LocalDate data = valores[6] instanceof java.sql.Date dataSql
+                    ? dataSql.toLocalDate()
+                    : (LocalDate) valores[6];
+            return new MarcoColecaoOriginal(
+                    ((Number) valores[0]).longValue(),
+                    (String) valores[1],
+                    valores[2] == null ? null : ((Number) valores[2]).intValue(),
+                    (String) valores[3],
+                    ((Number) valores[4]).longValue(),
+                    (String) valores[5],
+                    data,
+                    (String) valores[7],
+                    ((Number) valores[8]).doubleValue());
+        }).toList();
     }
 }

@@ -159,6 +159,14 @@ public class HistoriaResource {
         return Response.ok(historiaService.listarPublicacoesBrasileiras(edicaoId)).build();
     }
 
+    @GET
+    @Path("/edicoes-estrangeiras/progresso-colecoes")
+    public Response calcularProgressoColecoes(
+            @QueryParam("idVolume") String idVolume,
+            @QueryParam("numeroAlvo") String numeroAlvo) {
+        return Response.ok(historiaService.calcularProgressoColecoesComicVine(idVolume, numeroAlvo)).build();
+    }
+
     @DELETE
     @Path("/publicacoes-historias/{id}")
     @RolesAllowed("ADMINISTRADOR")

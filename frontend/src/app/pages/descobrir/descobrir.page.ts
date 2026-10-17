@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -19,6 +19,8 @@ import {
   PublicacaoHistoria,
   PublicacaoRelacionada,
   PublicacoesBrasileirasEdicaoOriginal,
+  ProgressoColecoesOriginal,
+  ProgressoColecaoOriginal,
   Serie,
   VolumeComicVine,
 } from '../../core/modelos';
@@ -126,6 +128,17 @@ interface EdicaoDescoberta {
           />
         </div>
 
+        <section class="ir-edicao-direta" aria-label="Ir diretamente para uma edição">
+          <label>
+            Ir para a edição
+            <input [(ngModel)]="numeroEdicaoDireta" placeholder="Ex.: 293" (keyup.enter)="irParaEdicaoDireta()" />
+          </label>
+          <button class="botao compacto" type="button" (click)="irParaEdicaoDireta()" [disabled]="buscandoEdicaoDireta()">
+            {{ buscandoEdicaoDireta() ? 'Localizando...' : 'Abrir edição' }}
+          </button>
+          <small>Escolha qualquer número para conferir as publicações brasileiras e a distância das coleções até ele.</small>
+        </section>
+
         @if (volumeSelecionado()?.fonte === 'COMIC_VINE') {
           <section class="filtro-criador">
             <label>
@@ -220,6 +233,9 @@ interface EdicaoDescoberta {
                   Abrir fonte
                 </a>
               }
+              <a class="botao compacto" [routerLink]="['/edicoes-estrangeiras', edicaoSelecionada()?.idExterno]">
+                Link permanente
+              </a>
             </div>
           </div>
 
@@ -251,6 +267,64 @@ interface EdicaoDescoberta {
             } @else {
               <p>Ainda não identificamos publicações brasileiras desta edição. O catálogo pode estar incompleto; isso não significa que o material nunca saiu no Brasil.</p>
               <a class="botao secundario compacto" routerLink="/colaboradores">Informação incompleta? Saiba como contribuir →</a>
+            }
+          </section>
+
+          <section class="progresso-colecoes" aria-labelledby="tituloProgressoColecoes">
+            <header class="mapa-brasil-cabecalho">
+              <div>
+                <p class="rotulo">Linha do tempo editorial</p>
+                <h3 id="tituloProgressoColecoes">Até onde as coleções brasileiras chegaram?</h3>
+                <p>Compare a edição original #{{ edicaoSelecionada()?.numero }} com o ponto mais avançado já mapeado em cada coleção.</p>
+              </div>
+            </header>
+            @if (carregandoProgressoColecoes()) {
+              <p aria-live="polite">Calculando o avanço das coleções...</p>
+            } @else if (erroProgressoColecoes()) {
+              <p role="alert">Não foi possível calcular o avanço das coleções agora.</p>
+            } @else if (progressoColecoes()?.colecoes?.length) {
+              <div class="progresso-colecoes-grade">
+                @for (colecao of progressoColecoes()!.colecoes; track colecao.serieId) {
+                  <article class="progresso-colecao-card" [class.alvo-publicado]="colecao.alvoPublicado">
+                    <div class="progresso-colecao-topo">
+                      <div>
+                        <strong>{{ colecao.titulo }}{{ colecao.volume ? ' · vol. ' + colecao.volume : '' }}</strong>
+                        <small>{{ colecao.editora }} · {{ colecao.edicoesBrasileirasMapeadas }} edições brasileiras analisadas</small>
+                      </div>
+                      <span class="selo-confianca" [attr.data-confianca]="colecao.confianca">Estimativa {{ rotuloConfianca(colecao.confianca) }}</span>
+                    </div>
+                    <div class="progresso-trilho" role="img" [attr.aria-label]="descricaoProgressoColecao(colecao)">
+                      <span [style.width.%]="percentualProgresso(colecao)"></span>
+                    </div>
+                    <p><strong>Última original mapeada: #{{ colecao.ultimaEdicaoOriginalNumero }}</strong></p>
+                    <p>
+                      Na edição brasileira
+                      <button type="button" class="link-edicao-original" (click)="abrirPublicacaoBrasil(colecao.ultimaEdicaoBrasileiraId)">
+                        #{{ colecao.ultimaEdicaoBrasileiraNumero }}
+                      </button>
+                      <span *ngIf="colecao.ultimaPublicacaoBrasileira"> · {{ formatarMesAno(colecao.ultimaPublicacaoBrasileira) }}</span>
+                    </p>
+                    @if (colecao.alvoPublicado) {
+                      <p class="progresso-resultado positivo">Esta coleção já possui conteúdo vinculado à edição original selecionada.</p>
+                    } @else if (colecao.colecaoUltrapassouAlvo) {
+                      <p class="progresso-resultado">A coleção já passou dessa altura, mas não há vínculo específico com esta edição.</p>
+                    } @else {
+                      <p class="progresso-resultado">
+                        Faltam aproximadamente <strong>{{ colecao.edicoesOriginaisAteAlvo }} edições originais</strong>
+                        @if (colecao.volumesEstimadosAteAlvo) { · cerca de <strong>{{ colecao.volumesEstimadosAteAlvo }} volumes brasileiros</strong> }
+                      </p>
+                      @if (colecao.previsaoEstimada) {
+                        <p>Previsão matemática: <strong>{{ formatarMesAno(colecao.previsaoEstimada) }}</strong></p>
+                      } @else {
+                        <p>Não há datas suficientes para estimar quando a coleção alcançará esta edição.</p>
+                      }
+                    }
+                  </article>
+                }
+              </div>
+              <p class="aviso-estimativa">As previsões usam apenas o ritmo e a quantidade de edições originais dos volumes já cadastrados. Não representam calendário ou anúncio da editora.</p>
+            } @else {
+              <p>Ainda não existem vínculos suficientes entre esta série estrangeira e coleções brasileiras para calcular o avanço.</p>
             }
           </section>
 
@@ -568,10 +642,11 @@ interface EdicaoDescoberta {
     }
   `,
 })
-export class DescobrirPage {
+export class DescobrirPage implements OnInit {
   private readonly api = inject(ApiService);
   private readonly sanitizador = inject(DomSanitizer);
   private readonly router = inject(Router);
+  private readonly rota = inject(ActivatedRoute);
 
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly fontePesquisa = signal<FonteDescoberta>('TODAS');
@@ -592,6 +667,9 @@ export class DescobrirPage {
   readonly mapaBrasil = signal<PublicacoesBrasileirasEdicaoOriginal | null>(null);
   readonly carregandoMapaBrasil = signal(false);
   readonly erroMapaBrasil = signal(false);
+  readonly progressoColecoes = signal<ProgressoColecoesOriginal | null>(null);
+  readonly carregandoProgressoColecoes = signal(false);
+  readonly erroProgressoColecoes = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
@@ -613,12 +691,30 @@ export class DescobrirPage {
   readonly buscandoPessoas = signal(false);
   readonly pessoaFiltro = signal<PessoaComicVine | null>(null);
   readonly pessoaSelecionada = signal<PessoaComicVine | null>(null);
+  readonly buscandoEdicaoDireta = signal(false);
 
   termo = 'Amazing Spider-Man';
   termoPessoa = '';
   papelPessoa = '';
+  numeroEdicaoDireta = '';
   valorInflacao: number | null = null;
   dataInflacao = '';
+
+  ngOnInit() {
+    const idEdicao = this.rota.snapshot.paramMap.get('id');
+    if (!idEdicao) return;
+    this.carregandoEdicoes.set(true);
+    this.api.buscarDetalheEdicaoComicVine(idEdicao).subscribe({
+      next: (edicao) => {
+        this.carregandoEdicoes.set(false);
+        this.abrirDetalhesEdicao(this.paraEdicaoComicVine(edicao));
+      },
+      error: () => {
+        this.carregandoEdicoes.set(false);
+        this.mensagem.set('Não foi possível carregar esta edição estrangeira.');
+      },
+    });
+  }
 
   alterarFonte(fonte: FonteDescoberta) {
     this.fontePesquisa.set(fonte);
@@ -781,6 +877,32 @@ export class DescobrirPage {
     this.carregarEdicoes();
   }
 
+  irParaEdicaoDireta() {
+    const volume = this.volumeSelecionado();
+    const numero = this.numeroEdicaoDireta.trim();
+    if (!volume || volume.fonte !== 'COMIC_VINE' || !numero) {
+      this.mensagem.set('Selecione um título da Comic Vine e informe o número da edição.');
+      return;
+    }
+
+    this.buscandoEdicaoDireta.set(true);
+    this.mensagem.set('');
+    this.api.resolverEdicaoComicVine(volume.titulo, numero).subscribe({
+      next: (edicao) => {
+        this.buscandoEdicaoDireta.set(false);
+        if (this.normalizarIdVolume(edicao.idVolume) !== this.normalizarIdVolume(volume.idExterno)) {
+          this.mensagem.set('A edição encontrada pertence a outro volume. Refine o título pesquisado.');
+          return;
+        }
+        this.abrirDetalhesEdicao(this.paraEdicaoComicVine(edicao));
+      },
+      error: () => {
+        this.buscandoEdicaoDireta.set(false);
+        this.mensagem.set(`Não foi possível localizar a edição #${numero} neste título.`);
+      },
+    });
+  }
+
   limitarTexto(texto: string | null, limite: number) {
     if (!texto) {
       return 'Sem descrição disponível.';
@@ -808,6 +930,7 @@ export class DescobrirPage {
 
     this.edicaoSelecionada.set(this.paraEdicaoComicVineDetalhe(edicao));
     this.carregarMapaBrasilComicVine(this.edicaoSelecionada()!);
+    this.carregarProgressoColecoes(this.edicaoSelecionada()!);
     this.publicacoesRelacionadas.set([]);
     this.carregandoPublicacoes.set(true);
     this.itemColecaoSelecionado.set(null);
@@ -895,6 +1018,9 @@ export class DescobrirPage {
     this.mapaBrasil.set(null);
     this.carregandoMapaBrasil.set(false);
     this.erroMapaBrasil.set(false);
+    this.progressoColecoes.set(null);
+    this.carregandoProgressoColecoes.set(false);
+    this.erroProgressoColecoes.set(false);
     this.publicacoesRelacionadas.set([]);
     this.itemColecaoSelecionado.set(null);
     this.calculoInflacao.set(null);
@@ -914,6 +1040,26 @@ export class DescobrirPage {
         if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
         this.erroMapaBrasil.set(true);
         this.carregandoMapaBrasil.set(false);
+      },
+    });
+  }
+
+  carregarProgressoColecoes(edicao: EdicaoComicVine) {
+    this.progressoColecoes.set(null);
+    this.erroProgressoColecoes.set(false);
+    if (!edicao.idVolume || !edicao.numero) return;
+
+    this.carregandoProgressoColecoes.set(true);
+    this.api.calcularProgressoColecoesComicVine(edicao.idVolume, edicao.numero).subscribe({
+      next: (progresso) => {
+        if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
+        this.progressoColecoes.set(progresso);
+        this.carregandoProgressoColecoes.set(false);
+      },
+      error: () => {
+        if (this.edicaoSelecionada()?.idExterno !== edicao.idExterno) return;
+        this.erroProgressoColecoes.set(true);
+        this.carregandoProgressoColecoes.set(false);
       },
     });
   }
@@ -1003,6 +1149,28 @@ export class DescobrirPage {
     return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }).format(
       new Date(`${data}T00:00:00`),
     );
+  }
+
+  formatarMesAno(data: string | null | undefined) {
+    if (!data) return 'data não informada';
+    return new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+      new Date(`${data}T00:00:00Z`),
+    );
+  }
+
+  rotuloConfianca(confianca: ProgressoColecaoOriginal['confianca']) {
+    return confianca === 'ALTA' ? 'mais consistente' : confianca === 'MEDIA' ? 'moderada' : 'limitada';
+  }
+
+  percentualProgresso(colecao: ProgressoColecaoOriginal) {
+    const alvo = this.progressoColecoes()?.numeroAlvoNumerico || 0;
+    if (alvo <= 0 || colecao.alvoPublicado || colecao.ultimaEdicaoOriginalNumerica >= alvo) return 100;
+    return Math.max(3, Math.min(100, (colecao.ultimaEdicaoOriginalNumerica / alvo) * 100));
+  }
+
+  descricaoProgressoColecao(colecao: ProgressoColecaoOriginal) {
+    const alvo = this.progressoColecoes()?.numeroAlvo || '';
+    return `${colecao.titulo}: chegou à edição original ${colecao.ultimaEdicaoOriginalNumero}; alvo ${alvo}.`;
   }
 
   formatarMoeda(valor: number) {
@@ -1234,6 +1402,10 @@ export class DescobrirPage {
 
   private normalizarNumeroEdicao(numero: string | null | undefined) {
     return (numero || '').toLowerCase().replace(/^#/, '').trim();
+  }
+
+  private normalizarIdVolume(id: string | null | undefined) {
+    return (id || '').replace(/^4050-/, '').trim();
   }
 
   private normalizarBusca(texto: string) {

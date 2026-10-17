@@ -842,6 +842,35 @@ export interface PublicacoesBrasileirasEdicaoOriginal {
   publicacoes: PublicacaoBrasileiraResumo[];
 }
 
+export interface ProgressoColecoesOriginal {
+  idVolumeComicVine: string;
+  numeroAlvo: string;
+  numeroAlvoNumerico: number | null;
+  colecoes: ProgressoColecaoOriginal[];
+}
+
+export interface ProgressoColecaoOriginal {
+  serieId: number;
+  titulo: string;
+  volume: number | null;
+  editora: string;
+  ultimaEdicaoBrasileiraId: number;
+  ultimaEdicaoBrasileiraNumero: string;
+  ultimaPublicacaoBrasileira: string | null;
+  ultimaEdicaoOriginalNumero: string;
+  ultimaEdicaoOriginalNumerica: number;
+  edicoesBrasileirasMapeadas: number;
+  edicoesOriginaisMapeadas: number;
+  mediaOriginaisPorEdicao: number;
+  periodicidadeMediaMeses: number | null;
+  alvoPublicado: boolean;
+  colecaoUltrapassouAlvo: boolean;
+  edicoesOriginaisAteAlvo: number;
+  volumesEstimadosAteAlvo: number;
+  previsaoEstimada: string | null;
+  confianca: 'ALTA' | 'MEDIA' | 'BAIXA';
+}
+
 export interface OrdemLeituraResumo {
   id: number; slug: string; titulo: string; descricao: string | null; urlCapa: string | null;
   totalItens: number; itensLidos: number;

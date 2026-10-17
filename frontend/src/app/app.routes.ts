@@ -74,6 +74,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/descobrir/descobrir.page').then((m) => m.DescobrirPage),
       },
       {
+        path: 'edicoes-estrangeiras/:id',
+        loadComponent: () => import('./pages/descobrir/descobrir.page').then((m) => m.DescobrirPage),
+      },
+      {
         path: 'conteudos',
         canActivate: [revisorCatalogoGuard],
         loadComponent: () => import('./pages/conteudos/conteudos.page').then((m) => m.ConteudosPage),

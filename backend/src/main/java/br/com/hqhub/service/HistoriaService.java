@@ -2,6 +2,7 @@ package br.com.hqhub.service;
 
 import java.text.Normalizer;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -26,6 +27,7 @@ import br.com.hqhub.dto.EdicaoOriginalPublicacoesBrasilDTO;
 import br.com.hqhub.dto.HistoriaPublicacaoBrasilDTO;
 import br.com.hqhub.dto.PublicacaoBrasileiraResumoDTO;
 import br.com.hqhub.dto.PublicacoesBrasileirasEdicaoOriginalDTO;
+import br.com.hqhub.dto.ProgressoColecoesOriginalDTO;
 import br.com.hqhub.dto.SugestaoPublicacaoHistoriaDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
@@ -43,6 +45,7 @@ import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
+import br.com.hqhub.repository.PublicacaoHistoriaRepository.MarcoColecaoOriginal;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -323,6 +326,116 @@ public class HistoriaService {
         return edicaoRepository.buscarCorrespondenteComicVine(idEdicao, idVolume, numero)
                 .map(edicao -> listarPublicacoesBrasileiras(edicao.getId(), null))
                 .orElse(null);
+    }
+
+    @Transactional
+    public ProgressoColecoesOriginalDTO calcularProgressoColecoesComicVine(
+            String idVolume,
+            String numeroAlvo) {
+        Double alvo = numeroInicial(numeroAlvo);
+        if (idVolume == null || idVolume.isBlank() || alvo == null) {
+            return new ProgressoColecoesOriginalDTO(idVolume, numeroAlvo, alvo, List.of());
+        }
+
+        Map<Long, List<MarcoColecaoOriginal>> porColecao = publicacaoHistoriaRepository
+                .listarMarcosColecoesPorVolumeComicVine(idVolume).stream()
+                .collect(Collectors.groupingBy(
+                        MarcoColecaoOriginal::serieId,
+                        LinkedHashMap::new,
+                        Collectors.toList()));
+
+        List<ProgressoColecoesOriginalDTO.Colecao> colecoes = porColecao.values().stream()
+                .map(marcos -> resumirProgressoColecao(marcos, alvo))
+                .sorted(Comparator
+                        .comparing(ProgressoColecoesOriginalDTO.Colecao::alvoPublicado).reversed()
+                        .thenComparing(ProgressoColecoesOriginalDTO.Colecao::ultimaEdicaoOriginalNumerica,
+                                Comparator.nullsLast(Comparator.reverseOrder()))
+                        .thenComparing(ProgressoColecoesOriginalDTO.Colecao::titulo,
+                                String.CASE_INSENSITIVE_ORDER))
+                .toList();
+
+        return new ProgressoColecoesOriginalDTO(idVolume, numeroAlvo, alvo, colecoes);
+    }
+
+    private ProgressoColecoesOriginalDTO.Colecao resumirProgressoColecao(
+            List<MarcoColecaoOriginal> marcos,
+            double alvo) {
+        MarcoColecaoOriginal identidade = marcos.getFirst();
+        MarcoColecaoOriginal maiorOriginal = marcos.stream()
+                .max(Comparator.comparingDouble(MarcoColecaoOriginal::edicaoOriginalNumerica))
+                .orElse(identidade);
+        MarcoColecaoOriginal edicaoDoMarcoAtual = marcos.stream()
+                .filter(marco -> Math.abs(marco.edicaoOriginalNumerica()
+                        - maiorOriginal.edicaoOriginalNumerica()) < 0.001)
+                .max(Comparator
+                        .comparing(MarcoColecaoOriginal::dataPublicacaoBrasileira,
+                                Comparator.nullsFirst(Comparator.naturalOrder()))
+                        .thenComparing(MarcoColecaoOriginal::edicaoBrasileiraId))
+                .orElse(identidade);
+
+        Set<Long> edicoesBrasileiras = marcos.stream()
+                .map(MarcoColecaoOriginal::edicaoBrasileiraId)
+                .collect(Collectors.toSet());
+        Set<Double> edicoesOriginais = marcos.stream()
+                .map(MarcoColecaoOriginal::edicaoOriginalNumerica)
+                .collect(Collectors.toSet());
+        List<LocalDate> datas = marcos.stream()
+                .map(MarcoColecaoOriginal::dataPublicacaoBrasileira)
+                .filter(java.util.Objects::nonNull)
+                .distinct()
+                .sorted()
+                .toList();
+
+        double mediaOriginais = edicoesBrasileiras.isEmpty()
+                ? 0
+                : arredondar((double) edicoesOriginais.size() / edicoesBrasileiras.size(), 2);
+        Double periodicidade = periodicidadeMediaMeses(datas);
+        double atual = maiorOriginal.edicaoOriginalNumerica();
+        boolean alvoPublicado = edicoesOriginais.stream().anyMatch(numero -> Math.abs(numero - alvo) < 0.001);
+        boolean ultrapassou = atual > alvo && !alvoPublicado;
+        int faltam = alvo > atual ? (int) Math.ceil(alvo - atual) : 0;
+        Integer volumesEstimados = faltam > 0 && mediaOriginais > 0
+                ? (int) Math.ceil(faltam / mediaOriginais)
+                : 0;
+        LocalDate previsao = null;
+        LocalDate ultimaDataColecao = datas.isEmpty() ? null : datas.getLast();
+        if (volumesEstimados > 0 && periodicidade != null && ultimaDataColecao != null) {
+            LocalDate base = ultimaDataColecao.isAfter(LocalDate.now())
+                    ? ultimaDataColecao
+                    : LocalDate.now();
+            previsao = base.plusDays(Math.round(volumesEstimados * periodicidade * 30.4375));
+        }
+
+        String confianca = datas.size() >= 5 && edicoesBrasileiras.size() >= 8
+                ? "ALTA"
+                : datas.size() >= 3 && edicoesBrasileiras.size() >= 4 ? "MEDIA" : "BAIXA";
+
+        return new ProgressoColecoesOriginalDTO.Colecao(
+                identidade.serieId(), identidade.titulo(), identidade.volume(), identidade.editora(),
+                edicaoDoMarcoAtual.edicaoBrasileiraId(), edicaoDoMarcoAtual.edicaoBrasileiraNumero(),
+                edicaoDoMarcoAtual.dataPublicacaoBrasileira(), maiorOriginal.edicaoOriginalNumero(), atual,
+                edicoesBrasileiras.size(), edicoesOriginais.size(), mediaOriginais, periodicidade,
+                alvoPublicado, ultrapassou, faltam, volumesEstimados, previsao, confianca);
+    }
+
+    private Double periodicidadeMediaMeses(List<LocalDate> datas) {
+        if (datas.size() < 2) return null;
+        long dias = 0;
+        for (int indice = 1; indice < datas.size(); indice++) {
+            dias += ChronoUnit.DAYS.between(datas.get(indice - 1), datas.get(indice));
+        }
+        return arredondar((dias / (double) (datas.size() - 1)) / 30.4375, 1);
+    }
+
+    private Double numeroInicial(String numero) {
+        if (numero == null) return null;
+        var correspondencia = java.util.regex.Pattern.compile("^(\\d+)").matcher(numero.trim());
+        return correspondencia.find() ? Double.valueOf(correspondencia.group(1)) : null;
+    }
+
+    private double arredondar(double valor, int casas) {
+        double fator = Math.pow(10, casas);
+        return Math.round(valor * fator) / fator;
     }
 
     private PublicacoesBrasileirasEdicaoOriginalDTO listarPublicacoesBrasileiras(

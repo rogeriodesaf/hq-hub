@@ -132,7 +132,7 @@ export class App implements OnInit {
         this.solicitacoesAmizadePendentes(),
     ),
   );
-  readonly catalogoAtivo = computed(() => this.rotaEm('/catalogo', '/titulos-estrangeiros'));
+  readonly catalogoAtivo = computed(() => this.rotaEm('/catalogo', '/titulos-estrangeiros', '/edicoes-estrangeiras'));
   readonly socialAtivo = computed(() => this.rotaEm('/social', '/mensagens', '/amigos', '/canais', '/colaboradores'));
   readonly perfilAtivo = computed(() => this.rotaEm('/perfil', '/colecao', '/compras', '/anuncios', '/assistente', '/conteudos', '/importacao', '/revisao'));
   private intervaloNotificacoes: number | null = null;
