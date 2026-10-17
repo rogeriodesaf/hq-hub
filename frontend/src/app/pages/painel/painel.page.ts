@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { catchError, finalize, forkJoin, of } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -1628,12 +1629,45 @@ export class PainelPage implements OnInit, OnDestroy {
   buscarEdicoesLancamento() {
     const busca = this.buscaLancamento.trim();
     if (!busca || this.buscandoLancamento()) return;
+
+    const termos = this.termosBuscaLancamento(busca);
+    const consultas = [...new Set([busca, ...termos])];
     this.buscandoLancamento.set(true);
-    this.api.listarEdicoes(busca, 0, 12).subscribe({
-      next: (pagina) => this.resultadosLancamento.set(pagina.itens),
-      error: () => this.mensagem.set('Não foi possível buscar as edições do lançamento.'),
-      complete: () => this.buscandoLancamento.set(false),
-    });
+    this.mensagem.set('');
+
+    forkJoin(consultas.map((consulta) => this.api.listarEdicoes(consulta, 0, 24).pipe(
+      catchError(() => of({ itens: [], pagina: 0, tamanho: 24, totalItens: 0, totalPaginas: 0 })),
+    )))
+      .pipe(finalize(() => this.buscandoLancamento.set(false)))
+      .subscribe((paginas) => {
+        const edicoes = paginas.flatMap((pagina) => pagina.itens);
+        const unicas = [...new Map(edicoes.map((edicao) => [edicao.id, edicao])).values()];
+        const resultado = unicas
+          .filter((edicao) => this.pontuarEdicaoLancamento(edicao, busca, termos) > 0)
+          .sort((a, b) => this.pontuarEdicaoLancamento(b, busca, termos) - this.pontuarEdicaoLancamento(a, busca, termos))
+          .slice(0, 24);
+
+        this.resultadosLancamento.set(resultado);
+        if (!resultado.length) {
+          this.mensagem.set('Nenhuma edição relacionada foi encontrada. Tente uma parte diferente do título.');
+        }
+      });
+  }
+
+  private termosBuscaLancamento(busca: string) {
+    return this.normalizarBuscaLancamento(busca)
+      .split(/\s+/)
+      .filter((termo) => termo.length >= 2 && !['a', 'o', 'as', 'os', 'de', 'da', 'do', 'das', 'dos', 'e'].includes(termo));
+  }
+
+  private pontuarEdicaoLancamento(edicao: Edicao, busca: string, termos: string[]) {
+    const titulo = this.normalizarBuscaLancamento(`${edicao.serie?.titulo || ''} ${edicao.titulo || ''} ${edicao.numero || ''}`);
+    const frase = this.normalizarBuscaLancamento(busca);
+    return (titulo.includes(frase) ? 100 : 0) + termos.filter((termo) => titulo.includes(termo)).length * 10;
+  }
+
+  private normalizarBuscaLancamento(valor: string) {
+    return valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   }
 
   selecionarEdicaoLancamento(edicao: Edicao) {
