@@ -62,7 +62,9 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
 
     public List<PostagemFeed> listarFeed(Long usuarioId, int pagina, int tamanho) {
         return getEntityManager().createNativeQuery("""
-                select p.* from postagens_feed p where p.sistema = true or p.usuario_id = :usuarioId
+                select p.* from postagens_feed p
+                where p.tipo_postagem <> :tipoLancamento
+                and (p.sistema = true or p.usuario_id = :usuarioId
                 or exists (
                     select 1 from usuarios autor
                     where autor.id = p.usuario_id
@@ -100,11 +102,12 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                             )
                         )
                     )
-                )
+                ))
                 order by p.fixada desc, p.data_criacao desc
                 """, PostagemFeed.class)
                 .setParameter("usuarioId", usuarioId)
                 .setParameter("tipoAtividade", TipoPostagemFeed.ATIVIDADE_ESTANTE.name())
+                .setParameter("tipoLancamento", TipoPostagemFeed.LANCAMENTO.name())
                 .setParameter("administrador", PerfilUsuario.ADMINISTRADOR.name())
                 .setParameter("aceita", StatusAmizade.ACEITA.name())
                 .setParameter("publica", VisibilidadeColecao.PUBLICA.name())
@@ -112,6 +115,13 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                 .setFirstResult(pagina * tamanho)
                 .setMaxResults(tamanho)
                 .getResultList();
+    }
+
+    public List<PostagemFeed> listarLancamentos(int tamanho) {
+        return find("tipoPostagem = ?1 order by dataLancamento desc nulls last, dataCriacao desc",
+                TipoPostagemFeed.LANCAMENTO)
+                .page(0, Math.min(Math.max(tamanho, 1), 12))
+                .list();
     }
 
     public Optional<PostagemFeed> buscarGrupoRecente(

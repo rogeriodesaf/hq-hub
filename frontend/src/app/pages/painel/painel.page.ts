@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
 import { resolverUrlMidia as resolverUrlMidiaCore } from '../../core/midia-url';
-import { Anuncio, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
+import { Anuncio, Edicao, HistoriaLeitura, ImagemFeed, PartnerChannel, PostagemFeed, RelatedVideoInput, Usuario, VisualizacaoHistoriaLeitura } from '../../core/modelos';
 import { RelatedContentComponent } from '../../shared/related-content.component';
 import { AtividadeEstanteCardComponent } from '../../shared/atividade-estante-card.component';
 import { environment } from '../../../environments/environment';
@@ -67,6 +67,38 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
       </article>
     }
 
+    @if (lancamentosVisiveis().length) {
+      <section class="lancamentos-destaque" aria-labelledby="titulo-lancamentos">
+        <header>
+          <div><p class="rotulo">Novidades editoriais</p><h2 id="titulo-lancamentos">Novos lançamentos</h2><span>Edições selecionadas pela equipe do Coleciona HQ.</span></div>
+          <a routerLink="/catalogo">Ver catálogo</a>
+        </header>
+        <div class="lancamentos-trilho">
+          @for (postagem of lancamentosVisiveis(); track postagem.id) {
+            <article class="lancamento-card" [id]="idPostagem(postagem)">
+              <button class="dispensar-lancamento" type="button" (click)="dispensarLancamento(postagem.id)" aria-label="Ocultar este lançamento">×</button>
+              <a [routerLink]="['/edicoes', postagem.lancamento!.edicaoId]" class="lancamento-capa">
+                <img [src]="postagem.lancamento!.urlCapa || 'assets/capa-reserva.svg'" [alt]="postagem.lancamento!.titulo" loading="lazy" />
+                <span>Novo</span>
+              </a>
+              <div class="lancamento-info">
+                <small>{{ postagem.lancamento!.editora }}<span *ngIf="postagem.lancamento!.dataLancamento"> · {{ formatarDataLancamento(postagem.lancamento!.dataLancamento) }}</span></small>
+                <h3>{{ postagem.lancamento!.titulo }} <span>#{{ postagem.lancamento!.numero }}</span></h3>
+                <p>{{ postagem.conteudo }}</p>
+                @if (postagem.lancamento!.precoCapa) { <strong>{{ formatarMoeda(postagem.lancamento!.precoCapa!) }}</strong> }
+                <div>
+                  <a class="botao compacto primario" [routerLink]="['/edicoes', postagem.lancamento!.edicaoId]">Ver edição</a>
+                  <button class="botao compacto" type="button" (click)="adicionarLancamentoEstante(postagem)" [disabled]="adicionandoLancamentoId() === postagem.id">
+                    {{ adicionandoLancamentoId() === postagem.id ? 'Adicionando...' : 'Adicionar à estante' }}
+                  </button>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+
     <section class="feed-layout">
       <div class="feed-coluna">
         <article class="bloco compositor-feed" id="publicar" [class.aberto]="editorAberto()">
@@ -109,6 +141,39 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                 <small>O Coleciona HQ criará automaticamente {{ linksYoutubeNoConteudo().length === 1 ? 'um card para o vídeo' : 'cards para os vídeos' }}.</small>
               </div>
             </div>
+          }
+
+          @if (usuario()?.perfil === 'ADMINISTRADOR') {
+            <section class="editor-lancamento" [class.ativo]="modoLancamento()">
+              <label class="alternador-lancamento">
+                <input type="checkbox" [checked]="modoLancamento()" (change)="alternarModoLancamento()" />
+                <span><strong>Destacar como lançamento</strong><small>Exibe a edição no topo do feed e notifica os usuários.</small></span>
+              </label>
+              @if (modoLancamento()) {
+                <div class="busca-lancamento">
+                  <input [(ngModel)]="buscaLancamento" name="buscaLancamento" placeholder="Busque pelo título ou número da edição" (keyup.enter)="buscarEdicoesLancamento()" />
+                  <button class="botao compacto" type="button" (click)="buscarEdicoesLancamento()" [disabled]="buscandoLancamento()">
+                    {{ buscandoLancamento() ? 'Buscando...' : 'Buscar edição' }}
+                  </button>
+                </div>
+                @if (resultadosLancamento().length) {
+                  <div class="resultados-lancamento">
+                    @for (edicao of resultadosLancamento(); track edicao.id) {
+                      <button type="button" [class.selecionada]="edicaoLancamento()?.id === edicao.id" (click)="selecionarEdicaoLancamento(edicao)">
+                        <img [src]="edicao.urlCapa || 'assets/capa-reserva.svg'" alt="" />
+                        <span><strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong><small>{{ edicao.serie?.editora?.nome || 'Editora não informada' }}</small></span>
+                      </button>
+                    }
+                  </div>
+                }
+                @if (edicaoLancamento(); as edicao) {
+                  <div class="lancamento-selecionado">
+                    <span>Edição selecionada: <strong>{{ edicao.serie?.titulo }} #{{ edicao.numero }}</strong></span>
+                    <label>Data do lançamento <input type="date" [(ngModel)]="dataLancamento" name="dataLancamento" /></label>
+                  </div>
+                }
+              }
+            </section>
           }
 
           @if (videosRelacionadosFormulario.length) {
@@ -203,7 +268,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
         </article>
 
         <section class="lista-feed">
-          @for (postagem of feed(); track postagem.id) {
+          @for (postagem of postagensComuns(); track postagem.id) {
             <article class="bloco postagem-card" [id]="idPostagem(postagem)" [class.postagem-fixada]="postagem.fixada">
               @if (postagem.atividadeEstante) {
                 <app-atividade-estante-card
@@ -1462,6 +1527,11 @@ export class PainelPage implements OnInit, OnDestroy {
 
   readonly usuario = this.autenticacao.usuario;
   readonly feed = signal<PostagemFeed[]>([]);
+  readonly lancamentos = signal<PostagemFeed[]>([]);
+  readonly lancamentosDispensados = signal<Set<number>>(new Set());
+  readonly lancamentosVisiveis = computed(() => this.lancamentos()
+    .filter((postagem) => postagem.lancamento && !this.lancamentosDispensados().has(postagem.id)));
+  readonly postagensComuns = computed(() => this.feed().filter((postagem) => !postagem.lancamento));
   readonly anuncios = signal<Anuncio[]>([]);
   readonly sugestaoAmigo = signal<Usuario | null>(null);
   readonly enviandoSugestaoAmigo = signal(false);
@@ -1474,6 +1544,11 @@ export class PainelPage implements OnInit, OnDestroy {
   readonly salvandoCanalId = signal<number | null>(null);
   readonly mensagem = signal('');
   readonly editorAberto = signal(false);
+  readonly modoLancamento = signal(false);
+  readonly buscandoLancamento = signal(false);
+  readonly resultadosLancamento = signal<Edicao[]>([]);
+  readonly edicaoLancamento = signal<Edicao | null>(null);
+  readonly adicionandoLancamentoId = signal<number | null>(null);
   readonly comentariosAbertos = signal<Set<number>>(new Set());
   readonly historias = signal<HistoriaLeitura[]>([]);
   readonly gruposHistorias = computed(() => agruparHistorias(this.historias(), this.usuario()?.id));
@@ -1502,6 +1577,8 @@ export class PainelPage implements OnInit, OnDestroy {
   textoHistoria = '';
   tituloHqHistoria = '';
   novoConteudo = '';
+  buscaLancamento = '';
+  dataLancamento = '';
   imagensSelecionadas: File[] = [];
   previsualizacoes: Array<{ url: string; nome: string }> = [];
   videosRelacionadosFormulario: Array<{ title: string; url: string }> = [];
@@ -1513,7 +1590,9 @@ export class PainelPage implements OnInit, OnDestroy {
   readonly errosComentarios = signal<Record<number, string>>({});
 
   ngOnInit() {
+    this.carregarLancamentosDispensados();
     this.carregarFeed();
+    this.carregarLancamentos();
     this.carregarAnuncios();
     this.carregarSugestaoAmigo();
     this.carregarHistorias();
@@ -1534,6 +1613,60 @@ export class PainelPage implements OnInit, OnDestroy {
 
   fecharEditor() {
     this.editorAberto.set(false);
+  }
+
+  alternarModoLancamento() {
+    this.modoLancamento.update((ativo) => !ativo);
+    if (!this.modoLancamento()) {
+      this.edicaoLancamento.set(null);
+      this.resultadosLancamento.set([]);
+      this.buscaLancamento = '';
+      this.dataLancamento = '';
+    }
+  }
+
+  buscarEdicoesLancamento() {
+    const busca = this.buscaLancamento.trim();
+    if (!busca || this.buscandoLancamento()) return;
+    this.buscandoLancamento.set(true);
+    this.api.listarEdicoes(busca, 0, 12).subscribe({
+      next: (pagina) => this.resultadosLancamento.set(pagina.itens),
+      error: () => this.mensagem.set('Não foi possível buscar as edições do lançamento.'),
+      complete: () => this.buscandoLancamento.set(false),
+    });
+  }
+
+  selecionarEdicaoLancamento(edicao: Edicao) {
+    this.edicaoLancamento.set(edicao);
+    this.dataLancamento = edicao.dataDisponibilidadeLoja || edicao.dataPublicacao || '';
+  }
+
+  dispensarLancamento(postagemId: number) {
+    this.lancamentosDispensados.update((atuais) => new Set([...atuais, postagemId]));
+    localStorage.setItem('hqhub-lancamentos-dispensados', JSON.stringify([...this.lancamentosDispensados()]));
+  }
+
+  adicionarLancamentoEstante(postagem: PostagemFeed) {
+    const edicaoId = postagem.lancamento?.edicaoId;
+    if (!edicaoId || this.adicionandoLancamentoId()) return;
+    this.adicionandoLancamentoId.set(postagem.id);
+    this.api.cadastrarItemColecao({
+      edicaoId,
+      estadoConservacao: 'MUITO_BOM',
+      dataAquisicao: null,
+      precoPago: null,
+      statusLeitura: 'NAO_LIDO',
+      observacoes: null,
+    }).subscribe({
+      next: () => this.mensagem.set('Lançamento adicionado à sua estante.'),
+      error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível adicionar esta edição à estante.'),
+      complete: () => this.adicionandoLancamentoId.set(null),
+    });
+  }
+
+  formatarDataLancamento(data: string) {
+    return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', timeZone: 'UTC' })
+      .format(new Date(`${data}T00:00:00Z`));
   }
 
   abrirCriadorHistoria() {
@@ -1746,6 +1879,10 @@ export class PainelPage implements OnInit, OnDestroy {
     if (!conteudo) {
       return;
     }
+    if (this.modoLancamento() && !this.edicaoLancamento()) {
+      this.mensagem.set('Selecione a edição que será destacada como lançamento.');
+      return;
+    }
 
     const videosManuais: RelatedVideoInput[] = this.videosRelacionadosFormulario.map((video) => ({
       title: video.title.trim(),
@@ -1767,7 +1904,15 @@ export class PainelPage implements OnInit, OnDestroy {
     this.publicando.set(true);
     this.mensagem.set('');
     this.enviarImagensSelecionadas()
-      .then((imagens) => this.criarPostagem(conteudo, imagens, videosRelacionados, partnerChannel))
+      .then((imagens) => this.criarPostagem(
+        conteudo,
+        imagens,
+        videosRelacionados,
+        partnerChannel,
+        this.modoLancamento() && this.edicaoLancamento()
+          ? { edicaoId: this.edicaoLancamento()!.id, dataLancamento: this.dataLancamento || null }
+          : null,
+      ))
       .catch((mensagem) => {
         this.publicando.set(false);
         this.mensagem.set(String(mensagem));
@@ -2006,14 +2151,21 @@ export class PainelPage implements OnInit, OnDestroy {
     imagens: ImagemFeed[],
     relatedVideos: RelatedVideoInput[],
     partnerChannel: PartnerChannel | null,
+    lancamento: { edicaoId: number; dataLancamento: string | null } | null,
   ) {
-    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens, relatedVideos, partnerChannel }).subscribe({
+    this.api.publicarNoFeed({ conteudo, urlImagem: imagens[0]?.urlImagem || null, imagens, relatedVideos, partnerChannel, lancamento }).subscribe({
       next: (postagem) => {
         this.feed.update((feed) => [postagem, ...feed]);
+        if (postagem.lancamento) this.lancamentos.update((atuais) => [postagem, ...atuais.filter((item) => item.id !== postagem.id)].slice(0, 8));
         this.novoConteudo = '';
         this.imagensSelecionadas = [];
         this.videosRelacionadosFormulario = [];
         this.canalParceiroFormulario = null;
+        this.modoLancamento.set(false);
+        this.edicaoLancamento.set(null);
+        this.resultadosLancamento.set([]);
+        this.buscaLancamento = '';
+        this.dataLancamento = '';
         this.limparPrevisualizacoes();
         this.previsualizacoes = [];
         this.publicando.set(false);
@@ -2227,6 +2379,22 @@ export class PainelPage implements OnInit, OnDestroy {
       next: (feed) => this.feed.set(feed),
       error: (erro) => this.mensagem.set(erro?.error?.mensagem || 'Não foi possível carregar o feed.'),
     });
+  }
+
+  private carregarLancamentos() {
+    this.api.listarLancamentosFeed().subscribe({
+      next: (postagens) => this.lancamentos.set(postagens.filter((postagem) => !!postagem.lancamento)),
+      error: () => this.lancamentos.set([]),
+    });
+  }
+
+  private carregarLancamentosDispensados() {
+    try {
+      const ids = JSON.parse(localStorage.getItem('hqhub-lancamentos-dispensados') || '[]');
+      if (Array.isArray(ids)) this.lancamentosDispensados.set(new Set(ids.filter(Number.isFinite)));
+    } catch {
+      this.lancamentosDispensados.set(new Set());
+    }
   }
 
   private carregarHistorias() {

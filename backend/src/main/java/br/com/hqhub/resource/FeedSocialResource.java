@@ -48,6 +48,12 @@ public class FeedSocialResource {
     }
 
     @GET
+    @Path("/lancamentos")
+    public Response listarLancamentos(@QueryParam("tamanho") Integer tamanho) {
+        return Response.ok(feedSocialService.listarLancamentos(tamanho == null ? 8 : tamanho)).build();
+    }
+
+    @GET
     @Path("/usuarios/{id}")
     public Response listarPorUsuario(@PathParam("id") Long id, @QueryParam("pagina") Integer pagina, @QueryParam("tamanho") Integer tamanho) {
         return Response.ok(feedSocialService.listarPostagensPorUsuario(

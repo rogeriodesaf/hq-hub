@@ -21,6 +21,7 @@ import br.com.hqhub.dto.CatalogoFeedDTO;
 import br.com.hqhub.dto.ColecaoFeedDTO;
 import br.com.hqhub.dto.ComentarioFeedRespostaDTO;
 import br.com.hqhub.dto.ImagemFeedDTO;
+import br.com.hqhub.dto.LancamentoFeedDTO;
 import br.com.hqhub.dto.EdicaoAtividadeEstanteDTO;
 import br.com.hqhub.dto.PostagemFeedRespostaDTO;
 import br.com.hqhub.dto.PostagemPublicaDTO;
@@ -127,6 +128,14 @@ public class FeedSocialService {
     }
 
     @Transactional
+    public List<PostagemFeedRespostaDTO> listarLancamentos(int tamanho) {
+        Usuario usuario = usuarioAutenticadoService.obterUsuario();
+        return postagemRepository.listarLancamentos(tamanho).stream()
+                .map(postagem -> paraResposta(postagem, usuario.getId()))
+                .toList();
+    }
+
+    @Transactional
     public List<PostagemFeedRespostaDTO> listarPostagensPorUsuario(Long usuarioId, int pagina, int tamanho) {
         Usuario usuarioAutenticado = usuarioAutenticadoService.obterUsuario();
         int paginaTratada = Math.max(pagina, 0);
@@ -144,6 +153,17 @@ public class FeedSocialService {
         postagem.setUsuario(usuario);
         postagem.setConteudo(dto.conteudo().trim());
         postagem.setUrlImagem(textoOuNull(dto.urlImagem()));
+        if (dto.lancamento() != null) {
+            if (usuario.getPerfil() != PerfilUsuario.ADMINISTRADOR) {
+                throw new RegraNegocioException("Apenas administradores podem destacar lancamentos.");
+            }
+            Edicao edicao = edicaoRepository.findByIdOptional(dto.lancamento().edicaoId())
+                    .orElseThrow(() -> new RecursoNaoEncontradoException("Edicao do lancamento nao encontrada."));
+            postagem.setTipoPostagem(TipoPostagemFeed.LANCAMENTO);
+            postagem.setEdicaoLancamento(edicao);
+            postagem.setDataLancamento(dto.lancamento().dataLancamento());
+            postagem.setFixada(true);
+        }
         postagemRepository.persist(postagem);
         salvarImagens(postagem, dto.imagens());
         salvarVideosRelacionados(postagem, dto.relatedVideos());
@@ -311,6 +331,29 @@ public class FeedSocialService {
                 postagem.getDataAtualizacao());
     }
 
+    private LancamentoFeedDTO paraLancamentoFeed(PostagemFeed postagem) {
+        Edicao edicao = postagem.getEdicaoLancamento();
+        if (edicao == null || postagem.getTipoPostagem() != TipoPostagemFeed.LANCAMENTO) {
+            return null;
+        }
+        Serie serie = edicao.getSerie();
+        return new LancamentoFeedDTO(
+                edicao.getId(),
+                serie.getId(),
+                serie.getTitulo(),
+                edicao.getNumero(),
+                serie.getEditora().getNome(),
+                edicaoRepository.capaPublicaPorEdicao(edicao.getId())
+                        .map(urlPublicaService::normalizarApiUrl)
+                        .orElse(null),
+                postagem.getDataLancamento() != null
+                        ? postagem.getDataLancamento()
+                        : edicao.getDataDisponibilidadeLoja() != null
+                                ? edicao.getDataDisponibilidadeLoja()
+                                : edicao.getDataPublicacao(),
+                edicao.getPrecoCapa());
+    }
+
     @Transactional
     public void removerPostagem(Long postagemId) {
         Usuario usuario = usuarioAutenticadoService.obterUsuario();
@@ -417,6 +460,7 @@ public class FeedSocialService {
                 imagens,
                 paraColecaoFeed(postagem.getItemColecao()),
                 paraCatalogoFeed(postagem.getSerieCatalogo(), postagem.getUrlImagem()),
+                paraLancamentoFeed(postagem),
                 listarVideosRelacionados(postagem.getId()),
                 paraCanalParceiro(postagem),
                 postagem.isFixada(),

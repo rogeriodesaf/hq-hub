@@ -136,6 +136,12 @@ export class ApiService {
     );
   }
 
+  listarLancamentosFeed(tamanho = 8) {
+    return this.http.get<PostagemFeed[]>('/api/feed/lancamentos', {
+      params: new HttpParams().set('tamanho', tamanho),
+    }).pipe(map((postagens) => postagens.map((postagem) => this.normalizarPostagem(postagem))));
+  }
+
   obterFeedUsuario(usuarioId: number, pagina = 0, tamanho = 20) {
     const params = new HttpParams()
       .set('pagina', pagina)
@@ -159,6 +165,7 @@ export class ApiService {
     imagens?: ImagemFeed[];
     relatedVideos?: RelatedVideoInput[];
     partnerChannel?: PartnerChannel | null;
+    lancamento?: { edicaoId: number; dataLancamento: string | null } | null;
   }) {
     return this.http.post<PostagemFeed>('/api/feed', dto).pipe(map((postagem) => this.normalizarPostagem(postagem)));
   }
@@ -1235,6 +1242,9 @@ export class ApiService {
             ...postagem.catalogoDestaque,
             urlCapa: this.normalizarUrlMidia(postagem.catalogoDestaque.urlCapa),
           }
+        : null,
+      lancamento: postagem.lancamento
+        ? { ...postagem.lancamento, urlCapa: this.normalizarUrlMidia(postagem.lancamento.urlCapa) }
         : null,
       relatedVideos: postagem.relatedVideos || [],
       partnerChannel: postagem.partnerChannel || null,

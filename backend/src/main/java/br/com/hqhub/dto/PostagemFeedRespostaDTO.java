@@ -12,6 +12,7 @@ public record PostagemFeedRespostaDTO(
         List<ImagemFeedDTO> imagens,
         ColecaoFeedDTO colecaoDestaque,
         CatalogoFeedDTO catalogoDestaque,
+        LancamentoFeedDTO lancamento,
         List<VideoRelacionadoDTO> relatedVideos,
         CanalParceiroDTO partnerChannel,
         boolean fixada,

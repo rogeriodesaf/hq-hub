@@ -63,7 +63,9 @@ public class NotificacaoSocialService {
     }
 
     public void notificarNovaPostagemAdministrativa(Usuario autor, PostagemFeed postagem) {
-        String mensagem = autor.getNome() + " fez uma nova publicação para a comunidade.";
+        String mensagem = postagem.getTipoPostagem() == TipoPostagemFeed.LANCAMENTO
+                ? "Novo lançamento em destaque no Coleciona HQ."
+                : autor.getNome() + " fez uma nova publicação para a comunidade.";
         repository.distribuirPostagemAdministrativa(autor.getId(), postagem.getId(), mensagem);
     }
 

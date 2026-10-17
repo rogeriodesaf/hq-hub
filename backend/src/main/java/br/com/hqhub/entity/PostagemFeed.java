@@ -1,5 +1,6 @@
 package br.com.hqhub.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -60,6 +61,13 @@ public class PostagemFeed {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serie_catalogo_id")
     private Serie serieCatalogo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "edicao_lancamento_id")
+    private Edicao edicaoLancamento;
+
+    @Column(name = "data_lancamento")
+    private LocalDate dataLancamento;
 
     @Column(name = "canal_parceiro_nome", length = 200)
     private String canalParceiroNome;

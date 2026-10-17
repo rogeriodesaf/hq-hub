@@ -757,6 +757,7 @@ export interface PostagemFeed {
   imagens: ImagemFeed[];
   colecaoDestaque: ColecaoFeed | null;
   catalogoDestaque: CatalogoFeed | null;
+  lancamento?: LancamentoFeed | null;
   relatedVideos: RelatedVideo[];
   partnerChannel: PartnerChannel | null;
   fixada: boolean;
@@ -765,6 +766,17 @@ export interface PostagemFeed {
   comentarios: ComentarioFeed[];
   dataCriacao: string;
   dataAtualizacao: string;
+}
+
+export interface LancamentoFeed {
+  edicaoId: number;
+  serieId: number;
+  titulo: string;
+  numero: string;
+  editora: string;
+  urlCapa: string | null;
+  dataLancamento: string | null;
+  precoCapa: number | null;
 }
 
 export interface HistoriaLeitura {

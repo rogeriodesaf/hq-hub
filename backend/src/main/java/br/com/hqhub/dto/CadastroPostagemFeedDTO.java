@@ -20,5 +20,7 @@ public record CadastroPostagemFeedDTO(
         @Size(max = 3, message = "A postagem pode ter no máximo 3 vídeos relacionados.")
         List<@Valid CadastroVideoRelacionadoDTO> relatedVideos,
 
-        @Valid CanalParceiroDTO partnerChannel) {
+        @Valid CanalParceiroDTO partnerChannel,
+
+        @Valid LancamentoFeedInputDTO lancamento) {
 }

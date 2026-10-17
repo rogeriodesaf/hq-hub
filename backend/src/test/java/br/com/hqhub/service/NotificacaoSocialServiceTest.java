@@ -16,6 +16,7 @@ import br.com.hqhub.entity.Amizade;
 import br.com.hqhub.entity.NotificacaoSocial;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.TipoNotificacaoSocial;
+import br.com.hqhub.entity.TipoPostagemFeed;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.mapper.UsuarioMapper;
 import br.com.hqhub.repository.AmizadeRepository;
@@ -34,6 +35,20 @@ class NotificacaoSocialServiceTest {
 
         verify(notificacoes).distribuirPostagemAdministrativa(
                 1L, 45L, "Coleciona HQ Admin fez uma nova publicação para a comunidade.");
+    }
+
+    @Test
+    void identificaLancamentoNaNotificacaoAdministrativa() {
+        NotificacaoSocialRepository notificacoes = mock(NotificacaoSocialRepository.class);
+        Usuario autor = usuario(1L, "Coleciona HQ Admin");
+        PostagemFeed postagem = postagem(46L, autor);
+        postagem.setTipoPostagem(TipoPostagemFeed.LANCAMENTO);
+
+        service(notificacoes, mock(AmizadeRepository.class))
+                .notificarNovaPostagemAdministrativa(autor, postagem);
+
+        verify(notificacoes).distribuirPostagemAdministrativa(
+                1L, 46L, "Novo lançamento em destaque no Coleciona HQ.");
     }
 
     @Test

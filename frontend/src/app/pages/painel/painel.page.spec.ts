@@ -34,6 +34,7 @@ describe('PainelPage stories', () => {
         { provide: AutenticacaoService, useValue: { usuario: signal(usuario) } },
         { provide: ApiService, useValue: {
           listarFeed: () => of([]),
+          listarLancamentosFeed: () => of([]),
           listarAnuncios: () => of([]),
           listarUsuarios: () => of([]),
           obterRelacionamentoAmizade: () => of(null),
