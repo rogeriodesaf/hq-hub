@@ -442,26 +442,42 @@ import {
         <article class="detalhe-painel publicacoes-brasil-painel" #modalPublicacoesBrasil tabindex="-1">
           <button class="fechar-detalhe" type="button" (click)="fecharPublicacoesBrasil()" aria-label="Fechar publicações no Brasil">×</button>
           <header class="publicacoes-brasil-cabecalho">
-            <p class="rotulo">🇧🇷 Publicações no Brasil</p>
-            <h2 id="tituloPublicacoesBrasil">{{ tituloEdicao(originalPublicacoesAberta()!) }}</h2>
-            <p>{{ originalPublicacoesAberta()?.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(originalPublicacoesAberta()) as ano"> · {{ ano }}</span></p>
+            <img class="publicacoes-brasil-capa-original" [src]="originalPublicacoesAberta()?.urlCapa || capaReserva" [alt]="'Capa original de ' + tituloEdicao(originalPublicacoesAberta()!)" (error)="usarCapaReserva($event)" />
+            <div>
+              <p class="rotulo">🇧🇷 Publicações no Brasil</p>
+              <h2 id="tituloPublicacoesBrasil">{{ tituloEdicao(originalPublicacoesAberta()!) }}</h2>
+              <p>{{ originalPublicacoesAberta()?.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(originalPublicacoesAberta()) as ano"> · {{ ano }}</span></p>
+            </div>
           </header>
           @if (carregandoPublicacoesBrasil()) {
             <section class="estado-carregando publicacoes-brasil-estado" aria-live="polite"><span></span><p>Carregando publicações brasileiras...</p></section>
           } @else if (erroPublicacoesBrasil()) {
             <section class="publicacoes-brasil-estado" role="alert"><p>Não foi possível carregar as outras publicações agora.</p><button class="botao secundario compacto" type="button" (click)="tentarNovamentePublicacoesBrasil()">Tentar novamente</button></section>
           } @else if (publicacoesBrasil(); as resultado) {
-            <p class="resumo-publicacoes-brasil">Identificamos material desta edição original em {{ resultado.totalPublicacoes }} {{ resultado.totalPublicacoes === 1 ? 'edição brasileira' : 'edições brasileiras' }}.</p>
+            <p class="resumo-publicacoes-brasil">{{ resumoPublicacoesBrasil(resultado) }}</p>
             <div class="lista-publicacoes-brasil">
               @for (publicacao of resultado.publicacoes; track publicacao.id) {
                 <article class="publicacao-brasil-card" [class.edicao-atual]="publicacao.id === edicaoDetalhe()?.id">
                   <button class="publicacao-brasil-conteudo" type="button" (click)="abrirPublicacaoBrasileira(publicacao)" [disabled]="publicacao.id === edicaoDetalhe()?.id" [attr.aria-label]="publicacao.id === edicaoDetalhe()?.id ? 'Edição atual: ' + publicacao.titulo : 'Abrir ' + publicacao.titulo">
                     <img [src]="publicacao.capa || capaReserva" [alt]="'Capa de ' + publicacao.titulo + ' #' + publicacao.numero" loading="lazy" (error)="usarCapaReserva($event)" />
-                    <span class="publicacao-brasil-dados"><strong>{{ publicacao.titulo }} #{{ publicacao.numero }}</strong><small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>@if (publicacao.colecao && publicacao.colecao !== publicacao.titulo) { <small>{{ publicacao.colecao }}</small> }<span class="publicacao-brasil-selos">@if (publicacao.id === edicaoDetalhe()?.id) { <em>✓ Você está nesta edição</em> } @if (publicacao.primeiraPublicacao) { <em>Primeira identificada no Brasil</em> } @else { <em>Republicação</em> } @if (publicacao.publicacaoCompleta === true) { <em>✓ Publicação completa</em> } @if (publicacao.publicacaoCompleta === false) { <em>◐ Publicação parcial</em> }</span></span>
+                    <span class="publicacao-brasil-dados">
+                      <strong>{{ publicacao.titulo }}<span *ngIf="publicacao.numero"> #{{ publicacao.numero }}</span></strong>
+                      <small>{{ publicacao.editora }}<span *ngIf="publicacao.ano"> · {{ publicacao.ano }}</span></small>
+                      @if (publicacao.colecao && publicacao.colecao !== publicacao.titulo) { <small>{{ publicacao.colecao }}</small> }
+                      <span class="publicacao-brasil-cobertura">{{ resumoHistoriasPublicacao(publicacao, resultado.totalHistoriasOriginais) }}</span>
+                      <span class="publicacao-brasil-selos">
+                        @if (publicacao.id === edicaoDetalhe()?.id) { <em>✓ Edição aberta</em> }
+                        @if (publicacao.primeiraPublicacao) { <em>Primeira publicação no Brasil</em> }
+                        @if (publicacao.publicacaoCompleta === true) { <em>✓ Conteúdo completo</em> }
+                        @if (publicacao.publicacaoCompleta === false) { <em>◐ Conteúdo parcial</em> }
+                        @if (publicacao.naEstante) { <em>✓ Na sua estante</em> }
+                      </span>
+                      <span class="publicacao-brasil-abrir">{{ publicacao.id === edicaoDetalhe()?.id ? 'Você está nesta edição' : 'Ver edição →' }}</span>
+                    </span>
                   </button>
-                  @if (publicacao.historias.length) { <button class="detalhar-historias-publicacao" type="button" (click)="alternarHistoriasPublicacao(publicacao.id)" [attr.aria-expanded]="publicacaoHistoriasAberta() === publicacao.id">{{ publicacaoHistoriasAberta() === publicacao.id ? 'Ocultar histórias' : 'Ver histórias presentes' }}</button> }
+                  @if (resultado.totalHistoriasOriginais > 1 && publicacao.historias.length > 1) { <button class="detalhar-historias-publicacao" type="button" (click)="alternarHistoriasPublicacao(publicacao.id)" [attr.aria-expanded]="publicacaoHistoriasAberta() === publicacao.id">{{ publicacaoHistoriasAberta() === publicacao.id ? 'Ocultar comparação' : 'Comparar histórias incluídas' }}</button> }
                   @if (publicacaoHistoriasAberta() === publicacao.id) { <ul class="historias-publicacao-brasil">@for (historia of publicacao.historias; track historia.id) { <li [class.ausente]="!historia.presente">{{ historia.presente ? '✓' : '✕' }} {{ historia.titulo }}</li> }</ul> }
-                  <div class="acao-estante-publicacao">@if (publicacao.naEstante) { <span>✓ Na sua estante</span> } @else { <button type="button" (click)="adicionarPublicacaoBrasileiraNaEstante(publicacao)">+ Adicionar à estante</button> }</div>
+                  @if (!publicacao.naEstante) { <div class="acao-estante-publicacao"><button type="button" (click)="adicionarPublicacaoBrasileiraNaEstante(publicacao)">+ Adicionar à estante</button></div> }
                 </article>
               } @empty { <p class="estado-republicacoes-vazio">Até o momento, não encontramos outras publicações brasileiras desta história no catálogo do Coleciona HQ.</p> }
             </div>
@@ -3316,6 +3332,30 @@ export class CatalogoPage implements OnInit, OnDestroy {
   recarregarMapaBrasilDetalhe() {
     const edicao = this.edicaoDetalhe();
     if (edicao) this.carregarMapaBrasilDestaque(edicao.id);
+  }
+
+  resumoPublicacoesBrasil(resultado: PublicacoesBrasileirasEdicaoOriginal) {
+    const total = resultado.totalPublicacoes;
+    const destino = total === 1 ? '1 edição brasileira' : `${total} edições brasileiras`;
+    if (resultado.totalHistoriasOriginais === 1) {
+      return `Esta história foi publicada no Brasil em ${destino}.`;
+    }
+    if (resultado.totalHistoriasOriginais > 1) {
+      return `As ${resultado.totalHistoriasOriginais} histórias desta edição original aparecem em ${destino}.`;
+    }
+    return `Identificamos material desta edição original em ${destino}.`;
+  }
+
+  resumoHistoriasPublicacao(publicacao: PublicacaoBrasileiraResumo, totalHistoriasOriginais: number) {
+    const presentes = publicacao.historias.filter((historia) => historia.presente).length
+      || publicacao.quantidadeHistorias;
+    if (totalHistoriasOriginais === 1 && presentes === 1) {
+      return 'Inclui a história desta edição original';
+    }
+    if (totalHistoriasOriginais > 1) {
+      return `Inclui ${presentes} de ${totalHistoriasOriginais} histórias desta edição original`;
+    }
+    return `${presentes} ${presentes === 1 ? 'história relacionada' : 'histórias relacionadas'}`;
   }
 
   abrirPublicacoesBrasil(edicao: Edicao, evento: Event) {

@@ -5734,10 +5734,27 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
 }
 
 .publicacoes-brasil-painel {
-  width: min(680px, calc(100vw - 32px));
+  width: min(860px, calc(100vw - 32px));
   max-height: min(82vh, 780px);
   overflow: auto;
-  padding: 1.5rem;
+  padding: 1.75rem;
+}
+
+.publicacoes-brasil-cabecalho {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding-right: 2.5rem;
+}
+
+.publicacoes-brasil-cabecalho > img {
+  width: 84px;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f2f3f5;
+  box-shadow: 0 5px 16px rgba(22, 31, 38, 0.14);
 }
 
 .publicacoes-brasil-cabecalho h2,
@@ -5747,7 +5764,10 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
 }
 
 .resumo-publicacoes-brasil {
-  padding: 0.9rem 0;
+  padding: 1rem 0;
+  color: var(--texto, #22313a);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .publicacoes-brasil-estado {
@@ -5769,6 +5789,13 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
   border: 1px solid var(--cor-borda, #dce3e8);
   border-radius: 14px;
   background: var(--cor-superficie, #fff);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.publicacao-brasil-card:not(.edicao-atual):hover {
+  border-color: rgba(214, 94, 0, 0.48);
+  box-shadow: 0 8px 24px rgba(22, 31, 38, 0.09);
+  transform: translateY(-1px);
 }
 
 .publicacao-brasil-card.edicao-atual {
@@ -5779,10 +5806,10 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
 .publicacao-brasil-conteudo {
   width: 100%;
   display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 0.85rem;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 1rem;
   align-items: start;
-  padding: 0.75rem;
+  padding: 1rem;
   border: 0;
   background: transparent;
   color: inherit;
@@ -5796,22 +5823,36 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
 }
 
 .publicacao-brasil-conteudo img {
-  width: 72px;
+  width: 112px;
   aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border-radius: 7px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f2f3f5;
+  box-shadow: 0 4px 13px rgba(22, 31, 38, 0.13);
 }
 
-.publicacao-brasil-dados,
-.publicacao-brasil-selos {
+.publicacao-brasil-dados {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  min-width: 0;
+}
+
+.publicacao-brasil-dados > strong {
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.publicacao-brasil-dados > small {
+  color: var(--texto-suave);
 }
 
 .publicacao-brasil-selos {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.35rem;
   align-items: flex-start;
-  margin-top: 0.35rem;
+  margin-top: 0.2rem;
 }
 
 .publicacao-brasil-selos em {
@@ -5823,13 +5864,49 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
   font-weight: 700;
 }
 
+.publicacao-brasil-cobertura {
+  margin-top: 0.45rem;
+  color: var(--texto, #22313a);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.publicacao-brasil-abrir {
+  align-self: flex-start;
+  margin-top: 0.55rem;
+  color: var(--marca-escura, #a94800);
+  font-size: 0.85rem;
+  font-weight: 850;
+}
+
+.publicacao-brasil-conteudo:not(:disabled):hover .publicacao-brasil-abrir,
+.publicacao-brasil-conteudo:not(:disabled):focus-visible .publicacao-brasil-abrir {
+  text-decoration: underline;
+}
+
 .detalhar-historias-publicacao,
 .acao-estante-publicacao {
-  margin: 0 0.75rem 0.65rem;
+  margin: 0 1rem 0.85rem 144px;
+}
+
+.detalhar-historias-publicacao {
+  border: 0;
+  background: transparent;
+  color: var(--marca-escura, #a94800);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.acao-estante-publicacao button {
+  border: 0;
+  background: transparent;
+  color: var(--texto-suave);
+  font-weight: 750;
+  cursor: pointer;
 }
 
 .historias-publicacao-brasil {
-  margin: 0 0.75rem 0.65rem;
+  margin: 0 1rem 0.85rem 144px;
   padding: 0.65rem 0.85rem;
   list-style: none;
   border-radius: 9px;
@@ -5890,13 +5967,29 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
     padding: 1.2rem 1rem max(1rem, env(safe-area-inset-bottom));
   }
 
+  .publicacoes-brasil-cabecalho {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .publicacoes-brasil-cabecalho > img {
+    width: 64px;
+  }
+
   .publicacao-brasil-conteudo {
-    grid-template-columns: 64px 1fr;
-    gap: 0.7rem;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 0.85rem;
   }
 
   .publicacao-brasil-conteudo img {
-    width: 64px;
+    width: 84px;
+  }
+
+  .detalhar-historias-publicacao,
+  .acao-estante-publicacao,
+  .historias-publicacao-brasil {
+    margin-left: 110px;
   }
 }
 
