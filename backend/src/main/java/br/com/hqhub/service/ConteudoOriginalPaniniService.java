@@ -18,6 +18,7 @@ import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.CandidatoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.ReferenciaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.PublicacaoRelacionada;
@@ -75,10 +76,7 @@ public class ConteudoOriginalPaniniService {
             throw new RegraNegocioException("A edição solicitada não consta no conteúdo original da página da Panini.");
         }
 
-        EdicaoComicVineRespostaDTO externa = integracaoExternaService
-                .resolverEdicaoComicVineOriginal(dto.serie(), dto.numero(), dto.anoSerie(), null)
-                .orElseThrow(() -> new RegraNegocioException(
-                        "A Comic Vine não encontrou uma correspondência única para esta edição."));
+        EdicaoComicVineRespostaDTO externa = resolverEdicaoComicVine(dto);
         Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
                 .orElseGet(() -> criarEdicaoComicVine(externa, dto));
         return paraCandidato(edicao);
@@ -159,7 +157,7 @@ public class ConteudoOriginalPaniniService {
         }
         String busca = referencia.serie() + " " + referencia.numero();
         return edicaoRepository.buscarPaginado(null, busca, 0, 50, TipoSerie.ESTRANGEIRA).stream()
-                .filter(edicao -> normalizar(edicao.getSerie().getTitulo()).equals(normalizar(referencia.serie())))
+                .filter(edicao -> normalizarSerie(edicao.getSerie().getTitulo()).equals(normalizarSerie(referencia.serie())))
                 .filter(edicao -> normalizar(edicao.getNumero()).equals(normalizar(referencia.numero())))
                 .filter(edicao -> referencia.anoSerie() == null
                         || referencia.anoSerie().equals(edicao.getSerie().getAnoInicio()))
@@ -168,6 +166,39 @@ public class ConteudoOriginalPaniniService {
                         edicao.getId(), edicao.getSerie().getTitulo(), edicao.getNumero(),
                         edicao.getSerie().getAnoInicio(), edicao.getSerie().getEditora().getNome(), edicao.getUrlCapa()))
                 .toList();
+    }
+
+    private EdicaoComicVineRespostaDTO resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
+        List<VolumeComicVineRespostaDTO> volumes = integracaoExternaService
+                .buscarVolumesComicVine(dto.serie(), 0, 100).itens().stream()
+                .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(dto.serie())))
+                .filter(volume -> dto.anoSerie() == null || dto.anoSerie().equals(volume.anoInicio()))
+                .toList();
+        if (volumes.size() != 1) {
+            throw new RegraNegocioException(volumes.isEmpty()
+                    ? "A Comic Vine não encontrou a série e o ano informados pela Panini."
+                    : "A Comic Vine encontrou mais de uma série possível; informe o ID manual após conferir.");
+        }
+
+        VolumeComicVineRespostaDTO volume = volumes.getFirst();
+        List<EdicaoComicVineRespostaDTO> encontradas = new java.util.ArrayList<>();
+        int pagina = 0;
+        int totalPaginas = 1;
+        do {
+            var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(volume.idExterno(), pagina, 100);
+            resposta.itens().stream()
+                    .filter(edicao -> normalizar(edicao.numero()).equals(normalizar(dto.numero())))
+                    .forEach(encontradas::add);
+            totalPaginas = resposta.totalPaginas();
+            pagina++;
+        } while (encontradas.isEmpty() && pagina < totalPaginas && pagina < 20);
+
+        if (encontradas.size() != 1) {
+            throw new RegraNegocioException(encontradas.isEmpty()
+                    ? "A série foi encontrada na Comic Vine, mas a edição #" + dto.numero() + " não foi localizada."
+                    : "A Comic Vine encontrou mais de uma edição #" + dto.numero() + " nesta série.");
+        }
+        return integracaoExternaService.buscarDetalheEdicaoComicVine(encontradas.getFirst().idExterno());
     }
 
     private Edicao criarEdicaoComicVine(EdicaoComicVineRespostaDTO externa, CadastroEdicaoOriginalPaniniDTO dto) {
@@ -293,5 +324,9 @@ public class ConteudoOriginalPaniniService {
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-zA-Z0-9]", "")
                 .toLowerCase(Locale.ROOT);
+    }
+
+    private String normalizarSerie(String valor) {
+        return normalizar(valor == null ? null : valor.replaceFirst("(?i)^the\\s+", ""));
     }
 }

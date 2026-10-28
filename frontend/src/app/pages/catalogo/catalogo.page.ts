@@ -1025,6 +1025,9 @@ import {
                               <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="cadastrandoOriginaisPanini().has(referencia.indice)">
                                 {{ cadastrandoOriginaisPanini().has(referencia.indice) ? 'Buscando correspondência exata...' : 'Buscar e cadastrar pela Comic Vine' }}
                               </button>
+                              @if (erroOriginalPanini(referencia.indice)) {
+                                <small class="erro-original-panini" role="alert">{{ erroOriginalPanini(referencia.indice) }}</small>
+                              }
                             }
                           }
                         </label>
@@ -1472,6 +1475,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
   readonly selecoesPanini = signal<Record<number, number | null>>({});
   readonly cadastrandoOriginaisPanini = signal<Set<number>>(new Set());
+  readonly errosOriginaisPanini = signal<Record<number, string>>({});
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
@@ -2632,6 +2636,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
     this.cadastrandoOriginaisPanini.update((itens) => new Set(itens).add(referencia.indice));
+    this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: '' }));
     this.mensagem.set('');
     this.api.cadastrarEdicaoOriginalPanini({
       urlPanini: previa.urlPanini,
@@ -2660,12 +2665,18 @@ export class CatalogoPage implements OnInit, OnDestroy {
           atualizados.delete(referencia.indice);
           return atualizados;
         });
-        this.mensagem.set(this.extrairMensagemErro(
+        const mensagem = this.extrairMensagemErro(
           erro,
           'Não foi encontrada uma correspondência única na Comic Vine. Use o ID manual após conferir.',
-        ));
+        );
+        this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: mensagem }));
+        this.mensagem.set(mensagem);
       },
     });
+  }
+
+  erroOriginalPanini(indice: number) {
+    return this.errosOriginaisPanini()[indice] || '';
   }
 
   buscarOriginaisParaVinculo() {
@@ -4194,6 +4205,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.previaPanini.set(null);
     this.selecoesPanini.set({});
     this.cadastrandoOriginaisPanini.set(new Set());
+    this.errosOriginaisPanini.set({});
     this.analisandoPanini.set(false);
     this.salvandoPanini.set(false);
   }
