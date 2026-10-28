@@ -38,27 +38,45 @@ public class ConteudoOriginalPaniniParser {
             for (String parte : conteudoOriginal.split(";")) {
                 String texto = parte.trim();
                 if (!texto.isBlank()) {
-                    referencias.add(analisarReferencia(texto));
+                    referencias.addAll(analisarReferencias(texto));
                 }
             }
         }
         return new PaginaPanini(titulo, conteudoOriginal, referencias);
     }
 
-    private ReferenciaExtraida analisarReferencia(String texto) {
+    private List<ReferenciaExtraida> analisarReferencias(String texto) {
         Matcher anual = REFERENCIA_ANUAL.matcher(texto);
         if (anual.matches()) {
             String ano = anual.group(2);
-            return new ReferenciaExtraida(texto, anual.group(1).trim(), null,
-                    ano.length() == 2 ? "19" + ano : ano, limpar(anual.group(3)));
+            return List.of(new ReferenciaExtraida(texto, anual.group(1).trim(), null,
+                    ano.length() == 2 ? "19" + ano : ano, limpar(anual.group(3))));
         }
 
         Matcher padrao = REFERENCIA_PADRAO.matcher(texto);
         if (padrao.matches()) {
-            return new ReferenciaExtraida(texto, padrao.group(1).trim(), Integer.valueOf(padrao.group(2)),
-                    padrao.group(3).trim(), limpar(padrao.group(4)));
+            String numero = padrao.group(3).trim();
+            Matcher intervalo = Pattern.compile("^(\\d+)-(\\d+)$").matcher(numero);
+            if (intervalo.matches()) {
+                int inicio = Integer.parseInt(intervalo.group(1));
+                int fim = Integer.parseInt(intervalo.group(2));
+                if (fim >= inicio && fim - inicio <= 20) {
+                    List<ReferenciaExtraida> expandidas = new ArrayList<>();
+                    for (int atual = inicio; atual <= fim; atual++) {
+                        expandidas.add(new ReferenciaExtraida(
+                                texto + " — #" + atual,
+                                padrao.group(1).trim(),
+                                Integer.valueOf(padrao.group(2)),
+                                String.valueOf(atual),
+                                limpar(padrao.group(4))));
+                    }
+                    return expandidas;
+                }
+            }
+            return List.of(new ReferenciaExtraida(texto, padrao.group(1).trim(), Integer.valueOf(padrao.group(2)),
+                    numero, limpar(padrao.group(4))));
         }
-        return new ReferenciaExtraida(texto, null, null, null, null);
+        return List.of(new ReferenciaExtraida(texto, null, null, null, null));
     }
 
     private String htmlParaTexto(String valor) {

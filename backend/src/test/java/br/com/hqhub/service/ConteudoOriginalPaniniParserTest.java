@@ -31,4 +31,15 @@ class ConteudoOriginalPaniniParserTest {
         assertEquals("1996", pagina.referencias().get(1).numero());
         assertEquals("Blood Brothers, 2", pagina.referencias().get(3).complemento());
     }
+
+    @Test
+    void desdobraIntervaloEmEdicoesIndividuais() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">Spectacular Spider-Man (1976) 232-233</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(2, referencias.size());
+        assertEquals("232", referencias.get(0).numero());
+        assertEquals("233", referencias.get(1).numero());
+    }
 }

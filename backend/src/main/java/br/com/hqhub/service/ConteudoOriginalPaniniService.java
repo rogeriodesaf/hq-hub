@@ -12,18 +12,24 @@ import java.util.Locale;
 import java.util.Set;
 
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
+import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.CandidatoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.ReferenciaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.PublicacaoRelacionada;
+import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.TipoPublicacaoRelacionada;
 import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.EdicaoRepository;
+import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
+import br.com.hqhub.repository.SerieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -34,19 +40,48 @@ public class ConteudoOriginalPaniniService {
     private final EdicaoRepository edicaoRepository;
     private final PublicacaoRelacionadaRepository publicacaoRelacionadaRepository;
     private final ConteudoOriginalPaniniParser parser;
+    private final IntegracaoExternaService integracaoExternaService;
+    private final EditoraRepository editoraRepository;
+    private final SerieRepository serieRepository;
     private final HttpClient httpClient;
 
     public ConteudoOriginalPaniniService(
             EdicaoRepository edicaoRepository,
             PublicacaoRelacionadaRepository publicacaoRelacionadaRepository,
-            ConteudoOriginalPaniniParser parser) {
+            ConteudoOriginalPaniniParser parser,
+            IntegracaoExternaService integracaoExternaService,
+            EditoraRepository editoraRepository,
+            SerieRepository serieRepository) {
         this.edicaoRepository = edicaoRepository;
         this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.parser = parser;
+        this.integracaoExternaService = integracaoExternaService;
+        this.editoraRepository = editoraRepository;
+        this.serieRepository = serieRepository;
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(12))
                 .followRedirects(HttpClient.Redirect.NEVER)
                 .build();
+    }
+
+    @Transactional
+    public CandidatoEdicaoOriginalPaniniDTO cadastrarEdicaoOriginal(CadastroEdicaoOriginalPaniniDTO dto) {
+        PreviaConteudoOriginalPaniniDTO previa = analisar(dto.urlPanini());
+        boolean declaradaPelaPanini = previa.referencias().stream().anyMatch(referencia ->
+                normalizar(referencia.serie()).equals(normalizar(dto.serie()))
+                        && java.util.Objects.equals(referencia.anoSerie(), dto.anoSerie())
+                        && normalizar(referencia.numero()).equals(normalizar(dto.numero())));
+        if (!declaradaPelaPanini) {
+            throw new RegraNegocioException("A edição solicitada não consta no conteúdo original da página da Panini.");
+        }
+
+        EdicaoComicVineRespostaDTO externa = integracaoExternaService
+                .resolverEdicaoComicVineOriginal(dto.serie(), dto.numero(), dto.anoSerie(), null)
+                .orElseThrow(() -> new RegraNegocioException(
+                        "A Comic Vine não encontrou uma correspondência única para esta edição."));
+        Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
+                .orElseGet(() -> criarEdicaoComicVine(externa, dto));
+        return paraCandidato(edicao);
     }
 
     @Transactional
@@ -133,6 +168,72 @@ public class ConteudoOriginalPaniniService {
                         edicao.getId(), edicao.getSerie().getTitulo(), edicao.getNumero(),
                         edicao.getSerie().getAnoInicio(), edicao.getSerie().getEditora().getNome(), edicao.getUrlCapa()))
                 .toList();
+    }
+
+    private Edicao criarEdicaoComicVine(EdicaoComicVineRespostaDTO externa, CadastroEdicaoOriginalPaniniDTO dto) {
+        if (externa.editora() == null || externa.editora().isBlank()) {
+            throw new RegraNegocioException("A Comic Vine não informou a editora desta edição.");
+        }
+        Editora editora = editoraRepository.buscarPorNome(externa.editora()).orElseGet(() -> {
+            Editora nova = new Editora();
+            nova.setNome(externa.editora().trim());
+            nova.setFonteExterna("COMICVINE");
+            nova.setIdExterno("publisher:" + normalizar(externa.editora()));
+            editoraRepository.persist(nova);
+            return nova;
+        });
+        String tituloSerie = externa.nomeVolume() == null || externa.nomeVolume().isBlank()
+                ? dto.serie().trim() : externa.nomeVolume().trim();
+        Serie serie = serieRepository.buscarTodasPorTituloEEditoraEVolume(tituloSerie, editora.getId(), null).stream()
+                .filter(item -> item.getTipoSerie() == TipoSerie.ESTRANGEIRA)
+                .findFirst()
+                .orElseGet(() -> {
+                    Serie nova = new Serie();
+                    nova.setTitulo(tituloSerie);
+                    nova.setAnoInicio(dto.anoSerie());
+                    nova.setTipoSerie(TipoSerie.ESTRANGEIRA);
+                    nova.setEditora(editora);
+                    nova.setFonteExterna("COMICVINE");
+                    nova.setIdExterno(externa.idVolume());
+                    nova.setUrlOrigem(externa.urlOrigem());
+                    serieRepository.persist(nova);
+                    return nova;
+                });
+        return edicaoRepository.buscarPorNumeroESerie(dto.numero(), serie.getId()).orElseGet(() -> {
+            Edicao nova = new Edicao();
+            nova.setSerie(serie);
+            nova.setNumero(dto.numero());
+            nova.setTitulo(externa.titulo());
+            nova.setNomeVolume(externa.nomeVolume());
+            nova.setDescricao(externa.descricaoPortugues());
+            nova.setDescricaoOriginal(externa.descricaoOriginal());
+            nova.setDescricaoPortugues(externa.descricaoPortugues());
+            nova.setDataCobertura(data(externa.dataCapa()));
+            nova.setDataDisponibilidadeLoja(data(externa.dataVenda()));
+            nova.setDataPublicacao(nova.getDataCobertura() != null ? nova.getDataCobertura() : nova.getDataDisponibilidadeLoja());
+            nova.setUrlCapa(externa.urlImagem());
+            nova.setFonteExterna("COMICVINE");
+            nova.setIdExterno(externa.idExterno());
+            nova.setIdComicVine(externa.idExterno());
+            nova.setUrlComicVine(externa.urlOrigem());
+            nova.setUrlOrigem(externa.urlOrigem());
+            edicaoRepository.persist(nova);
+            return nova;
+        });
+    }
+
+    private CandidatoEdicaoOriginalPaniniDTO paraCandidato(Edicao edicao) {
+        return new CandidatoEdicaoOriginalPaniniDTO(
+                edicao.getId(), edicao.getSerie().getTitulo(), edicao.getNumero(),
+                edicao.getSerie().getAnoInicio(), edicao.getSerie().getEditora().getNome(), edicao.getUrlCapa());
+    }
+
+    private java.time.LocalDate data(String valor) {
+        try {
+            return valor == null || valor.isBlank() ? null : java.time.LocalDate.parse(valor);
+        } catch (java.time.format.DateTimeParseException excecao) {
+            return null;
+        }
     }
 
     private String carregarPagina(URI uri) {

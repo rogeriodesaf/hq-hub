@@ -1021,6 +1021,11 @@ import {
                             </select>
                           } @else {
                             <input type="number" min="1" [ngModel]="idSelecionadoPanini(referencia.indice)" (ngModelChange)="selecionarEdicaoPanini(referencia.indice, $event)" [name]="'edicaoPanini' + referencia.indice" placeholder="ID no catálogo estrangeiro" />
+                            @if (referencia.serie && referencia.numero) {
+                              <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="cadastrandoOriginaisPanini().has(referencia.indice)">
+                                {{ cadastrandoOriginaisPanini().has(referencia.indice) ? 'Buscando correspondência exata...' : 'Buscar e cadastrar pela Comic Vine' }}
+                              </button>
+                            }
                           }
                         </label>
                       </article>
@@ -1466,6 +1471,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly salvandoPanini = signal(false);
   readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
   readonly selecoesPanini = signal<Record<number, number | null>>({});
+  readonly cadastrandoOriginaisPanini = signal<Set<number>>(new Set());
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
@@ -2616,6 +2622,48 @@ export class CatalogoPage implements OnInit, OnDestroy {
       error: (erro) => {
         this.salvandoPanini.set(false);
         this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar os vínculos da Panini.'));
+      },
+    });
+  }
+
+  cadastrarEdicaoOriginalPanini(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {
+    const previa = this.previaPanini();
+    if (!previa || !referencia.serie || !referencia.numero) {
+      return;
+    }
+    this.cadastrandoOriginaisPanini.update((itens) => new Set(itens).add(referencia.indice));
+    this.mensagem.set('');
+    this.api.cadastrarEdicaoOriginalPanini({
+      urlPanini: previa.urlPanini,
+      serie: referencia.serie,
+      anoSerie: referencia.anoSerie,
+      numero: referencia.numero,
+    }).subscribe({
+      next: (candidato) => {
+        this.previaPanini.update((atual) => atual ? {
+          ...atual,
+          referencias: atual.referencias.map((item) => item.indice === referencia.indice
+            ? { ...item, candidatos: [candidato], statusResolucao: 'ENCONTRADA' }
+            : item),
+        } : atual);
+        this.selecionarEdicaoPanini(referencia.indice, candidato.id);
+        this.cadastrandoOriginaisPanini.update((itens) => {
+          const atualizados = new Set(itens);
+          atualizados.delete(referencia.indice);
+          return atualizados;
+        });
+        this.mensagem.set(`${candidato.serie} #${candidato.numero} foi cadastrada e selecionada.`);
+      },
+      error: (erro) => {
+        this.cadastrandoOriginaisPanini.update((itens) => {
+          const atualizados = new Set(itens);
+          atualizados.delete(referencia.indice);
+          return atualizados;
+        });
+        this.mensagem.set(this.extrairMensagemErro(
+          erro,
+          'Não foi encontrada uma correspondência única na Comic Vine. Use o ID manual após conferir.',
+        ));
       },
     });
   }
@@ -4145,6 +4193,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.urlPanini = '';
     this.previaPanini.set(null);
     this.selecoesPanini.set({});
+    this.cadastrandoOriginaisPanini.set(new Set());
     this.analisandoPanini.set(false);
     this.salvandoPanini.set(false);
   }
