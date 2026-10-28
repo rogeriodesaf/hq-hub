@@ -76,9 +76,10 @@ public class ConteudoOriginalPaniniService {
             throw new RegraNegocioException("A edição solicitada não consta no conteúdo original da página da Panini.");
         }
 
-        EdicaoComicVineRespostaDTO externa = resolverEdicaoComicVine(dto);
+        ResolucaoComicVine resolucao = resolverEdicaoComicVine(dto);
+        EdicaoComicVineRespostaDTO externa = resolucao.edicao();
         Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
-                .orElseGet(() -> criarEdicaoComicVine(externa, dto));
+                .orElseGet(() -> criarEdicaoComicVine(externa, resolucao.volume(), dto));
         return paraCandidato(edicao);
     }
 
@@ -168,7 +169,7 @@ public class ConteudoOriginalPaniniService {
                 .toList();
     }
 
-    private EdicaoComicVineRespostaDTO resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
+    private ResolucaoComicVine resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
         List<VolumeComicVineRespostaDTO> volumes = integracaoExternaService
                 .buscarVolumesComicVine(dto.serie(), 0, 100).itens().stream()
                 .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(dto.serie())))
@@ -198,23 +199,30 @@ public class ConteudoOriginalPaniniService {
                     ? "A série foi encontrada na Comic Vine, mas a edição #" + dto.numero() + " não foi localizada."
                     : "A Comic Vine encontrou mais de uma edição #" + dto.numero() + " nesta série.");
         }
-        return integracaoExternaService.buscarDetalheEdicaoComicVine(encontradas.getFirst().idExterno());
+        return new ResolucaoComicVine(
+                integracaoExternaService.buscarDetalheEdicaoComicVine(encontradas.getFirst().idExterno()),
+                volume);
     }
 
-    private Edicao criarEdicaoComicVine(EdicaoComicVineRespostaDTO externa, CadastroEdicaoOriginalPaniniDTO dto) {
-        if (externa.editora() == null || externa.editora().isBlank()) {
+    private Edicao criarEdicaoComicVine(
+            EdicaoComicVineRespostaDTO externa,
+            VolumeComicVineRespostaDTO volume,
+            CadastroEdicaoOriginalPaniniDTO dto) {
+        String nomeEditora = externa.editora() == null || externa.editora().isBlank()
+                ? volume.editora() : externa.editora();
+        if (nomeEditora == null || nomeEditora.isBlank()) {
             throw new RegraNegocioException("A Comic Vine não informou a editora desta edição.");
         }
-        Editora editora = editoraRepository.buscarPorNome(externa.editora()).orElseGet(() -> {
+        Editora editora = editoraRepository.buscarPorNome(nomeEditora).orElseGet(() -> {
             Editora nova = new Editora();
-            nova.setNome(externa.editora().trim());
+            nova.setNome(nomeEditora.trim());
             nova.setFonteExterna("COMICVINE");
-            nova.setIdExterno("publisher:" + normalizar(externa.editora()));
+            nova.setIdExterno("publisher:" + normalizar(nomeEditora));
             editoraRepository.persist(nova);
             return nova;
         });
         String tituloSerie = externa.nomeVolume() == null || externa.nomeVolume().isBlank()
-                ? dto.serie().trim() : externa.nomeVolume().trim();
+                ? volume.titulo() : externa.nomeVolume().trim();
         Serie serie = serieRepository.buscarTodasPorTituloEEditoraEVolume(tituloSerie, editora.getId(), null).stream()
                 .filter(item -> item.getTipoSerie() == TipoSerie.ESTRANGEIRA)
                 .findFirst()
@@ -225,8 +233,8 @@ public class ConteudoOriginalPaniniService {
                     nova.setTipoSerie(TipoSerie.ESTRANGEIRA);
                     nova.setEditora(editora);
                     nova.setFonteExterna("COMICVINE");
-                    nova.setIdExterno(externa.idVolume());
-                    nova.setUrlOrigem(externa.urlOrigem());
+                    nova.setIdExterno(externa.idVolume() == null ? volume.idExterno() : externa.idVolume());
+                    nova.setUrlOrigem(volume.urlOrigem());
                     serieRepository.persist(nova);
                     return nova;
                 });
@@ -328,5 +336,10 @@ public class ConteudoOriginalPaniniService {
 
     private String normalizarSerie(String valor) {
         return normalizar(valor == null ? null : valor.replaceFirst("(?i)^the\\s+", ""));
+    }
+
+    private record ResolucaoComicVine(
+            EdicaoComicVineRespostaDTO edicao,
+            VolumeComicVineRespostaDTO volume) {
     }
 }
