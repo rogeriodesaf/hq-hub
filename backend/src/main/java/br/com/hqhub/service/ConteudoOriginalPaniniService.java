@@ -170,14 +170,24 @@ public class ConteudoOriginalPaniniService {
     }
 
     private ResolucaoComicVine resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
-        List<VolumeComicVineRespostaDTO> volumes = integracaoExternaService
+        List<VolumeComicVineRespostaDTO> volumesPorTitulo = integracaoExternaService
                 .buscarVolumesComicVine(dto.serie(), 0, 100).itens().stream()
                 .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(dto.serie())))
-                .filter(volume -> dto.anoSerie() == null || dto.anoSerie().equals(volume.anoInicio()))
                 .toList();
+        List<VolumeComicVineRespostaDTO> volumes = dto.anoSerie() == null
+                ? volumesPorTitulo
+                : volumesPorTitulo.stream()
+                        .filter(volume -> dto.anoSerie().equals(volume.anoInicio()))
+                        .toList();
+        if (volumes.isEmpty() && dto.anoSerie() != null) {
+            volumes = volumesPorTitulo.stream()
+                    .filter(volume -> volume.anoInicio() != null
+                            && Math.abs(volume.anoInicio() - dto.anoSerie()) == 1)
+                    .toList();
+        }
         if (volumes.size() != 1) {
             throw new RegraNegocioException(volumes.isEmpty()
-                    ? "A Comic Vine não encontrou a série e o ano informados pela Panini."
+                    ? "A Comic Vine não encontrou um volume único compatível com a série e o ano informados pela Panini."
                     : "A Comic Vine encontrou mais de uma série possível; informe o ID manual após conferir.");
         }
 
