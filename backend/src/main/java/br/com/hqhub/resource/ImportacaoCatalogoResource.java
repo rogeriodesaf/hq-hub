@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
+import br.com.hqhub.dto.AnaliseConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.GeracaoRascunhoGcdDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
@@ -15,6 +17,7 @@ import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
 import br.com.hqhub.service.ArmazenamentoImagemService;
 import br.com.hqhub.service.ColetaGuiaService;
 import br.com.hqhub.service.ColetaGcdService;
+import br.com.hqhub.service.ConteudoOriginalPaniniService;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
@@ -56,6 +59,7 @@ public class ImportacaoCatalogoResource {
     private final ArmazenamentoImagemService armazenamentoImagemService;
     private final ColetaGuiaService coletaGuiaService;
     private final ColetaGcdService coletaGcdService;
+    private final ConteudoOriginalPaniniService conteudoOriginalPaniniService;
     private final SecurityIdentity securityIdentity;
 
     public ImportacaoCatalogoResource(
@@ -64,13 +68,27 @@ public class ImportacaoCatalogoResource {
             ArmazenamentoImagemService armazenamentoImagemService,
             ColetaGuiaService coletaGuiaService,
             ColetaGcdService coletaGcdService,
+            ConteudoOriginalPaniniService conteudoOriginalPaniniService,
             SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
         this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
         this.armazenamentoImagemService = armazenamentoImagemService;
         this.coletaGuiaService = coletaGuiaService;
         this.coletaGcdService = coletaGcdService;
+        this.conteudoOriginalPaniniService = conteudoOriginalPaniniService;
         this.securityIdentity = securityIdentity;
+    }
+
+    @POST
+    @Path("/panini/conteudo-original/analisar")
+    public Response analisarConteudoOriginalPanini(@Valid AnaliseConteudoOriginalPaniniDTO dto) {
+        return Response.ok(conteudoOriginalPaniniService.analisar(dto.urlPanini())).build();
+    }
+
+    @POST
+    @Path("/panini/conteudo-original/cadastrar")
+    public Response cadastrarConteudoOriginalPanini(@Valid CadastroConteudoOriginalPaniniDTO dto) {
+        return Response.ok(conteudoOriginalPaniniService.cadastrar(dto)).build();
     }
 
     @POST

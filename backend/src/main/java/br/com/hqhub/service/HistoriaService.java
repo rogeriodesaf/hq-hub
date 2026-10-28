@@ -33,6 +33,8 @@ import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Historia;
 import br.com.hqhub.entity.PublicacaoHistoria;
+import br.com.hqhub.entity.PublicacaoRelacionada;
+import br.com.hqhub.entity.TipoSerie;
 import br.com.hqhub.entity.StatusPublicacaoHistoria;
 import br.com.hqhub.exception.RecursoNaoEncontradoException;
 import br.com.hqhub.exception.RegraNegocioException;
@@ -45,6 +47,7 @@ import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.ItemColecaoRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
+import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository.MarcoColecaoOriginal;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -57,6 +60,7 @@ public class HistoriaService {
     private final EdicaoRepository edicaoRepository;
     private final ConteudoEdicaoRepository conteudoEdicaoRepository;
     private final PublicacaoHistoriaRepository publicacaoHistoriaRepository;
+    private final PublicacaoRelacionadaRepository publicacaoRelacionadaRepository;
     private final HistoriaMapper historiaMapper;
     private final ConteudoEdicaoMapper conteudoEdicaoMapper;
     private final PublicacaoHistoriaMapper publicacaoHistoriaMapper;
@@ -69,6 +73,7 @@ public class HistoriaService {
             EdicaoRepository edicaoRepository,
             ConteudoEdicaoRepository conteudoEdicaoRepository,
             PublicacaoHistoriaRepository publicacaoHistoriaRepository,
+            PublicacaoRelacionadaRepository publicacaoRelacionadaRepository,
             HistoriaMapper historiaMapper,
             ConteudoEdicaoMapper conteudoEdicaoMapper,
             PublicacaoHistoriaMapper publicacaoHistoriaMapper,
@@ -79,6 +84,7 @@ public class HistoriaService {
         this.edicaoRepository = edicaoRepository;
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
         this.publicacaoHistoriaRepository = publicacaoHistoriaRepository;
+        this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.historiaMapper = historiaMapper;
         this.conteudoEdicaoMapper = conteudoEdicaoMapper;
         this.publicacaoHistoriaMapper = publicacaoHistoriaMapper;
@@ -442,8 +448,13 @@ public class HistoriaService {
             Long edicaoOriginalId,
             Long usuarioId) {
         Edicao original = edicaoRepository.resolverOriginalComVinculos(buscarEdicaoPorId(edicaoOriginalId));
+        List<Long> idsOriginais = edicaoRepository.listarIdsOriginaisCorrespondentes(original);
         List<PublicacaoHistoria> vinculos = publicacaoHistoriaRepository
-                .listarPublicacoesBrasileirasComDados(edicaoRepository.listarIdsOriginaisCorrespondentes(original));
+                .listarPublicacoesBrasileirasComDados(idsOriginais);
+        List<PublicacaoRelacionada> vinculosEditoriais = publicacaoRelacionadaRepository
+                .listarPublicacoesBrasileiras(idsOriginais).stream()
+                .filter(vinculo -> vinculo.getEdicaoDestino().getSerie().getTipoSerie() == TipoSerie.BRASILEIRA)
+                .toList();
         List<ConteudoEdicao> conteudosOriginais = conteudoEdicaoRepository
                 .listarPorEdicaoComHistoria(original.getId());
 
@@ -452,7 +463,12 @@ public class HistoriaService {
                         publicacao -> publicacao.getEdicaoPublicada().getId(),
                         LinkedHashMap::new,
                         Collectors.toList()));
-        Set<Long> idsEdicoes = porEdicao.keySet();
+        Map<Long, Edicao> edicoesPublicadas = new LinkedHashMap<>();
+        vinculos.forEach(vinculo -> edicoesPublicadas.put(
+                vinculo.getEdicaoPublicada().getId(), vinculo.getEdicaoPublicada()));
+        vinculosEditoriais.forEach(vinculo -> edicoesPublicadas.putIfAbsent(
+                vinculo.getEdicaoDestino().getId(), vinculo.getEdicaoDestino()));
+        Set<Long> idsEdicoes = edicoesPublicadas.keySet();
         Set<Long> idsNaEstante = usuarioId == null || idsEdicoes.isEmpty()
                 ? Set.of()
                 : itemColecaoRepository.listarPorUsuarioEEdicoes(usuarioId, idsEdicoes).stream()
@@ -463,20 +479,21 @@ public class HistoriaService {
                 .collect(Collectors.toSet());
         boolean permiteCalcularCompletude = !idsHistoriasOriginais.isEmpty();
 
-        List<Map.Entry<Long, List<PublicacaoHistoria>>> gruposOrdenados = porEdicao.entrySet().stream()
-                .sorted(Comparator.comparing(
-                        entrada -> dataDaEdicao(entrada.getValue().getFirst().getEdicaoPublicada()),
+        List<Edicao> edicoesOrdenadas = edicoesPublicadas.values().stream()
+                .sorted(Comparator.comparing(this::dataDaEdicao,
                         Comparator.nullsLast(Comparator.naturalOrder())))
                 .toList();
 
         List<PublicacaoBrasileiraResumoDTO> publicacoes = new java.util.ArrayList<>();
-        for (int indice = 0; indice < gruposOrdenados.size(); indice++) {
-            List<PublicacaoHistoria> grupo = gruposOrdenados.get(indice).getValue();
-            Edicao publicada = grupo.getFirst().getEdicaoPublicada();
+        for (int indice = 0; indice < edicoesOrdenadas.size(); indice++) {
+            Edicao publicada = edicoesOrdenadas.get(indice);
+            List<PublicacaoHistoria> grupo = porEdicao.getOrDefault(publicada.getId(), List.of());
             Set<Long> presentes = grupo.stream()
                     .map(publicacao -> publicacao.getHistoria().getId())
                     .collect(Collectors.toSet());
-            List<HistoriaPublicacaoBrasilDTO> historias = permiteCalcularCompletude
+            List<HistoriaPublicacaoBrasilDTO> historias = grupo.isEmpty()
+                    ? List.of()
+                    : permiteCalcularCompletude
                     ? conteudosOriginais.stream()
                             .map(conteudo -> new HistoriaPublicacaoBrasilDTO(
                                     conteudo.getHistoria().getId(),
@@ -489,7 +506,9 @@ public class HistoriaService {
                             .map(historia -> new HistoriaPublicacaoBrasilDTO(
                                     historia.getId(), historia.getTitulo(), true))
                             .toList();
-            Boolean completa = permiteCalcularCompletude
+            Boolean completa = grupo.isEmpty()
+                    ? null
+                    : permiteCalcularCompletude
                     ? presentes.containsAll(idsHistoriasOriginais)
                     : null;
             if (Boolean.TRUE.equals(completa)

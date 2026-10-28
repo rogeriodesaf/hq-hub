@@ -65,6 +65,8 @@ import {
   ResultadoImportacaoCatalogo,
   ResultadoBackfillComicVine,
   ResultadoImportacaoCapas,
+  PreviaConteudoOriginalPanini,
+  ResultadoCadastroConteudoOriginalPanini,
   RespostaAssistente,
   AssistenteFaqBase,
   Serie,
@@ -1085,6 +1087,24 @@ export class ApiService {
   importarCatalogo(jsonImportacao: unknown, publicarNovidade = true) {
     const params = new HttpParams().set('publicarNovidade', String(publicarNovidade));
     return this.http.post<ResultadoImportacaoCatalogo>('/api/importacoes/catalogo', jsonImportacao, { params });
+  }
+
+  analisarConteudoOriginalPanini(urlPanini: string) {
+    return this.http.post<PreviaConteudoOriginalPanini>(
+      '/api/importacoes/catalogo/panini/conteudo-original/analisar',
+      { urlPanini },
+    );
+  }
+
+  cadastrarConteudoOriginalPanini(dto: {
+    edicaoBrasileiraId: number;
+    urlPanini: string;
+    vinculos: Array<{ edicaoOriginalId: number; referenciaOriginal: string }>;
+  }) {
+    return this.http.post<ResultadoCadastroConteudoOriginalPanini>(
+      '/api/importacoes/catalogo/panini/conteudo-original/cadastrar',
+      dto,
+    );
   }
 
   enviarCapaImportacao(arquivo: File) {

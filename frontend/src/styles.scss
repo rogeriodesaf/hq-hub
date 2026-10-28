@@ -2530,6 +2530,152 @@ body.tema-escuro .estado-republicacoes-vazio {
   font-size: 0.85rem;
 }
 
+.importacao-panini-original {
+  margin-top: 18px;
+}
+
+.importacao-panini-original > summary {
+  cursor: pointer;
+  color: var(--texto);
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.importacao-panini-original > summary span {
+  display: inline-flex;
+  margin-left: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(28, 142, 91, 0.14);
+  color: #147347;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.importacao-panini-conteudo {
+  padding-top: 12px;
+}
+
+.importacao-panini-conteudo > p {
+  margin: 0 0 16px;
+}
+
+.importacao-panini-url {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.importacao-panini-url label,
+.importacao-panini-referencias label {
+  margin: 0;
+}
+
+.importacao-panini-fonte {
+  display: grid;
+  gap: 4px;
+  margin: 16px 0;
+  padding: 14px;
+  border-left: 4px solid var(--primaria);
+  border-radius: 6px;
+  background: var(--superficie-suave);
+}
+
+.importacao-panini-fonte span,
+.importacao-panini-fonte p,
+.importacao-panini-referencias article > p {
+  color: var(--texto-suave);
+}
+
+.importacao-panini-fonte p {
+  margin: 4px 0 0;
+}
+
+.importacao-panini-referencias {
+  display: grid;
+  gap: 10px;
+}
+
+.importacao-panini-referencias article {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+}
+
+.importacao-panini-referencias article.resolvida {
+  border-color: rgba(28, 142, 91, 0.55);
+}
+
+.importacao-panini-referencias header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.importacao-panini-referencias header div {
+  display: grid;
+  gap: 3px;
+}
+
+.importacao-panini-referencias header span {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.importacao-panini-referencias header em {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(232, 133, 20, 0.13);
+  color: var(--texto-suave);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.importacao-panini-referencias header em[data-status='ENCONTRADA'] {
+  background: rgba(28, 142, 91, 0.14);
+  color: #147347;
+}
+
+.importacao-panini-referencias article > p {
+  margin: 0;
+}
+
+.importacao-panini-acoes {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.importacao-panini-acoes span {
+  color: var(--texto-suave);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 700px) {
+  .importacao-panini-url {
+    grid-template-columns: 1fr;
+  }
+
+  .importacao-panini-referencias header,
+  .importacao-panini-acoes {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .importacao-panini-referencias header em {
+    align-self: flex-start;
+  }
+}
+
 .link-edicao-original {
   border: 0;
   padding: 0;

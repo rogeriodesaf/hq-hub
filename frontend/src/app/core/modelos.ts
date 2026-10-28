@@ -141,6 +141,38 @@ export interface ResultadoImportacaoCapas {
   }>;
 }
 
+export interface CandidatoEdicaoOriginalPanini {
+  id: number;
+  serie: string;
+  numero: string;
+  anoInicio: number | null;
+  editora: string;
+  urlCapa: string | null;
+}
+
+export interface ReferenciaConteudoOriginalPanini {
+  indice: number;
+  textoOriginal: string;
+  serie: string | null;
+  anoSerie: number | null;
+  numero: string | null;
+  complemento: string | null;
+  statusResolucao: 'ENCONTRADA' | 'AMBIGUA' | 'NAO_ENCONTRADA' | 'NAO_INTERPRETADA';
+  candidatos: CandidatoEdicaoOriginalPanini[];
+}
+
+export interface PreviaConteudoOriginalPanini {
+  urlPanini: string;
+  tituloProduto: string | null;
+  conteudoOriginalBruto: string;
+  referencias: ReferenciaConteudoOriginalPanini[];
+}
+
+export interface ResultadoCadastroConteudoOriginalPanini {
+  cadastrados: number;
+  jaExistentes: number;
+}
+
 export interface LinkEdicao {
   id: number;
   edicaoId: number;

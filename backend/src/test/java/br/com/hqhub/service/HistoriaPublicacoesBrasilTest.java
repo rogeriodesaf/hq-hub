@@ -27,7 +27,7 @@ class HistoriaPublicacoesBrasilTest {
                 marco(17L, "280", LocalDate.of(2026, 7, 1), 280),
                 marco(18L, "281", LocalDate.of(2026, 9, 1), 281),
                 marco(18L, "282", LocalDate.of(2026, 9, 1), 282)));
-        HistoriaService service = new HistoriaService(null, null, null, publicacoes, null, null, null, null, null, null);
+        HistoriaService service = new HistoriaService(null, null, null, publicacoes, null, null, null, null, null, null, null);
 
         var resultado = service.calcularProgressoColecoesComicVine("2127", "293");
         var saga = resultado.colecoes().getFirst();
@@ -39,9 +39,39 @@ class HistoriaPublicacoesBrasilTest {
         assertNotNull(saga.previsaoEstimada());
     }
 
+    @Test
+    void incluiVinculoEditorialSemInventarHistoriasOuCompletude() {
+        EdicaoRepository edicoes = mock(EdicaoRepository.class);
+        PublicacaoHistoriaRepository publicacoes = mock(PublicacaoHistoriaRepository.class);
+        PublicacaoRelacionadaRepository relacionadas = mock(PublicacaoRelacionadaRepository.class);
+        ConteudoEdicaoRepository conteudos = mock(ConteudoEdicaoRepository.class);
+        Edicao original = edicao(1L, "Marvel Comics", "Spider-Man Team-Up", TipoSerie.ESTRANGEIRA);
+        Edicao brasileira = edicao(2L, "Panini", "A Saga do Clone", TipoSerie.BRASILEIRA);
+        PublicacaoRelacionada vinculo = new PublicacaoRelacionada();
+        vinculo.setEdicaoOrigem(original);
+        vinculo.setEdicaoDestino(brasileira);
+        vinculo.setTipo(TipoPublicacaoRelacionada.PUBLICADA_NO_BRASIL);
+        when(edicoes.findByIdOptional(1L)).thenReturn(Optional.of(original));
+        when(edicoes.resolverOriginalComVinculos(original)).thenReturn(original);
+        when(edicoes.listarIdsOriginaisCorrespondentes(original)).thenReturn(List.of(1L));
+        when(publicacoes.listarPublicacoesBrasileirasComDados(List.of(1L))).thenReturn(List.of());
+        when(relacionadas.listarPublicacoesBrasileiras(List.of(1L))).thenReturn(List.of(vinculo));
+        when(conteudos.listarPorEdicaoComHistoria(1L)).thenReturn(List.of());
+        HistoriaService service = new HistoriaService(
+                null, edicoes, conteudos, publicacoes, relacionadas, null, null, null, null, null, null);
+
+        var resultado = service.listarPublicacoesBrasileirasPublicas(1L);
+
+        assertEquals(1, resultado.totalPublicacoes());
+        assertEquals(0, resultado.publicacoes().getFirst().quantidadeHistorias());
+        assertTrue(resultado.publicacoes().getFirst().historias().isEmpty());
+        assertNull(resultado.publicacoes().getFirst().publicacaoCompleta());
+    }
+
     private br.com.hqhub.dto.PublicacoesBrasileirasEdicaoOriginalDTO consultar(StatusPublicacaoHistoria status) {
         EdicaoRepository edicoes = mock(EdicaoRepository.class);
         PublicacaoHistoriaRepository publicacoes = mock(PublicacaoHistoriaRepository.class);
+        PublicacaoRelacionadaRepository relacionadas = mock(PublicacaoRelacionadaRepository.class);
         ConteudoEdicaoRepository conteudos = mock(ConteudoEdicaoRepository.class);
         Edicao original = edicao(1L, "Marvel Comics", "The Amazing Spider-Man", TipoSerie.ESTRANGEIRA);
         Edicao brasileira = edicao(2L, "Abril", "Superalmanaque Marvel", TipoSerie.BRASILEIRA);
@@ -53,8 +83,9 @@ class HistoriaPublicacoesBrasilTest {
         when(edicoes.resolverOriginalComVinculos(original)).thenReturn(original);
         when(edicoes.listarIdsOriginaisCorrespondentes(original)).thenReturn(List.of(1L, 9L));
         when(publicacoes.listarPublicacoesBrasileirasComDados(List.of(1L, 9L))).thenReturn(List.of(vinculo));
+        when(relacionadas.listarPublicacoesBrasileiras(List.of(1L, 9L))).thenReturn(List.of());
         when(conteudos.listarPorEdicaoComHistoria(1L)).thenReturn(List.of(conteudo));
-        HistoriaService service = new HistoriaService(null, edicoes, conteudos, publicacoes, null, null, null, null, null, null);
+        HistoriaService service = new HistoriaService(null, edicoes, conteudos, publicacoes, relacionadas, null, null, null, null, null, null);
         var resultado = service.listarPublicacoesBrasileirasPublicas(1L);
         assertEquals(1, resultado.totalPublicacoes());
         assertEquals("Abril", resultado.publicacoes().getFirst().editora());

@@ -19,4 +19,12 @@ public class PublicacaoRelacionadaRepository implements PanacheRepository<Public
                 .firstResultOptional()
                 .isPresent();
     }
+
+    public List<PublicacaoRelacionada> listarPublicacoesBrasileiras(List<Long> origensIds) {
+        if (origensIds == null || origensIds.isEmpty()) {
+            return List.of();
+        }
+        return list("edicaoOrigem.id in ?1 and tipo = ?2 order by edicaoDestino.id",
+                origensIds, TipoPublicacaoRelacionada.PUBLICADA_NO_BRASIL);
+    }
 }

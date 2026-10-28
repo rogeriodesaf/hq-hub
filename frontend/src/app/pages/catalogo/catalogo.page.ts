@@ -24,6 +24,7 @@ import {
   PublicacaoHistoria,
   PublicacaoBrasileiraResumo,
   PublicacoesBrasileirasEdicaoOriginal,
+  PreviaConteudoOriginalPanini,
   ResultadoBackfillComicVine,
   ResultadoPesquisaCatalogo,
   Serie,
@@ -976,6 +977,66 @@ import {
             </section>
           }
 
+          @if (!carregandoDetalhe() && edicaoDetalhe() && podeEditarCatalogo()) {
+            <details class="painel-formulario importacao-panini-original">
+              <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
+              <div class="importacao-panini-conteudo">
+                <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos e só grava os itens que você confirmar.</p>
+                <div class="importacao-panini-url">
+                  <label>
+                    URL do produto na Panini
+                    <input [(ngModel)]="urlPanini" name="urlConteudoOriginalPanini" type="url" placeholder="https://panini.com.br/..." (keyup.enter)="analisarConteudoOriginalPanini()" />
+                  </label>
+                  <button class="botao secundario" type="button" (click)="analisarConteudoOriginalPanini()" [disabled]="analisandoPanini() || !urlPanini.trim()">
+                    {{ analisandoPanini() ? 'Analisando...' : 'Analisar conteúdo original' }}
+                  </button>
+                </div>
+
+                @if (previaPanini(); as previa) {
+                  <aside class="importacao-panini-fonte">
+                    <strong>{{ previa.tituloProduto || 'Produto Panini' }}</strong>
+                    <span>Conteúdo original informado pela editora</span>
+                    <p>{{ previa.conteudoOriginalBruto }}</p>
+                  </aside>
+                  <div class="importacao-panini-referencias">
+                    @for (referencia of previa.referencias; track referencia.indice) {
+                      <article [class.resolvida]="!!idSelecionadoPanini(referencia.indice)">
+                        <header>
+                          <div><span>Referência {{ referencia.indice + 1 }}</span><strong>{{ referencia.textoOriginal }}</strong></div>
+                          <em [attr.data-status]="referencia.statusResolucao">{{ rotuloStatusPanini(referencia.statusResolucao) }}</em>
+                        </header>
+                        @if (referencia.serie && referencia.numero) {
+                          <p>{{ referencia.serie }} #{{ referencia.numero }}<span *ngIf="referencia.anoSerie"> · série de {{ referencia.anoSerie }}</span></p>
+                        } @else {
+                          <p>A referência não pôde ser separada automaticamente. Informe o ID após conferir no catálogo estrangeiro.</p>
+                        }
+                        <label>
+                          Edição estrangeira confirmada
+                          @if (referencia.candidatos.length) {
+                            <select [ngModel]="idSelecionadoPanini(referencia.indice)" (ngModelChange)="selecionarEdicaoPanini(referencia.indice, $event)" [name]="'edicaoPanini' + referencia.indice">
+                              <option [ngValue]="null">Selecione uma edição</option>
+                              @for (candidato of referencia.candidatos; track candidato.id) {
+                                <option [ngValue]="candidato.id">ID {{ candidato.id }} · {{ candidato.serie }} #{{ candidato.numero }} · {{ candidato.editora }}{{ candidato.anoInicio ? ' (' + candidato.anoInicio + ')' : '' }}</option>
+                              }
+                            </select>
+                          } @else {
+                            <input type="number" min="1" [ngModel]="idSelecionadoPanini(referencia.indice)" (ngModelChange)="selecionarEdicaoPanini(referencia.indice, $event)" [name]="'edicaoPanini' + referencia.indice" placeholder="ID no catálogo estrangeiro" />
+                          }
+                        </label>
+                      </article>
+                    }
+                  </div>
+                  <div class="acoes-formulario importacao-panini-acoes">
+                    <span>{{ quantidadeVinculosPanini() }} de {{ previa.referencias.length }} referência(s) selecionada(s)</span>
+                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || !quantidadeVinculosPanini()">
+                      {{ salvandoPanini() ? 'Cadastrando...' : 'Confirmar vínculos selecionados' }}
+                    </button>
+                  </div>
+                }
+              </div>
+            </details>
+          }
+
           @if (!carregandoDetalhe() && (publicacoesDetalhe().length || (!publicacoesComoOriginal().length && !mapaBrasilDetalhe()?.totalPublicacoes))) {
             <section class="detalhe-secao">
               <h3>Histórias publicadas nesta edição</h3>
@@ -1401,6 +1462,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly salvandoVinculoOriginal = signal(false);
   readonly buscandoOriginaisVinculo = signal(false);
   readonly resultadosOriginaisVinculo = signal<ResultadoPesquisaCatalogo[]>([]);
+  readonly analisandoPanini = signal(false);
+  readonly salvandoPanini = signal(false);
+  readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
+  readonly selecoesPanini = signal<Record<number, number | null>>({});
+  readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
   readonly salvandoItemColecao = signal<number | null>(null);
@@ -1428,6 +1494,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioSerieEdicao = this.formularioSerieEdicaoVazio();
   formularioConteudo = this.formularioConteudoVazio();
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
+  urlPanini = '';
   formularioItemColecao = this.formularioItemColecaoVazio();
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
@@ -2179,6 +2246,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.editandoConteudo.set(null);
     this.salvandoConteudo.set(false);
     this.formularioConteudo = this.formularioConteudoVazio();
+    this.limparImportacaoPanini();
     this.rolarPainelDetalheMobile();
     forkJoin({
       edicao: this.api.buscarEdicaoPorId(edicaoId),
@@ -2256,6 +2324,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.capasDetalhe.set([]);
     this.limparFormularioCapa();
     this.limparFormularioVinculoOriginal();
+    this.limparImportacaoPanini();
     this.historiaEmFoco.set(null);
     this.detalheComicVineInterno.set(null);
     this.capasComicVineOriginais.set({});
@@ -2467,6 +2536,86 @@ export class CatalogoPage implements OnInit, OnDestroy {
       error: () => {
         this.revisandoCapa.set(null);
         this.mensagem.set('Nao foi possivel rejeitar esta capa.');
+      },
+    });
+  }
+
+  analisarConteudoOriginalPanini() {
+    const url = this.urlPanini.trim();
+    if (!url) {
+      this.mensagem.set('Informe a URL do produto na Panini.');
+      return;
+    }
+    this.analisandoPanini.set(true);
+    this.previaPanini.set(null);
+    this.selecoesPanini.set({});
+    this.mensagem.set('');
+    this.api.analisarConteudoOriginalPanini(url).subscribe({
+      next: (previa) => {
+        const selecoes = previa.referencias.reduce<Record<number, number | null>>((resultado, referencia) => {
+          resultado[referencia.indice] = referencia.candidatos.length === 1 ? referencia.candidatos[0].id : null;
+          return resultado;
+        }, {});
+        this.previaPanini.set(previa);
+        this.selecoesPanini.set(selecoes);
+        this.urlPanini = previa.urlPanini;
+        this.analisandoPanini.set(false);
+      },
+      error: (erro) => {
+        this.analisandoPanini.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível analisar o conteúdo original na Panini.'));
+      },
+    });
+  }
+
+  selecionarEdicaoPanini(indice: number, valor: number | string | null) {
+    this.selecoesPanini.update((selecoes) => ({ ...selecoes, [indice]: this.numeroOuNull(valor) }));
+  }
+
+  idSelecionadoPanini(indice: number) {
+    return this.selecoesPanini()[indice] ?? null;
+  }
+
+  rotuloStatusPanini(status: string) {
+    if (status === 'ENCONTRADA') return 'Correspondência exata';
+    if (status === 'AMBIGUA') return 'Requer escolha';
+    if (status === 'NAO_INTERPRETADA') return 'Requer conferência';
+    return 'Não encontrada no catálogo';
+  }
+
+  cadastrarConteudoOriginalPanini() {
+    const edicao = this.edicaoDetalhe();
+    const previa = this.previaPanini();
+    if (!edicao || !previa) {
+      return;
+    }
+    const vinculos = previa.referencias
+      .map((referencia) => ({
+        edicaoOriginalId: this.idSelecionadoPanini(referencia.indice),
+        referenciaOriginal: referencia.textoOriginal,
+      }))
+      .filter((vinculo): vinculo is { edicaoOriginalId: number; referenciaOriginal: string } => !!vinculo.edicaoOriginalId);
+    if (!vinculos.length) {
+      this.mensagem.set('Selecione pelo menos uma edição estrangeira confirmada.');
+      return;
+    }
+
+    this.salvandoPanini.set(true);
+    this.mensagem.set('');
+    this.api.cadastrarConteudoOriginalPanini({
+      edicaoBrasileiraId: edicao.id,
+      urlPanini: previa.urlPanini,
+      vinculos,
+    }).subscribe({
+      next: (resultado) => {
+        this.salvandoPanini.set(false);
+        this.selecoesPanini.set({});
+        const existentes = resultado.jaExistentes ? ` ${resultado.jaExistentes} vínculo(s) já existiam.` : '';
+        this.mensagem.set(`${resultado.cadastrados} vínculo(s) da Panini cadastrado(s).${existentes}`);
+      },
+      error: (erro) => {
+        this.salvandoPanini.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar os vínculos da Panini.'));
       },
     });
   }
@@ -3349,6 +3498,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
   resumoHistoriasPublicacao(publicacao: PublicacaoBrasileiraResumo, totalHistoriasOriginais: number) {
     const presentes = publicacao.historias.filter((historia) => historia.presente).length
       || publicacao.quantidadeHistorias;
+    if (!presentes) {
+      return 'Conteúdo confirmado pela editora; histórias ainda não detalhadas';
+    }
     if (totalHistoriasOriginais === 1 && presentes === 1) {
       return 'Inclui a história desta edição original';
     }
@@ -3987,6 +4139,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.resultadosOriginaisVinculo.set([]);
     this.buscandoOriginaisVinculo.set(false);
     this.salvandoVinculoOriginal.set(false);
+  }
+
+  private limparImportacaoPanini() {
+    this.urlPanini = '';
+    this.previaPanini.set(null);
+    this.selecoesPanini.set({});
+    this.analisandoPanini.set(false);
+    this.salvandoPanini.set(false);
   }
 
   private montarUrlsCapasPublicacoes(publicacoes: PublicacaoHistoria[]) {
