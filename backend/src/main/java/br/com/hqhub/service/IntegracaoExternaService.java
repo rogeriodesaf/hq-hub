@@ -964,7 +964,11 @@ public class IntegracaoExternaService {
     }
 
     private String normalizarNumeroEdicao(String numero) {
-        return numero == null ? "" : numero.toLowerCase(Locale.ROOT).replaceFirst("^#", "").trim();
+        if (numero == null) {
+            return "";
+        }
+        String normalizado = numero.toLowerCase(Locale.ROOT).replaceFirst("^#", "").trim();
+        return normalizado.matches("^(?:½|1\\s*/\\s*2)$") ? "1/2" : normalizado;
     }
 
     private String normalizarBuscaComicVine(String texto) {

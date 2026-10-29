@@ -163,6 +163,29 @@ class ConteudoOriginalPaniniServiceTest {
     }
 
     @Test
+    void converteNumeroZeroDeUltimateSpiderManParaEdicaoMeioDaComicVine() {
+        VolumeComicVineRespostaDTO volume = new VolumeComicVineRespostaDTO(
+                "7257", "Ultimate Spider-Man", "Marvel", 2000, 134, null, null, null);
+        EdicaoComicVineRespostaDTO edicaoMeio = new EdicaoComicVineRespostaDTO(
+                "300000", "½", null, "Ultimate Spider-Man", "Marvel", "7257",
+                "2002-01-01", null, null, null, null, null,
+                "https://comicvine.test/ultimate-spider-man-half",
+                "https://comicvine.test/ultimate-spider-man-half.jpg",
+                List.of(), List.of(), List.of());
+        when(integracoes.buscarVolumesComicVine("Ultimate Spider-Man", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(volume), 0, 100, 1, 1));
+        when(integracoes.buscarEdicoesVolumeComicVine("7257", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(edicaoMeio), 0, 100, 1, 1));
+        when(integracoes.buscarDetalheEdicaoComicVine("300000")).thenReturn(edicaoMeio);
+
+        var resultado = service.resolverEdicaoComicVine(new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
+                "https://panini.com.br/produto", "Ultimate Spider-Man", 2000, "0"));
+
+        assertEquals("300000", resultado.edicao().idExterno());
+        assertEquals("½", resultado.edicao().numero());
+    }
+
+    @Test
     void infereVolumePelaPrimeiraEdicaoQuandoPontuacaoDoTituloDiverge() {
         when(integracoes.buscarVolumesComicVine("Punisher Red Band", 0, 100))
                 .thenReturn(new PaginaRespostaDTO<>(List.of(), 0, 100, 0, 0));

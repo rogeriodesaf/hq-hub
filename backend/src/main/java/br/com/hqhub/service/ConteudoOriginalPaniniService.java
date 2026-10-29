@@ -409,9 +409,11 @@ public class ConteudoOriginalPaniniService {
         List<Edicao> edicoesDaSerie = edicoesCatalogadasPorSerie.computeIfAbsent(grupo,
                 ignorado -> edicaoRepository.buscarPorIdentidadeSerieEstrangeira(
                         referencia.serie(), referencia.anoSerie()));
+        String numeroEsperado = normalizarNumero(numeroComicVine(
+                referencia.serie(), referencia.anoSerie(), referencia.numero()));
         return edicoesDaSerie.stream()
                 .filter(edicao -> normalizarSerie(edicao.getSerie().getTitulo()).equals(normalizarSerie(referencia.serie())))
-                .filter(edicao -> normalizar(edicao.getNumero()).equals(normalizar(referencia.numero())))
+                .filter(edicao -> normalizarNumero(edicao.getNumero()).equals(numeroEsperado))
                 .filter(edicao -> referencia.anoSerie() == null
                         || referencia.anoSerie().equals(edicao.getSerie().getAnoInicio()))
                 .limit(5)
@@ -433,13 +435,14 @@ public class ConteudoOriginalPaniniService {
 
     private ResolucaoComicVine resolverEdicaoComicVinePeloVolume(CadastroEdicaoOriginalPaniniDTO dto) {
         VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(dto.serie(), dto.anoSerie());
+        String numeroComicVine = numeroComicVine(dto.serie(), dto.anoSerie(), dto.numero());
         List<EdicaoComicVineRespostaDTO> encontradas = new java.util.ArrayList<>();
         int pagina = 0;
         int totalPaginas = 1;
         do {
             var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(volume.idExterno(), pagina, 100);
             resposta.itens().stream()
-                    .filter(edicao -> normalizar(edicao.numero()).equals(normalizar(dto.numero())))
+                    .filter(edicao -> normalizarNumero(edicao.numero()).equals(normalizarNumero(numeroComicVine)))
                     .forEach(encontradas::add);
             totalPaginas = resposta.totalPaginas();
             pagina++;
@@ -457,7 +460,8 @@ public class ConteudoOriginalPaniniService {
 
     private ResolucaoComicVine resolverEdicaoComicVineDiretamente(CadastroEdicaoOriginalPaniniDTO dto) {
         EdicaoComicVineRespostaDTO edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
-                        dto.serie(), dto.numero(), dto.anoSerie(), null)
+                        dto.serie(), numeroComicVine(dto.serie(), dto.anoSerie(), dto.numero()),
+                        dto.anoSerie(), null)
                 .orElseThrow(() -> new RegraNegocioException(
                         "A Comic Vine não localizou diretamente " + dto.serie() + " #" + dto.numero()
                                 + (dto.anoSerie() == null ? "." : " para o ano " + dto.anoSerie() + ".")));
@@ -494,7 +498,8 @@ public class ConteudoOriginalPaniniService {
         ReferenciaEdicaoOriginalPaniniDTO primeira = referencias.getFirst();
         try {
             Set<String> numerosPendentes = referencias.stream()
-                    .map(referencia -> normalizar(referencia.numero()))
+                    .map(referencia -> normalizarNumero(numeroComicVine(
+                            referencia.serie(), referencia.anoSerie(), referencia.numero())))
                     .collect(java.util.stream.Collectors.toCollection(LinkedHashSet::new));
             VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(
                     primeira.serie(), primeira.anoSerie(), numerosPendentes);
@@ -505,7 +510,7 @@ public class ConteudoOriginalPaniniService {
                 var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(
                         volume.idExterno(), pagina, 100);
                 for (EdicaoComicVineRespostaDTO edicao : resposta.itens()) {
-                    String numero = normalizar(edicao.numero());
+                    String numero = normalizarNumero(edicao.numero());
                     if (numerosPendentes.contains(numero)) {
                         edicoesPorNumero.computeIfAbsent(numero, ignorado -> new ArrayList<>()).add(edicao);
                     }
@@ -517,7 +522,8 @@ public class ConteudoOriginalPaniniService {
 
             Map<String, ResolucaoComicVine> detalhesPorNumero = new LinkedHashMap<>();
             for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
-                String numero = normalizar(referencia.numero());
+                String numero = normalizarNumero(numeroComicVine(
+                        referencia.serie(), referencia.anoSerie(), referencia.numero()));
                 List<EdicaoComicVineRespostaDTO> encontradas = edicoesPorNumero.getOrDefault(numero, List.of());
                 if (encontradas.size() != 1) {
                     String erro = encontradas.isEmpty()
@@ -632,7 +638,7 @@ public class ConteudoOriginalPaniniService {
             var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(
                     volume.idExterno(), pagina, 100);
             resposta.itens().stream()
-                    .map(edicao -> normalizar(edicao.numero()))
+                    .map(edicao -> normalizarNumero(edicao.numero()))
                     .filter(numerosEsperados::contains)
                     .forEach(encontrados::add);
             totalPaginas = resposta.totalPaginas();
@@ -803,6 +809,22 @@ public class ConteudoOriginalPaniniService {
 
     private String normalizarSerie(String valor) {
         return normalizar(valor == null ? null : valor.replaceFirst("(?i)^the\\s+", ""));
+    }
+
+    private String normalizarNumero(String valor) {
+        if (valor != null && valor.trim().matches("^(?:½|1\\s*/\\s*2)$")) {
+            return "1/2";
+        }
+        return normalizar(valor);
+    }
+
+    private String numeroComicVine(String serie, Integer anoSerie, String numeroPanini) {
+        if ("ultimatespiderman".equals(normalizarSerie(serie))
+                && Integer.valueOf(2000).equals(anoSerie)
+                && "0".equals(normalizarNumero(numeroPanini))) {
+            return "1/2";
+        }
+        return numeroPanini;
     }
 
     record ResolucaoComicVine(
