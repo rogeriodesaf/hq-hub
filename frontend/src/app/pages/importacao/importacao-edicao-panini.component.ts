@@ -30,8 +30,8 @@ import {
         </aside>
         <div class="importacao-panini-url">
           <label>
-            URL oficial do produto na Panini
-            <input [(ngModel)]="urlProduto" name="urlProdutoPaniniImportacao" type="url" placeholder="https://panini.com.br/..." (keyup.enter)="analisarProduto()" />
+            <span class="rotulo-campo-panini">URL oficial do produto na Panini <em>Obrigatório</em></span>
+            <input [(ngModel)]="urlProduto" name="urlProdutoPaniniImportacao" type="url" placeholder="Obrigatório · https://panini.com.br/..." (keyup.enter)="analisarProduto()" />
           </label>
           <button class="botao secundario" type="button" (click)="analisarProduto()" [disabled]="analisando() || !urlProduto.trim()">
             {{ analisando() ? 'Lendo produto...' : 'Preparar cadastro' }}
@@ -48,8 +48,8 @@ import {
             }
 
             <fieldset class="campo-largo seletor-colecao-panini">
-              <legend>Coleção de destino</legend>
-              <p class="texto-suave">Confirme título, editora e volume. O vínculo será feito pelo ID da coleção.</p>
+              <legend>Coleção de destino <span class="marcador-obrigatorio-panini">Obrigatório</span></legend>
+              <p class="texto-suave">Selecione uma coleção existente ou crie uma nova. Confirme título, editora e volume antes de avançar.</p>
               @if (!criarNovaColecao()) {
                 <div class="importacao-panini-url">
                   <label>
@@ -83,7 +83,7 @@ import {
               } @else {
                 <div class="aviso-criacao-colecao"><strong>Nova coleção da Panini</strong><p>Use somente quando ela realmente não existir no catálogo.</p></div>
                 <div class="grade-formulario grade-colecao-panini">
-                  <label>Título da coleção<input [(ngModel)]="formulario.tituloSerie" name="tituloNovaColecaoPanini" required /></label>
+                  <label><span class="rotulo-campo-panini">Título da coleção <em>Obrigatório</em></span><input [(ngModel)]="formulario.tituloSerie" name="tituloNovaColecaoPanini" placeholder="Obrigatório · nome da coleção" required /></label>
                   <label>Volume<input [(ngModel)]="formulario.volumeSerie" name="volumeNovaColecaoPanini" type="number" min="1" placeholder="Ex.: 2" /></label>
                   <label>Editora<input value="Panini" disabled /></label>
                 </div>
@@ -91,7 +91,7 @@ import {
               }
             </fieldset>
 
-            <label>Número da edição<input [(ngModel)]="formulario.numero" name="numeroEdicaoPaniniImportacao" required />
+            <label><span class="rotulo-campo-panini">Número da edição <em>Obrigatório</em></span><input [(ngModel)]="formulario.numero" name="numeroEdicaoPaniniImportacao" placeholder="Obrigatório · ex.: 16" required />
               @if (produtoPrevia.produto?.numeroAlternativo) { <small>A Panini também exibe o ordinal {{ produtoPrevia.produto!.numeroAlternativo }}.</small> }
             </label>
             <label class="campo-largo">Título do produto<input [(ngModel)]="formulario.tituloEdicao" name="tituloEdicaoPaniniImportacao" /></label>
@@ -193,6 +193,9 @@ import {
     .etapas-panini li.ativa { border-color: var(--marca); color: var(--texto); background: var(--marca-suave); }
     .etapas-panini li.concluida { border-color: var(--verde); color: var(--verde); }
     .cadastro-panini-previa { margin-top: 4px; }
+    .rotulo-campo-panini { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .rotulo-campo-panini em, .marcador-obrigatorio-panini { color: var(--marca-escura); font-size: .72rem; font-style: normal; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+    .marcador-obrigatorio-panini { margin-left: 6px; }
     .barra-avanco-panini { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; padding: 16px; border: 1px solid color-mix(in srgb, var(--marca) 35%, var(--borda)); border-radius: 12px; background: color-mix(in srgb, var(--marca-suave) 55%, var(--superficie)); }
     .barra-avanco-panini > div { display: grid; gap: 4px; min-width: min(100%, 280px); }
     .barra-avanco-panini span { color: var(--texto-suave); font-size: .9rem; }
