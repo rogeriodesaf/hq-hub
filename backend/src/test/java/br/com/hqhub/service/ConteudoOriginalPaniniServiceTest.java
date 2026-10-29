@@ -109,6 +109,29 @@ class ConteudoOriginalPaniniServiceTest {
         assertEquals("20", resultado.idExterno());
     }
 
+    @Test
+    void infereVolumePelaPrimeiraEdicaoQuandoPontuacaoDoTituloDiverge() {
+        when(integracoes.buscarVolumesComicVine("Punisher Red Band", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(), 0, 100, 0, 0));
+        EdicaoComicVineRespostaDTO primeira = new EdicaoComicVineRespostaDTO(
+                "1132008", "1", null, "Punisher: Red Band", "Marvel", "166904",
+                "2025-11-01", null, null, null, null, null,
+                "https://comicvine.test/issue/1", "https://comicvine.test/issue/1.jpg",
+                List.of(), List.of(), List.of());
+        when(integracoes.resolverEdicaoComicVineOriginal("Punisher Red Band", "1", null, null))
+                .thenReturn(Optional.of(primeira));
+        when(integracoes.buscarEdicoesVolumeComicVine("166904", 0, 100))
+                .thenReturn(paginaEdicoes(1, 5));
+
+        VolumeComicVineRespostaDTO resultado = service.resolverVolumeComicVine(
+                "Punisher Red Band", null,
+                new java.util.LinkedHashSet<>(List.of("1", "2", "3", "4", "5")));
+
+        assertEquals("166904", resultado.idExterno());
+        assertEquals("Punisher: Red Band", resultado.titulo());
+        assertEquals(2025, resultado.anoInicio());
+    }
+
     private VolumeComicVineRespostaDTO volume(String id, int ano) {
         return new VolumeComicVineRespostaDTO(
                 id, "Avengers vs. X-Men", "Marvel", ano, 13, null, null, null);

@@ -489,7 +489,12 @@ public class ConteudoOriginalPaniniService {
         List<VolumeComicVineRespostaDTO> volumesPorTitulo = integracaoExternaService
                 .buscarVolumesComicVine(serie, 0, 100).itens().stream()
                 .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(serie)))
-                .toList();
+                .collect(java.util.stream.Collectors.toMap(
+                        VolumeComicVineRespostaDTO::idExterno,
+                        volume -> volume,
+                        (primeiro, repetido) -> primeiro,
+                        LinkedHashMap::new))
+                .values().stream().toList();
         List<VolumeComicVineRespostaDTO> volumes = anoSerie == null
                 ? volumesPorTitulo
                 : volumesPorTitulo.stream()
@@ -501,7 +506,7 @@ public class ConteudoOriginalPaniniService {
                             && Math.abs(volume.anoInicio() - anoSerie) == 1)
                     .toList();
         }
-        if (volumes.size() > 1 && anoSerie == null && !numerosEsperados.isEmpty()) {
+        if (!volumes.isEmpty() && anoSerie == null && !numerosEsperados.isEmpty()) {
             List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
                     .filter(volume -> volume.quantidadeEdicoes() == null
                             || volume.quantidadeEdicoes() >= numerosEsperados.size())
@@ -510,8 +515,12 @@ public class ConteudoOriginalPaniniService {
             if (compativeis.size() == 1) {
                 return compativeis.getFirst();
             }
-            if (!compativeis.isEmpty()) {
-                volumes = compativeis;
+            volumes = compativeis;
+        }
+        if (volumes.size() != 1 && anoSerie == null && !numerosEsperados.isEmpty()) {
+            var inferido = inferirVolumePelasEdicoes(serie, numerosEsperados, volumesPorTitulo);
+            if (inferido != null) {
+                return inferido;
             }
         }
         if (volumes.size() != 1) {
@@ -520,6 +529,40 @@ public class ConteudoOriginalPaniniService {
                     : "A Comic Vine encontrou mais de uma série possível, mesmo após conferir todas as edições informadas pela Panini.");
         }
         return volumes.getFirst();
+    }
+
+    private VolumeComicVineRespostaDTO inferirVolumePelasEdicoes(
+            String serie,
+            Set<String> numerosEsperados,
+            List<VolumeComicVineRespostaDTO> volumesConhecidos) {
+        String numeroAmostra = numerosEsperados.iterator().next();
+        var edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
+                serie, numeroAmostra, null, null).orElse(null);
+        if (edicao == null || edicao.idVolume() == null || edicao.idVolume().isBlank()) {
+            return null;
+        }
+        VolumeComicVineRespostaDTO volume = volumesConhecidos.stream()
+                .filter(item -> edicao.idVolume().equals(item.idExterno()))
+                .findFirst()
+                .orElseGet(() -> new VolumeComicVineRespostaDTO(
+                        edicao.idVolume(),
+                        edicao.nomeVolume() == null ? serie : edicao.nomeVolume(),
+                        edicao.editora(),
+                        ano(edicao.dataCapa()),
+                        null,
+                        null,
+                        null,
+                        edicao.urlImagem()));
+        return volumeContemNumeros(volume, numerosEsperados) ? volume : null;
+    }
+
+    private Integer ano(String data) {
+        if (data == null || data.length() < 4) return null;
+        try {
+            return Integer.valueOf(data.substring(0, 4));
+        } catch (NumberFormatException excecao) {
+            return null;
+        }
     }
 
     private boolean volumeContemNumeros(
