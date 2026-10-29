@@ -427,7 +427,7 @@ public class ConteudoOriginalPaniniService {
         try {
             return resolverEdicaoComicVinePeloVolume(dto);
         } catch (RegraNegocioException erroVolume) {
-            return resolverEdicaoComicVineDiretamente(dto, erroVolume);
+            return resolverEdicaoComicVineDiretamente(dto);
         }
     }
 
@@ -455,15 +455,16 @@ public class ConteudoOriginalPaniniService {
                 volume);
     }
 
-    private ResolucaoComicVine resolverEdicaoComicVineDiretamente(
-            CadastroEdicaoOriginalPaniniDTO dto, RegraNegocioException erroVolume) {
+    private ResolucaoComicVine resolverEdicaoComicVineDiretamente(CadastroEdicaoOriginalPaniniDTO dto) {
         EdicaoComicVineRespostaDTO edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
                         dto.serie(), dto.numero(), dto.anoSerie(), null)
                 .orElseThrow(() -> new RegraNegocioException(
                         "A Comic Vine não localizou diretamente " + dto.serie() + " #" + dto.numero()
                                 + (dto.anoSerie() == null ? "." : " para o ano " + dto.anoSerie() + ".")));
         if (edicao.idVolume() == null || edicao.idVolume().isBlank()) {
-            throw erroVolume;
+            throw new RegraNegocioException(
+                    "A Comic Vine encontrou " + dto.serie() + " #" + dto.numero()
+                            + ", mas não informou o volume dessa edição.");
         }
         VolumeComicVineRespostaDTO volume = integracaoExternaService
                 .buscarDetalheVolumeComicVine(edicao.idVolume());
