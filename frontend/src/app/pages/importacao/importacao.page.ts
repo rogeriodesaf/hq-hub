@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { ImportacaoEdicaoPaniniComponent } from './importacao-edicao-panini.component';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -43,7 +44,7 @@ interface ColetaCapasTelegramLocal {
 
 @Component({
   selector: 'app-importacao-page',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, ImportacaoEdicaoPaniniComponent],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -84,6 +85,14 @@ interface ColetaCapasTelegramLocal {
           </button>
           <button
             type="button"
+            [class.ativo]="modoEntrada() === 'panini-edicao'"
+            (click)="selecionarModo('panini-edicao')"
+          >
+            <strong>Edição da Panini</strong>
+            <span>Cadastre o produto e relacione o conteúdo original</span>
+          </button>
+          <button
+            type="button"
             [class.ativo]="modoEntrada() === 'gcd'"
             (click)="selecionarModo('gcd')"
           >
@@ -114,6 +123,8 @@ interface ColetaCapasTelegramLocal {
                 Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
               } @else if (modoEntrada() === 'panini') {
                 Selecione a série e o intervalo. A sua sessão do Coleciona HQ autoriza a atualização automaticamente.
+              } @else if (modoEntrada() === 'panini-edicao') {
+                Importe o produto, escolha a coleção brasileira correta e confirme as edições estrangeiras no mesmo fluxo.
               } @else {
                 Pesquise no GCD, escolha a série e gere um JSON revisável antes da importação.
               }
@@ -134,6 +145,10 @@ interface ColetaCapasTelegramLocal {
               + História no JSON
             </button>
           </div>
+        }
+
+        @if (modoEntrada() === 'panini-edicao') {
+          <app-importacao-edicao-panini />
         }
 
         @if (modoEntrada() === 'guia') {
@@ -1575,7 +1590,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
   private temporizadorCapasTelegram: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1667,6 +1682,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   }
 
   tituloModoEntrada() {
+    if (this.modoEntrada() === 'panini-edicao') return 'Cadastrar edição pela Panini';
     if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
     if (this.modoEntrada() === 'json') return 'JSON do robô';
     if (this.modoEntrada() === 'gcd') return 'Coletar do Grand Comics Database';
@@ -1675,7 +1691,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao') {
     if (modo === this.modoEntrada()) {
       return;
     }
