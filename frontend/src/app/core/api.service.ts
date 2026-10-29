@@ -68,6 +68,7 @@ import {
   PreviaConteudoOriginalPanini,
   ResultadoCadastroConteudoOriginalPanini,
   ResultadoCadastroEdicoesOriginaisPanini,
+  ResultadoCadastroEdicaoBrasileiraPanini,
   CandidatoEdicaoOriginalPanini,
   RespostaAssistente,
   AssistenteFaqBase,
@@ -1131,6 +1132,24 @@ export class ApiService {
   }) {
     return this.http.post<ResultadoCadastroEdicoesOriginaisPanini>(
       '/api/importacoes/catalogo/panini/conteudo-original/edicoes/lote',
+      dto,
+    );
+  }
+
+  cadastrarEdicaoBrasileiraPanini(dto: {
+    urlPanini: string;
+    tituloSerie: string;
+    numero: string;
+    tituloEdicao: string | null;
+    descricao: string | null;
+    dataPublicacao: string | null;
+    codigoBarras: string | null;
+    quantidadePaginas: number | null;
+    precoCapa: number | null;
+    formato: string | null;
+  }) {
+    return this.http.post<ResultadoCadastroEdicaoBrasileiraPanini>(
+      '/api/importacoes/catalogo/panini/edicoes-brasileiras',
       dto,
     );
   }

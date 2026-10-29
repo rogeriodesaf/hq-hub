@@ -164,8 +164,31 @@ export interface ReferenciaConteudoOriginalPanini {
 export interface PreviaConteudoOriginalPanini {
   urlPanini: string;
   tituloProduto: string | null;
-  conteudoOriginalBruto: string;
+  conteudoOriginalBruto: string | null;
   referencias: ReferenciaConteudoOriginalPanini[];
+  produto: {
+    tituloSerieSugerido: string | null;
+    numeroSugerido: string | null;
+    numeroAlternativo: string | null;
+    descricao: string | null;
+    urlCapa: string | null;
+    sku: string | null;
+    isbn: string | null;
+    preco: number | null;
+    dataDisponibilidade: string | null;
+    quantidadePaginas: number | null;
+    formato: string | null;
+    classificacaoEtaria: string | null;
+    categoria: string | null;
+    marca: string | null;
+  } | null;
+}
+
+export interface ResultadoCadastroEdicaoBrasileiraPanini {
+  edicao: Edicao;
+  criada: boolean;
+  capaArmazenada: boolean;
+  avisos: string[];
 }
 
 export interface ResultadoCadastroConteudoOriginalPanini {

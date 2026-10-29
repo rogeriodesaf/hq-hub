@@ -1,7 +1,11 @@
 package br.com.hqhub.service;
 
 import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +16,12 @@ public class ConteudoOriginalPaniniParser {
 
     private static final Pattern CELULA = Pattern.compile("<td\\b([^>]*)>(.*?)</td>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern TITULO_OG = Pattern.compile("<meta\\b[^>]*property=[\"']og:title[\"'][^>]*content=[\"']([^\"']+)[\"'][^>]*>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern META = Pattern.compile("<meta\\b([^>]*)>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern ATRIBUTO = Pattern.compile("([\\w:-]+)\\s*=\\s*([\"'])(.*?)\\2", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern CAMPO_JSON_TEXTO = Pattern.compile("\"%s\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern PRECO_JSON = Pattern.compile("\"price\"\\s*:\\s*\"?([0-9]+(?:\\.[0-9]+)?)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern IMAGEM_SCHEMA = Pattern.compile("\"image\"\\s*:\\s*\\[\\s*\"((?:\\\\.|[^\"\\\\])+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern TITULO_NUMERADO = Pattern.compile("^(.+?)\\s+(\\d+)(?:\\s*\\((\\d+)\\))?$");
     private static final Pattern REFERENCIA_PADRAO = Pattern.compile("^(.+?)\\s*\\((\\d{4})\\)\\s*(?:#\\s*)?([\\p{L}\\d.\\-]+)(?:\\s*\\((.*?)(?:\\))?)?$");
     private static final Pattern REFERENCIA_ANUAL = Pattern.compile("^(.+?\\bAnnual)\\s*[’']?(\\d{2,4})(?:\\s*\\((.*?)(?:\\))?)?$", Pattern.CASE_INSENSITIVE);
     private static final Pattern ENTIDADE_NUMERICA = Pattern.compile("&#(?:x([0-9a-fA-F]+)|(\\d+));");
@@ -42,7 +52,149 @@ public class ConteudoOriginalPaniniParser {
                 }
             }
         }
-        return new PaginaPanini(titulo, conteudoOriginal, referencias);
+        Map<String, String> metas = extrairMetas(html);
+        titulo = primeiroPreenchido(titulo, metas.get("og:title"));
+        String descricao = metas.get("og:description");
+        String urlCapa = primeiroPreenchido(extrairImagemSchema(html), metas.get("og:image"));
+        String sku = extrairCampoJson(html, "sku");
+        String isbn = extrairCampoJson(html, "isbn");
+        String marca = extrairMarca(html);
+        LocalDate disponibilidade = data(extrairCampoJson(html, "availabilityStarts"));
+        BigDecimal preco = decimal(html);
+        Map<String, String> detalhes = extrairDetalhes(html);
+        String tituloSerie = null;
+        String numero = null;
+        String numeroAlternativo = null;
+        Matcher tituloNumerado = TITULO_NUMERADO.matcher(titulo == null ? "" : titulo.trim());
+        if (tituloNumerado.matches()) {
+            tituloSerie = tituloNumerado.group(1).trim();
+            numero = tituloNumerado.group(2);
+            numeroAlternativo = limpar(tituloNumerado.group(3));
+        }
+        ProdutoPanini produto = new ProdutoPanini(
+                tituloSerie,
+                numero,
+                numeroAlternativo,
+                descricao,
+                urlCapa,
+                sku,
+                isbn,
+                preco,
+                disponibilidade,
+                inteiro(detalhe(detalhes, "numerodepaginas", "paginas")),
+                detalhe(detalhes, "formato"),
+                detalhe(detalhes, "classificacaoetaria"),
+                detalhe(detalhes, "tipodeproduto", "categoria"),
+                marca);
+        return new PaginaPanini(titulo, conteudoOriginal, referencias, produto);
+    }
+
+    private Map<String, String> extrairMetas(String html) {
+        Map<String, String> metas = new LinkedHashMap<>();
+        Matcher tags = META.matcher(html == null ? "" : html);
+        while (tags.find()) {
+            Map<String, String> atributos = atributos(tags.group(1));
+            String chave = primeiroPreenchido(atributos.get("property"), atributos.get("name"));
+            String valor = atributos.get("content");
+            if (chave != null && valor != null) {
+                metas.putIfAbsent(chave.toLowerCase(), htmlParaTexto(valor));
+            }
+        }
+        return metas;
+    }
+
+    private Map<String, String> atributos(String texto) {
+        Map<String, String> atributos = new LinkedHashMap<>();
+        Matcher matcher = ATRIBUTO.matcher(texto == null ? "" : texto);
+        while (matcher.find()) {
+            atributos.put(matcher.group(1).toLowerCase(), decodificarHtml(matcher.group(3)));
+        }
+        return atributos;
+    }
+
+    private Map<String, String> extrairDetalhes(String html) {
+        Map<String, String> detalhes = new LinkedHashMap<>();
+        Matcher celulas = CELULA.matcher(html == null ? "" : html);
+        while (celulas.find()) {
+            Map<String, String> atributos = atributos(celulas.group(1));
+            String rotulo = primeiroPreenchido(atributos.get("data-th"), atributos.get("aria-label"));
+            if (rotulo != null) {
+                detalhes.put(normalizarRotulo(rotulo), htmlParaTexto(celulas.group(2)));
+            }
+        }
+        return detalhes;
+    }
+
+    private String extrairCampoJson(String html, String campo) {
+        Matcher matcher = Pattern.compile(CAMPO_JSON_TEXTO.pattern().formatted(Pattern.quote(campo)),
+                Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html == null ? "" : html);
+        return matcher.find() ? decodificarJson(matcher.group(1)) : null;
+    }
+
+    private String extrairImagemSchema(String html) {
+        Matcher matcher = IMAGEM_SCHEMA.matcher(html == null ? "" : html);
+        return matcher.find() ? decodificarJson(matcher.group(1)) : null;
+    }
+
+    private String extrairMarca(String html) {
+        Matcher matcher = Pattern.compile("\"brand\"\\s*:\\s*\\{.*?\"name\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"",
+                Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html == null ? "" : html);
+        return matcher.find() ? decodificarJson(matcher.group(1)) : null;
+    }
+
+    private BigDecimal decimal(String html) {
+        Matcher matcher = PRECO_JSON.matcher(html == null ? "" : html);
+        try {
+            return matcher.find() ? new BigDecimal(matcher.group(1)) : null;
+        } catch (NumberFormatException excecao) {
+            return null;
+        }
+    }
+
+    private LocalDate data(String valor) {
+        try {
+            return valor == null ? null : LocalDate.parse(valor);
+        } catch (java.time.format.DateTimeParseException excecao) {
+            return null;
+        }
+    }
+
+    private Integer inteiro(String valor) {
+        if (valor == null) return null;
+        Matcher matcher = Pattern.compile("\\d+").matcher(valor);
+        try {
+            return matcher.find() ? Integer.valueOf(matcher.group()) : null;
+        } catch (NumberFormatException excecao) {
+            return null;
+        }
+    }
+
+    private String detalhe(Map<String, String> detalhes, String... chaves) {
+        for (String chave : chaves) {
+            String valor = detalhes.get(chave);
+            if (valor != null && !valor.isBlank()) return valor;
+        }
+        return null;
+    }
+
+    private String primeiroPreenchido(String... valores) {
+        for (String valor : valores) {
+            if (valor != null && !valor.isBlank()) return valor.trim();
+        }
+        return null;
+    }
+
+    private String decodificarJson(String valor) {
+        if (valor == null) return null;
+        String resultado = valor.replace("\\/", "/").replace("\\\"", "\"").replace("\\n", " ");
+        Matcher unicode = Pattern.compile("\\\\u([0-9a-fA-F]{4})").matcher(resultado);
+        StringBuffer buffer = new StringBuffer();
+        while (unicode.find()) {
+            unicode.appendReplacement(buffer, Matcher.quoteReplacement(
+                    String.valueOf((char) Integer.parseInt(unicode.group(1), 16))));
+        }
+        unicode.appendTail(buffer);
+        return htmlParaTexto(buffer.toString());
     }
 
     private List<ReferenciaExtraida> analisarReferencias(String texto) {
@@ -111,7 +263,28 @@ public class ConteudoOriginalPaniniParser {
         return valor == null || valor.isBlank() ? null : valor.trim();
     }
 
-    public record PaginaPanini(String titulo, String conteudoOriginal, List<ReferenciaExtraida> referencias) {
+    public record PaginaPanini(
+            String titulo,
+            String conteudoOriginal,
+            List<ReferenciaExtraida> referencias,
+            ProdutoPanini produto) {
+    }
+
+    public record ProdutoPanini(
+            String tituloSerieSugerido,
+            String numeroSugerido,
+            String numeroAlternativo,
+            String descricao,
+            String urlCapa,
+            String sku,
+            String isbn,
+            BigDecimal preco,
+            LocalDate dataDisponibilidade,
+            Integer quantidadePaginas,
+            String formato,
+            String classificacaoEtaria,
+            String categoria,
+            String marca) {
     }
 
     public record ReferenciaExtraida(String textoOriginal, String serie, Integer anoSerie, String numero,

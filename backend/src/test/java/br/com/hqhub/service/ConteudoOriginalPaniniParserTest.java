@@ -42,4 +42,37 @@ class ConteudoOriginalPaniniParserTest {
         assertEquals("232", referencias.get(0).numero());
         assertEquals("233", referencias.get(1).numero());
     }
+
+    @Test
+    void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
+        String html = """
+                <meta property="og:title" content="A Saga Dos X-Men 16 (52)">
+                <meta property="og:description" content="Descri&#xE7;&#xE3;o oficial">
+                <script type="application/ld+json">
+                {"@type":"Product","sku":"ASAXM052","isbn":"9786525945194",
+                 "image":["https://cdn.panini.test/capa.webp"],
+                 "brand":{"@type":"Brand","name":"Marvel Comics"},
+                 "offers":{"price":"47.90","availabilityStarts":"2026-10-30"}}
+                </script>
+                <td data-th="Conte&#xFA;do&#x20;original">Cable (1993) 6-8; X-Men (1991) 27</td>
+                <td data-th="N&#xFA;mero de p&#xE1;ginas">160</td>
+                <td data-th="Formato">17 x 26 cm</td>
+                """;
+
+        var pagina = parser.extrair(html);
+        var produto = pagina.produto();
+
+        assertEquals("A Saga Dos X-Men", produto.tituloSerieSugerido());
+        assertEquals("16", produto.numeroSugerido());
+        assertEquals("52", produto.numeroAlternativo());
+        assertEquals("ASAXM052", produto.sku());
+        assertEquals("9786525945194", produto.isbn());
+        assertEquals("https://cdn.panini.test/capa.webp", produto.urlCapa());
+        assertEquals("Marvel Comics", produto.marca());
+        assertEquals("47.90", produto.preco().toPlainString());
+        assertEquals("2026-10-30", produto.dataDisponibilidade().toString());
+        assertEquals(160, produto.quantidadePaginas());
+        assertEquals("17 x 26 cm", produto.formato());
+        assertEquals(4, pagina.referencias().size());
+    }
 }

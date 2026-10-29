@@ -1,12 +1,32 @@
 package br.com.hqhub.dto;
 
 import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public record PreviaConteudoOriginalPaniniDTO(
         String urlPanini,
         String tituloProduto,
         String conteudoOriginalBruto,
-        List<ReferenciaConteudoOriginalPaniniDTO> referencias) {
+        List<ReferenciaConteudoOriginalPaniniDTO> referencias,
+        ProdutoPaniniDTO produto) {
+
+    public record ProdutoPaniniDTO(
+            String tituloSerieSugerido,
+            String numeroSugerido,
+            String numeroAlternativo,
+            String descricao,
+            String urlCapa,
+            String sku,
+            String isbn,
+            BigDecimal preco,
+            LocalDate dataDisponibilidade,
+            Integer quantidadePaginas,
+            String formato,
+            String classificacaoEtaria,
+            String categoria,
+            String marca) {
+    }
 
     public record ReferenciaConteudoOriginalPaniniDTO(
             int indice,

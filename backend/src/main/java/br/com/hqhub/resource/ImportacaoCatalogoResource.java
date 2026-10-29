@@ -9,6 +9,7 @@ import java.util.UUID;
 import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
 import br.com.hqhub.dto.AnaliseConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicaoBrasileiraPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
@@ -103,6 +104,12 @@ public class ImportacaoCatalogoResource {
     @Path("/panini/conteudo-original/edicoes/lote")
     public Response cadastrarEdicoesOriginaisPanini(@Valid CadastroEdicoesOriginaisPaniniDTO dto) {
         return Response.ok(conteudoOriginalPaniniService.cadastrarEdicoesOriginais(dto)).build();
+    }
+
+    @POST
+    @Path("/panini/edicoes-brasileiras")
+    public Response cadastrarEdicaoBrasileiraPanini(@Valid CadastroEdicaoBrasileiraPaniniDTO dto) {
+        return Response.ok(conteudoOriginalPaniniService.cadastrarEdicaoBrasileira(dto)).build();
     }
 
     @POST

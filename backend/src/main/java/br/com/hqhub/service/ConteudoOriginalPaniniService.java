@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicaoBrasileiraPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO.ReferenciaEdicaoOriginalPaniniDTO;
@@ -27,6 +28,7 @@ import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.CandidatoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.ReferenciaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.ResultadoCadastroEdicaoBrasileiraPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroEdicoesOriginaisPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroEdicoesOriginaisPaniniDTO.ResultadoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
@@ -42,6 +44,7 @@ import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
 import br.com.hqhub.repository.SerieRepository;
+import br.com.hqhub.mapper.EdicaoMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -55,6 +58,8 @@ public class ConteudoOriginalPaniniService {
     private final IntegracaoExternaService integracaoExternaService;
     private final EditoraRepository editoraRepository;
     private final SerieRepository serieRepository;
+    private final ArmazenamentoImagemService armazenamentoImagemService;
+    private final EdicaoMapper edicaoMapper;
     private final HttpClient httpClient;
 
     public ConteudoOriginalPaniniService(
@@ -63,13 +68,17 @@ public class ConteudoOriginalPaniniService {
             ConteudoOriginalPaniniParser parser,
             IntegracaoExternaService integracaoExternaService,
             EditoraRepository editoraRepository,
-            SerieRepository serieRepository) {
+            SerieRepository serieRepository,
+            ArmazenamentoImagemService armazenamentoImagemService,
+            EdicaoMapper edicaoMapper) {
         this.edicaoRepository = edicaoRepository;
         this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.parser = parser;
         this.integracaoExternaService = integracaoExternaService;
         this.editoraRepository = editoraRepository;
         this.serieRepository = serieRepository;
+        this.armazenamentoImagemService = armazenamentoImagemService;
+        this.edicaoMapper = edicaoMapper;
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(12))
                 .followRedirects(HttpClient.Redirect.NEVER)
@@ -139,12 +148,78 @@ public class ConteudoOriginalPaniniService {
     }
 
     @Transactional
+    public ResultadoCadastroEdicaoBrasileiraPaniniDTO cadastrarEdicaoBrasileira(
+            CadastroEdicaoBrasileiraPaniniDTO dto) {
+        PreviaConteudoOriginalPaniniDTO previa = analisar(dto.urlPanini());
+        var produto = previa.produto();
+        if (produto == null || produto.sku() == null || produto.sku().isBlank()) {
+            throw new RegraNegocioException("A página da Panini não informou um SKU para identificar o produto.");
+        }
+
+        List<String> avisos = new ArrayList<>();
+        Editora editora = editoraRepository.buscarPorNome("Panini").orElseGet(() -> {
+            Editora nova = new Editora();
+            nova.setNome("Panini");
+            nova.setFonteExterna(FONTE_PANINI);
+            nova.setIdExterno("panini");
+            editoraRepository.persist(nova);
+            return nova;
+        });
+        Serie serie = serieRepository.buscarPorTituloEEditoraEVolume(dto.tituloSerie(), editora.getId(), null)
+                .orElseGet(() -> {
+                    Serie nova = new Serie();
+                    nova.setTitulo(dto.tituloSerie().trim());
+                    nova.setAnoInicio(dto.dataPublicacao() == null ? null : dto.dataPublicacao().getYear());
+                    nova.setTipoSerie(TipoSerie.BRASILEIRA);
+                    nova.setEditora(editora);
+                    nova.setFonteExterna(FONTE_PANINI);
+                    nova.setIdExterno("serie:" + normalizar(dto.tituloSerie()));
+                    nova.setUrlOrigem(previa.urlPanini());
+                    serieRepository.persist(nova);
+                    return nova;
+                });
+
+        var porSku = edicaoRepository.buscarPorOrigemExterna(FONTE_PANINI, produto.sku());
+        var porNumero = edicaoRepository.buscarPorNumeroESerie(dto.numero(), serie.getId());
+        Edicao edicao = porSku.or(() -> porNumero).orElse(null);
+        boolean criada = edicao == null;
+        if (criada) {
+            edicao = new Edicao();
+            edicao.setSerie(serie);
+            edicao.setNumero(dto.numero().trim());
+            edicao.setFonteExterna(FONTE_PANINI);
+            edicao.setIdExterno(produto.sku());
+        } else {
+            avisos.add("A edição já existia e recebeu apenas os dados ausentes da Panini.");
+        }
+
+        aplicarDadosProdutoPanini(edicao, dto, previa);
+        boolean capaArmazenada = false;
+        if ((edicao.getUrlCapa() == null || edicao.getUrlCapa().isBlank())
+                && produto.urlCapa() != null && !produto.urlCapa().isBlank()) {
+            try {
+                edicao.setUrlCapa(armazenamentoImagemService.salvarCapaPorUrl(produto.urlCapa()).urlImagem());
+                capaArmazenada = true;
+            } catch (RuntimeException excecao) {
+                edicao.setUrlCapa(produto.urlCapa());
+                avisos.add("A capa oficial foi vinculada pela URL da Panini, mas não pôde ser copiada para o armazenamento próprio.");
+            }
+        }
+        if (criada) {
+            edicaoRepository.persist(edicao);
+        }
+        return new ResultadoCadastroEdicaoBrasileiraPaniniDTO(
+                edicaoMapper.paraResposta(edicao), criada, capaArmazenada, avisos);
+    }
+
+    @Transactional
     public PreviaConteudoOriginalPaniniDTO analisar(String url) {
         URI uri = validarUrlPanini(url);
         String html = carregarPagina(uri);
         ConteudoOriginalPaniniParser.PaginaPanini pagina = parser.extrair(html);
-        if (pagina.conteudoOriginal() == null || pagina.conteudoOriginal().isBlank()) {
-            throw new RegraNegocioException("A página informada não possui o campo Conteúdo original.");
+        if ((pagina.conteudoOriginal() == null || pagina.conteudoOriginal().isBlank())
+                && (pagina.produto() == null || pagina.produto().sku() == null)) {
+            throw new RegraNegocioException("A página informada não possui dados de produto nem Conteúdo original.");
         }
 
         List<ReferenciaConteudoOriginalPaniniDTO> referencias = pagina.referencias().stream()
@@ -165,7 +240,42 @@ public class ConteudoOriginalPaniniService {
                 })
                 .toList();
 
-        return new PreviaConteudoOriginalPaniniDTO(uri.toString(), pagina.titulo(), pagina.conteudoOriginal(), referencias);
+        var produto = pagina.produto();
+        var produtoDto = produto == null ? null : new PreviaConteudoOriginalPaniniDTO.ProdutoPaniniDTO(
+                produto.tituloSerieSugerido(), produto.numeroSugerido(), produto.numeroAlternativo(),
+                produto.descricao(), produto.urlCapa(), produto.sku(), produto.isbn(), produto.preco(),
+                produto.dataDisponibilidade(), produto.quantidadePaginas(), produto.formato(),
+                produto.classificacaoEtaria(), produto.categoria(), produto.marca());
+        return new PreviaConteudoOriginalPaniniDTO(
+                uri.toString(), pagina.titulo(), pagina.conteudoOriginal(), referencias, produtoDto);
+    }
+
+    private void aplicarDadosProdutoPanini(
+            Edicao edicao,
+            CadastroEdicaoBrasileiraPaniniDTO dto,
+            PreviaConteudoOriginalPaniniDTO previa) {
+        var produto = previa.produto();
+        copiarSeVazio(edicao.getTitulo(), dto.tituloEdicao(), edicao::setTitulo);
+        copiarSeVazio(edicao.getDescricao(), dto.descricao(), edicao::setDescricao);
+        copiarSeVazio(edicao.getDescricaoOriginal(), dto.descricao(), edicao::setDescricaoOriginal);
+        copiarSeVazio(edicao.getDescricaoPortugues(), dto.descricao(), edicao::setDescricaoPortugues);
+        if (edicao.getDataPublicacao() == null) edicao.setDataPublicacao(dto.dataPublicacao());
+        if (edicao.getDataDisponibilidadeLoja() == null) edicao.setDataDisponibilidadeLoja(dto.dataPublicacao());
+        copiarSeVazio(edicao.getCodigoBarras(), dto.codigoBarras(), edicao::setCodigoBarras);
+        if (edicao.getQuantidadePaginas() == null) edicao.setQuantidadePaginas(dto.quantidadePaginas());
+        if (edicao.getPrecoCapa() == null) edicao.setPrecoCapa(dto.precoCapa());
+        copiarSeVazio(edicao.getFormato(), dto.formato(), edicao::setFormato);
+        copiarSeVazio(edicao.getUrlOrigem(), previa.urlPanini(), edicao::setUrlOrigem);
+        if (edicao.getFonteExterna() == null || edicao.getFonteExterna().isBlank()) {
+            edicao.setFonteExterna(FONTE_PANINI);
+            edicao.setIdExterno(produto.sku());
+        }
+    }
+
+    private void copiarSeVazio(String atual, String novoValor, java.util.function.Consumer<String> destino) {
+        if ((atual == null || atual.isBlank()) && novoValor != null && !novoValor.isBlank()) {
+            destino.accept(novoValor.trim());
+        }
     }
 
     @Transactional

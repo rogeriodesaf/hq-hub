@@ -60,6 +60,86 @@ import {
       <p>Atualização automática conforme o catálogo cresce.</p>
     </section>
 
+    @if (!modoAdicao() && podeEditarCatalogo()) {
+      <details class="painel-formulario cadastro-panini-edicao">
+        <summary>Cadastrar edição brasileira pela Panini <span>Sem Guia dos Quadrinhos</span></summary>
+        <div class="importacao-panini-conteudo">
+          <p class="texto-suave">Cole a URL oficial do produto. O sistema prepara uma prévia editável, verifica duplicidades e depois relaciona automaticamente o conteúdo estrangeiro.</p>
+          <div class="importacao-panini-url">
+            <label>
+              URL do produto na Panini
+              <input [(ngModel)]="urlCadastroPanini" name="urlCadastroEdicaoPanini" type="url" placeholder="https://panini.com.br/..." (keyup.enter)="analisarProdutoPanini()" />
+            </label>
+            <button class="botao secundario" type="button" (click)="analisarProdutoPanini()" [disabled]="analisandoProdutoPanini() || !urlCadastroPanini.trim()">
+              {{ analisandoProdutoPanini() ? 'Lendo produto...' : 'Preparar cadastro' }}
+            </button>
+          </div>
+
+          @if (previaCadastroPanini(); as previa) {
+            <form class="grade-formulario cadastro-panini-previa" (ngSubmit)="cadastrarProdutoPanini()">
+              @if (previa.produto?.urlCapa) {
+                <figure class="campo-largo">
+                  <img [src]="previa.produto!.urlCapa" [alt]="'Capa oficial de ' + (previa.tituloProduto || formularioCadastroPanini.tituloEdicao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                  <figcaption>Capa oficial encontrada na Panini; uma cópia será salva no Coleciona HQ.</figcaption>
+                </figure>
+              }
+              <label>
+                Série brasileira
+                <input [(ngModel)]="formularioCadastroPanini.tituloSerie" name="serieCadastroPanini" required />
+              </label>
+              <label>
+                Número da edição
+                <input [(ngModel)]="formularioCadastroPanini.numero" name="numeroCadastroPanini" required />
+                @if (previa.produto?.numeroAlternativo) {
+                  <small>A Panini também exibe o ordinal {{ previa.produto!.numeroAlternativo }}. Confirme qual numeração identifica esta coleção.</small>
+                }
+              </label>
+              <label class="campo-largo">
+                Título do produto
+                <input [(ngModel)]="formularioCadastroPanini.tituloEdicao" name="tituloCadastroPanini" />
+              </label>
+              <label>
+                Data de publicação/disponibilidade
+                <input [(ngModel)]="formularioCadastroPanini.dataPublicacao" name="dataCadastroPanini" type="date" />
+              </label>
+              <label>
+                ISBN
+                <input [(ngModel)]="formularioCadastroPanini.codigoBarras" name="isbnCadastroPanini" />
+              </label>
+              <label>
+                Páginas
+                <input [(ngModel)]="formularioCadastroPanini.quantidadePaginas" name="paginasCadastroPanini" type="number" min="1" />
+              </label>
+              <label>
+                Preço de capa
+                <input [(ngModel)]="formularioCadastroPanini.precoCapa" name="precoCadastroPanini" type="number" min="0" step="0.01" />
+              </label>
+              <label>
+                Formato
+                <input [(ngModel)]="formularioCadastroPanini.formato" name="formatoCadastroPanini" />
+              </label>
+              <label class="campo-largo">
+                Descrição
+                <textarea [(ngModel)]="formularioCadastroPanini.descricao" name="descricaoCadastroPanini" rows="5"></textarea>
+              </label>
+              <aside class="campo-largo importacao-panini-fonte">
+                <strong>Dados oficiais capturados</strong>
+                <span>SKU {{ previa.produto?.sku || '—' }} · {{ previa.produto?.marca || 'Marca não informada' }}<ng-container *ngIf="previa.produto?.classificacaoEtaria"> · {{ previa.produto!.classificacaoEtaria }}</ng-container></span>
+                @if (previa.conteudoOriginalBruto) {
+                  <p><strong>Conteúdo original:</strong> {{ previa.conteudoOriginalBruto }}</p>
+                }
+              </aside>
+              <div class="campo-largo acoes-formulario">
+                <button class="botao primario" type="submit" [disabled]="cadastrandoProdutoPanini() || !formularioCadastroPanini.tituloSerie.trim() || !formularioCadastroPanini.numero.trim()">
+                  {{ cadastrandoProdutoPanini() ? 'Cadastrando edição e capa...' : 'Cadastrar edição e relacionar originais' }}
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </details>
+    }
+
     @if (mensagem()) {
       <aside class="toast-sistema" [class.sucesso]="tipoMensagem() === 'sucesso'" [class.erro]="tipoMensagem() === 'erro'" [class.info]="tipoMensagem() === 'info'" role="status" aria-live="polite">
         <p>{{ mensagem() }}</p>
@@ -983,7 +1063,7 @@ import {
           }
 
           @if (!carregandoDetalhe() && edicaoDetalhe() && podeEditarCatalogo()) {
-            <details class="painel-formulario importacao-panini-original">
+            <details class="painel-formulario importacao-panini-original" [open]="abrirImportacaoPaniniAposCadastro()">
               <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
               <div class="importacao-panini-conteudo">
                 <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. As edições ausentes serão buscadas e cadastradas automaticamente na Comic Vine; casos ambíguos continuarão aguardando sua confirmação. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos.</p>
@@ -1493,6 +1573,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly buscandoOriginaisVinculo = signal(false);
   readonly resultadosOriginaisVinculo = signal<ResultadoPesquisaCatalogo[]>([]);
   readonly analisandoPanini = signal(false);
+  readonly analisandoProdutoPanini = signal(false);
+  readonly cadastrandoProdutoPanini = signal(false);
+  readonly previaCadastroPanini = signal<PreviaConteudoOriginalPanini | null>(null);
+  readonly abrirImportacaoPaniniAposCadastro = signal(false);
   readonly salvandoPanini = signal(false);
   readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
   readonly selecoesPanini = signal<Record<number, number | null>>({});
@@ -1534,6 +1618,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioConteudo = this.formularioConteudoVazio();
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
   urlPanini = '';
+  urlCadastroPanini = '';
+  formularioCadastroPanini = this.formularioCadastroPaniniVazio();
   formularioItemColecao = this.formularioItemColecaoVazio();
   formularioSerieColecao = this.formularioItemColecaoVazio();
   private temporizadorMensagem: ReturnType<typeof setTimeout> | null = null;
@@ -2274,7 +2360,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
     });
   }
 
-  abrirDetalhePorId(edicaoId: number, historiaId: number | null = null) {
+  abrirDetalhePorId(
+    edicaoId: number,
+    historiaId: number | null = null,
+    urlPaniniAposCadastro: string | null = null,
+  ) {
     this.carregandoDetalhe.set(true);
     this.limparMapaBrasilDetalhe();
     this.historiaExpandida.set(null);
@@ -2286,6 +2376,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.salvandoConteudo.set(false);
     this.formularioConteudo = this.formularioConteudoVazio();
     this.limparImportacaoPanini();
+    this.abrirImportacaoPaniniAposCadastro.set(!!urlPaniniAposCadastro);
     this.rolarPainelDetalheMobile();
     forkJoin({
       edicao: this.api.buscarEdicaoPorId(edicaoId),
@@ -2319,6 +2410,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.carregarComplementoComicVine(edicao);
         this.carregandoDetalhe.set(false);
         this.rolarPainelDetalheMobile();
+        if (urlPaniniAposCadastro) {
+          this.urlPanini = urlPaniniAposCadastro;
+          this.analisarConteudoOriginalPanini();
+        }
       },
       error: () => {
         this.carregandoDetalhe.set(false);
@@ -2578,6 +2673,80 @@ export class CatalogoPage implements OnInit, OnDestroy {
       error: () => {
         this.revisandoCapa.set(null);
         this.mensagem.set('Nao foi possivel rejeitar esta capa.');
+      },
+    });
+  }
+
+  analisarProdutoPanini() {
+    const url = this.urlCadastroPanini.trim();
+    if (!url) {
+      this.mensagem.set('Informe a URL oficial do produto na Panini.');
+      return;
+    }
+    this.analisandoProdutoPanini.set(true);
+    this.previaCadastroPanini.set(null);
+    this.mensagem.set('');
+    this.api.analisarConteudoOriginalPanini(url).subscribe({
+      next: (previa) => {
+        const produto = previa.produto;
+        if (!produto?.sku) {
+          this.analisandoProdutoPanini.set(false);
+          this.mensagem.set('A página não informou um SKU de produto e não pode ser cadastrada automaticamente.');
+          return;
+        }
+        this.previaCadastroPanini.set(previa);
+        this.urlCadastroPanini = previa.urlPanini;
+        this.formularioCadastroPanini = {
+          tituloSerie: produto.tituloSerieSugerido || '',
+          numero: produto.numeroSugerido || '',
+          tituloEdicao: previa.tituloProduto || '',
+          descricao: produto.descricao || '',
+          dataPublicacao: produto.dataDisponibilidade || '',
+          codigoBarras: produto.isbn || '',
+          quantidadePaginas: produto.quantidadePaginas,
+          precoCapa: produto.preco,
+          formato: produto.formato || '',
+        };
+        this.analisandoProdutoPanini.set(false);
+      },
+      error: (erro) => {
+        this.analisandoProdutoPanini.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível ler este produto da Panini.'));
+      },
+    });
+  }
+
+  cadastrarProdutoPanini() {
+    const previa = this.previaCadastroPanini();
+    if (!previa || !this.formularioCadastroPanini.tituloSerie.trim()
+        || !this.formularioCadastroPanini.numero.trim()) {
+      return;
+    }
+    this.cadastrandoProdutoPanini.set(true);
+    this.mensagem.set('Cadastrando a edição brasileira e armazenando a capa oficial...');
+    this.api.cadastrarEdicaoBrasileiraPanini({
+      urlPanini: previa.urlPanini,
+      tituloSerie: this.formularioCadastroPanini.tituloSerie.trim(),
+      numero: this.formularioCadastroPanini.numero.trim(),
+      tituloEdicao: this.formularioCadastroPanini.tituloEdicao.trim() || null,
+      descricao: this.formularioCadastroPanini.descricao.trim() || null,
+      dataPublicacao: this.formularioCadastroPanini.dataPublicacao || null,
+      codigoBarras: this.formularioCadastroPanini.codigoBarras.trim() || null,
+      quantidadePaginas: this.numeroOuNull(this.formularioCadastroPanini.quantidadePaginas),
+      precoCapa: this.numeroOuNull(this.formularioCadastroPanini.precoCapa),
+      formato: this.formularioCadastroPanini.formato.trim() || null,
+    }).subscribe({
+      next: (resultado) => {
+        this.cadastrandoProdutoPanini.set(false);
+        const acao = resultado.criada ? 'cadastrada' : 'localizada e atualizada';
+        const capa = resultado.capaArmazenada ? ' Capa oficial armazenada.' : '';
+        const avisos = resultado.avisos.length ? ` ${resultado.avisos.join(' ')}` : '';
+        this.abrirDetalhePorId(resultado.edicao.id, null, previa.urlPanini);
+        this.mensagem.set(`Edição brasileira ${acao}.${capa}${avisos}`);
+      },
+      error: (erro) => {
+        this.cadastrandoProdutoPanini.set(false);
+        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar esta edição da Panini.'));
       },
     });
   }
@@ -4174,6 +4343,20 @@ export class CatalogoPage implements OnInit, OnDestroy {
     };
   }
 
+  private formularioCadastroPaniniVazio() {
+    return {
+      tituloSerie: '',
+      numero: '',
+      tituloEdicao: '',
+      descricao: '',
+      dataPublicacao: '',
+      codigoBarras: '',
+      quantidadePaginas: null as number | null,
+      precoCapa: null as number | null,
+      formato: '',
+    };
+  }
+
   private formularioItemColecaoVazio() {
     return {
       estadoConservacao: 'MUITO_BOM',
@@ -4337,6 +4520,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.confirmacaoVinculosPaniniConcluida.set(false);
     this.analisandoPanini.set(false);
     this.salvandoPanini.set(false);
+    this.abrirImportacaoPaniniAposCadastro.set(false);
   }
 
   private montarUrlsCapasPublicacoes(publicacoes: PublicacaoHistoria[]) {
