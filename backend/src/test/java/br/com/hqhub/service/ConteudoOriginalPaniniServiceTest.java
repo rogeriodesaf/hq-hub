@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Optional;
 import java.util.List;
@@ -21,11 +22,14 @@ import br.com.hqhub.dto.PaginaRespostaDTO;
 import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Serie;
+import br.com.hqhub.entity.Edicao;
+import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.mapper.EdicaoMapper;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
+import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.SerieRepository;
 
 class ConteudoOriginalPaniniServiceTest {
@@ -33,6 +37,8 @@ class ConteudoOriginalPaniniServiceTest {
     private SerieRepository series;
     private EditoraRepository editoras;
     private IntegracaoExternaService integracoes;
+    private PostagemFeedRepository postagens;
+    private UsuarioAutenticadoService usuarioAutenticado;
     private ConteudoOriginalPaniniService service;
 
     @BeforeEach
@@ -40,6 +46,8 @@ class ConteudoOriginalPaniniServiceTest {
         series = mock(SerieRepository.class);
         editoras = mock(EditoraRepository.class);
         integracoes = mock(IntegracaoExternaService.class);
+        postagens = mock(PostagemFeedRepository.class);
+        usuarioAutenticado = mock(UsuarioAutenticadoService.class);
         service = new ConteudoOriginalPaniniService(
                 mock(EdicaoRepository.class),
                 mock(PublicacaoRelacionadaRepository.class),
@@ -48,7 +56,9 @@ class ConteudoOriginalPaniniServiceTest {
                 editoras,
                 series,
                 mock(ArmazenamentoImagemService.class),
-                mock(EdicaoMapper.class));
+                mock(EdicaoMapper.class),
+                postagens,
+                usuarioAutenticado);
     }
 
     @Test
@@ -130,6 +140,25 @@ class ConteudoOriginalPaniniServiceTest {
         assertEquals("166904", resultado.idExterno());
         assertEquals("Punisher: Red Band", resultado.titulo());
         assertEquals(2025, resultado.anoInicio());
+    }
+
+    @Test
+    void publicaEdicaoPaniniNoFeedUmaUnicaVez() {
+        Usuario usuario = new Usuario();
+        usuario.setNome("Colaborador");
+        Serie serie = new Serie();
+        serie.setTitulo("Justiceiro - Tarja Vermelha");
+        Edicao edicao = new Edicao();
+        edicao.setId(42536L);
+        edicao.setSerie(serie);
+        edicao.setNumero("única");
+        edicao.setUrlCapa("https://capa.test/justiceiro.jpg");
+        when(usuarioAutenticado.obterUsuario()).thenReturn(usuario);
+        when(postagens.existePostagemSistemaPorEdicaoCatalogo(42536L)).thenReturn(false);
+
+        service.publicarEdicaoPaniniNoFeed(edicao, new java.util.ArrayList<>());
+
+        verify(postagens).persist(any(br.com.hqhub.entity.PostagemFeed.class));
     }
 
     private VolumeComicVineRespostaDTO volume(String id, int ano) {

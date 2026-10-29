@@ -124,6 +124,12 @@ public class PostagemFeedRepository implements PanacheRepository<PostagemFeed> {
                 .list();
     }
 
+    public boolean existePostagemSistemaPorEdicaoCatalogo(Long edicaoId) {
+        if (edicaoId == null) return false;
+        return count("sistema = true and edicaoLancamento.id = ?1 and tipoPostagem <> ?2",
+                edicaoId, TipoPostagemFeed.LANCAMENTO) > 0;
+    }
+
     public Optional<PostagemFeed> buscarGrupoRecente(
             Long usuarioId,
             TipoAtividadeEstante tipoAtividade,

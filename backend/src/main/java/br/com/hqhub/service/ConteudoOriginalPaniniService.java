@@ -35,6 +35,7 @@ import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.PublicacaoRelacionada;
+import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.TipoPublicacaoRelacionada;
 import br.com.hqhub.entity.TipoSerie;
@@ -43,6 +44,7 @@ import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.repository.EdicaoRepository;
 import br.com.hqhub.repository.EditoraRepository;
 import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
+import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.SerieRepository;
 import br.com.hqhub.mapper.EdicaoMapper;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -60,6 +62,8 @@ public class ConteudoOriginalPaniniService {
     private final SerieRepository serieRepository;
     private final ArmazenamentoImagemService armazenamentoImagemService;
     private final EdicaoMapper edicaoMapper;
+    private final PostagemFeedRepository postagemFeedRepository;
+    private final UsuarioAutenticadoService usuarioAutenticadoService;
     private final HttpClient httpClient;
 
     public ConteudoOriginalPaniniService(
@@ -70,7 +74,9 @@ public class ConteudoOriginalPaniniService {
             EditoraRepository editoraRepository,
             SerieRepository serieRepository,
             ArmazenamentoImagemService armazenamentoImagemService,
-            EdicaoMapper edicaoMapper) {
+            EdicaoMapper edicaoMapper,
+            PostagemFeedRepository postagemFeedRepository,
+            UsuarioAutenticadoService usuarioAutenticadoService) {
         this.edicaoRepository = edicaoRepository;
         this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.parser = parser;
@@ -79,6 +85,8 @@ public class ConteudoOriginalPaniniService {
         this.serieRepository = serieRepository;
         this.armazenamentoImagemService = armazenamentoImagemService;
         this.edicaoMapper = edicaoMapper;
+        this.postagemFeedRepository = postagemFeedRepository;
+        this.usuarioAutenticadoService = usuarioAutenticadoService;
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(12))
                 .followRedirects(HttpClient.Redirect.NEVER)
@@ -196,8 +204,43 @@ public class ConteudoOriginalPaniniService {
         if (criada) {
             edicaoRepository.persist(edicao);
         }
+        publicarEdicaoPaniniNoFeed(edicao, avisos);
         return new ResultadoCadastroEdicaoBrasileiraPaniniDTO(
                 edicaoMapper.paraResposta(edicao), criada, capaArmazenada, avisos);
+    }
+
+    void publicarEdicaoPaniniNoFeed(Edicao edicao, List<String> avisos) {
+        try {
+            if (edicao.getId() == null
+                    || postagemFeedRepository.existePostagemSistemaPorEdicaoCatalogo(edicao.getId())) {
+                return;
+            }
+            var usuario = usuarioAutenticadoService.obterUsuario();
+            String nome = usuario.getNome() == null || usuario.getNome().isBlank()
+                    ? "Um colaborador" : usuario.getNome().trim();
+            String tituloSerie = edicao.getSerie() == null || edicao.getSerie().getTitulo() == null
+                    ? "uma edição" : edicao.getSerie().getTitulo().trim();
+            String numero = edicao.getNumero() == null || edicao.getNumero().isBlank()
+                    ? "" : " #" + edicao.getNumero().trim();
+            PostagemFeed postagem = new PostagemFeed();
+            postagem.setUsuario(usuario);
+            postagem.setSistema(true);
+            postagem.setConteudo(limitar(nome + " adicionou " + tituloSerie + numero
+                    + " ao catálogo pela Panini.", 2000));
+            postagem.setUrlImagem(limitar(edicao.getUrlCapa(), 1000));
+            postagem.setSerieCatalogo(edicao.getSerie());
+            postagem.setEdicaoLancamento(edicao);
+            postagemFeedRepository.persist(postagem);
+        } catch (RuntimeException excecao) {
+            avisos.add("A edição foi cadastrada, mas a novidade não pôde ser publicada no feed: "
+                    + mensagemErro(excecao));
+        }
+    }
+
+    private String limitar(String texto, int tamanho) {
+        if (texto == null) return null;
+        String valor = texto.trim();
+        return valor.length() <= tamanho ? valor : valor.substring(0, tamanho);
     }
 
     Serie resolverSerieBrasileiraDestino(
