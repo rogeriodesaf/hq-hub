@@ -57,6 +57,21 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void desdobraListaMistaDeNumeroEIntervaloSemIncluirNumeroNoTitulo() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">"
+                + "Ultimate Spider-Man (2000) 0, 8-13</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(7, referencias.size());
+        assertEquals("Ultimate Spider-Man", referencias.getFirst().serie());
+        assertEquals(2000, referencias.getFirst().anoSerie());
+        assertEquals("0", referencias.getFirst().numero());
+        assertEquals("8", referencias.get(1).numero());
+        assertEquals("13", referencias.getLast().numero());
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">

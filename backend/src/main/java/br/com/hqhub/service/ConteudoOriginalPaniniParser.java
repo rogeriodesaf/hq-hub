@@ -22,6 +22,10 @@ public class ConteudoOriginalPaniniParser {
     private static final Pattern PRECO_JSON = Pattern.compile("\"price\"\\s*:\\s*\"?([0-9]+(?:\\.[0-9]+)?)", Pattern.CASE_INSENSITIVE);
     private static final Pattern IMAGEM_SCHEMA = Pattern.compile("\"image\"\\s*:\\s*\\[\\s*\"((?:\\\\.|[^\"\\\\])+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern TITULO_NUMERADO = Pattern.compile("^(.+?)\\s+(\\d+)(?:\\s*\\((\\d+)\\))?$");
+    private static final Pattern REFERENCIA_LISTA_PADRAO = Pattern.compile(
+            "^(.+?)\\s*\\((\\d{4})\\)\\s*((?:#\\s*)?\\d+(?:-\\d+)?(?:\\s*,\\s*(?:#\\s*)?\\d+(?:-\\d+)?)+)$");
+    private static final Pattern REFERENCIA_LISTA_SEM_ANO = Pattern.compile(
+            "^(.+?)\\s+((?:#\\s*)?\\d+(?:-\\d+)?(?:\\s*,\\s*(?:#\\s*)?\\d+(?:-\\d+)?)+)$");
     private static final Pattern REFERENCIA_PADRAO = Pattern.compile("^(.+?)\\s*\\((\\d{4})\\)\\s*(?:#\\s*)?([\\p{L}\\d.\\-]+)(?:\\s*\\((.*?)(?:\\))?)?$");
     private static final Pattern REFERENCIA_SEM_ANO = Pattern.compile("^(.+?)\\s+(?:#\\s*)?(\\d+(?:-\\d+)?)(?:\\s*\\((.*?)(?:\\))?)?$");
     private static final Pattern REFERENCIA_ANUAL = Pattern.compile("^(.+?\\bAnnual)\\s*[’']?(\\d{2,4})(?:\\s*\\((.*?)(?:\\))?)?$", Pattern.CASE_INSENSITIVE);
@@ -210,6 +214,17 @@ public class ConteudoOriginalPaniniParser {
     }
 
     private List<ReferenciaExtraida> analisarReferencias(String texto) {
+        Matcher listaPadrao = REFERENCIA_LISTA_PADRAO.matcher(texto);
+        if (listaPadrao.matches()) {
+            return criarReferenciasLista(
+                    texto, listaPadrao.group(1), Integer.valueOf(listaPadrao.group(2)), listaPadrao.group(3));
+        }
+
+        Matcher listaSemAno = REFERENCIA_LISTA_SEM_ANO.matcher(texto);
+        if (listaSemAno.matches()) {
+            return criarReferenciasLista(texto, listaSemAno.group(1), null, listaSemAno.group(2));
+        }
+
         Matcher anual = REFERENCIA_ANUAL.matcher(texto);
         if (anual.matches()) {
             String ano = anual.group(2);
@@ -251,6 +266,29 @@ public class ConteudoOriginalPaniniParser {
             }
         }
         return List.of(new ReferenciaExtraida(texto, serie.trim(), anoSerie, numero, limpar(complemento)));
+    }
+
+    private List<ReferenciaExtraida> criarReferenciasLista(
+            String texto, String serie, Integer anoSerie, String numerosInformados) {
+        List<ReferenciaExtraida> referencias = new ArrayList<>();
+        for (String parte : numerosInformados.split("\\s*,\\s*")) {
+            String numero = parte.replaceFirst("^#\\s*", "").trim();
+            Matcher intervalo = Pattern.compile("^(\\d+)-(\\d+)$").matcher(numero);
+            if (intervalo.matches()) {
+                int inicio = Integer.parseInt(intervalo.group(1));
+                int fim = Integer.parseInt(intervalo.group(2));
+                if (fim >= inicio && fim - inicio <= 20) {
+                    for (int atual = inicio; atual <= fim; atual++) {
+                        referencias.add(new ReferenciaExtraida(
+                                texto + " — #" + atual, serie.trim(), anoSerie, String.valueOf(atual), null));
+                    }
+                    continue;
+                }
+            }
+            referencias.add(new ReferenciaExtraida(
+                    texto + " — #" + numero, serie.trim(), anoSerie, numero, null));
+        }
+        return referencias;
     }
 
     private String htmlParaTexto(String valor) {
