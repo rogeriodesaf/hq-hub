@@ -130,6 +130,10 @@ class ConteudoOriginalPaniniServiceTest {
                 List.of(), List.of(), List.of());
         when(integracoes.resolverEdicaoComicVineOriginal("Punisher Red Band", "1", null, null))
                 .thenReturn(Optional.of(primeira));
+        when(integracoes.buscarDetalheVolumeComicVine("166904"))
+                .thenReturn(new VolumeComicVineRespostaDTO(
+                        "166904", "Punisher: Red Band", "Marvel", 2025, 5,
+                        null, "https://comicvine.test/volume/166904", null));
         when(integracoes.buscarEdicoesVolumeComicVine("166904", 0, 100))
                 .thenReturn(paginaEdicoes(1, 5));
 

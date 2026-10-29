@@ -587,25 +587,8 @@ public class ConteudoOriginalPaniniService {
         VolumeComicVineRespostaDTO volume = volumesConhecidos.stream()
                 .filter(item -> edicao.idVolume().equals(item.idExterno()))
                 .findFirst()
-                .orElseGet(() -> new VolumeComicVineRespostaDTO(
-                        edicao.idVolume(),
-                        edicao.nomeVolume() == null ? serie : edicao.nomeVolume(),
-                        edicao.editora(),
-                        ano(edicao.dataCapa()),
-                        null,
-                        null,
-                        null,
-                        edicao.urlImagem()));
+                .orElseGet(() -> integracaoExternaService.buscarDetalheVolumeComicVine(edicao.idVolume()));
         return volumeContemNumeros(volume, numerosEsperados) ? volume : null;
-    }
-
-    private Integer ano(String data) {
-        if (data == null || data.length() < 4) return null;
-        try {
-            return Integer.valueOf(data.substring(0, 4));
-        } catch (NumberFormatException excecao) {
-            return null;
-        }
     }
 
     private boolean volumeContemNumeros(

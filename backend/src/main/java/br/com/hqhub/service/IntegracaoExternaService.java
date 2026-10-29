@@ -360,6 +360,22 @@ public class IntegracaoExternaService {
         return montarEdicaoComicVine(resultado, true);
     }
 
+    public VolumeComicVineRespostaDTO buscarDetalheVolumeComicVine(String idVolume) {
+        validarComicVineConfigurada();
+        if (idVolume == null || idVolume.isBlank()) {
+            throw new RegraNegocioException("Identificador do volume é obrigatório.");
+        }
+        String url = "https://comicvine.gamespot.com/api/volume/4050-" + codificarCaminho(idVolume)
+                + "/?format=json"
+                + "&field_list=id,name,start_year,count_of_issues,publisher,site_detail_url,image,deck,description"
+                + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
+        JsonNode resultado = executarGet(url).path("results");
+        if (resultado.isMissingNode() || resultado.isNull()) {
+            throw new RegraNegocioException("Volume não encontrado na ComicVine.");
+        }
+        return montarVolumeComicVine(resultado);
+    }
+
     public PaginaRespostaDTO<PessoaComicVineRespostaDTO> buscarPessoasComicVine(
             String termo,
             Integer pagina,
