@@ -255,9 +255,11 @@ public class ConteudoOriginalPaniniService {
             throw new RegraNegocioException("A página informada não possui dados de produto nem Conteúdo original.");
         }
 
+        Map<GrupoSerie, List<Edicao>> edicoesCatalogadasPorSerie = new LinkedHashMap<>();
         List<ReferenciaConteudoOriginalPaniniDTO> referencias = pagina.referencias().stream()
                 .map(referencia -> {
-                    List<CandidatoEdicaoOriginalPaniniDTO> candidatos = buscarCandidatos(referencia);
+                    List<CandidatoEdicaoOriginalPaniniDTO> candidatos = buscarCandidatos(
+                            referencia, edicoesCatalogadasPorSerie);
                     String status = referencia.serie() == null ? "NAO_INTERPRETADA"
                             : candidatos.isEmpty() ? "NAO_ENCONTRADA"
                             : candidatos.size() == 1 ? "ENCONTRADA" : "AMBIGUA";
@@ -350,12 +352,16 @@ public class ConteudoOriginalPaniniService {
     }
 
     private List<CandidatoEdicaoOriginalPaniniDTO> buscarCandidatos(
-            ConteudoOriginalPaniniParser.ReferenciaExtraida referencia) {
+            ConteudoOriginalPaniniParser.ReferenciaExtraida referencia,
+            Map<GrupoSerie, List<Edicao>> edicoesCatalogadasPorSerie) {
         if (referencia.serie() == null || referencia.numero() == null) {
             return List.of();
         }
-        String busca = referencia.serie() + " " + referencia.numero();
-        return edicaoRepository.buscarPaginado(null, busca, 0, 50, TipoSerie.ESTRANGEIRA).stream()
+        GrupoSerie grupo = new GrupoSerie(normalizarSerie(referencia.serie()), referencia.anoSerie());
+        List<Edicao> edicoesDaSerie = edicoesCatalogadasPorSerie.computeIfAbsent(grupo,
+                ignorado -> edicaoRepository.buscarPorIdentidadeSerieEstrangeira(
+                        referencia.serie(), referencia.anoSerie()));
+        return edicoesDaSerie.stream()
                 .filter(edicao -> normalizarSerie(edicao.getSerie().getTitulo()).equals(normalizarSerie(referencia.serie())))
                 .filter(edicao -> normalizar(edicao.getNumero()).equals(normalizar(referencia.numero())))
                 .filter(edicao -> referencia.anoSerie() == null
@@ -363,7 +369,9 @@ public class ConteudoOriginalPaniniService {
                 .limit(5)
                 .map(edicao -> new CandidatoEdicaoOriginalPaniniDTO(
                         edicao.getId(), edicao.getSerie().getTitulo(), edicao.getNumero(),
-                        edicao.getSerie().getAnoInicio(), edicao.getSerie().getEditora().getNome(), edicao.getUrlCapa()))
+                        edicao.getSerie().getAnoInicio(),
+                        edicao.getSerie().getEditora() == null ? null : edicao.getSerie().getEditora().getNome(),
+                        edicao.getUrlCapa()))
                 .toList();
     }
 

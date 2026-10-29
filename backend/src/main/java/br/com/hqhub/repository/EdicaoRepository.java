@@ -99,6 +99,29 @@ public class EdicaoRepository implements PanacheRepository<Edicao> {
                 .findFirst();
     }
 
+    public List<Edicao> buscarPorIdentidadeSerieEstrangeira(String tituloSerie, Integer anoSerie) {
+        if (tituloSerie == null || tituloSerie.isBlank()) {
+            return List.of();
+        }
+        String filtroAno = anoSerie == null ? "" : " and s.ano_inicio = :anoSerie";
+        var query = entityManager.createNativeQuery("""
+                select ed.*
+                  from edicoes ed
+                  join series s on s.id = ed.serie_id
+                 where s.tipo_serie = :tipoSerie
+                   and hqhub_normalizar_titulo_serie(s.titulo)
+                       = hqhub_normalizar_titulo_serie(:tituloSerie)
+                """ + filtroAno + " order by ed.id", Edicao.class)
+                .setParameter("tipoSerie", TipoSerie.ESTRANGEIRA.name())
+                .setParameter("tituloSerie", tituloSerie.trim());
+        if (anoSerie != null) {
+            query.setParameter("anoSerie", anoSerie);
+        }
+        return query.getResultStream()
+                .map(Edicao.class::cast)
+                .toList();
+    }
+
     public boolean existePorOrigemExterna(String fonteExterna, String idExterno) {
         if (fonteExterna == null || idExterno == null) {
             return false;
