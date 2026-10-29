@@ -22,6 +22,7 @@ import {
   LinkEdicao,
   PaginaResposta,
   PublicacaoHistoria,
+  PublicacaoRelacionada,
   PublicacaoBrasileiraResumo,
   PublicacoesBrasileirasEdicaoOriginal,
   PreviaConteudoOriginalPanini,
@@ -965,7 +966,11 @@ import {
                       <p class="rotulo">Publicação original</p>
                       <h4>{{ tituloEdicao(grupo.edicao) }}</h4>
                       <p>{{ grupo.edicao.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(grupo.edicao) as ano"> · {{ ano }}</span></p>
-                      <small>{{ grupo.quantidadeHistorias }} {{ grupo.quantidadeHistorias === 1 ? 'história relacionada' : 'histórias relacionadas' }}</small>
+                      @if (grupo.quantidadeHistorias) {
+                        <small>{{ grupo.quantidadeHistorias }} {{ grupo.quantidadeHistorias === 1 ? 'história relacionada' : 'histórias relacionadas' }}</small>
+                      } @else {
+                        <small>Vínculo editorial confirmado pela Panini</small>
+                      }
                       <div class="acoes-publicacao-original">
                         <button type="button" (click)="abrirDetalheOriginalAgrupada(grupo.edicao)">Ver edição original →</button>
                         <button type="button" (click)="abrirPublicacoesBrasil(grupo.edicao, $event)">Ver todas as publicações no Brasil</button>
@@ -1047,10 +1052,15 @@ import {
                         {{ resolvendoOriginaisPanini() ? 'Resolvendo automaticamente...' : 'Resolver ' + quantidadePendentesPanini() + ' pendente(s) automaticamente' }}
                       </button>
                     }
-                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || resolvendoOriginaisPanini() || !quantidadeVinculosPanini()">
-                      {{ salvandoPanini() ? 'Cadastrando...' : 'Confirmar vínculos selecionados' }}
+                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || resolvendoOriginaisPanini() || confirmacaoVinculosPaniniConcluida() || !quantidadeVinculosPanini()">
+                      {{ confirmacaoVinculosPaniniConcluida() ? 'Vínculos confirmados' : resolvendoOriginaisPanini() ? 'Aguarde a busca terminar...' : salvandoPanini() ? 'Confirmando vínculos...' : 'Confirmar vínculos selecionados' }}
                     </button>
                   </div>
+                  @if (retornoVinculosPanini(); as retorno) {
+                    <p class="texto-suave" [class.erro-original-panini]="retorno.tipo === 'erro'" role="status" aria-live="polite">
+                      {{ retorno.texto }}
+                    </p>
+                  }
                 }
               </div>
             </details>
@@ -1437,6 +1447,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly conteudosDetalhe = signal<ConteudoEdicao[]>([]);
   readonly publicacoesDetalhe = signal<PublicacaoHistoria[]>([]);
   readonly publicacoesComoOriginal = signal<PublicacaoHistoria[]>([]);
+  readonly publicacoesRelacionadasDetalhe = signal<PublicacaoRelacionada[]>([]);
   readonly historiaExpandida = signal<number | null>(null);
   readonly carregandoRepublicacoes = signal<number | null>(null);
   readonly republicacoesPorHistoria = signal<Record<number, PublicacaoHistoria[]>>({});
@@ -1489,6 +1500,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly resolvendoOriginaisPanini = signal(false);
   readonly progressoOriginaisPanini = signal<{ atual: number; total: number } | null>(null);
   readonly errosOriginaisPanini = signal<Record<number, string>>({});
+  readonly retornoVinculosPanini = signal<{ tipo: 'info' | 'sucesso' | 'erro'; texto: string } | null>(null);
+  readonly confirmacaoVinculosPaniniConcluida = signal(false);
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly quantidadePendentesPanini = computed(() => this.previaPanini()?.referencias.filter((referencia) =>
     !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
@@ -2279,10 +2292,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
       conteudos: this.api.listarConteudosPorEdicao(edicaoId),
       publicacoes: this.api.listarPublicacoesPorEdicaoPublicada(edicaoId),
       publicacoesOriginais: this.api.listarPublicacoesPorEdicaoOriginal(edicaoId),
+      publicacoesRelacionadas: this.api.listarPublicacoesRelacionadasPorEdicao(edicaoId),
       links: this.api.listarLinksPorEdicao(edicaoId),
       capas: this.api.listarCapasEdicao(edicaoId),
     }).subscribe({
-      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais, links, capas }) => {
+      next: ({ edicao, conteudos, publicacoes, publicacoesOriginais, publicacoesRelacionadas, links, capas }) => {
         const atual = this.edicaoDetalhe();
         if (atual && atual.id !== edicao.id) {
           this.historicoDetalhes.update((historico) => [...historico, atual]);
@@ -2296,6 +2310,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         const publicacoesOriginaisFiltradas = this.filtrarPublicacoesComoOriginal(publicacoesOriginais, historiaId);
         this.publicacoesComoOriginal.set(publicacoesOriginaisFiltradas);
+        this.publicacoesRelacionadasDetalhe.set(publicacoesRelacionadas);
         if (!publicacoes.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.linksDetalhe.set(links);
         this.capasDetalhe.set(capas);
@@ -2342,6 +2357,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.conteudosDetalhe.set([]);
     this.publicacoesDetalhe.set([]);
     this.publicacoesComoOriginal.set([]);
+    this.publicacoesRelacionadasDetalhe.set([]);
     this.historiaExpandida.set(null);
     this.carregandoRepublicacoes.set(null);
     this.republicacoesPorHistoria.set({});
@@ -2575,6 +2591,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.analisandoPanini.set(true);
     this.previaPanini.set(null);
     this.selecoesPanini.set({});
+    this.retornoVinculosPanini.set(null);
+    this.confirmacaoVinculosPaniniConcluida.set(false);
     this.mensagem.set('');
     this.api.analisarConteudoOriginalPanini(url).subscribe({
       next: (previa) => {
@@ -2597,6 +2615,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   selecionarEdicaoPanini(indice: number, valor: number | string | null) {
     this.selecoesPanini.update((selecoes) => ({ ...selecoes, [indice]: this.numeroOuNull(valor) }));
+    this.confirmacaoVinculosPaniniConcluida.set(false);
+    this.retornoVinculosPanini.set(null);
   }
 
   idSelecionadoPanini(indice: number) {
@@ -2628,6 +2648,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
 
     this.salvandoPanini.set(true);
+    this.retornoVinculosPanini.set({
+      tipo: 'info',
+      texto: `Confirmando ${vinculos.length} vínculo(s) com esta edição brasileira...`,
+    });
     this.mensagem.set('');
     this.api.cadastrarConteudoOriginalPanini({
       edicaoBrasileiraId: edicao.id,
@@ -2636,13 +2660,20 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }).subscribe({
       next: (resultado) => {
         this.salvandoPanini.set(false);
-        this.selecoesPanini.set({});
         const existentes = resultado.jaExistentes ? ` ${resultado.jaExistentes} vínculo(s) já existiam.` : '';
-        this.mensagem.set(`${resultado.cadastrados} vínculo(s) da Panini cadastrado(s).${existentes}`);
+        const texto = `${resultado.cadastrados} vínculo(s) da Panini cadastrado(s).${existentes}`;
+        this.confirmacaoVinculosPaniniConcluida.set(true);
+        this.retornoVinculosPanini.set({ tipo: 'sucesso', texto });
+        this.mensagem.set(texto);
+        this.api.listarPublicacoesRelacionadasPorEdicao(edicao.id).subscribe({
+          next: (publicacoes) => this.publicacoesRelacionadasDetalhe.set(publicacoes),
+        });
       },
       error: (erro) => {
         this.salvandoPanini.set(false);
-        this.mensagem.set(this.extrairMensagemErro(erro, 'Não foi possível cadastrar os vínculos da Panini.'));
+        const texto = this.extrairMensagemErro(erro, 'Não foi possível cadastrar os vínculos da Panini.');
+        this.retornoVinculosPanini.set({ tipo: 'erro', texto });
+        this.mensagem.set(texto);
       },
     });
   }
@@ -3592,6 +3623,18 @@ export class CatalogoPage implements OnInit, OnDestroy {
         });
       }
     }
+    const edicaoAtualId = this.edicaoDetalhe()?.id;
+    for (const publicacao of this.publicacoesRelacionadasDetalhe()) {
+      if (publicacao.tipo !== 'PUBLICADA_NO_BRASIL' || publicacao.edicaoDestino.id !== edicaoAtualId) {
+        continue;
+      }
+      if (!grupos.has(publicacao.edicaoOrigem.id)) {
+        grupos.set(publicacao.edicaoOrigem.id, {
+          edicao: publicacao.edicaoOrigem,
+          historias: new Set(),
+        });
+      }
+    }
     return [...grupos.values()].map((grupo) => ({
       edicao: grupo.edicao,
       quantidadeHistorias: grupo.historias.size,
@@ -4287,7 +4330,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.previaPanini.set(null);
     this.selecoesPanini.set({});
     this.cadastrandoOriginaisPanini.set(new Set());
+    this.resolvendoOriginaisPanini.set(false);
+    this.progressoOriginaisPanini.set(null);
     this.errosOriginaisPanini.set({});
+    this.retornoVinculosPanini.set(null);
+    this.confirmacaoVinculosPaniniConcluida.set(false);
     this.analisandoPanini.set(false);
     this.salvandoPanini.set(false);
   }

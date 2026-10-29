@@ -836,6 +836,10 @@ export class ApiService {
     );
   }
 
+  listarPublicacoesRelacionadasPorEdicao(edicaoId: number) {
+    return this.http.get<PublicacaoRelacionada[]>(`/api/publicacoes-relacionadas/edicoes/${edicaoId}`);
+  }
+
   cadastrarHistoria(dto: {
     titulo: string;
     tituloOriginal: string | null;
