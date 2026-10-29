@@ -423,7 +423,15 @@ public class ConteudoOriginalPaniniService {
                 .toList();
     }
 
-    private ResolucaoComicVine resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
+    ResolucaoComicVine resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
+        try {
+            return resolverEdicaoComicVinePeloVolume(dto);
+        } catch (RegraNegocioException erroVolume) {
+            return resolverEdicaoComicVineDiretamente(dto, erroVolume);
+        }
+    }
+
+    private ResolucaoComicVine resolverEdicaoComicVinePeloVolume(CadastroEdicaoOriginalPaniniDTO dto) {
         VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(dto.serie(), dto.anoSerie());
         List<EdicaoComicVineRespostaDTO> encontradas = new java.util.ArrayList<>();
         int pagina = 0;
@@ -445,6 +453,19 @@ public class ConteudoOriginalPaniniService {
         return new ResolucaoComicVine(
                 integracaoExternaService.buscarDetalheEdicaoComicVine(encontradas.getFirst().idExterno()),
                 volume);
+    }
+
+    private ResolucaoComicVine resolverEdicaoComicVineDiretamente(
+            CadastroEdicaoOriginalPaniniDTO dto, RegraNegocioException erroVolume) {
+        EdicaoComicVineRespostaDTO edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
+                        dto.serie(), dto.numero(), dto.anoSerie(), null)
+                .orElseThrow(() -> erroVolume);
+        if (edicao.idVolume() == null || edicao.idVolume().isBlank()) {
+            throw erroVolume;
+        }
+        VolumeComicVineRespostaDTO volume = integracaoExternaService
+                .buscarDetalheVolumeComicVine(edicao.idVolume());
+        return new ResolucaoComicVine(edicao, volume);
     }
 
     private Map<Integer, ResolucaoReferenciaLote> resolverGruposComicVine(
@@ -516,9 +537,18 @@ public class ConteudoOriginalPaniniService {
                 }
             }
         } catch (RuntimeException excecao) {
-            String erro = mensagemErro(excecao);
-            referencias.forEach(referencia ->
-                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, erro)));
+            for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
+                try {
+                    CadastroEdicaoOriginalPaniniDTO cadastro = new CadastroEdicaoOriginalPaniniDTO(
+                            "https://panini.com.br/", referencia.serie(),
+                            referencia.anoSerie(), referencia.numero());
+                    resultados.put(referencia.indice(),
+                            new ResolucaoReferenciaLote(resolverEdicaoComicVine(cadastro), null));
+                } catch (RuntimeException erroReferencia) {
+                    resultados.put(referencia.indice(),
+                            new ResolucaoReferenciaLote(null, mensagemErro(erroReferencia)));
+                }
+            }
         }
         return resultados;
     }
@@ -774,7 +804,7 @@ public class ConteudoOriginalPaniniService {
         return normalizar(valor == null ? null : valor.replaceFirst("(?i)^the\\s+", ""));
     }
 
-    private record ResolucaoComicVine(
+    record ResolucaoComicVine(
             EdicaoComicVineRespostaDTO edicao,
             VolumeComicVineRespostaDTO volume) {
     }

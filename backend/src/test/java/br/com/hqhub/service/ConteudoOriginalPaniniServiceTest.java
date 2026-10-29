@@ -137,6 +137,30 @@ class ConteudoOriginalPaniniServiceTest {
     }
 
     @Test
+    void resolveEdicaoDiretamenteQuandoComicVineNaoOfereceVolumeUnico() {
+        when(integracoes.buscarVolumesComicVine("Doctor Strange", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(), 0, 100, 0, 0));
+        EdicaoComicVineRespostaDTO edicao = new EdicaoComicVineRespostaDTO(
+                "1146680", "1", null, "Doctor Strange", "Marvel", "170000",
+                "2026-02-01", "2025-12-03", null, null, null, null,
+                "https://comicvine.test/doctor-strange-1",
+                "https://comicvine.test/doctor-strange-1.jpg",
+                List.of(), List.of(), List.of());
+        when(integracoes.resolverEdicaoComicVineOriginal("Doctor Strange", "1", 2026, null))
+                .thenReturn(Optional.of(edicao));
+        when(integracoes.buscarDetalheVolumeComicVine("170000"))
+                .thenReturn(new VolumeComicVineRespostaDTO(
+                        "170000", "Doctor Strange", "Marvel", 2025, 10,
+                        null, "https://comicvine.test/doctor-strange", null));
+
+        var resultado = service.resolverEdicaoComicVine(new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
+                "https://panini.com.br/produto", "Doctor Strange", 2026, "1"));
+
+        assertEquals("1146680", resultado.edicao().idExterno());
+        assertEquals("170000", resultado.volume().idExterno());
+    }
+
+    @Test
     void infereVolumePelaPrimeiraEdicaoQuandoPontuacaoDoTituloDiverge() {
         when(integracoes.buscarVolumesComicVine("Punisher Red Band", 0, 100))
                 .thenReturn(new PaginaRespostaDTO<>(List.of(), 0, 100, 0, 0));
