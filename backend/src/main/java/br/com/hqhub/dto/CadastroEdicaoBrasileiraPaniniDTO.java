@@ -10,7 +10,10 @@ import jakarta.validation.constraints.Size;
 
 public record CadastroEdicaoBrasileiraPaniniDTO(
         @NotBlank @Size(max = 1000) String urlPanini,
-        @NotBlank @Size(max = 255) String tituloSerie,
+        Long serieId,
+        Boolean criarNovaSerie,
+        @Size(max = 255) String tituloSerie,
+        @Min(1) Integer volumeSerie,
         @NotBlank @Size(max = 50) String numero,
         @Size(max = 255) String tituloEdicao,
         @Size(max = 2000) String descricao,

@@ -157,29 +157,13 @@ public class ConteudoOriginalPaniniService {
         }
 
         List<String> avisos = new ArrayList<>();
-        Editora editora = editoraRepository.buscarPorNome("Panini").orElseGet(() -> {
-            Editora nova = new Editora();
-            nova.setNome("Panini");
-            nova.setFonteExterna(FONTE_PANINI);
-            nova.setIdExterno("panini");
-            editoraRepository.persist(nova);
-            return nova;
-        });
-        Serie serie = serieRepository.buscarPorTituloEEditoraEVolume(dto.tituloSerie(), editora.getId(), null)
-                .orElseGet(() -> {
-                    Serie nova = new Serie();
-                    nova.setTitulo(dto.tituloSerie().trim());
-                    nova.setAnoInicio(dto.dataPublicacao() == null ? null : dto.dataPublicacao().getYear());
-                    nova.setTipoSerie(TipoSerie.BRASILEIRA);
-                    nova.setEditora(editora);
-                    nova.setFonteExterna(FONTE_PANINI);
-                    nova.setIdExterno("serie:" + normalizar(dto.tituloSerie()));
-                    nova.setUrlOrigem(previa.urlPanini());
-                    serieRepository.persist(nova);
-                    return nova;
-                });
+        Serie serie = resolverSerieBrasileiraDestino(dto, previa);
 
         var porSku = edicaoRepository.buscarPorOrigemExterna(FONTE_PANINI, produto.sku());
+        if (porSku.isPresent() && !porSku.get().getSerie().getId().equals(serie.getId())) {
+            throw new RegraNegocioException(
+                    "Este produto da Panini já está vinculado a outra coleção. Revise a coleção de destino.");
+        }
         var porNumero = edicaoRepository.buscarPorNumeroESerie(dto.numero(), serie.getId());
         Edicao edicao = porSku.or(() -> porNumero).orElse(null);
         boolean criada = edicao == null;
@@ -191,6 +175,10 @@ public class ConteudoOriginalPaniniService {
             edicao.setIdExterno(produto.sku());
         } else {
             avisos.add("A edição já existia e recebeu apenas os dados ausentes da Panini.");
+            if (edicao.getFonteExterna() == null && edicao.getIdExterno() == null) {
+                edicao.setFonteExterna(FONTE_PANINI);
+                edicao.setIdExterno(produto.sku());
+            }
         }
 
         aplicarDadosProdutoPanini(edicao, dto, previa);
@@ -210,6 +198,51 @@ public class ConteudoOriginalPaniniService {
         }
         return new ResultadoCadastroEdicaoBrasileiraPaniniDTO(
                 edicaoMapper.paraResposta(edicao), criada, capaArmazenada, avisos);
+    }
+
+    Serie resolverSerieBrasileiraDestino(
+            CadastroEdicaoBrasileiraPaniniDTO dto,
+            PreviaConteudoOriginalPaniniDTO previa) {
+        if (dto.serieId() != null) {
+            Serie serie = serieRepository.findByIdOptional(dto.serieId())
+                    .orElseThrow(() -> new RecursoNaoEncontradoException("A coleção de destino não foi encontrada."));
+            if (serie.getTipoSerie() != TipoSerie.BRASILEIRA) {
+                throw new RegraNegocioException("Selecione uma coleção brasileira como destino.");
+            }
+            return serie;
+        }
+        if (!Boolean.TRUE.equals(dto.criarNovaSerie())) {
+            throw new RegraNegocioException("Selecione a coleção já cadastrada ou confirme a criação de uma nova coleção.");
+        }
+        if (dto.tituloSerie() == null || dto.tituloSerie().isBlank()) {
+            throw new RegraNegocioException("Informe o título da nova coleção.");
+        }
+
+        Editora editora = editoraRepository.buscarPorNome("Panini").orElseGet(() -> {
+            Editora nova = new Editora();
+            nova.setNome("Panini");
+            nova.setFonteExterna(FONTE_PANINI);
+            nova.setIdExterno("panini");
+            editoraRepository.persist(nova);
+            return nova;
+        });
+        if (serieRepository.buscarPorTituloEEditoraEVolume(
+                dto.tituloSerie(), editora.getId(), dto.volumeSerie()).isPresent()) {
+            throw new RegraNegocioException(
+                    "Esta coleção já existe. Pesquise e selecione-a como coleção de destino.");
+        }
+        Serie nova = new Serie();
+        nova.setTitulo(dto.tituloSerie().trim());
+        nova.setVolume(dto.volumeSerie());
+        nova.setAnoInicio(dto.dataPublicacao() == null ? null : dto.dataPublicacao().getYear());
+        nova.setTipoSerie(TipoSerie.BRASILEIRA);
+        nova.setEditora(editora);
+        nova.setFonteExterna(FONTE_PANINI);
+        nova.setIdExterno("serie:" + normalizar(dto.tituloSerie())
+                + (dto.volumeSerie() == null ? "" : ":v" + dto.volumeSerie()));
+        nova.setUrlOrigem(previa.urlPanini());
+        serieRepository.persist(nova);
+        return nova;
     }
 
     @Transactional

@@ -1138,7 +1138,10 @@ export class ApiService {
 
   cadastrarEdicaoBrasileiraPanini(dto: {
     urlPanini: string;
-    tituloSerie: string;
+    serieId: number | null;
+    criarNovaSerie: boolean;
+    tituloSerie: string | null;
+    volumeSerie: number | null;
     numero: string;
     tituloEdicao: string | null;
     descricao: string | null;

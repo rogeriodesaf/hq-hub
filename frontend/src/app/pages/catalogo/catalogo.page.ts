@@ -83,10 +83,64 @@ import {
                   <figcaption>Capa oficial encontrada na Panini; uma cópia será salva no Coleciona HQ.</figcaption>
                 </figure>
               }
-              <label>
-                Série brasileira
-                <input [(ngModel)]="formularioCadastroPanini.tituloSerie" name="serieCadastroPanini" required />
-              </label>
+              <fieldset class="campo-largo seletor-colecao-panini">
+                <legend>Coleção de destino</legend>
+                <p class="texto-suave">Vincule a edição à coleção já cadastrada, conferindo título, editora e volume.</p>
+                @if (!criarNovaColecaoPanini()) {
+                  <div class="importacao-panini-url">
+                    <label>
+                      Pesquisar coleção cadastrada
+                      <input [(ngModel)]="buscaColecaoPanini" name="buscaColecaoCadastroPanini" placeholder="Ex.: Saga dos X-Men" (keyup.enter)="buscarColecoesPanini(); $event.preventDefault()" />
+                    </label>
+                    <button class="botao secundario" type="button" (click)="buscarColecoesPanini()" [disabled]="buscandoColecoesPanini() || !buscaColecaoPanini.trim()">
+                      {{ buscandoColecoesPanini() ? 'Pesquisando...' : 'Pesquisar' }}
+                    </button>
+                  </div>
+                  @if (colecaoPaniniSelecionada(); as colecao) {
+                    <div class="colecao-panini-selecionada">
+                      <span>Coleção selecionada</span>
+                      <strong>{{ colecao.titulo }}</strong>
+                      <small>{{ colecao.editora?.nome || 'Sem editora' }} · V{{ colecao.volume || '—' }} · ID {{ colecao.id }}</small>
+                    </div>
+                  }
+                  @if (colecoesPanini().length) {
+                    <div class="resultados-colecao-panini" role="radiogroup" aria-label="Coleções encontradas">
+                      @for (colecao of colecoesPanini(); track colecao.id) {
+                        <label [class.selecionada]="colecaoPaniniSelecionada()?.id === colecao.id">
+                          <input type="radio" name="colecaoDestinoPanini" [value]="colecao.id" [checked]="colecaoPaniniSelecionada()?.id === colecao.id" (change)="selecionarColecaoPanini(colecao)" />
+                          <span>
+                            <strong>{{ colecao.titulo }}</strong>
+                            <small>{{ colecao.editora?.nome || 'Sem editora' }} · V{{ colecao.volume || '—' }} · ID {{ colecao.id }}</small>
+                          </span>
+                        </label>
+                      }
+                    </div>
+                  } @else if (colecoesPaniniConsultadas() && !buscandoColecoesPanini()) {
+                    <p class="texto-suave">Nenhuma coleção brasileira encontrada com esse termo.</p>
+                  }
+                  <button class="botao-link" type="button" (click)="alternarCriacaoColecaoPanini(true)">Não encontrei a coleção — criar uma nova</button>
+                } @else {
+                  <div class="aviso-criacao-colecao">
+                    <strong>Nova coleção da Panini</strong>
+                    <p>Use somente quando a coleção ainda não existir no catálogo.</p>
+                  </div>
+                  <div class="grade-formulario grade-colecao-panini">
+                    <label>
+                      Título da nova coleção
+                      <input [(ngModel)]="formularioCadastroPanini.tituloSerie" name="serieCadastroPanini" required />
+                    </label>
+                    <label>
+                      Volume
+                      <input [(ngModel)]="formularioCadastroPanini.volumeSerie" name="volumeSerieCadastroPanini" type="number" min="1" placeholder="Ex.: 2" />
+                    </label>
+                    <label>
+                      Editora
+                      <input value="Panini" disabled />
+                    </label>
+                  </div>
+                  <button class="botao-link" type="button" (click)="alternarCriacaoColecaoPanini(false)">Voltar e selecionar uma coleção existente</button>
+                }
+              </fieldset>
               <label>
                 Número da edição
                 <input [(ngModel)]="formularioCadastroPanini.numero" name="numeroCadastroPanini" required />
@@ -130,7 +184,7 @@ import {
                 }
               </aside>
               <div class="campo-largo acoes-formulario">
-                <button class="botao primario" type="submit" [disabled]="cadastrandoProdutoPanini() || !formularioCadastroPanini.tituloSerie.trim() || !formularioCadastroPanini.numero.trim()">
+                <button class="botao primario" type="submit" [disabled]="cadastrandoProdutoPanini() || !destinoColecaoPaniniValido() || !formularioCadastroPanini.numero.trim()">
                   {{ cadastrandoProdutoPanini() ? 'Cadastrando edição e capa...' : 'Cadastrar edição e relacionar originais' }}
                 </button>
               </div>
@@ -1576,6 +1630,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly analisandoProdutoPanini = signal(false);
   readonly cadastrandoProdutoPanini = signal(false);
   readonly previaCadastroPanini = signal<PreviaConteudoOriginalPanini | null>(null);
+  readonly buscandoColecoesPanini = signal(false);
+  readonly colecoesPaniniConsultadas = signal(false);
+  readonly colecoesPanini = signal<Serie[]>([]);
+  readonly colecaoPaniniSelecionada = signal<Serie | null>(null);
+  readonly criarNovaColecaoPanini = signal(false);
   readonly abrirImportacaoPaniniAposCadastro = signal(false);
   readonly salvandoPanini = signal(false);
   readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
@@ -1619,6 +1678,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   formularioVinculoOriginal = this.formularioVinculoOriginalVazio();
   urlPanini = '';
   urlCadastroPanini = '';
+  buscaColecaoPanini = '';
   formularioCadastroPanini = this.formularioCadastroPaniniVazio();
   formularioItemColecao = this.formularioItemColecaoVazio();
   formularioSerieColecao = this.formularioItemColecaoVazio();
@@ -2685,6 +2745,10 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
     this.analisandoProdutoPanini.set(true);
     this.previaCadastroPanini.set(null);
+    this.colecoesPanini.set([]);
+    this.colecaoPaniniSelecionada.set(null);
+    this.colecoesPaniniConsultadas.set(false);
+    this.criarNovaColecaoPanini.set(false);
     this.mensagem.set('');
     this.api.analisarConteudoOriginalPanini(url).subscribe({
       next: (previa) => {
@@ -2698,6 +2762,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.urlCadastroPanini = previa.urlPanini;
         this.formularioCadastroPanini = {
           tituloSerie: produto.tituloSerieSugerido || '',
+          volumeSerie: null,
           numero: produto.numeroSugerido || '',
           tituloEdicao: previa.tituloProduto || '',
           descricao: produto.descricao || '',
@@ -2707,7 +2772,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
           precoCapa: produto.preco,
           formato: produto.formato || '',
         };
+        this.buscaColecaoPanini = produto.tituloSerieSugerido || '';
         this.analisandoProdutoPanini.set(false);
+        if (this.buscaColecaoPanini) {
+          this.buscarColecoesPanini();
+        }
       },
       error: (erro) => {
         this.analisandoProdutoPanini.set(false);
@@ -2716,17 +2785,61 @@ export class CatalogoPage implements OnInit, OnDestroy {
     });
   }
 
-  cadastrarProdutoPanini() {
-    const previa = this.previaCadastroPanini();
-    if (!previa || !this.formularioCadastroPanini.tituloSerie.trim()
-        || !this.formularioCadastroPanini.numero.trim()) {
+  buscarColecoesPanini() {
+    const termo = this.buscaColecaoPanini.trim();
+    if (!termo) {
       return;
     }
+    this.buscandoColecoesPanini.set(true);
+    this.colecoesPaniniConsultadas.set(false);
+    this.api.listarSeries(termo, 0, 20, '', 'BRASILEIRA').subscribe({
+      next: (resposta) => {
+        this.colecoesPanini.set(resposta.itens);
+        this.colecoesPaniniConsultadas.set(true);
+        this.buscandoColecoesPanini.set(false);
+      },
+      error: () => {
+        this.colecoesPanini.set([]);
+        this.colecoesPaniniConsultadas.set(true);
+        this.buscandoColecoesPanini.set(false);
+        this.mensagem.set('Não foi possível pesquisar as coleções cadastradas agora.');
+      },
+    });
+  }
+
+  selecionarColecaoPanini(colecao: Serie) {
+    this.colecaoPaniniSelecionada.set(colecao);
+  }
+
+  alternarCriacaoColecaoPanini(criar: boolean) {
+    this.criarNovaColecaoPanini.set(criar);
+    if (criar) {
+      this.colecaoPaniniSelecionada.set(null);
+    }
+  }
+
+  destinoColecaoPaniniValido() {
+    return this.criarNovaColecaoPanini()
+      ? !!this.formularioCadastroPanini.tituloSerie.trim()
+      : !!this.colecaoPaniniSelecionada();
+  }
+
+  cadastrarProdutoPanini() {
+    const previa = this.previaCadastroPanini();
+    if (!previa || !this.destinoColecaoPaniniValido() || !this.formularioCadastroPanini.numero.trim()) {
+      return;
+    }
+    const serieSelecionada = this.colecaoPaniniSelecionada();
     this.cadastrandoProdutoPanini.set(true);
     this.mensagem.set('Cadastrando a edição brasileira e armazenando a capa oficial...');
     this.api.cadastrarEdicaoBrasileiraPanini({
       urlPanini: previa.urlPanini,
-      tituloSerie: this.formularioCadastroPanini.tituloSerie.trim(),
+      serieId: serieSelecionada?.id || null,
+      criarNovaSerie: this.criarNovaColecaoPanini(),
+      tituloSerie: this.criarNovaColecaoPanini()
+        ? this.formularioCadastroPanini.tituloSerie.trim() : null,
+      volumeSerie: this.criarNovaColecaoPanini()
+        ? this.numeroOuNull(this.formularioCadastroPanini.volumeSerie) : null,
       numero: this.formularioCadastroPanini.numero.trim(),
       tituloEdicao: this.formularioCadastroPanini.tituloEdicao.trim() || null,
       descricao: this.formularioCadastroPanini.descricao.trim() || null,
@@ -4346,6 +4459,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private formularioCadastroPaniniVazio() {
     return {
       tituloSerie: '',
+      volumeSerie: null as number | null,
       numero: '',
       tituloEdicao: '',
       descricao: '',
