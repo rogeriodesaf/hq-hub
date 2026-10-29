@@ -23,6 +23,7 @@ public class ConteudoOriginalPaniniParser {
     private static final Pattern IMAGEM_SCHEMA = Pattern.compile("\"image\"\\s*:\\s*\\[\\s*\"((?:\\\\.|[^\"\\\\])+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern TITULO_NUMERADO = Pattern.compile("^(.+?)\\s+(\\d+)(?:\\s*\\((\\d+)\\))?$");
     private static final Pattern REFERENCIA_PADRAO = Pattern.compile("^(.+?)\\s*\\((\\d{4})\\)\\s*(?:#\\s*)?([\\p{L}\\d.\\-]+)(?:\\s*\\((.*?)(?:\\))?)?$");
+    private static final Pattern REFERENCIA_SEM_ANO = Pattern.compile("^(.+?)\\s+(?:#\\s*)?(\\d+(?:-\\d+)?)(?:\\s*\\((.*?)(?:\\))?)?$");
     private static final Pattern REFERENCIA_ANUAL = Pattern.compile("^(.+?\\bAnnual)\\s*[’']?(\\d{2,4})(?:\\s*\\((.*?)(?:\\))?)?$", Pattern.CASE_INSENSITIVE);
     private static final Pattern ENTIDADE_NUMERICA = Pattern.compile("&#(?:x([0-9a-fA-F]+)|(\\d+));");
 
@@ -218,28 +219,38 @@ public class ConteudoOriginalPaniniParser {
 
         Matcher padrao = REFERENCIA_PADRAO.matcher(texto);
         if (padrao.matches()) {
-            String numero = padrao.group(3).trim();
-            Matcher intervalo = Pattern.compile("^(\\d+)-(\\d+)$").matcher(numero);
-            if (intervalo.matches()) {
-                int inicio = Integer.parseInt(intervalo.group(1));
-                int fim = Integer.parseInt(intervalo.group(2));
-                if (fim >= inicio && fim - inicio <= 20) {
-                    List<ReferenciaExtraida> expandidas = new ArrayList<>();
-                    for (int atual = inicio; atual <= fim; atual++) {
-                        expandidas.add(new ReferenciaExtraida(
-                                texto + " — #" + atual,
-                                padrao.group(1).trim(),
-                                Integer.valueOf(padrao.group(2)),
-                                String.valueOf(atual),
-                                limpar(padrao.group(4))));
-                    }
-                    return expandidas;
-                }
-            }
-            return List.of(new ReferenciaExtraida(texto, padrao.group(1).trim(), Integer.valueOf(padrao.group(2)),
-                    numero, limpar(padrao.group(4))));
+            return criarReferenciasNumeradas(texto, padrao.group(1), Integer.valueOf(padrao.group(2)),
+                    padrao.group(3), padrao.group(4));
+        }
+
+        Matcher semAno = REFERENCIA_SEM_ANO.matcher(texto);
+        if (semAno.matches()) {
+            return criarReferenciasNumeradas(texto, semAno.group(1), null, semAno.group(2), semAno.group(3));
         }
         return List.of(new ReferenciaExtraida(texto, null, null, null, null));
+    }
+
+    private List<ReferenciaExtraida> criarReferenciasNumeradas(
+            String texto, String serie, Integer anoSerie, String numeroInformado, String complemento) {
+        String numero = numeroInformado.trim();
+        Matcher intervalo = Pattern.compile("^(\\d+)-(\\d+)$").matcher(numero);
+        if (intervalo.matches()) {
+            int inicio = Integer.parseInt(intervalo.group(1));
+            int fim = Integer.parseInt(intervalo.group(2));
+            if (fim >= inicio && fim - inicio <= 20) {
+                List<ReferenciaExtraida> expandidas = new ArrayList<>();
+                for (int atual = inicio; atual <= fim; atual++) {
+                    expandidas.add(new ReferenciaExtraida(
+                            texto + " — #" + atual,
+                            serie.trim(),
+                            anoSerie,
+                            String.valueOf(atual),
+                            limpar(complemento)));
+                }
+                return expandidas;
+            }
+        }
+        return List.of(new ReferenciaExtraida(texto, serie.trim(), anoSerie, numero, limpar(complemento)));
     }
 
     private String htmlParaTexto(String valor) {

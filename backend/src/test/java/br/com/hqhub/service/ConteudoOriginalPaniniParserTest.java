@@ -44,6 +44,19 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void desdobraIntervaloMesmoQuandoPaniniNaoInformaAnoDaSerie() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">Avengers vs. X-Men 0-12</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(13, referencias.size());
+        assertEquals("Avengers vs. X-Men", referencias.get(0).serie());
+        assertNull(referencias.get(0).anoSerie());
+        assertEquals("0", referencias.get(0).numero());
+        assertEquals("12", referencias.get(12).numero());
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">
