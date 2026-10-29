@@ -421,10 +421,11 @@ public class ConteudoOriginalPaniniService {
         Map<Integer, ResolucaoReferenciaLote> resultados = new LinkedHashMap<>();
         ReferenciaEdicaoOriginalPaniniDTO primeira = referencias.getFirst();
         try {
-            VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(primeira.serie(), primeira.anoSerie());
             Set<String> numerosPendentes = referencias.stream()
                     .map(referencia -> normalizar(referencia.numero()))
                     .collect(java.util.stream.Collectors.toCollection(LinkedHashSet::new));
+            VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(
+                    primeira.serie(), primeira.anoSerie(), numerosPendentes);
             Map<String, List<EdicaoComicVineRespostaDTO>> edicoesPorNumero = new LinkedHashMap<>();
             int pagina = 0;
             int totalPaginas = 1;
@@ -475,6 +476,11 @@ public class ConteudoOriginalPaniniService {
     }
 
     private VolumeComicVineRespostaDTO resolverVolumeComicVine(String serie, Integer anoSerie) {
+        return resolverVolumeComicVine(serie, anoSerie, Set.of());
+    }
+
+    VolumeComicVineRespostaDTO resolverVolumeComicVine(
+            String serie, Integer anoSerie, Set<String> numerosEsperados) {
         List<VolumeComicVineRespostaDTO> volumesPorTitulo = integracaoExternaService
                 .buscarVolumesComicVine(serie, 0, 100).itens().stream()
                 .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(serie)))
@@ -490,12 +496,44 @@ public class ConteudoOriginalPaniniService {
                             && Math.abs(volume.anoInicio() - anoSerie) == 1)
                     .toList();
         }
+        if (volumes.size() > 1 && anoSerie == null && !numerosEsperados.isEmpty()) {
+            List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
+                    .filter(volume -> volume.quantidadeEdicoes() == null
+                            || volume.quantidadeEdicoes() >= numerosEsperados.size())
+                    .filter(volume -> volumeContemNumeros(volume, numerosEsperados))
+                    .toList();
+            if (compativeis.size() == 1) {
+                return compativeis.getFirst();
+            }
+            if (!compativeis.isEmpty()) {
+                volumes = compativeis;
+            }
+        }
         if (volumes.size() != 1) {
             throw new RegraNegocioException(volumes.isEmpty()
                     ? "A Comic Vine não encontrou um volume único compatível com a série e o ano informados pela Panini."
-                    : "A Comic Vine encontrou mais de uma série possível; informe o ID manual após conferir.");
+                    : "A Comic Vine encontrou mais de uma série possível, mesmo após conferir todas as edições informadas pela Panini.");
         }
         return volumes.getFirst();
+    }
+
+    private boolean volumeContemNumeros(
+            VolumeComicVineRespostaDTO volume, Set<String> numerosEsperados) {
+        Set<String> encontrados = new LinkedHashSet<>();
+        int pagina = 0;
+        int totalPaginas = 1;
+        do {
+            var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(
+                    volume.idExterno(), pagina, 100);
+            resposta.itens().stream()
+                    .map(edicao -> normalizar(edicao.numero()))
+                    .filter(numerosEsperados::contains)
+                    .forEach(encontrados::add);
+            totalPaginas = resposta.totalPaginas();
+            pagina++;
+        } while (!encontrados.containsAll(numerosEsperados)
+                && pagina < totalPaginas && pagina < 20);
+        return encontrados.containsAll(numerosEsperados);
     }
 
     private void validarReferenciasLote(

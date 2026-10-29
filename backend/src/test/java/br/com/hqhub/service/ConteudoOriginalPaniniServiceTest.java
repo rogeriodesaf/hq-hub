@@ -1,6 +1,7 @@
 package br.com.hqhub.service;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -8,11 +9,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.hqhub.dto.CadastroEdicaoBrasileiraPaniniDTO;
+import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
+import br.com.hqhub.dto.PaginaRespostaDTO;
+import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
 import br.com.hqhub.entity.Editora;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.exception.RegraNegocioException;
@@ -26,17 +32,19 @@ class ConteudoOriginalPaniniServiceTest {
 
     private SerieRepository series;
     private EditoraRepository editoras;
+    private IntegracaoExternaService integracoes;
     private ConteudoOriginalPaniniService service;
 
     @BeforeEach
     void preparar() {
         series = mock(SerieRepository.class);
         editoras = mock(EditoraRepository.class);
+        integracoes = mock(IntegracaoExternaService.class);
         service = new ConteudoOriginalPaniniService(
                 mock(EdicaoRepository.class),
                 mock(PublicacaoRelacionadaRepository.class),
                 mock(ConteudoOriginalPaniniParser.class),
-                mock(IntegracaoExternaService.class),
+                integracoes,
                 editoras,
                 series,
                 mock(ArmazenamentoImagemService.class),
@@ -75,6 +83,39 @@ class ConteudoOriginalPaniniServiceTest {
         assertThrows(RegraNegocioException.class,
                 () -> service.resolverSerieBrasileiraDestino(
                         dto(null, true, "Saga dos X-Men, A", 2), null));
+    }
+
+    @Test
+    void escolheVolumePeloConjuntoCompletoDeNumerosQuandoAnoNaoFoiInformado() {
+        VolumeComicVineRespostaDTO incorreto = volume("10", 2015);
+        VolumeComicVineRespostaDTO correto = volume("20", 2012);
+        when(integracoes.buscarVolumesComicVine("Avengers vs. X-Men", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(incorreto, correto), 0, 100, 2, 1));
+        when(integracoes.buscarEdicoesVolumeComicVine("10", 0, 100))
+                .thenReturn(paginaEdicoes(1, 13));
+        when(integracoes.buscarEdicoesVolumeComicVine("20", 0, 100))
+                .thenReturn(paginaEdicoes(0, 12));
+
+        VolumeComicVineRespostaDTO resultado = service.resolverVolumeComicVine(
+                "Avengers vs. X-Men", null,
+                Set.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
+
+        assertEquals("20", resultado.idExterno());
+    }
+
+    private VolumeComicVineRespostaDTO volume(String id, int ano) {
+        return new VolumeComicVineRespostaDTO(
+                id, "Avengers vs. X-Men", "Marvel", ano, 13, null, null, null);
+    }
+
+    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> paginaEdicoes(int inicio, int fim) {
+        List<EdicaoComicVineRespostaDTO> edicoes = java.util.stream.IntStream.rangeClosed(inicio, fim)
+                .mapToObj(numero -> new EdicaoComicVineRespostaDTO(
+                        String.valueOf(numero), String.valueOf(numero), null, "Avengers vs. X-Men",
+                        "Marvel", null, null, null, null, null, null, null, null, null,
+                        List.of(), List.of(), List.of()))
+                .toList();
+        return new PaginaRespostaDTO<>(edicoes, 0, 100, edicoes.size(), 1);
     }
 
     private CadastroEdicaoBrasileiraPaniniDTO dto(
