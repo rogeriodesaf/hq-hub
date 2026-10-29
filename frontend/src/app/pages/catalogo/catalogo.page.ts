@@ -987,7 +987,7 @@ import {
                     URL do produto na Panini
                     <input [(ngModel)]="urlPanini" name="urlConteudoOriginalPanini" type="url" placeholder="https://panini.com.br/..." (keyup.enter)="analisarConteudoOriginalPanini()" />
                   </label>
-                  <button class="botao secundario" type="button" (click)="analisarConteudoOriginalPanini()" [disabled]="analisandoPanini() || !!cadastrandoOriginaisPanini().size || !urlPanini.trim()">
+                  <button class="botao secundario" type="button" (click)="analisarConteudoOriginalPanini()" [disabled]="analisandoPanini() || resolvendoOriginaisPanini() || !urlPanini.trim()">
                     {{ analisandoPanini() ? 'Analisando...' : 'Analisar conteúdo original' }}
                   </button>
                 </div>
@@ -1022,7 +1022,7 @@ import {
                           } @else {
                             <input type="number" min="1" [ngModel]="idSelecionadoPanini(referencia.indice)" (ngModelChange)="selecionarEdicaoPanini(referencia.indice, $event)" [name]="'edicaoPanini' + referencia.indice" placeholder="ID no catálogo estrangeiro" />
                             @if (referencia.serie && referencia.numero) {
-                              <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="!!cadastrandoOriginaisPanini().size">
+                              <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="resolvendoOriginaisPanini() || !!cadastrandoOriginaisPanini().size">
                                 {{ cadastrandoOriginaisPanini().has(referencia.indice) ? 'Buscando correspondência exata...' : 'Buscar e cadastrar pela Comic Vine' }}
                               </button>
                               @if (erroOriginalPanini(referencia.indice)) {
@@ -1036,13 +1036,18 @@ import {
                   </div>
                   <div class="acoes-formulario importacao-panini-acoes">
                     <span>
-                      @if (cadastrandoOriginaisPanini().size) {
-                        Buscando e cadastrando automaticamente na Comic Vine...
+                      @if (progressoOriginaisPanini(); as progresso) {
+                        Buscando e cadastrando {{ progresso.atual }} de {{ progresso.total }} na Comic Vine...
                       } @else {
                         {{ quantidadeVinculosPanini() }} de {{ previa.referencias.length }} referência(s) selecionada(s)
                       }
                     </span>
-                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || !!cadastrandoOriginaisPanini().size || !quantidadeVinculosPanini()">
+                    @if (quantidadePendentesPanini()) {
+                      <button class="botao secundario" type="button" (click)="cadastrarEdicoesOriginaisPaniniAutomaticamente()" [disabled]="resolvendoOriginaisPanini()">
+                        {{ resolvendoOriginaisPanini() ? 'Resolvendo automaticamente...' : 'Resolver ' + quantidadePendentesPanini() + ' pendente(s) automaticamente' }}
+                      </button>
+                    }
+                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || resolvendoOriginaisPanini() || !quantidadeVinculosPanini()">
                       {{ salvandoPanini() ? 'Cadastrando...' : 'Confirmar vínculos selecionados' }}
                     </button>
                   </div>
@@ -1481,8 +1486,13 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly previaPanini = signal<PreviaConteudoOriginalPanini | null>(null);
   readonly selecoesPanini = signal<Record<number, number | null>>({});
   readonly cadastrandoOriginaisPanini = signal<Set<number>>(new Set());
+  readonly resolvendoOriginaisPanini = signal(false);
+  readonly progressoOriginaisPanini = signal<{ atual: number; total: number } | null>(null);
   readonly errosOriginaisPanini = signal<Record<number, string>>({});
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
+  readonly quantidadePendentesPanini = computed(() => this.previaPanini()?.referencias.filter((referencia) =>
+    !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
+  ).length || 0);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
   readonly salvandoItemColecao = signal<number | null>(null);
@@ -2644,9 +2654,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
   }
 
-  private async cadastrarEdicoesOriginaisPaniniAutomaticamente() {
+  async cadastrarEdicoesOriginaisPaniniAutomaticamente() {
     const previa = this.previaPanini();
-    if (!previa) {
+    if (!previa || this.resolvendoOriginaisPanini()) {
       return;
     }
     const pendentes = previa.referencias.filter((referencia) =>
@@ -2656,12 +2666,19 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
 
+    this.resolvendoOriginaisPanini.set(true);
     this.mensagem.set(`Resolvendo automaticamente ${pendentes.length} referência(s) pela Comic Vine...`);
     let resolvidas = 0;
-    for (const referencia of pendentes) {
-      if (await this.buscarECadastrarEdicaoOriginalPanini(referencia)) {
-        resolvidas++;
+    try {
+      for (const [indice, referencia] of pendentes.entries()) {
+        this.progressoOriginaisPanini.set({ atual: indice + 1, total: pendentes.length });
+        if (await this.buscarECadastrarEdicaoOriginalPanini(referencia)) {
+          resolvidas++;
+        }
       }
+    } finally {
+      this.progressoOriginaisPanini.set(null);
+      this.resolvendoOriginaisPanini.set(false);
     }
     const falhas = pendentes.length - resolvidas;
     const detalheFalhas = falhas
