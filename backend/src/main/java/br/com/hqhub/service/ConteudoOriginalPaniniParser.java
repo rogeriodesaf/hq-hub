@@ -23,11 +23,11 @@ public class ConteudoOriginalPaniniParser {
     private static final Pattern IMAGEM_SCHEMA = Pattern.compile("\"image\"\\s*:\\s*\\[\\s*\"((?:\\\\.|[^\"\\\\])+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern TITULO_NUMERADO = Pattern.compile("^(.+?)\\s+(\\d+)(?:\\s*\\((\\d+)\\))?$");
     private static final Pattern REFERENCIA_LISTA_PADRAO = Pattern.compile(
-            "^(.+?)\\s*\\((\\d{4})\\)\\s*((?:#\\s*)?\\d+(?:-\\d+)?(?:\\s*,\\s*(?:#\\s*)?\\d+(?:-\\d+)?)+)$");
+            "^(.+?)\\s*\\((\\d{4})\\)\\s*((?:#\\s*)?(?:\\d+\\s*/\\s*\\d+|½|\\d+(?:-\\d+)?)(?:\\s*,\\s*(?:#\\s*)?(?:\\d+\\s*/\\s*\\d+|½|\\d+(?:-\\d+)?))+)$");
     private static final Pattern REFERENCIA_LISTA_SEM_ANO = Pattern.compile(
-            "^(.+?)\\s+((?:#\\s*)?\\d+(?:-\\d+)?(?:\\s*,\\s*(?:#\\s*)?\\d+(?:-\\d+)?)+)$");
-    private static final Pattern REFERENCIA_PADRAO = Pattern.compile("^(.+?)\\s*\\((\\d{4})\\)\\s*(?:#\\s*)?([\\p{L}\\d.\\-]+)(?:\\s*\\((.*?)(?:\\))?)?$");
-    private static final Pattern REFERENCIA_SEM_ANO = Pattern.compile("^(.+?)\\s+(?:#\\s*)?(\\d+(?:-\\d+)?)(?:\\s*\\((.*?)(?:\\))?)?$");
+            "^(.+?)\\s+((?:#\\s*)?(?:\\d+\\s*/\\s*\\d+|½|\\d+(?:-\\d+)?)(?:\\s*,\\s*(?:#\\s*)?(?:\\d+\\s*/\\s*\\d+|½|\\d+(?:-\\d+)?))+)$");
+    private static final Pattern REFERENCIA_PADRAO = Pattern.compile("^(.+?)\\s*\\((\\d{4})\\)\\s*(?:#\\s*)?([\\p{L}\\d./½-]+)(?:\\s*\\((.*?)(?:\\))?)?$");
+    private static final Pattern REFERENCIA_SEM_ANO = Pattern.compile("^(.+?)\\s+(?:#\\s*)?(\\d+\\s*/\\s*\\d+|½|\\d+(?:-\\d+)?)(?:\\s*\\((.*?)(?:\\))?)?$");
     private static final Pattern REFERENCIA_ANUAL = Pattern.compile("^(.+?\\bAnnual)\\s*[’']?(\\d{2,4})(?:\\s*\\((.*?)(?:\\))?)?$", Pattern.CASE_INSENSITIVE);
     private static final Pattern ENTIDADE_NUMERICA = Pattern.compile("&#(?:x([0-9a-fA-F]+)|(\\d+));");
 

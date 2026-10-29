@@ -72,6 +72,21 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void desdobraListaComEdicaoFracionariaEIntervalo() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">"
+                + "Ultimate X-Men (2000) 1/2, 7-12</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(7, referencias.size());
+        assertEquals("Ultimate X-Men", referencias.getFirst().serie());
+        assertEquals(2000, referencias.getFirst().anoSerie());
+        assertEquals("1/2", referencias.getFirst().numero());
+        assertEquals("7", referencias.get(1).numero());
+        assertEquals("12", referencias.getLast().numero());
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">
