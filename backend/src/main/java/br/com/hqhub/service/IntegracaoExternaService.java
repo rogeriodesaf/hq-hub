@@ -887,11 +887,7 @@ public class IntegracaoExternaService {
                 && anoComicVineCompativel(ano, edicao)
                 && editoraComicVineCompativel(editora, edicao)
                 && edicao.idExterno() != null
-                && !edicao.idExterno().isBlank()
-                && edicao.urlOrigem() != null
-                && !edicao.urlOrigem().isBlank()
-                && edicao.urlImagem() != null
-                && !edicao.urlImagem().isBlank();
+                && !edicao.idExterno().isBlank();
     }
 
     private boolean anoComicVineCompativel(Integer ano, EdicaoComicVineRespostaDTO edicao) {

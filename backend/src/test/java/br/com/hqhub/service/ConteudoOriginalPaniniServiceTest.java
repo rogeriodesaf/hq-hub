@@ -127,8 +127,10 @@ class ConteudoOriginalPaniniServiceTest {
                 "40", "Doctor Strange", "Marvel", 2025, 7, null, null, null);
         when(integracoes.buscarVolumesComicVine("Doctor Strange", 0, 100))
                 .thenReturn(new PaginaRespostaDTO<>(List.of(especial450, serieAtual), 0, 100, 2, 1));
+        when(integracoes.buscarEdicoesVolumeComicVine("30", 0, 100))
+                .thenReturn(paginaEdicoesDoctorStrange(450, 450, "30"));
         when(integracoes.buscarEdicoesVolumeComicVine("40", 0, 100))
-                .thenReturn(paginaEdicoesDoctorStrange(1, 7));
+                .thenReturn(paginaEdicoesDoctorStrange(1, 7, "40"));
 
         VolumeComicVineRespostaDTO resultado = service.resolverVolumeComicVine(
                 "Doctor Strange", 2026, Set.of("1", "2", "3", "4", "5"));
@@ -221,11 +223,12 @@ class ConteudoOriginalPaniniServiceTest {
         return new PaginaRespostaDTO<>(edicoes, 0, 100, edicoes.size(), 1);
     }
 
-    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> paginaEdicoesDoctorStrange(int inicio, int fim) {
+    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> paginaEdicoesDoctorStrange(
+            int inicio, int fim, String idVolume) {
         List<EdicaoComicVineRespostaDTO> edicoes = java.util.stream.IntStream.rangeClosed(inicio, fim)
                 .mapToObj(numero -> new EdicaoComicVineRespostaDTO(
                         String.valueOf(numero), String.valueOf(numero), null, "Doctor Strange",
-                        "Marvel", "40", null, null, null, null, null, null, null, null,
+                        "Marvel", idVolume, null, null, null, null, null, null, null, null,
                         List.of(), List.of(), List.of()))
                 .toList();
         return new PaginaRespostaDTO<>(edicoes, 0, 100, edicoes.size(), 1);

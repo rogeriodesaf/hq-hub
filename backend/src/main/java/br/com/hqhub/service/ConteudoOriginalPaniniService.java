@@ -459,7 +459,9 @@ public class ConteudoOriginalPaniniService {
             CadastroEdicaoOriginalPaniniDTO dto, RegraNegocioException erroVolume) {
         EdicaoComicVineRespostaDTO edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
                         dto.serie(), dto.numero(), dto.anoSerie(), null)
-                .orElseThrow(() -> erroVolume);
+                .orElseThrow(() -> new RegraNegocioException(
+                        "A Comic Vine não localizou diretamente " + dto.serie() + " #" + dto.numero()
+                                + (dto.anoSerie() == null ? "." : " para o ano " + dto.anoSerie() + ".")));
         if (edicao.idVolume() == null || edicao.idVolume().isBlank()) {
             throw erroVolume;
         }
@@ -581,8 +583,6 @@ public class ConteudoOriginalPaniniService {
         }
         if (!volumes.isEmpty() && !numerosEsperados.isEmpty()) {
             List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
-                    .filter(volume -> volume.quantidadeEdicoes() == null
-                            || volume.quantidadeEdicoes() >= numerosEsperados.size())
                     .filter(volume -> volumeContemNumeros(volume, numerosEsperados))
                     .toList();
             if (compativeis.size() == 1) {
