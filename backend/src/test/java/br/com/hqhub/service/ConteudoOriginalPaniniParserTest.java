@@ -57,6 +57,7 @@ class ConteudoOriginalPaniniParserTest {
                 <td data-th="Conte&#xFA;do&#x20;original">Cable (1993) 6-8; X-Men (1991) 27</td>
                 <td data-th="N&#xFA;mero de p&#xE1;ginas">160</td>
                 <td data-th="Formato">17 x 26 cm</td>
+                <td data-th="Autores">Aron Wiesenfeld, Dwayne Turner; Fabian Nicieza</td>
                 """;
 
         var pagina = parser.extrair(html);
@@ -73,6 +74,7 @@ class ConteudoOriginalPaniniParserTest {
         assertEquals("2026-10-30", produto.dataDisponibilidade().toString());
         assertEquals(160, produto.quantidadePaginas());
         assertEquals("17 x 26 cm", produto.formato());
+        assertEquals(java.util.List.of("Aron Wiesenfeld", "Dwayne Turner", "Fabian Nicieza"), produto.autores());
         assertEquals(4, pagina.referencias().size());
     }
 }

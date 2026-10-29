@@ -104,9 +104,26 @@ import {
             <aside class="campo-largo importacao-panini-fonte">
               <strong>Dados oficiais capturados</strong>
               <span>SKU {{ produtoPrevia.produto?.sku || '—' }} · {{ produtoPrevia.produto?.marca || 'Marca não informada' }}</span>
+              @if (produtoPrevia.produto?.autores?.length) {
+                <div class="autores-panini">
+                  <span>Autores informados pela Panini</span>
+                  <div>
+                    @for (autor of produtoPrevia.produto!.autores; track autor) {
+                      <a [routerLink]="['/titulos-estrangeiros']" [queryParams]="{ autor }" [attr.aria-label]="'Abrir biografia de ' + autor">
+                        {{ autor }}
+                      </a>
+                    }
+                  </div>
+                  <small>Selecione um nome para localizar a pessoa e abrir sua biografia na Comic Vine.</small>
+                </div>
+              }
               @if (produtoPrevia.conteudoOriginalBruto) { <p><strong>Conteúdo original:</strong> {{ produtoPrevia.conteudoOriginalBruto }}</p> }
             </aside>
-            <div class="campo-largo acoes-formulario">
+            <div class="campo-largo barra-avanco-panini">
+              <div>
+                <strong>Próximo passo</strong>
+                <span>{{ orientacaoAvanco() }}</span>
+              </div>
               <button class="botao primario" type="submit" [disabled]="cadastrando() || !destinoValido() || !formulario.numero.trim()">
                 {{ cadastrando() ? 'Cadastrando edição e capa...' : 'Cadastrar edição e continuar' }}
               </button>
@@ -176,6 +193,13 @@ import {
     .etapas-panini li.ativa { border-color: var(--marca); color: var(--texto); background: var(--marca-suave); }
     .etapas-panini li.concluida { border-color: var(--verde); color: var(--verde); }
     .cadastro-panini-previa { margin-top: 4px; }
+    .barra-avanco-panini { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; padding: 16px; border: 1px solid color-mix(in srgb, var(--marca) 35%, var(--borda)); border-radius: 12px; background: color-mix(in srgb, var(--marca-suave) 55%, var(--superficie)); }
+    .barra-avanco-panini > div { display: grid; gap: 4px; min-width: min(100%, 280px); }
+    .barra-avanco-panini span { color: var(--texto-suave); font-size: .9rem; }
+    .autores-panini { display: grid; gap: 8px; margin-top: 12px; }
+    .autores-panini > div { display: flex; flex-wrap: wrap; gap: 8px; }
+    .autores-panini a { display: inline-flex; padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--marca) 35%, var(--borda)); border-radius: 999px; color: var(--marca-escura); background: var(--superficie); font-weight: 750; text-decoration: none; }
+    .autores-panini a:hover, .autores-panini a:focus-visible { border-color: var(--marca); background: var(--marca-suave); }
     .vinculos-panini-etapa, .resultado-panini-concluido { display: grid; gap: 16px; padding: 18px; border: 1px solid var(--borda); border-radius: 14px; background: var(--superficie); }
     .vinculos-panini-etapa > header { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
     .vinculos-panini-etapa h3, .resultado-panini-concluido h3 { margin: 3px 0; }
@@ -185,7 +209,7 @@ import {
     .resultado-panini-icone { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: white; background: var(--verde); font-size: 1.5rem; font-weight: 900; }
     .mensagem-panini-fluxo { margin: 0; padding: 11px 13px; border-radius: 9px; background: var(--marca-suave); }
     .mensagem-panini-fluxo.erro { color: var(--vermelho); background: color-mix(in srgb, var(--vermelho) 10%, transparent); }
-    @media (max-width: 720px) { .etapas-panini { grid-template-columns: 1fr; } .resultado-panini-concluido { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) { .etapas-panini { grid-template-columns: 1fr; } .resultado-panini-concluido { grid-template-columns: 1fr; } .barra-avanco-panini .botao { width: 100%; } }
   `],
 })
 export class ImportacaoEdicaoPaniniComponent {
@@ -269,6 +293,12 @@ export class ImportacaoEdicaoPaniniComponent {
 
   destinoValido() {
     return this.criarNovaColecao() ? !!this.formulario.tituloSerie.trim() : !!this.colecaoSelecionada();
+  }
+
+  orientacaoAvanco() {
+    if (!this.destinoValido()) return 'Selecione a coleção de destino ou informe os dados de uma nova coleção.';
+    if (!this.formulario.numero.trim()) return 'Informe o número da edição brasileira.';
+    return 'Os dados essenciais estão prontos. Cadastre a edição para revisar o conteúdo original.';
   }
 
   cadastrarEdicao() {

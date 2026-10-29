@@ -25,7 +25,8 @@ public record PreviaConteudoOriginalPaniniDTO(
             String formato,
             String classificacaoEtaria,
             String categoria,
-            String marca) {
+            String marca,
+            List<String> autores) {
     }
 
     public record ReferenciaConteudoOriginalPaniniDTO(

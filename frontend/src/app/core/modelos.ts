@@ -181,6 +181,7 @@ export interface PreviaConteudoOriginalPanini {
     classificacaoEtaria: string | null;
     categoria: string | null;
     marca: string | null;
+    autores: string[];
   } | null;
 }
 

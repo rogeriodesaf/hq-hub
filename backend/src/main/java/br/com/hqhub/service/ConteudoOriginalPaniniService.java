@@ -278,7 +278,7 @@ public class ConteudoOriginalPaniniService {
                 produto.tituloSerieSugerido(), produto.numeroSugerido(), produto.numeroAlternativo(),
                 produto.descricao(), produto.urlCapa(), produto.sku(), produto.isbn(), produto.preco(),
                 produto.dataDisponibilidade(), produto.quantidadePaginas(), produto.formato(),
-                produto.classificacaoEtaria(), produto.categoria(), produto.marca());
+                produto.classificacaoEtaria(), produto.categoria(), produto.marca(), produto.autores());
         return new PreviaConteudoOriginalPaniniDTO(
                 uri.toString(), pagina.titulo(), pagina.conteudoOriginal(), referencias, produtoDto);
     }

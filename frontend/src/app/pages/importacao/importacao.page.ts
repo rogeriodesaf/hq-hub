@@ -56,7 +56,7 @@ interface ColetaCapasTelegramLocal {
       </button>
     </section>
 
-    <section class="importacao-layout">
+    <section class="importacao-layout" [class.fluxo-largo]="modoEntrada() === 'panini-edicao'">
       <article class="bloco painel-importacao">
         <nav class="modos-importacao" aria-label="Forma de alimentação do catálogo">
           <button
@@ -861,6 +861,7 @@ interface ColetaCapasTelegramLocal {
         </div>
       </article>
 
+      @if (modoEntrada() !== 'panini-edicao') {
       <article class="bloco painel-resultado">
         <div class="secao-titulo">
           <div>
@@ -992,6 +993,7 @@ interface ColetaCapasTelegramLocal {
           </section>
         }
       </article>
+      }
     </section>
   `,
   styles: `
@@ -1002,6 +1004,10 @@ interface ColetaCapasTelegramLocal {
       align-items: start;
     }
 
+    .importacao-layout.fluxo-largo {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .painel-importacao,
     .painel-resultado {
       display: grid;
@@ -1010,7 +1016,7 @@ interface ColetaCapasTelegramLocal {
 
     .modos-importacao {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 10px;
     }
 
@@ -1024,6 +1030,8 @@ interface ColetaCapasTelegramLocal {
       border-radius: 8px;
       background: var(--superficie);
       cursor: pointer;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .modos-importacao button.ativo {

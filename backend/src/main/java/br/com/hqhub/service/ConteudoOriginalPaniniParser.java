@@ -85,7 +85,8 @@ public class ConteudoOriginalPaniniParser {
                 detalhe(detalhes, "formato"),
                 detalhe(detalhes, "classificacaoetaria"),
                 detalhe(detalhes, "tipodeproduto", "categoria"),
-                marca);
+                marca,
+                autores(detalhe(detalhes, "autores", "autor")));
         return new PaginaPanini(titulo, conteudoOriginal, referencias, produto);
     }
 
@@ -175,6 +176,16 @@ public class ConteudoOriginalPaniniParser {
             if (valor != null && !valor.isBlank()) return valor;
         }
         return null;
+    }
+
+    private List<String> autores(String valor) {
+        if (valor == null || valor.isBlank()) return List.of();
+        return Pattern.compile("\\s*[,;]\\s*")
+                .splitAsStream(valor.trim())
+                .map(String::trim)
+                .filter(nome -> !nome.isBlank())
+                .distinct()
+                .toList();
     }
 
     private String primeiroPreenchido(String... valores) {
@@ -284,7 +295,8 @@ public class ConteudoOriginalPaniniParser {
             String formato,
             String classificacaoEtaria,
             String categoria,
-            String marca) {
+            String marca,
+            List<String> autores) {
     }
 
     public record ReferenciaExtraida(String textoOriginal, String serie, Integer anoSerie, String numero,

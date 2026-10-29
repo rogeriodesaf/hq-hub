@@ -163,7 +163,7 @@ interface EdicaoDescoberta {
         @if (pessoasEncontradas().length) {
           <section class="pessoas-encontradas">
             @for (pessoa of pessoasEncontradas(); track pessoa.idExterno) {
-              <button type="button" (click)="selecionarPessoaFiltro(pessoa)">
+              <button type="button" (click)="abrirPessoaEncontrada(pessoa)">
                 <img [src]="pessoa.urlImagem || capaReserva" [alt]="pessoa.nome || 'Pessoa'" loading="lazy" (error)="usarCapaReserva($event)" />
                 <span>{{ pessoa.nome }}</span>
               </button>
@@ -701,6 +701,11 @@ export class DescobrirPage implements OnInit {
   dataInflacao = '';
 
   ngOnInit() {
+    const autor = this.rota.snapshot.queryParamMap.get('autor')?.trim();
+    if (autor) {
+      this.termoPessoa = autor;
+      this.buscarPessoas();
+    }
     const idEdicao = this.rota.snapshot.paramMap.get('id');
     if (!idEdicao) return;
     this.carregandoEdicoes.set(true);
@@ -868,6 +873,14 @@ export class DescobrirPage implements OnInit {
     this.pessoaFiltro.set(pessoa);
     this.paginaEdicoes.set(0);
     this.carregarEdicoes();
+  }
+
+  abrirPessoaEncontrada(pessoa: PessoaComicVine) {
+    if (this.volumeSelecionado()?.fonte === 'COMIC_VINE') {
+      this.selecionarPessoaFiltro(pessoa);
+      return;
+    }
+    this.abrirDetalhesPessoa(pessoa);
   }
 
   limparFiltroPessoa() {
