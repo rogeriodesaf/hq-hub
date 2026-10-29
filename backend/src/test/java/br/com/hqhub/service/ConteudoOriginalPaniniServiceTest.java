@@ -72,17 +72,23 @@ class ConteudoOriginalPaniniServiceTest {
     }
 
     @Test
-    void impedeCriarColecaoQueJaExisteComMesmoTituloEditoraEVolume() {
+    void reaproveitaColecaoQueJaExisteComMesmoTituloEditoraEVolume() {
         Editora panini = new Editora();
         panini.setId(7L);
         panini.setNome("Panini");
+        Serie existente = new Serie();
+        existente.setId(81L);
+        existente.setTitulo("Saga dos X-Men, A");
+        existente.setVolume(2);
+        existente.setTipoSerie(br.com.hqhub.entity.TipoSerie.BRASILEIRA);
         when(editoras.buscarPorNome("Panini")).thenReturn(Optional.of(panini));
         when(series.buscarPorTituloEEditoraEVolume("Saga dos X-Men, A", 7L, 2))
-                .thenReturn(Optional.of(new Serie()));
+                .thenReturn(Optional.of(existente));
 
-        assertThrows(RegraNegocioException.class,
-                () -> service.resolverSerieBrasileiraDestino(
-                        dto(null, true, "Saga dos X-Men, A", 2), null));
+        Serie resultado = service.resolverSerieBrasileiraDestino(
+                dto(null, true, "Saga dos X-Men, A", 2), null);
+
+        assertSame(existente, resultado);
     }
 
     @Test

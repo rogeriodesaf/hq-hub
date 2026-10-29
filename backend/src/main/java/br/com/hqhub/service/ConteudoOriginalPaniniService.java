@@ -226,10 +226,15 @@ public class ConteudoOriginalPaniniService {
             editoraRepository.persist(nova);
             return nova;
         });
-        if (serieRepository.buscarPorTituloEEditoraEVolume(
-                dto.tituloSerie(), editora.getId(), dto.volumeSerie()).isPresent()) {
-            throw new RegraNegocioException(
-                    "Esta coleção já existe. Pesquise e selecione-a como coleção de destino.");
+        var serieExistente = serieRepository.buscarPorTituloEEditoraEVolume(
+                dto.tituloSerie(), editora.getId(), dto.volumeSerie());
+        if (serieExistente.isPresent()) {
+            Serie serie = serieExistente.get();
+            if (serie.getTipoSerie() != TipoSerie.BRASILEIRA) {
+                throw new RegraNegocioException(
+                        "Já existe uma coleção estrangeira com esse título, editora e volume.");
+            }
+            return serie;
         }
         Serie nova = new Serie();
         nova.setTitulo(dto.tituloSerie().trim());
