@@ -983,7 +983,7 @@ import {
           }
 
           @if (!carregandoDetalhe() && edicaoDetalhe() && podeEditarCatalogo()) {
-            <details class="painel-formulario importacao-panini-original">
+            <details #importacaoPaniniOriginal class="painel-formulario importacao-panini-original">
               <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
               <div class="importacao-panini-conteudo">
                 <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. As edições ausentes serão buscadas e cadastradas automaticamente na Comic Vine; casos ambíguos continuarão aguardando sua confirmação. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos.</p>
@@ -1052,8 +1052,8 @@ import {
                         {{ resolvendoOriginaisPanini() ? 'Resolvendo automaticamente...' : 'Resolver ' + quantidadePendentesPanini() + ' pendente(s) automaticamente' }}
                       </button>
                     }
-                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || resolvendoOriginaisPanini() || confirmacaoVinculosPaniniConcluida() || !quantidadeVinculosPanini()">
-                      {{ confirmacaoVinculosPaniniConcluida() ? 'Vínculos confirmados' : resolvendoOriginaisPanini() ? 'Aguarde a busca terminar...' : salvandoPanini() ? 'Confirmando vínculos...' : 'Confirmar vínculos selecionados' }}
+                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || resolvendoOriginaisPanini() || !quantidadeVinculosPanini()">
+                      {{ resolvendoOriginaisPanini() ? 'Aguarde a busca terminar...' : salvandoPanini() ? 'Confirmando vínculos...' : 'Confirmar vínculos selecionados' }}
                     </button>
                   </div>
                   @if (retornoVinculosPanini(); as retorno) {
@@ -1407,6 +1407,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   @ViewChild('modalPublicacoesBrasil') private modalPublicacoesBrasil?: ElementRef<HTMLElement>;
   @ViewChild('botaoAmpliarCapa') private botaoAmpliarCapa?: ElementRef<HTMLButtonElement>;
   @ViewChild('botaoFecharCapa') private botaoFecharCapa?: ElementRef<HTMLButtonElement>;
+  @ViewChild('importacaoPaniniOriginal') private importacaoPaniniOriginal?: ElementRef<HTMLDetailsElement>;
 
   private readonly api = inject(ApiService);
   private readonly rota = inject(ActivatedRoute);
@@ -1501,7 +1502,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly progressoOriginaisPanini = signal<{ atual: number; total: number } | null>(null);
   readonly errosOriginaisPanini = signal<Record<number, string>>({});
   readonly retornoVinculosPanini = signal<{ tipo: 'info' | 'sucesso' | 'erro'; texto: string } | null>(null);
-  readonly confirmacaoVinculosPaniniConcluida = signal(false);
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly quantidadePendentesPanini = computed(() => this.previaPanini()?.referencias.filter((referencia) =>
     !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
@@ -2595,7 +2595,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.previaPanini.set(null);
     this.selecoesPanini.set({});
     this.retornoVinculosPanini.set(null);
-    this.confirmacaoVinculosPaniniConcluida.set(false);
     this.mensagem.set('');
     this.api.analisarConteudoOriginalPanini(url).subscribe({
       next: (previa) => {
@@ -2618,7 +2617,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   selecionarEdicaoPanini(indice: number, valor: number | string | null) {
     this.selecoesPanini.update((selecoes) => ({ ...selecoes, [indice]: this.numeroOuNull(valor) }));
-    this.confirmacaoVinculosPaniniConcluida.set(false);
     this.retornoVinculosPanini.set(null);
   }
 
@@ -2665,9 +2663,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.salvandoPanini.set(false);
         const existentes = resultado.jaExistentes ? ` ${resultado.jaExistentes} vínculo(s) já existiam.` : '';
         const texto = `${resultado.cadastrados} vínculo(s) da Panini cadastrado(s).${existentes}`;
-        this.confirmacaoVinculosPaniniConcluida.set(true);
-        this.retornoVinculosPanini.set({ tipo: 'sucesso', texto });
         this.mensagem.set(texto);
+        if (this.importacaoPaniniOriginal) {
+          this.importacaoPaniniOriginal.nativeElement.open = false;
+        }
+        this.limparImportacaoPanini();
         this.api.listarPublicacoesRelacionadasPorEdicao(edicao.id).subscribe({
           next: (publicacoes) => this.publicacoesRelacionadasDetalhe.set(publicacoes),
         });
@@ -4337,7 +4337,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.progressoOriginaisPanini.set(null);
     this.errosOriginaisPanini.set({});
     this.retornoVinculosPanini.set(null);
-    this.confirmacaoVinculosPaniniConcluida.set(false);
     this.analisandoPanini.set(false);
     this.salvandoPanini.set(false);
   }
