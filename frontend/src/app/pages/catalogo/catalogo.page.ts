@@ -1037,7 +1037,7 @@ import {
                   <div class="acoes-formulario importacao-panini-acoes">
                     <span>
                       @if (progressoOriginaisPanini(); as progresso) {
-                        Buscando e cadastrando {{ progresso.atual }} de {{ progresso.total }} na Comic Vine...
+                        Buscando e cadastrando {{ progresso.total }} referência(s) em lote na Comic Vine...
                       } @else {
                         {{ quantidadeVinculosPanini() }} de {{ previa.referencias.length }} referência(s) selecionada(s)
                       }
@@ -2667,14 +2667,44 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
 
     this.resolvendoOriginaisPanini.set(true);
+    this.progressoOriginaisPanini.set({ atual: 0, total: pendentes.length });
     this.mensagem.set(`Resolvendo automaticamente ${pendentes.length} referência(s) pela Comic Vine...`);
     let resolvidas = 0;
     try {
-      for (const [indice, referencia] of pendentes.entries()) {
-        this.progressoOriginaisPanini.set({ atual: indice + 1, total: pendentes.length });
-        if (await this.buscarECadastrarEdicaoOriginalPanini(referencia)) {
+      const resultado = await firstValueFrom(this.api.cadastrarEdicoesOriginaisPanini({
+        urlPanini: previa.urlPanini,
+        referencias: pendentes.map((referencia) => ({
+          indice: referencia.indice,
+          serie: referencia.serie!,
+          anoSerie: referencia.anoSerie,
+          numero: referencia.numero!,
+        })),
+      }));
+      for (const item of resultado.resultados) {
+        if (item.candidato) {
+          this.previaPanini.update((atual) => atual ? {
+            ...atual,
+            referencias: atual.referencias.map((referencia) => referencia.indice === item.indice
+              ? { ...referencia, candidatos: [item.candidato!], statusResolucao: 'ENCONTRADA' }
+              : referencia),
+          } : atual);
+          this.selecionarEdicaoPanini(item.indice, item.candidato.id);
+          this.errosOriginaisPanini.update((erros) => ({ ...erros, [item.indice]: '' }));
           resolvidas++;
+        } else {
+          this.errosOriginaisPanini.update((erros) => ({
+            ...erros,
+            [item.indice]: item.erro || 'Não foi encontrada uma correspondência única na Comic Vine.',
+          }));
         }
+      }
+    } catch (erro) {
+      const mensagem = this.extrairMensagemErro(
+        erro,
+        'Não foi possível concluir a resolução em lote pela Comic Vine.',
+      );
+      for (const referencia of pendentes) {
+        this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: mensagem }));
       }
     } finally {
       this.progressoOriginaisPanini.set(null);

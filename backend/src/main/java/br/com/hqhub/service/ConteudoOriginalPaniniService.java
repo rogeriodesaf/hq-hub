@@ -6,18 +6,29 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.Normalizer;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO.ReferenciaEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.EdicaoComicVineRespostaDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.CandidatoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.PreviaConteudoOriginalPaniniDTO.ReferenciaConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.ResultadoCadastroConteudoOriginalPaniniDTO;
+import br.com.hqhub.dto.ResultadoCadastroEdicoesOriginaisPaniniDTO;
+import br.com.hqhub.dto.ResultadoCadastroEdicoesOriginaisPaniniDTO.ResultadoEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.VolumeComicVineRespostaDTO;
 import br.com.hqhub.entity.Edicao;
 import br.com.hqhub.entity.Editora;
@@ -81,6 +92,50 @@ public class ConteudoOriginalPaniniService {
         Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
                 .orElseGet(() -> criarEdicaoComicVine(externa, resolucao.volume(), dto));
         return paraCandidato(edicao);
+    }
+
+    @Transactional
+    public ResultadoCadastroEdicoesOriginaisPaniniDTO cadastrarEdicoesOriginais(
+            CadastroEdicoesOriginaisPaniniDTO dto) {
+        PreviaConteudoOriginalPaniniDTO previa = analisar(dto.urlPanini());
+        validarReferenciasLote(dto.referencias(), previa);
+
+        Map<GrupoSerie, List<ReferenciaEdicaoOriginalPaniniDTO>> grupos = new LinkedHashMap<>();
+        for (ReferenciaEdicaoOriginalPaniniDTO referencia : dto.referencias()) {
+            GrupoSerie grupo = new GrupoSerie(normalizarSerie(referencia.serie()), referencia.anoSerie());
+            grupos.computeIfAbsent(grupo, ignorado -> new ArrayList<>()).add(referencia);
+        }
+
+        Map<Integer, ResolucaoReferenciaLote> resolucoes = resolverGruposComicVine(grupos);
+        Map<String, CandidatoEdicaoOriginalPaniniDTO> candidatosPorEdicaoExterna = new LinkedHashMap<>();
+        List<ResultadoEdicaoOriginalPaniniDTO> resultados = new ArrayList<>();
+        for (ReferenciaEdicaoOriginalPaniniDTO referencia : dto.referencias()) {
+            ResolucaoReferenciaLote resolucao = resolucoes.get(referencia.indice());
+            if (resolucao == null || resolucao.erro() != null) {
+                resultados.add(new ResultadoEdicaoOriginalPaniniDTO(
+                        referencia.indice(), null,
+                        resolucao == null ? "A referência não foi processada." : resolucao.erro()));
+                continue;
+            }
+            try {
+                EdicaoComicVineRespostaDTO externa = resolucao.resolucao().edicao();
+                CandidatoEdicaoOriginalPaniniDTO candidato = candidatosPorEdicaoExterna.get(externa.idExterno());
+                if (candidato == null) {
+                    CadastroEdicaoOriginalPaniniDTO cadastro = new CadastroEdicaoOriginalPaniniDTO(
+                            dto.urlPanini(), referencia.serie(), referencia.anoSerie(), referencia.numero());
+                    Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
+                            .orElseGet(() -> criarEdicaoComicVine(
+                                    externa, resolucao.resolucao().volume(), cadastro));
+                    candidato = paraCandidato(edicao);
+                    candidatosPorEdicaoExterna.put(externa.idExterno(), candidato);
+                }
+                resultados.add(new ResultadoEdicaoOriginalPaniniDTO(referencia.indice(), candidato, null));
+            } catch (RuntimeException excecao) {
+                resultados.add(new ResultadoEdicaoOriginalPaniniDTO(
+                        referencia.indice(), null, mensagemErro(excecao)));
+            }
+        }
+        return new ResultadoCadastroEdicoesOriginaisPaniniDTO(resultados);
     }
 
     @Transactional
@@ -170,28 +225,7 @@ public class ConteudoOriginalPaniniService {
     }
 
     private ResolucaoComicVine resolverEdicaoComicVine(CadastroEdicaoOriginalPaniniDTO dto) {
-        List<VolumeComicVineRespostaDTO> volumesPorTitulo = integracaoExternaService
-                .buscarVolumesComicVine(dto.serie(), 0, 100).itens().stream()
-                .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(dto.serie())))
-                .toList();
-        List<VolumeComicVineRespostaDTO> volumes = dto.anoSerie() == null
-                ? volumesPorTitulo
-                : volumesPorTitulo.stream()
-                        .filter(volume -> dto.anoSerie().equals(volume.anoInicio()))
-                        .toList();
-        if (volumes.isEmpty() && dto.anoSerie() != null) {
-            volumes = volumesPorTitulo.stream()
-                    .filter(volume -> volume.anoInicio() != null
-                            && Math.abs(volume.anoInicio() - dto.anoSerie()) == 1)
-                    .toList();
-        }
-        if (volumes.size() != 1) {
-            throw new RegraNegocioException(volumes.isEmpty()
-                    ? "A Comic Vine não encontrou um volume único compatível com a série e o ano informados pela Panini."
-                    : "A Comic Vine encontrou mais de uma série possível; informe o ID manual após conferir.");
-        }
-
-        VolumeComicVineRespostaDTO volume = volumes.getFirst();
+        VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(dto.serie(), dto.anoSerie());
         List<EdicaoComicVineRespostaDTO> encontradas = new java.util.ArrayList<>();
         int pagina = 0;
         int totalPaginas = 1;
@@ -212,6 +246,134 @@ public class ConteudoOriginalPaniniService {
         return new ResolucaoComicVine(
                 integracaoExternaService.buscarDetalheEdicaoComicVine(encontradas.getFirst().idExterno()),
                 volume);
+    }
+
+    private Map<Integer, ResolucaoReferenciaLote> resolverGruposComicVine(
+            Map<GrupoSerie, List<ReferenciaEdicaoOriginalPaniniDTO>> grupos) {
+        int paralelismo = Math.min(2, grupos.size());
+        ExecutorService executor = Executors.newFixedThreadPool(Math.max(1, paralelismo));
+        try {
+            List<CompletableFuture<Map<Integer, ResolucaoReferenciaLote>>> tarefas = grupos.values().stream()
+                    .map(referencias -> CompletableFuture.supplyAsync(
+                            () -> resolverGrupoComicVine(referencias), executor))
+                    .toList();
+            Map<Integer, ResolucaoReferenciaLote> resultados = new LinkedHashMap<>();
+            tarefas.forEach(tarefa -> resultados.putAll(tarefa.join()));
+            return resultados;
+        } finally {
+            executor.shutdown();
+        }
+    }
+
+    private Map<Integer, ResolucaoReferenciaLote> resolverGrupoComicVine(
+            List<ReferenciaEdicaoOriginalPaniniDTO> referencias) {
+        Map<Integer, ResolucaoReferenciaLote> resultados = new LinkedHashMap<>();
+        ReferenciaEdicaoOriginalPaniniDTO primeira = referencias.getFirst();
+        try {
+            VolumeComicVineRespostaDTO volume = resolverVolumeComicVine(primeira.serie(), primeira.anoSerie());
+            Set<String> numerosPendentes = referencias.stream()
+                    .map(referencia -> normalizar(referencia.numero()))
+                    .collect(java.util.stream.Collectors.toCollection(LinkedHashSet::new));
+            Map<String, List<EdicaoComicVineRespostaDTO>> edicoesPorNumero = new LinkedHashMap<>();
+            int pagina = 0;
+            int totalPaginas = 1;
+            do {
+                var resposta = integracaoExternaService.buscarEdicoesVolumeComicVine(
+                        volume.idExterno(), pagina, 100);
+                for (EdicaoComicVineRespostaDTO edicao : resposta.itens()) {
+                    String numero = normalizar(edicao.numero());
+                    if (numerosPendentes.contains(numero)) {
+                        edicoesPorNumero.computeIfAbsent(numero, ignorado -> new ArrayList<>()).add(edicao);
+                    }
+                }
+                numerosPendentes.removeIf(edicoesPorNumero::containsKey);
+                totalPaginas = resposta.totalPaginas();
+                pagina++;
+            } while (!numerosPendentes.isEmpty() && pagina < totalPaginas && pagina < 20);
+
+            Map<String, ResolucaoComicVine> detalhesPorNumero = new LinkedHashMap<>();
+            for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
+                String numero = normalizar(referencia.numero());
+                List<EdicaoComicVineRespostaDTO> encontradas = edicoesPorNumero.getOrDefault(numero, List.of());
+                if (encontradas.size() != 1) {
+                    String erro = encontradas.isEmpty()
+                            ? "A série foi encontrada na Comic Vine, mas a edição #" + referencia.numero()
+                                    + " não foi localizada."
+                            : "A Comic Vine encontrou mais de uma edição #" + referencia.numero()
+                                    + " nesta série.";
+                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, erro));
+                    continue;
+                }
+                try {
+                    ResolucaoComicVine resolucao = detalhesPorNumero.computeIfAbsent(numero, ignorado ->
+                            new ResolucaoComicVine(
+                                    integracaoExternaService.buscarDetalheEdicaoComicVine(
+                                            encontradas.getFirst().idExterno()),
+                                    volume));
+                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(resolucao, null));
+                } catch (RuntimeException excecao) {
+                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, mensagemErro(excecao)));
+                }
+            }
+        } catch (RuntimeException excecao) {
+            String erro = mensagemErro(excecao);
+            referencias.forEach(referencia ->
+                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, erro)));
+        }
+        return resultados;
+    }
+
+    private VolumeComicVineRespostaDTO resolverVolumeComicVine(String serie, Integer anoSerie) {
+        List<VolumeComicVineRespostaDTO> volumesPorTitulo = integracaoExternaService
+                .buscarVolumesComicVine(serie, 0, 100).itens().stream()
+                .filter(volume -> normalizarSerie(volume.titulo()).equals(normalizarSerie(serie)))
+                .toList();
+        List<VolumeComicVineRespostaDTO> volumes = anoSerie == null
+                ? volumesPorTitulo
+                : volumesPorTitulo.stream()
+                        .filter(volume -> anoSerie.equals(volume.anoInicio()))
+                        .toList();
+        if (volumes.isEmpty() && anoSerie != null) {
+            volumes = volumesPorTitulo.stream()
+                    .filter(volume -> volume.anoInicio() != null
+                            && Math.abs(volume.anoInicio() - anoSerie) == 1)
+                    .toList();
+        }
+        if (volumes.size() != 1) {
+            throw new RegraNegocioException(volumes.isEmpty()
+                    ? "A Comic Vine não encontrou um volume único compatível com a série e o ano informados pela Panini."
+                    : "A Comic Vine encontrou mais de uma série possível; informe o ID manual após conferir.");
+        }
+        return volumes.getFirst();
+    }
+
+    private void validarReferenciasLote(
+            List<ReferenciaEdicaoOriginalPaniniDTO> referencias,
+            PreviaConteudoOriginalPaniniDTO previa) {
+        Set<Integer> indices = new LinkedHashSet<>();
+        for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
+            if (!indices.add(referencia.indice())) {
+                throw new RegraNegocioException("A lista possui referências duplicadas.");
+            }
+            boolean declarada = previa.referencias().stream().anyMatch(item ->
+                    normalizar(item.serie()).equals(normalizar(referencia.serie()))
+                            && Objects.equals(item.anoSerie(), referencia.anoSerie())
+                            && normalizar(item.numero()).equals(normalizar(referencia.numero())));
+            if (!declarada) {
+                throw new RegraNegocioException(
+                        "A referência #" + referencia.indice() + " não consta no conteúdo original da Panini.");
+            }
+        }
+    }
+
+    private String mensagemErro(Throwable excecao) {
+        Throwable atual = excecao;
+        while (atual.getCause() != null) {
+            atual = atual.getCause();
+        }
+        return atual.getMessage() == null || atual.getMessage().isBlank()
+                ? "Não foi possível resolver esta referência na Comic Vine."
+                : atual.getMessage();
     }
 
     private Edicao criarEdicaoComicVine(
@@ -351,5 +513,11 @@ public class ConteudoOriginalPaniniService {
     private record ResolucaoComicVine(
             EdicaoComicVineRespostaDTO edicao,
             VolumeComicVineRespostaDTO volume) {
+    }
+
+    private record GrupoSerie(String serieNormalizada, Integer anoSerie) {
+    }
+
+    private record ResolucaoReferenciaLote(ResolucaoComicVine resolucao, String erro) {
     }
 }

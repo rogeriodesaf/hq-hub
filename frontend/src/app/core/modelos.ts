@@ -173,6 +173,14 @@ export interface ResultadoCadastroConteudoOriginalPanini {
   jaExistentes: number;
 }
 
+export interface ResultadoCadastroEdicoesOriginaisPanini {
+  resultados: Array<{
+    indice: number;
+    candidato: CandidatoEdicaoOriginalPanini | null;
+    erro: string | null;
+  }>;
+}
+
 export interface LinkEdicao {
   id: number;
   edicaoId: number;

@@ -67,6 +67,7 @@ import {
   ResultadoImportacaoCapas,
   PreviaConteudoOriginalPanini,
   ResultadoCadastroConteudoOriginalPanini,
+  ResultadoCadastroEdicoesOriginaisPanini,
   CandidatoEdicaoOriginalPanini,
   RespostaAssistente,
   AssistenteFaqBase,
@@ -1116,6 +1117,16 @@ export class ApiService {
   }) {
     return this.http.post<CandidatoEdicaoOriginalPanini>(
       '/api/importacoes/catalogo/panini/conteudo-original/edicoes',
+      dto,
+    );
+  }
+
+  cadastrarEdicoesOriginaisPanini(dto: {
+    urlPanini: string;
+    referencias: Array<{ indice: number; serie: string; anoSerie: number | null; numero: string }>;
+  }) {
+    return this.http.post<ResultadoCadastroEdicoesOriginaisPanini>(
+      '/api/importacoes/catalogo/panini/conteudo-original/edicoes/lote',
       dto,
     );
   }

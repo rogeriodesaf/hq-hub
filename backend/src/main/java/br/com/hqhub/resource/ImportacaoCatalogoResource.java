@@ -10,6 +10,7 @@ import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
 import br.com.hqhub.dto.AnaliseConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
+import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
 import br.com.hqhub.dto.GeracaoRascunhoGcdDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
@@ -96,6 +97,12 @@ public class ImportacaoCatalogoResource {
     @Path("/panini/conteudo-original/edicoes")
     public Response cadastrarEdicaoOriginalPanini(@Valid CadastroEdicaoOriginalPaniniDTO dto) {
         return Response.ok(conteudoOriginalPaniniService.cadastrarEdicaoOriginal(dto)).build();
+    }
+
+    @POST
+    @Path("/panini/conteudo-original/edicoes/lote")
+    public Response cadastrarEdicoesOriginaisPanini(@Valid CadastroEdicoesOriginaisPaniniDTO dto) {
+        return Response.ok(conteudoOriginalPaniniService.cadastrarEdicoesOriginais(dto)).build();
     }
 
     @POST
