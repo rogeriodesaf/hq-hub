@@ -120,6 +120,23 @@ class ConteudoOriginalPaniniServiceTest {
     }
 
     @Test
+    void escolheVolumePelosNumerosQuandoAnoDaEdicaoDivergeDoInicioDoVolume() {
+        VolumeComicVineRespostaDTO especial450 = new VolumeComicVineRespostaDTO(
+                "30", "Doctor Strange", "Marvel", 2025, 1, null, null, null);
+        VolumeComicVineRespostaDTO serieAtual = new VolumeComicVineRespostaDTO(
+                "40", "Doctor Strange", "Marvel", 2025, 7, null, null, null);
+        when(integracoes.buscarVolumesComicVine("Doctor Strange", 0, 100))
+                .thenReturn(new PaginaRespostaDTO<>(List.of(especial450, serieAtual), 0, 100, 2, 1));
+        when(integracoes.buscarEdicoesVolumeComicVine("40", 0, 100))
+                .thenReturn(paginaEdicoesDoctorStrange(1, 7));
+
+        VolumeComicVineRespostaDTO resultado = service.resolverVolumeComicVine(
+                "Doctor Strange", 2026, Set.of("1", "2", "3", "4", "5"));
+
+        assertEquals("40", resultado.idExterno());
+    }
+
+    @Test
     void infereVolumePelaPrimeiraEdicaoQuandoPontuacaoDoTituloDiverge() {
         when(integracoes.buscarVolumesComicVine("Punisher Red Band", 0, 100))
                 .thenReturn(new PaginaRespostaDTO<>(List.of(), 0, 100, 0, 0));
@@ -175,6 +192,16 @@ class ConteudoOriginalPaniniServiceTest {
                 .mapToObj(numero -> new EdicaoComicVineRespostaDTO(
                         String.valueOf(numero), String.valueOf(numero), null, "Avengers vs. X-Men",
                         "Marvel", null, null, null, null, null, null, null, null, null,
+                        List.of(), List.of(), List.of()))
+                .toList();
+        return new PaginaRespostaDTO<>(edicoes, 0, 100, edicoes.size(), 1);
+    }
+
+    private PaginaRespostaDTO<EdicaoComicVineRespostaDTO> paginaEdicoesDoctorStrange(int inicio, int fim) {
+        List<EdicaoComicVineRespostaDTO> edicoes = java.util.stream.IntStream.rangeClosed(inicio, fim)
+                .mapToObj(numero -> new EdicaoComicVineRespostaDTO(
+                        String.valueOf(numero), String.valueOf(numero), null, "Doctor Strange",
+                        "Marvel", "40", null, null, null, null, null, null, null, null,
                         List.of(), List.of(), List.of()))
                 .toList();
         return new PaginaRespostaDTO<>(edicoes, 0, 100, edicoes.size(), 1);

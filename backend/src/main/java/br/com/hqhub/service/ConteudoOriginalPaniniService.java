@@ -549,7 +549,7 @@ public class ConteudoOriginalPaniniService {
                             && Math.abs(volume.anoInicio() - anoSerie) == 1)
                     .toList();
         }
-        if (!volumes.isEmpty() && anoSerie == null && !numerosEsperados.isEmpty()) {
+        if (!volumes.isEmpty() && !numerosEsperados.isEmpty()) {
             List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
                     .filter(volume -> volume.quantidadeEdicoes() == null
                             || volume.quantidadeEdicoes() >= numerosEsperados.size())
@@ -560,8 +560,8 @@ public class ConteudoOriginalPaniniService {
             }
             volumes = compativeis;
         }
-        if (volumes.size() != 1 && anoSerie == null && !numerosEsperados.isEmpty()) {
-            var inferido = inferirVolumePelasEdicoes(serie, numerosEsperados, volumesPorTitulo);
+        if (volumes.size() != 1 && !numerosEsperados.isEmpty()) {
+            var inferido = inferirVolumePelasEdicoes(serie, anoSerie, numerosEsperados, volumesPorTitulo);
             if (inferido != null) {
                 return inferido;
             }
@@ -576,11 +576,12 @@ public class ConteudoOriginalPaniniService {
 
     private VolumeComicVineRespostaDTO inferirVolumePelasEdicoes(
             String serie,
+            Integer anoSerie,
             Set<String> numerosEsperados,
             List<VolumeComicVineRespostaDTO> volumesConhecidos) {
         String numeroAmostra = numerosEsperados.iterator().next();
         var edicao = integracaoExternaService.resolverEdicaoComicVineOriginal(
-                serie, numeroAmostra, null, null).orElse(null);
+                serie, numeroAmostra, anoSerie, null).orElse(null);
         if (edicao == null || edicao.idVolume() == null || edicao.idVolume().isBlank()) {
             return null;
         }
