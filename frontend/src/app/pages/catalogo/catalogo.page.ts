@@ -981,13 +981,13 @@ import {
             <details class="painel-formulario importacao-panini-original">
               <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
               <div class="importacao-panini-conteudo">
-                <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos e só grava os itens que você confirmar.</p>
+                <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. As edições ausentes serão buscadas e cadastradas automaticamente na Comic Vine; casos ambíguos continuarão aguardando sua confirmação. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos.</p>
                 <div class="importacao-panini-url">
                   <label>
                     URL do produto na Panini
                     <input [(ngModel)]="urlPanini" name="urlConteudoOriginalPanini" type="url" placeholder="https://panini.com.br/..." (keyup.enter)="analisarConteudoOriginalPanini()" />
                   </label>
-                  <button class="botao secundario" type="button" (click)="analisarConteudoOriginalPanini()" [disabled]="analisandoPanini() || !urlPanini.trim()">
+                  <button class="botao secundario" type="button" (click)="analisarConteudoOriginalPanini()" [disabled]="analisandoPanini() || !!cadastrandoOriginaisPanini().size || !urlPanini.trim()">
                     {{ analisandoPanini() ? 'Analisando...' : 'Analisar conteúdo original' }}
                   </button>
                 </div>
@@ -1022,7 +1022,7 @@ import {
                           } @else {
                             <input type="number" min="1" [ngModel]="idSelecionadoPanini(referencia.indice)" (ngModelChange)="selecionarEdicaoPanini(referencia.indice, $event)" [name]="'edicaoPanini' + referencia.indice" placeholder="ID no catálogo estrangeiro" />
                             @if (referencia.serie && referencia.numero) {
-                              <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="cadastrandoOriginaisPanini().has(referencia.indice)">
+                              <button class="botao secundario compacto importar-original-comicvine" type="button" (click)="cadastrarEdicaoOriginalPanini(referencia)" [disabled]="!!cadastrandoOriginaisPanini().size">
                                 {{ cadastrandoOriginaisPanini().has(referencia.indice) ? 'Buscando correspondência exata...' : 'Buscar e cadastrar pela Comic Vine' }}
                               </button>
                               @if (erroOriginalPanini(referencia.indice)) {
@@ -1035,8 +1035,14 @@ import {
                     }
                   </div>
                   <div class="acoes-formulario importacao-panini-acoes">
-                    <span>{{ quantidadeVinculosPanini() }} de {{ previa.referencias.length }} referência(s) selecionada(s)</span>
-                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || !quantidadeVinculosPanini()">
+                    <span>
+                      @if (cadastrandoOriginaisPanini().size) {
+                        Buscando e cadastrando automaticamente na Comic Vine...
+                      } @else {
+                        {{ quantidadeVinculosPanini() }} de {{ previa.referencias.length }} referência(s) selecionada(s)
+                      }
+                    </span>
+                    <button class="botao primario" type="button" (click)="cadastrarConteudoOriginalPanini()" [disabled]="salvandoPanini() || !!cadastrandoOriginaisPanini().size || !quantidadeVinculosPanini()">
                       {{ salvandoPanini() ? 'Cadastrando...' : 'Confirmar vínculos selecionados' }}
                     </button>
                   </div>
@@ -2570,6 +2576,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
         this.selecoesPanini.set(selecoes);
         this.urlPanini = previa.urlPanini;
         this.analisandoPanini.set(false);
+        void this.cadastrarEdicoesOriginaisPaniniAutomaticamente();
       },
       error: (erro) => {
         this.analisandoPanini.set(false);
@@ -2630,49 +2637,77 @@ export class CatalogoPage implements OnInit, OnDestroy {
     });
   }
 
-  cadastrarEdicaoOriginalPanini(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {
+  async cadastrarEdicaoOriginalPanini(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {
+    const candidato = await this.buscarECadastrarEdicaoOriginalPanini(referencia);
+    if (candidato) {
+      this.mensagem.set(`${candidato.serie} #${candidato.numero} foi cadastrada e selecionada.`);
+    }
+  }
+
+  private async cadastrarEdicoesOriginaisPaniniAutomaticamente() {
+    const previa = this.previaPanini();
+    if (!previa) {
+      return;
+    }
+    const pendentes = previa.referencias.filter((referencia) =>
+      !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
+    );
+    if (!pendentes.length) {
+      return;
+    }
+
+    this.mensagem.set(`Resolvendo automaticamente ${pendentes.length} referência(s) pela Comic Vine...`);
+    let resolvidas = 0;
+    for (const referencia of pendentes) {
+      if (await this.buscarECadastrarEdicaoOriginalPanini(referencia)) {
+        resolvidas++;
+      }
+    }
+    const falhas = pendentes.length - resolvidas;
+    const detalheFalhas = falhas
+      ? ` ${falhas} referência(s) precisam de conferência; veja a mensagem em cada item.`
+      : '';
+    this.mensagem.set(`Busca automática concluída: ${resolvidas} referência(s) cadastrada(s) e selecionada(s).${detalheFalhas}`);
+  }
+
+  private async buscarECadastrarEdicaoOriginalPanini(
+    referencia: PreviaConteudoOriginalPanini['referencias'][number],
+  ) {
     const previa = this.previaPanini();
     if (!previa || !referencia.serie || !referencia.numero) {
-      return;
+      return null;
     }
     this.cadastrandoOriginaisPanini.update((itens) => new Set(itens).add(referencia.indice));
     this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: '' }));
-    this.mensagem.set('');
-    this.api.cadastrarEdicaoOriginalPanini({
-      urlPanini: previa.urlPanini,
-      serie: referencia.serie,
-      anoSerie: referencia.anoSerie,
-      numero: referencia.numero,
-    }).subscribe({
-      next: (candidato) => {
-        this.previaPanini.update((atual) => atual ? {
-          ...atual,
-          referencias: atual.referencias.map((item) => item.indice === referencia.indice
-            ? { ...item, candidatos: [candidato], statusResolucao: 'ENCONTRADA' }
-            : item),
-        } : atual);
-        this.selecionarEdicaoPanini(referencia.indice, candidato.id);
-        this.cadastrandoOriginaisPanini.update((itens) => {
-          const atualizados = new Set(itens);
-          atualizados.delete(referencia.indice);
-          return atualizados;
-        });
-        this.mensagem.set(`${candidato.serie} #${candidato.numero} foi cadastrada e selecionada.`);
-      },
-      error: (erro) => {
-        this.cadastrandoOriginaisPanini.update((itens) => {
-          const atualizados = new Set(itens);
-          atualizados.delete(referencia.indice);
-          return atualizados;
-        });
-        const mensagem = this.extrairMensagemErro(
-          erro,
-          'Não foi encontrada uma correspondência única na Comic Vine. Use o ID manual após conferir.',
-        );
-        this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: mensagem }));
-        this.mensagem.set(mensagem);
-      },
-    });
+    try {
+      const candidato = await firstValueFrom(this.api.cadastrarEdicaoOriginalPanini({
+        urlPanini: previa.urlPanini,
+        serie: referencia.serie,
+        anoSerie: referencia.anoSerie,
+        numero: referencia.numero,
+      }));
+      this.previaPanini.update((atual) => atual ? {
+        ...atual,
+        referencias: atual.referencias.map((item) => item.indice === referencia.indice
+          ? { ...item, candidatos: [candidato], statusResolucao: 'ENCONTRADA' }
+          : item),
+      } : atual);
+      this.selecionarEdicaoPanini(referencia.indice, candidato.id);
+      return candidato;
+    } catch (erro) {
+      const mensagem = this.extrairMensagemErro(
+        erro,
+        'Não foi encontrada uma correspondência única na Comic Vine. Use o ID manual após conferir.',
+      );
+      this.errosOriginaisPanini.update((erros) => ({ ...erros, [referencia.indice]: mensagem }));
+      return null;
+    } finally {
+      this.cadastrandoOriginaisPanini.update((itens) => {
+        const atualizados = new Set(itens);
+        atualizados.delete(referencia.indice);
+        return atualizados;
+      });
+    }
   }
 
   erroOriginalPanini(indice: number) {
