@@ -89,44 +89,60 @@ interface EdicaoDescoberta {
       </section>
     }
 
-    <section class="grade-volumes">
-      @for (volume of volumes().itens; track chaveVolume(volume)) {
-        <article class="cartao-volume" [class.selecionado]="volumeSelecionado()?.idExterno === volume.idExterno && volumeSelecionado()?.fonte === volume.fonte">
-          <img [src]="volume.urlImagem || capaReserva" [alt]="volume.titulo" loading="lazy" (error)="usarCapaReserva($event)" />
-          <div>
-            <p class="rotulo">{{ rotuloFonteVolume(volume) }} · {{ volume.editora || 'Editora não informada' }}</p>
-            <h2>{{ volume.titulo }}</h2>
-            <p>{{ volume.anoInicio || 'Ano não informado' }} · {{ volume.quantidadeEdicoes ?? 'quantidade não informada' }} edições</p>
-            <button class="botao compacto" type="button" (click)="selecionarVolume(volume)" [disabled]="carregandoEdicoes()">
-              {{ carregandoEdicoes() && volumeSelecionado()?.idExterno === volume.idExterno ? 'Carregando...' : 'Ver edições' }}
-            </button>
-          </div>
-        </article>
-      } @empty {
-        @if (!carregandoVolumes()) {
-          <section class="estado-vazio compacto">
-            <h2>Nenhum título carregado</h2>
-            <p>Digite um termo e escolha se deseja pesquisar na Comic Vine, no Coleciona HQ ou nas duas bases.</p>
-          </section>
-        }
-      }
-    </section>
-
-    @if (volumeSelecionado()) {
-      <section class="secao-edicoes" id="edicoes-volume">
+    <section class="catalogo-layout catalogo-estrangeiro-layout" [class.modo-edicoes-mobile]="!!volumeSelecionado()">
+      <article class="bloco catalogo-bloco-series titulos-estrangeiros-bloco" tabindex="-1">
         <div class="secao-titulo">
           <div>
-            <p class="rotulo">{{ rotuloFonteVolume(volumeSelecionado()!) }}</p>
-            <h2>{{ volumeSelecionado()?.titulo }}</h2>
+            <h2>Títulos estrangeiros</h2>
+            <p class="texto-suave">Escolha uma coleção para navegar pelas edições.</p>
           </div>
-          <app-paginacao
-            [paginaAtual]="paginaEdicoes()"
-            [totalPaginas]="edicoes()?.totalPaginas || 1"
-            [carregando]="carregandoEdicoes()"
-            rotulo="Páginas de edições do volume"
-            (paginaChange)="irParaPaginaEdicoes($event)"
-          />
+          @if (volumes().itens.length) {
+            <span>{{ volumes().itens.length === 1 ? '1 título' : volumes().itens.length + ' títulos' }}</span>
+          }
         </div>
+
+        <div class="lista-linhas lista-titulos-estrangeiros">
+          @for (volume of volumes().itens; track chaveVolume(volume)) {
+            <div class="linha-serie">
+              <button
+                type="button"
+                [class.ativo]="volumeSelecionado()?.idExterno === volume.idExterno && volumeSelecionado()?.fonte === volume.fonte"
+                (click)="selecionarVolume(volume)"
+                [disabled]="carregandoEdicoes()"
+              >
+                <strong>{{ volume.titulo }}</strong>
+                <span>{{ volume.anoInicio || 'Ano não informado' }} · {{ volume.quantidadeEdicoes ?? 'quantidade não informada' }} edições</span>
+                <small>{{ volume.editora || 'Editora não informada' }} · {{ rotuloFonteVolume(volume) }}</small>
+              </button>
+            </div>
+          } @empty {
+            @if (!carregandoVolumes()) {
+              <section class="estado-vazio compacto">
+                <h2>Nenhum título carregado</h2>
+                <p>Digite um termo e escolha se deseja pesquisar na Comic Vine, no Coleciona HQ ou nas duas bases.</p>
+              </section>
+            }
+          }
+        </div>
+      </article>
+
+      <article class="bloco resultados-catalogo-bloco edicoes-estrangeiras-bloco" id="edicoes-volume">
+        @if (volumeSelecionado(); as volumeAtual) {
+          <header class="cabecalho-colecao-selecionada">
+            <button class="voltar-colecoes" type="button" (click)="voltarParaTitulos()">
+              <span aria-hidden="true">←</span>
+              <span>Voltar para títulos</span>
+            </button>
+            <div class="titulo-colecao-selecionada">
+              <p class="rotulo">{{ rotuloFonteVolume(volumeAtual) }}</p>
+              <h2>{{ volumeAtual.titulo }}</h2>
+              <p class="metadados-colecao">
+                <span>{{ volumeAtual.editora || 'Editora não informada' }}</span>
+                <span>{{ volumeAtual.anoInicio || 'Ano não informado' }}</span>
+                <span>{{ edicoes()?.totalItens ?? volumeAtual.quantidadeEdicoes ?? 0 }} edições</span>
+              </p>
+            </div>
+          </header>
 
         <section class="ir-edicao-direta" aria-label="Ir diretamente para uma edição">
           <label>
@@ -177,24 +193,28 @@ interface EdicaoDescoberta {
             <p>Buscando edições em ordem cronológica...</p>
           </section>
         } @else if (edicoes()?.itens?.length) {
-          <div class="grade-edicoes">
+          <div class="grade-mini-capas grade-edicoes-estrangeiras">
             @for (edicao of edicoes()?.itens || []; track chaveEdicao(edicao)) {
-              <article class="cartao-edicao clicavel" (click)="abrirDetalhesEdicao(edicao)" tabindex="0" (keyup.enter)="abrirDetalhesEdicao(edicao)">
+              <article
+                class="mini-capa resultado-catalogo edicao-estrangeira-mini"
+                role="button"
+                (click)="abrirDetalhesEdicao(edicao)"
+                tabindex="0"
+                (keyup.enter)="abrirDetalhesEdicao(edicao)"
+              >
                 <img
                   [src]="edicao.urlImagem || capaReserva"
                   [alt]="edicao.titulo || 'Edição sem título'"
                   loading="lazy"
                   (error)="usarCapaReserva($event)"
                 />
-                <div>
-                  <p class="rotulo">#{{ edicao.numero || '-' }} · {{ edicao.dataCapa || 'sem data' }} · {{ rotuloFonteEdicao(edicao) }}</p>
-                  <h3>{{ edicao.titulo || edicao.nomeVolume }}</h3>
-                  <p>{{ limitarTexto(edicao.descricaoExibicao || edicao.descricao, 170) }}</p>
-                  @if (edicao.creditos.length) {
-                    <small>{{ listarCreditos(edicao) }}</small>
-                  }
-                  <span class="chamada-mapa-brasil">Abrir edição e ver onde saiu no Brasil →</span>
-                </div>
+                <strong>#{{ edicao.numero || '-' }}</strong>
+                <span [title]="edicao.titulo || edicao.nomeVolume || volumeAtual.titulo">
+                  {{ edicao.titulo || edicao.nomeVolume || volumeAtual.titulo }}
+                </span>
+                <small>{{ edicao.dataCapa || 'Data não informada' }}</small>
+                <em>{{ rotuloFonteEdicao(edicao) }}</em>
+                <span class="chamada-mapa-brasil">Ver detalhes e publicações no Brasil →</span>
               </article>
             }
           </div>
@@ -204,8 +224,25 @@ interface EdicaoDescoberta {
             <p>Tente outro volume ou refaça a busca.</p>
           </section>
         }
-      </section>
-    }
+
+          @if ((edicoes()?.totalPaginas || 0) > 1) {
+            <app-paginacao
+              class="catalogo-paginacao"
+              [paginaAtual]="paginaEdicoes()"
+              [totalPaginas]="edicoes()?.totalPaginas || 1"
+              [carregando]="carregandoEdicoes()"
+              rotulo="Páginas de edições do volume"
+              (paginaChange)="irParaPaginaEdicoes($event)"
+            />
+          }
+        } @else {
+          <section class="estado-vazio estado-vazio-catalogo">
+            <h2>Selecione um título</h2>
+            <p>As edições aparecerão aqui em uma grade de capas, com paginação para navegar pela coleção completa.</p>
+          </section>
+        }
+      </article>
+    </section>
 
     @if (edicaoSelecionada()) {
       <section class="detalhe-edicao" role="dialog" aria-modal="true" aria-label="Detalhes da edição">
@@ -787,6 +824,15 @@ export class DescobrirPage implements OnInit {
     this.paginaEdicoes.set(0);
     this.rolarParaEdicoes();
     this.carregarEdicoes();
+  }
+
+  voltarParaTitulos() {
+    this.volumeSelecionado.set(null);
+    this.edicoes.set(null);
+    this.pessoasEncontradas.set([]);
+    this.pessoaFiltro.set(null);
+    this.numeroEdicaoDireta = '';
+    setTimeout(() => document.querySelector<HTMLElement>('.titulos-estrangeiros-bloco')?.focus(), 0);
   }
 
   irParaPaginaEdicoes(pagina: number) {

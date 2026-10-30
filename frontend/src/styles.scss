@@ -1441,6 +1441,62 @@ body.tema-escuro .sugestoes-assistente {
   gap: 14px;
 }
 
+@media (min-width: 981px) {
+  .catalogo-estrangeiro-layout {
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.lista-titulos-estrangeiros small {
+  display: block;
+  margin-top: 4px;
+  color: var(--texto-suave);
+}
+
+.edicoes-estrangeiras-bloco {
+  min-width: 0;
+}
+
+.grade-edicoes-estrangeiras .edicao-estrangeira-mini {
+  cursor: pointer;
+}
+
+.edicao-estrangeira-mini:focus-visible {
+  border-color: var(--primaria);
+  outline: 3px solid color-mix(in srgb, var(--primaria) 24%, transparent);
+  outline-offset: 2px;
+}
+
+.edicao-estrangeira-mini > span:not(.chamada-mapa-brasil) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.edicao-estrangeira-mini > small,
+.edicao-estrangeira-mini > em {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+}
+
+.edicao-estrangeira-mini > em {
+  font-style: normal;
+  font-weight: 800;
+}
+
+.edicao-estrangeira-mini .chamada-mapa-brasil {
+  margin-top: 4px;
+  color: var(--primaria);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.edicoes-estrangeiras-bloco .catalogo-paginacao {
+  margin-top: 20px;
+}
+
 .cartao-volume {
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr);
