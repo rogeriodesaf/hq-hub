@@ -14,9 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoBrasileiraPaniniDTO;
@@ -406,8 +403,16 @@ public class ConteudoOriginalPaniniService {
         }
         GrupoSerie grupo = new GrupoSerie(normalizarSerie(referencia.serie()), referencia.anoSerie());
         List<Edicao> edicoesDaSerie = edicoesCatalogadasPorSerie.computeIfAbsent(grupo,
-                ignorado -> edicaoRepository.buscarPorIdentidadeSerieEstrangeira(
-                        referencia.serie(), null));
+                ignorado -> variantesTituloSerie(referencia.serie(), referencia.anoSerie()).stream()
+                        .flatMap(titulo -> edicaoRepository
+                                .buscarPorIdentidadeSerieEstrangeira(titulo, null).stream())
+                        .collect(java.util.stream.Collectors.collectingAndThen(
+                                java.util.stream.Collectors.toMap(
+                                        Edicao::getId,
+                                        edicao -> edicao,
+                                        (primeira, repetida) -> primeira,
+                                        LinkedHashMap::new),
+                                mapa -> new ArrayList<>(mapa.values()))));
         String numeroEsperado = normalizarNumero(numeroComicVine(
                 referencia.serie(), referencia.anoSerie(), referencia.numero()));
         return edicoesDaSerie.stream()
@@ -476,19 +481,11 @@ public class ConteudoOriginalPaniniService {
 
     private Map<Integer, ResolucaoReferenciaLote> resolverGruposComicVine(
             Map<GrupoSerie, List<ReferenciaEdicaoOriginalPaniniDTO>> grupos) {
-        int paralelismo = Math.min(2, grupos.size());
-        ExecutorService executor = Executors.newFixedThreadPool(Math.max(1, paralelismo));
-        try {
-            List<CompletableFuture<Map<Integer, ResolucaoReferenciaLote>>> tarefas = grupos.values().stream()
-                    .map(referencias -> CompletableFuture.supplyAsync(
-                            () -> resolverGrupoComicVine(referencias), executor))
-                    .toList();
-            Map<Integer, ResolucaoReferenciaLote> resultados = new LinkedHashMap<>();
-            tarefas.forEach(tarefa -> resultados.putAll(tarefa.join()));
-            return resultados;
-        } finally {
-            executor.shutdown();
+        Map<Integer, ResolucaoReferenciaLote> resultados = new LinkedHashMap<>();
+        for (List<ReferenciaEdicaoOriginalPaniniDTO> referencias : grupos.values()) {
+            resultados.putAll(resolverGrupoComicVine(referencias));
         }
+        return resultados;
     }
 
     private Map<Integer, ResolucaoReferenciaLote> resolverGrupoComicVine(
@@ -535,16 +532,20 @@ public class ConteudoOriginalPaniniService {
                 }
                 try {
                     ResolucaoComicVine resolucao = detalhesPorNumero.computeIfAbsent(numero, ignorado ->
-                            new ResolucaoComicVine(
-                                    integracaoExternaService.buscarDetalheEdicaoComicVine(
-                                            encontradas.getFirst().idExterno()),
-                                    volume));
+                            new ResolucaoComicVine(encontradas.getFirst(), volume));
                     resultados.put(referencia.indice(), new ResolucaoReferenciaLote(resolucao, null));
                 } catch (RuntimeException excecao) {
                     resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, mensagemErro(excecao)));
                 }
             }
         } catch (RuntimeException excecao) {
+            if (ehLimiteComicVine(excecao)) {
+                String erro = mensagemErro(excecao);
+                for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
+                    resultados.put(referencia.indice(), new ResolucaoReferenciaLote(null, erro));
+                }
+                return resultados;
+            }
             for (ReferenciaEdicaoOriginalPaniniDTO referencia : referencias) {
                 try {
                     CadastroEdicaoOriginalPaniniDTO cadastro = new CadastroEdicaoOriginalPaniniDTO(
@@ -559,6 +560,13 @@ public class ConteudoOriginalPaniniService {
             }
         }
         return resultados;
+    }
+
+    private boolean ehLimiteComicVine(Throwable excecao) {
+        String mensagem = mensagemErro(excecao).toLowerCase(Locale.ROOT);
+        return mensagem.contains("status: 420")
+                || mensagem.contains("status: 429")
+                || mensagem.contains("limitou temporariamente");
     }
 
     private VolumeComicVineRespostaDTO resolverVolumeComicVine(String serie, Integer anoSerie) {
@@ -587,7 +595,7 @@ public class ConteudoOriginalPaniniService {
                             && Math.abs(volume.anoInicio() - anoSerie) == 1)
                     .toList();
         }
-        if (!volumes.isEmpty() && !numerosEsperados.isEmpty()) {
+        if (volumes.size() > 1 && !numerosEsperados.isEmpty()) {
             List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
                     .filter(volume -> volumeContemNumeros(volume, numerosEsperados))
                     .toList();
@@ -762,11 +770,8 @@ public class ConteudoOriginalPaniniService {
     }
 
     private String normalizarEditora(String valor) {
-        return normalizar(valor)
-                .replace("publishing", "")
-                .replace("entertainment", "")
-                .replace("comics", "")
-                .replace("comic", "");
+        return normalizar(valor).replaceAll(
+                "(?:publishing|entertainment|comics|comic|group|incorporated|inc)+$", "");
     }
 
     private Edicao criarEdicaoComicVine(
@@ -788,24 +793,22 @@ public class ConteudoOriginalPaniniService {
         });
         String tituloSerie = externa.nomeVolume() == null || externa.nomeVolume().isBlank()
                 ? volume.titulo() : externa.nomeVolume().trim();
-        Serie serie = serieRepository.buscarTodasPorTituloEEditoraEVolume(tituloSerie, editora.getId(), null).stream()
-                .filter(item -> item.getTipoSerie() == TipoSerie.ESTRANGEIRA)
-                .findFirst()
-                .orElseGet(() -> {
-                    Serie nova = new Serie();
-                    nova.setTitulo(tituloSerie);
-                    nova.setAnoInicio(dto.anoSerie());
-                    nova.setTipoSerie(TipoSerie.ESTRANGEIRA);
-                    nova.setEditora(editora);
-                    nova.setFonteExterna("COMICVINE");
-                    nova.setIdExterno(externa.idVolume() == null ? volume.idExterno() : externa.idVolume());
-                    nova.setUrlOrigem(volume.urlOrigem());
-                    serieRepository.persist(nova);
-                    return nova;
-                });
-        return edicaoRepository.buscarPorNumeroESerie(dto.numero(), serie.getId()).orElseGet(() -> {
+        Serie serie = localizarSerieEstrangeiraExistente(tituloSerie, dto, editora.getId());
+        if (serie == null) {
+            serie = new Serie();
+            serie.setTitulo(tituloSerie);
+            serie.setAnoInicio(dto.anoSerie());
+            serie.setTipoSerie(TipoSerie.ESTRANGEIRA);
+            serie.setEditora(editora);
+            serie.setFonteExterna("COMICVINE");
+            serie.setIdExterno(externa.idVolume() == null ? volume.idExterno() : externa.idVolume());
+            serie.setUrlOrigem(volume.urlOrigem());
+            serieRepository.persist(serie);
+        }
+        Serie serieDestino = serie;
+        return edicaoRepository.buscarPorNumeroESerie(dto.numero(), serieDestino.getId()).orElseGet(() -> {
             Edicao nova = new Edicao();
-            nova.setSerie(serie);
+            nova.setSerie(serieDestino);
             nova.setNumero(dto.numero());
             nova.setTitulo(externa.titulo());
             nova.setNomeVolume(externa.nomeVolume());
@@ -824,6 +827,38 @@ public class ConteudoOriginalPaniniService {
             edicaoRepository.persist(nova);
             return nova;
         });
+    }
+
+    private Serie localizarSerieEstrangeiraExistente(
+            String tituloComicVine,
+            CadastroEdicaoOriginalPaniniDTO dto,
+            Long editoraId) {
+        LinkedHashMap<Long, Serie> candidatas = new LinkedHashMap<>();
+        LinkedHashSet<String> titulos = new LinkedHashSet<>(variantesTituloSerie(dto.serie(), dto.anoSerie()));
+        titulos.addAll(variantesTituloSerie(tituloComicVine, dto.anoSerie()));
+        for (String titulo : titulos) {
+            for (Serie serie : serieRepository.buscarTodasPorTituloEEditoraEVolume(titulo, editoraId, null)) {
+                if (serie.getTipoSerie() == TipoSerie.ESTRANGEIRA
+                        && normalizarSerie(serie.getTitulo()).equals(normalizarSerie(dto.serie()))
+                        && normalizarSerie(serie.getTitulo()).equals(normalizarSerie(tituloComicVine))
+                        && anosCompativeis(dto.anoSerie(), serie.getAnoInicio())) {
+                    candidatas.put(serie.getId(), serie);
+                }
+            }
+        }
+        if (candidatas.size() > 1 && dto.anoSerie() != null) {
+            List<Serie> anoExato = candidatas.values().stream()
+                    .filter(serie -> dto.anoSerie().equals(serie.getAnoInicio()))
+                    .toList();
+            if (anoExato.size() == 1) {
+                return anoExato.getFirst();
+            }
+        }
+        if (candidatas.size() > 1) {
+            throw new RegraNegocioException(
+                    "Mais de uma coleção estrangeira do catálogo corresponde à série informada pela Panini.");
+        }
+        return candidatas.values().stream().findFirst().orElse(null);
     }
 
     private CandidatoEdicaoOriginalPaniniDTO paraCandidato(Edicao edicao) {
@@ -900,7 +935,35 @@ public class ConteudoOriginalPaniniService {
     }
 
     private String normalizarSerie(String valor) {
-        return normalizar(valor == null ? null : valor.replaceFirst("(?i)^the\\s+", ""));
+        if (valor == null) {
+            return normalizar(null);
+        }
+        return normalizar(valor
+                .replaceFirst("(?i)^the\\s+", "")
+                .replaceFirst("\\s*\\(\\d{4}\\)\\s*$", "")
+                .replaceFirst("(?i),\\s*the\\s*$", ""));
+    }
+
+    private Set<String> variantesTituloSerie(String titulo, Integer ano) {
+        if (titulo == null || titulo.isBlank()) {
+            return Set.of();
+        }
+        LinkedHashSet<String> variantes = new LinkedHashSet<>();
+        String original = titulo.trim();
+        String semAno = original.replaceFirst("\\s*\\(\\d{4}\\)\\s*$", "").trim();
+        String semArtigo = semAno.replaceFirst("(?i)^the\\s+", "").trim();
+        String semArtigoFinal = semArtigo.replaceFirst("(?i),\\s*the\\s*$", "").trim();
+        variantes.add(original);
+        variantes.add(semAno);
+        variantes.add(semArtigoFinal);
+        variantes.add("The " + semArtigoFinal);
+        variantes.add(semArtigoFinal + ", The");
+        if (ano != null) {
+            variantes.add(semArtigoFinal + " (" + ano + ")");
+            variantes.add(semArtigoFinal + ", The (" + ano + ")");
+        }
+        variantes.removeIf(String::isBlank);
+        return variantes;
     }
 
     private String normalizarNumero(String valor) {

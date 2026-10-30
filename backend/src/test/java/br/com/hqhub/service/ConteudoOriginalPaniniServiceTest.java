@@ -192,7 +192,7 @@ class ConteudoOriginalPaniniServiceTest {
         Editora marvel = new Editora();
         marvel.setNome("Marvel Comics");
         Serie serie = new Serie();
-        serie.setTitulo("Ultimate X-Men");
+        serie.setTitulo("Ultimate X-Men, The (2001)");
         serie.setAnoInicio(2001);
         serie.setTipoSerie(br.com.hqhub.entity.TipoSerie.ESTRANGEIRA);
         serie.setEditora(marvel);
@@ -217,7 +217,7 @@ class ConteudoOriginalPaniniServiceTest {
         Edicao resultado = service.localizarOuCriarEdicaoComicVine(
                 externa, volume,
                 new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
-                        "https://panini.com.br/produto", "Ultimate X-Men", 2000, "1"),
+                        "https://panini.com.br/produto", "The Ultimate X-Men", 2000, "1"),
                 42570L);
 
         assertSame(existente, resultado);
@@ -253,6 +253,41 @@ class ConteudoOriginalPaniniServiceTest {
                 new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
                         "https://panini.com.br/produto", "Ultimate X-Men", 2000, "1"),
                 42570L));
+    }
+
+    @Test
+    void cadastraEdicaoNaColecaoExistenteMesmoQuandoTituloDoGuiaIncluiAno() {
+        Editora marvel = new Editora();
+        marvel.setId(7L);
+        marvel.setNome("Marvel Comics");
+        Serie longshot = new Serie();
+        longshot.setId(81L);
+        longshot.setTitulo("Longshot (1985)");
+        longshot.setAnoInicio(1985);
+        longshot.setTipoSerie(br.com.hqhub.entity.TipoSerie.ESTRANGEIRA);
+        longshot.setEditora(marvel);
+        when(edicoes.buscarPorOrigemExterna("COMICVINE", "65000")).thenReturn(Optional.empty());
+        when(editoras.buscarPorNome("Marvel")).thenReturn(Optional.of(marvel));
+        when(series.buscarTodasPorTituloEEditoraEVolume("Longshot (1985)", 7L, null))
+                .thenReturn(List.of(longshot));
+        when(edicoes.buscarPorNumeroESerie("1", 81L)).thenReturn(Optional.empty());
+        EdicaoComicVineRespostaDTO externa = new EdicaoComicVineRespostaDTO(
+                "65000", "1", null, "Longshot", "Marvel", "9000",
+                "1985-09-01", null, null, null, null, null,
+                "https://comicvine.test/longshot-1", "https://comicvine.test/longshot-1.jpg",
+                List.of(), List.of(), List.of());
+        VolumeComicVineRespostaDTO volume = new VolumeComicVineRespostaDTO(
+                "9000", "Longshot", "Marvel", 1985, 6, null, null, null);
+
+        Edicao resultado = service.localizarOuCriarEdicaoComicVine(
+                externa, volume,
+                new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
+                        "https://panini.com.br/produto", "Longshot", 1985, "1"),
+                null);
+
+        assertSame(longshot, resultado.getSerie());
+        verify(series, never()).persist(any(Serie.class));
+        verify(edicoes).persist(resultado);
     }
 
     @Test

@@ -54,6 +54,9 @@ public class IntegracaoExternaService {
     private static final int TAMANHO_MAXIMO_COMICVINE = 100;
     private static final int LIMITE_EDICOES_FILTRO_CREDITOS = 250;
     private static final int LIMITE_TRADUCAO_DESCRICAO = 480;
+    private static final long INTERVALO_COMICVINE_MILIS = 1_100L;
+    private static final Object LIMITE_COMICVINE = new Object();
+    private static long proximaConsultaComicVine;
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -656,27 +659,67 @@ public class IntegracaoExternaService {
 
     private JsonNode executarGet(String url) {
         try {
+            URI uri = URI.create(url);
+            boolean comicVine = "comicvine.gamespot.com".equalsIgnoreCase(uri.getHost());
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
+                    .uri(uri)
                     .timeout(TEMPO_LIMITE_REQUISICAO)
                     .header("Accept", "application/json")
                     .header("User-Agent", "Coleciona HQ/1.0")
                     .GET()
                     .build();
 
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            int maximoTentativas = comicVine ? 3 : 1;
+            for (int tentativa = 1; tentativa <= maximoTentativas; tentativa++) {
+                if (comicVine) {
+                    aguardarIntervaloComicVine();
+                }
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() < 200 || response.statusCode() >= 300) {
-                throw new RegraNegocioException("Falha ao consultar API externa. Status: " + response.statusCode());
+                if ((response.statusCode() == 420 || response.statusCode() == 429)
+                        && tentativa < maximoTentativas) {
+                    Thread.sleep(esperaBloqueioComicVine(response, tentativa));
+                    continue;
+                }
+                if (response.statusCode() == 420 || response.statusCode() == 429) {
+                    throw new RegraNegocioException(
+                            "A Comic Vine limitou temporariamente as consultas. Aguarde alguns minutos e tente novamente.");
+                }
+                if (response.statusCode() < 200 || response.statusCode() >= 300) {
+                    throw new RegraNegocioException("Falha ao consultar API externa. Status: " + response.statusCode());
+                }
+                return objectMapper.readTree(response.body());
             }
-
-            return objectMapper.readTree(response.body());
+            throw new RegraNegocioException("A Comic Vine não respondeu após novas tentativas.");
         } catch (IOException e) {
             throw new RegraNegocioException("Falha ao consultar API externa. Verifique sua conexão, chave de API e tente novamente.");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RegraNegocioException("Consulta à API externa foi interrompida.");
         }
+    }
+
+    private void aguardarIntervaloComicVine() throws InterruptedException {
+        synchronized (LIMITE_COMICVINE) {
+            long agora = System.currentTimeMillis();
+            long espera = Math.max(0L, proximaConsultaComicVine - agora);
+            if (espera > 0L) {
+                Thread.sleep(espera);
+            }
+            proximaConsultaComicVine = System.currentTimeMillis() + INTERVALO_COMICVINE_MILIS;
+        }
+    }
+
+    private long esperaBloqueioComicVine(HttpResponse<?> response, int tentativa) {
+        return response.headers().firstValue("Retry-After")
+                .map(valor -> {
+                    try {
+                        return Math.max(1L, Long.parseLong(valor.trim())) * 1_000L;
+                    } catch (NumberFormatException ignorada) {
+                        return 5_000L * tentativa;
+                    }
+                })
+                .orElse(5_000L * tentativa);
     }
 
     private String extrairPrimeiraUrl(JsonNode urls) {
