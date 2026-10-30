@@ -106,8 +106,7 @@ public class ConteudoOriginalPaniniService {
 
         ResolucaoComicVine resolucao = resolverEdicaoComicVine(dto);
         EdicaoComicVineRespostaDTO externa = resolucao.edicao();
-        Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
-                .orElseGet(() -> criarEdicaoComicVine(externa, resolucao.volume(), dto));
+        Edicao edicao = localizarOuCriarEdicaoComicVine(externa, resolucao.volume(), dto, null);
         return paraCandidato(edicao);
     }
 
@@ -140,9 +139,9 @@ public class ConteudoOriginalPaniniService {
                 if (candidato == null) {
                     CadastroEdicaoOriginalPaniniDTO cadastro = new CadastroEdicaoOriginalPaniniDTO(
                             dto.urlPanini(), referencia.serie(), referencia.anoSerie(), referencia.numero());
-                    Edicao edicao = edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno())
-                            .orElseGet(() -> criarEdicaoComicVine(
-                                    externa, resolucao.resolucao().volume(), cadastro));
+                    Edicao edicao = localizarOuCriarEdicaoComicVine(
+                            externa, resolucao.resolucao().volume(), cadastro,
+                            referencia.edicaoExistenteId());
                     candidato = paraCandidato(edicao);
                     candidatosPorEdicaoExterna.put(externa.idExterno(), candidato);
                 }
@@ -408,14 +407,14 @@ public class ConteudoOriginalPaniniService {
         GrupoSerie grupo = new GrupoSerie(normalizarSerie(referencia.serie()), referencia.anoSerie());
         List<Edicao> edicoesDaSerie = edicoesCatalogadasPorSerie.computeIfAbsent(grupo,
                 ignorado -> edicaoRepository.buscarPorIdentidadeSerieEstrangeira(
-                        referencia.serie(), referencia.anoSerie()));
+                        referencia.serie(), null));
         String numeroEsperado = normalizarNumero(numeroComicVine(
                 referencia.serie(), referencia.anoSerie(), referencia.numero()));
         return edicoesDaSerie.stream()
                 .filter(edicao -> normalizarSerie(edicao.getSerie().getTitulo()).equals(normalizarSerie(referencia.serie())))
                 .filter(edicao -> normalizarNumero(edicao.getNumero()).equals(numeroEsperado))
-                .filter(edicao -> referencia.anoSerie() == null
-                        || referencia.anoSerie().equals(edicao.getSerie().getAnoInicio()))
+                .filter(edicao -> anosCompativeis(
+                        referencia.anoSerie(), edicao.getSerie().getAnoInicio()))
                 .limit(5)
                 .map(edicao -> new CandidatoEdicaoOriginalPaniniDTO(
                         edicao.getId(), edicao.getSerie().getTitulo(), edicao.getNumero(),
@@ -675,6 +674,99 @@ public class ConteudoOriginalPaniniService {
         return atual.getMessage() == null || atual.getMessage().isBlank()
                 ? "Não foi possível resolver esta referência na Comic Vine."
                 : atual.getMessage();
+    }
+
+    Edicao localizarOuCriarEdicaoComicVine(
+            EdicaoComicVineRespostaDTO externa,
+            VolumeComicVineRespostaDTO volume,
+            CadastroEdicaoOriginalPaniniDTO dto,
+            Long edicaoExistenteId) {
+        Edicao existente = edicaoExistenteId == null
+                ? edicaoRepository.buscarPorOrigemExterna("COMICVINE", externa.idExterno()).orElse(null)
+                : edicaoRepository.findByIdOptional(edicaoExistenteId)
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                "A edição existente indicada para receber a capa não foi encontrada."));
+        if (existente == null) {
+            return criarEdicaoComicVine(externa, volume, dto);
+        }
+        validarIdentidadeEdicaoComicVine(existente, externa, volume, dto);
+        if (edicaoExistenteId != null
+                && (existente.getUrlCapa() == null || existente.getUrlCapa().isBlank())
+                && (externa.urlImagem() == null || externa.urlImagem().isBlank())) {
+            throw new RegraNegocioException("A Comic Vine confirmou a edição, mas não informou uma capa.");
+        }
+        enriquecerEdicaoComicVine(existente, externa);
+        return existente;
+    }
+
+    private void validarIdentidadeEdicaoComicVine(
+            Edicao edicao,
+            EdicaoComicVineRespostaDTO externa,
+            VolumeComicVineRespostaDTO volume,
+            CadastroEdicaoOriginalPaniniDTO dto) {
+        Serie serie = edicao.getSerie();
+        String tituloComicVine = externa.nomeVolume() == null || externa.nomeVolume().isBlank()
+                ? volume.titulo() : externa.nomeVolume();
+        String editoraComicVine = externa.editora() == null || externa.editora().isBlank()
+                ? volume.editora() : externa.editora();
+        String numeroComicVine = numeroComicVine(dto.serie(), dto.anoSerie(), dto.numero());
+
+        boolean identidadeValida = serie != null
+                && serie.getTipoSerie() == TipoSerie.ESTRANGEIRA
+                && normalizarSerie(serie.getTitulo()).equals(normalizarSerie(dto.serie()))
+                && normalizarSerie(serie.getTitulo()).equals(normalizarSerie(tituloComicVine))
+                && normalizarNumero(edicao.getNumero()).equals(normalizarNumero(dto.numero()))
+                && normalizarNumero(externa.numero()).equals(normalizarNumero(numeroComicVine))
+                && anosCompativeis(dto.anoSerie(), serie.getAnoInicio())
+                && anosCompativeis(dto.anoSerie(), volume.anoInicio())
+                && anosCompativeis(serie.getAnoInicio(), volume.anoInicio())
+                && serie.getEditora() != null
+                && editorasCompativeis(serie.getEditora().getNome(), editoraComicVine);
+        if (!identidadeValida) {
+            throw new RegraNegocioException(
+                    "A edição encontrada na Comic Vine não corresponde exatamente ao título, editora, volume, ano e número cadastrados.");
+        }
+    }
+
+    private void enriquecerEdicaoComicVine(Edicao edicao, EdicaoComicVineRespostaDTO externa) {
+        copiarSeVazio(edicao.getTitulo(), externa.titulo(), edicao::setTitulo);
+        copiarSeVazio(edicao.getNomeVolume(), externa.nomeVolume(), edicao::setNomeVolume);
+        copiarSeVazio(edicao.getDescricao(), externa.descricaoPortugues(), edicao::setDescricao);
+        copiarSeVazio(edicao.getDescricaoOriginal(), externa.descricaoOriginal(), edicao::setDescricaoOriginal);
+        copiarSeVazio(edicao.getDescricaoPortugues(), externa.descricaoPortugues(), edicao::setDescricaoPortugues);
+        copiarSeVazio(edicao.getUrlCapa(), externa.urlImagem(), edicao::setUrlCapa);
+        copiarSeVazio(edicao.getIdComicVine(), externa.idExterno(), edicao::setIdComicVine);
+        copiarSeVazio(edicao.getUrlComicVine(), externa.urlOrigem(), edicao::setUrlComicVine);
+        copiarSeVazio(edicao.getUrlOrigem(), externa.urlOrigem(), edicao::setUrlOrigem);
+        if (edicao.getDataCobertura() == null) {
+            edicao.setDataCobertura(data(externa.dataCapa()));
+        }
+        if (edicao.getDataDisponibilidadeLoja() == null) {
+            edicao.setDataDisponibilidadeLoja(data(externa.dataVenda()));
+        }
+        if (edicao.getDataPublicacao() == null) {
+            edicao.setDataPublicacao(edicao.getDataCobertura() != null
+                    ? edicao.getDataCobertura() : edicao.getDataDisponibilidadeLoja());
+        }
+    }
+
+    private boolean anosCompativeis(Integer primeiro, Integer segundo) {
+        return primeiro == null || segundo == null || Math.abs(primeiro - segundo) <= 1;
+    }
+
+    private boolean editorasCompativeis(String primeira, String segunda) {
+        if (primeira == null || segunda == null || primeira.isBlank() || segunda.isBlank()) {
+            return false;
+        }
+        return normalizarEditora(primeira).equals(normalizarEditora(segunda));
+    }
+
+    private String normalizarEditora(String valor) {
+        return normalizar(valor)
+                .replace("publishing", "")
+                .replace("entertainment", "")
+                .replace("comics", "")
+                .replace("comic", "");
     }
 
     private Edicao criarEdicaoComicVine(

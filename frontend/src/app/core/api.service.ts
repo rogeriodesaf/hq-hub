@@ -1128,7 +1128,13 @@ export class ApiService {
 
   cadastrarEdicoesOriginaisPanini(dto: {
     urlPanini: string;
-    referencias: Array<{ indice: number; serie: string; anoSerie: number | null; numero: string }>;
+    referencias: Array<{
+      indice: number;
+      serie: string;
+      anoSerie: number | null;
+      numero: string;
+      edicaoExistenteId: number | null;
+    }>;
   }) {
     return this.http.post<ResultadoCadastroEdicoesOriginaisPanini>(
       '/api/importacoes/catalogo/panini/conteudo-original/edicoes/lote',

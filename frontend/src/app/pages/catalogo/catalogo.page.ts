@@ -986,7 +986,7 @@ import {
             <details #importacaoPaniniOriginal class="painel-formulario importacao-panini-original">
               <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
               <div class="importacao-panini-conteudo">
-                <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. As edições ausentes serão buscadas e cadastradas automaticamente na Comic Vine; casos ambíguos continuarão aguardando sua confirmação. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos.</p>
+                <p class="texto-suave">Use a página oficial do produto para preparar os vínculos. As edições ausentes ou sem capa serão conferidas automaticamente na Comic Vine; casos ambíguos continuarão aguardando sua confirmação. Esta ferramenta é independente da captura pelo Guia dos Quadrinhos.</p>
                 <div class="importacao-panini-url">
                   <label>
                     URL do produto na Panini
@@ -1504,7 +1504,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly retornoVinculosPanini = signal<{ tipo: 'info' | 'sucesso' | 'erro'; texto: string } | null>(null);
   readonly quantidadeVinculosPanini = computed(() => Object.values(this.selecoesPanini()).filter((id) => !!id).length);
   readonly quantidadePendentesPanini = computed(() => this.previaPanini()?.referencias.filter((referencia) =>
-    !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
+    this.precisaResolverOriginalPanini(referencia),
   ).length || 0);
   readonly enviandoCapa = signal(false);
   readonly revisandoCapa = signal<number | null>(null);
@@ -2694,7 +2694,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       return;
     }
     const pendentes = previa.referencias.filter((referencia) =>
-      !referencia.candidatos.length && !!referencia.serie && !!referencia.numero,
+      this.precisaResolverOriginalPanini(referencia),
     );
     if (!pendentes.length) {
       return;
@@ -2712,6 +2712,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
           serie: referencia.serie!,
           anoSerie: referencia.anoSerie,
           numero: referencia.numero!,
+          edicaoExistenteId: this.idEdicaoPaniniSemCapa(referencia),
         })),
       }));
       for (const item of resultado.resultados) {
@@ -2748,7 +2749,23 @@ export class CatalogoPage implements OnInit, OnDestroy {
     const detalheFalhas = falhas
       ? ` ${falhas} referência(s) precisam de conferência; veja a mensagem em cada item.`
       : '';
-    this.mensagem.set(`Busca automática concluída: ${resolvidas} referência(s) cadastrada(s) e selecionada(s).${detalheFalhas}`);
+    this.mensagem.set(`Busca automática concluída: ${resolvidas} referência(s) resolvida(s) e selecionada(s).${detalheFalhas}`);
+  }
+
+  private precisaResolverOriginalPanini(
+    referencia: PreviaConteudoOriginalPanini['referencias'][number],
+  ) {
+    return !!referencia.serie && !!referencia.numero
+      && (!referencia.candidatos.length
+        || (referencia.candidatos.length === 1 && !referencia.candidatos[0].urlCapa));
+  }
+
+  private idEdicaoPaniniSemCapa(
+    referencia: PreviaConteudoOriginalPanini['referencias'][number],
+  ) {
+    return referencia.candidatos.length === 1 && !referencia.candidatos[0].urlCapa
+      ? referencia.candidatos[0].id
+      : null;
   }
 
   private async buscarECadastrarEdicaoOriginalPanini(

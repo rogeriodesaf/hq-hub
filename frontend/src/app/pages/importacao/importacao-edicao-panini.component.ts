@@ -138,7 +138,7 @@ import {
             <div><p class="rotulo">Edição brasileira cadastrada</p><h3>{{ tituloEdicaoCadastrada() }}</h3></div>
             <span>ID {{ edicaoCadastrada()?.id }}</span>
           </header>
-          <p class="texto-suave">As referências ausentes estão sendo procuradas em lote na Comic Vine. Revise os casos ambíguos antes de concluir.</p>
+          <p class="texto-suave">As referências ausentes ou sem capa estão sendo conferidas em lote na Comic Vine. Revise os casos ambíguos antes de concluir.</p>
           <aside class="importacao-panini-fonte"><strong>{{ produtoPrevia.tituloProduto || 'Produto Panini' }}</strong><p>{{ produtoPrevia.conteudoOriginalBruto }}</p></aside>
           <div class="importacao-panini-referencias">
             @for (referencia of produtoPrevia.referencias; track referencia.indice) {
@@ -361,14 +361,20 @@ export class ImportacaoEdicaoPaniniComponent {
   async resolverOriginaisAutomaticamente() {
     const previa = this.previa();
     if (!previa || this.resolvendoOriginais()) return;
-    const pendentes = previa.referencias.filter((item) => !item.candidatos.length && !!item.serie && !!item.numero);
+    const pendentes = previa.referencias.filter((item) => this.precisaResolverOriginal(item));
     if (!pendentes.length) return;
     this.resolvendoOriginais.set(true);
     this.progressoOriginais.set({ atual: 0, total: pendentes.length });
     try {
       const resultado = await firstValueFrom(this.api.cadastrarEdicoesOriginaisPanini({
         urlPanini: previa.urlPanini,
-        referencias: pendentes.map((item) => ({ indice: item.indice, serie: item.serie!, anoSerie: item.anoSerie, numero: item.numero! })),
+        referencias: pendentes.map((item) => ({
+          indice: item.indice,
+          serie: item.serie!,
+          anoSerie: item.anoSerie,
+          numero: item.numero!,
+          edicaoExistenteId: this.idEdicaoSemCapa(item),
+        })),
       }));
       let atual = 0;
       for (const item of resultado.resultados) {
@@ -386,6 +392,18 @@ export class ImportacaoEdicaoPaniniComponent {
       this.progressoOriginais.set(null);
       this.resolvendoOriginais.set(false);
     }
+  }
+
+  private precisaResolverOriginal(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {
+    return !!referencia.serie && !!referencia.numero
+      && (!referencia.candidatos.length
+        || (referencia.candidatos.length === 1 && !referencia.candidatos[0].urlCapa));
+  }
+
+  private idEdicaoSemCapa(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {
+    return referencia.candidatos.length === 1 && !referencia.candidatos[0].urlCapa
+      ? referencia.candidatos[0].id
+      : null;
   }
 
   async cadastrarOriginal(referencia: PreviaConteudoOriginalPanini['referencias'][number]) {

@@ -16,6 +16,7 @@ public record CadastroEdicoesOriginaisPaniniDTO(
             @NotNull Integer indice,
             @NotBlank @Size(max = 255) String serie,
             Integer anoSerie,
-            @NotBlank @Size(max = 50) String numero) {
+            @NotBlank @Size(max = 50) String numero,
+            Long edicaoExistenteId) {
     }
 }

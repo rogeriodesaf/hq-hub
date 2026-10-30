@@ -35,6 +35,7 @@ import br.com.hqhub.repository.SerieRepository;
 class ConteudoOriginalPaniniServiceTest {
 
     private SerieRepository series;
+    private EdicaoRepository edicoes;
     private EditoraRepository editoras;
     private IntegracaoExternaService integracoes;
     private PostagemFeedRepository postagens;
@@ -44,12 +45,13 @@ class ConteudoOriginalPaniniServiceTest {
     @BeforeEach
     void preparar() {
         series = mock(SerieRepository.class);
+        edicoes = mock(EdicaoRepository.class);
         editoras = mock(EditoraRepository.class);
         integracoes = mock(IntegracaoExternaService.class);
         postagens = mock(PostagemFeedRepository.class);
         usuarioAutenticado = mock(UsuarioAutenticadoService.class);
         service = new ConteudoOriginalPaniniService(
-                mock(EdicaoRepository.class),
+                edicoes,
                 mock(PublicacaoRelacionadaRepository.class),
                 mock(ConteudoOriginalPaniniParser.class),
                 integracoes,
@@ -183,6 +185,74 @@ class ConteudoOriginalPaniniServiceTest {
 
         assertEquals("300000", resultado.edicao().idExterno());
         assertEquals("½", resultado.edicao().numero());
+    }
+
+    @Test
+    void preencheCapaComicVineNaEdicaoExistenteSemTrocarSuaIdentidade() {
+        Editora marvel = new Editora();
+        marvel.setNome("Marvel Comics");
+        Serie serie = new Serie();
+        serie.setTitulo("Ultimate X-Men");
+        serie.setAnoInicio(2001);
+        serie.setTipoSerie(br.com.hqhub.entity.TipoSerie.ESTRANGEIRA);
+        serie.setEditora(marvel);
+        Edicao existente = new Edicao();
+        existente.setId(42570L);
+        existente.setSerie(serie);
+        existente.setNumero("1");
+        existente.setFonteExterna("GUIA_DOS_QUADRINHOS");
+        existente.setIdExterno("guia-ultimate-x-men-1");
+        when(edicoes.findByIdOptional(42570L)).thenReturn(Optional.of(existente));
+
+        EdicaoComicVineRespostaDTO externa = new EdicaoComicVineRespostaDTO(
+                "53564", "1", "The Tomorrow People, Part 1", "Ultimate X-Men", "Marvel", "7258",
+                "2001-02-01", null, null, "Original", "Português", null,
+                "https://comicvine.test/ultimate-x-men-1",
+                "https://comicvine.test/ultimate-x-men-1.jpg",
+                List.of(), List.of(), List.of());
+        VolumeComicVineRespostaDTO volume = new VolumeComicVineRespostaDTO(
+                "7258", "Ultimate X-Men", "Marvel", 2001, 100,
+                null, "https://comicvine.test/ultimate-x-men", null);
+
+        Edicao resultado = service.localizarOuCriarEdicaoComicVine(
+                externa, volume,
+                new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
+                        "https://panini.com.br/produto", "Ultimate X-Men", 2000, "1"),
+                42570L);
+
+        assertSame(existente, resultado);
+        assertEquals("https://comicvine.test/ultimate-x-men-1.jpg", resultado.getUrlCapa());
+        assertEquals("53564", resultado.getIdComicVine());
+        assertEquals("GUIA_DOS_QUADRINHOS", resultado.getFonteExterna());
+        assertEquals("guia-ultimate-x-men-1", resultado.getIdExterno());
+    }
+
+    @Test
+    void rejeitaCapaQuandoEditoraDaComicVineDivergeDoCatalogo() {
+        Editora dc = new Editora();
+        dc.setNome("DC Comics");
+        Serie serie = new Serie();
+        serie.setTitulo("Ultimate X-Men");
+        serie.setAnoInicio(2001);
+        serie.setTipoSerie(br.com.hqhub.entity.TipoSerie.ESTRANGEIRA);
+        serie.setEditora(dc);
+        Edicao existente = new Edicao();
+        existente.setId(42570L);
+        existente.setSerie(serie);
+        existente.setNumero("1");
+        when(edicoes.findByIdOptional(42570L)).thenReturn(Optional.of(existente));
+        EdicaoComicVineRespostaDTO externa = new EdicaoComicVineRespostaDTO(
+                "53564", "1", null, "Ultimate X-Men", "Marvel", "7258",
+                null, null, null, null, null, null, null, "https://comicvine.test/capa.jpg",
+                List.of(), List.of(), List.of());
+        VolumeComicVineRespostaDTO volume = new VolumeComicVineRespostaDTO(
+                "7258", "Ultimate X-Men", "Marvel", 2001, 100, null, null, null);
+
+        assertThrows(RegraNegocioException.class, () -> service.localizarOuCriarEdicaoComicVine(
+                externa, volume,
+                new br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO(
+                        "https://panini.com.br/produto", "Ultimate X-Men", 2000, "1"),
+                42570L));
     }
 
     @Test
