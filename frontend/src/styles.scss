@@ -1448,6 +1448,14 @@ body.tema-escuro .sugestoes-assistente {
   }
 }
 
+.catalogo-estrangeiro-layout.modo-edicoes-mobile {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.catalogo-estrangeiro-layout.modo-edicoes-mobile .titulos-estrangeiros-bloco {
+  display: none;
+}
+
 .lista-titulos-estrangeiros small {
   display: block;
   margin-top: 4px;
