@@ -47,6 +47,7 @@ class HistoriaPublicacoesBrasilTest {
         ConteudoEdicaoRepository conteudos = mock(ConteudoEdicaoRepository.class);
         Edicao original = edicao(1L, "Marvel Comics", "Spider-Man Team-Up", TipoSerie.ESTRANGEIRA);
         Edicao brasileira = edicao(2L, "Panini", "A Saga do Clone", TipoSerie.BRASILEIRA);
+        brasileira.setDataPublicacao(null);
         PublicacaoRelacionada vinculo = new PublicacaoRelacionada();
         vinculo.setEdicaoOrigem(original);
         vinculo.setEdicaoDestino(brasileira);
@@ -66,6 +67,7 @@ class HistoriaPublicacoesBrasilTest {
         assertEquals(0, resultado.publicacoes().getFirst().quantidadeHistorias());
         assertTrue(resultado.publicacoes().getFirst().historias().isEmpty());
         assertNull(resultado.publicacoes().getFirst().publicacaoCompleta());
+        assertNull(resultado.publicacoes().getFirst().ano());
     }
 
     private br.com.hqhub.dto.PublicacoesBrasileirasEdicaoOriginalDTO consultar(StatusPublicacaoHistoria status) {

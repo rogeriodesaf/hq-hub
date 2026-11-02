@@ -542,7 +542,10 @@ public class HistoriaService {
 
     private Integer anoDaEdicao(Edicao edicao) {
         LocalDate data = dataDaEdicao(edicao);
-        return data != null ? data.getYear() : edicao.getSerie().getAnoInicio();
+        if (data != null) {
+            return data.getYear();
+        }
+        return edicao.getSerie().getAnoInicio();
     }
 
     @Transactional
