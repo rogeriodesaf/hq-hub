@@ -217,6 +217,7 @@ import {
 })
 export class ImportacaoEdicaoPaniniComponent {
   private readonly api = inject(ApiService);
+  private buscaColecoesAtual = 0;
 
   readonly etapa = signal<'inicio' | 'revisao' | 'vinculos' | 'concluido'>('inicio');
   readonly analisando = signal(false);
@@ -278,15 +279,38 @@ export class ImportacaoEdicaoPaniniComponent {
     });
   }
 
-  buscarColecoes() {
+  async buscarColecoes() {
     const termo = this.buscaColecao.trim();
     if (!termo) return;
+    const buscaAtual = ++this.buscaColecoesAtual;
     this.buscandoColecoes.set(true);
     this.colecoesConsultadas.set(false);
-    this.api.listarSeries(termo, 0, 20, '', 'BRASILEIRA').subscribe({
-      next: (resposta) => { this.colecoes.set(resposta.itens); this.colecoesConsultadas.set(true); this.buscandoColecoes.set(false); },
-      error: () => { this.colecoes.set([]); this.colecoesConsultadas.set(true); this.buscandoColecoes.set(false); this.definirErro('Não foi possível pesquisar as coleções.'); },
-    });
+    try {
+      const primeiraPagina = await firstValueFrom(
+        this.api.listarSeries(termo, 0, 100, '', 'BRASILEIRA'),
+      );
+      const paginas = [primeiraPagina];
+      for (let pagina = 1; pagina < primeiraPagina.totalPaginas; pagina += 1) {
+        paginas.push(
+          await firstValueFrom(this.api.listarSeries(termo, pagina, 100, '', 'BRASILEIRA')),
+        );
+      }
+      if (buscaAtual !== this.buscaColecoesAtual) return;
+
+      const colecoesUnicas = new Map<number, Serie>();
+      paginas.flatMap((pagina) => pagina.itens).forEach((colecao) => {
+        colecoesUnicas.set(colecao.id, colecao);
+      });
+      this.colecoes.set([...colecoesUnicas.values()]);
+      this.colecoesConsultadas.set(true);
+      this.buscandoColecoes.set(false);
+    } catch {
+      if (buscaAtual !== this.buscaColecoesAtual) return;
+      this.colecoes.set([]);
+      this.colecoesConsultadas.set(true);
+      this.buscandoColecoes.set(false);
+      this.definirErro('Não foi possível pesquisar as coleções.');
+    }
   }
 
   usarNovaColecao(criar: boolean) {
