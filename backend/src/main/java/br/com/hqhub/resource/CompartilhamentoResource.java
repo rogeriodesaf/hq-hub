@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,9 +70,10 @@ public class CompartilhamentoResource {
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
-    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "3";
+    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "4";
     private static final String USER_AGENT_IMAGEM = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
+    private static final String FORMATOS_IMAGEM_SUPORTADOS = "image/jpeg,image/png,image/webp;q=0.9,*/*;q=0.5";
     private static final Pattern YOUTUBE_ID_CAMINHO = Pattern.compile(
             "(?:youtu\\.be/|youtube\\.com/(?:shorts|live|embed)/)([A-Za-z0-9_-]{6,})",
             Pattern.CASE_INSENSITIVE);
@@ -303,8 +305,9 @@ public class CompartilhamentoResource {
         if (id == null || id <= 0) return Response.status(Response.Status.NOT_FOUND).build();
         try {
             EdicaoRespostaDTO edicao = edicaoService.buscarPorId(id);
-            String capa = capaEdicaoCompartilhamento(id, edicao.urlCapa());
-            return responderImagemUrl(urlPublicaService.normalizarApiUrl(capa));
+            String capaCatalogo = edicaoRepository.capaPublicaPorEdicao(id).orElse(null);
+            String capaGuia = itemOrdemLeituraRepository.capaReferenciaPorEdicao(id).orElse(null);
+            return responderImagemUrls(capaCatalogo, capaGuia, edicao.urlCapa());
         } catch (RecursoNaoEncontradoException excecao) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -922,17 +925,33 @@ public class CompartilhamentoResource {
     }
 
     private Response responderImagemUrl(String urlImagem) {
-        if (urlImagem == null || urlImagem.isBlank()) {
-            urlImagem = urlAbsoluta(IMAGEM_PADRAO);
+        return responderImagemUrls(urlImagem);
+    }
+
+    Response responderImagemUrls(String... urlsImagem) {
+        if (urlsImagem != null) {
+            for (String urlImagem : urlsImagem) {
+                Response resposta = tentarResponderImagemUrl(urlImagem);
+                if (resposta != null) {
+                    return resposta;
+                }
+            }
         }
-        if (ehUrlGuia(urlImagem)) {
-            urlImagem = urlAbsoluta(IMAGEM_PADRAO);
+        return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
+    }
+
+    private Response tentarResponderImagemUrl(String urlImagem) {
+        if (urlImagem == null || urlImagem.isBlank() || ehUrlGuia(urlImagem)) {
+            return null;
         }
         try {
-            HttpRequest request = HttpRequest.newBuilder(URI.create(urlImagem))
+            String urlNormalizada = urlPublicaService == null
+                    ? urlImagem
+                    : urlPublicaService.normalizarApiUrl(urlImagem);
+            HttpRequest request = HttpRequest.newBuilder(URI.create(urlNormalizada))
                     .timeout(Duration.ofSeconds(12))
                     .header("User-Agent", USER_AGENT_IMAGEM)
-                    .header("Accept", "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8")
+                    .header("Accept", FORMATOS_IMAGEM_SUPORTADOS)
                     .header("Accept-Language", "pt-BR,pt;q=0.9,en;q=0.8")
                     .GET()
                     .build();
@@ -940,17 +959,53 @@ public class CompartilhamentoResource {
             if (resposta.statusCode() >= 200 && resposta.statusCode() < 300
                     && resposta.body().length > 0
                     && !ehUrlGuia(resposta.uri().toString())) {
-                byte[] jpeg = criarImagemSocial(resposta.body());
-                return Response.ok(jpeg, "image/jpeg")
-                        .header("Cache-Control", "public, max-age=86400")
-                        .header("Content-Length", jpeg.length)
-                        .build();
+                try {
+                    byte[] jpeg = criarImagemSocial(resposta.body());
+                    return respostaImagem(jpeg, "image/jpeg");
+                } catch (Exception conversaoIndisponivel) {
+                    // ImageIO do JDK não lê WebP/AVIF sem um plugin. Nesses casos,
+                    // ainda devolvemos a capa original para o crawler do WhatsApp.
+                    String tipoImagem = tipoImagem(resposta, resposta.body());
+                    if (tipoImagem != null) {
+                        return respostaImagem(resposta.body(), tipoImagem);
+                    }
+                }
             }
         } catch (Exception ignored) {
-            // Fallback abaixo evita quebrar o preview quando a origem externa bloqueia a imagem.
+            // A proxima fonte cadastrada sera tentada antes da arte generica.
         }
+        return null;
+    }
 
-        return Response.temporaryRedirect(URI.create(urlAbsoluta(IMAGEM_PADRAO))).build();
+    private Response respostaImagem(byte[] conteudo, String tipoImagem) {
+        return Response.ok(conteudo, tipoImagem)
+                .header("Cache-Control", "public, max-age=86400")
+                .header("Content-Length", conteudo.length)
+                .build();
+    }
+
+    private String tipoImagem(HttpResponse<byte[]> resposta, byte[] conteudo) {
+        String tipoCabecalho = resposta.headers().firstValue("Content-Type")
+                .map(valor -> valor.split(";", 2)[0].trim().toLowerCase(Locale.ROOT))
+                .orElse("");
+        if ("image/jpeg".equals(tipoCabecalho) || "image/png".equals(tipoCabecalho)
+                || "image/webp".equals(tipoCabecalho) || "image/avif".equals(tipoCabecalho)) {
+            return tipoCabecalho;
+        }
+        if (ehWebp(conteudo)) return "image/webp";
+        if (ehAvif(conteudo)) return "image/avif";
+        return null;
+    }
+
+    private boolean ehWebp(byte[] conteudo) {
+        return conteudo.length >= 12
+                && conteudo[0] == 'R' && conteudo[1] == 'I' && conteudo[2] == 'F' && conteudo[3] == 'F'
+                && conteudo[8] == 'W' && conteudo[9] == 'E' && conteudo[10] == 'B' && conteudo[11] == 'P';
+    }
+
+    private boolean ehAvif(byte[] conteudo) {
+        return conteudo.length >= 12
+                && conteudo[4] == 'f' && conteudo[5] == 't' && conteudo[6] == 'y' && conteudo[7] == 'p';
     }
 
     private byte[] criarImagemSocial(byte[] conteudo) throws Exception {

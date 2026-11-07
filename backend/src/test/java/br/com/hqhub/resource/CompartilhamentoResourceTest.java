@@ -3,9 +3,17 @@ package br.com.hqhub.resource;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.net.InetSocketAddress;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.imageio.ImageIO;
+
+import com.sun.net.httpserver.HttpServer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,8 +72,9 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("twitter:card\" content=\"summary_large_image"));
             assertTrue(html.contains("A Saga &lt;Especial&gt; #1&amp;2 | Coleciona HQ"));
             assertTrue(html.contains("Panini · 2021."));
-            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42/imagem.jpg?v=3"));
-            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42?v=3"));
+            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42/imagem.jpg?v=4"));
+            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42?v=4"));
+            assertTrue(html.contains("https://hqhub.example/#/edicoes/42"));
         }
         verify(edicoes, times(1)).buscarPorId(42L);
     }
@@ -77,6 +86,58 @@ class CompartilhamentoResourceTest {
                 .thenReturn(java.util.Optional.of("https://img.example/capa-guia.jpg"));
 
         assertEquals("https://img.example/capa-guia.jpg", recurso.capaEdicaoCompartilhamento(42L, null));
+    }
+
+    @Test
+    void tentaOutraCapaRegistradaQuandoAOrigemPrincipalFalha() throws Exception {
+        HttpServer servidor = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        AtomicReference<String> acceptRecebido = new AtomicReference<>();
+        servidor.createContext("/indisponivel", troca -> {
+            troca.sendResponseHeaders(404, -1);
+            troca.close();
+        });
+        servidor.createContext("/capa", troca -> {
+            acceptRecebido.set(troca.getRequestHeaders().getFirst("Accept"));
+            BufferedImage imagem = new BufferedImage(2, 3, BufferedImage.TYPE_INT_RGB);
+            ByteArrayOutputStream saida = new ByteArrayOutputStream();
+            ImageIO.write(imagem, "jpg", saida);
+            byte[] conteudo = saida.toByteArray();
+            troca.getResponseHeaders().set("Content-Type", "image/jpeg");
+            troca.sendResponseHeaders(200, conteudo.length);
+            troca.getResponseBody().write(conteudo);
+            troca.close();
+        });
+        servidor.createContext("/webp", troca -> {
+            byte[] conteudo = new byte[] {
+                    'R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'E', 'B', 'P'
+            };
+            troca.getResponseHeaders().set("Content-Type", "image/webp");
+            troca.sendResponseHeaders(200, conteudo.length);
+            troca.getResponseBody().write(conteudo);
+            troca.close();
+        });
+        servidor.start();
+
+        try {
+            String origem = "http://127.0.0.1:" + servidor.getAddress().getPort();
+            try (Response resposta = recurso.responderImagemUrls(
+                    origem + "/indisponivel",
+                    origem + "/capa")) {
+                assertEquals(200, resposta.getStatus());
+                assertEquals("image/jpeg,image/png,image/webp;q=0.9,*/*;q=0.5", acceptRecebido.get());
+                assertTrue(((byte[]) resposta.getEntity()).length > 0);
+            }
+
+            try (Response resposta = recurso.responderImagemUrls(origem + "/webp")) {
+                assertEquals(200, resposta.getStatus());
+                assertEquals("image/webp", resposta.getMediaType().toString());
+                assertArrayEquals(
+                        new byte[] {'R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'E', 'B', 'P'},
+                        (byte[]) resposta.getEntity());
+            }
+        } finally {
+            servidor.stop(0);
+        }
     }
 
     @Test
