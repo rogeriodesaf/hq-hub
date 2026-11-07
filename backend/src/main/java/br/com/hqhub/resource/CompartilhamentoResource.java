@@ -70,7 +70,7 @@ public class CompartilhamentoResource {
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
-    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "4";
+    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "5";
     private static final String USER_AGENT_IMAGEM = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
     private static final String FORMATOS_IMAGEM_SUPORTADOS = "image/jpeg,image/png,image/webp;q=0.9,*/*;q=0.5";

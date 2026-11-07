@@ -11,7 +11,7 @@ describe('CompartilhamentoService', () => {
   });
 
   it('gera o link publico curto de uma edicao', () => {
-    expect(service.urlEdicao(42)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/edicoes/42?v=5');
+    expect(service.urlEdicao(42)).toBe('https://hqhub-backend.onrender.com/api/compartilhar/edicoes/42?v=6');
   });
 
   it('gera links pelo backend para preservar os metadados e imagens sociais', () => {

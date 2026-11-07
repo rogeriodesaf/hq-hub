@@ -16,7 +16,7 @@ export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
 
   urlEdicao(edicaoId: number): string {
-    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=5`;
+    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=6`;
   }
 
   urlSerie(serieId: number): string {
