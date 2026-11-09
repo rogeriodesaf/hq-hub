@@ -22,7 +22,7 @@ public class ProdutoMythosParser {
     public Produto extrair(String html) {
         String conteudo = html == null ? "" : html;
         Map<String, String> metas = metas(conteudo);
-        String titulo = primeiro(metas.get("og:title"), extrairJson(conteudo, "name"));
+        String titulo = primeiro(extrairJson(conteudo, "name"), metas.get("og:title"));
         String descricao = limpar(metas.get("og:description"));
         String capa = primeiro(extrairJson(conteudo, "image"), metas.get("og:image"));
         String sku = extrairJson(conteudo, "sku");
@@ -32,8 +32,9 @@ public class ProdutoMythosParser {
         String texto = limparTags(descricao + " " + conteudo);
         Integer paginas = inteiro(PAGES, texto);
         String formato = primeiro(grupo(FORMAT, texto), null);
-        Matcher tituloNumerado = TITLE.matcher(limpar(titulo));
-        String serie = tituloNumerado.matches() ? limpar(tituloNumerado.group(1)) : limpar(titulo);
+        String tituloNormalizado = primeiro(limpar(titulo), "Produto Mythos");
+        Matcher tituloNumerado = TITLE.matcher(tituloNormalizado);
+        String serie = tituloNumerado.matches() ? limpar(tituloNumerado.group(1)) : tituloNormalizado;
         String numero = tituloNumerado.matches() ? tituloNumerado.group(2) : null;
         return new Produto(titulo, serie, numero, descricao, capa, sku, codigoBarras, preco, paginas, formato, marca);
     }

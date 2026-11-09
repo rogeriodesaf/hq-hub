@@ -45,7 +45,14 @@ public class ImportacaoMythosService {
 
     public PreviaProdutoMythosDTO analisar(String url) {
         URI uri = validarUrl(url);
-        Produto produto = parser.extrair(carregar(uri));
+        Produto produto;
+        try {
+            produto = parser.extrair(carregar(uri));
+        } catch (RegraNegocioException excecao) {
+            throw excecao;
+        } catch (RuntimeException excecao) {
+            throw new RegraNegocioException("Falha ao interpretar os dados do produto da Loja Mythos.");
+        }
         if (produto.sku() == null || produto.sku().isBlank()) throw new RegraNegocioException("A página da Mythos não informou um SKU.");
         return new PreviaProdutoMythosDTO(uri.toString(), produto.titulo(), new PreviaProdutoMythosDTO.ProdutoMythosDTO(
                 produto.serie(), produto.numero(), produto.descricao(), produto.urlCapa(), produto.sku(), produto.codigoBarras(),
