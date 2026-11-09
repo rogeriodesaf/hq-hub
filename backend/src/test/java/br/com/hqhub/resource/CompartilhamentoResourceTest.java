@@ -46,7 +46,7 @@ class CompartilhamentoResourceTest {
         series = mock(SerieService.class);
         historias = mock(HistoriaService.class);
         recurso = new CompartilhamentoResource(null, null, null, repositorioEdicoes, null, itensGuia, null, null, null,
-                edicoes, series, null, historias);
+                edicoes, series, null, historias, null);
         recurso.urlBase = "https://hqhub.example";
         recurso.apiUrlPublica = "https://api.hqhub.example";
         recurso.urlCompartilhamentoPublica = "https://share.hqhub.example/api/compartilhar";

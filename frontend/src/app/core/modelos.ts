@@ -1028,6 +1028,7 @@ export interface DetalheCatalogoPublico {
   conteudos: ConteudoEdicao[];
   publicacoes: PublicacaoHistoria[];
   publicacoesOriginais: PublicacaoHistoria[];
+  publicacoesRelacionadas: PublicacaoRelacionada[];
 }
 
 export interface PostagemColecaoPublica {

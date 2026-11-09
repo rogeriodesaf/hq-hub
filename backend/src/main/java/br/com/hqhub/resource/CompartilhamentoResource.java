@@ -47,6 +47,7 @@ import br.com.hqhub.service.UrlPublicaService;
 import br.com.hqhub.service.FeedSocialService;
 import br.com.hqhub.service.EdicaoService;
 import br.com.hqhub.service.LinkEdicaoService;
+import br.com.hqhub.service.PublicacaoRelacionadaService;
 import br.com.hqhub.service.HistoriaService;
 import br.com.hqhub.service.SerieService;
 import jakarta.transaction.Transactional;
@@ -93,6 +94,7 @@ public class CompartilhamentoResource {
     private final SerieService serieService;
     private final LinkEdicaoService linkEdicaoService;
     private final HistoriaService historiaService;
+    private final PublicacaoRelacionadaService publicacaoRelacionadaService;
     private final HttpClient httpClient = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(8))
             .followRedirects(HttpClient.Redirect.NORMAL)
@@ -122,7 +124,8 @@ public class CompartilhamentoResource {
             EdicaoService edicaoService,
             SerieService serieService,
             LinkEdicaoService linkEdicaoService,
-            HistoriaService historiaService) {
+            HistoriaService historiaService,
+            PublicacaoRelacionadaService publicacaoRelacionadaService) {
         this.postagemRepository = postagemRepository;
         this.imagemRepository = imagemRepository;
         this.videoRelacionadoRepository = videoRelacionadoRepository;
@@ -136,6 +139,7 @@ public class CompartilhamentoResource {
         this.serieService = serieService;
         this.linkEdicaoService = linkEdicaoService;
         this.historiaService = historiaService;
+        this.publicacaoRelacionadaService = publicacaoRelacionadaService;
     }
 
     @GET
@@ -154,7 +158,8 @@ public class CompartilhamentoResource {
                 linkEdicaoService.listarPorEdicao(id),
                 historiaService.listarConteudosPorEdicao(id),
                 historiaService.listarPublicacoesPorEdicaoPublicada(id),
-                historiaService.listarPublicacoesPorEdicaoOriginal(id))).build();
+                historiaService.listarPublicacoesPorEdicaoOriginal(id),
+                publicacaoRelacionadaService.listarPorEdicao(id))).build();
     }
 
     @GET

@@ -982,6 +982,26 @@ import {
             </section>
           }
 
+          @if (!carregandoDetalhe() && edicoesBrasileirasRelacionadas().length) {
+            <section class="detalhe-secao publicacoes-brasileiras-relacionadas">
+              <h3>Outras edições brasileiras com material em comum</h3>
+              <div class="grade-publicacoes-originais">
+                @for (edicao of edicoesBrasileirasRelacionadas(); track edicao.id) {
+                  <article class="publicacao-original-resumo">
+                    <img [src]="edicao.urlCapa || capaReserva" [alt]="'Capa de ' + tituloEdicao(edicao)" loading="lazy" (error)="usarCapaReserva($event)" />
+                    <div>
+                      <h4>{{ tituloEdicao(edicao) }}</h4>
+                      <p>{{ edicao.serie?.editora?.nome || 'Editora não informada' }}<span *ngIf="anoEdicao(edicao) as ano"> · {{ ano }}</span></p>
+                      <div class="acoes-publicacao-original">
+                        <button type="button" (click)="abrirEdicaoRelacionada(edicao.id)">Ver edição →</button>
+                      </div>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+          }
+
           @if (!carregandoDetalhe() && edicaoDetalhe() && podeEditarCatalogo()) {
             <details #importacaoPaniniOriginal class="painel-formulario importacao-panini-original">
               <summary>Importar conteúdo original da Panini <span>Opcional</span></summary>
@@ -1868,14 +1888,16 @@ export class CatalogoPage implements OnInit, OnDestroy {
   private abrirDetalhePublico(edicaoId: number) {
     this.carregandoDetalhe.set(true);
     this.limparMapaBrasilDetalhe();
+    this.publicacoesRelacionadasDetalhe.set([]);
     this.api.obterDetalheCatalogoPublico(edicaoId).subscribe({
-      next: ({ edicao, links, conteudos, publicacoes, publicacoesOriginais }) => {
+      next: ({ edicao, links, conteudos, publicacoes, publicacoesOriginais, publicacoesRelacionadas }) => {
         this.edicaoDetalhe.set(edicao);
         this.linksDetalhe.set(links);
         this.conteudosDetalhe.set(conteudos);
         this.publicacoesDetalhe.set(publicacoes);
         this.urlsCapasPublicacoes.set(this.montarUrlsCapasPublicacoes(publicacoes));
         this.publicacoesComoOriginal.set(publicacoesOriginais);
+        this.publicacoesRelacionadasDetalhe.set(publicacoesRelacionadas || []);
         if (!publicacoes.length) this.carregarMapaBrasilDestaque(edicao.id);
         this.capasDetalhe.set([]);
         this.carregandoDetalhe.set(false);
@@ -3659,6 +3681,17 @@ export class CatalogoPage implements OnInit, OnDestroy {
       edicao: grupo.edicao,
       quantidadeHistorias: grupo.historias.size,
     }));
+  }
+
+  edicoesBrasileirasRelacionadas(): Edicao[] {
+    const atual = this.edicaoDetalhe()?.id;
+    const edicoes = new Map<number, Edicao>();
+    for (const relacao of this.publicacoesRelacionadasDetalhe()) {
+      if (relacao.tipo !== 'REPUBLICADA_EM') continue;
+      const outra = relacao.edicaoOrigem.id === atual ? relacao.edicaoDestino : relacao.edicaoDestino.id === atual ? relacao.edicaoOrigem : null;
+      if (outra) edicoes.set(outra.id, outra);
+    }
+    return [...edicoes.values()];
   }
 
   anoEdicao(edicao: Edicao | null | undefined) {

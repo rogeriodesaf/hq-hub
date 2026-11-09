@@ -7,5 +7,6 @@ public record DetalheCatalogoPublicoDTO(
         List<LinkEdicaoRespostaDTO> links,
         List<ConteudoEdicaoRespostaDTO> conteudos,
         List<PublicacaoHistoriaRespostaDTO> publicacoes,
-        List<PublicacaoHistoriaRespostaDTO> publicacoesOriginais) {
+        List<PublicacaoHistoriaRespostaDTO> publicacoesOriginais,
+        List<PublicacaoRelacionadaRespostaDTO> publicacoesRelacionadas) {
 }
