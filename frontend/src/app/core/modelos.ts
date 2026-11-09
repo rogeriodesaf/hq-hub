@@ -192,6 +192,30 @@ export interface ResultadoCadastroEdicaoBrasileiraPanini {
   avisos: string[];
 }
 
+export interface PreviaProdutoMythos {
+  urlMythos: string;
+  tituloProduto: string | null;
+  produto: {
+    tituloSerieSugerido: string | null;
+    numeroSugerido: string | null;
+    descricao: string | null;
+    urlCapa: string | null;
+    sku: string | null;
+    codigoBarras: string | null;
+    preco: number | null;
+    quantidadePaginas: number | null;
+    formato: string | null;
+    marca: string | null;
+  } | null;
+}
+
+export interface ResultadoCadastroEdicaoBrasileiraMythos {
+  edicao: Edicao;
+  criada: boolean;
+  capaArmazenada: boolean;
+  avisos: string[];
+}
+
 export interface ResultadoCadastroConteudoOriginalPanini {
   cadastrados: number;
   jaExistentes: number;

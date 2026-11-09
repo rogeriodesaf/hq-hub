@@ -69,6 +69,8 @@ import {
   ResultadoCadastroConteudoOriginalPanini,
   ResultadoCadastroEdicoesOriginaisPanini,
   ResultadoCadastroEdicaoBrasileiraPanini,
+  PreviaProdutoMythos,
+  ResultadoCadastroEdicaoBrasileiraMythos,
   CandidatoEdicaoOriginalPanini,
   RespostaAssistente,
   AssistenteFaqBase,
@@ -1332,6 +1334,18 @@ export class ApiService {
         curtidaPeloUsuario: comentario.curtidaPeloUsuario || false,
       })),
     };
+  }
+
+  analisarProdutoMythos(urlMythos: string) {
+    return this.http.post<PreviaProdutoMythos>('/api/importacoes/catalogo/mythos/edicoes/analisar', { urlMythos });
+  }
+
+  cadastrarEdicaoBrasileiraMythos(dto: {
+    urlMythos: string; serieId: number | null; criarNovaSerie: boolean; tituloSerie: string | null; volumeSerie: number | null;
+    numero: string; tituloEdicao: string | null; descricao: string | null; dataPublicacao: string | null;
+    codigoBarras: string | null; quantidadePaginas: number | null; precoCapa: number | null; formato: string | null;
+  }) {
+    return this.http.post<ResultadoCadastroEdicaoBrasileiraMythos>('/api/importacoes/catalogo/mythos/edicoes', dto);
   }
 
   private normalizarHistoria(historia: HistoriaLeitura): HistoriaLeitura {

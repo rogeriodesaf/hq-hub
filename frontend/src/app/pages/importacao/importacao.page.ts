@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ImportacaoEdicaoPaniniComponent } from './importacao-edicao-panini.component';
+import { ImportacaoEdicaoMythosComponent } from './importacao-edicao-mythos.component';
 
 import { ApiService } from '../../core/api.service';
 import { AutenticacaoService } from '../../core/autenticacao.service';
@@ -44,7 +45,7 @@ interface ColetaCapasTelegramLocal {
 
 @Component({
   selector: 'app-importacao-page',
-  imports: [CommonModule, FormsModule, RouterLink, ImportacaoEdicaoPaniniComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ImportacaoEdicaoPaniniComponent, ImportacaoEdicaoMythosComponent],
   template: `
     <section class="cabecalho-pagina">
       <div>
@@ -99,6 +100,10 @@ interface ColetaCapasTelegramLocal {
             <strong>Coletar do GCD</strong>
             <span>Pesquise séries no Grand Comics Database</span>
           </button>
+          <button type="button" [class.ativo]="modoEntrada() === 'mythos-edicao'" (click)="selecionarModo('mythos-edicao')">
+            <strong>Edicao da Mythos</strong>
+            <span>Leia o produto oficial e confirme a colecao</span>
+          </button>
           <button type="button" [class.ativo]="modoEntrada() === 'telegram'" (click)="selecionarModo('telegram')">
             <strong>Capas do Telegram</strong>
             <span>Extraia capas de CBZ/PDF pelo assistente local</span>
@@ -119,6 +124,8 @@ interface ColetaCapasTelegramLocal {
                 Carregue o arquivo gerado em rascunhos ou cole o conteúdo revisado, como você já faz hoje.
               } @else if (modoEntrada() === 'guia') {
                 Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
+              } @else if (modoEntrada() === 'mythos-edicao') {
+                Importe uma ediÃ§Ã£o da Loja Mythos, confira os dados e confirme a coleÃ§Ã£o brasileira.
               } @else if (modoEntrada() === 'telegram') {
                 Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
               } @else if (modoEntrada() === 'panini') {
@@ -149,6 +156,9 @@ interface ColetaCapasTelegramLocal {
 
         @if (modoEntrada() === 'panini-edicao') {
           <app-importacao-edicao-panini />
+        }
+        @if (modoEntrada() === 'mythos-edicao') {
+          <app-importacao-edicao-mythos />
         }
 
         @if (modoEntrada() === 'guia') {
@@ -1598,7 +1608,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
   private temporizadorCapasTelegram: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1690,6 +1700,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   }
 
   tituloModoEntrada() {
+    if (this.modoEntrada() === 'mythos-edicao') return 'Cadastrar edicao pela Mythos';
     if (this.modoEntrada() === 'panini-edicao') return 'Cadastrar edição pela Panini';
     if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
     if (this.modoEntrada() === 'json') return 'JSON do robô';
@@ -1699,7 +1710,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao') {
     if (modo === this.modoEntrada()) {
       return;
     }

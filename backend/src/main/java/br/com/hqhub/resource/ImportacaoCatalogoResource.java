@@ -10,6 +10,8 @@ import br.com.hqhub.dto.ColetaGuiaRespostaDTO;
 import br.com.hqhub.dto.AnaliseConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroConteudoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicaoBrasileiraPaniniDTO;
+import br.com.hqhub.dto.AnaliseProdutoMythosDTO;
+import br.com.hqhub.dto.CadastroEdicaoBrasileiraMythosDTO;
 import br.com.hqhub.dto.CadastroEdicaoOriginalPaniniDTO;
 import br.com.hqhub.dto.CadastroEdicoesOriginaisPaniniDTO;
 import br.com.hqhub.dto.GeracaoRascunhoImportacaoDTO;
@@ -21,6 +23,7 @@ import br.com.hqhub.service.ArmazenamentoImagemService;
 import br.com.hqhub.service.ColetaGuiaService;
 import br.com.hqhub.service.ColetaGcdService;
 import br.com.hqhub.service.ConteudoOriginalPaniniService;
+import br.com.hqhub.service.ImportacaoMythosService;
 import br.com.hqhub.service.GeracaoRascunhoImportacaoService;
 import br.com.hqhub.service.ImportacaoCatalogoService;
 import org.hibernate.exception.JDBCConnectionException;
@@ -63,6 +66,7 @@ public class ImportacaoCatalogoResource {
     private final ColetaGuiaService coletaGuiaService;
     private final ColetaGcdService coletaGcdService;
     private final ConteudoOriginalPaniniService conteudoOriginalPaniniService;
+    private final ImportacaoMythosService importacaoMythosService;
     private final SecurityIdentity securityIdentity;
 
     public ImportacaoCatalogoResource(
@@ -72,6 +76,7 @@ public class ImportacaoCatalogoResource {
             ColetaGuiaService coletaGuiaService,
             ColetaGcdService coletaGcdService,
             ConteudoOriginalPaniniService conteudoOriginalPaniniService,
+            ImportacaoMythosService importacaoMythosService,
             SecurityIdentity securityIdentity) {
         this.importacaoCatalogoService = importacaoCatalogoService;
         this.geracaoRascunhoImportacaoService = geracaoRascunhoImportacaoService;
@@ -79,6 +84,7 @@ public class ImportacaoCatalogoResource {
         this.coletaGuiaService = coletaGuiaService;
         this.coletaGcdService = coletaGcdService;
         this.conteudoOriginalPaniniService = conteudoOriginalPaniniService;
+        this.importacaoMythosService = importacaoMythosService;
         this.securityIdentity = securityIdentity;
     }
 
@@ -110,6 +116,18 @@ public class ImportacaoCatalogoResource {
     @Path("/panini/edicoes-brasileiras")
     public Response cadastrarEdicaoBrasileiraPanini(@Valid CadastroEdicaoBrasileiraPaniniDTO dto) {
         return Response.ok(conteudoOriginalPaniniService.cadastrarEdicaoBrasileira(dto)).build();
+    }
+
+    @POST
+    @Path("/mythos/edicoes/analisar")
+    public Response analisarProdutoMythos(@Valid AnaliseProdutoMythosDTO dto) {
+        return Response.ok(importacaoMythosService.analisar(dto.urlMythos())).build();
+    }
+
+    @POST
+    @Path("/mythos/edicoes")
+    public Response cadastrarEdicaoBrasileiraMythos(@Valid CadastroEdicaoBrasileiraMythosDTO dto) {
+        return Response.ok(importacaoMythosService.cadastrar(dto)).build();
     }
 
     @POST
