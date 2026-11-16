@@ -59,8 +59,8 @@ BEGIN
     SELECT historia.id
       INTO historia_id
       FROM historias historia
-      JOIN publicacoes_historias publicacao ON publicacao.historia_id = historia.id
-     WHERE publicacao.edicao_original_id = origem_id
+      JOIN conteudos_edicoes conteudo ON conteudo.historia_id = historia.id
+     WHERE conteudo.edicao_id = origem_id
        AND hqhub_normalizar_identidade(historia.titulo) = hqhub_normalizar_identidade('À flor da pele')
      ORDER BY historia.id
      LIMIT 1;
