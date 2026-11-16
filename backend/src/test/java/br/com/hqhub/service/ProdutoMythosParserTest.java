@@ -9,7 +9,7 @@ class ProdutoMythosParserTest {
     private final ProdutoMythosParser parser = new ProdutoMythosParser();
 
     @Test
-    void extraiProdutoJuliaVol quatroDaLojaMythos() {
+    void extraiProdutoJuliaVolQuatroDaLojaMythos() {
         String html = """
                 <meta property="og:title" content="JÚLIA VOL. 04 -Quadrinhos, mangás e muita leitura">
                 <meta property="og:description" content="Capa cartão · Miolo offset 132 páginas · PB Formato: 16 x 21 cm">
