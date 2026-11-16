@@ -31,7 +31,15 @@ BEGIN
            hqhub_normalizar_titulo_serie('Spider-Man: The Final Adventure')
        AND hqhub_normalizar_titulo_serie(editora.nome) IN (
            hqhub_normalizar_titulo_serie('Marvel'),
-           hqhub_normalizar_titulo_serie('Marvel Comics'));
+           hqhub_normalizar_titulo_serie('Marvel Comics'))
+       AND EXISTS (
+           SELECT 1
+             FROM conteudos_edicoes conteudo_origem
+             JOIN historias historia_origem
+               ON historia_origem.id = conteudo_origem.historia_id
+            WHERE conteudo_origem.edicao_id = edicao.id
+              AND hqhub_normalizar_identidade(historia_origem.titulo) =
+                  hqhub_normalizar_identidade('À flor da pele'));
 
     IF quantidade_origem <> 1 THEN
         RAISE EXCEPTION
