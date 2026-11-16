@@ -946,6 +946,7 @@ public class ConteudoOriginalPaniniService {
         return normalizar(valor
                 .replaceFirst("(?i)^the\\s+", "")
                 .replaceFirst("(?i),\\s*the\\s+", " ")
+                .replaceFirst("(?i)^waht\\s+if\\b", "What If")
                 .replaceFirst("\\s*\\(\\d{4}\\)\\s*$", "")
                 .replaceFirst("(?i),\\s*the\\s*$", ""));
     }
