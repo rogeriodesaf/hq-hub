@@ -280,9 +280,9 @@ public class ConteudoOriginalPaniniParser {
     }
 
     private boolean referenciaNumerada(List<ReferenciaExtraida> referencias) {
-        return referencias.size() == 1
-                && referencias.getFirst().serie() != null
-                && referencias.getFirst().numero() != null;
+        return !referencias.isEmpty()
+                && referencias.stream().allMatch(referencia -> referencia.serie() != null
+                        && referencia.numero() != null);
     }
 
     private List<ReferenciaExtraida> criarReferenciasNumeradas(
