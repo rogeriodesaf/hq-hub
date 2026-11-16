@@ -27,8 +27,9 @@ BEGIN
                  AND edicao.id_externo IN ('125770', '4000-125770'))
            )
        AND hqhub_normalizar_identidade(edicao.numero) = '3'
-       AND hqhub_normalizar_titulo_serie(serie.titulo) =
-           hqhub_normalizar_titulo_serie('Spider-Man: The Final Adventure')
+       AND hqhub_normalizar_titulo_serie(serie.titulo) IN (
+           hqhub_normalizar_titulo_serie('Spider-Man: The Final Adventure'),
+           hqhub_normalizar_titulo_serie('Spider-Man: The Final Adventure (1995)'))
        AND hqhub_normalizar_titulo_serie(editora.nome) IN (
            hqhub_normalizar_titulo_serie('Marvel'),
            hqhub_normalizar_titulo_serie('Marvel Comics'))
