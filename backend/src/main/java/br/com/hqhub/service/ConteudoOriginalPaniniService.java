@@ -595,6 +595,11 @@ public class ConteudoOriginalPaniniService {
                             && Math.abs(volume.anoInicio() - anoSerie) == 1)
                     .toList();
         }
+        if (volumes.isEmpty() && !numerosEsperados.isEmpty()) {
+            volumes = volumesPorTitulo.stream()
+                    .filter(volume -> volumeContemNumeros(volume, numerosEsperados))
+                    .toList();
+        }
         if (volumes.size() > 1 && !numerosEsperados.isEmpty()) {
             List<VolumeComicVineRespostaDTO> compativeis = volumes.stream()
                     .filter(volume -> volumeContemNumeros(volume, numerosEsperados))
@@ -739,9 +744,9 @@ public class ConteudoOriginalPaniniService {
     private void enriquecerEdicaoComicVine(Edicao edicao, EdicaoComicVineRespostaDTO externa) {
         copiarSeVazio(edicao.getTitulo(), externa.titulo(), edicao::setTitulo);
         copiarSeVazio(edicao.getNomeVolume(), externa.nomeVolume(), edicao::setNomeVolume);
-        copiarSeVazio(edicao.getDescricao(), externa.descricaoPortugues(), edicao::setDescricao);
-        copiarSeVazio(edicao.getDescricaoOriginal(), externa.descricaoOriginal(), edicao::setDescricaoOriginal);
-        copiarSeVazio(edicao.getDescricaoPortugues(), externa.descricaoPortugues(), edicao::setDescricaoPortugues);
+        copiarSeVazio(edicao.getDescricao(), limitar(externa.descricaoPortugues(), 2000), edicao::setDescricao);
+        copiarSeVazio(edicao.getDescricaoOriginal(), limitar(externa.descricaoOriginal(), 4000), edicao::setDescricaoOriginal);
+        copiarSeVazio(edicao.getDescricaoPortugues(), limitar(externa.descricaoPortugues(), 4000), edicao::setDescricaoPortugues);
         copiarSeVazio(edicao.getUrlCapa(), externa.urlImagem(), edicao::setUrlCapa);
         copiarSeVazio(edicao.getIdComicVine(), externa.idExterno(), edicao::setIdComicVine);
         copiarSeVazio(edicao.getUrlComicVine(), externa.urlOrigem(), edicao::setUrlComicVine);
@@ -812,9 +817,9 @@ public class ConteudoOriginalPaniniService {
             nova.setNumero(dto.numero());
             nova.setTitulo(externa.titulo());
             nova.setNomeVolume(externa.nomeVolume());
-            nova.setDescricao(externa.descricaoPortugues());
-            nova.setDescricaoOriginal(externa.descricaoOriginal());
-            nova.setDescricaoPortugues(externa.descricaoPortugues());
+            nova.setDescricao(limitar(externa.descricaoPortugues(), 2000));
+            nova.setDescricaoOriginal(limitar(externa.descricaoOriginal(), 4000));
+            nova.setDescricaoPortugues(limitar(externa.descricaoPortugues(), 4000));
             nova.setDataCobertura(data(externa.dataCapa()));
             nova.setDataDisponibilidadeLoja(data(externa.dataVenda()));
             nova.setDataPublicacao(nova.getDataCobertura() != null ? nova.getDataCobertura() : nova.getDataDisponibilidadeLoja());
@@ -940,6 +945,7 @@ public class ConteudoOriginalPaniniService {
         }
         return normalizar(valor
                 .replaceFirst("(?i)^the\\s+", "")
+                .replaceFirst("(?i),\\s*the\\s+", " ")
                 .replaceFirst("\\s*\\(\\d{4}\\)\\s*$", "")
                 .replaceFirst("(?i),\\s*the\\s*$", ""));
     }
