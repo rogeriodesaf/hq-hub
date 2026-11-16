@@ -93,7 +93,7 @@ BEGIN
         'https://www.guiadosquadrinhos.com/edicao-estrangeira/spider-man-the-final-adventure-(1995)-n-3/5640/39386',
         'APROVADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
     )
-    ON CONFLICT (historia_id, edicao_publicada_id) DO UPDATE SET
+    ON CONFLICT ON CONSTRAINT uk_publicacoes_historias_historia_edicao DO UPDATE SET
         edicao_original_id = EXCLUDED.edicao_original_id,
         status = EXCLUDED.status,
         tipo_publicacao_historia = EXCLUDED.tipo_publicacao_historia,
