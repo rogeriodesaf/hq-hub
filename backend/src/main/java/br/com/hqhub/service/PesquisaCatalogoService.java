@@ -24,16 +24,23 @@ public class PesquisaCatalogoService {
 
     @Transactional
     public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogo(String termo, Integer pagina, Integer tamanho) {
+        return pesquisarCatalogo(termo, pagina, tamanho, TipoSerie.BRASILEIRA);
+    }
+
+    @Transactional
+    public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogo(
+            String termo, Integer pagina, Integer tamanho, TipoSerie tipoSerie) {
         if (termo == null || termo.isBlank()) {
             return new PaginaRespostaDTO<>(List.of(), 0, tratarTamanho(tamanho), 0, 0);
         }
 
         int paginaTratada = tratarPagina(pagina);
         int tamanhoTratado = tratarTamanho(tamanho);
-        long totalInternos = edicaoRepository.contarComBusca(null, termo, TipoSerie.BRASILEIRA);
+        TipoSerie tipoTratado = tipoSerie == null ? TipoSerie.BRASILEIRA : tipoSerie;
+        long totalInternos = edicaoRepository.contarComBusca(null, termo, tipoTratado);
         int totalPaginasInternas = (int) Math.ceil((double) totalInternos / tamanhoTratado);
         List<ResultadoPesquisaCatalogoDTO> internos = edicaoRepository
-                .buscarPaginado(null, termo, paginaTratada, tamanhoTratado, TipoSerie.BRASILEIRA)
+                .buscarPaginado(null, termo, paginaTratada, tamanhoTratado, tipoTratado)
                 .stream()
                 .map(this::paraResultadoInterno)
                 .toList();
@@ -48,13 +55,20 @@ public class PesquisaCatalogoService {
 
     @Transactional
     public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogoRapido(String termo, Integer tamanho) {
+        return pesquisarCatalogoRapido(termo, tamanho, TipoSerie.BRASILEIRA);
+    }
+
+    @Transactional
+    public PaginaRespostaDTO<ResultadoPesquisaCatalogoDTO> pesquisarCatalogoRapido(
+            String termo, Integer tamanho, TipoSerie tipoSerie) {
         int tamanhoTratado = tratarTamanho(tamanho);
         if (termo == null || termo.isBlank()) {
             return new PaginaRespostaDTO<>(List.of(), 0, tamanhoTratado, 0, 0);
         }
 
+        TipoSerie tipoTratado = tipoSerie == null ? TipoSerie.BRASILEIRA : tipoSerie;
         List<ResultadoPesquisaCatalogoDTO> itens = edicaoRepository
-                .buscarPaginado(null, termo.trim(), 0, tamanhoTratado, TipoSerie.BRASILEIRA)
+                .buscarPaginado(null, termo.trim(), 0, tamanhoTratado, tipoTratado)
                 .stream()
                 .map(this::paraResultadoInterno)
                 .toList();

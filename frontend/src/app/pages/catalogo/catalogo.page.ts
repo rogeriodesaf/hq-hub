@@ -2842,7 +2842,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
 
     this.buscandoOriginaisVinculo.set(true);
-    this.api.pesquisarCatalogo(termo, 0, 8).subscribe({
+    this.api.pesquisarCatalogo(termo, 0, 8, false, 'ESTRANGEIRA').subscribe({
       next: (resposta) => {
         this.resultadosOriginaisVinculo.set(resposta.itens.filter((resultado) => resultado.fonte === 'HQ_HUB' && !!resultado.id));
         this.buscandoOriginaisVinculo.set(false);

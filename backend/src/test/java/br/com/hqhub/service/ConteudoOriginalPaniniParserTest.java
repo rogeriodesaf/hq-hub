@@ -87,6 +87,23 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void separaDuasSeriesQuandoPaniniUsaVirgulaEntreAsReferencias() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">"
+                + "SPIDER-MAN: THE FINAL ADVENTURE 3-4, SPIDER-MAN UNLIMITED (1993) 11</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(3, referencias.size());
+        assertEquals("SPIDER-MAN: THE FINAL ADVENTURE", referencias.get(0).serie());
+        assertEquals("3", referencias.get(0).numero());
+        assertEquals("SPIDER-MAN: THE FINAL ADVENTURE", referencias.get(1).serie());
+        assertEquals("4", referencias.get(1).numero());
+        assertEquals("SPIDER-MAN UNLIMITED", referencias.get(2).serie());
+        assertEquals(1993, referencias.get(2).anoSerie());
+        assertEquals("11", referencias.get(2).numero());
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">

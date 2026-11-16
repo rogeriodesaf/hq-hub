@@ -1,6 +1,7 @@
 package br.com.hqhub.resource;
 
 import br.com.hqhub.service.PesquisaCatalogoService;
+import br.com.hqhub.entity.TipoSerie;
 import io.quarkus.security.Authenticated;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -28,10 +29,12 @@ public class CatalogoResource {
             @QueryParam("termo") String termo,
             @QueryParam("pagina") Integer pagina,
             @QueryParam("tamanho") Integer tamanho,
-            @QueryParam("rapido") Boolean rapido) {
+            @QueryParam("rapido") Boolean rapido,
+            @QueryParam("tipo") TipoSerie tipo) {
+        TipoSerie tipoTratado = tipo == null ? TipoSerie.BRASILEIRA : tipo;
         if (Boolean.TRUE.equals(rapido)) {
-            return Response.ok(pesquisaCatalogoService.pesquisarCatalogoRapido(termo, tamanho)).build();
+            return Response.ok(pesquisaCatalogoService.pesquisarCatalogoRapido(termo, tamanho, tipoTratado)).build();
         }
-        return Response.ok(pesquisaCatalogoService.pesquisarCatalogo(termo, pagina, tamanho)).build();
+        return Response.ok(pesquisaCatalogoService.pesquisarCatalogo(termo, pagina, tamanho, tipoTratado)).build();
     }
 }

@@ -214,6 +214,16 @@ public class ConteudoOriginalPaniniParser {
     }
 
     private List<ReferenciaExtraida> analisarReferencias(String texto) {
+        List<String> partesCompostas = separarReferenciasCompostas(texto);
+        if (partesCompostas.size() > 1) {
+            return partesCompostas.stream()
+                    .flatMap(parte -> analisarReferenciaSimples(parte).stream())
+                    .toList();
+        }
+        return analisarReferenciaSimples(texto);
+    }
+
+    private List<ReferenciaExtraida> analisarReferenciaSimples(String texto) {
         Matcher listaPadrao = REFERENCIA_LISTA_PADRAO.matcher(texto);
         if (listaPadrao.matches()) {
             return criarReferenciasLista(
@@ -243,6 +253,36 @@ public class ConteudoOriginalPaniniParser {
             return criarReferenciasNumeradas(texto, semAno.group(1), null, semAno.group(2), semAno.group(3));
         }
         return List.of(new ReferenciaExtraida(texto, null, null, null, null));
+    }
+
+    private List<String> separarReferenciasCompostas(String texto) {
+        String[] partes = texto.split("\\s*,\\s*");
+        if (partes.length < 2) {
+            return List.of(texto);
+        }
+
+        List<String> resultado = new ArrayList<>();
+        String atual = partes[0].trim();
+        for (int indice = 1; indice < partes.length; indice++) {
+            String candidata = partes[indice].trim();
+            String unida = atual + ", " + candidata;
+            boolean atualEReferencia = referenciaNumerada(analisarReferenciaSimples(atual));
+            boolean candidataEReferencia = referenciaNumerada(analisarReferenciaSimples(candidata));
+            if (atualEReferencia && candidataEReferencia) {
+                resultado.add(atual);
+                atual = candidata;
+            } else {
+                atual = unida;
+            }
+        }
+        resultado.add(atual);
+        return resultado.size() > 1 ? resultado : List.of(texto);
+    }
+
+    private boolean referenciaNumerada(List<ReferenciaExtraida> referencias) {
+        return referencias.size() == 1
+                && referencias.getFirst().serie() != null
+                && referencias.getFirst().numero() != null;
     }
 
     private List<ReferenciaExtraida> criarReferenciasNumeradas(
