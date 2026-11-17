@@ -947,6 +947,8 @@ public class ConteudoOriginalPaniniService {
                 .replaceFirst("(?i)^the\\s+", "")
                 .replaceFirst("(?i),\\s*the\\s+", " ")
                 .replaceFirst("(?i)^waht\\s+if\\b", "What If")
+                .replaceFirst("(?i)^deective\\s+cmics\\b", "Detective Comics")
+                .replaceFirst("(?i)^batman:\\s*shadow\\s+of\\s+the\\s+bat\\b", "Shadow of the Bat")
                 .replaceFirst("\\s*\\(\\d{4}\\)\\s*$", "")
                 .replaceFirst("(?i),\\s*the\\s*$", ""));
     }
