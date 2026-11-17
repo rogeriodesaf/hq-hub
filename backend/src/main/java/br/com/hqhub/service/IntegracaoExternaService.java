@@ -122,12 +122,13 @@ public class IntegracaoExternaService {
         int tamanhoTratado = tratarTamanhoComicVine(tamanho);
         int offset = paginaTratada * tamanhoTratado;
 
+        String termoBusca = tituloSerieParaBuscaComicVine(termo);
         String url = "https://comicvine.gamespot.com/api/volumes/?format=json"
                 + "&limit=" + tamanhoTratado
                 + "&offset=" + offset
                 + "&sort=start_year:asc"
                 + "&field_list=id,name,start_year,count_of_issues,publisher,site_detail_url,image,deck,description"
-                + "&filter=" + codificar("name:" + termo)
+                + "&filter=" + codificar("name:" + termoBusca)
                 + "&api_key=" + codificar(comicVineChaveApi.orElseThrow());
         JsonNode raiz = executarGet(url);
         List<VolumeComicVineRespostaDTO> itens = StreamSupport.stream(raiz.path("results").spliterator(), false)
