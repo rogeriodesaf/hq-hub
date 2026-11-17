@@ -946,6 +946,7 @@ public class ConteudoOriginalPaniniService {
         return normalizar(valor
                 .replaceFirst("(?i)^the\\s+", "")
                 .replaceFirst("(?i),\\s*the\\s+", " ")
+                .replaceFirst("(?i)^liga\\s+da\\s+justi[cç]a\\s+da\\s+america\\b", "Justice League of America")
                 .replaceFirst("(?i)^waht\\s+if\\b", "What If")
                 .replaceFirst("(?i)^deective\\s+cmics\\b", "Detective Comics")
                 .replaceFirst("(?i)^batman:\\s*shadow\\s+of\\s+the\\s+bat\\b", "Shadow of the Bat")

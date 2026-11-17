@@ -970,6 +970,7 @@ public class IntegracaoExternaService {
         }
 
         return titulo.replaceAll("\\(\\d{4}\\)", " ")
+                .replaceFirst("(?i)^liga\\s+da\\s+justi[cç]a\\s+da\\s+america\\b", "Justice League of America")
                 .replaceAll("(?i),\\s*the\\b", " ")
                 .replaceAll("(?i)\\bthe\\b", " ")
                 .replaceAll("\\s+", " ")
