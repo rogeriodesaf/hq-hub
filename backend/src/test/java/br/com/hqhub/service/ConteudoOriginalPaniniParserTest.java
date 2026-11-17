@@ -104,6 +104,21 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void expandeListaDeIntervalosComPontuacaoFinal() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">"
+                + "Justice League of America (1960) 55-56, 64-65, 73-74, 82-83.</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(8, referencias.size());
+        assertEquals("55", referencias.getFirst().numero());
+        assertEquals("83", referencias.getLast().numero());
+        assertTrue(referencias.stream().allMatch(referencia ->
+                "Justice League of America".equals(referencia.serie())
+                        && Integer.valueOf(1960).equals(referencia.anoSerie())));
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">

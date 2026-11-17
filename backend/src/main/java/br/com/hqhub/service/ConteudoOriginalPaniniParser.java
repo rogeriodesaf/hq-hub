@@ -214,6 +214,7 @@ public class ConteudoOriginalPaniniParser {
     }
 
     private List<ReferenciaExtraida> analisarReferencias(String texto) {
+        texto = texto == null ? null : texto.trim().replaceFirst("[.;:]\\s*$", "");
         List<String> partesCompostas = separarReferenciasCompostas(texto);
         if (partesCompostas.size() > 1) {
             return partesCompostas.stream()
