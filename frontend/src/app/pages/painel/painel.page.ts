@@ -285,7 +285,6 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
               loading="eager"
             />
             <div class="card-poptopia-conteudo">
-              <span class="card-poptopia-selo">Destaque fixo</span>
               <div>
                 <p class="rotulo">POPTOPIA Geral promoções</p>
                 <h2>Grupo de promoções Canal Poptopia</h2>
@@ -300,6 +299,9 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                 </a>
                 <a class="botao secundario" href="https://mercadolivre.com/sec/2M5etQP" target="_blank" rel="noopener noreferrer sponsored">
                   Ver promoções no Mercado Livre
+                </a>
+                <a class="botao secundario" href="https://www.youtube.com/@Canalpoptopia" target="_blank" rel="noopener noreferrer">
+                  Visitar Canal Poptopia no YouTube
                 </a>
               </div>
             </div>
