@@ -4710,80 +4710,196 @@ body.tema-escuro .banner-apoio span {
 
 app-painel-page .card-poptopia {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 6px 14px;
   align-items: center;
-  padding: 16px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--borda) 62%, #ef3f35 38%);
+  padding: 12px;
+  border: 1px solid var(--borda);
   border-radius: 16px;
-  background: linear-gradient(135deg, color-mix(in srgb, #ef3f35 10%, var(--superficie)) 0%, var(--superficie) 58%);
-  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.07);
+  background: var(--superficie);
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
 }
 
 app-painel-page .card-poptopia-imagem {
-  width: 132px;
-  height: 132px;
-  border-radius: 20px;
+  grid-column: 1;
+  grid-row: 1;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
   object-fit: cover;
-  box-shadow: 0 10px 24px rgba(127, 29, 29, .18);
 }
 
-app-painel-page .card-poptopia-conteudo {
-  display: grid;
-  gap: 11px;
+app-painel-page .card-poptopia-identidade {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
 }
 
-app-painel-page .card-poptopia-conteudo h2,
-app-painel-page .card-poptopia-conteudo p {
+app-painel-page .card-poptopia-identidade h2,
+app-painel-page .card-poptopia-identidade p {
   margin: 0;
 }
 
-app-painel-page .card-poptopia-conteudo h2 {
-  margin-top: 2px;
-  font-size: clamp(1.1rem, 3vw, 1.4rem);
-  line-height: 1.15;
+app-painel-page .card-poptopia-etiqueta {
+  display: inline-flex;
+  gap: 5px;
+  margin-bottom: 4px;
+  color: var(--primaria);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .075em;
 }
 
-app-painel-page .card-poptopia-conteudo > div > p:last-child {
-  margin-top: 6px;
+app-painel-page .card-poptopia-identidade h2 {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.2;
+}
+
+app-painel-page .card-poptopia-identidade p {
+  margin-top: 4px;
   color: var(--texto-suave);
+  font-size: .82rem;
+  line-height: 1.35;
+}
+
+app-painel-page .card-poptopia-cta,
+app-painel-page .card-poptopia-opcoes {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+app-painel-page .card-poptopia-cta {
+  min-height: 42px;
+  padding: 0 15px;
+  border-radius: 10px;
+  background: var(--primaria);
+  color: #fff;
   font-size: .9rem;
-  line-height: 1.45;
+  font-weight: 750;
+  text-align: left;
+  transition: filter .18s ease, transform .18s ease;
+}
+
+app-painel-page .card-poptopia-cta:hover { filter: brightness(.96); }
+app-painel-page .card-poptopia-cta:active { transform: translateY(1px); }
+
+app-painel-page .card-poptopia-seta {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+app-painel-page .card-poptopia-opcoes {
+  min-height: 32px;
+  padding: 0 2px;
+  background: transparent;
+  color: var(--texto-suave);
+  font-size: .76rem;
+  text-align: left;
+}
+
+app-painel-page .card-poptopia-chevron {
+  color: var(--texto);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform .22s ease;
+}
+
+app-painel-page .card-poptopia-opcoes[aria-expanded="true"] .card-poptopia-chevron {
+  transform: rotate(180deg);
+}
+
+app-painel-page .card-poptopia-expansao {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows .24s ease, opacity .2s ease, visibility .24s;
+}
+
+app-painel-page .card-poptopia-expansao.expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+app-painel-page .card-poptopia-expansao-conteudo {
+  min-height: 0;
+  overflow: hidden;
 }
 
 app-painel-page .card-poptopia-links {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 8px;
+  padding: 2px 0 4px;
 }
 
 app-painel-page .card-poptopia-links .botao {
-  width: auto;
-  min-height: 38px;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 44px;
   padding-inline: 14px;
   text-decoration: none;
 }
 
-@media (max-width: 600px) {
+app-painel-page .card-poptopia-rodape {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 34px;
+  padding-top: 9px;
+  border-top: 1px solid var(--borda);
+  color: var(--texto-suave);
+  font-size: .75rem;
+}
+
+app-painel-page .card-poptopia-rodape a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 4px;
+  border-radius: 6px;
+  color: var(--texto);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+app-painel-page .card-poptopia-rodape a:hover { color: var(--primaria); }
+app-painel-page .card-poptopia-rodape svg { width: 16px; height: 16px; fill: currentColor; }
+
+app-painel-page .card-poptopia button:focus-visible,
+app-painel-page .card-poptopia a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primaria) 65%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 380px) {
   app-painel-page .card-poptopia {
-    grid-template-columns: 82px minmax(0, 1fr);
-    gap: 12px;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 9px 11px;
     padding: 12px;
-    border-radius: 14px;
   }
 
-  app-painel-page .card-poptopia-imagem {
-    align-self: start;
-    width: 82px;
-    height: 82px;
-    border-radius: 15px;
-  }
+  app-painel-page .card-poptopia-imagem { width: 64px; height: 64px; }
+  app-painel-page .card-poptopia-opcoes { font-size: .7rem; }
+}
 
-  app-painel-page .card-poptopia-conteudo { gap: 9px; }
-  app-painel-page .card-poptopia-links { display: grid; }
-  app-painel-page .card-poptopia-links .botao { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  app-painel-page .card-poptopia-expansao,
+  app-painel-page .card-poptopia-chevron,
+  app-painel-page .card-poptopia-cta {
+    transition: none;
+  }
 }
 
 .atalhos-feed .atalho-estante {

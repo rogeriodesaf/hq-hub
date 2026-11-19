@@ -277,34 +277,68 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
         </article>
 
         <section class="lista-feed">
-          <article class="bloco card-poptopia" aria-label="Grupo de promoções Canal Poptopia">
+          <article class="bloco card-poptopia" aria-label="Promoções do Canal Poptopia">
             <img
               class="card-poptopia-imagem"
               src="assets/poptopia-promocoes.png"
               alt="Logotipo do Canal Poptopia"
               loading="eager"
             />
-            <div class="card-poptopia-conteudo">
-              <div>
-                <p class="rotulo">POPTOPIA Geral promoções</p>
-                <h2>Grupo de promoções Canal Poptopia</h2>
-                <p>Ofertas e novidades em quadrinhos selecionadas pelo Canal Poptopia.</p>
-              </div>
-              <div class="card-poptopia-links" aria-label="Links de promoções">
-                <a class="botao primario" href="https://bit.ly/4lveUfj" target="_blank" rel="noopener noreferrer sponsored">
-                  Ver promoções na Panini
-                </a>
-                <a class="botao secundario" href="https://amzn.to/45wKwKz" target="_blank" rel="noopener noreferrer sponsored">
-                  Ver promoções na Amazon
-                </a>
-                <a class="botao secundario" href="https://mercadolivre.com/sec/2M5etQP" target="_blank" rel="noopener noreferrer sponsored">
-                  Ver promoções no Mercado Livre
-                </a>
-                <a class="botao secundario" href="https://www.youtube.com/@Canalpoptopia" target="_blank" rel="noopener noreferrer">
-                  Visitar Canal Poptopia no YouTube
-                </a>
+            <div class="card-poptopia-identidade">
+              <span class="card-poptopia-etiqueta">PARCEIRO <span aria-hidden="true">•</span> PROMOÇÕES</span>
+              <h2>Ofertas do Canal Poptopia</h2>
+              <p>Economize nas suas próximas HQs.</p>
+            </div>
+            <button
+              class="card-poptopia-cta"
+              type="button"
+              (click)="alternarOfertasPoptopia()"
+              [attr.aria-expanded]="ofertasPoptopiaExpandidas()"
+              aria-controls="poptopia-ofertas"
+            >
+              <span>{{ ofertasPoptopiaExpandidas() ? 'Ocultar ofertas' : 'Ver ofertas de HQs' }}</span>
+              <span class="card-poptopia-seta" aria-hidden="true">→</span>
+            </button>
+            <button
+              class="card-poptopia-opcoes"
+              type="button"
+              (click)="alternarOfertasPoptopia()"
+              [attr.aria-expanded]="ofertasPoptopiaExpandidas()"
+              aria-controls="poptopia-ofertas"
+            >
+              <span>Panini · Amazon · Mercado Livre</span>
+              <span class="card-poptopia-chevron" aria-hidden="true">⌄</span>
+            </button>
+            <div
+              class="card-poptopia-expansao"
+              [class.expanded]="ofertasPoptopiaExpandidas()"
+              [attr.aria-hidden]="!ofertasPoptopiaExpandidas()"
+              [attr.inert]="ofertasPoptopiaExpandidas() ? null : ''"
+              id="poptopia-ofertas"
+            >
+              <div class="card-poptopia-expansao-conteudo">
+                <div class="card-poptopia-links" aria-label="Links de promoções">
+                  <a class="botao primario" href="https://bit.ly/4lveUfj" target="_blank" rel="noopener noreferrer sponsored">
+                    Ver promoções na Panini
+                  </a>
+                  <a class="botao secundario" href="https://amzn.to/45wKwKz" target="_blank" rel="noopener noreferrer sponsored">
+                    Ver promoções na Amazon
+                  </a>
+                  <a class="botao secundario" href="https://mercadolivre.com/sec/2M5etQP" target="_blank" rel="noopener noreferrer sponsored">
+                    Ver promoções no Mercado Livre
+                  </a>
+                </div>
               </div>
             </div>
+            <footer class="card-poptopia-rodape">
+              <span>Conheça também o canal</span>
+              <a href="https://www.youtube.com/@Canalpoptopia" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+                </svg>
+                <span>YouTube</span>
+              </a>
+            </footer>
           </article>
           @for (postagem of postagensComuns(); track postagem.id) {
             <article class="bloco postagem-card" [id]="idPostagem(postagem)" [class.postagem-fixada]="postagem.fixada">
@@ -1559,6 +1593,12 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
 })
 export class PainelPage implements OnInit, OnDestroy {
   private static readonly EMAIL_SUGESTAO_AMIGO = 'rogeriodesaf@gmail.com';
+
+  readonly ofertasPoptopiaExpandidas = signal(false);
+
+  alternarOfertasPoptopia(): void {
+    this.ofertasPoptopiaExpandidas.update((expanded) => !expanded);
+  }
 
   private readonly api = inject(ApiService);
   private readonly autenticacao = inject(AutenticacaoService);
