@@ -130,6 +130,8 @@ interface ColetaCapasTelegramLocal {
                 Informe a fonte e acompanhe a coleta. Nada será importado sem sua confirmação.
               } @else if (modoEntrada() === 'mythos-edicao') {
                 Importe uma ediÃ§Ã£o da Loja Mythos, confira os dados e confirme a coleÃ§Ã£o brasileira.
+              } @else if (modoEntrada() === 'pipoca-edicao') {
+                Importe uma edição da Pipoca & Nanquim, confira os dados e confirme a coleção brasileira.
               } @else if (modoEntrada() === 'telegram') {
                 Selecione a série e acompanhe a aplicação sequencial das capas pelo seu Telegram.
               } @else if (modoEntrada() === 'panini') {
