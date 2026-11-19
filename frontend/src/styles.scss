@@ -920,154 +920,6 @@ app-catalogo-page {
   font-size: .78rem;
 }
 
-.grade-edicoes-colecao {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
-  align-items: stretch;
-  gap: 16px;
-}
-
-.grade-edicoes-colecao .resultado-catalogo {
-  display: grid;
-  grid-template-columns: minmax(130px, 150px) minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  gap: 10px 16px;
-  align-items: start;
-  min-width: 0;
-  padding: 14px;
-  border: 1px solid var(--borda);
-  border-radius: 14px;
-  background: var(--superficie);
-}
-
-.grade-edicoes-colecao .capa-resultado-link {
-  grid-column: 1;
-  grid-row: 1;
-  display: block;
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: 6px;
-  background: var(--superficie-2);
-  cursor: pointer;
-}
-
-.grade-edicoes-colecao .capa-resultado-link:disabled { cursor: default; }
-
-.grade-edicoes-colecao .capa-resultado-link img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-.grade-edicoes-colecao .dados-resultado-catalogo {
-  grid-column: 2;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-  min-width: 0;
-  padding: 2px 0 0;
-}
-
-.grade-edicoes-colecao .numero-resultado {
-  color: var(--primaria);
-  font-size: .69rem;
-  font-weight: 850;
-  letter-spacing: .055em;
-}
-
-.grade-edicoes-colecao .titulo-resultado-link {
-  display: -webkit-box;
-  max-width: 100%;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  color: var(--texto);
-  background: transparent;
-  font: inherit;
-  font-size: .95rem;
-  font-weight: 800;
-  line-height: 1.25;
-  text-align: left;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  cursor: pointer;
-}
-
-.grade-edicoes-colecao .titulo-resultado-link:disabled { cursor: default; }
-.grade-edicoes-colecao .editora-resultado { color: var(--texto-suave); font-size: .8rem; }
-
-.grade-edicoes-colecao .ver-detalhes-resultado {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: auto;
-  padding: 4px 0;
-  border: 0;
-  color: var(--texto-suave);
-  background: transparent;
-  font: inherit;
-  font-size: .78rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.grade-edicoes-colecao .ver-detalhes-resultado:hover { color: var(--primaria); }
-
-.grade-edicoes-colecao .compartilhar-capa-catalogo {
-  top: 14px;
-  right: auto;
-  left: 14px;
-  width: 34px;
-  height: 34px;
-  border: 0;
-  color: #fff;
-  background: color-mix(in srgb, var(--texto) 65%, transparent);
-  box-shadow: none;
-}
-
-.grade-edicoes-colecao .compartilhar-capa-catalogo:hover { color: var(--primaria); }
-
-.grade-edicoes-colecao .adicionar-edicao-colecao,
-.grade-edicoes-colecao > .resultado-catalogo > .botao {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  width: 100%;
-  min-height: 38px;
-  padding: 7px 9px;
-  justify-content: center;
-  font-size: .8rem;
-  line-height: 1.15;
-  white-space: normal;
-}
-
-.grade-edicoes-colecao .edicao-ja-na-estante {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  min-height: 40px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: #15803d;
-  background: color-mix(in srgb, #16a34a 9%, var(--superficie));
-  font-size: .84rem;
-  font-weight: 800;
-  white-space: normal;
-}
-
-.grade-edicoes-colecao .resultado-catalogo:focus-within {
-  outline: 2px solid color-mix(in srgb, var(--primaria) 70%, transparent);
-  outline-offset: 2px;
-}
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .cabecalho-colecao-selecionada {
     grid-template-columns: minmax(190px, 220px) minmax(0, 1fr);
@@ -1075,15 +927,6 @@ app-catalogo-page {
     padding: 20px;
   }
 
-  .grade-edicoes-colecao {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
-  }
-
-  .grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: minmax(120px, 136px) minmax(0, 1fr);
-    gap: 10px 12px;
-    padding: 12px;
-  }
 }
 
 @media (min-width: 1024px) and (max-width: 1150px) {
@@ -1175,25 +1018,8 @@ app-catalogo-page {
     justify-self: center;
   }
 
-  .grade-edicoes-colecao {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: clamp(110px, 32vw, 140px) minmax(0, 1fr);
-    gap: 9px 12px;
-    padding: 12px;
-  }
-
   .resultados-catalogo-bloco {
     min-width: 0;
-  }
-
-  .grade-edicoes-colecao .dados-resultado-catalogo,
-  .grade-edicoes-colecao .titulo-resultado-link {
-    min-width: 0;
-    overflow-wrap: anywhere;
   }
 }
 
@@ -7611,9 +7437,11 @@ body:has(app-catalogo-page) .rodape-copyright.rodape-copyright {
   }
 }
 
-/* A tela de colecao usa os mesmos elementos do resultado generico. Estas regras
-   ficam depois desse design system para impedir que a grade de miniaturas volte
-   a transformar os cards selecionados em colunas verticais. */
+/* Layout exclusivo das edições de uma coleção; os resultados gerais mantêm sua grade. */
+app-catalogo-page .conteudo-resultado-catalogo {
+  display: contents;
+}
+
 app-catalogo-page .resultados-catalogo-bloco:has(.cabecalho-colecao-selecionada) {
   width: 100%;
   max-width: 1200px;
@@ -7634,100 +7462,181 @@ app-catalogo-page .cabecalho-edicoes-colecao span {
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
-  width: 100%;
+  gap: 16px;
+  width: min(100%, 800px);
+  margin-inline: auto;
 }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) minmax(168px, auto);
-  grid-template-rows: minmax(0, 1fr);
-  gap: 18px;
-  align-items: center;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  align-self: start;
   width: 100%;
-  min-height: 225px;
-  padding: 14px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  background: var(--superficie);
+}
+
+app-catalogo-page .grade-edicoes-colecao .resultado-catalogo:focus-within {
+  outline: 2px solid color-mix(in srgb, var(--primaria) 70%, transparent);
+  outline-offset: 2px;
 }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .capa-resultado-link {
   grid-column: 1;
   grid-row: 1;
-  align-self: start;
-  width: 150px;
-  height: 225px;
+  display: block;
+  width: 100%;
   aspect-ratio: 2 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background: var(--superficie-2);
+  cursor: pointer;
 }
 
-app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .dados-resultado-catalogo {
+app-catalogo-page .grade-edicoes-colecao .capa-resultado-link:disabled { cursor: default; }
+
+app-catalogo-page .grade-edicoes-colecao .capa-resultado-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .conteudo-edicao-colecao {
   grid-column: 2;
   grid-row: 1;
-  align-self: stretch;
-  justify-content: center;
-  gap: 8px;
-  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+app-catalogo-page .grade-edicoes-colecao .dados-resultado-catalogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+}
+
+app-catalogo-page .grade-edicoes-colecao .numero-resultado {
+  color: var(--primaria);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .055em;
 }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .titulo-resultado-link {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--texto);
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
   line-height: 1.3;
+  text-align: left;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  cursor: pointer;
 }
+
+app-catalogo-page .grade-edicoes-colecao .titulo-resultado-link:disabled { cursor: default; }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .editora-resultado {
-  font-size: .86rem;
+  color: var(--texto-suave);
+  font-size: .82rem;
 }
+
+app-catalogo-page .grade-edicoes-colecao .ver-detalhes-resultado {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 0;
+  border: 0;
+  color: var(--texto-suave);
+  background: transparent;
+  font: inherit;
+  font-size: .78rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+app-catalogo-page .grade-edicoes-colecao .ver-detalhes-resultado:hover { color: var(--primaria); }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao {
-  grid-column: 3;
-  grid-row: 1;
   display: flex;
-  align-items: stretch;
-  justify-content: center;
-  min-width: 168px;
-}
-
-app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao > * {
-  width: auto;
-  max-width: 190px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .adicionar-edicao-colecao,
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .edicao-ja-na-estante,
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao > .botao {
-  grid-column: auto;
-  grid-row: auto;
-  align-self: center;
-  min-height: 42px;
-  padding: 8px 14px;
+  width: auto;
+  min-height: 38px;
+  padding: 7px 11px;
   border-radius: 10px;
+  font-size: .8rem;
+  line-height: 1.2;
   white-space: normal;
 }
 
-app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .compartilhar-capa-catalogo {
-  top: 22px;
-  left: 22px;
+app-catalogo-page .grade-edicoes-colecao .edicao-ja-na-estante {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #15803d;
+  background: color-mix(in srgb, #16a34a 9%, var(--superficie));
+  font-weight: 800;
+}
+
+app-catalogo-page .grade-edicoes-colecao .compartilhar-edicao-colecao {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  color: var(--texto-suave);
+  background: var(--superficie);
+  cursor: pointer;
+}
+
+app-catalogo-page .grade-edicoes-colecao .compartilhar-edicao-colecao:hover,
+app-catalogo-page .grade-edicoes-colecao .compartilhar-edicao-colecao:focus-visible {
+  border-color: var(--primaria);
+  color: var(--primaria);
+}
+
+@media (min-width: 1600px) {
+  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
 }
 
 app-catalogo-page .paginacao-edicoes-colecao {
   margin-top: 20px;
   padding-top: 14px;
   border-top: 1px solid var(--borda);
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: 140px minmax(0, 1fr) minmax(154px, auto);
-    gap: 14px;
-    min-height: 210px;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .capa-resultado-link {
-    width: 140px;
-    height: 210px;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao {
-    min-width: 154px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -7737,57 +7646,23 @@ app-catalogo-page .paginacao-edicoes-colecao {
 
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
     gap: 12px;
+    width: 100%;
   }
 
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: clamp(110px, 32vw, 125px) minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    gap: 10px 12px;
-    align-items: start;
-    min-height: 0;
-    padding: 11px;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .capa-resultado-link {
-    grid-row: 1 / span 2;
-    width: 100%;
-    height: auto;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .dados-resultado-catalogo {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: start;
-    justify-content: flex-start;
-    gap: 5px;
-    padding: 2px 0 0;
+    grid-template-columns: clamp(100px, 29vw, 115px) minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
   }
 
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .titulo-resultado-link {
     font-size: .94rem;
   }
 
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: end;
-    justify-content: flex-start;
-    min-width: 0;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao > *,
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .adicionar-edicao-colecao,
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .edicao-ja-na-estante {
-    width: 100%;
-    max-width: none;
-    min-height: 40px;
-    padding: 7px 9px;
+  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .acoes-edicao-colecao > .botao {
+    padding: 7px 8px;
     font-size: .76rem;
-  }
-
-  app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .compartilhar-capa-catalogo {
-    top: 18px;
-    left: 18px;
   }
 
   .app-shell:has(app-catalogo-page) .conteudo-app {

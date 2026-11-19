@@ -402,12 +402,13 @@ import {
                   (error)="usarCapaReserva($event)"
                 />
               </button>
-              @if (resultado.jaCadastrada && resultado.id) {
+              @if (resultado.jaCadastrada && resultado.id && !serieSelecionada()) {
                 <button class="compartilhar-capa-catalogo" type="button" (click)="compartilharResultado(resultado, $event)" [attr.aria-label]="'Compartilhar ' + tituloResultadoCartao(resultado)" title="Compartilhar edição">
                   <svg lucideShare2 size="19" aria-hidden="true"></svg>
                 </button>
               }
-              <div class="dados-resultado-catalogo">
+              <div class="conteudo-resultado-catalogo" [class.conteudo-edicao-colecao]="!!serieSelecionada()">
+                <div class="dados-resultado-catalogo">
                 <strong class="numero-resultado">{{ resultadosCatalogo().totalItens === 1 ? 'EDIÇÃO ÚNICA' : '#' + (resultado.numero || '-') }}</strong>
                 <button class="titulo-resultado-link" type="button" (click)="resultado.jaCadastrada && resultado.id ? abrirInterna(resultado) : null" [disabled]="!resultado.jaCadastrada || !resultado.id">
                   {{ tituloResultadoCartao(resultado) }}
@@ -422,8 +423,8 @@ import {
                 } @else {
                   <span class="editora-resultado">Importação pendente</span>
                 }
-              </div>
-              <div class="acoes-edicao-colecao">
+                </div>
+                <div class="acoes-edicao-colecao">
                 @if (resultado.jaCadastrada && resultado.id) {
                   @if (edicoesNaEstante().includes(resultado.id)) {
                     <span class="edicao-ja-na-estante" aria-live="polite"><svg lucideCheck size="14" aria-hidden="true"></svg>Na estante</span>
@@ -442,6 +443,12 @@ import {
                 } @else {
                   <button class="botao compacto" type="button" disabled>Importação pendente</button>
                 }
+                @if (serieSelecionada() && resultado.jaCadastrada && resultado.id) {
+                  <button class="compartilhar-edicao-colecao" type="button" (click)="compartilharResultado(resultado, $event)" [attr.aria-label]="'Compartilhar ' + tituloResultadoCartao(resultado)" title="Compartilhar edição">
+                    <svg lucideShare2 size="18" aria-hidden="true"></svg>
+                  </button>
+                }
+                </div>
               </div>
             </article>
           } @empty {
