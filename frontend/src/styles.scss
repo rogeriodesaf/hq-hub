@@ -7609,7 +7609,7 @@ app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 16px;
-  width: min(100%, 800px);
+  width: min(100%, 760px);
   margin-inline: auto;
 }
 
@@ -7625,6 +7625,11 @@ app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
   border: 1px solid var(--borda);
   border-radius: 14px;
   background: var(--superficie);
+}
+
+app-catalogo-page .grade-edicoes-colecao .resultado-catalogo:hover img {
+  transform: none;
+  filter: none;
 }
 
 app-catalogo-page .grade-edicoes-colecao .resultado-catalogo:focus-within {
@@ -7683,7 +7688,10 @@ app-catalogo-page .grade-edicoes-colecao .numero-resultado {
 }
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .titulo-resultado-link {
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   max-width: 100%;
   padding: 0;
   border: 0;
@@ -7772,7 +7780,7 @@ app-catalogo-page .grade-edicoes-colecao .compartilhar-edicao-colecao:focus-visi
   color: var(--primaria);
 }
 
-@container edicoes-catalogo (min-width: 600px) {
+@container edicoes-catalogo (min-width: 700px) {
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;

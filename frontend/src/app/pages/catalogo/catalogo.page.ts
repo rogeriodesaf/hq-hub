@@ -473,7 +473,7 @@ import {
           }
         </div>
 
-        @if (resultadosCatalogo().totalPaginas > 1) {
+        @if (resultadosCatalogo().totalPaginas > 1 || (serieSelecionada() && resultadosCatalogo().totalItens > 0)) {
           <app-paginacao
             class="catalogo-paginacao paginacao-edicoes-colecao"
             [paginaAtual]="paginaResultados()"
