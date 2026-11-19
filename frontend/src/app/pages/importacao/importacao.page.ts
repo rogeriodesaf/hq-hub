@@ -104,6 +104,10 @@ interface ColetaCapasTelegramLocal {
             <strong>Edicao da Mythos</strong>
             <span>Leia o produto oficial e confirme a colecao</span>
           </button>
+          <button type="button" [class.ativo]="modoEntrada() === 'pipoca-edicao'" (click)="selecionarModo('pipoca-edicao')">
+            <strong>Edição da Pipoca & Nanquim</strong>
+            <span>Leia o produto oficial e confirme a coleção</span>
+          </button>
           <button type="button" [class.ativo]="modoEntrada() === 'telegram'" (click)="selecionarModo('telegram')">
             <strong>Capas do Telegram</strong>
             <span>Extraia capas de CBZ/PDF pelo assistente local</span>
@@ -159,6 +163,9 @@ interface ColetaCapasTelegramLocal {
         }
         @if (modoEntrada() === 'mythos-edicao') {
           <app-importacao-edicao-mythos />
+        }
+        @if (modoEntrada() === 'pipoca-edicao') {
+          <app-importacao-edicao-mythos fonte="pipoca" />
         }
 
         @if (modoEntrada() === 'guia') {
@@ -1608,7 +1615,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   private temporizadorColetaLocal: ReturnType<typeof setTimeout> | null = null;
   private temporizadorCapasTelegram: ReturnType<typeof setTimeout> | null = null;
   readonly nomeArquivo = signal('');
-  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao'>('visual');
+  readonly modoEntrada = signal<'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao' | 'pipoca-edicao'>('visual');
   readonly buscandoSeriesVisual = signal(false);
   readonly buscandoSeriesCapa = signal(false);
   readonly salvandoCapaCatalogo = signal(false);
@@ -1701,6 +1708,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
 
   tituloModoEntrada() {
     if (this.modoEntrada() === 'mythos-edicao') return 'Cadastrar edicao pela Mythos';
+    if (this.modoEntrada() === 'pipoca-edicao') return 'Cadastrar edição pela Pipoca & Nanquim';
     if (this.modoEntrada() === 'panini-edicao') return 'Cadastrar edição pela Panini';
     if (this.modoEntrada() === 'visual') return 'Cadastro visual da HQ';
     if (this.modoEntrada() === 'json') return 'JSON do robô';
@@ -1710,7 +1718,7 @@ export class ImportacaoPage implements OnInit, OnDestroy {
     return 'Coletar do Guia dos Quadrinhos';
   }
 
-  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao') {
+  selecionarModo(modo: 'visual' | 'json' | 'guia' | 'gcd' | 'telegram' | 'panini' | 'panini-edicao' | 'mythos-edicao' | 'pipoca-edicao') {
     if (modo === this.modoEntrada()) {
       return;
     }

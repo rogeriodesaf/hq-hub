@@ -1347,12 +1347,24 @@ export class ApiService {
     return this.http.post<PreviaProdutoMythos>('/api/importacoes/catalogo/mythos/edicoes/analisar', { urlMythos });
   }
 
+  analisarProdutoPipoca(urlMythos: string) {
+    return this.http.post<PreviaProdutoMythos>('/api/importacoes/catalogo/pipoca-nanquim/edicoes/analisar', { urlMythos });
+  }
+
   cadastrarEdicaoBrasileiraMythos(dto: {
     urlMythos: string; serieId: number | null; criarNovaSerie: boolean; tituloSerie: string | null; volumeSerie: number | null;
     numero: string; tituloEdicao: string | null; descricao: string | null; dataPublicacao: string | null;
     codigoBarras: string | null; quantidadePaginas: number | null; precoCapa: number | null; formato: string | null;
   }) {
     return this.http.post<ResultadoCadastroEdicaoBrasileiraMythos>('/api/importacoes/catalogo/mythos/edicoes', dto);
+  }
+
+  cadastrarEdicaoBrasileiraPipoca(dto: {
+    urlMythos: string; serieId: number | null; criarNovaSerie: boolean; tituloSerie: string | null; volumeSerie: number | null;
+    numero: string; tituloEdicao: string | null; descricao: string | null; dataPublicacao: string | null;
+    codigoBarras: string | null; quantidadePaginas: number | null; precoCapa: number | null; formato: string | null;
+  }) {
+    return this.http.post<ResultadoCadastroEdicaoBrasileiraMythos>('/api/importacoes/catalogo/pipoca-nanquim/edicoes', dto);
   }
 
   private normalizarHistoria(historia: HistoriaLeitura): HistoriaLeitura {

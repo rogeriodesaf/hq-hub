@@ -30,6 +30,7 @@ import jakarta.transaction.Transactional;
 @ApplicationScoped
 public class ImportacaoMythosService {
     static final String FONTE_MYTHOS = "MYTHOS";
+    static final String FONTE_PIPOCA_NANQUIM = "PIPOCA_NANQUIM";
     private final ProdutoMythosParser parser;
     private final EdicaoRepository edicoes;
     private final EditoraRepository editoras;
@@ -44,7 +45,15 @@ public class ImportacaoMythosService {
     }
 
     public PreviaProdutoMythosDTO analisar(String url) {
-        URI uri = validarUrl(url);
+        return analisar(url, FONTE_MYTHOS);
+    }
+
+    public PreviaProdutoMythosDTO analisarPipoca(String url) {
+        return analisar(url, FONTE_PIPOCA_NANQUIM);
+    }
+
+    private PreviaProdutoMythosDTO analisar(String url, String fonte) {
+        URI uri = validarUrl(url, fonte);
         Produto produto;
         try {
             produto = parser.extrair(carregar(uri));
@@ -61,17 +70,26 @@ public class ImportacaoMythosService {
 
     @Transactional
     public ResultadoCadastroEdicaoBrasileiraMythosDTO cadastrar(CadastroEdicaoBrasileiraMythosDTO dto) {
-        PreviaProdutoMythosDTO previa = analisar(dto.urlMythos());
-        Produto produto = parser.extrair(carregar(validarUrl(dto.urlMythos())));
-        Serie serie = resolverSerie(dto, produto);
-        var porSku = edicoes.buscarPorOrigemExterna(FONTE_MYTHOS, produto.sku());
+        return cadastrar(dto, FONTE_MYTHOS);
+    }
+
+    public ResultadoCadastroEdicaoBrasileiraMythosDTO cadastrarPipoca(CadastroEdicaoBrasileiraMythosDTO dto) {
+        return cadastrar(dto, FONTE_PIPOCA_NANQUIM);
+    }
+
+    private ResultadoCadastroEdicaoBrasileiraMythosDTO cadastrar(
+            CadastroEdicaoBrasileiraMythosDTO dto, String fonte) {
+        PreviaProdutoMythosDTO previa = analisar(dto.urlMythos(), fonte);
+        Produto produto = parser.extrair(carregar(validarUrl(dto.urlMythos(), fonte)));
+        Serie serie = resolverSerie(dto, produto, fonte);
+        var porSku = edicoes.buscarPorOrigemExterna(fonte, produto.sku());
         if (porSku.isPresent() && !porSku.get().getSerie().getId().equals(serie.getId())) {
             throw new RegraNegocioException("Este produto da Mythos já está vinculado a outra coleção.");
         }
         Edicao edicao = porSku.or(() -> edicoes.buscarPorNumeroESerie(dto.numero(), serie.getId())).orElse(null);
         boolean criada = edicao == null;
         if (criada) { edicao = new Edicao(); edicao.setSerie(serie); edicao.setNumero(dto.numero().trim()); }
-        edicao.setFonteExterna(FONTE_MYTHOS); edicao.setIdExterno(produto.sku());
+        edicao.setFonteExterna(fonte); edicao.setIdExterno(produto.sku());
         copiar(edicao.getTitulo(), dto.tituloEdicao(), edicao::setTitulo);
         copiar(edicao.getDescricao(), dto.descricao(), edicao::setDescricao);
         if (edicao.getDataPublicacao() == null) edicao.setDataPublicacao(dto.dataPublicacao());
@@ -91,23 +109,31 @@ public class ImportacaoMythosService {
         return new ResultadoCadastroEdicaoBrasileiraMythosDTO(resposta, criada, capaArmazenada, avisos);
     }
 
-    private Serie resolverSerie(CadastroEdicaoBrasileiraMythosDTO dto, Produto produto) {
+    private Serie resolverSerie(CadastroEdicaoBrasileiraMythosDTO dto, Produto produto, String fonte) {
         if (dto.serieId() != null) {
             Serie serie = series.findByIdOptional(dto.serieId()).orElseThrow(() -> new RecursoNaoEncontradoException("Coleção não encontrada."));
             if (serie.getTipoSerie() != TipoSerie.BRASILEIRA) throw new RegraNegocioException("Selecione uma coleção brasileira.");
             return serie;
         }
         if (!Boolean.TRUE.equals(dto.criarNovaSerie()) || dto.tituloSerie() == null || dto.tituloSerie().isBlank()) throw new RegraNegocioException("Selecione uma coleção ou informe o título da nova coleção.");
-        Editora editora = editoras.buscarPorNome("Mythos").orElseGet(() -> { Editora nova = new Editora(); nova.setNome("Mythos"); nova.setFonteExterna(FONTE_MYTHOS); nova.setIdExterno("mythos"); editoras.persist(nova); return nova; });
+        String nomeEditora = FONTE_PIPOCA_NANQUIM.equals(fonte) ? "Pipoca & Nanquim" : "Mythos";
+        Editora editora = editoras.buscarPorNome(nomeEditora).orElseGet(() -> { Editora nova = new Editora(); nova.setNome(nomeEditora); nova.setFonteExterna(fonte); nova.setIdExterno(fonte.toLowerCase(Locale.ROOT)); editoras.persist(nova); return nova; });
         return series.buscarPorTituloEEditoraEVolume(dto.tituloSerie(), editora.getId(), dto.volumeSerie()).orElseGet(() -> {
-            Serie nova = new Serie(); nova.setTitulo(dto.tituloSerie().trim()); nova.setVolume(dto.volumeSerie()); nova.setTipoSerie(TipoSerie.BRASILEIRA); nova.setEditora(editora); nova.setFonteExterna(FONTE_MYTHOS); nova.setIdExterno("serie:" + dto.tituloSerie().trim().toLowerCase(Locale.ROOT)); nova.setUrlOrigem(dto.urlMythos()); series.persist(nova); return nova;
+            Serie nova = new Serie(); nova.setTitulo(dto.tituloSerie().trim()); nova.setVolume(dto.volumeSerie()); nova.setTipoSerie(TipoSerie.BRASILEIRA); nova.setEditora(editora); nova.setFonteExterna(fonte); nova.setIdExterno("serie:" + dto.tituloSerie().trim().toLowerCase(Locale.ROOT)); nova.setUrlOrigem(dto.urlMythos()); series.persist(nova); return nova;
         });
     }
 
     private URI validarUrl(String url) {
+        return validarUrl(url, FONTE_MYTHOS);
+    }
+
+    private URI validarUrl(String url, String fonte) {
         try {
             URI uri = URI.create(url == null ? "" : url.trim()); String host = uri.getHost() == null ? "" : uri.getHost().toLowerCase(Locale.ROOT);
-            if (!"https".equalsIgnoreCase(uri.getScheme()) || !(host.equals("lojamythos.com.br") || host.equals("www.lojamythos.com.br")) || uri.getUserInfo() != null || uri.getPort() != -1) throw new RegraNegocioException("Informe uma URL HTTPS válida da Loja Mythos.");
+            boolean dominioValido = FONTE_PIPOCA_NANQUIM.equals(fonte)
+                    ? (host.equals("pipocaenanquim.com.br") || host.equals("www.pipocaenanquim.com.br"))
+                    : (host.equals("lojamythos.com.br") || host.equals("www.lojamythos.com.br"));
+            if (!"https".equalsIgnoreCase(uri.getScheme()) || !dominioValido || uri.getUserInfo() != null || uri.getPort() != -1) throw new RegraNegocioException("Informe uma URL HTTPS válida da loja autorizada.");
             return uri;
         } catch (IllegalArgumentException excecao) { throw new RegraNegocioException("Informe uma URL HTTPS válida da Loja Mythos."); }
     }

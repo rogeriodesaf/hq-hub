@@ -131,6 +131,18 @@ public class ImportacaoCatalogoResource {
     }
 
     @POST
+    @Path("/pipoca-nanquim/edicoes/analisar")
+    public Response analisarProdutoPipocaNanquim(@Valid AnaliseProdutoMythosDTO dto) {
+        return Response.ok(importacaoMythosService.analisarPipoca(dto.urlMythos())).build();
+    }
+
+    @POST
+    @Path("/pipoca-nanquim/edicoes")
+    public Response cadastrarEdicaoBrasileiraPipocaNanquim(@Valid CadastroEdicaoBrasileiraMythosDTO dto) {
+        return Response.ok(importacaoMythosService.cadastrarPipoca(dto)).build();
+    }
+
+    @POST
     public Response importar(
             @Valid ImportacaoCatalogoDTO dto,
             @QueryParam("publicarNovidade") Boolean publicarNovidade) {

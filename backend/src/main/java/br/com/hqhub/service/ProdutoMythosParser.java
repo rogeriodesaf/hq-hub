@@ -17,7 +17,7 @@ public class ProdutoMythosParser {
     private static final Pattern JSON_PRICE = Pattern.compile("\\\"price\\\"\\s*:\\s*\\\"?([0-9]+(?:\\.[0-9]+)?)", Pattern.CASE_INSENSITIVE);
     private static final Pattern TITLE = Pattern.compile("^(.+?)\\s+(?:VOL\\.?\\s*)?(\\d+)(?:\\s*)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern PAGES = Pattern.compile("(?i)(\\d+)\\s+p[aá]ginas");
-    private static final Pattern FORMAT = Pattern.compile("(?i)Formato\\s*:\\s*([^?\\n]+)");
+    private static final Pattern FORMAT = Pattern.compile("(?i)Formato\\s*:?\\s*([^?\\n]+?)(?=\\s*[•|]|\\s+\\d+\\s+p[aÃ¡]ginas|$)");
 
     public Produto extrair(String html) {
         String conteudo = html == null ? "" : html;
