@@ -7470,7 +7470,7 @@ app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
 
 app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
+  grid-template-columns: clamp(120px, 32%, 156px) minmax(0, 1fr);
   gap: 16px;
   align-items: start;
   align-self: start;
@@ -7651,7 +7651,7 @@ app-catalogo-page .paginacao-edicoes-colecao {
   }
 
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: clamp(100px, 29vw, 115px) minmax(0, 1fr);
+    grid-template-columns: clamp(120px, 32vw, 138px) minmax(0, 1fr);
     gap: 12px;
     padding: 12px;
   }
