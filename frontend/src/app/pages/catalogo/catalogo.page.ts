@@ -251,11 +251,13 @@ import {
             <div class="titulo-colecao-selecionada">
               <h2 #tituloColecao tabindex="-1">{{ serieAtual.titulo }}</h2>
               <p class="metadados-colecao">
-                {{ serieAtual.editora?.nome || 'Sem editora' }} · Volume {{ serieAtual.volume || '-' }} ·
-                {{ resultadosCatalogo().totalItens === 1 ? '1 edição' : resultadosCatalogo().totalItens + ' edições' }}
+                {{ serieAtual.editora?.nome || 'Sem editora' }} · Volume {{ serieAtual.volume || '-' }}
               </p>
               <small class="identificacao-colecao">Coleção do catálogo</small>
             </div>
+            <p class="quantidade-edicoes-colecao" aria-live="polite">
+              {{ resultadosCatalogo().totalItens === 1 ? '1 edição na coleção' : resultadosCatalogo().totalItens + ' edições na coleção' }}
+            </p>
             <div class="acoes-cabecalho-colecao">
               @if (autenticado()) {
                 @if (resultadosCatalogo().totalItens === 1) {
