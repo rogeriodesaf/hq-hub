@@ -320,7 +320,15 @@ import {
 
         @if (serieSelecionada() && resultadosCatalogo().totalItens > 0) {
           <div class="cabecalho-edicoes-colecao">
-            <h3>Edições da coleção</h3>
+            <div>
+              <h3>Edições da coleção</h3>
+              <span>
+                {{ resultadosCatalogo().totalItens }} {{ resultadosCatalogo().totalItens === 1 ? 'edição' : 'edições' }}
+                @if (resultadosCatalogo().totalPaginas > 1) {
+                  · Página {{ paginaResultados() + 1 }} de {{ resultadosCatalogo().totalPaginas }}
+                }
+              </span>
+            </div>
           </div>
         }
 
@@ -415,24 +423,26 @@ import {
                   <span class="editora-resultado">Importação pendente</span>
                 }
               </div>
-              @if (resultado.jaCadastrada && resultado.id) {
-                @if (edicoesNaEstante().includes(resultado.id)) {
-                  <span class="edicao-ja-na-estante" aria-live="polite"><svg lucideCheck size="14" aria-hidden="true"></svg>Na estante</span>
+              <div class="acoes-edicao-colecao">
+                @if (resultado.jaCadastrada && resultado.id) {
+                  @if (edicoesNaEstante().includes(resultado.id)) {
+                    <span class="edicao-ja-na-estante" aria-live="polite"><svg lucideCheck size="14" aria-hidden="true"></svg>Na estante</span>
+                  } @else {
+                    <button
+                      class="botao primario compacto adicionar-edicao-colecao"
+                      type="button"
+                      (click)="abrirModalAdicionarNaEstante(resultado)"
+                      [disabled]="salvandoItemColecao() === resultado.id || carregandoEstadoEstante()"
+                    >
+                      {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : 'Adicionar à estante' }}
+                    </button>
+                  }
+                } @else if (resultado.urlOrigem) {
+                  <a class="botao compacto" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine</a>
                 } @else {
-                  <button
-                    class="botao primario compacto adicionar-edicao-colecao"
-                    type="button"
-                    (click)="abrirModalAdicionarNaEstante(resultado)"
-                    [disabled]="salvandoItemColecao() === resultado.id || carregandoEstadoEstante()"
-                  >
-                    {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : '+ Adicionar à minha estante' }}
-                  </button>
+                  <button class="botao compacto" type="button" disabled>Importação pendente</button>
                 }
-              } @else if (resultado.urlOrigem) {
-                <a class="botao compacto" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine</a>
-              } @else {
-                <button class="botao compacto" type="button" disabled>Importação pendente</button>
-              }
+              </div>
             </article>
           } @empty {
             <section class="estado-vazio estado-vazio-catalogo">
@@ -456,7 +466,7 @@ import {
 
         @if (resultadosCatalogo().totalPaginas > 1) {
           <app-paginacao
-            class="catalogo-paginacao"
+            class="catalogo-paginacao paginacao-edicoes-colecao"
             [paginaAtual]="paginaResultados()"
             [totalPaginas]="resultadosCatalogo().totalPaginas"
             [carregando]="carregandoResultados()"
@@ -1653,7 +1663,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
     }
     const serieId = Number(this.rota.snapshot.queryParamMap.get('serieId'));
     if (Number.isFinite(serieId) && serieId > 0) {
-      this.carregarEdicoesDaSerieImportada(serieId);
+      const paginaInicial = Math.max(0, Number(this.rota.snapshot.queryParamMap.get('pagina')) || 0);
+      this.carregarEdicoesDaSerieImportada(serieId, paginaInicial);
     }
 
     this.rota.queryParamMap.subscribe((parametros) => {
@@ -1690,7 +1701,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.buscarResultados(0);
   }
 
-  private carregarEdicoesDaSerieImportada(serieId: number) {
+  private carregarEdicoesDaSerieImportada(serieId: number, pagina = 0) {
     const sequencia = ++this.sequenciaBuscaResultados;
     this.serieSelecionada.set(null);
     this.busca = '';
@@ -1702,9 +1713,9 @@ export class CatalogoPage implements OnInit, OnDestroy {
     const carregamento = this.autenticado()
       ? forkJoin({
           serie: this.api.buscarSeriePorId(serieId),
-          edicoes: this.api.listarEdicoes('', 0, this.tamanhoResultados, serieId),
+          edicoes: this.api.listarEdicoes('', pagina, this.tamanhoResultados, serieId),
         })
-      : this.api.obterSerieCatalogoPublica(serieId, 0, this.tamanhoResultados);
+      : this.api.obterSerieCatalogoPublica(serieId, pagina, this.tamanhoResultados);
 
     carregamento.subscribe({
       next: ({ serie, edicoes: resposta }) => {
@@ -1721,7 +1732,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       },
       error: () => {
         if (sequencia !== this.sequenciaBuscaResultados) return;
-        this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
+        this.resultadosCatalogo.set({ itens: [], pagina, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
         this.carregandoResultados.set(false);
         this.mensagem.set('Nao foi possivel carregar as edicoes da serie importada agora.');
       },
@@ -2080,6 +2091,14 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   irParaPaginaResultados(pagina: number) {
     if (pagina < 0 || pagina >= this.resultadosCatalogo().totalPaginas) return;
+    if (this.rota.snapshot.queryParamMap.has('serieId')) {
+      void this.router.navigate([], {
+        relativeTo: this.rota,
+        queryParams: { pagina: pagina || null },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    }
     this.buscarResultados(pagina, true);
   }
 
