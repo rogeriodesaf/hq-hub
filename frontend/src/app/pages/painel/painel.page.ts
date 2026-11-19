@@ -298,6 +298,9 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
                 <a class="botao secundario" href="https://amzn.to/45wKwKz" target="_blank" rel="noopener noreferrer sponsored">
                   Ver promoções na Amazon
                 </a>
+                <a class="botao secundario" href="https://mercadolivre.com/sec/2M5etQP" target="_blank" rel="noopener noreferrer sponsored">
+                  Ver promoções no Mercado Livre
+                </a>
               </div>
             </div>
           </article>
