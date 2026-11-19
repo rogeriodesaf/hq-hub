@@ -8,6 +8,7 @@ import br.com.hqhub.dto.RenovacaoSessaoDTO;
 import br.com.hqhub.exception.RegraNegocioException;
 import br.com.hqhub.exception.RespostaErroDTO;
 import br.com.hqhub.service.AutenticacaoService;
+import br.com.hqhub.service.EmailRedefinicaoSenhaService;
 import br.com.hqhub.service.RedefinicaoSenhaService;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -17,16 +18,13 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
-
 import java.time.LocalDateTime;
 
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AutenticacaoResource {
-
     private static final Logger LOG = Logger.getLogger(AutenticacaoResource.class);
-
     private final AutenticacaoService autenticacaoService;
     private final RedefinicaoSenhaService redefinicaoSenhaService;
 
@@ -60,29 +58,32 @@ public class AutenticacaoResource {
     @Path("/redefinir-senha/solicitar")
     public Response solicitarRedefinicao(@Valid SolicitacaoRedefinicaoSenhaDTO dto) {
         try {
-            String erro = redefinicaoSenhaService.solicitar(dto);
-            if (erro != null) {
-                return erroSolicitacaoRedefinicao(erro);
-            }
-            return Response.ok().build();
-        } catch (RegraNegocioException excecao) {
-            return erroSolicitacaoRedefinicao(excecao.getMessage());
+            redefinicaoSenhaService.solicitar(dto);
         } catch (Exception excecao) {
-            LOG.errorf(excecao, "Falha inesperada ao solicitar redefinição de senha para %s.", dto.email());
-            return erroSolicitacaoRedefinicao("Não foi possível enviar o e-mail de redefinição agora.");
+            // Nunca diferenciar conta existente de inexistente, nem registrar dados pessoais,
+            // credenciais, token ou mensagem da exceção (que pode conter o link).
+            String codigo = excecao instanceof EmailRedefinicaoSenhaService.Falha falha
+                    ? falha.codigo() : excecao.getClass().getSimpleName();
+            LOG.errorf("Falha na recuperação de senha: %s", codigo);
         }
+        return Response.ok().build();
     }
 
     @POST
     @Path("/redefinir-senha/confirmar")
     public Response confirmarRedefinicao(@Valid RedefinicaoSenhaDTO dto) {
-        redefinicaoSenhaService.redefinir(dto);
-        return Response.ok().build();
-    }
-
-    private Response erroSolicitacaoRedefinicao(String mensagem) {
-        return Response.status(Response.Status.BAD_REQUEST)
-                .entity(new RespostaErroDTO(mensagem, Response.Status.BAD_REQUEST.getStatusCode(), LocalDateTime.now()))
-                .build();
+        try {
+            redefinicaoSenhaService.redefinir(dto);
+            return Response.ok().build();
+        } catch (RegraNegocioException excecao) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new RespostaErroDTO("Token inválido ou expirado.", 400, LocalDateTime.now()))
+                    .build();
+        } catch (Exception excecao) {
+            LOG.errorf("Falha ao confirmar recuperação de senha: %s", excecao.getClass().getSimpleName());
+            return Response.serverError()
+                    .entity(new RespostaErroDTO("Não foi possível redefinir a senha agora.", 500, LocalDateTime.now()))
+                    .build();
+        }
     }
 }

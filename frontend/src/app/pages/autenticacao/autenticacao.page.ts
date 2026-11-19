@@ -169,10 +169,13 @@ export class AutenticacaoPage implements OnInit {
     }
 
     this.rota.queryParams.subscribe((params) => {
-      const token = params['token'] as string | undefined;
+      const token = new URLSearchParams(this.rota.snapshot.fragment ?? '').get('token')
+        ?? params['token'] as string | undefined;
       if (token) {
         this.tokenRedefinicao = token;
         this.modo.set('nova-senha');
+        // O token não deve permanecer na barra de endereço nem no histórico.
+        history.replaceState(history.state, '', location.pathname);
       }
     });
   }
@@ -226,7 +229,10 @@ export class AutenticacaoPage implements OnInit {
         this.carregando.set(false);
         this.emailEnviado.set(true);
       },
-      error: (erro) => this.tratarErro(erro),
+      error: () => {
+        this.carregando.set(false);
+        this.mensagem.set('Não foi possível concluir a solicitação agora. Tente novamente mais tarde.');
+      },
     });
   }
 

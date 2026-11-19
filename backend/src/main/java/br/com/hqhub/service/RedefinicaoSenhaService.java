@@ -5,109 +5,120 @@ import br.com.hqhub.dto.SolicitacaoRedefinicaoSenhaDTO;
 import br.com.hqhub.entity.TokenRedefinicaoSenha;
 import br.com.hqhub.entity.Usuario;
 import br.com.hqhub.exception.RegraNegocioException;
-import br.com.hqhub.repository.TokenRedefinicaoSenhaRepository;
 import br.com.hqhub.repository.SessaoPersistenteRepository;
+import br.com.hqhub.repository.TokenRedefinicaoSenhaRepository;
 import br.com.hqhub.repository.UsuarioRepository;
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.mailer.Mail;
-import io.quarkus.mailer.Mailer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Base64;
+import java.util.HexFormat;
+import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ApplicationScoped
 public class RedefinicaoSenhaService {
-
-    private static final Logger LOG = Logger.getLogger(RedefinicaoSenhaService.class);
-
+    private static final int LIMITE_PEDIDOS = 3;
+    private static final long JANELA_MS = 15 * 60 * 1000L;
     private final UsuarioRepository usuarioRepository;
     private final TokenRedefinicaoSenhaRepository tokenRepository;
     private final SessaoPersistenteRepository sessaoRepository;
-    private final Mailer mailer;
+    private final EmailRedefinicaoSenhaService emailService;
     private final String urlBase;
-    private final String smtpUsuario;
-    private final String smtpSenha;
+    private final SecureRandom random = new SecureRandom();
+    // O limite vale também para endereços inexistentes; só o hash fica em memória.
+    private final ConcurrentHashMap<String, Janela> pedidos = new ConcurrentHashMap<>();
 
-    public RedefinicaoSenhaService(
-            UsuarioRepository usuarioRepository,
+    public RedefinicaoSenhaService(UsuarioRepository usuarioRepository,
             TokenRedefinicaoSenhaRepository tokenRepository,
             SessaoPersistenteRepository sessaoRepository,
-            Mailer mailer,
-            @ConfigProperty(name = "hqhub.url-base") String urlBase,
-            @ConfigProperty(name = "hqhub.smtp.usuario") String smtpUsuario,
-            @ConfigProperty(name = "hqhub.smtp.senha") String smtpSenha) {
+            EmailRedefinicaoSenhaService emailService,
+            @ConfigProperty(name = "hqhub.url-base") String urlBase) {
         this.usuarioRepository = usuarioRepository;
         this.tokenRepository = tokenRepository;
         this.sessaoRepository = sessaoRepository;
-        this.mailer = mailer;
+        this.emailService = emailService;
         this.urlBase = urlBase;
-        this.smtpUsuario = smtpUsuario;
-        this.smtpSenha = smtpSenha;
     }
 
     @Transactional
-    public String solicitar(SolicitacaoRedefinicaoSenhaDTO dto) {
-        String erroConfiguracao = validarConfiguracaoEmail();
-        if (erroConfiguracao != null) {
-            return erroConfiguracao;
+    public void solicitar(SolicitacaoRedefinicaoSenhaDTO dto) {
+        String endereco = dto.email().trim().toLowerCase(Locale.ROOT);
+        if (!permitir(hash(endereco))) {
+            return;
         }
-
-        AtomicReference<String> erroEnvio = new AtomicReference<>();
-        usuarioRepository.buscarPorEmail(dto.email()).ifPresent(usuario -> {
-            tokenRepository.excluirPorUsuario(usuario);
-
-            String token = UUID.randomUUID().toString();
-            TokenRedefinicaoSenha entidade = new TokenRedefinicaoSenha();
-            entidade.setToken(token);
-            entidade.setUsuario(usuario);
-            entidade.setExpiraEm(LocalDateTime.now().plusHours(1));
-            tokenRepository.persist(entidade);
-
-            String link = urlBase + "/entrar?token=" + token;
-            String html = "<p>Ola, <strong>" + usuario.getNome() + "</strong>!</p>"
-                    + "<p>Clique no link abaixo para redefinir sua senha no Coleciona HQ. "
-                    + "O link e valido por <strong>1 hora</strong>.</p>"
-                    + "<p><a href=\"" + link + "\">" + link + "</a></p>"
-                    + "<p>Se voce nao solicitou a redefinicao, ignore este e-mail.</p>";
-
-            try {
-                mailer.send(Mail.withHtml(dto.email(), "Redefinicao de senha - Coleciona HQ", html));
-            } catch (RuntimeException excecao) {
-                LOG.errorf(excecao, "Falha ao enviar e-mail de redefinicao de senha para %s.", dto.email());
-                erroEnvio.set("Nao foi possivel enviar o e-mail de redefinicao agora.");
+        if (!emailService.configurado()) {
+            throw new EmailRedefinicaoSenhaService.Falha("SEM_CONFIGURACAO");
+        }
+        usuarioRepository.buscarPorEmail(endereco).ifPresent(usuario -> {
+            LocalDateTime agora = LocalDateTime.now();
+            // Cooldown no banco também funciona após reinício e em múltiplas réplicas.
+            if (tokenRepository.existeRecentePorUsuario(usuario, agora.plusMinutes(55))) {
+                return;
             }
+            byte[] bytes = new byte[32];
+            random.nextBytes(bytes);
+            String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+            TokenRedefinicaoSenha entidade = new TokenRedefinicaoSenha();
+            entidade.setToken(hash(token));
+            entidade.setUsuario(usuario);
+            entidade.setExpiraEm(agora.plusHours(1));
+            tokenRepository.excluirPorUsuario(usuario);
+            tokenRepository.persist(entidade);
+            String link = urlBase.replaceAll("/+$", "") + "/entrar#token=" + token;
+            String html = "<p>Você solicitou a redefinição da senha do Coleciona HQ.</p>"
+                    + "<p>O link abaixo é válido por 1 hora e só pode ser usado uma vez.</p>"
+                    + "<p><a href=\"" + link + "\">Redefinir minha senha</a></p>"
+                    + "<p>Se não fez essa solicitação, ignore esta mensagem.</p>";
+            // Falha de envio deve reverter a transação e preservar token anterior.
+            emailService.enviar(endereco, html);
         });
-        // Nao revelar se o e-mail existe ou nao (prevencao de enumeracao).
-        return erroEnvio.get();
     }
 
     @Transactional
     public void redefinir(RedefinicaoSenhaDTO dto) {
-        TokenRedefinicaoSenha entidade = tokenRepository.buscarPorToken(dto.token())
-                .orElseThrow(() -> new RegraNegocioException("Token invalido ou expirado."));
-
-        if (entidade.getExpiraEm().isBefore(LocalDateTime.now())) {
-            tokenRepository.delete(entidade);
-            throw new RegraNegocioException("Token invalido ou expirado.");
+        String recebido = dto.token();
+        // Links UUID enviados pela versão anterior continuam válidos até expirar.
+        String chave = recebido.matches("[0-9a-fA-F-]{36}") ? recebido : hash(recebido);
+        TokenRedefinicaoSenha entidade = tokenRepository.buscarPorTokenParaConsumo(chave)
+                .orElseThrow(() -> new RegraNegocioException("Token inválido ou expirado."));
+        if (!entidade.getExpiraEm().isAfter(LocalDateTime.now())) {
+            throw new RegraNegocioException("Token inválido ou expirado.");
         }
-
         Usuario usuario = entidade.getUsuario();
         usuario.setSenha(BcryptUtil.bcryptHash(dto.novaSenha()));
         sessaoRepository.revogarPorUsuario(usuario);
         tokenRepository.delete(entidade);
     }
 
-    private String validarConfiguracaoEmail() {
-        if (smtpUsuario == null || smtpUsuario.isBlank() || "__NAO_CONFIGURADO__".equals(smtpUsuario)
-                || smtpSenha == null || smtpSenha.isBlank() || "__NAO_CONFIGURADO__".equals(smtpSenha)) {
-            LOG.error("SMTP de redefinicao de senha nao configurado. Informe HQHUB_SMTP_USER e HQHUB_SMTP_PASS.");
-            return "Envio de e-mail nao configurado no servidor.";
+    private boolean permitir(String chave) {
+        long agora = System.currentTimeMillis();
+        if (pedidos.size() > 10_000) {
+            pedidos.entrySet().removeIf(e -> agora - e.getValue().inicio >= JANELA_MS);
+            if (pedidos.size() > 10_000) return false;
         }
-        return null;
+        Janela janela = pedidos.compute(chave, (ignorada, atual) -> {
+            if (atual == null || agora - atual.inicio >= JANELA_MS) return new Janela(agora, 1);
+            return new Janela(atual.inicio, atual.total + 1);
+        });
+        return janela.total <= LIMITE_PEDIDOS;
     }
+
+    private String hash(String valor) {
+        try {
+            return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256")
+                    .digest(valor.getBytes(StandardCharsets.UTF_8)));
+        } catch (NoSuchAlgorithmException excecao) {
+            throw new IllegalStateException("SHA-256 indisponível");
+        }
+    }
+
+    private record Janela(long inicio, int total) { }
 }

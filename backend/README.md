@@ -10,6 +10,28 @@ Para visão de produto, roadmap, backlog, personas, histórias de usuário e mod
 - Maven
 - PostgreSQL
 
+## Recuperação de senha no Render
+
+O link aponta para `https://hqhub.space/entrar#token=...`; os tokens expiram em 1 hora,
+são de uso único e somente o hash é persistido. A migração V483 é aplicada pelo Flyway.
+
+Em uma instância gratuita do Render, as portas SMTP 25/465/587 são bloqueadas.
+Para enviar sem trocar de plano, configure **no serviço do backend**:
+
+- `HQHUB_RESEND_API_KEY`: chave da API HTTPS do Resend (plano gratuito disponível).
+- `HQHUB_MAIL_FROM`: remetente de um domínio próprio verificado no provedor,
+  por exemplo `Coleciona HQ <contato@hqhub.space>` após verificação DNS.
+
+O transporte HTTPS tem precedência quando ambos estão configurados. Em um ambiente
+onde SMTP funciona, mantenha `HQHUB_SMTP_USER`, `HQHUB_SMTP_PASS` e defina
+`HQHUB_SMTP_FROM` com um remetente autorizado pela conta SMTP. Não use o
+remetente padrão se ele não foi verificado. Nunca grave chaves ou senhas no repositório.
+
+Após o deploy, teste com uma conta de teste controlada: solicite o link, confirme
+o recebimento, use-o para trocar a senha e verifique que o segundo uso é recusado.
+Uma resposta 200 ao pedido não comprova entrega do e-mail, pois ela é intencionalmente
+idêntica para contas existentes e inexistentes.
+
 ## Banco de dados local
 
 Crie o banco `hqhub` no PostgreSQL local:
