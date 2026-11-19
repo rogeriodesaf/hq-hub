@@ -239,7 +239,7 @@ import {
           <header class="cabecalho-colecao-selecionada">
             <button class="voltar-colecoes" type="button" (click)="voltarParaColecoes()">
               <svg lucideArrowLeft size="20" aria-hidden="true"></svg>
-              <span>Voltar ao catálogo</span>
+              <span>Voltar às coleções</span>
             </button>
             <div class="capa-cabecalho-colecao">
               <img
@@ -470,19 +470,13 @@ import {
             [paginaAtual]="paginaResultados()"
             [totalPaginas]="resultadosCatalogo().totalPaginas"
             [carregando]="carregandoResultados()"
+            [numerosNoMobile]="true"
             rotulo="Páginas de edições"
             (paginaChange)="irParaPaginaResultados($event)"
           />
         }
       </article>
     </section>
-
-    @if (serieSelecionada() && mostrarVoltarColecoesFlutuante()) {
-      <button class="voltar-colecoes-flutuante" type="button" (click)="voltarParaColecoes()" aria-label="Voltar para a lista de coleções">
-        <svg lucideArrowLeft size="18" aria-hidden="true"></svg>
-        <span>Voltar às coleções</span>
-      </button>
-    }
 
     @if (originalPublicacoesAberta()) {
       <section class="detalhe-edicao modal-publicacoes-brasil" role="dialog" aria-modal="true" aria-labelledby="tituloPublicacoesBrasil" (keydown)="navegarTecladoModalPublicacoes($event)">
@@ -1509,7 +1503,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly compartilhandoSerie = signal(false);
   readonly edicoesNaEstante = signal<number[]>([]);
   readonly carregandoEstadoEstante = signal(false);
-  readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly capaAmpliada = signal<string | null>(null);
   readonly historicoDetalhes = signal<Edicao[]>([]);
@@ -1774,22 +1767,11 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.restaurarListaColecoes();
   }
 
-  @HostListener('window:scroll')
-  aoRolarPagina() {
-    if (!this.serieSelecionada() || !this.ehViewportMobile()) {
-      this.mostrarVoltarColecoesFlutuante.set(false);
-      return;
-    }
-    const topoResultados = this.resultadosCatalogoBloco?.nativeElement.offsetTop || 0;
-    this.mostrarVoltarColecoesFlutuante.set(window.scrollY > topoResultados + 260);
-  }
-
   private restaurarListaColecoes() {
     this.serieSelecionada.set(null);
     this.edicoesNaEstante.set([]);
     this.carregandoEstadoEstante.set(false);
     this.resumoCapasSerie.set(null);
-    this.mostrarVoltarColecoesFlutuante.set(false);
     if (this.estadoResultadosAntesDaSerie) {
       this.resultadosCatalogo.set(this.estadoResultadosAntesDaSerie.resultados);
       this.paginaResultados.set(this.estadoResultadosAntesDaSerie.pagina);
@@ -2141,7 +2123,6 @@ export class CatalogoPage implements OnInit, OnDestroy {
     this.serieAbertaId = null;
     this.historicoSerieAtivo = false;
     this.estadoResultadosAntesDaSerie = null;
-    this.mostrarVoltarColecoesFlutuante.set(false);
     this.resultadosConsultados.set(false);
     this.resultadosCatalogo.set({ itens: [], pagina: 0, tamanho: this.tamanhoResultados, totalItens: 0, totalPaginas: 0 });
     this.carregarSeriesInternas(0);

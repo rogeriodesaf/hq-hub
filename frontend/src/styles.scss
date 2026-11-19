@@ -740,8 +740,7 @@ app-catalogo-page {
   box-shadow: 0 8px 24px rgba(21, 25, 31, .06);
 }
 
-.voltar-colecoes,
-.voltar-colecoes-flutuante {
+.voltar-colecoes {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -919,10 +918,6 @@ app-catalogo-page {
   min-height: 36px;
   padding: 6px 10px;
   font-size: .78rem;
-}
-
-.voltar-colecoes-flutuante {
-  display: none;
 }
 
 .grade-edicoes-colecao {
@@ -7084,20 +7079,6 @@ app-painel-page .lancamento-selecionado label { display: grid !important; gap: 3
     width: 100%;
   }
 
-  .voltar-colecoes-flutuante {
-    position: fixed;
-    z-index: 35;
-    right: 14px;
-    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
-    display: inline-flex;
-    width: auto;
-    max-width: calc(100vw - 28px);
-    padding: 9px 13px;
-    color: #fff;
-    background: rgba(21, 25, 31, 0.94);
-    box-shadow: 0 8px 24px rgba(21, 25, 31, 0.24);
-  }
-
   .catalogo-bloco-series,
   .resultados-catalogo-bloco {
     padding: 13px;
@@ -7759,7 +7740,7 @@ app-catalogo-page .paginacao-edicoes-colecao {
   }
 
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .resultado-catalogo {
-    grid-template-columns: clamp(110px, 34vw, 140px) minmax(0, 1fr);
+    grid-template-columns: clamp(110px, 32vw, 125px) minmax(0, 1fr);
     grid-template-rows: auto auto;
     gap: 10px 12px;
     align-items: start;
@@ -7807,5 +7788,13 @@ app-catalogo-page .paginacao-edicoes-colecao {
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao .compartilhar-capa-catalogo {
     top: 18px;
     left: 18px;
+  }
+
+  .app-shell:has(app-catalogo-page) .conteudo-app {
+    padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  }
+
+  app-catalogo-page .paginacao-edicoes-colecao {
+    margin-bottom: 8px;
   }
 }

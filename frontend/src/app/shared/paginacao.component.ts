@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <nav class="paginacao-inteligente" [attr.aria-label]="rotulo">
+    <nav class="paginacao-inteligente" [class.numeros-no-mobile]="numerosNoMobile" [attr.aria-label]="rotulo">
       <button
-        class="controle-paginacao"
+        class="controle-paginacao primeira-pagina"
         type="button"
         [disabled]="indisponivel || paginaAtual === 0"
         (click)="irPara(0)"
@@ -17,7 +17,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       ><span aria-hidden="true">«</span><em>Primeira</em></button>
 
       <button
-        class="controle-paginacao"
+        class="controle-paginacao pagina-anterior"
         type="button"
         [disabled]="indisponivel || paginaAtual === 0"
         (click)="irPara(paginaAtual - 1)"
@@ -52,7 +52,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       </label>
 
       <button
-        class="controle-paginacao"
+        class="controle-paginacao proxima-pagina"
         type="button"
         [disabled]="indisponivel || paginaAtual >= totalPaginas - 1"
         (click)="irPara(paginaAtual + 1)"
@@ -61,7 +61,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       ><em>Próxima</em><span aria-hidden="true">›</span></button>
 
       <button
-        class="controle-paginacao"
+        class="controle-paginacao ultima-pagina"
         type="button"
         [disabled]="indisponivel || paginaAtual >= totalPaginas - 1"
         (click)="irPara(totalPaginas - 1)"
@@ -96,11 +96,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       .controle-paginacao span { font-size: 1.5rem; }
       .seletor-pagina-mobile { display: grid; gap: 2px; min-width: 0; color: var(--texto-suave); font-size: .68rem; font-weight: 800; text-align: center; }
       .seletor-pagina-mobile select { width: 100%; min-width: 0; min-height: 44px; padding: 0 8px; border: 1px solid var(--borda); border-radius: 11px; color: var(--texto); background: var(--superficie); font-weight: 850; text-align: center; }
+      .paginacao-inteligente.numeros-no-mobile { grid-template-columns: 42px minmax(0, 1fr) 42px; }
+      .numeros-no-mobile .primeira-pagina, .numeros-no-mobile .ultima-pagina, .numeros-no-mobile .seletor-pagina-mobile { display: none; }
+      .numeros-no-mobile .paginas-numeradas { display: flex; min-width: 0; justify-content: center; gap: 3px; }
+      .numeros-no-mobile .paginas-numeradas button { min-width: 32px; min-height: 40px; padding: 0 6px; }
+      .numeros-no-mobile .reticencias { min-width: 16px; }
     }
 
     @media (max-width: 360px) {
       .paginacao-inteligente { grid-template-columns: 42px 42px minmax(88px, 1fr) 42px 42px; gap: 4px; }
       .controle-paginacao { width: 42px; min-width: 42px; }
+      .paginacao-inteligente.numeros-no-mobile { grid-template-columns: 38px minmax(0, 1fr) 38px; }
+      .numeros-no-mobile .pagina-anterior, .numeros-no-mobile .proxima-pagina { width: 38px; min-width: 38px; }
+      .numeros-no-mobile .paginas-numeradas button { min-width: 29px; padding-inline: 4px; }
     }
   `,
 })
@@ -108,6 +116,7 @@ export class PaginacaoComponent {
   @Input() paginaAtual = 0;
   @Input() totalPaginas = 1;
   @Input() carregando = false;
+  @Input() numerosNoMobile = false;
   @Input() rotulo = 'Navegação entre páginas';
   @Output() paginaChange = new EventEmitter<number>();
 

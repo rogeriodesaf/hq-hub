@@ -35,4 +35,14 @@ describe('PaginacaoComponent', () => {
     component.irPara(20);
     expect(component.paginaChange.emit).not.toHaveBeenCalled();
   });
+
+  it('habilita controles numerados no mobile sem alterar o modo padrao', () => {
+    fixture.detectChanges();
+    const navegacao = fixture.nativeElement.querySelector('.paginacao-inteligente') as HTMLElement;
+    expect(navegacao.classList.contains('numeros-no-mobile')).toBeFalse();
+
+    component.numerosNoMobile = true;
+    fixture.detectChanges();
+    expect(navegacao.classList.contains('numeros-no-mobile')).toBeTrue();
+  });
 });
