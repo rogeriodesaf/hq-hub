@@ -7437,9 +7437,154 @@ body:has(app-catalogo-page) .rodape-copyright.rodape-copyright {
   }
 }
 
-/* Layout exclusivo das edições de uma coleção; os resultados gerais mantêm sua grade. */
-app-catalogo-page .conteudo-resultado-catalogo {
-  display: contents;
+/* Cards da busca geral, independentes do layout de uma coleção selecionada. */
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .resultado-catalogo {
+  grid-template-columns: clamp(100px, 30%, 132px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  align-self: start;
+  min-width: 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--superficie);
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .resultado-catalogo.externo {
+  background: color-mix(in srgb, var(--primaria) 8%, var(--superficie));
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .resultado-catalogo:hover {
+  border-color: color-mix(in srgb, var(--primaria) 48%, var(--borda));
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .capa-resultado-link {
+  grid-column: 1;
+  grid-row: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background: var(--superficie-2);
+  cursor: pointer;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .capa-resultado-link:disabled,
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .titulo-resultado-link:disabled {
+  cursor: default;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .capa-resultado-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .compartilhar-capa-catalogo {
+  position: relative;
+  top: auto;
+  right: auto;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  width: 36px;
+  height: 36px;
+  margin: 6px;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .conteudo-resultado-catalogo,
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .dados-resultado-catalogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .conteudo-resultado-catalogo {
+  grid-column: 2;
+  grid-row: 1;
+  gap: 12px;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .dados-resultado-catalogo {
+  gap: 5px;
+  width: 100%;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .numero-resultado {
+  color: var(--primaria);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .055em;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .titulo-resultado-link {
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--texto);
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: left;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  cursor: pointer;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .ver-detalhes-resultado {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 0;
+  border: 0;
+  color: var(--texto-suave);
+  background: transparent;
+  font: inherit;
+  font-size: .78rem;
+  cursor: pointer;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .ver-detalhes-resultado:hover {
+  color: var(--primaria);
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .acoes-edicao-colecao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .acoes-edicao-colecao > .botao {
+  width: auto;
+  min-height: 38px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  font-size: .8rem;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .capa-resultado-link:focus-visible,
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .titulo-resultado-link:focus-visible,
+app-catalogo-page .grade-mini-capas:not(.grade-edicoes-colecao) .ver-detalhes-resultado:focus-visible {
+  outline: 2px solid var(--primaria);
+  outline-offset: 2px;
 }
 
 app-catalogo-page .resultados-catalogo-bloco:has(.cabecalho-colecao-selecionada) {

@@ -413,7 +413,9 @@ import {
                 <button class="titulo-resultado-link" type="button" (click)="resultado.jaCadastrada && resultado.id ? abrirInterna(resultado) : null" [disabled]="!resultado.jaCadastrada || !resultado.id">
                   {{ tituloResultadoCartao(resultado) }}
                 </button>
-                <span class="editora-resultado">{{ serieSelecionada()?.editora?.nome || 'Editora não informada' }}</span>
+                @if (serieSelecionada()?.editora?.nome; as nomeEditora) {
+                  <span class="editora-resultado">{{ nomeEditora }}</span>
+                }
                 @if (resultado.jaCadastrada && resultado.id) {
                   <button class="ver-detalhes-resultado" type="button" (click)="abrirInterna(resultado)">
                     <span>Ver detalhes</span><svg lucideArrowUpRight size="16" aria-hidden="true"></svg>
