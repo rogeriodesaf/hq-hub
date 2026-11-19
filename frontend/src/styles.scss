@@ -713,10 +713,8 @@ img {
 
 .cabecalho-colecao-selecionada {
   display: grid;
-  gap: 18px;
-  margin-bottom: 18px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--borda);
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .voltar-colecoes,
@@ -737,7 +735,12 @@ img {
 
 .voltar-colecoes {
   justify-self: start;
-  padding: 9px 14px;
+  min-height: 34px;
+  padding: 4px 0;
+  border: 0;
+  color: var(--primaria);
+  background: transparent;
+  font-size: .88rem;
 }
 
 .voltar-colecoes:hover,
@@ -747,29 +750,265 @@ img {
 }
 
 .titulo-colecao-selecionada h2 {
-  margin: 4px 0 8px;
+  margin: 0 0 3px;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .metadados-colecao {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 16px;
+  display: block;
   margin: 0;
   color: var(--texto-suave);
+  font-size: .9rem;
 }
 
-.metadados-colecao span + span::before {
-  content: '•';
-  margin-right: 16px;
-  color: var(--primaria);
+.identificacao-colecao {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--texto-suave);
+  font-size: .76rem;
+}
+
+.acoes-cabecalho-colecao {
+  display: grid;
+  gap: 5px;
+  width: min(100%, 460px);
+}
+
+.acoes-cabecalho-colecao .adicionar-colecao {
+  width: 100%;
+  min-height: 46px;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: .94rem;
+  font-weight: 800;
+}
+
+.colecao-ja-na-estante {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border-radius: 999px;
+  color: #15803d;
+  background: color-mix(in srgb, #16a34a 9%, var(--superficie));
+  font-size: .86rem;
+  font-weight: 800;
 }
 
 .secao-titulo-colecao {
-  justify-content: flex-start;
+  display: none;
+}
+
+.cabecalho-edicoes-colecao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 12px 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--borda);
+}
+
+.cabecalho-edicoes-colecao h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.acoes-edicoes-colecao {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.compartilhar-colecao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--texto-suave);
+  background: transparent;
+  font: inherit;
+  font-size: .82rem;
+  cursor: pointer;
+}
+
+.compartilhar-colecao:hover,
+.compartilhar-colecao:focus-visible { color: var(--primaria); background: color-mix(in srgb, var(--primaria) 8%, transparent); }
+
+.adicionar-colecao {
+  width: auto;
+  min-height: 36px;
+  padding: 6px 10px;
+  font-size: .78rem;
 }
 
 .voltar-colecoes-flutuante {
   display: none;
+}
+
+.grade-edicoes-colecao {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 10px !important;
+}
+
+.grade-edicoes-colecao .resultado-catalogo {
+  display: grid;
+  grid-template-columns: minmax(76px, 92px) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 8px 12px;
+  align-items: start;
+  min-width: 0;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--superficie);
+}
+
+.grade-edicoes-colecao .capa-resultado-link {
+  grid-column: 1;
+  grid-row: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: var(--superficie-2);
+  cursor: pointer;
+}
+
+.grade-edicoes-colecao .capa-resultado-link:disabled { cursor: default; }
+
+.grade-edicoes-colecao .capa-resultado-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.grade-edicoes-colecao .dados-resultado-catalogo {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+  padding: 2px 0 0;
+}
+
+.grade-edicoes-colecao .numero-resultado {
+  color: var(--primaria);
+  font-size: .69rem;
+  font-weight: 850;
+  letter-spacing: .055em;
+}
+
+.grade-edicoes-colecao .titulo-resultado-link {
+  display: -webkit-box;
+  max-width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  color: var(--texto);
+  background: transparent;
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: left;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  cursor: pointer;
+}
+
+.grade-edicoes-colecao .titulo-resultado-link:disabled { cursor: default; }
+.grade-edicoes-colecao .editora-resultado { color: var(--texto-suave); font-size: .8rem; }
+
+.grade-edicoes-colecao .ver-detalhes-resultado {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: auto;
+  padding: 4px 0;
+  border: 0;
+  color: var(--texto-suave);
+  background: transparent;
+  font: inherit;
+  font-size: .78rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.grade-edicoes-colecao .ver-detalhes-resultado:hover { color: var(--primaria); }
+
+.grade-edicoes-colecao .compartilhar-capa-catalogo {
+  top: 14px;
+  right: auto;
+  left: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  color: #fff;
+  background: color-mix(in srgb, var(--texto) 65%, transparent);
+  box-shadow: none;
+}
+
+.grade-edicoes-colecao .compartilhar-capa-catalogo:hover { color: var(--primaria); }
+
+.grade-edicoes-colecao .adicionar-edicao-colecao,
+.grade-edicoes-colecao > .resultado-catalogo > .botao {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  justify-content: center;
+  font-size: .8rem;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.grade-edicoes-colecao .edicao-ja-na-estante {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #15803d;
+  background: color-mix(in srgb, #16a34a 9%, var(--superficie));
+  font-size: .84rem;
+  font-weight: 800;
+  white-space: normal;
+}
+
+.grade-edicoes-colecao .resultado-catalogo:focus-within {
+  outline: 2px solid color-mix(in srgb, var(--primaria) 70%, transparent);
+  outline-offset: 2px;
+}
+
+@media (min-width: 760px) {
+  .grade-edicoes-colecao {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)) !important;
+    align-items: stretch;
+  }
+
+  .grade-edicoes-colecao .resultado-catalogo {
+    grid-template-columns: minmax(88px, 104px) minmax(0, 1fr);
+    gap: 10px 13px;
+    padding: 12px;
+  }
 }
 
 .bloco {
@@ -7154,4 +7393,30 @@ app-related-content .visitar-canal:hover {
   .bottom-sheet-publicar {
     padding-inline: 14px;
   }
+}
+
+@media (max-width: 600px) {
+  app-catalogo-page .cabecalho-colecao-selecionada {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  app-catalogo-page .voltar-colecoes {
+    width: auto;
+    justify-content: flex-start;
+    min-height: 32px;
+    padding-inline: 0;
+  }
+
+  app-catalogo-page .metadados-colecao { display: block; }
+
+  app-catalogo-page .cabecalho-edicoes-colecao {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  app-catalogo-page .acoes-edicoes-colecao { gap: 4px; }
+  app-catalogo-page .adicionar-colecao { max-width: 185px; white-space: normal; line-height: 1.15; }
+  app-catalogo-page .grade-edicoes-colecao .resultado-catalogo:hover { background: var(--superficie); }
 }

@@ -21,6 +21,7 @@ import {
   EstatisticasCatalogo,
   LinkEdicao,
   PaginaResposta,
+  ItemColecao,
   PublicacaoHistoria,
   PublicacaoRelacionada,
   PublicacaoBrasileiraResumo,
@@ -238,16 +239,35 @@ import {
           <header class="cabecalho-colecao-selecionada">
             <button class="voltar-colecoes" type="button" (click)="voltarParaColecoes()">
               <svg lucideArrowLeft size="20" aria-hidden="true"></svg>
-              <span>Voltar para coleções</span>
+              <span>Voltar ao catálogo</span>
             </button>
             <div class="titulo-colecao-selecionada">
-              <p class="rotulo">Coleção selecionada</p>
               <h2 #tituloColecao tabindex="-1">{{ serieAtual.titulo }}</h2>
               <p class="metadados-colecao">
-                <span>{{ serieAtual.editora?.nome || 'Sem editora' }}</span>
-                <span>Volume {{ serieAtual.volume || '-' }}</span>
-                <span>{{ resultadosCatalogo().totalItens === 1 ? '1 edição' : resultadosCatalogo().totalItens + ' edições' }}</span>
+                {{ serieAtual.editora?.nome || 'Sem editora' }} · Volume {{ serieAtual.volume || '-' }} ·
+                {{ resultadosCatalogo().totalItens === 1 ? '1 edição' : resultadosCatalogo().totalItens + ' edições' }}
               </p>
+              <small class="identificacao-colecao">Coleção do catálogo</small>
+            </div>
+            <div class="acoes-cabecalho-colecao">
+              @if (autenticado()) {
+                @if (resultadosCatalogo().totalItens > 0 && edicoesNaEstante().length < resultadosCatalogo().totalItens) {
+                  <button
+                    class="botao primario adicionar-colecao"
+                    type="button"
+                    (click)="abrirModalAdicionarSerieNaEstante()"
+                    [disabled]="adicionandoSerieInteira() || carregandoEstadoEstante()"
+                  >
+                    {{ adicionandoSerieInteira() ? 'Adicionando...' : edicoesNaEstante().length > 0 ? 'Adicionar edições restantes' : 'Adicionar série inteira' }}
+                  </button>
+                } @else if (resultadosCatalogo().totalItens > 0) {
+                  <span class="colecao-ja-na-estante" aria-live="polite">✓ Coleção na sua estante</span>
+                }
+              }
+              <button class="compartilhar-colecao" type="button" (click)="compartilharSerieSelecionada()" [disabled]="compartilhandoSerie()">
+                <svg lucideShare2 size="17" aria-hidden="true"></svg>
+                <span>{{ compartilhandoSerie() ? 'Compartilhando...' : 'Compartilhar coleção' }}</span>
+              </button>
             </div>
           </header>
         }
@@ -271,29 +291,14 @@ import {
                 Ver coleção Marvel Deluxe completa
               </a>
             }
-            @if (serieSelecionada() && autenticado() && resultadosCatalogo().totalItens > 0) {
-              <button
-                class="botao primario compacto"
-                type="button"
-                (click)="abrirModalAdicionarSerieNaEstante()"
-                [disabled]="adicionandoSerieInteira()"
-              >
-                Adicionar série inteira à minha estante
-              </button>
-            }
-            @if (serieSelecionada() && resultadosCatalogo().totalItens > 0) {
-              <button
-                class="botao secundario compacto"
-                type="button"
-                (click)="compartilharSerieSelecionada()"
-                [disabled]="compartilhandoSerie()"
-              >
-                <svg lucideShare2 size="18" aria-hidden="true"></svg>
-                {{ compartilhandoSerie() ? 'Compartilhando...' : 'Compartilhar coleção' }}
-              </button>
-            }
           </div>
         </div>
+
+        @if (serieSelecionada() && resultadosCatalogo().totalItens > 0) {
+          <div class="cabecalho-edicoes-colecao">
+            <h3>Edições da coleção</h3>
+          </div>
+        }
 
         @if (exibirNotaInicioTexEdicaoHistoricaMythos()) {
           <aside class="aviso-edicoes-anteriores">
@@ -354,48 +359,55 @@ import {
           </aside>
         }
 
-        <div class="grade-mini-capas">
+        <div class="grade-mini-capas" [class.grade-edicoes-colecao]="!!serieSelecionada()">
           @for (resultado of resultadosCatalogo().itens; track chaveResultado(resultado)) {
             <article class="mini-capa resultado-catalogo" [class.externo]="resultado.fonte === 'COMIC_VINE'">
-              <img
-                [src]="resultado.urlCapa || capaReserva"
-                [alt]="tituloResultadoCartao(resultado)"
-                loading="lazy"
-                (error)="usarCapaReserva($event)"
-              />
+              <button class="capa-resultado-link" type="button" (click)="resultado.jaCadastrada && resultado.id ? abrirInterna(resultado) : null" [disabled]="!resultado.jaCadastrada || !resultado.id" [attr.aria-label]="'Ver detalhes de ' + tituloResultadoCartao(resultado)">
+                <img
+                  [src]="resultado.urlCapa || capaReserva"
+                  [alt]="tituloResultadoCartao(resultado)"
+                  loading="lazy"
+                  (error)="usarCapaReserva($event)"
+                />
+              </button>
               @if (resultado.jaCadastrada && resultado.id) {
                 <button class="compartilhar-capa-catalogo" type="button" (click)="compartilharResultado(resultado, $event)" [attr.aria-label]="'Compartilhar ' + tituloResultadoCartao(resultado)" title="Compartilhar edição">
                   <svg lucideShare2 size="19" aria-hidden="true"></svg>
                 </button>
               }
-              <strong>#{{ resultado.numero || '-' }}</strong>
-              <span [title]="tituloResultadoCartao(resultado)">{{ tituloResultadoCartao(resultado) }}</span>
-              @if (subtituloResultadoCartao(resultado)) {
-                <small [title]="subtituloResultadoCartao(resultado)">{{ subtituloResultadoCartao(resultado) }}</small>
-              }
-              <em>{{ rotuloFonte(resultado) }}</em>
-              @if (resultado.jaCadastrada && resultado.id) {
-                <div class="resultado-catalogo-acoes">
-                  <button class="botao compacto" type="button" (click)="abrirInterna(resultado)">
-                    Ver detalhes
+              <div class="dados-resultado-catalogo">
+                <strong class="numero-resultado">{{ resultadosCatalogo().totalItens === 1 ? 'EDIÇÃO ÚNICA' : '#' + (resultado.numero || '-') }}</strong>
+                <button class="titulo-resultado-link" type="button" (click)="resultado.jaCadastrada && resultado.id ? abrirInterna(resultado) : null" [disabled]="!resultado.jaCadastrada || !resultado.id">
+                  {{ tituloResultadoCartao(resultado) }}
+                </button>
+                <span class="editora-resultado">{{ serieSelecionada()?.editora?.nome || 'Editora não informada' }}</span>
+                @if (resultado.jaCadastrada && resultado.id) {
+                  <button class="ver-detalhes-resultado" type="button" (click)="abrirInterna(resultado)">
+                    <span>Ver detalhes</span><span aria-hidden="true">↗</span>
                   </button>
+                } @else if (resultado.urlOrigem) {
+                  <a class="ver-detalhes-resultado" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine ↗</a>
+                } @else {
+                  <span class="editora-resultado">Importação pendente</span>
+                }
+              </div>
+              @if (resultado.jaCadastrada && resultado.id) {
+                @if (edicoesNaEstante().includes(resultado.id)) {
+                  <span class="edicao-ja-na-estante" aria-live="polite">✓ Na estante</span>
+                } @else {
                   <button
-                    class="botao primario compacto"
+                    class="botao primario compacto adicionar-edicao-colecao"
                     type="button"
                     (click)="abrirModalAdicionarNaEstante(resultado)"
-                    [disabled]="salvandoItemColecao() === resultado.id"
+                    [disabled]="salvandoItemColecao() === resultado.id || carregandoEstadoEstante()"
                   >
-                    {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : 'Adicionar à minha estante' }}
+                    {{ salvandoItemColecao() === resultado.id ? 'Adicionando...' : '+ Adicionar à minha estante' }}
                   </button>
-                </div>
+                }
               } @else if (resultado.urlOrigem) {
-                <a class="botao compacto" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">
-                  Abrir Comic Vine
-                </a>
+                <a class="botao compacto" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine</a>
               } @else {
-                <button class="botao compacto" type="button" disabled>
-                  Importação pendente
-                </button>
+                <button class="botao compacto" type="button" disabled>Importação pendente</button>
               }
             </article>
           } @empty {
@@ -1461,6 +1473,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
   readonly serieSelecionada = signal<Serie | null>(null);
   readonly compartilhandoEdicao = signal(false);
   readonly compartilhandoSerie = signal(false);
+  readonly edicoesNaEstante = signal<number[]>([]);
+  readonly carregandoEstadoEstante = signal(false);
   readonly mostrarVoltarColecoesFlutuante = signal(false);
   readonly edicaoDetalhe = signal<Edicao | null>(null);
   readonly capaAmpliada = signal<string | null>(null);
@@ -1672,6 +1686,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       next: ({ serie, edicoes: resposta }) => {
         if (sequencia !== this.sequenciaBuscaResultados) return;
         this.serieSelecionada.set(serie);
+        this.carregarEstadoEstanteSerie(serie.id);
         this.resultadosCatalogo.set({
           ...resposta,
           itens: resposta.itens.map((edicao) => this.paraResultadoInterno(edicao)),
@@ -1702,6 +1717,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       this.historicoSerieAtivo = true;
     }
     this.serieSelecionada.set(serie);
+    this.carregarEstadoEstanteSerie(serie.id);
     this.resumoCapasSerie.set(null);
     this.paginaResultados.set(0);
     this.buscarResultados(0, true);
@@ -1735,6 +1751,8 @@ export class CatalogoPage implements OnInit, OnDestroy {
 
   private restaurarListaColecoes() {
     this.serieSelecionada.set(null);
+    this.edicoesNaEstante.set([]);
+    this.carregandoEstadoEstante.set(false);
     this.resumoCapasSerie.set(null);
     this.mostrarVoltarColecoesFlutuante.set(false);
     if (this.estadoResultadosAntesDaSerie) {
@@ -2233,6 +2251,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
       observacoes: this.formularioItemColecao.observacoes.trim() || null,
     }).subscribe({
       next: () => {
+        this.edicoesNaEstante.update((ids) => ids.includes(resultado.id!) ? ids : [...ids, resultado.id!]);
         this.salvandoItemColecao.set(null);
         this.resultadoParaEstante.set(null);
         this.formularioItemColecao = this.formularioItemColecaoVazio();
@@ -2288,6 +2307,7 @@ export class CatalogoPage implements OnInit, OnDestroy {
             ? `${resultado.adicionadas} revista(s) adicionada(s) à estante. ${resultado.jaExistentes} já existente(s) foram ignorada(s).`
             : `Nenhuma revista adicionada: as ${resultado.jaExistentes} edição(ões) já estavam na sua estante.`,
         );
+        this.carregarEstadoEstanteSerie(serie.id);
       },
       error: (erro) => {
         this.adicionandoSerieInteira.set(false);
@@ -3590,6 +3610,27 @@ export class CatalogoPage implements OnInit, OnDestroy {
         }
         this.carregandoRepublicacoes.set(null);
         this.mensagem.set('Não foi possível consultar as outras edições desta história.');
+      },
+    });
+  }
+
+  private carregarEstadoEstanteSerie(serieId: number) {
+    if (!this.autenticado()) {
+      this.edicoesNaEstante.set([]);
+      this.carregandoEstadoEstante.set(false);
+      return;
+    }
+    this.carregandoEstadoEstante.set(true);
+    this.api.listarItensColecao().subscribe({
+      next: (itens: ItemColecao[]) => {
+        this.edicoesNaEstante.set(itens
+          .filter((item) => item.edicao?.serie?.id === serieId)
+          .map((item) => item.edicao.id));
+        this.carregandoEstadoEstante.set(false);
+      },
+      error: () => {
+        this.edicoesNaEstante.set([]);
+        this.carregandoEstadoEstante.set(false);
       },
     });
   }
