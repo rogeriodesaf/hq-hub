@@ -676,6 +676,15 @@ img {
   gap: 18px;
 }
 
+.app-shell:has(app-catalogo-page) .conteudo-app {
+  width: min(1280px, 100%);
+  justify-self: center;
+}
+
+.catalogo-layout.modo-edicoes-mobile .catalogo-bloco-series {
+  display: none;
+}
+
 .contadores-catalogo {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 220px)) minmax(220px, 1fr);
@@ -713,8 +722,15 @@ img {
 
 .cabecalho-colecao-selecionada {
   display: grid;
-  gap: 10px;
-  margin-bottom: 14px;
+  grid-template-columns: clamp(132px, 15vw, 176px) minmax(0, 1fr);
+  gap: 12px 24px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 20px;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  background: var(--superficie);
+  box-shadow: 0 8px 24px rgba(21, 25, 31, .06);
 }
 
 .voltar-colecoes,
@@ -734,6 +750,7 @@ img {
 }
 
 .voltar-colecoes {
+  grid-column: 1 / -1;
   justify-self: start;
   min-height: 34px;
   padding: 4px 0;
@@ -741,6 +758,30 @@ img {
   color: var(--primaria);
   background: transparent;
   font-size: .88rem;
+}
+
+.capa-cabecalho-colecao {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--superficie-2);
+}
+
+.capa-cabecalho-colecao img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.titulo-colecao-selecionada {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
 }
 
 .voltar-colecoes:hover,
@@ -771,24 +812,32 @@ img {
 }
 
 .acoes-cabecalho-colecao {
-  display: grid;
-  gap: 5px;
-  width: min(100%, 460px);
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  width: 100%;
 }
 
 .acoes-cabecalho-colecao .adicionar-colecao {
-  width: 100%;
-  min-height: 46px;
+  width: auto;
+  min-width: min(260px, 100%);
+  min-height: 44px;
+  padding: 9px 18px;
   justify-content: center;
   border-radius: 999px;
-  font-size: .94rem;
+  font-size: .88rem;
   font-weight: 800;
 }
 
 .colecao-ja-na-estante {
-  display: grid;
-  min-height: 42px;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid color-mix(in srgb, #16a34a 24%, var(--borda));
   border-radius: 999px;
   color: #15803d;
   background: color-mix(in srgb, #16a34a 9%, var(--superficie));
@@ -827,10 +876,10 @@ img {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 36px;
-  padding: 5px 8px;
-  border: 0;
-  border-radius: 8px;
+  min-height: 40px;
+  padding: 7px 13px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
   color: var(--texto-suave);
   background: transparent;
   font: inherit;
@@ -860,7 +909,7 @@ img {
 
 .grade-edicoes-colecao .resultado-catalogo {
   display: grid;
-  grid-template-columns: minmax(76px, 92px) minmax(0, 1fr);
+  grid-template-columns: minmax(82px, 104px) minmax(0, 1fr);
   grid-template-rows: auto auto;
   gap: 8px 12px;
   align-items: start;
@@ -1008,6 +1057,35 @@ img {
     grid-template-columns: minmax(88px, 104px) minmax(0, 1fr);
     gap: 10px 13px;
     padding: 12px;
+  }
+}
+
+@media (max-width: 759px) {
+  .cabecalho-colecao-selecionada {
+    grid-template-columns: clamp(76px, 21vw, 104px) minmax(0, 1fr);
+    gap: 10px 14px;
+    padding: 14px;
+  }
+
+  .capa-cabecalho-colecao { grid-row: 2; }
+
+  .acoes-cabecalho-colecao {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .acoes-cabecalho-colecao .adicionar-colecao {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .acoes-cabecalho-colecao .compartilhar-colecao {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .grade-edicoes-colecao {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }
 
@@ -7397,8 +7475,9 @@ app-related-content .visitar-canal:hover {
 
 @media (max-width: 600px) {
   app-catalogo-page .cabecalho-colecao-selecionada {
-    gap: 4px;
-    margin-bottom: 4px;
+    gap: 8px 12px;
+    margin-bottom: 10px;
+    padding: 12px;
   }
 
   app-catalogo-page .voltar-colecoes {
@@ -7407,6 +7486,12 @@ app-related-content .visitar-canal:hover {
     min-height: 32px;
     padding-inline: 0;
   }
+
+  app-catalogo-page .capa-cabecalho-colecao { border-radius: 8px; }
+  app-catalogo-page .titulo-colecao-selecionada h2 { font-size: clamp(1.05rem, 5vw, 1.35rem); }
+  app-catalogo-page .identificacao-colecao { margin-top: 3px; }
+  app-catalogo-page .acoes-cabecalho-colecao { gap: 6px; }
+  app-catalogo-page .acoes-cabecalho-colecao .adicionar-colecao { max-width: none; }
 
   app-catalogo-page .metadados-colecao { display: block; }
 
@@ -7417,6 +7502,5 @@ app-related-content .visitar-canal:hover {
   }
 
   app-catalogo-page .acoes-edicoes-colecao { gap: 4px; }
-  app-catalogo-page .adicionar-colecao { max-width: 185px; white-space: normal; line-height: 1.15; }
   app-catalogo-page .grade-edicoes-colecao .resultado-catalogo:hover { background: var(--superficie); }
 }

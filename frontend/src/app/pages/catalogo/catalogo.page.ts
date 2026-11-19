@@ -241,6 +241,13 @@ import {
               <svg lucideArrowLeft size="20" aria-hidden="true"></svg>
               <span>Voltar ao catálogo</span>
             </button>
+            <div class="capa-cabecalho-colecao">
+              <img
+                [src]="resultadosCatalogo().itens[0]?.urlCapa || capaReserva"
+                [alt]="'Capa de ' + serieAtual.titulo"
+                (error)="usarCapaReserva($event)"
+              />
+            </div>
             <div class="titulo-colecao-selecionada">
               <h2 #tituloColecao tabindex="-1">{{ serieAtual.titulo }}</h2>
               <p class="metadados-colecao">
@@ -251,7 +258,22 @@ import {
             </div>
             <div class="acoes-cabecalho-colecao">
               @if (autenticado()) {
-                @if (resultadosCatalogo().totalItens > 0 && edicoesNaEstante().length < resultadosCatalogo().totalItens) {
+                @if (resultadosCatalogo().totalItens === 1) {
+                  @if (resultadosCatalogo().itens[0]; as edicaoUnica) {
+                    @if (edicaoUnica.jaCadastrada && edicaoUnica.id && edicoesNaEstante().includes(edicaoUnica.id)) {
+                      <span class="colecao-ja-na-estante" aria-live="polite">✓ Edição na sua estante</span>
+                    } @else if (edicaoUnica.jaCadastrada && edicaoUnica.id) {
+                      <button
+                        class="botao primario adicionar-colecao"
+                        type="button"
+                        (click)="abrirModalAdicionarNaEstante(edicaoUnica)"
+                        [disabled]="salvandoItemColecao() === edicaoUnica.id || carregandoEstadoEstante()"
+                      >
+                        {{ salvandoItemColecao() === edicaoUnica.id ? 'Adicionando...' : 'Adicionar edição à minha estante' }}
+                      </button>
+                    }
+                  }
+                } @else if (resultadosCatalogo().totalItens > 1 && edicoesNaEstante().length < resultadosCatalogo().totalItens) {
                   <button
                     class="botao primario adicionar-colecao"
                     type="button"
@@ -260,7 +282,7 @@ import {
                   >
                     {{ adicionandoSerieInteira() ? 'Adicionando...' : edicoesNaEstante().length > 0 ? 'Adicionar edições restantes' : 'Adicionar série inteira' }}
                   </button>
-                } @else if (resultadosCatalogo().totalItens > 0) {
+                } @else if (resultadosCatalogo().totalItens > 1) {
                   <span class="colecao-ja-na-estante" aria-live="polite">✓ Coleção na sua estante</span>
                 }
               }
