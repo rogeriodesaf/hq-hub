@@ -7443,6 +7443,7 @@ app-catalogo-page .conteudo-resultado-catalogo {
 }
 
 app-catalogo-page .resultados-catalogo-bloco:has(.cabecalho-colecao-selecionada) {
+  container: edicoes-catalogo / inline-size;
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
@@ -7626,7 +7627,7 @@ app-catalogo-page .grade-edicoes-colecao .compartilhar-edicao-colecao:focus-visi
   color: var(--primaria);
 }
 
-@media (min-width: 1600px) {
+@container edicoes-catalogo (min-width: 600px) {
   app-catalogo-page .grade-mini-capas.grade-edicoes-colecao {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
