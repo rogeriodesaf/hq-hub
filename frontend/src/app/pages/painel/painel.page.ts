@@ -277,6 +277,30 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
         </article>
 
         <section class="lista-feed">
+          <article class="bloco card-poptopia" aria-label="Grupo de promoções Canal Poptopia">
+            <img
+              class="card-poptopia-imagem"
+              src="assets/poptopia-promocoes.png"
+              alt="Logotipo do Canal Poptopia"
+              loading="eager"
+            />
+            <div class="card-poptopia-conteudo">
+              <span class="card-poptopia-selo">Destaque fixo</span>
+              <div>
+                <p class="rotulo">POPTOPIA Geral promoções</p>
+                <h2>Grupo de promoções Canal Poptopia</h2>
+                <p>Ofertas e novidades em quadrinhos selecionadas pelo Canal Poptopia.</p>
+              </div>
+              <div class="card-poptopia-links" aria-label="Links de promoções">
+                <a class="botao primario" href="https://bit.ly/4lveUfj" target="_blank" rel="noopener noreferrer sponsored">
+                  Ver promoções na Panini
+                </a>
+                <a class="botao secundario" href="https://amzn.to/45wKwKz" target="_blank" rel="noopener noreferrer sponsored">
+                  Ver promoções na Amazon
+                </a>
+              </div>
+            </div>
+          </article>
           @for (postagem of postagensComuns(); track postagem.id) {
             <article class="bloco postagem-card" [id]="idPostagem(postagem)" [class.postagem-fixada]="postagem.fixada">
               @if (postagem.atividadeEstante) {

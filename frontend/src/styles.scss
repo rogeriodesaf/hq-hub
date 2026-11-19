@@ -4708,6 +4708,96 @@ body.tema-escuro .banner-apoio span {
   border-color: rgba(255, 122, 0, 0.45);
 }
 
+app-painel-page .card-poptopia {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--borda) 62%, #ef3f35 38%);
+  border-radius: 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, #ef3f35 10%, var(--superficie)) 0%, var(--superficie) 58%);
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.07);
+}
+
+app-painel-page .card-poptopia-imagem {
+  width: 132px;
+  height: 132px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 10px 24px rgba(127, 29, 29, .18);
+}
+
+app-painel-page .card-poptopia-conteudo {
+  display: grid;
+  gap: 11px;
+  min-width: 0;
+}
+
+app-painel-page .card-poptopia-conteudo h2,
+app-painel-page .card-poptopia-conteudo p {
+  margin: 0;
+}
+
+app-painel-page .card-poptopia-conteudo h2 {
+  margin-top: 2px;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  line-height: 1.15;
+}
+
+app-painel-page .card-poptopia-conteudo > div > p:last-child {
+  margin-top: 6px;
+  color: var(--texto-suave);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+app-painel-page .card-poptopia-selo {
+  justify-self: start;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #fff;
+  background: #dc2626;
+  font-size: .7rem;
+  font-weight: 850;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+app-painel-page .card-poptopia-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+app-painel-page .card-poptopia-links .botao {
+  width: auto;
+  min-height: 38px;
+  padding-inline: 14px;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  app-painel-page .card-poptopia {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  app-painel-page .card-poptopia-imagem {
+    align-self: start;
+    width: 82px;
+    height: 82px;
+    border-radius: 15px;
+  }
+
+  app-painel-page .card-poptopia-conteudo { gap: 9px; }
+  app-painel-page .card-poptopia-links { display: grid; }
+  app-painel-page .card-poptopia-links .botao { width: 100%; }
+}
+
 .atalhos-feed .atalho-estante {
   border-color: color-mix(in srgb, var(--borda) 58%, var(--marca));
   background: color-mix(in srgb, var(--superficie) 92%, var(--marca));
