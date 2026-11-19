@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2 } from '@lucide/angular';
+import { LucideArrowLeft, LucideArrowUpRight, LucideBookOpen, LucideCheck, LucideSearch, LucideShare2 } from '@lucide/angular';
 import { firstValueFrom, forkJoin, map } from 'rxjs';
 
 import { ApiService } from '../../core/api.service';
@@ -35,7 +35,7 @@ import {
 
 @Component({
   selector: 'app-catalogo-page',
-  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideBookOpen, LucideSearch, LucideShare2, PaginacaoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, LucideArrowLeft, LucideArrowUpRight, LucideBookOpen, LucideCheck, LucideSearch, LucideShare2, PaginacaoComponent],
   template: `
     <section class="cabecalho-pagina catalogo-cabecalho">
       <div>
@@ -261,7 +261,7 @@ import {
                 @if (resultadosCatalogo().totalItens === 1) {
                   @if (resultadosCatalogo().itens[0]; as edicaoUnica) {
                     @if (edicaoUnica.jaCadastrada && edicaoUnica.id && edicoesNaEstante().includes(edicaoUnica.id)) {
-                      <span class="colecao-ja-na-estante" aria-live="polite">✓ Edição na sua estante</span>
+                      <span class="colecao-ja-na-estante" aria-live="polite"><svg lucideCheck size="16" aria-hidden="true"></svg>Edição na sua estante</span>
                     } @else if (edicaoUnica.jaCadastrada && edicaoUnica.id) {
                       <button
                         class="botao primario adicionar-colecao"
@@ -283,7 +283,7 @@ import {
                     {{ adicionandoSerieInteira() ? 'Adicionando...' : edicoesNaEstante().length > 0 ? 'Adicionar edições restantes' : 'Adicionar série inteira' }}
                   </button>
                 } @else if (resultadosCatalogo().totalItens > 1) {
-                  <span class="colecao-ja-na-estante" aria-live="polite">✓ Coleção na sua estante</span>
+                  <span class="colecao-ja-na-estante" aria-live="polite"><svg lucideCheck size="16" aria-hidden="true"></svg>Coleção na sua estante</span>
                 }
               }
               <button class="compartilhar-colecao" type="button" (click)="compartilharSerieSelecionada()" [disabled]="compartilhandoSerie()">
@@ -405,17 +405,17 @@ import {
                 <span class="editora-resultado">{{ serieSelecionada()?.editora?.nome || 'Editora não informada' }}</span>
                 @if (resultado.jaCadastrada && resultado.id) {
                   <button class="ver-detalhes-resultado" type="button" (click)="abrirInterna(resultado)">
-                    <span>Ver detalhes</span><span aria-hidden="true">↗</span>
+                    <span>Ver detalhes</span><svg lucideArrowUpRight size="16" aria-hidden="true"></svg>
                   </button>
                 } @else if (resultado.urlOrigem) {
-                  <a class="ver-detalhes-resultado" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine ↗</a>
+                  <a class="ver-detalhes-resultado" [href]="resultado.urlOrigem" target="_blank" rel="noreferrer">Abrir Comic Vine <svg lucideArrowUpRight size="14" aria-hidden="true"></svg></a>
                 } @else {
                   <span class="editora-resultado">Importação pendente</span>
                 }
               </div>
               @if (resultado.jaCadastrada && resultado.id) {
                 @if (edicoesNaEstante().includes(resultado.id)) {
-                  <span class="edicao-ja-na-estante" aria-live="polite">✓ Na estante</span>
+                  <span class="edicao-ja-na-estante" aria-live="polite"><svg lucideCheck size="14" aria-hidden="true"></svg>Na estante</span>
                 } @else {
                   <button
                     class="botao primario compacto adicionar-edicao-colecao"

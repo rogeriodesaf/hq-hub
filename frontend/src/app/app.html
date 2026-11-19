@@ -261,10 +261,10 @@
           <button type="button" (click)="fecharPublicar()" aria-label="Fechar">×</button>
         </header>
         <nav class="opcoes-publicar">
-          <a routerLink="/catalogo" [queryParams]="{ modo: 'adicionar' }" (click)="fecharPublicar()"><span>📚</span><div><strong>Adicionar à estante</strong><small>Use a busca completa do catálogo</small></div></a>
-          <a routerLink="/colecao/adicionar" [queryParams]="{ cadastro: 'manual' }" (click)="fecharPublicar()"><span>✏️</span><div><strong>Cadastro manual</strong><small>Cadastre uma edição que ainda não está no catálogo</small></div></a>
-          <a routerLink="/catalogo" (click)="fecharPublicar()"><span>🔎</span><div><strong>Buscar no catálogo</strong><small>Explore séries e edições sem iniciar uma adição</small></div></a>
-          <a routerLink="/painel" fragment="publicar" (click)="fecharPublicar()"><span>✍️</span><div><strong>Criar publicação</strong><small>Compartilhe textos, fotos ou links do YouTube</small></div></a>
+          <a routerLink="/catalogo" [queryParams]="{ modo: 'adicionar' }" (click)="fecharPublicar()"><span><svg lucideBookOpen size="18" aria-hidden="true"></svg></span><div><strong>Adicionar à estante</strong><small>Use a busca completa do catálogo</small></div></a>
+          <a routerLink="/colecao/adicionar" [queryParams]="{ cadastro: 'manual' }" (click)="fecharPublicar()"><span><svg lucideClipboardCheck size="18" aria-hidden="true"></svg></span><div><strong>Cadastro manual</strong><small>Cadastre uma edição que ainda não está no catálogo</small></div></a>
+          <a routerLink="/catalogo" (click)="fecharPublicar()"><span><svg lucideSearch size="18" aria-hidden="true"></svg></span><div><strong>Buscar no catálogo</strong><small>Explore séries e edições sem iniciar uma adição</small></div></a>
+          <a routerLink="/painel" fragment="publicar" (click)="fecharPublicar()"><span><svg lucideNewspaper size="18" aria-hidden="true"></svg></span><div><strong>Criar publicação</strong><small>Compartilhe textos, fotos ou links do YouTube</small></div></a>
           <a routerLink="/anuncios" (click)="fecharPublicar()"><span>📢</span><div><strong>Anunciar HQ</strong><small>Venda ou troca no Marketplace</small></div></a>
           @if (podeRevisarCatalogo()) {
             <a routerLink="/importacao" (click)="fecharPublicar()"><span>📥</span><div><strong>Importar lista</strong><small>Alimente o catálogo em lote</small></div></a>
