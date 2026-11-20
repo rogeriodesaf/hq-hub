@@ -27,6 +27,13 @@ onde SMTP funciona, mantenha `HQHUB_SMTP_USER`, `HQHUB_SMTP_PASS` e defina
 `HQHUB_SMTP_FROM` com um remetente autorizado pela conta SMTP. Não use o
 remetente padrão se ele não foi verificado. Nunca grave chaves ou senhas no repositório.
 
+Para `smtp.gmail.com`, use a conta completa em `HQHUB_SMTP_USER` e uma senha de
+aplicativo dessa mesma conta em `HQHUB_SMTP_PASS` (não a senha normal do Google).
+O Quarkus deve usar `PLAIN`/`LOGIN` com STARTTLS na porta 587: sem a restrição
+de `auth-methods`, ele pode tentar `XOAUTH2` e receber erro 535 do Gmail.
+Se outro provedor exigir mecanismos diferentes, ajuste `HQHUB_SMTP_AUTH_METHODS`
+no ambiente. Não publique a senha de aplicativo nem logs contendo credenciais.
+
 Após o deploy, teste com uma conta de teste controlada: solicite o link, confirme
 o recebimento, use-o para trocar a senha e verifique que o segundo uso é recusado.
 Uma resposta 200 ao pedido não comprova entrega do e-mail, pois ela é intencionalmente
