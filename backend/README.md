@@ -12,7 +12,7 @@ Para visão de produto, roadmap, backlog, personas, histórias de usuário e mod
 
 ## Recuperação de senha no Render
 
-O link aponta para `https://hqhub.space/entrar#token=...`; os tokens expiram em 1 hora,
+O link aponta para `https://hqhub.space/#/entrar?token=...`; os tokens expiram em 1 hora,
 são de uso único e somente o hash é persistido. A migração V483 é aplicada pelo Flyway.
 
 Em uma instância gratuita do Render, as portas SMTP 25/465/587 são bloqueadas.

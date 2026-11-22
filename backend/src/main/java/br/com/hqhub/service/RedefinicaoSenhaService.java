@@ -72,7 +72,9 @@ public class RedefinicaoSenhaService {
             entidade.setExpiraEm(agora.plusHours(1));
             tokenRepository.excluirPorUsuario(usuario);
             tokenRepository.persist(entidade);
-            String link = urlBase.replaceAll("/+$", "") + "/entrar#token=" + token;
+            // O fallback da hospedagem está garantido na raiz; usar hash evita 404
+            // quando o provedor não aplica o rewrite SPA a /entrar diretamente.
+            String link = urlBase.replaceAll("/+$", "") + "/#/entrar?token=" + token;
             String html = "<p>Você solicitou a redefinição da senha do Coleciona HQ.</p>"
                     + "<p>O link abaixo é válido por 1 hora e só pode ser usado uma vez.</p>"
                     + "<p><a href=\"" + link + "\">Redefinir minha senha</a></p>"

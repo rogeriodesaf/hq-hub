@@ -53,7 +53,7 @@ class RedefinicaoSenhaServiceTest {
         ArgumentCaptor<String> html = ArgumentCaptor.forClass(String.class);
         verify(tokens).persist(entidade.capture());
         verify(email).enviar(eq("leitor@example.com"), html.capture());
-        Matcher matcher = Pattern.compile("https://hqhub.space/entrar#token=([A-Za-z0-9_-]+)").matcher(html.getValue());
+        Matcher matcher = Pattern.compile("https://hqhub.space/#/entrar\\?token=([A-Za-z0-9_-]+)").matcher(html.getValue());
         assertTrue(matcher.find());
         String recebido = matcher.group(1);
         assertTrue(recebido.length() >= 43);
