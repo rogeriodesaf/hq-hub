@@ -695,6 +695,16 @@ export interface ResultadoBackfillComicVine {
   avisos: string[];
 }
 
+export interface ResultadoVinculosEditoriais {
+  processadas: number;
+  vinculadas: number;
+  jaVinculadas: number;
+  semVinculoConfirmado: number;
+  falhas: number;
+  possuiMais: boolean;
+  avisos: string[];
+}
+
 export interface GeracaoRascunhoImportacao {
   urlGuia: string;
   urlPaniniInicial: string | null;

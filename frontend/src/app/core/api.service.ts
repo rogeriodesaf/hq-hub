@@ -64,6 +64,7 @@ import {
   ResultadoCadastroSerieItemColecao,
   ResultadoImportacaoCatalogo,
   ResultadoBackfillComicVine,
+  ResultadoVinculosEditoriais,
   ResultadoImportacaoCapas,
   PreviaConteudoOriginalPanini,
   ResultadoCadastroConteudoOriginalPanini,
@@ -1341,6 +1342,15 @@ export class ApiService {
         curtidaPeloUsuario: comentario.curtidaPeloUsuario || false,
       })),
     };
+  }
+
+  criarVinculosEditoriaisConfirmados(limite = 25) {
+    const params = new HttpParams().set('limite', String(limite));
+    return this.http.post<ResultadoVinculosEditoriais>(
+      '/api/importacoes/catalogo/backfill/vinculos-editoriais-confirmados',
+      {},
+      { params },
+    );
   }
 
   analisarProdutoMythos(urlMythos: string) {

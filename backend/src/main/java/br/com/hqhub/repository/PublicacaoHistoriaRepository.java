@@ -12,6 +12,9 @@ import jakarta.persistence.EntityManager;
 @ApplicationScoped
 public class PublicacaoHistoriaRepository implements PanacheRepository<PublicacaoHistoria> {
 
+    public record ParEdicoesEditoriais(Long edicaoOriginalId, Long edicaoPublicadaId) {
+    }
+
     public record MarcoColecaoOriginal(
             Long serieId,
             String titulo,
@@ -93,6 +96,36 @@ public class PublicacaoHistoriaRepository implements PanacheRepository<Publicaca
                 """, PublicacaoHistoria.class)
                 .setParameter("edicoesOriginais", edicoesOriginais)
                 .getResultList();
+    }
+
+    public List<ParEdicoesEditoriais> listarParesEditoriaisSemVinculo(int limite) {
+        return entityManager.createQuery("""
+                select distinct original.id, publicada.id
+                  from PublicacaoHistoria p
+                  join p.edicaoOriginal original
+                  join original.serie serieOriginal
+                  join p.edicaoPublicada publicada
+                  join publicada.serie seriePublicada
+                 where original.id <> publicada.id
+                   and serieOriginal.tipoSerie = br.com.hqhub.entity.TipoSerie.ESTRANGEIRA
+                   and seriePublicada.tipoSerie = br.com.hqhub.entity.TipoSerie.BRASILEIRA
+                   and p.statusValidacao = br.com.hqhub.entity.StatusValidacao.APROVADA
+                   and not exists (
+                       select relacionada.id
+                         from PublicacaoRelacionada relacionada
+                        where relacionada.edicaoOrigem.id = original.id
+                          and relacionada.edicaoDestino.id = publicada.id
+                          and relacionada.tipo = br.com.hqhub.entity.TipoPublicacaoRelacionada.PUBLICADA_NO_BRASIL
+                   )
+                 order by original.id, publicada.id
+                """, Object[].class)
+                .setMaxResults(limite)
+                .getResultList()
+                .stream()
+                .map(linha -> new ParEdicoesEditoriais(
+                        ((Number) linha[0]).longValue(),
+                        ((Number) linha[1]).longValue()))
+                .toList();
     }
 
     public List<PublicacaoHistoria> listarPorHistoriasDaEdicao(Long edicaoId) {

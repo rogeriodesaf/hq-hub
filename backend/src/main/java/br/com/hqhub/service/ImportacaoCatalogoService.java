@@ -18,6 +18,7 @@ import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.PublicacaoOriginalImportacaoDTO;
 import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
+import br.com.hqhub.dto.ResultadoVinculosEditoriaisDTO;
 import br.com.hqhub.dto.SerieBrasileiraImportacaoDTO;
 import br.com.hqhub.entity.ConteudoEdicao;
 import br.com.hqhub.entity.Edicao;
@@ -26,6 +27,7 @@ import br.com.hqhub.entity.Historia;
 import br.com.hqhub.entity.LinkEdicao;
 import br.com.hqhub.entity.PostagemFeed;
 import br.com.hqhub.entity.PublicacaoHistoria;
+import br.com.hqhub.entity.PublicacaoRelacionada;
 import br.com.hqhub.entity.Serie;
 import br.com.hqhub.entity.StatusPublicacaoHistoria;
 import br.com.hqhub.entity.StatusValidacao;
@@ -42,6 +44,7 @@ import br.com.hqhub.repository.HistoriaRepository;
 import br.com.hqhub.repository.LinkEdicaoRepository;
 import br.com.hqhub.repository.PostagemFeedRepository;
 import br.com.hqhub.repository.PublicacaoHistoriaRepository;
+import br.com.hqhub.repository.PublicacaoRelacionadaRepository;
 import br.com.hqhub.repository.SerieRepository;
 import br.com.hqhub.util.NormalizadorTexto;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -60,6 +63,7 @@ public class ImportacaoCatalogoService {
     private final HistoriaRepository historiaRepository;
     private final ConteudoEdicaoRepository conteudoEdicaoRepository;
     private final PublicacaoHistoriaRepository publicacaoHistoriaRepository;
+    private final PublicacaoRelacionadaRepository publicacaoRelacionadaRepository;
     private final IntegracaoExternaService integracaoExternaService;
     private final LinkEdicaoRepository linkEdicaoRepository;
     private final PostagemFeedRepository postagemFeedRepository;
@@ -72,6 +76,7 @@ public class ImportacaoCatalogoService {
             HistoriaRepository historiaRepository,
             ConteudoEdicaoRepository conteudoEdicaoRepository,
             PublicacaoHistoriaRepository publicacaoHistoriaRepository,
+            PublicacaoRelacionadaRepository publicacaoRelacionadaRepository,
             IntegracaoExternaService integracaoExternaService,
             LinkEdicaoRepository linkEdicaoRepository,
             PostagemFeedRepository postagemFeedRepository,
@@ -82,6 +87,7 @@ public class ImportacaoCatalogoService {
         this.historiaRepository = historiaRepository;
         this.conteudoEdicaoRepository = conteudoEdicaoRepository;
         this.publicacaoHistoriaRepository = publicacaoHistoriaRepository;
+        this.publicacaoRelacionadaRepository = publicacaoRelacionadaRepository;
         this.integracaoExternaService = integracaoExternaService;
         this.linkEdicaoRepository = linkEdicaoRepository;
         this.postagemFeedRepository = postagemFeedRepository;
@@ -189,6 +195,70 @@ public class ImportacaoCatalogoService {
                 semCorrespondencia,
                 falhas,
                 proximoCursor,
+                possuiMais,
+                avisos);
+    }
+
+    @Transactional
+    public ResultadoVinculosEditoriaisDTO criarVinculosEditoriaisConfirmados(Integer limite) {
+        int limiteTratado = limite == null || limite <= 0 ? 25 : Math.min(limite, 50);
+        List<PublicacaoHistoriaRepository.ParEdicoesEditoriais> pares = publicacaoHistoriaRepository
+                .listarParesEditoriaisSemVinculo(limiteTratado + 1);
+        boolean possuiMais = pares.size() > limiteTratado;
+        List<PublicacaoHistoriaRepository.ParEdicoesEditoriais> lote = pares.stream()
+                .limit(limiteTratado)
+                .toList();
+        int vinculadas = 0;
+        int jaVinculadas = 0;
+        int semVinculoConfirmado = 0;
+        int falhas = 0;
+        List<String> avisos = new ArrayList<>();
+
+        for (PublicacaoHistoriaRepository.ParEdicoesEditoriais par : lote) {
+            try {
+                if (publicacaoRelacionadaRepository.existePorOrigemDestinoTipo(
+                        par.edicaoOriginalId(),
+                        par.edicaoPublicadaId(),
+                        br.com.hqhub.entity.TipoPublicacaoRelacionada.PUBLICADA_NO_BRASIL)) {
+                    jaVinculadas++;
+                    continue;
+                }
+
+                Optional<Edicao> original = edicaoRepository.findByIdOptional(par.edicaoOriginalId());
+                Optional<Edicao> publicada = edicaoRepository.findByIdOptional(par.edicaoPublicadaId());
+                if (original.isEmpty() || publicada.isEmpty()
+                        || original.get().getSerie().getTipoSerie() != TipoSerie.ESTRANGEIRA
+                        || publicada.get().getSerie().getTipoSerie() != TipoSerie.BRASILEIRA) {
+                    semVinculoConfirmado++;
+                    continue;
+                }
+
+                PublicacaoRelacionada relacionada = new PublicacaoRelacionada();
+                relacionada.setEdicaoOrigem(original.get());
+                relacionada.setEdicaoDestino(publicada.get());
+                relacionada.setTipo(br.com.hqhub.entity.TipoPublicacaoRelacionada.PUBLICADA_NO_BRASIL);
+                relacionada.setFonteExterna("CATALOGO_HQHUB");
+                relacionada.setUrlOrigem(original.get().getUrlComicVine() != null
+                        ? original.get().getUrlComicVine()
+                        : original.get().getUrlOrigem());
+                relacionada.setObservacoes(
+                        "Vínculo criado automaticamente a partir de publicação de história já confirmada no catálogo.");
+                publicacaoRelacionadaRepository.persist(relacionada);
+                vinculadas++;
+            } catch (Throwable excecao) {
+                falhas++;
+                adicionarAvisoBackfill(avisos,
+                        "Falha ao vincular as edições " + par.edicaoOriginalId() + " e "
+                                + par.edicaoPublicadaId() + ": " + excecao.getClass().getSimpleName());
+            }
+        }
+
+        return new ResultadoVinculosEditoriaisDTO(
+                lote.size(),
+                vinculadas,
+                jaVinculadas,
+                semVinculoConfirmado,
+                falhas,
                 possuiMais,
                 avisos);
     }

@@ -19,6 +19,7 @@ import br.com.hqhub.dto.GeracaoRascunhoGcdDTO;
 import br.com.hqhub.dto.ImportacaoCatalogoDTO;
 import br.com.hqhub.dto.ResultadoBackfillComicVineDTO;
 import br.com.hqhub.dto.ResultadoImportacaoCatalogoDTO;
+import br.com.hqhub.dto.ResultadoVinculosEditoriaisDTO;
 import br.com.hqhub.service.ArmazenamentoImagemService;
 import br.com.hqhub.service.ColetaGuiaService;
 import br.com.hqhub.service.ColetaGcdService;
@@ -285,6 +286,25 @@ public class ImportacaoCatalogoResource {
                     false,
                     List.of("Falha geral no backfill: " + e.getClass().getSimpleName() + " - " + e.getMessage())))
                     .build();
+        }
+    }
+
+    @POST
+    @Path("/backfill/vinculos-editoriais-confirmados")
+    public Response criarVinculosEditoriaisConfirmados(@QueryParam("limite") Integer limite) {
+        if (!securityIdentity.hasRole("ADMINISTRADOR")) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        try {
+            ResultadoVinculosEditoriaisDTO resultado = importacaoCatalogoService
+                    .criarVinculosEditoriaisConfirmados(limite);
+            return Response.ok(resultado).build();
+        } catch (Throwable excecao) {
+            return Response.serverError().entity(new ResultadoVinculosEditoriaisDTO(
+                    0, 0, 0, 0, 1, false,
+                    List.of("Falha geral ao criar vínculos editoriais confirmados: "
+                            + excecao.getClass().getSimpleName()))).build();
         }
     }
 

@@ -12,6 +12,7 @@ import {
   ColetaGuia,
   SerieGcd,
   ResultadoBackfillComicVine,
+  ResultadoVinculosEditoriais,
   ResultadoImportacaoCatalogo,
   Serie,
 } from '../../core/modelos';
@@ -55,6 +56,45 @@ interface ColetaCapasTelegramLocal {
       <button type="button" class="botao secundario" (click)="baixarInstalador()">
         Baixar instalador do robô
       </button>
+    </section>
+
+    <section class="bloco painel-vinculos-editoriais">
+      <div class="secao-titulo">
+        <div>
+          <h2>Vínculos editoriais confirmados</h2>
+          <p class="texto-suave">
+            Relacione automaticamente edições estrangeiras e brasileiras somente quando já existir uma história confirmada entre elas.
+            Casos sem evidência suficiente continuam pendentes para revisão.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="botao primario"
+          (click)="criarVinculosEditorialConfirmados()"
+          [disabled]="vinculandoEdicoes()"
+        >
+          {{ vinculandoEdicoes() ? 'Criando vínculos...' : 'Criar vínculos confirmados' }}
+        </button>
+      </div>
+
+      @if (resultadoVinculos(); as vinculos) {
+        <div class="resumo-vinculos-editoriais" aria-live="polite">
+          <span><strong>{{ vinculos.vinculadas }}</strong> criados</span>
+          <span><strong>{{ vinculos.jaVinculadas }}</strong> já existentes</span>
+          <span><strong>{{ vinculos.semVinculoConfirmado }}</strong> pendentes</span>
+          @if (vinculos.falhas) {
+            <span><strong>{{ vinculos.falhas }}</strong> falhas</span>
+          }
+        </div>
+        @if (vinculos.avisos.length) {
+          <details class="avisos-importacao">
+            <summary>Ver avisos do processamento</summary>
+            @for (aviso of vinculos.avisos; track aviso) {
+              <p>{{ aviso }}</p>
+            }
+          </details>
+        }
+      }
     </section>
 
     <section class="importacao-layout" [class.fluxo-largo]="modoEntrada() === 'panini-edicao'">
@@ -1016,6 +1056,44 @@ interface ColetaCapasTelegramLocal {
     </section>
   `,
   styles: `
+    .painel-vinculos-editoriais {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .painel-vinculos-editoriais .secao-titulo {
+      align-items: center;
+    }
+
+    .painel-vinculos-editoriais .secao-titulo > div {
+      min-width: 0;
+    }
+
+    .resumo-vinculos-editoriais {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      padding-top: 12px;
+      border-top: 1px solid var(--borda);
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+    }
+
+    .resumo-vinculos-editoriais strong {
+      color: var(--texto);
+    }
+
+    @media (max-width: 680px) {
+      .painel-vinculos-editoriais .secao-titulo {
+        align-items: stretch;
+      }
+
+      .painel-vinculos-editoriais .botao {
+        width: 100%;
+      }
+    }
+
     .importacao-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
@@ -1600,6 +1678,8 @@ export class ImportacaoPage implements OnInit, OnDestroy {
   readonly importando = signal(false);
   readonly gerandoRascunho = signal(false);
   readonly processandoColeta = signal(false);
+  readonly vinculandoEdicoes = signal(false);
+  readonly resultadoVinculos = signal<ResultadoVinculosEditoriais | null>(null);
   readonly coletaGuia = signal<ColetaGuia | null>(null);
   readonly coletaGcd = signal<ColetaGuia | null>(null);
   readonly coletaGuiaLocal = signal<ColetaGuiaLocal | null>(null);
@@ -2742,6 +2822,62 @@ export class ImportacaoPage implements OnInit, OnDestroy {
       }
       const detalhe = erro?.error?.mensagem || 'falha temporária';
       return `As capas da Comic Vine poderão ser retomadas depois (${detalhe}).`;
+    }
+  }
+
+  async criarVinculosEditorialConfirmados() {
+    if (this.vinculandoEdicoes()) {
+      return;
+    }
+
+    this.vinculandoEdicoes.set(true);
+    this.mensagem.set('Procurando relações editoriais já confirmadas...');
+    let processadas = 0;
+    let vinculadas = 0;
+    let jaVinculadas = 0;
+    let semVinculoConfirmado = 0;
+    let falhas = 0;
+    let possuiMais = false;
+    const avisos: string[] = [];
+
+    try {
+      do {
+        const lote = await firstValueFrom(this.api.criarVinculosEditoriaisConfirmados(25));
+        processadas += lote.processadas;
+        vinculadas += lote.vinculadas;
+        jaVinculadas += lote.jaVinculadas;
+        semVinculoConfirmado += lote.semVinculoConfirmado;
+        falhas += lote.falhas;
+        possuiMais = lote.possuiMais;
+        avisos.push(...(lote.avisos || []));
+        this.mensagem.set(`Vínculos editoriais: ${vinculadas} criado(s), ${processadas} processado(s)...`);
+        if (possuiMais) {
+          await new Promise((resolve) => setTimeout(resolve, 150));
+        }
+      } while (possuiMais && processadas < 10000);
+
+      this.resultadoVinculos.set({
+        processadas,
+        vinculadas,
+        jaVinculadas,
+        semVinculoConfirmado,
+        falhas,
+        possuiMais,
+        avisos: avisos.slice(0, 50),
+      });
+      this.mensagem.set(
+        vinculadas > 0
+          ? `${vinculadas} vínculo(s) editorial(is) criado(s) com base em conteúdo confirmado.`
+          : 'Nenhum novo vínculo editorial confirmado foi encontrado.',
+      );
+    } catch (erro: any) {
+      if (erro?.status === 403) {
+        this.mensagem.set('Esta ação exige perfil de administrador.');
+      } else {
+        this.mensagem.set('Não foi possível processar os vínculos editoriais agora.');
+      }
+    } finally {
+      this.vinculandoEdicoes.set(false);
     }
   }
 
