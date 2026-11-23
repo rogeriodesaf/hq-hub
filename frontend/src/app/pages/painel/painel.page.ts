@@ -293,9 +293,14 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
               </div>
             </header>
             <p class="texto-postagem">Ranieri Mattos fala sobre quadrinhos, cultura pop e muito mais.</p>
-            <a class="botao primario postagem-canal-nona-link" href="https://www.youtube.com/@Nonadimens%C3%A3o" target="_blank" rel="noopener noreferrer">
-              Conhecer o canal <span aria-hidden="true">→</span>
-            </a>
+            <div class="postagem-canal-nona-acoes">
+              <a class="botao primario postagem-canal-nona-link" href="https://www.youtube.com/@Nonadimens%C3%A3o" target="_blank" rel="noopener noreferrer">
+                Conhecer o canal <span aria-hidden="true">→</span>
+              </a>
+              <a class="botao secundario postagem-canal-nona-link" href="https://link.amazon/B04PY7Sqt" target="_blank" rel="noopener noreferrer sponsored">
+                Ver na Amazon <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </article>
           <article class="bloco card-destaque card-poptopia" aria-label="Promoções do Canal Poptopia">
             <img

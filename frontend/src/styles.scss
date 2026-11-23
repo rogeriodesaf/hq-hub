@@ -4975,12 +4975,19 @@ app-painel-page .postagem-canal-nona-link {
   text-decoration: none;
 }
 
+app-painel-page .postagem-canal-nona-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 app-painel-page .postagem-canal-nona-link:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--primaria) 65%, transparent);
   outline-offset: 3px;
 }
 
 @media (max-width: 380px) {
+  app-painel-page .postagem-canal-nona-acoes,
   app-painel-page .postagem-canal-nona-link { width: 100%; }
 }
 
