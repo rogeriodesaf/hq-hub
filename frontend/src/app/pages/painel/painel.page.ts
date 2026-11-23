@@ -277,23 +277,23 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
         </article>
 
         <section class="lista-feed">
-          <article class="bloco card-destaque card-canal-nona" aria-label="Canal Nona Dimensão">
-            <div class="card-canal-nona-icone" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
-              </svg>
-            </div>
-            <div class="card-canal-nona-conteudo">
-              <span class="card-canal-nona-etiqueta">CANAL EM DESTAQUE</span>
-              <h2>Nona Dimensão</h2>
-              <p>Ranieri Mattos fala sobre quadrinhos, cultura pop e muito mais.</p>
-            </div>
-            <a
-              class="botao primario card-canal-nona-link"
-              href="https://www.youtube.com/@Nonadimens%C3%A3o"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          <article class="bloco postagem-card postagem-canal-nona" aria-label="Canal Nona Dimensão">
+            <header class="cabecalho-postagem">
+              <div class="avatar-feed postagem-canal-nona-avatar">
+                <img
+                  src="https://yt3.googleusercontent.com/ElHrk9uh318wZvWCVN3LLNOZcJAl0xM9EE8nVJ5MYAvhI-2lo9gMuiQLFLSGXqSAx1zOaplhxSE=w1138-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+                  alt="Logo do canal Nona Dimensão"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div class="autor-postagem">
+                <strong>Nona Dimensão</strong>
+                <small class="metadados-postagem">Canal parceiro <span aria-hidden="true">•</span> Em destaque</small>
+              </div>
+            </header>
+            <p class="texto-postagem">Ranieri Mattos fala sobre quadrinhos, cultura pop e muito mais.</p>
+            <a class="botao primario postagem-canal-nona-link" href="https://www.youtube.com/@Nonadimens%C3%A3o" target="_blank" rel="noopener noreferrer">
               Conhecer o canal <span aria-hidden="true">→</span>
             </a>
           </article>
