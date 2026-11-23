@@ -277,7 +277,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
         </article>
 
         <section class="lista-feed">
-          <article class="bloco card-canal-nona" aria-label="Canal Nona Dimensão">
+          <article class="bloco card-destaque card-canal-nona" aria-label="Canal Nona Dimensão">
             <div class="card-canal-nona-icone" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false">
                 <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
@@ -297,7 +297,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
               Conhecer o canal <span aria-hidden="true">→</span>
             </a>
           </article>
-          <article class="bloco card-poptopia" aria-label="Promoções do Canal Poptopia">
+          <article class="bloco card-destaque card-poptopia" aria-label="Promoções do Canal Poptopia">
             <img
               class="card-poptopia-imagem"
               src="assets/poptopia-promocoes.png"
@@ -338,7 +338,7 @@ import { agruparHistorias, historiaAdjacente } from './historias-agrupamento';
             >
               <div class="card-poptopia-expansao-conteudo">
                 <div class="card-poptopia-links" aria-label="Links de promoções">
-                  <a class="botao primario" href="https://bit.ly/4lveUfj" target="_blank" rel="noopener noreferrer sponsored">
+                  <a class="botao primario card-poptopia-panini" href="https://bit.ly/4lveUfj" target="_blank" rel="noopener noreferrer sponsored">
                     Ver promoções na Panini
                   </a>
                   <a class="botao secundario" href="https://amzn.to/45wKwKz" target="_blank" rel="noopener noreferrer sponsored">

@@ -4959,19 +4959,7 @@ body.tema-escuro .banner-apoio span {
   border-color: rgba(255, 122, 0, 0.45);
 }
 
-app-painel-page .card-poptopia {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 6px 14px;
-  align-items: center;
-  padding: 12px;
-  border: 1px solid var(--borda);
-  border-radius: 16px;
-  background: var(--superficie);
-  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
-}
-
-app-painel-page .card-canal-nona {
+app-painel-page .card-destaque {
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr);
   gap: 8px 12px;
@@ -5043,7 +5031,7 @@ app-painel-page .card-canal-nona-link:focus-visible {
 }
 
 @media (max-width: 380px) {
-  app-painel-page .card-canal-nona {
+  app-painel-page .card-destaque {
     grid-template-columns: 50px minmax(0, 1fr);
     gap: 8px 10px;
     padding: 12px;
@@ -5058,8 +5046,8 @@ app-painel-page .card-canal-nona-link:focus-visible {
 app-painel-page .card-poptopia-imagem {
   grid-column: 1;
   grid-row: 1;
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border: 1px solid var(--borda);
   border-radius: 14px;
   object-fit: cover;
@@ -5172,8 +5160,13 @@ app-painel-page .card-poptopia-expansao-conteudo {
 
 app-painel-page .card-poptopia-links {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   padding: 2px 0 4px;
+}
+
+app-painel-page .card-poptopia-links .card-poptopia-panini {
+  grid-column: 1 / -1;
 }
 
 app-painel-page .card-poptopia-links .botao {
@@ -5219,14 +5212,18 @@ app-painel-page .card-poptopia a:focus-visible {
 }
 
 @media (max-width: 380px) {
-  app-painel-page .card-poptopia {
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 9px 11px;
-    padding: 12px;
+  app-painel-page .card-poptopia-imagem { width: 50px; height: 50px; }
+  app-painel-page .card-poptopia-opcoes { font-size: .7rem; }
+}
+
+@media (max-width: 560px) {
+  app-painel-page .card-poptopia-links {
+    grid-template-columns: 1fr;
   }
 
-  app-painel-page .card-poptopia-imagem { width: 64px; height: 64px; }
-  app-painel-page .card-poptopia-opcoes { font-size: .7rem; }
+  app-painel-page .card-poptopia-links .card-poptopia-panini {
+    grid-column: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
