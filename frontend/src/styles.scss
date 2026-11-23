@@ -4971,6 +4971,90 @@ app-painel-page .card-poptopia {
   box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
 }
 
+app-painel-page .card-canal-nona {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  background: var(--superficie);
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
+}
+
+app-painel-page .card-canal-nona-icone {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border-radius: 14px;
+  color: #fff;
+  background: #e52d27;
+}
+
+app-painel-page .card-canal-nona-icone svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
+app-painel-page .card-canal-nona-conteudo {
+  min-width: 0;
+}
+
+app-painel-page .card-canal-nona-conteudo h2,
+app-painel-page .card-canal-nona-conteudo p {
+  margin: 0;
+}
+
+app-painel-page .card-canal-nona-etiqueta {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--primaria);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .075em;
+}
+
+app-painel-page .card-canal-nona-conteudo h2 {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.2;
+}
+
+app-painel-page .card-canal-nona-conteudo p {
+  margin-top: 4px;
+  color: var(--texto-suave);
+  font-size: .82rem;
+  line-height: 1.35;
+}
+
+app-painel-page .card-canal-nona-link {
+  grid-column: 1 / -1;
+  justify-content: space-between;
+  min-height: 40px;
+  padding-inline: 14px;
+  text-decoration: none;
+}
+
+app-painel-page .card-canal-nona-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primaria) 65%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 380px) {
+  app-painel-page .card-canal-nona {
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 8px 10px;
+    padding: 12px;
+  }
+
+  app-painel-page .card-canal-nona-icone {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 app-painel-page .card-poptopia-imagem {
   grid-column: 1;
   grid-row: 1;
