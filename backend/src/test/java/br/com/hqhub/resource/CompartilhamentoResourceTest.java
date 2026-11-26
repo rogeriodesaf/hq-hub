@@ -236,6 +236,19 @@ class CompartilhamentoResourceTest {
         }
     }
 
+    @Test
+    void preservaCapaQuandoDadosDaEdicaoNaoConseguemGerarMetadados() {
+        when(edicoes.buscarPorId(45142L)).thenThrow(new IllegalStateException("dados incompletos"));
+
+        try (Response resposta = recurso.compartilharEdicaoAmigavel(45142L)) {
+            String html = resposta.getEntity().toString();
+
+            assertEquals(200, resposta.getStatus());
+            assertTrue(html.contains("og:image"));
+            assertTrue(html.contains("/api/compartilhar/edicoes/45142/imagem.jpg?v=6"));
+        }
+    }
+
     private EdicaoRespostaDTO edicao(Long id, String serie, String numero) {
         return new EdicaoRespostaDTO(id, numero, null, null, null, null,
                 "Conheça esta edição.", null, null, null, LocalDate.of(2021, 5, 1),
