@@ -16,11 +16,11 @@ export class CompartilhamentoService {
   private readonly documento = inject(DOCUMENT);
 
   urlEdicao(edicaoId: number): string {
-    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=6`;
+    return `${environment.compartilhamentoUrl}/edicoes/${edicaoId}?v=7`;
   }
 
   urlSerie(serieId: number): string {
-    return `${environment.compartilhamentoUrl}/series/${serieId}?v=3`;
+    return `${environment.compartilhamentoUrl}/series/${serieId}?v=4`;
   }
 
   urlPostagem(postagemId: number): string {

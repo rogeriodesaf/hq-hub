@@ -72,8 +72,10 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("twitter:card\" content=\"summary_large_image"));
             assertTrue(html.contains("A Saga &lt;Especial&gt; #1&amp;2 | Coleciona HQ"));
             assertTrue(html.contains("Panini · 2021."));
-            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42/imagem.jpg?v=4"));
-            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42?v=4"));
+            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42/imagem.jpg?v=6"));
+            assertTrue(html.contains("https://api.hqhub.example/api/compartilhar/edicoes/42?v=6"));
+            assertTrue(html.contains("og:image:url"));
+            assertTrue(html.contains("twitter:image:src"));
             assertTrue(html.contains("https://hqhub.example/#/edicoes/42"));
         }
         verify(edicoes, times(1)).buscarPorId(42L);
@@ -162,8 +164,8 @@ class CompartilhamentoResourceTest {
             assertTrue(html.contains("og:type\" content=\"website"));
             assertTrue(html.contains("Biblioteca &lt;Dylan Dog&gt; · Volume 1 | Coleciona HQ"));
             assertTrue(html.contains("Panini · 2 edições."));
-            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7/imagem.jpg?v=2"));
-            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7?v=2"));
+            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7/imagem.jpg?v=4"));
+            assertTrue(html.contains("https://share.hqhub.example/api/compartilhar/series/7?v=4"));
             assertTrue(html.contains("https://hqhub.example/#/catalogo?serieId=7"));
         }
     }

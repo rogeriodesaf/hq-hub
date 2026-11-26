@@ -71,7 +71,8 @@ public class CompartilhamentoResource {
     private static final String URL_FRONTEND_LEGADA = "https://hqhub-frontend.onrender.com";
     private static final int LARGURA_IMAGEM_SOCIAL = 1200;
     private static final int ALTURA_IMAGEM_SOCIAL = 1600;
-    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "5";
+    private static final String VERSAO_COMPARTILHAMENTO_EDICAO = "6";
+    private static final String VERSAO_COMPARTILHAMENTO_SERIE = "4";
     private static final String USER_AGENT_IMAGEM = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
     private static final String FORMATOS_IMAGEM_SUPORTADOS = "image/jpeg,image/png,image/webp;q=0.9,*/*;q=0.5";
@@ -230,8 +231,8 @@ public class CompartilhamentoResource {
         String descricao = editora + " · " + quantidade
                 + ". Conheça a coleção completa no catálogo do Coleciona HQ.";
         String destino = baseNormalizada() + "/#/catalogo?serieId=" + id;
-        String pagina = origemCompartilhamentoNormalizada() + "/series/" + id + "?v=2";
-        String imagem = origemCompartilhamentoNormalizada() + "/series/" + id + "/imagem.jpg?v=2";
+        String pagina = origemCompartilhamentoNormalizada() + "/series/" + id + "?v=" + VERSAO_COMPARTILHAMENTO_SERIE;
+        String imagem = origemCompartilhamentoNormalizada() + "/series/" + id + "/imagem.jpg?v=" + VERSAO_COMPARTILHAMENTO_SERIE;
         String html = """
                 <!doctype html>
                 <html lang="pt-BR">
@@ -248,6 +249,7 @@ public class CompartilhamentoResource {
                   <meta property="og:description" content="%s">
                   <meta property="og:url" content="%s">
                   <meta property="og:image" content="%s">
+                  <meta property="og:image:url" content="%s">
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
                   <meta property="og:image:width" content="1200">
@@ -257,6 +259,7 @@ public class CompartilhamentoResource {
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
+                  <meta name="twitter:image:src" content="%s">
                   <script>window.location.replace('%s');</script>
                 </head>
                 <body><p>Abrindo <a href="%s">%s</a>...</p></body>
@@ -264,8 +267,8 @@ public class CompartilhamentoResource {
                 """.formatted(
                         escaparHtml(titulo), escaparHtml(descricao), escaparHtml(pagina),
                         escaparHtml(titulo), escaparHtml(descricao), escaparHtml(pagina),
-                        escaparHtml(imagem), escaparHtml(imagem), escaparHtml(nome),
-                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem),
+                        escaparHtml(imagem), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(nome),
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem), escaparHtml(imagem),
                         escaparHtml(destino), escaparHtml(destino), escaparHtml(nome));
         return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
     }
@@ -368,6 +371,7 @@ public class CompartilhamentoResource {
                   <meta property="og:description" content="%s">
                   <meta property="og:url" content="%s">
                   <meta property="og:image" content="%s">
+                  <meta property="og:image:url" content="%s">
                   <meta property="og:image:secure_url" content="%s">
                   <meta property="og:image:type" content="image/jpeg">
                   <meta property="og:image:width" content="1200">
@@ -377,14 +381,15 @@ public class CompartilhamentoResource {
                   <meta name="twitter:title" content="%s">
                   <meta name="twitter:description" content="%s">
                   <meta name="twitter:image" content="%s">
+                  <meta name="twitter:image:src" content="%s">
                   <script>window.location.replace('%s');</script>
                 </head>
                 <body><p>Abrindo <a href="%s">%s</a>...</p></body>
                 </html>
                 """.formatted(
                         escaparHtml(titulo), escaparHtml(descricao), escaparHtml(titulo), escaparHtml(descricao),
-                        escaparHtml(pagina), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(serie + numero),
-                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem), escaparHtml(destino),
+                        escaparHtml(pagina), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(serie + numero),
+                        escaparHtml(titulo), escaparHtml(descricao), escaparHtml(imagem), escaparHtml(imagem), escaparHtml(destino),
                         escaparHtml(destino), escaparHtml(serie + numero));
         return Response.ok(html).type(MediaType.TEXT_HTML_TYPE).build();
     }
