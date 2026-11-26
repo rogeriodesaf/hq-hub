@@ -257,7 +257,11 @@ public class ConteudoOriginalPaniniParser {
     }
 
     private List<String> separarReferenciasCompostas(String texto) {
-        String[] partes = texto.split("\\s*,\\s*");
+        // Algumas editoras usam "e" no lugar da vírgula para unir referências:
+        // "Fantastic Four (1961) 55-71 e Fantastic Four Annual 4 e 5".
+        // O algoritmo abaixo recompõe os números que continuam pertencendo à
+        // referência anterior (por exemplo, "Annual 4 e 5").
+        String[] partes = texto.split("\\s*(?:,|\\be\\b)\\s*", -1);
         if (partes.length < 2) {
             return List.of(texto);
         }

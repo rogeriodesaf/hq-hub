@@ -120,6 +120,23 @@ class ConteudoOriginalPaniniParserTest {
     }
 
     @Test
+    void separaReferenciasUnidasPorEIncluindoAnnual() {
+        String html = "<td data-th=\"Conte&#xFA;do&#x20;original\">"
+                + "Fantastic Four (1961) 55-71 e Fantastic Four Annual 4 e 5</td>";
+
+        var referencias = parser.extrair(html).referencias();
+
+        assertEquals(19, referencias.size());
+        assertEquals("Fantastic Four", referencias.getFirst().serie());
+        assertEquals(1961, referencias.getFirst().anoSerie());
+        assertEquals("55", referencias.getFirst().numero());
+        assertEquals("71", referencias.get(16).numero());
+        assertEquals("Fantastic Four Annual", referencias.get(17).serie());
+        assertEquals("4", referencias.get(17).numero());
+        assertEquals("5", referencias.getLast().numero());
+    }
+
+    @Test
     void extraiDadosDoProdutoParaCadastrarEdicaoBrasileira() {
         String html = """
                 <meta property="og:title" content="A Saga Dos X-Men 16 (52)">
