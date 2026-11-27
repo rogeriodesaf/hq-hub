@@ -118,28 +118,30 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
   `,
   styles: [`
     :host { display: block; min-height: 100vh; background: var(--fundo); color: var(--texto); }
-    .pagina-publica { width: min(820px, calc(100% - 28px)); margin: auto; padding: 18px 0 56px; }
-    .topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    :host, .pagina-publica, .postagem, .destaque, .imagens, app-related-content { min-width: 0; }
+    .pagina-publica { box-sizing: border-box; width: min(820px, calc(100% - 28px)); margin: auto; padding: 18px 0 56px; overflow-wrap: anywhere; }
+    .topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
     .marca { color: #ff871f; font-size: 1.25rem; font-weight: 950; text-decoration: none; }
     .postagem, .estado, .convite { border: 1px solid var(--borda); border-radius: 18px; background: var(--superficie); box-shadow: 0 12px 36px rgba(15, 23, 42, .08); }
     .postagem { padding: clamp(18px, 4vw, 32px); }
     .autor { display: flex; align-items: center; gap: 12px; }
-    .autor > div:last-child { display: grid; gap: 2px; }
+    .autor > div:last-child { display: grid; gap: 2px; min-width: 0; }
     .autor span, .destaque p, .resumo, small { color: var(--texto-suave); }
     .avatar { display: grid; width: 48px; height: 48px; place-items: center; overflow: hidden; border-radius: 50%; background: var(--azul); color: white; font-weight: 900; }
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
     .conteudo { margin: 22px 0; font-size: 1.08rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .destaque { display: grid; grid-template-columns: 116px 1fr; gap: 20px; align-items: center; margin: 20px 0; padding: 16px; border-radius: 14px; background: var(--fundo); }
+    .destaque { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 20px; align-items: center; margin: 20px 0; padding: 16px; border-radius: 14px; background: var(--fundo); }
     .destaque.sem-capa { grid-template-columns: 1fr; }
     .destaque img { width: 116px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 8px; }
-    .destaque h2 { margin: 4px 0; }
+    .destaque > div { min-width: 0; }
+    .destaque h2 { margin: 4px 0; overflow-wrap: anywhere; }
     .rotulo { color: #ff871f; font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
     .imagens { display: grid; gap: 8px; margin-top: 20px; overflow: hidden; border-radius: 14px; }
     .imagens.multipla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .imagens a:last-child:nth-child(3) { grid-column: 1 / -1; }
-    .imagens img { display: block; width: 100%; max-height: 620px; object-fit: cover; }
+    .imagens img { display: block; width: 100%; max-width: 100%; height: auto; max-height: 620px; object-fit: cover; }
     .imagens:not(.multipla) img { width: auto; max-width: 100%; height: auto; max-height: 720px; margin: 0 auto; object-fit: contain; }
-    .resumo { display: flex; gap: 20px; align-items: center; padding: 18px 0 4px; border-top: 1px solid var(--borda); margin-top: 20px; }
+    .resumo { display: flex; gap: 12px 20px; align-items: center; flex-wrap: wrap; padding: 18px 0 4px; border-top: 1px solid var(--borda); margin-top: 20px; }
     .resumo button { margin-left: auto; border: 0; background: transparent; color: #ff871f; font: inherit; font-weight: 800; cursor: pointer; }
     .comentarios { display: grid; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--borda); }
     .comentarios article { padding: 12px 14px; border-radius: 12px; background: var(--fundo); }
@@ -148,10 +150,17 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
     .convite { margin-top: 24px; }
     .estado h1, .convite h2 { margin-top: 0; }
     @media (max-width: 540px) {
-      .destaque { grid-template-columns: 86px 1fr; gap: 14px; }
+      .pagina-publica { width: min(100% - 20px, 520px); padding-top: 12px; padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+      .topo { align-items: stretch; gap: 10px; }
+      .topo .botao { width: 100%; justify-content: center; }
+      .postagem { padding: 16px; border-radius: 14px; }
+      .conteudo { margin: 18px 0; font-size: 1rem; }
+      .destaque { grid-template-columns: 82px minmax(0, 1fr); gap: 12px; margin: 16px 0; padding: 12px; }
       .destaque img { width: 86px; }
+      .destaque .botao { max-width: 100%; white-space: normal; }
       .imagens.multipla { grid-template-columns: 1fr; }
       .imagens a:last-child:nth-child(3) { grid-column: auto; }
+      .resumo button { margin-left: 0; }
     }
   `],
 })

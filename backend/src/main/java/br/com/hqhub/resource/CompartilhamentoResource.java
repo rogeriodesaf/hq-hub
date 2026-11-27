@@ -239,6 +239,9 @@ public class CompartilhamentoResource {
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    :root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:#15191f;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(820px,calc(100%% - 28px));margin:0 auto;padding:24px 0 48px}section{padding:24px;border:1px solid #d9dde5;border-radius:18px;background:#fff;box-shadow:0 12px 36px rgba(15,23,42,.08)}h1{margin:0 0 12px;font-size:clamp(1.35rem,5vw,2rem);line-height:1.15;overflow-wrap:anywhere}p{line-height:1.55;overflow-wrap:anywhere}a{color:#a94800;font-weight:800}@media(max-width:540px){main{width:calc(100%% - 20px);padding:14px 0 32px}section{padding:18px;border-radius:14px}}
+                  </style>
                   <title>%s</title>
                   <meta name="description" content="%s">
                   <link rel="canonical" href="%s">
@@ -287,6 +290,9 @@ public class CompartilhamentoResource {
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    :root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:#15191f;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(820px,calc(100%% - 28px));margin:0 auto;padding:24px 0 48px}section{padding:24px;border:1px solid #d9dde5;border-radius:18px;background:#fff;box-shadow:0 12px 36px rgba(15,23,42,.08)}h1{margin:0 0 12px;font-size:clamp(1.35rem,5vw,2rem);line-height:1.15;overflow-wrap:anywhere}p{line-height:1.55;overflow-wrap:anywhere}a{color:#a94800;font-weight:800}@media(max-width:540px){main{width:calc(100%% - 20px);padding:14px 0 32px}section{padding:18px;border-radius:14px}}
+                  </style>
                   <title>%s</title>
                   <meta name="description" content="%s">
                   <meta property="og:type" content="article">
@@ -932,6 +938,9 @@ public class CompartilhamentoResource {
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    :root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:#15191f;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(820px,calc(100%% - 28px));margin:0 auto;padding:24px 0 48px}h1{margin:0 0 12px;font-size:clamp(1.35rem,5vw,2rem);line-height:1.15;overflow-wrap:anywhere}p{line-height:1.55;overflow-wrap:anywhere}a{color:#a94800;font-weight:800}@media(max-width:540px){main{width:calc(100%% - 20px);padding:14px 0 32px}}
+                  </style>
                   <title>%s</title>
                   <link rel="canonical" href="%s">
                   <meta name="description" content="%s">
