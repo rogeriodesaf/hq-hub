@@ -169,6 +169,9 @@ export class AutenticacaoPage implements OnInit {
     }
 
     this.rota.queryParams.subscribe((params) => {
+      if (params['modo'] === 'cadastrar') {
+        this.modo.set('cadastrar');
+      }
       const token = new URLSearchParams(this.rota.snapshot.fragment ?? '').get('token')
         ?? params['token'] as string | undefined;
       if (token) {

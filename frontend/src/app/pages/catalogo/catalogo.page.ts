@@ -1948,6 +1948,12 @@ export class CatalogoPage implements OnInit, OnDestroy {
       },
       error: () => {
         this.carregandoDetalhe.set(false);
+        if (this.paginaEdicaoPublica && !this.autenticado()) {
+          void this.router.navigate(['/entrar'], {
+            queryParams: { modo: 'cadastrar', origem: 'detalhe-publico' },
+          });
+          return;
+        }
         this.mensagem.set('Nao foi possivel carregar os detalhes desta edicao.');
       },
     });
