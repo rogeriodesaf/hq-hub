@@ -3,6 +3,8 @@
 -- Metadados auditados em https://archive.org/metadata/colecao-dragao-brasil.
 -- Foram conferidos visualmente os arquivos regulares "Dragao Brasil 001.pdf"
 -- a "Dragao Brasil 119.pdf"; a primeira pagina de cada PDF e a capa.
+-- O catalogo possui atualmente 20 edicoes desta serie; a migracao atualiza
+-- somente essas edicoes existentes e nao cria registros ausentes.
 -- Os numeros 120 a 123 foram deliberadamente excluidos: as capas identificam
 -- respectivamente as editoras Talisma e Melody, portanto nao pertencem ao alvo
 -- editorial Trama Editorial. Especiais, encartes, Games e Manuais tambem foram
@@ -38,9 +40,9 @@ BEGIN
      WHERE e.serie_id = serie_alvo
        AND (hqhub_normalizar_identidade(e.numero))::integer BETWEEN 1 AND 119;
 
-    IF quantidade_edicoes <> 119 THEN
+    IF quantidade_edicoes <> 20 THEN
         RAISE EXCEPTION
-            'Auditoria recusada: esperadas 119 edicoes regulares de Dragao Brasil, encontradas %',
+            'Auditoria recusada: esperadas 20 edicoes Dragao Brasil cadastradas, encontradas %',
             quantidade_edicoes;
     END IF;
 
