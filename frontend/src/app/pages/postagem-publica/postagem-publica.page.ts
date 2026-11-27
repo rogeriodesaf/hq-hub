@@ -84,6 +84,24 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
             [referenceTitle]="postagem()!.catalogoDestaque?.titulo || postagem()!.colecaoDestaque?.titulo || ''"
           ></app-related-content>
 
+          <div class="interacoes-publicas" aria-label="Interações da publicação">
+            <button type="button" (click)="sugerirCadastro('Curtir publicações')">♡ Curtir</button>
+            <button type="button" (click)="sugerirCadastro('Comentar nas publicações')">Comentar</button>
+            @if (postagem()!.catalogoDestaque || postagem()!.colecaoDestaque) {
+              <button type="button" (click)="sugerirCadastro('Adicionar HQs à estante')">Adicionar à estante</button>
+            }
+          </div>
+
+          @if (cadastroAcao(); as acao) {
+            <aside class="convite-interacao" role="status" aria-live="polite">
+              <div>
+                <strong>Crie sua conta para {{ acao.toLowerCase() }}.</strong>
+                <span>É grátis e você poderá organizar sua estante e interagir com a comunidade.</span>
+              </div>
+              <a class="botao primario compacto" routerLink="/entrar">Criar minha conta</a>
+            </aside>
+          }
+
           <div class="resumo">
             <span>♡ {{ postagem()!.totalCurtidas }}</span>
             <span>{{ postagem()!.comentarios.length }} comentarios</span>
@@ -141,6 +159,12 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
     .imagens a:last-child:nth-child(3) { grid-column: 1 / -1; }
     .imagens img { display: block; width: 100%; max-width: 100%; height: auto; max-height: 620px; object-fit: cover; }
     .imagens:not(.multipla) img { width: auto; max-width: 100%; height: auto; max-height: 720px; margin: 0 auto; object-fit: contain; }
+    .interacoes-publicas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--borda); }
+    .interacoes-publicas button { padding: 8px 10px; border: 1px solid var(--borda); border-radius: 9px; color: var(--texto-suave); background: transparent; font: inherit; font-size: .84rem; font-weight: 750; cursor: pointer; }
+    .interacoes-publicas button:hover, .interacoes-publicas button:focus-visible { color: var(--texto); border-color: #ff871f; background: color-mix(in srgb, #ff871f 10%, transparent); }
+    .convite-interacao { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; padding: 12px 14px; border: 1px solid color-mix(in srgb, #ff871f 42%, var(--borda)); border-radius: 12px; background: color-mix(in srgb, #ff871f 8%, var(--superficie)); }
+    .convite-interacao div { display: grid; gap: 3px; min-width: 0; }
+    .convite-interacao span { color: var(--texto-suave); font-size: .82rem; }
     .resumo { display: flex; gap: 12px 20px; align-items: center; flex-wrap: wrap; padding: 18px 0 4px; border-top: 1px solid var(--borda); margin-top: 20px; }
     .resumo button { margin-left: auto; border: 0; background: transparent; color: #ff871f; font: inherit; font-weight: 800; cursor: pointer; }
     .comentarios { display: grid; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--borda); }
@@ -160,6 +184,9 @@ import { RelatedContentComponent } from '../../shared/related-content.component'
       .destaque .botao { max-width: 100%; white-space: normal; }
       .imagens.multipla { grid-template-columns: 1fr; }
       .imagens a:last-child:nth-child(3) { grid-column: auto; }
+      .interacoes-publicas button { flex: 1 1 auto; min-height: 42px; }
+      .convite-interacao { align-items: stretch; flex-direction: column; }
+      .convite-interacao .botao { width: 100%; justify-content: center; }
       .resumo button { margin-left: 0; }
     }
   `],
@@ -171,6 +198,7 @@ export class PostagemPublicaPage implements OnInit {
   readonly postagem = signal<PostagemPublica | null>(null);
   readonly carregando = signal(true);
   readonly linkCopiado = signal(false);
+  readonly cadastroAcao = signal('');
   readonly capaReserva = 'assets/capa-reserva.svg';
   readonly midia = resolverUrlMidia;
 
@@ -219,5 +247,9 @@ export class PostagemPublicaPage implements OnInit {
     } catch {
       this.linkCopiado.set(false);
     }
+  }
+
+  sugerirCadastro(acao: string) {
+    this.cadastroAcao.set(acao);
   }
 }
